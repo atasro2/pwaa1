@@ -1,7 +1,7 @@
 #include "gba/gba.h"
 
 struct Struct3003730 {
-	u8 filler[4];
+	u8 filler0[4];
 	u8 unk4;
 };
 
