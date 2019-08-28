@@ -54,6 +54,8 @@ Temporary Items
 *.elf
 *.map
 *.o
+*.i
 *.dump
+src/*.s
 tools/
 build/
