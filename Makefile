@@ -43,4 +43,5 @@ $(ASOBJFILE): %.o: %.s
 	$(AS) $(ASFLAGS) -o $@ $<
 	
 $(COBJFILE): %.o: %.c
-	$(CPP) $(CPPFLAGS) $< | $(CC1) $(CFLAGS) | $(AS) $(ASFLAGS) -o $@ 
+	$(CPP) $(CPPFLAGS) $< | $(CC1) $(CFLAGS) -o $*.i
+	$(AS) $(ASFLAGS) -o $@ $*.i
