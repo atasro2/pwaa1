@@ -2,30 +2,6 @@
 
 .syntax unified
 
-	THUMB_FUNC_START sub_080001EC
-sub_080001EC: @ 0x080001EC
-	ldr r2, _0800020C
-	ldrb r0, [r2, #4]
-	cmp r0, #0
-	bne _0800020A
-	ldr r1, _08000210
-	ldr r3, _08000214
-	adds r0, r3, #0
-	ldrh r1, [r1]
-	eors r0, r1
-	movs r1, #1
-	ands r0, r1
-	cmp r0, #0
-	beq _0800020A
-	movs r0, #0xe
-	strb r0, [r2, #4]
-_0800020A:
-	bx lr
-	.align 2, 0
-_0800020C: .4byte gUnknown_03003730
-_08000210: .4byte 0x04000130
-_08000214: .4byte 0x000003FF
-
 	THUMB_FUNC_START sub_08000218
 sub_08000218: @ 0x08000218
 	push {r4, r5, r6, lr}
