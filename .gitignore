@@ -56,5 +56,6 @@ Temporary Items
 *.o
 *.i
 *.dump
+src/*.s
 tools/
 build/

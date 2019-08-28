@@ -30,7 +30,7 @@ compare: $(ROM)
 	$(SHA1SUM) rom.sha1
 
 clean:
-	rm -f $(ROM) $(ELF) $(ASOBJFILE) $(COBJFILE)
+	rm -f $(ROM) $(ELF) $(ASOBJFILE) $(COBJFILE) src/*.s
 
 $(ROM): $(ELF)
 	$(OBJCOPY) -O binary $< $@
@@ -43,5 +43,5 @@ $(ASOBJFILE): %.o: %.s
 	$(AS) $(ASFLAGS) -o $@ $<
 	
 $(COBJFILE): %.o: %.c
-	$(CPP) $(CPPFLAGS) $< | $(CC1) $(CFLAGS) -o $*.i
-	$(AS) $(ASFLAGS) -o $@ $*.i
+	$(CPP) $(CPPFLAGS) $< | $(CC1) $(CFLAGS) -o $*.s
+	$(AS) $(ASFLAGS) -o $@ $*.s
