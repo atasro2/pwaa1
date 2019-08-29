@@ -2,8 +2,8 @@
 
 .syntax unified
 
-	THUMB_FUNC_START sub_08000218
-sub_08000218: @ 0x08000218
+	THUMB_FUNC_START AgbMain
+AgbMain: @ 0x08000218
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	movs r0, #0
