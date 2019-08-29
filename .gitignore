@@ -59,3 +59,5 @@ Temporary Items
 src/*.s
 tools/
 build/
+*.sav
+
