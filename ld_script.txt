@@ -15,10 +15,10 @@ SECTIONS {
     .text :
     ALIGN(4)
     {
-	asm/crt0.o(.text);
-	src/main.o(.text);
-	asm/main.o(.text);
-	asm/libs.o(.text);
+		asm/crt0.o(.text);
+		src/main.o(.text);
+		asm/main.o(.text);
+		asm/libs.o(.text);
     } =0
     .data :
     ALIGN(4)
