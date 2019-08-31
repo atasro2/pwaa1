@@ -1,8 +1,9 @@
 #include "gba/gba.h"
 
-struct Struct3003730 {
-	u32 unk0;
-	u8 unk4;
+struct Struct3003730 
+{
+    u32 unk0;
+    u8 unk4;
     u8 filler5[0x7];
     u8 unkC;
     u8 unkD;
