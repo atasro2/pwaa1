@@ -1,8 +1,9 @@
 #include "gba/gba.h"
 
-struct Struct3003730 {
-	u32 unk0;
-	u8 unk4;
+struct Struct3003730 
+{
+    u32 unk0;
+    u8 unk4;
     u8 filler5[0x7];
     u8 unkC;
     u8 unkD;
@@ -44,6 +45,7 @@ void CheckAButtonOnBoot()
             gUnknown_03003730.unk4 = 0xe;
     }
 }
+<<<<<<< HEAD
 
 void AgbMain()
 {
@@ -96,3 +98,5 @@ void AgbMain()
       sub_8011F70();
      goto LOOP2;
 }
+=======
+>>>>>>> e1ac84f0d51698e7f32e19688b42063c70543aea

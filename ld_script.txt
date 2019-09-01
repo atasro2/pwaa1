@@ -15,6 +15,7 @@ SECTIONS {
     .text :
     ALIGN(4)
     {
+<<<<<<< HEAD
 		asm/crt0.o(.text);
 		src/main.o(.text);
 		asm/main.o(.text);
@@ -26,6 +27,12 @@ SECTIONS {
 		*libgcc.a:*_dvmd_tls*.o(.text*);
 		*libgcc.a:*_udivsi3*.o(.text*);
 		*libgcc.a:*_umodsi3*.o(.text*);
+=======
+	asm/crt0.o(.text);
+	src/main.o(.text);
+	asm/main.o(.text);
+	asm/libs.o(.text);
+>>>>>>> e1ac84f0d51698e7f32e19688b42063c70543aea
     } =0
     .data :
     ALIGN(4)
