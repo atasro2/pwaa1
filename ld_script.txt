@@ -15,24 +15,17 @@ SECTIONS {
     .text :
     ALIGN(4)
     {
-<<<<<<< HEAD
-		asm/crt0.o(.text);
-		src/main.o(.text);
-		asm/main.o(.text);
-		asm/m4a.o(.text);
-		asm/libagbsyscall.o(.text);
-		asm/agb_sram.o(.text);
-		*libgcc.a:*_call_via_rX*.o(.text*);
-		*libgcc.a:*_divsi3*.o(.text*);
-		*libgcc.a:*_dvmd_tls*.o(.text*);
-		*libgcc.a:*_udivsi3*.o(.text*);
-		*libgcc.a:*_umodsi3*.o(.text*);
-=======
-	asm/crt0.o(.text);
-	src/main.o(.text);
-	asm/main.o(.text);
-	asm/libs.o(.text);
->>>>>>> e1ac84f0d51698e7f32e19688b42063c70543aea
+        asm/crt0.o(.text);
+        src/main.o(.text);
+        asm/main.o(.text);
+        asm/m4a.o(.text);
+        asm/libagbsyscall.o(.text);
+        asm/agb_sram.o(.text);
+        *libgcc.a:*_call_via_rX*.o(.text*);
+        *libgcc.a:*_divsi3*.o(.text*);
+        *libgcc.a:*_dvmd_tls*.o(.text*);
+        *libgcc.a:*_udivsi3*.o(.text*);
+        *libgcc.a:*_umodsi3*.o(.text*);
     } =0
     .data :
     ALIGN(4)
