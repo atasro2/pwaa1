@@ -2,139 +2,6 @@
 
 .syntax unified
 
-	THUMB_FUNC_START sub_80002E4
-sub_80002E4: @ 0x080002E4
-	push {r4, r5, r6, r7, lr}
-	ldr r7, _0800030C
-	ldr r4, _08000310
-	adds r0, r4, #0
-	adds r0, #0xb4
-	ldr r1, [r0]
-	movs r0, #1
-	ands r1, r0
-	adds r6, r4, #0
-	cmp r1, #0
-	beq _080003B4
-	ldrb r0, [r6, #0x12]
-	cmp r0, #1
-	beq _08000322
-	cmp r0, #1
-	bgt _08000314
-	cmp r0, #0
-	beq _0800031A
-	b _08000322
-	.align 2, 0
-_0800030C: .4byte gUnknown_03004000
-_08000310: .4byte gUnknown_03003730
-_08000314:
-	cmp r0, #2
-	beq _0800031E
-	b _08000322
-_0800031A:
-	movs r5, #1
-	b _08000324
-_0800031E:
-	movs r5, #7
-	b _08000324
-_08000322:
-	movs r5, #3
-_08000324:
-	bl sub_8002B40
-	movs r1, #0xf
-	ands r1, r0
-	cmp r1, #7
-	bls _0800033E
-	ands r1, r5
-	strb r1, [r4, #0xe]
-	movs r0, #0xe
-	ldrsb r0, [r4, r0]
-	rsbs r0, r0, #0
-	strb r0, [r4, #0xe]
-	b _08000342
-_0800033E:
-	ands r1, r5
-	strb r1, [r4, #0xe]
-_08000342:
-	bl sub_8002B40
-	movs r1, #0xf
-	ands r1, r0
-	cmp r1, #7
-	bls _0800035C
-	ands r1, r5
-	strb r1, [r4, #0xf]
-	movs r0, #0xf
-	ldrsb r0, [r4, r0]
-	rsbs r0, r0, #0
-	strb r0, [r4, #0xf]
-	b _08000360
-_0800035C:
-	ands r1, r5
-	strb r1, [r4, #0xf]
-_08000360:
-	ldr r5, _080003AC
-	movs r0, #0xf
-	ldrsb r0, [r4, r0]
-	adds r0, #8
-	strh r0, [r5, #0x16]
-	movs r0, #0xe
-	ldrsb r0, [r4, r0]
-	adds r0, #8
-	strh r0, [r5, #0x14]
-	movs r0, #0xe
-	ldrsb r0, [r4, r0]
-	strh r0, [r5, #0xe]
-	movs r0, #0xf
-	ldrsb r0, [r4, r0]
-	strh r0, [r5, #0xc]
-	ldrh r0, [r4, #0x10]
-	ldr r6, _080003B0
-	cmp r0, #0
-	beq _080003B8
-	subs r0, #1
-	strh r0, [r4, #0x10]
-	lsls r0, r0, #0x10
-	lsrs r3, r0, #0x10
-	cmp r3, #0
-	bne _080003B8
-	adds r2, r4, #0
-	adds r2, #0xb4
-	ldr r0, [r2]
-	movs r1, #2
-	rsbs r1, r1, #0
-	ands r0, r1
-	str r0, [r2]
-	movs r0, #8
-	strh r0, [r5, #0x16]
-	strh r0, [r5, #0x14]
-	strh r3, [r5, #0xe]
-	strh r3, [r5, #0xc]
-	b _080003B8
-	.align 2, 0
-_080003AC: .4byte gUnknown_030038D0
-_080003B0: .4byte gUnknown_03003730
-_080003B4:
-	strb r1, [r6, #0xe]
-	strb r1, [r6, #0xf]
-_080003B8:
-	ldr r1, _080003DC
-	ldrb r2, [r6, #4]
-	lsls r0, r2, #2
-	adds r0, r0, r1
-	ldr r1, [r0]
-	adds r0, r6, #0
-	bl _call_via_r1
-	ldrh r0, [r7, #4]
-	cmp r0, #0
-	beq _080003D4
-	adds r0, r7, #0
-	bl sub_80007A0
-_080003D4:
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080003DC: .4byte gUnknown_0811DBB4
-
 	THUMB_FUNC_START sub_80003E0
 sub_80003E0: @ 0x080003E0
 	push {r4, r5, r6, lr}
@@ -15778,7 +15645,7 @@ sub_80080B8: @ 0x080080B8
 	lsls r1, r1, #0x14
 	ldr r2, _080080FC
 	adds r0, r4, #0
-	bl sub_8013554
+	bl WriteAndVerifySram
 	pop {r4}
 	pop {r1}
 	bx r1
@@ -16247,7 +16114,7 @@ _0800848C:
 	movs r1, #0xe0
 	lsls r1, r1, #0x14
 	ldr r2, _080084D0
-	bl sub_8013554
+	bl WriteAndVerifySram
 _080084B8:
 	str r4, [r6, #4]
 _080084BA:
@@ -17825,7 +17692,7 @@ _08009184:
 	movs r1, #0xe0
 	lsls r1, r1, #0x14
 	ldr r2, _080091C4
-	bl sub_8013554
+	bl WriteAndVerifySram
 	b _080094C6
 	.align 2, 0
 _080091B4: .4byte 0x040000D4
