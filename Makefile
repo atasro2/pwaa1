@@ -38,6 +38,7 @@ override CFLAGS += -mthumb-interwork -Wimplicit -Wparentheses -Werror -O2 -fhex-
 
 CPPFLAGS := -I tools/agbcc -I tools/agbcc/include -iquote include -nostdinc
 
+$(C_BUILDDIR)/agb_sram.o: CFLAGS := -O -mthumb-interwork
 
 NAME := GS1
 ROM := $(NAME).gba
