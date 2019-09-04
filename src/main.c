@@ -227,3 +227,33 @@ void sub_800060C()
         *((u16*)&gOamObjects[i]) = temp;
     }
 }
+
+void sub_8000624() {
+    struct Struct30038D0 * struct0 = &gUnknown_030038D0;
+
+    REG_IE = struct0->unk50;
+    REG_DISPSTAT = struct0->unk52;
+    REG_DISPCNT = struct0->unk4A;
+    // if not done via arithmetic this would require tons of unions
+    (*(vu32 *)REG_ADDR_BG0CNT) = *((u32*) struct0+0);
+    (*(vu32 *)REG_ADDR_BG0HOFS) = *((u32*) struct0+2);
+    (*(vu32 *)REG_ADDR_BG1HOFS) = *((u32*) struct0+3);
+    (*(vu32 *)REG_ADDR_BG2CNT) = *((u32*) struct0+1);
+    (*(vu32 *)REG_ADDR_BG2HOFS) = *((u32*) struct0+4);
+    (*(vu32 *)REG_ADDR_BG3HOFS) = *((u32*) struct0+5);
+    (*(vu32 *)REG_ADDR_BG2PA) = *((u32*) struct0+6);
+    (*(vu32 *)REG_ADDR_BG2PC) = *((u32*) struct0+7);
+    REG_BG2X = *((u32*) struct0+8);
+    REG_BG2Y = *((u32*) struct0+9);
+    (*(vu32 *)REG_ADDR_BG3PA) = *((u32*) struct0+10);
+    (*(vu32 *)REG_ADDR_BG3PC) = *((u32*) struct0+11);
+    REG_BG3X = *((u32*) struct0+12);
+    REG_BG3Y = *((u32*) struct0+13);
+    (*(vu32 *)REG_ADDR_WIN0H) = *((u32*) struct0+14);
+    (*(vu32 *)REG_ADDR_WIN0V) = *((u32*) struct0+15);
+    (*(vu32 *)REG_ADDR_WININ) = *((u32*) struct0+16);
+    (*(vu32 *)REG_ADDR_MOSAIC) = *((u32*) struct0+17);
+    REG_BLDCNT = struct0->unk48;
+    REG_BLDALPHA = struct0->unk4C;
+    REG_BLDY = struct0->unk4E;
+}
