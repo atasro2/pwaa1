@@ -19,7 +19,7 @@
 . = 0x00002858; gUnknown_03002858 = .;
 . = 0x00002878; gUnknown_03002878 = .;
 . = 0x000028A0; gUnknown_030028A0 = .;
-. = 0x00002B20; gUnknown_03002B20 = .;
+. = 0x00002B20; gOamObjects = .;
 . = 0x00002B30; gUnknown_03002B30 = .;
 . = 0x00002C30; gUnknown_03002C30 = .;
 . = 0x00002C38; gUnknown_03002C38 = .;
@@ -53,7 +53,6 @@
 . = 0x000039D0; gUnknown_030039D0 = .;
 . = 0x00003A50; gUnknown_03003A50 = .;
 . = 0x00003A70; gUnknown_03003A70 = .;
-. = 0x00003AA3; gUnknown_03003AA3 = .;
 . = 0x00003AB0; gUnknown_03003AB0 = .;
 . = 0x00003AC0; gUnknown_03003AC0 = .;
 . = 0x00003C00; gUnknown_03003C00 = .;
