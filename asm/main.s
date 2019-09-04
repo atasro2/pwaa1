@@ -2,264 +2,6 @@
 
 .syntax unified
 
-	THUMB_FUNC_START sub_80003E0
-sub_80003E0: @ 0x080003E0
-	push {r4, r5, r6, lr}
-	sub sp, #4
-	ldr r4, _0800047C
-	ldr r6, _08000480
-	ldrb r1, [r4, #4]
-	rsbs r0, r1, #0
-	orrs r0, r1
-	lsrs r5, r0, #0x1f
-	movs r0, #0xe0
-	bl RegisterRamReset
-	movs r2, #0
-	str r2, [sp]
-	ldr r0, _08000484
-	mov r1, sp
-	str r1, [r0]
-	movs r1, #0xc0
-	lsls r1, r1, #0x12
-	str r1, [r0, #4]
-	ldr r1, _08000488
-	str r1, [r0, #8]
-	ldr r1, [r0, #8]
-	str r2, [sp]
-	mov r2, sp
-	str r2, [r0]
-	movs r1, #0x80
-	lsls r1, r1, #0x12
-	str r1, [r0, #4]
-	ldr r1, _0800048C
-	str r1, [r0, #8]
-	ldr r0, [r0, #8]
-	str r5, [r4, #4]
-	movs r0, #0x1c
-	bl RegisterRamReset
-	movs r5, #0
-	ldr r2, _08000490
-	ldr r1, _08000494
-_0800042C:
-	ldm r2!, {r0}
-	stm r1!, {r0}
-	adds r5, #1
-	cmp r5, #0xf
-	bls _0800042C
-	bl sub_8011EF8
-	ldr r1, _08000498
-	ldr r2, _0800049C
-	adds r0, r2, #0
-	strh r0, [r1]
-	adds r2, r6, #0
-	adds r2, #0x50
-	ldr r0, _080004A0
-	strh r0, [r2]
-	adds r3, r6, #0
-	adds r3, #0x52
-	movs r0, #8
-	strh r0, [r3]
-	adds r1, r6, #0
-	adds r1, #0x48
-	movs r0, #0xdf
-	strh r0, [r1]
-	adds r1, #6
-	movs r0, #0x10
-	strh r0, [r1]
-	ldr r1, _080004A4
-	ldrh r0, [r2]
-	strh r0, [r1]
-	ldr r1, _080004A8
-	ldrh r0, [r3]
-	strh r0, [r1]
-	ldr r1, _080004AC
-	movs r0, #1
-	strh r0, [r1]
-	add sp, #4
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800047C: .4byte gUnknown_03003730
-_08000480: .4byte gUnknown_030038D0
-_08000484: .4byte 0x040000D4
-_08000488: .4byte 0x85001F80
-_0800048C: .4byte 0x85010000
-_08000490: .4byte gUnknown_08013798
-_08000494: .4byte gUnknown_03002800
-_08000498: .4byte 0x04000204
-_0800049C: .4byte 0x00004014
-_080004A0: .4byte 0x00002001
-_080004A4: .4byte 0x04000200
-_080004A8: .4byte 0x04000004
-_080004AC: .4byte 0x04000208
-
-	THUMB_FUNC_START sub_80004B0
-sub_80004B0: @ 0x080004B0
-	push {r4, r5, lr}
-	sub sp, #4
-	ldr r4, _080005B8
-	ldr r5, _080005BC
-	mov r0, sp
-	movs r2, #0
-	strh r2, [r0]
-	ldr r0, _080005C0
-	mov r1, sp
-	str r1, [r0]
-	movs r1, #0xc0
-	lsls r1, r1, #0x13
-	str r1, [r0, #4]
-	ldr r1, _080005C4
-	str r1, [r0, #8]
-	ldr r1, [r0, #8]
-	mov r1, sp
-	strh r2, [r1]
-	str r1, [r0]
-	movs r1, #0xe0
-	lsls r1, r1, #0x13
-	str r1, [r0, #4]
-	ldr r3, _080005C8
-	str r3, [r0, #8]
-	ldr r1, [r0, #8]
-	mov r1, sp
-	strh r2, [r1]
-	str r1, [r0]
-	movs r1, #0xa0
-	lsls r1, r1, #0x13
-	str r1, [r0, #4]
-	str r3, [r0, #8]
-	ldr r1, [r0, #8]
-	mov r1, sp
-	strh r2, [r1]
-	str r1, [r0]
-	str r5, [r0, #4]
-	ldr r1, _080005CC
-	str r1, [r0, #8]
-	ldr r1, [r0, #8]
-	mov r1, sp
-	strh r2, [r1]
-	str r1, [r0]
-	ldr r1, _080005D0
-	str r1, [r0, #4]
-	ldr r1, _080005D4
-	str r1, [r0, #8]
-	ldr r1, [r0, #8]
-	mov r1, sp
-	strh r2, [r1]
-	str r1, [r0]
-	ldr r1, _080005D8
-	str r1, [r0, #4]
-	ldr r1, _080005DC
-	str r1, [r0, #8]
-	ldr r1, [r0, #8]
-	mov r1, sp
-	strh r2, [r1]
-	str r1, [r0]
-	ldr r1, _080005E0
-	str r1, [r0, #4]
-	ldr r1, _080005E4
-	str r1, [r0, #8]
-	ldr r1, [r0, #8]
-	mov r1, sp
-	strh r2, [r1]
-	str r1, [r0]
-	ldr r1, _080005E8
-	str r1, [r0, #4]
-	ldr r1, _080005EC
-	str r1, [r0, #8]
-	ldr r1, [r0, #8]
-	mov r1, sp
-	strh r2, [r1]
-	str r1, [r0]
-	ldr r1, _080005F0
-	str r1, [r0, #4]
-	ldr r1, _080005F4
-	str r1, [r0, #8]
-	ldr r1, [r0, #8]
-	mov r1, sp
-	strh r2, [r1]
-	str r1, [r0]
-	ldr r1, _080005F8
-	str r1, [r0, #4]
-	ldr r1, _080005FC
-	str r1, [r0, #8]
-	ldr r0, [r0, #8]
-	ldr r0, _08000600
-	strh r0, [r5, #0x24]
-	adds r0, r5, #0
-	adds r0, #0x8d
-	strb r2, [r0]
-	adds r5, #0x8e
-	movs r0, #1
-	strb r0, [r5]
-	movs r0, #0xf0
-	lsls r0, r0, #6
-	strh r0, [r4]
-	ldr r0, _08000604
-	strh r0, [r4, #2]
-	adds r0, #0xff
-	strh r0, [r4, #4]
-	ldr r0, _08000608
-	strh r0, [r4, #6]
-	adds r1, r4, #0
-	adds r1, #0x48
-	movs r0, #0xdf
-	strh r0, [r1]
-	adds r4, #0x4e
-	movs r0, #0x10
-	strh r0, [r4]
-	bl sub_800060C
-	bl sub_8000930
-	bl sub_800F804
-	bl sub_800F3C4
-	bl sub_8005408
-	movs r0, #0x30
-	movs r1, #0xf
-	bl sub_8000738
-	bl sub_80120B0
-	add sp, #4
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080005B8: .4byte gUnknown_030038D0
-_080005BC: .4byte gUnknown_03003730
-_080005C0: .4byte 0x040000D4
-_080005C4: .4byte 0x8100C000
-_080005C8: .4byte 0x81000200
-_080005CC: .4byte 0x810000D0
-_080005D0: .4byte gUnknown_03003A70
-_080005D4: .4byte 0x81000020
-_080005D8: .4byte gUnknown_03004000
-_080005DC: .4byte 0x81000008
-_080005E0: .4byte gUnknown_03003AB0
-_080005E4: .4byte 0x81000004
-_080005E8: .4byte gUnknown_03003A50
-_080005EC: .4byte 0x8100000C
-_080005F0: .4byte gUnknown_03002840
-_080005F4: .4byte 0x8100002C
-_080005F8: .4byte gUnknown_02000000
-_080005FC: .4byte 0x810014E8
-_08000600: .4byte 0x00000D37
-_08000604: .4byte 0x00003D01
-_08000608: .4byte 0x00003FC7
-
-	THUMB_FUNC_START sub_800060C
-sub_800060C: @ 0x0800060C
-	movs r1, #0
-	movs r2, #0x80
-	lsls r2, r2, #2
-	ldr r0, _08000620
-_08000614:
-	strh r2, [r0]
-	adds r0, #8
-	adds r1, #1
-	cmp r1, #0x7f
-	bls _08000614
-	bx lr
-	.align 2, 0
-_08000620: .4byte gUnknown_03002B20
-
 	THUMB_FUNC_START sub_8000624
 sub_8000624: @ 0x08000624
 	ldr r2, _080006D0
@@ -4969,7 +4711,7 @@ sub_8002A48: @ 0x08002A48
 	bx lr
 	.align 2, 0
 _08002A5C: .4byte 0x040000D4
-_08002A60: .4byte gUnknown_03002B20
+_08002A60: .4byte gOamObjects
 _08002A64: .4byte 0x80000200
 
 	THUMB_FUNC_START sub_8002A68
@@ -11230,7 +10972,7 @@ _08005F5C:
 	b _080060BE
 	.align 2, 0
 _08005F74: .4byte gUnknown_03003730
-_08005F78: .4byte gUnknown_03002B20
+_08005F78: .4byte gOamObjects
 _08005F7C:
 	adds r1, r5, #0
 	adds r1, #0x35
@@ -11370,7 +11112,7 @@ _0800606A:
 _08006084: .4byte 0x0000FFFB
 _08006088: .4byte 0x00007FFF
 _0800608C: .4byte gUnknown_03003C00
-_08006090: .4byte gUnknown_03002B20
+_08006090: .4byte gOamObjects
 _08006094:
 	ldr r2, _080060C8
 	ldrb r1, [r4]
@@ -11400,7 +11142,7 @@ _080060C0:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080060C8: .4byte gUnknown_03002B20
+_080060C8: .4byte gOamObjects
 _080060CC: .4byte 0x00003FF3
 _080060D0: .4byte 0x000002C2
 _080060D4: .4byte 0x000004FC
@@ -11446,7 +11188,7 @@ _08006108:
 	b _08006272
 	.align 2, 0
 _08006120: .4byte gUnknown_03003730
-_08006124: .4byte gUnknown_03002B20
+_08006124: .4byte gOamObjects
 _08006128:
 	adds r1, r5, #0
 	adds r1, #0x35
@@ -11592,7 +11334,7 @@ _08006220:
 _08006238: .4byte 0x0000FFFB
 _0800623C: .4byte 0x00007FFF
 _08006240: .4byte gUnknown_03003C00
-_08006244: .4byte gUnknown_03002B20
+_08006244: .4byte gOamObjects
 _08006248:
 	ldr r2, _0800627C
 	ldrb r1, [r4]
@@ -11622,7 +11364,7 @@ _08006274:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0800627C: .4byte gUnknown_03002B20
+_0800627C: .4byte gOamObjects
 _08006280: .4byte 0x00003FF3
 _08006284: .4byte 0x000002C2
 _08006288: .4byte 0x000004FC
@@ -13428,7 +13170,7 @@ _08006FDC: .4byte gUnknown_080187C8
 _08006FE0: .4byte gUnknown_0824696C
 _08006FE4: .4byte 0x050002C0
 _08006FE8: .4byte 0x80000010
-_08006FEC: .4byte gUnknown_03002B20
+_08006FEC: .4byte gOamObjects
 _08006FF0: .4byte 0xF9FEE800
 _08006FF4: .4byte 0x000068C0
 _08006FF8:
@@ -13454,7 +13196,7 @@ _08006FF8:
 	b _08007042
 	.align 2, 0
 _08007020: .4byte gUnknown_03003930
-_08007024: .4byte gUnknown_03002B20
+_08007024: .4byte gOamObjects
 _08007028:
 	adds r0, r4, #0
 	bl sub_8007554
@@ -13641,7 +13383,7 @@ _08007166:
 	bx r1
 	.align 2, 0
 _08007184: .4byte gUnknown_03003930
-_08007188: .4byte gUnknown_03002B20
+_08007188: .4byte gOamObjects
 
 	THUMB_FUNC_START sub_800718C
 sub_800718C: @ 0x0800718C
@@ -14003,7 +13745,7 @@ _08007450: .4byte 0x040000D4
 _08007454: .4byte gUnknown_081942C0
 _08007458: .4byte 0x05000300
 _0800745C: .4byte 0x80000010
-_08007460: .4byte gUnknown_03002B20
+_08007460: .4byte gOamObjects
 _08007464: .4byte 0x000084FC
 _08007468:
 	ldrb r0, [r5, #0x17]
@@ -14065,7 +13807,7 @@ _080074D0: .4byte 0x040000D4
 _080074D4: .4byte gUnknown_081942C0
 _080074D8: .4byte 0x05000300
 _080074DC: .4byte 0x80000010
-_080074E0: .4byte gUnknown_03002B20
+_080074E0: .4byte gOamObjects
 _080074E4: .4byte 0x000084FC
 
 	THUMB_FUNC_START sub_80074E8
@@ -14122,7 +13864,7 @@ _08007536:
 _08007544: .4byte 0x040000D4
 _08007548: .4byte gUnknown_080187C8
 _0800754C: .4byte gUnknown_03003930
-_08007550: .4byte gUnknown_03002B20
+_08007550: .4byte gOamObjects
 
 	THUMB_FUNC_START sub_8007554
 sub_8007554: @ 0x08007554
@@ -14165,7 +13907,7 @@ sub_8007574: @ 0x08007574
 	bx lr
 	.align 2, 0
 _08007594: .4byte 0x0000FBFF
-_08007598: .4byte gUnknown_03002B20
+_08007598: .4byte gOamObjects
 
 	THUMB_FUNC_START sub_800759C
 sub_800759C: @ 0x0800759C
@@ -16429,7 +16171,7 @@ _08008770: .4byte 0x06013C00
 _08008774: .4byte gUnknown_081FD92C
 _08008778: .4byte 0x05000320
 _0800877C: .4byte 0x80000020
-_08008780: .4byte gUnknown_03002B20
+_08008780: .4byte gOamObjects
 _08008784: .4byte 0x000003FF
 _08008788: .4byte gUnknown_03000000
 _0800878C: .4byte gUnknown_030038D0
@@ -16983,7 +16725,7 @@ _08008C14: .4byte 0xFFFFE1F8
 _08008C18: .4byte 0xFFFFE1F9
 _08008C1C: .4byte gUnknown_03003730
 _08008C20: .4byte 0xFFFFE900
-_08008C24: .4byte gUnknown_03002B20
+_08008C24: .4byte gOamObjects
 _08008C28: .4byte 0x80000200
 _08008C2C: .4byte gUnknown_081942C0
 _08008C30: .4byte 0x05000300
@@ -17357,7 +17099,7 @@ _08008F00: .4byte 0x80000020
 _08008F04: .4byte gUnknown_08186540
 _08008F08: .4byte 0x80000800
 _08008F0C: .4byte gUnknown_03003730
-_08008F10: .4byte gUnknown_03002B20
+_08008F10: .4byte gOamObjects
 _08008F14: .4byte gUnknown_030038D0
 _08008F18: .4byte 0x000091A0
 _08008F1C: .4byte 0x000091E0
@@ -17869,7 +17611,7 @@ _08009304:
 	.align 2, 0
 _0800931C: .4byte gUnknown_03002C50
 _08009320: .4byte gUnknown_08014AF0
-_08009324: .4byte gUnknown_03002B20
+_08009324: .4byte gOamObjects
 _08009328:
 	movs r1, #3
 	movs r3, #0x82
@@ -18024,7 +17766,7 @@ _0800943E:
 	b _08009474
 	.align 2, 0
 _08009464: .4byte gUnknown_08014AF0
-_08009468: .4byte gUnknown_03002B20
+_08009468: .4byte gOamObjects
 _0800946C: .4byte 0x000091E0
 _08009470:
 	ldr r1, _08009484
@@ -18960,7 +18702,7 @@ _08009B84: .4byte 0x06013400
 _08009B88: .4byte gUnknown_081FD92C
 _08009B8C: .4byte 0x05000320
 _08009B90: .4byte 0x80000020
-_08009B94: .4byte gUnknown_03002B20
+_08009B94: .4byte gOamObjects
 _08009B98: .4byte 0x000003FF
 _08009B9C: .4byte gUnknown_03000000
 _08009BA0: .4byte gUnknown_030038D0
@@ -19658,7 +19400,7 @@ _0800A1AC: .4byte 0x06011F80
 _0800A1B0: .4byte 0x80000040
 _0800A1B4: .4byte gUnknown_08190AC0
 _0800A1B8: .4byte 0xFFFFFC00
-_0800A1BC: .4byte gUnknown_03002B20
+_0800A1BC: .4byte gOamObjects
 _0800A1C0: .4byte gUnknown_03003720
 _0800A1C4:
 	adds r0, r7, #0
@@ -20190,7 +19932,7 @@ _0800A624: .4byte gUnknown_03003AB0
 _0800A628: .4byte gUnknown_03003720
 _0800A62C: .4byte gUnknown_03003A70
 _0800A630: .4byte 0x040000D4
-_0800A634: .4byte gUnknown_03002B20
+_0800A634: .4byte gOamObjects
 _0800A638: .4byte gUnknown_02000750
 _0800A63C: .4byte 0x80000200
 _0800A640: .4byte gUnknown_03003730
@@ -20575,7 +20317,7 @@ _0800A8EE:
 _0800A954: .4byte gUnknown_03003720
 _0800A958: .4byte gUnknown_03003A70
 _0800A95C: .4byte 0x040000D4
-_0800A960: .4byte gUnknown_03002B20
+_0800A960: .4byte gOamObjects
 _0800A964: .4byte gUnknown_02000750
 _0800A968: .4byte 0x80000200
 _0800A96C: .4byte gUnknown_03003730
@@ -20967,7 +20709,7 @@ _0800AC56:
 _0800AC94: .4byte gUnknown_03003720
 _0800AC98: .4byte gUnknown_03003A70
 _0800AC9C: .4byte 0x040000D4
-_0800ACA0: .4byte gUnknown_03002B20
+_0800ACA0: .4byte gOamObjects
 _0800ACA4: .4byte gUnknown_02000750
 _0800ACA8: .4byte 0x80000200
 _0800ACAC: .4byte gUnknown_03003730
@@ -21137,7 +20879,7 @@ _0800ADE2:
 _0800AE04: .4byte gUnknown_03003734
 _0800AE08: .4byte gUnknown_03003AB0
 _0800AE0C: .4byte gUnknown_03002840
-_0800AE10: .4byte gUnknown_03002B20
+_0800AE10: .4byte gOamObjects
 _0800AE14: .4byte gUnknown_03003A70
 _0800AE18:
 	movs r0, #0x80
@@ -21275,7 +21017,7 @@ _0800AF04:
 	.align 2, 0
 _0800AF20: .4byte gUnknown_03003A70
 _0800AF24: .4byte gUnknown_03003AB0
-_0800AF28: .4byte gUnknown_03002B20
+_0800AF28: .4byte gOamObjects
 
 	THUMB_FUNC_START sub_800AF2C
 sub_800AF2C: @ 0x0800AF2C
@@ -21497,7 +21239,7 @@ _0800B088:
 	.align 2, 0
 _0800B0FC: .4byte gUnknown_03003730
 _0800B100: .4byte gUnknown_08014AF0
-_0800B104: .4byte gUnknown_03002B20
+_0800B104: .4byte gOamObjects
 _0800B108:
 	adds r0, r7, #0
 	adds r0, #0x84
@@ -21537,7 +21279,7 @@ _0800B108:
 	b _0800B50A
 	.align 2, 0
 _0800B15C: .4byte gUnknown_08014AF0
-_0800B160: .4byte gUnknown_03002B20
+_0800B160: .4byte gOamObjects
 _0800B164:
 	ldrb r0, [r7, #6]
 	adds r1, r0, #1
@@ -21604,7 +21346,7 @@ _0800B1E8: .4byte 0x000003EF
 _0800B1EC: .4byte 0x0000C280
 _0800B1F0: .4byte 0x000051E0
 _0800B1F4: .4byte gUnknown_08014AF0
-_0800B1F8: .4byte gUnknown_03002B20
+_0800B1F8: .4byte gOamObjects
 _0800B1FC:
 	ldr r0, _0800B27C
 	adds r0, #0x84
@@ -21666,7 +21408,7 @@ _0800B1FC:
 	.align 2, 0
 _0800B27C: .4byte gUnknown_03003730
 _0800B280: .4byte gUnknown_08014AF0
-_0800B284: .4byte gUnknown_03002B20
+_0800B284: .4byte gOamObjects
 _0800B288:
 	adds r0, r7, #0
 	adds r0, #0x84
@@ -21706,7 +21448,7 @@ _0800B288:
 	b _0800B50A
 	.align 2, 0
 _0800B2DC: .4byte gUnknown_08014AF0
-_0800B2E0: .4byte gUnknown_03002B20
+_0800B2E0: .4byte gOamObjects
 _0800B2E4:
 	ldrb r0, [r7, #6]
 	adds r1, r0, #1
@@ -21815,7 +21557,7 @@ _0800B32C:
 	b _0800B50A
 	.align 2, 0
 _0800B3C0: .4byte gUnknown_08014AF0
-_0800B3C4: .4byte gUnknown_03002B20
+_0800B3C4: .4byte gOamObjects
 _0800B3C8:
 	ldr r1, _0800B3E8
 	ldr r0, _0800B3EC
@@ -22223,7 +21965,7 @@ _0800B656:
 	b _0800B706
 	.align 2, 0
 _0800B6E8: .4byte gUnknown_03002C38
-_0800B6EC: .4byte gUnknown_03002B20
+_0800B6EC: .4byte gOamObjects
 _0800B6F0: .4byte gUnknown_0818C040
 _0800B6F4: .4byte 0x040000D4
 _0800B6F8: .4byte 0x06013700
@@ -22796,7 +22538,7 @@ _0800BB78:
 	.align 2, 0
 _0800BBB8: .4byte gUnknown_03003720
 _0800BBBC: .4byte 0x040000D4
-_0800BBC0: .4byte gUnknown_03002B20
+_0800BBC0: .4byte gOamObjects
 _0800BBC4: .4byte gUnknown_02000750
 _0800BBC8: .4byte 0x80000200
 _0800BBCC: .4byte gUnknown_03003730
@@ -23452,7 +23194,7 @@ _0800C08A:
 	b _0800C324
 	.align 2, 0
 _0800C0C8: .4byte 0x040000D4
-_0800C0CC: .4byte gUnknown_03002B20
+_0800C0CC: .4byte gOamObjects
 _0800C0D0: .4byte gUnknown_02000750
 _0800C0D4: .4byte 0x80000200
 _0800C0D8: .4byte gUnknown_03003730
@@ -24031,7 +23773,7 @@ _0800C504:
 	.align 2, 0
 _0800C544: .4byte gUnknown_03003720
 _0800C548: .4byte 0x040000D4
-_0800C54C: .4byte gUnknown_03002B20
+_0800C54C: .4byte gOamObjects
 _0800C550: .4byte gUnknown_02000750
 _0800C554: .4byte 0x80000200
 _0800C558: .4byte gUnknown_03003730
@@ -24864,7 +24606,7 @@ _0800CBBC: .4byte 0x80000010
 _0800CBC0: .4byte gUnknown_030028A0
 _0800CBC4: .4byte gUnknown_0300084E
 _0800CBC8: .4byte gUnknown_03003720
-_0800CBCC: .4byte gUnknown_03002B20
+_0800CBCC: .4byte gOamObjects
 _0800CBD0: .4byte gUnknown_02000750
 _0800CBD4: .4byte 0x80000200
 _0800CBD8: .4byte gUnknown_03003730
@@ -25304,7 +25046,7 @@ _0800CEB8:
 _0800CF24: .4byte gUnknown_03003720
 _0800CF28: .4byte gUnknown_03003A70
 _0800CF2C: .4byte 0x040000D4
-_0800CF30: .4byte gUnknown_03002B20
+_0800CF30: .4byte gOamObjects
 _0800CF34: .4byte gUnknown_02000750
 _0800CF38: .4byte 0x80000200
 _0800CF3C: .4byte gUnknown_03003730
@@ -26808,7 +26550,7 @@ _0800DA86:
 	ldr r0, _0800DABC
 	b _0800DBDA
 	.align 2, 0
-_0800DAB8: .4byte gUnknown_03002B20
+_0800DAB8: .4byte gOamObjects
 _0800DABC: .4byte 0x00000707
 _0800DAC0:
 	movs r0, #0x80
@@ -27075,7 +26817,7 @@ _0800DC8E:
 	.align 2, 0
 _0800DCFC: .4byte gUnknown_030038D0
 _0800DD00: .4byte 0x0000FBFF
-_0800DD04: .4byte gUnknown_03002B20
+_0800DD04: .4byte gOamObjects
 _0800DD08: .4byte gUnknown_03003A50
 _0800DD0C: .4byte gUnknown_03003734
 _0800DD10:
@@ -27540,7 +27282,7 @@ _0800E0A8:
 	b _0800E13C
 	.align 2, 0
 _0800E0BC: .4byte 0x040000D4
-_0800E0C0: .4byte gUnknown_03002B20
+_0800E0C0: .4byte gOamObjects
 _0800E0C4: .4byte gUnknown_02000750
 _0800E0C8: .4byte 0x80000200
 _0800E0CC: .4byte gUnknown_03003930
@@ -27644,7 +27386,7 @@ _0800E1A8: .4byte 0x0000FCFF
 _0800E1AC: .4byte gUnknown_03002DE0
 _0800E1B0: .4byte 0x0000FDFF
 _0800E1B4: .4byte 0x0000FBFF
-_0800E1B8: .4byte gUnknown_03002B20
+_0800E1B8: .4byte gOamObjects
 _0800E1BC:
 	ldrh r0, [r5, #0x28]
 	bl sub_8001A9C
@@ -27881,7 +27623,7 @@ _0800E374:
 _0800E390: .4byte gUnknown_02000000
 _0800E394: .4byte gUnknown_030038D0
 _0800E398: .4byte 0x040000D4
-_0800E39C: .4byte gUnknown_03002B20
+_0800E39C: .4byte gOamObjects
 _0800E3A0: .4byte 0x80000200
 _0800E3A4: .4byte gUnknown_03003930
 _0800E3A8: .4byte 0x80000050
@@ -28349,7 +28091,7 @@ _0800E740:
 	bx r0
 	.align 2, 0
 _0800E74C: .4byte gUnknown_08014AF0
-_0800E750: .4byte gUnknown_03002B20
+_0800E750: .4byte gOamObjects
 _0800E754: .4byte 0x0000C058
 _0800E758: .4byte gUnknown_03002840
 
@@ -28665,7 +28407,7 @@ sub_800E9D4: @ 0x0800E9D4
 	movs r0, #0x30
 	b _0800EA00
 	.align 2, 0
-_0800E9F8: .4byte gUnknown_03002B20
+_0800E9F8: .4byte gOamObjects
 _0800E9FC:
 	movs r0, #0x80
 	lsls r0, r0, #2
@@ -28722,7 +28464,7 @@ _0800EA50:
 	bl sub_800EB88
 	b _0800EA7A
 	.align 2, 0
-_0800EA6C: .4byte gUnknown_03002B20
+_0800EA6C: .4byte gOamObjects
 _0800EA70: .4byte gUnknown_03003730
 _0800EA74:
 	movs r0, #0
@@ -29245,7 +28987,7 @@ _0800EE56:
 _0800EE6C: .4byte gUnknown_0811DC54
 _0800EE70: .4byte gUnknown_03003730
 _0800EE74: .4byte 0x0000FFFF
-_0800EE78: .4byte gUnknown_03003AA3
+_0800EE78: .4byte gUnknown_03003A70+0x33
 _0800EE7C:
 	movs r0, #1
 _0800EE7E:
@@ -30610,7 +30352,7 @@ _0800F8A8:
 	bx r0
 	.align 2, 0
 _0800F8B4: .4byte gUnknown_03000840
-_0800F8B8: .4byte gUnknown_03002B20
+_0800F8B8: .4byte gOamObjects
 
 	THUMB_FUNC_START sub_800F8BC
 sub_800F8BC: @ 0x0800F8BC
@@ -30825,7 +30567,7 @@ _0800FA42:
 	bx r0
 	.align 2, 0
 _0800FA48: .4byte gUnknown_08014AF0
-_0800FA4C: .4byte gUnknown_03002B20
+_0800FA4C: .4byte gOamObjects
 
 	THUMB_FUNC_START sub_800FA50
 sub_800FA50: @ 0x0800FA50
@@ -30935,7 +30677,7 @@ _0800FAFA:
 	b _0800FB56
 	.align 2, 0
 _0800FB10: .4byte 0xDFFFFFFF
-_0800FB14: .4byte gUnknown_03002B20
+_0800FB14: .4byte gOamObjects
 _0800FB18: .4byte 0x00FFFFFF
 _0800FB1C: .4byte 0x001600FF
 _0800FB20: .4byte 0xF7FFFFFF
@@ -30972,7 +30714,7 @@ _0800FB56:
 	bx r0
 	.align 2, 0
 _0800FB5C: .4byte 0xDFFFFFFF
-_0800FB60: .4byte gUnknown_03002B20
+_0800FB60: .4byte gOamObjects
 
 	THUMB_FUNC_START sub_800FB64
 sub_800FB64: @ 0x0800FB64
@@ -32487,7 +32229,7 @@ _0801068A:
 	bx r0
 	.align 2, 0
 _08010698: .4byte gUnknown_03000800
-_0801069C: .4byte gUnknown_03002B20
+_0801069C: .4byte gOamObjects
 _080106A0: .4byte 0x000001FF
 
 	THUMB_FUNC_START sub_80106A4
@@ -32956,7 +32698,7 @@ _08010A28:
 _08010A30: .4byte gUnknown_03003730
 _08010A34: .4byte 0x00FFFFFF
 _08010A38: .4byte 0x001600FF
-_08010A3C: .4byte gUnknown_03002B20
+_08010A3C: .4byte gOamObjects
 _08010A40: .4byte gUnknown_03003F00
 _08010A44: .4byte 0x05000200
 _08010A48: .4byte 0x040000D4

@@ -1572,8 +1572,8 @@ _08011EF0:
 	.align 2, 0
 _08011EF4: .4byte 0x68736D53
 
-	THUMB_FUNC_START sub_8011EF8
-sub_8011EF8: @ 0x08011EF8
+	THUMB_FUNC_START m4aSoundInit
+m4aSoundInit: @ 0x08011EF8
 	push {r4, r5, r6, lr}
 	ldr r0, _08011F4C
 	movs r1, #2
@@ -1792,8 +1792,8 @@ _080120A2:
 _080120A8: .4byte gUnknown_080412FC
 _080120AC: .4byte gUnknown_0804132C
 
-	THUMB_FUNC_START sub_80120B0
-sub_80120B0: @ 0x080120B0
+	THUMB_FUNC_START m4aMPlayAllStop
+m4aMPlayAllStop: @ 0x080120B0
 	push {r4, r5, lr}
 	ldr r0, _080120D4
 	lsls r0, r0, #0x10
