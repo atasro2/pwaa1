@@ -228,7 +228,8 @@ void sub_800060C()
     }
 }
 
-void sub_8000624() {
+void sub_8000624() 
+{
     struct Struct30038D0 * struct0 = &gUnknown_030038D0;
 
     REG_IE = struct0->unk50;
