@@ -178,7 +178,7 @@ void sub_80003E0()
     REG_WAITCNT = WAITCNT_SRAM_4 | WAITCNT_WS0_N_3 | WAITCNT_WS0_S_1 | WAITCNT_WS1_N_4 | WAITCNT_WS1_S_4 | WAITCNT_WS2_N_4 | WAITCNT_WS2_S_8 | WAITCNT_PHI_OUT_NONE | WAITCNT_PREFETCH_ENABLE;
     struct0->iwp_ie = INTR_FLAG_VBLANK | INTR_FLAG_GAMEPAK;
     struct0->lcd_dispstat = DISPSTAT_VBLANK_INTR;
-    struct0->lcd_bldcnt = 0xDF;
+    struct0->lcd_bldcnt = BLDCNT_TGT1_BG0 | BLDCNT_TGT1_BG1 | BLDCNT_TGT1_BG2 | BLDCNT_TGT1_BG3 | BLDCNT_TGT1_OBJ | BLDCNT_EFFECT_DARKEN;
     struct0->lcd_bldy = 0x10;
     REG_IE = struct0->iwp_ie; 
     REG_DISPSTAT = struct0->lcd_dispstat;
@@ -202,11 +202,11 @@ void sub_80004B0()
     struct1->unk24 = 0xD37;
     struct1->unk8D = 0;
     struct1->unk8E = 1;
-    struct0->lcd_bg0cnt = 0x3C00;
-    struct0->lcd_bg1cnt = 0x3D01;
-    struct0->lcd_bg2cnt = 0x3E00;
-    struct0->lcd_bg3cnt = 0x3FC7;
-    struct0->lcd_bldcnt = 0xDF;
+    struct0->lcd_bg0cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(28) | BGCNT_16COLOR | BGCNT_WRAP; // TODO: add TXT/AFF macro once known which one is used
+    struct0->lcd_bg1cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(29) | BGCNT_16COLOR | BGCNT_WRAP; // TODO: add TXT/AFF macro once known which one is used
+    struct0->lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP; // TODO: add TXT/AFF macro once known which one is used
+    struct0->lcd_bg3cnt = BGCNT_PRIORITY(3) | BGCNT_CHARBASE(1) | BGCNT_SCREENBASE(31) | BGCNT_MOSAIC | BGCNT_256COLOR | BGCNT_WRAP; // TODO: add TXT/AFF macro once known which one is used
+    struct0->lcd_bldcnt = BLDCNT_TGT1_BG0 | BLDCNT_TGT1_BG1 | BLDCNT_TGT1_BG2 | BLDCNT_TGT1_BG3 | BLDCNT_TGT1_OBJ | BLDCNT_EFFECT_DARKEN;
     struct0->lcd_bldy = 0x10;
     sub_800060C();
     sub_8000930();
