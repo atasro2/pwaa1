@@ -660,8 +660,8 @@ sub_8011884: @ 0x08011884
 	.align 2, 0
 _08011898: .4byte 0x04000060
 
-	THUMB_FUNC_START sub_801189C
-sub_801189C: @ 0x0801189C
+	THUMB_FUNC_START m4aSoundVSync
+m4aSoundVSync: @ 0x0801189C
 	ldr r0, _08011B48
 	ldr r0, [r0]
 	ldr r2, _08011B4C

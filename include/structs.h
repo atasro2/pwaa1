@@ -3,9 +3,12 @@
 
 struct Struct3004000
 {
-    u8 filler0[0x4];
+    u32 unk0;
     u16 unk4;
-    u8 filler6[0xA];
+    u8 filler6[0x6];
+    s16 unkC;
+    s16 unkE;
+
 };
 
 union UnknownUnion
@@ -14,7 +17,19 @@ union UnknownUnion
     u32 field1;
 };
 
-struct Struct3003730 
+struct Struct3003720
+{
+    u16 unk0;
+    u16 unk2;
+    u16 unk4;
+    u16 unk6;
+    u16 unk8;
+    u16 unkA;
+    u16 unkC;
+    u16 unkE;
+};
+
+struct Struct3003730
 {
     u32 unk0;
     union UnknownUnion unk1;
@@ -25,18 +40,26 @@ struct Struct3003730
     s8 unkF;
     u16 unk10;
     u8 unk12;
-    u8 filler13[0x10];
+    u8 filler13[0x11];
     u16 unk24;
     u8 filler26[0x2];
     u16 unk28;
     s16 unk2A;
     s8 unk2C;
-    u8 filler2D[0x60];
+    u8 unk2D;
+    u8 unk2E;
+    u8 filler2F[0x45];
+    u16 unk74;
+    u16 unk76;
+    u16 unk78;
+    u8 unk7A;
+    u8 unk7B;
+    u8 filler7C[0x11];
     u8 unk8D;
     u8 unk8E;
-    u8 filler8F[0x23];
+    u8 filler8F[0x25];
     u32 unkB4;
-    u8 fillerB5[0xE8];
+    u8 fillerB8[0xE8];
 };
 
 struct Struct30038D0

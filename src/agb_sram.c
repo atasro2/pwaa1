@@ -4,6 +4,7 @@ void ReadSram_Core(const u8 *src, u8 *dest, u32 size)
 {
     while (--size != -1)
         *dest++ = *src++;
+
 }
 
 void ReadSram(const u8 *src, u8 *dst, u32 size)
@@ -79,20 +80,18 @@ u32 VerifySram(const u8 *src, u8 *dst, u32 size)
     return function(src,dst,size);
 }
 
-u32 WriteAndVerifySram(const u8 *src, u8 *dst, u32 size) // Write to the Sram verify that data is OK
+u32 WriteSramEx(const u8 *src, u8 *dst, u32 size) // Write to the Sram verify that data is OK
 {                                                        // if not try again for only 2 times
-    u8 i = 0;
+    u8 i;
     u32 isSramOk;
 
-    while (i < 3)
+    for(i = 0; i < 3; i++)
     {
         WriteSram(src, dst, size);
         isSramOk = VerifySram(src, dst, size);
         if(isSramOk == 0)
-        {
             break;
-        }
-        i++;
     }
+
     return isSramOk;
 }
