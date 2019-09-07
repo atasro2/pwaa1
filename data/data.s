@@ -2,7 +2,7 @@
 
     .global gUnknown_08013798
 gUnknown_08013798:
-    .incbin "baserom.gba", 0x00013798, 0x40
+	.incbin "data/bins/8013798.bin"
 	
     .global gUnknown_080137D8
 gUnknown_080137D8:
@@ -1362,4 +1362,5 @@ gUnknown_08748218:
     .global gUnknown_08749428
 gUnknown_08749428:
     .incbin "baserom.gba", 0x00749428, 0xB6BD8
+
 

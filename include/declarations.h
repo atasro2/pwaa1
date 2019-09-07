@@ -41,6 +41,7 @@ extern struct Struct2000000 gUnknown_02000000;
 //IWRAM
 extern u32 gUnknown_03002800[0x10];
 extern struct Struct3002840 gUnknown_03002840;
+extern struct Struct3003720 gUnknown_03003720;
 extern struct Struct3003730 gUnknown_03003730;
 extern struct Struct30038D0 gUnknown_030038D0;
 extern struct Struct3003A50 gUnknown_03003A50;
