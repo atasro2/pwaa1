@@ -10,7 +10,7 @@ void CheckAButtonOnBoot()
     if(!gUnknown_03003730.unk1.field0) 
     {
         input = (u16 *)REG_ADDR_KEYINPUT;
-        keys = (0x3FF ^ *input);
+        keys = (KEYS_MASK ^ *input);
         if (A_BUTTON & keys)
             gUnknown_03003730.unk1.field0 = 0xe;
     }
