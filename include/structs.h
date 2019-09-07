@@ -64,48 +64,44 @@ struct Struct3003730
 
 struct Struct30038D0
 {
-    u16 unk0;
-    u16 unk2;
-    u16 unk4;
-    u16 unk6;
-    u16 unk8;
-    u16 unkA;
-    u16 unkC;
-    u16 unkE;
-    u16 unk10;
-    u16 unk12;
-    u16 unk14;
-    u16 unk16;
-    u16 unk18;
-    u16 unk1A;
-    u16 unk1C;
-    u16 unk1E;
-    u16 unk20;
-    u16 unk22;
-    u16 unk24;
-    u16 unk26;
-    u16 unk28;
-    u16 unk2A;
-    u16 unk2C;
-    u16 unk2E;
-    u16 unk30;
-    u16 unk32;
-    u16 unk34;
-    u16 unk36;
-    u16 unk38;
-    u16 unk3A;
-    u16 unk3C;
-    u16 unk3E;
-    u16 unk40;
-    u16 unk42;
-    u16 unk44;
-    u8 filler46[0x2];
-    u16 unk48;
-    u16 unk4A;
-    u16 unk4C;
-    u16 unk4E;
-    u16 unk50;
-    u16 unk52;
+    u16 lcd_bg0cnt;   /* + 0 */
+    u16 lcd_bg1cnt;   /* + 2 */
+    u16 lcd_bg2cnt;   /* + 4 */
+    u16 lcd_bg3cnt;   /* + 6 */
+    u16 lcd_bg0hofs;  /* + 8 */
+    u16 lcd_bg0vofs;  /* + A */
+    u16 lcd_bg1hofs;  /* + C */
+    u16 lcd_bg1vofs;  /* + E */
+    u16 lcd_bg2hofs;  /* +10 */
+    u16 lcd_bg2vofs;  /* +12 */
+    u16 lcd_bg3hofs;  /* +14 */
+    u16 lcd_bg3vofs;  /* +16 */
+    u16 lcd_bg2pa;    /* +18 */
+    u16 lcd_bg2pb;    /* +1A */
+    u16 lcd_bg2pc;    /* +1C */
+    u16 lcd_bg2pd;    /* +1E */
+    u32 lcd_bg2x;     /* +20 */
+    u32 lcd_bg2y;     /* +24 */
+    u16 lcd_bg3pa;    /* +28 */
+    u16 lcd_bg3pb;    /* +2A */
+    u16 lcd_bg3pc;    /* +2C */
+    u16 lcd_bg3pd;    /* +2E */
+    u32 lcd_bg3x;     /* +30 */
+    u32 lcd_bg3y;     /* +34 */
+    u16 lcd_win0h;    /* +38 */
+    u16 lcd_win1h;    /* +3A */
+    u16 lcd_win0v;    /* +3C */
+    u16 lcd_win1v;    /* +3E */
+    u16 lcd_winin;    /* +40 */
+    u16 lcd_winout;   /* +42 */
+    u16 lcd_mosaic;   /* +44 */
+    u8 filler46[2];   /* +46 */
+    u16 lcd_bldcnt;   /* +48 */
+    u16 lcd_dispcnt;  /* +4A */
+    u16 lcd_bldalpha; /* +4C */
+    u16 lcd_bldy;     /* +4E */
+    u16 iwp_ie;       /* +50 */
+    u16 lcd_dispstat; /* +52 */
 };
 
 struct Struct3003A70

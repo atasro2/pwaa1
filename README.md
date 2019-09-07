@@ -7,10 +7,27 @@ It builds the following ROM:
 
 ### Setting up the repository
 
+* it is advised to use WSL for making this repository on Windows 10 but if you use Win 8.1 or older then i can't help unless we get a proper tutorial for this.  
+
+* **THIS README ASSUMES YOU HAVE EXPERIENCE WITH VARIOUS OTHER GBA DECOMPILATION REPOSITORIES AND A LINUX TERMINAL** 
+
 * You must have a copy of the Gyakuten Saiban (Japan) Rev 0 ROM named `baserom.gba` in the repository directory.
 
-* Install [**devkitARM**](http://devkitpro.org/wiki/Getting_Started/devkitARM).
+* get the source code for the gbafix tool from https://github.com/pret/pokefirered. Copy the `gbafix` folder into the repository directory.
 
-* Then get the build tools from https://github.com/pret/pokeruby-tools. Copy the `tools/` folder into the repository directory.
+* go into the `gbafix` directory and run `make` in the terminal.
 
-* You can then build GS1 using `make` in the MSYS environment provided with devkitARM.
+* go into the root folder of the repository.
+
+* Then compile agbcc using the following command.
+
+```
+  git clone https://github.com/luckytyphlosion/agbcc -b new_layout_with_libs
+
+	cd ./agbcc
+	make
+	make install prefix=../
+	make install-sdk prefix=../
+```
+
+* You can then build GS1 using `make` in your linux/wsl terminal.

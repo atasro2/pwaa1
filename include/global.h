@@ -17,6 +17,6 @@
 #define MAX_OAM_OBJ_COUNT 128
 
 #define IO_REG_STRUCT_MEMBER(localBgStruct, field) \
-    *((u32 *) localBgStruct + (offsetof(struct Struct30038D0, field) / sizeof(localBgStruct->field))) \
+    *((u32 *) localBgStruct + (offsetof(struct Struct30038D0, field) / 4)) \
 
 #endif//GUARD_GLOBAL_H

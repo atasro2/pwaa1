@@ -76,16 +76,16 @@ void AgbMain()
 
 void sub_80002E4()
 {
-    struct Struct3004000 * struct1 = &gUnknown_03004000;
-    struct Struct3003730 * struct0 = &gUnknown_03003730;
+    struct Struct3004000 * iwstruct4000p = &gUnknown_03004000;
+    struct Struct3003730 * iwstruct3730p = &gUnknown_03003730;
 
     u8 mask;
     u8 var1;
-    u32 var2 = struct0->unkB4 & 1;
+    u32 var2 = iwstruct3730p->unkB4 & 1;
 
     if((var2))
     {
-        switch(struct0->unk12)
+        switch(iwstruct3730p->unk12)
         {
             case 0:
                 mask = 1;
@@ -103,41 +103,41 @@ void sub_80002E4()
 
         if(var1 > 7)
         {
-            struct0->unkE = var1 & mask;
-            struct0->unkE *= -1;
+            iwstruct3730p->unkE = var1 & mask;
+            iwstruct3730p->unkE *= -1;
         }
         else
         {
-            struct0->unkE = (var1 & mask);
+            iwstruct3730p->unkE = (var1 & mask);
         }
 
         var1 = sub_8002B40() & 15;
         
         if(var1 > 7)
         {
-            struct0->unkF = var1 & mask;
-            struct0->unkF *= -1;
+            iwstruct3730p->unkF = var1 & mask;
+            iwstruct3730p->unkF *= -1;
         }
         else
         {
-            struct0->unkF = var1 & mask;
+            iwstruct3730p->unkF = var1 & mask;
         }
         
-        gUnknown_030038D0.unk16 = struct0->unkF + 8;
-        gUnknown_030038D0.unk14 = struct0->unkE + 8;
-        gUnknown_030038D0.unkE = struct0->unkE;
-        gUnknown_030038D0.unkC = struct0->unkF;
+        gUnknown_030038D0.lcd_bg3vofs = iwstruct3730p->unkF + 8;
+        gUnknown_030038D0.lcd_bg3hofs = iwstruct3730p->unkE + 8;
+        gUnknown_030038D0.lcd_bg1vofs = iwstruct3730p->unkE;
+        gUnknown_030038D0.lcd_bg1hofs = iwstruct3730p->unkF;
         
-        if(struct0->unk10 != 0)
+        if(iwstruct3730p->unk10 != 0)
         {
-            struct0->unk10--;
-            if(struct0->unk10 == 0)
+            iwstruct3730p->unk10--;
+            if(iwstruct3730p->unk10 == 0)
             {
-                struct0->unkB4 &= ~1;
-                gUnknown_030038D0.unk16 = 8;
-                gUnknown_030038D0.unk14 = 8;
-                gUnknown_030038D0.unkE = 0;
-                gUnknown_030038D0.unkC = 0;
+                iwstruct3730p->unkB4 &= ~1;
+                gUnknown_030038D0.lcd_bg3vofs = 8;
+                gUnknown_030038D0.lcd_bg3hofs = 8;
+                gUnknown_030038D0.lcd_bg1vofs = 0;
+                gUnknown_030038D0.lcd_bg1hofs = 0;
             }
         }
     }
@@ -149,23 +149,23 @@ void sub_80002E4()
     
     gUnknown_0811DBB4[gUnknown_03003730.unk1.field0](&gUnknown_03003730);
     
-    if(struct1->unk4)
+    if(iwstruct4000p->unk4)
     {
-        sub_80007A0(struct1);
+        sub_80007A0(iwstruct4000p);
     }
 }
 
 void sub_80003E0()
 {
-    struct Struct3003730 * struct1 = &gUnknown_03003730;
-    struct Struct30038D0 * struct0 = &gUnknown_030038D0;
-    u32 temp = struct1->unk1.field0 ? TRUE : FALSE;
+    struct Struct3003730 * iwstruct3730p = &gUnknown_03003730;
+    struct Struct30038D0 * iwstruct38D0p = &gUnknown_030038D0;
+    u32 temp = iwstruct3730p->unk1.field0 ? TRUE : FALSE;
 
     RegisterRamReset(RESET_SIO_REGS | RESET_SOUND_REGS | RESET_REGS);
     DmaFill32(3, 0, IWRAM_START, 0x7E00); // Clear IWRAM
     DmaFill32(3, 0, EWRAM_START, 0x40000); // Clear EWRAM
     
-    struct1->unk1.field1 = temp; // TODO: ! scrub c
+    iwstruct3730p->unk1.field1 = temp; // TODO: ! scrub c
 
     RegisterRamReset(RESET_OAM | RESET_VRAM | RESET_PALETTE);
     
@@ -176,19 +176,19 @@ void sub_80003E0()
     
     m4aSoundInit();
     REG_WAITCNT = WAITCNT_SRAM_4 | WAITCNT_WS0_N_3 | WAITCNT_WS0_S_1 | WAITCNT_WS1_N_4 | WAITCNT_WS1_S_4 | WAITCNT_WS2_N_4 | WAITCNT_WS2_S_8 | WAITCNT_PHI_OUT_NONE | WAITCNT_PREFETCH_ENABLE;
-    struct0->unk50 = INTR_FLAG_VBLANK | INTR_FLAG_GAMEPAK;
-    struct0->unk52 = DISPSTAT_VBLANK_INTR;
-    struct0->unk48 = 0xDF;
-    struct0->unk4E = 0x10;
-    REG_IE = struct0->unk50; 
-    REG_DISPSTAT = struct0->unk52;
+    iwstruct38D0p->iwp_ie = INTR_FLAG_VBLANK | INTR_FLAG_GAMEPAK;
+    iwstruct38D0p->lcd_dispstat = DISPSTAT_VBLANK_INTR;
+    iwstruct38D0p->lcd_bldcnt = BLDCNT_TGT1_BG0 | BLDCNT_TGT1_BG1 | BLDCNT_TGT1_BG2 | BLDCNT_TGT1_BG3 | BLDCNT_TGT1_OBJ | BLDCNT_EFFECT_DARKEN;
+    iwstruct38D0p->lcd_bldy = 0x10;
+    REG_IE = iwstruct38D0p->iwp_ie; 
+    REG_DISPSTAT = iwstruct38D0p->lcd_dispstat;
     REG_IME = TRUE;
 }
 
 void sub_80004B0()
 {
-    struct Struct30038D0 * struct0 = &gUnknown_030038D0;
-    struct Struct3003730 * struct1 = &gUnknown_03003730;
+    struct Struct30038D0 * iwstruct38D0p = &gUnknown_030038D0;
+    struct Struct3003730 * iwstruct3730p = &gUnknown_03003730;
     DmaFill16(3, 0, VRAM, VRAM_SIZE);
     DmaFill16(3, 0, OAM, OAM_SIZE);
     DmaFill16(3, 0, PLTT, PLTT_SIZE);
@@ -199,15 +199,15 @@ void sub_80004B0()
     DmaFill16(3, 0, &gUnknown_03003A50, sizeof(gUnknown_03003A50));
     DmaFill16(3, 0, &gUnknown_03002840, sizeof(gUnknown_03002840));
     DmaFill16(3, 0, &gUnknown_02000000, 0x29D0); //TODO: the ewram stuff is a joke here, can't decide the true size of gUnknown_02000000 yet.
-    struct1->unk24 = 0xD37;
-    struct1->unk8D = 0;
-    struct1->unk8E = 1;
-    struct0->unk0 = 0x3C00;
-    struct0->unk2 = 0x3D01;
-    struct0->unk4 = 0x3E00;
-    struct0->unk6 = 0x3FC7;
-    struct0->unk48 = 0xDF;
-    struct0->unk4E = 0x10;
+    iwstruct3730p->unk24 = 0xD37;
+    iwstruct3730p->unk8D = 0;
+    iwstruct3730p->unk8E = 1;
+    iwstruct38D0p->lcd_bg0cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(28) | BGCNT_16COLOR | BGCNT_WRAP; // TODO: add TXT/AFF macro once known which one is used
+    iwstruct38D0p->lcd_bg1cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(29) | BGCNT_16COLOR | BGCNT_WRAP; // TODO: add TXT/AFF macro once known which one is used
+    iwstruct38D0p->lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP; // TODO: add TXT/AFF macro once known which one is used
+    iwstruct38D0p->lcd_bg3cnt = BGCNT_PRIORITY(3) | BGCNT_CHARBASE(1) | BGCNT_SCREENBASE(31) | BGCNT_MOSAIC | BGCNT_256COLOR | BGCNT_WRAP; // TODO: add TXT/AFF macro once known which one is used
+    iwstruct38D0p->lcd_bldcnt = BLDCNT_TGT1_BG0 | BLDCNT_TGT1_BG1 | BLDCNT_TGT1_BG2 | BLDCNT_TGT1_BG3 | BLDCNT_TGT1_OBJ | BLDCNT_EFFECT_DARKEN;
+    iwstruct38D0p->lcd_bldy = 0x10;
     sub_800060C();
     sub_8000930();
     sub_800F804();
@@ -228,64 +228,64 @@ void sub_800060C()
     }
 }
 
-void sub_8000624() 
+void sub_8000624()
 {
-    struct Struct30038D0 * struct0 = &gUnknown_030038D0;
+    struct Struct30038D0 * iwstruct38D0p = &gUnknown_030038D0;
 
-    REG_IE = struct0->unk50;
-    REG_DISPSTAT = struct0->unk52;
-    REG_DISPCNT = struct0->unk4A;
+    REG_IE = iwstruct38D0p->iwp_ie;
+    REG_DISPSTAT = iwstruct38D0p->lcd_dispstat;
+    REG_DISPCNT = iwstruct38D0p->lcd_dispcnt;
     // TODO: make these better
-    (*(vu32 *)REG_ADDR_BG0CNT) = IO_REG_STRUCT_MEMBER(struct0, unk0);
-    (*(vu32 *)REG_ADDR_BG0HOFS) = IO_REG_STRUCT_MEMBER(struct0, unk4);
-    (*(vu32 *)REG_ADDR_BG1HOFS) = IO_REG_STRUCT_MEMBER(struct0, unk6);
-    (*(vu32 *)REG_ADDR_BG2CNT) = IO_REG_STRUCT_MEMBER(struct0, unk2);
-    (*(vu32 *)REG_ADDR_BG2HOFS) = IO_REG_STRUCT_MEMBER(struct0, unk8);
-    (*(vu32 *)REG_ADDR_BG3HOFS) = IO_REG_STRUCT_MEMBER(struct0, unkA);
-    (*(vu32 *)REG_ADDR_BG2PA) = IO_REG_STRUCT_MEMBER(struct0, unkC);
-    (*(vu32 *)REG_ADDR_BG2PC) = IO_REG_STRUCT_MEMBER(struct0, unkE);
-    REG_BG2X = IO_REG_STRUCT_MEMBER(struct0, unk10);
-    REG_BG2Y = IO_REG_STRUCT_MEMBER(struct0, unk12);
-    (*(vu32 *)REG_ADDR_BG3PA) = IO_REG_STRUCT_MEMBER(struct0, unk14);
-    (*(vu32 *)REG_ADDR_BG3PC) = IO_REG_STRUCT_MEMBER(struct0, unk16);
-    REG_BG3X = IO_REG_STRUCT_MEMBER(struct0, unk18);
-    REG_BG3Y = IO_REG_STRUCT_MEMBER(struct0, unk1A);
-    (*(vu32 *)REG_ADDR_WIN0H) = IO_REG_STRUCT_MEMBER(struct0, unk1C);
-    (*(vu32 *)REG_ADDR_WIN0V) = IO_REG_STRUCT_MEMBER(struct0, unk1E);
-    (*(vu32 *)REG_ADDR_WININ) = IO_REG_STRUCT_MEMBER(struct0, unk20);
-    (*(vu32 *)REG_ADDR_MOSAIC) = IO_REG_STRUCT_MEMBER(struct0, unk22);
-    REG_BLDCNT = struct0->unk48;
-    REG_BLDALPHA = struct0->unk4C;
-    REG_BLDY = struct0->unk4E;
+    (*(vu32 *)REG_ADDR_BG0CNT) = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_bg0cnt);
+    (*(vu32 *)REG_ADDR_BG0HOFS) = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_bg0hofs);
+    (*(vu32 *)REG_ADDR_BG1HOFS) = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_bg1hofs);
+    (*(vu32 *)REG_ADDR_BG2CNT) = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_bg2cnt);
+    (*(vu32 *)REG_ADDR_BG2HOFS) = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_bg2hofs);
+    (*(vu32 *)REG_ADDR_BG3HOFS) = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_bg3hofs);
+    (*(vu32 *)REG_ADDR_BG2PA) = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_bg2pa);
+    (*(vu32 *)REG_ADDR_BG2PC) = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_bg2pc);
+    REG_BG2X = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_bg2x);
+    REG_BG2Y = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_bg2y);
+    (*(vu32 *)REG_ADDR_BG3PA) = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_bg3pa);
+    (*(vu32 *)REG_ADDR_BG3PC) = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_bg3pc);
+    REG_BG3X = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_bg3x);
+    REG_BG3Y = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_bg3y);
+    (*(vu32 *)REG_ADDR_WIN0H) = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_win0h);
+    (*(vu32 *)REG_ADDR_WIN0V) = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_win0v);
+    (*(vu32 *)REG_ADDR_WININ) = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_winin);
+    (*(vu32 *)REG_ADDR_MOSAIC) = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_mosaic);
+    REG_BLDCNT = iwstruct38D0p->lcd_bldcnt;
+    REG_BLDALPHA = iwstruct38D0p->lcd_bldalpha;
+    REG_BLDY = iwstruct38D0p->lcd_bldy;
 }
 
 #ifdef NONMATCHING // DECOMPILER: Pidgey
 void sub_80006DC() // TODO: this function sucks
                    // TODO: Rename to ReadKeys ?
 {
-    struct Struct3003720 * struct0 = &gUnknown_03003720;
+    struct Struct3003720 * iwstruct3720p = &gUnknown_03003720;
     u32 keyInput = *(u16 *)REG_ADDR_KEYINPUT ^ KEYS_MASK;
     u32 temp = keyInput;
-    struct0->unk4 = struct0->unk0;
-    struct0->unk6 = struct0->unk2;
-    struct0->unk0 = temp;
-    struct0->unk2 = temp & ~struct0->unk4;
-    struct0->unk8 = 0;
-    if(temp & struct0->unkA)
+    iwstruct3720p->unk4 = iwstruct3720p->unk0;
+    iwstruct3720p->unk6 = iwstruct3720p->unk2;
+    iwstruct3720p->unk0 = temp;
+    iwstruct3720p->unk2 = temp & ~iwstruct3720p->unk4;
+    iwstruct3720p->unk8 = 0;
+    if(temp & iwstruct3720p->unkA)
     {
-        if(struct0->unkE >= struct0->unkC)
+        if(iwstruct3720p->unkE >= iwstruct3720p->unkC)
         {
-            struct0->unkE = 0;
-            struct0->unk8 = temp & struct0->unkA;
+            iwstruct3720p->unkE = 0;
+            iwstruct3720p->unk8 = temp & iwstruct3720p->unkA;
         }
         else
         {
-            struct0->unkE = struct0->unkA + 1;
+            iwstruct3720p->unkE = iwstruct3720p->unkA + 1;
         }
     }
     else
     {
-        struct0->unkE = struct0->unkC; 
+        iwstruct3720p->unkE = iwstruct3720p->unkC; 
     }
 }
 #else
@@ -351,7 +351,7 @@ void sub_8000738(u16 arg0, u16 arg1)
 
 u32 sub_8000744()
 {
-    struct Struct3003720 * struct0 = &gUnknown_03003720;
+    struct Struct3003720 * iwstruct3720p = &gUnknown_03003720;
     if(gUnknown_03003730.unk2C == 0)
     {
         sub_80006DC();
@@ -359,7 +359,7 @@ u32 sub_8000744()
 
     gUnknown_03003730.unkD = 1; 
 
-    if(struct0->unk0 == 15)
+    if(iwstruct3720p->unk0 == 15)
     {
         return 1;
     }
@@ -406,74 +406,74 @@ void sub_80007D8(u16 arg0, u8 arg1, u8 arg2, u16 arg3)
 
 void sub_8000804()
 { 
-    struct Struct3003730 * struct0 = &gUnknown_03003730; // ip
-    struct Struct30038D0 * struct1 = &gUnknown_030038D0; // r4
+    struct Struct3003730 * iwstruct3730p = &gUnknown_03003730;
+    struct Struct30038D0 * iwstruct38D0p = &gUnknown_030038D0;
     u16 temp;
-    switch(struct0->unk76)
+    switch(iwstruct3730p->unk76)
     {
         case 0:
         default:
             break;
         case 1:
-            struct1->unk48 = struct0->unk74 | 0xC0;
-            struct0->unk78++;
-            if(struct0->unk78 >= struct0->unk7A)
+            iwstruct38D0p->lcd_bldcnt = iwstruct3730p->unk74 | 0xC0;
+            iwstruct3730p->unk78++;
+            if(iwstruct3730p->unk78 >= iwstruct3730p->unk7A)
             {
-                struct0->unk78 = 0;
-                struct1->unk4E -= struct0->unk7B;
+                iwstruct3730p->unk78 = 0;
+                iwstruct38D0p->lcd_bldy -= iwstruct3730p->unk7B;
             }
-            temp = struct1->unk4E &= 0x1F;
+            temp = iwstruct38D0p->lcd_bldy &= 0x1F;
             if(temp == 0)
             {
-                struct1->unk4E = temp;
-                struct1->unk48 = 0x1C42;
-                struct1->unk4C = 0x71F;
-                struct0->unk76 = temp;
+                iwstruct38D0p->lcd_bldy = temp;
+                iwstruct38D0p->lcd_bldcnt = 0x1C42;
+                iwstruct38D0p->lcd_bldalpha = 0x71F;
+                iwstruct3730p->unk76 = temp;
             }
             break;
         case 2:
-            struct1->unk48 = struct0->unk74 | 0xC0;
-            struct0->unk78++;
-            if(struct0->unk78 >= struct0->unk7A)
+            iwstruct38D0p->lcd_bldcnt = iwstruct3730p->unk74 | 0xC0;
+            iwstruct3730p->unk78++;
+            if(iwstruct3730p->unk78 >= iwstruct3730p->unk7A)
             {
-                struct0->unk78 = 0;
-                struct1->unk4E += struct0->unk7B;
+                iwstruct3730p->unk78 = 0;
+                iwstruct38D0p->lcd_bldy += iwstruct3730p->unk7B;
             }
-            temp = struct1->unk4E &= 0x1F;
+            temp = iwstruct38D0p->lcd_bldy &= 0x1F;
             if(temp == 0x10)
             {
-                struct0->unk76 = 0;
+                iwstruct3730p->unk76 = 0;
             }
             break;
         case 3:
-            struct1->unk48 = struct0->unk74 | 0x80;
-            struct0->unk78++;
-            if(struct0->unk78 >= struct0->unk7A)
+            iwstruct38D0p->lcd_bldcnt = iwstruct3730p->unk74 | 0x80;
+            iwstruct3730p->unk78++;
+            if(iwstruct3730p->unk78 >= iwstruct3730p->unk7A)
             {
-                struct0->unk78 = 0;
-                struct1->unk4E -= struct0->unk7B;
+                iwstruct3730p->unk78 = 0;
+                iwstruct38D0p->lcd_bldy -= iwstruct3730p->unk7B;
             }
-            temp = struct1->unk4E &= 0x1F;
+            temp = iwstruct38D0p->lcd_bldy &= 0x1F;
             if(temp == 0)
             {
-                struct1->unk4E = temp;
-                struct1->unk48 = 0x1C42;
-                struct1->unk4C = 0x71F;
-                struct0->unk76 = temp;
+                iwstruct38D0p->lcd_bldy = temp;
+                iwstruct38D0p->lcd_bldcnt = 0x1C42;
+                iwstruct38D0p->lcd_bldalpha = 0x71F;
+                iwstruct3730p->unk76 = temp;
             }
             break;
         case 4:
-            struct1->unk48 = struct0->unk74 | 0x80;
-            struct0->unk78++;
-            if(struct0->unk78 >= struct0->unk7A)
+            iwstruct38D0p->lcd_bldcnt = iwstruct3730p->unk74 | 0x80;
+            iwstruct3730p->unk78++;
+            if(iwstruct3730p->unk78 >= iwstruct3730p->unk7A)
             {
-                struct0->unk78 = 0;
-                struct1->unk4E += struct0->unk7B;
+                iwstruct3730p->unk78 = 0;
+                iwstruct38D0p->lcd_bldy += iwstruct3730p->unk7B;
             }
-            temp = struct1->unk4E &= 0x1F;
+            temp = iwstruct38D0p->lcd_bldy &= 0x1F;
             if(temp == 0x10)
             {
-                struct0->unk76 = 0;
+                iwstruct3730p->unk76 = 0;
             }
             break;
     }
