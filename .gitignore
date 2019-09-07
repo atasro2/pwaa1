@@ -60,4 +60,5 @@ src/*.s
 tools/
 build/
 *.sav
-
+*.code-workspace
+.vscode/
