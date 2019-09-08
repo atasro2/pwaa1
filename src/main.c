@@ -10,7 +10,7 @@ void CheckAButtonOnBoot()
     if(!gUnknown_03003730.unk1.field0) 
     {
         input = (u16 *)REG_ADDR_KEYINPUT;
-        keys = (0x3FF ^ *input);
+        keys = (KEYS_MASK ^ *input);
         if (A_BUTTON & keys)
             gUnknown_03003730.unk1.field0 = 0xe;
     }
@@ -259,28 +259,30 @@ void sub_8000624()
     REG_BLDY = iwstruct38D0p->lcd_bldy;
 }
 
-#ifdef NONMATCHING // DECOMPILER: Pidgey
 void sub_80006DC() // TODO: this function sucks
                    // TODO: Rename to ReadKeys ?
 {
     struct Struct3003720 * iwstruct3720p = &gUnknown_03003720;
-    u32 keyInput = *(u16 *)REG_ADDR_KEYINPUT ^ KEYS_MASK;
-    u32 temp = keyInput;
+    u16 *keyInput = (u16 *)REG_ADDR_KEYINPUT;
+    u16 temp = KEYS_MASK ^ *keyInput;
+    u32 temp2;
     iwstruct3720p->unk4 = iwstruct3720p->unk0;
     iwstruct3720p->unk6 = iwstruct3720p->unk2;
-    iwstruct3720p->unk0 = temp;
+    iwstruct3720p->unk0 = (KEYS_MASK ^ *keyInput);
     iwstruct3720p->unk2 = temp & ~iwstruct3720p->unk4;
     iwstruct3720p->unk8 = 0;
-    if(temp & iwstruct3720p->unkA)
+    temp2 = iwstruct3720p->unkA;
+    if((KEYS_MASK ^ *keyInput) & temp2)
     {
-        if(iwstruct3720p->unkE >= iwstruct3720p->unkC)
+        temp2 = iwstruct3720p->unkC;
+        if(iwstruct3720p->unkE >= temp2)
         {
             iwstruct3720p->unkE = 0;
             iwstruct3720p->unk8 = temp & iwstruct3720p->unkA;
         }
         else
         {
-            iwstruct3720p->unkE = iwstruct3720p->unkA + 1;
+            iwstruct3720p->unkE++;
         }
     }
     else
@@ -288,59 +290,6 @@ void sub_80006DC() // TODO: this function sucks
         iwstruct3720p->unkE = iwstruct3720p->unkC; 
     }
 }
-#else
-NAKED
-void sub_80006DC()
-{
-    asm_unified("    push {r4, lr}\n\
-	ldr r2, _0800071C\n\
-	ldr r1, _08000720\n\
-	ldr r3, _08000724\n\
-	adds r0, r3, #0\n\
-	ldrh r1, [r1]\n\
-	eors r0, r1\n\
-	adds r3, r0, #0\n\
-	ldrh r1, [r2]\n\
-	movs r4, #0\n\
-	strh r1, [r2, #4]\n\
-	ldrh r0, [r2, #2]\n\
-	strh r0, [r2, #6]\n\
-	strh r3, [r2]\n\
-	adds r0, r3, #0\n\
-	bics r0, r1\n\
-	strh r0, [r2, #2]\n\
-	strh r4, [r2, #8]\n\
-	adds r0, r3, #0\n\
-	ldrh r1, [r2, #0xa]\n\
-	ands r0, r1\n\
-	cmp r0, #0\n\
-	beq _0800072C\n\
-	ldrh r0, [r2, #0xe]\n\
-	ldrh r1, [r2, #0xc]\n\
-	cmp r0, r1\n\
-	blo _08000728\n\
-	strh r4, [r2, #0xe]\n\
-	ldrh r0, [r2, #0xa]\n\
-	ands r3, r0\n\
-	strh r3, [r2, #8]\n\
-	b _08000730\n\
-	.align 2, 0\n\
-_0800071C: .4byte gUnknown_03003720\n\
-_08000720: .4byte 0x04000130\n\
-_08000724: .4byte 0x000003FF\n\
-_08000728:\n\
-	adds r0, #1\n\
-	b _0800072E\n\
-_0800072C:\n\
-	ldrh r0, [r2, #0xc]\n\
-_0800072E:\n\
-	strh r0, [r2, #0xe]\n\
-_08000730:\n\
-	pop {r4}\n\
-	pop {r0}\n\
-	bx r0");
-}
-#endif//NONMATCHING
 
 void sub_8000738(u16 arg0, u16 arg1)
 {
