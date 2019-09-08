@@ -60,6 +60,7 @@ clean:
 
 $(ROM): $(ELF)
 	$(OBJCOPY) -O binary $< $@
+	$(GBAFIX) --silent -p $@
 
 $(ELF): %.elf: $(OBJS) ld_script.txt
 	cp sym_iwram.txt $(OBJ_DIR)
