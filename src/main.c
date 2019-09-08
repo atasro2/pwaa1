@@ -16,7 +16,7 @@ void CheckAButtonOnBoot()
     }
 }
 
-void AgbMain()
+void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
 {
     u32 v0;
     DmaFill32(3, 0, IWRAM_START, 0x7E00); // clear IWRAM
@@ -440,4 +440,19 @@ void nullsub_36()
 
 void nullsub_5()
 {
+}
+
+void sub_8000930()
+{
+    u32 i;
+    u16 * temp;
+    DmaFill16(3, 0, &gUnknown_03002F20, sizeof(gUnknown_03002F20));
+    for(temp = gUnknown_03002000, i = 0; i < ARRAY_COUNT(gUnknown_08013B70); i++, temp++)
+    {
+        (*temp) = gUnknown_08013B70[i];
+    }
+    DmaFill16(3, 0, &gUnknown_03000000, sizeof(gUnknown_03000000));
+    gUnknown_030038D0.lcd_bg2vofs = 0;
+    gUnknown_030038D0.lcd_bg2hofs = 8;
+    sub_80009AC();
 }

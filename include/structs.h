@@ -1,6 +1,10 @@
 #ifndef GUARD_STRUCTS_H //TODO: get rid of this
 #define GUARD_STRUCTS_H
 
+struct Struct3000000
+{
+    u8 filler0[0x800];
+};
 struct Struct3004000
 {
     u32 unk0;
@@ -15,6 +19,12 @@ union UnknownUnion
 {
     u8 field0;
     u32 field1;
+};
+
+struct Struct3002F20
+{
+    u8 filler0[0x800]; // this struct either has structs in it or it's huge as fuck
+                       // Maybe this is 
 };
 
 struct Struct3003720

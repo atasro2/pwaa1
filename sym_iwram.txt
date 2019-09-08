@@ -37,9 +37,6 @@
 . = 0x00002CE8; gUnknown_03002CE8 = .;
 . = 0x00002DE0; gUnknown_03002DE0 = .;
 . = 0x00002F20; gUnknown_03002F20 = .;
-. = 0x00002F60; gUnknown_03002F60 = .;
-. = 0x00002F62; gUnknown_03002F62 = .;
-. = 0x00002F98; gUnknown_03002F98 = .;
 . = 0x00003720; gUnknown_03003720 = .;
 . = 0x00003730; gUnknown_03003730 = .;
 . = 0x00003734; gUnknown_03003734 = .;

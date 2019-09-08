@@ -791,14 +791,14 @@ gUnknown_081B292C:
     .global gUnknown_081D310C
 gUnknown_081D310C:
     .incbin "baserom.gba", 0x001D310C, 0x20
-
-    .global gUnknown_081D312C
+    
+    .global gUnknown_081D312C @ Charset 1 Roman alphabet and Kana
 gUnknown_081D312C:
     .incbin "baserom.gba", 0x001D312C, 0x7100
 
-    .global gUnknown_081DA22C
+    .global gUnknown_081DA22C @ Charset 2 Symbols and Kanji
 gUnknown_081DA22C:
-    .incbin "baserom.gba", 0x001DA22C, 0x23700
+    .incbin "baserom.gba", 0x001DA22C, 0x23700 @ Capcom please compress your crap
 
     .global gUnknown_081FD92C
 gUnknown_081FD92C:

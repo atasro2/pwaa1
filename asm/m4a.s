@@ -1632,8 +1632,8 @@ sub_8011F70: @ 0x08011F70
 	bx r0
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8011F7C
-sub_8011F7C: @ 0x08011F7C
+	THUMB_FUNC_START m4aSongNumStart
+m4aSongNumStart: @ 0x08011F7C
 	push {lr}
 	lsls r0, r0, #0x10
 	ldr r2, _08011FA0
@@ -1655,8 +1655,8 @@ sub_8011F7C: @ 0x08011F7C
 _08011FA0: .4byte gUnknown_080412FC
 _08011FA4: .4byte gUnknown_0804132C
 
-	THUMB_FUNC_START sub_8011FA8
-sub_8011FA8: @ 0x08011FA8
+	THUMB_FUNC_START m4aSongNumStartOrChange
+m4aSongNumStartOrChange: @ 0x08011FA8
 	push {lr}
 	lsls r0, r0, #0x10
 	ldr r2, _08011FD4

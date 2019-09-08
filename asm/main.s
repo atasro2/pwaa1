@@ -2,63 +2,6 @@
 
 .syntax unified
 
-	THUMB_FUNC_START sub_8000930
-sub_8000930: @ 0x08000930
-	push {r4, r5, r6, lr}
-	sub sp, #4
-	mov r1, sp
-	movs r0, #0
-	strh r0, [r1]
-	ldr r1, _0800098C
-	mov r0, sp
-	str r0, [r1]
-	ldr r0, _08000990
-	str r0, [r1, #4]
-	ldr r0, _08000994
-	str r0, [r1, #8]
-	ldr r0, [r1, #8]
-	ldr r2, _08000998
-	movs r1, #0
-	ldr r4, _0800099C
-	ldr r6, _080009A0
-	ldr r5, _080009A4
-	ldr r3, _080009A8
-_08000956:
-	adds r0, r1, r3
-	ldrb r0, [r0]
-	strh r0, [r2]
-	adds r1, #1
-	adds r2, #2
-	cmp r1, r4
-	bls _08000956
-	mov r1, sp
-	movs r0, #0
-	strh r0, [r1]
-	ldr r0, _0800098C
-	str r1, [r0]
-	str r6, [r0, #4]
-	ldr r1, _08000994
-	str r1, [r0, #8]
-	ldr r0, [r0, #8]
-	movs r0, #0
-	strh r0, [r5, #0x12]
-	movs r0, #8
-	strh r0, [r5, #0x10]
-	bl sub_80009AC
-	add sp, #4
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800098C: .4byte 0x040000D4
-_08000990: .4byte gUnknown_03002F20
-_08000994: .4byte 0x81000400
-_08000998: .4byte gUnknown_03002000
-_0800099C: .4byte 0x000003FF
-_080009A0: .4byte gUnknown_03000000
-_080009A4: .4byte gUnknown_030038D0
-_080009A8: .4byte gUnknown_08013B70
-
 	THUMB_FUNC_START sub_80009AC
 sub_80009AC: @ 0x080009AC
 	push {r4, r5, r6, lr}
@@ -28963,7 +28906,7 @@ _0800F170:
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-_0800F17C: .4byte gUnknown_03002F60
+_0800F17C: .4byte gUnknown_03002F20+0x40
 _0800F180: .4byte 0x0000013F
 _0800F184: .4byte _0800F188
 _0800F188: @ jump table
@@ -29098,7 +29041,7 @@ _0800F26A:
 	blo _0800F26A
 	b _0800F360
 	.align 2, 0
-_0800F284: .4byte gUnknown_03002F62
+_0800F284: .4byte gUnknown_03002F20+0x42
 _0800F288:
 	ldr r3, _0800F390
 	subs r3, #2
@@ -29244,7 +29187,7 @@ _0800F37E:
 	subs r0, r2, #1
 	b _0800F3B0
 	.align 2, 0
-_0800F390: .4byte gUnknown_03002F98
+_0800F390: .4byte gUnknown_03002F20+0x78
 _0800F394:
 	movs r0, #2
 	strb r0, [r3]
@@ -29307,7 +29250,7 @@ sub_800F3E0: @ 0x0800F3E0
 	bne _0800F3FE
 	lsls r0, r2, #0x10
 	lsrs r0, r0, #0x10
-	bl sub_8011F7C
+	bl m4aSongNumStart
 _0800F3FE:
 	pop {r0}
 	bx r0
@@ -29334,14 +29277,14 @@ sub_800F408: @ 0x0800F408
 	beq _0800F438
 	lsls r0, r4, #0x10
 	lsrs r0, r0, #0x10
-	bl sub_8011F7C
+	bl m4aSongNumStart
 	b _0800F440
 	.align 2, 0
 _0800F434: .4byte gUnknown_03003730
 _0800F438:
 	lsls r0, r4, #0x10
 	lsrs r0, r0, #0x10
-	bl sub_8011FA8
+	bl m4aSongNumStartOrChange
 _0800F440:
 	strb r4, [r5, #0x1d]
 	movs r0, #0xa0
@@ -29511,7 +29454,7 @@ sub_800F540: @ 0x0800F540
 	strb r0, [r4, #0x1c]
 	lsls r0, r1, #0x10
 	lsrs r0, r0, #0x10
-	bl sub_8011F7C
+	bl m4aSongNumStart
 	ldr r4, _0800F590
 	adds r0, r4, #0
 	bl sub_801216C
