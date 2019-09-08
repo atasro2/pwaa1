@@ -1361,6 +1361,76 @@ gUnknown_08748218:
 
     .global gUnknown_08749428
 gUnknown_08749428:
-    .incbin "baserom.gba", 0x00749428, 0x795B4
+    .incbin "baserom.gba", 0x00749428, 0xDEC
+    
+@ ; BEGIN SCRIPTS
+    
+    .global gUnknown_0874A214
+gUnknown_0874A214:
+    .incbin "baserom.gba", 0x0074A214, 0x5A28
+    
+    .global gUnknown_0874FC3C
+gUnknown_0874FC3C:
+    .incbin "baserom.gba", 0x0074FC3C, 0x64BC
+    
+    .global gUnknown_087560F8
+gUnknown_087560F8:
+    .incbin "baserom.gba", 0x007560F8, 0x80fc ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    
+    .global gUnknown_0875E1F4
+gUnknown_0875E1F4:
+    .incbin "baserom.gba", 0x0075E1F4, 0x6810
+    
+    .global gUnknown_08764A04
+gUnknown_0864A04:
+    .incbin "baserom.gba", 0x00764A04, 0x63E8
+    
+    .global gUnknown_0876ADEC
+gUnknown_0876ADEC:
+    .incbin "baserom.gba", 0x0076ADEC, 0x6068
+    
+    .global gUnknown_08770E54
+gUnknown_08770E54:
+    .incbin "baserom.gba", 0x00770E54, 0x5748
+    
+    .global gUnknown_0877659C
+gUnknown_0877659C:
+    .incbin "baserom.gba", 0x0077659C, 0x806c ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    
+    .global gUnknown_0877E608
+gUnknown_0877E608:
+    .incbin "baserom.gba", 0x0077E608, 0x6f6c ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    
+    .global gUnknown_08785574
+gUnknown_08785574:
+    .incbin "baserom.gba", 0x00785574, 0x512C
+    
+    .global gUnknown_0878A6A0
+gUnknown_0878A6A0:
+    .incbin "baserom.gba", 0x0078A6A0, 0x6114
+    
+    .global gUnknown_087907B4
+gUnknown_087907B4:
+    .incbin "baserom.gba", 0x007907B4, 0x8264 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    
+    .global gUnknown_08798A18
+gUnknown_08798A18:
+    .incbin "baserom.gba", 0x00798A18, 0x75c8 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    
+    .global gUnknown_0879FFE0
+gUnknown_0879FFE0:
+    .incbin "baserom.gba", 0x0079FFE0, 0x977c ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    
+    .global gUnknown_087A975C
+gUnknown_087A975C:
+    .incbin "baserom.gba", 0x007A975C, 0x6bf4 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    
+    .global gUnknown_087B0350
+gUnknown_087B0350:
+    .incbin "baserom.gba", 0x007B0350, 0x6E00
 
-
+    .global gUnknown_087B7150
+gUnknown_087B7150:
+    .incbin "baserom.gba", 0x007B7150, 0xB88C ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    
+@ ; END SCRIPTS ?
