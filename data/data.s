@@ -446,7 +446,7 @@ gUnknown_080189A4:
 
     .global gUnknown_08018A3C
 gUnknown_08018A3C:
-    .incbin "baserom.gba", 0x00018A3C, 0x30
+    .ascii "2001 CAPCOM GBA GYAKUTEN-SAIBAN 06/15 Ver 1.000-"
 
     .global gUnknown_08018A6C
 gUnknown_08018A6C:
@@ -1361,6 +1361,6 @@ gUnknown_08748218:
 
     .global gUnknown_08749428
 gUnknown_08749428:
-    .incbin "baserom.gba", 0x00749428, 0xB6BD8
+    .incbin "baserom.gba", 0x00749428, 0x795B4
 
 
