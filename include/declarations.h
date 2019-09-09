@@ -16,9 +16,9 @@ void sub_8000738(u16, u16);
 u32 sub_8000744();
 void sub_8000804();
 void sub_8000930();
+void sub_80009AC();
 
 //ASMFUNCTIONS
-extern void sub_80009AC();
 extern void sub_8011F70();
 extern void sub_800F614();
 extern void sub_8001744(u16);

@@ -18,6 +18,8 @@ SECTIONS {
         asm/crt0.o(.text);
         src/main.o(.text);
         asm/main.o(.text);
+        asm/cmd_mus.o(.text);
+        asm/rom800F7F0.o(.text);
         asm/m4a.o(.text);
         asm/libagbsyscall.o(.text);
         src/agb_sram.o(.text);
