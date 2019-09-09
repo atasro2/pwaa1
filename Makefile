@@ -34,7 +34,7 @@ $(shell mkdir -p $(SUBDIRS))
 ASFLAGS := -mcpu=arm7tdmi
 
 CC1             := tools/agbcc/bin/old_agbcc
-override CFLAGS += -mthumb-interwork -Wimplicit -Wparentheses -Werror -O2 -g -fhex-asm
+override CFLAGS += -mthumb-interwork -Wimplicit -Wparentheses -Werror -O2 -fhex-asm
 
 CPPFLAGS := -I tools/agbcc -I tools/agbcc/include -iquote include -nostdinc
 
