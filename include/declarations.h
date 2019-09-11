@@ -53,5 +53,8 @@ extern struct Struct3003A50 gUnknown_03003A50;
 extern struct Struct3003A70 gUnknown_03003A70;
 extern struct Struct3003AB0 gUnknown_03003AB0; 
 extern struct Struct3004000 gUnknown_03004000;
+extern struct MusicPlayerInfo gUnknown_030058C0;
+extern struct MusicPlayerInfo gUnknown_03005900;
+extern struct MusicPlayerInfo gUnknown_03005940;
 extern struct OamData gOamObjects[128];
 #endif//GUARD_DECLARATIONS_H

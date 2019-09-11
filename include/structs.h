@@ -24,7 +24,6 @@ union UnknownUnion
 struct Struct3002F20
 {
     u8 filler0[0x800]; // this struct either has structs in it or it's huge as fuck
-                       // Maybe this is 
 };
 
 struct Struct3003720
@@ -50,7 +49,13 @@ struct Struct3003730
     s8 unkF;
     u16 unk10;
     u8 unk12;
-    u8 filler13[0x11];
+    u8 filler13[0x7];
+    s16 unk1A;
+    u8 unk1C;
+    u8 unk1D;
+    u8 filler1E[0x2];
+    s16 unk20;
+    s16 unk22;
     u16 unk24;
     u8 filler26[0x2];
     u16 unk28;
@@ -69,7 +74,9 @@ struct Struct3003730
     u8 unk8E;
     u8 filler8F[0x25];
     u32 unkB4;
-    u8 fillerB8[0xE8];
+    u8 fillerB8[0xE0];
+    u32 unk198;
+    u8 filler19C[0x4];
 };
 
 struct Struct30038D0
