@@ -18,6 +18,4 @@ void m4aMPlayFadeOutTemporarily(struct MusicPlayerInfo *mplayInfo, u16 speed);
 void m4aMPlayFadeIn(struct MusicPlayerInfo *mplayInfo, u16 speed);
 void m4aMPlayImmInit(struct MusicPlayerInfo *mplayInfo);
 
-extern struct MusicPlayerInfo gMPlayInfo_BGM;
-
 #endif //GUARD_M4A_H

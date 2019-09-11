@@ -1632,8 +1632,8 @@ sub_8011F70: @ 0x08011F70
 	bx r0
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8011F7C
-sub_8011F7C: @ 0x08011F7C
+	THUMB_FUNC_START m4aSongNumStart
+m4aSongNumStart: @ 0x08011F7C
 	push {lr}
 	lsls r0, r0, #0x10
 	ldr r2, _08011FA0
@@ -1655,8 +1655,8 @@ sub_8011F7C: @ 0x08011F7C
 _08011FA0: .4byte gUnknown_080412FC
 _08011FA4: .4byte gUnknown_0804132C
 
-	THUMB_FUNC_START sub_8011FA8
-sub_8011FA8: @ 0x08011FA8
+	THUMB_FUNC_START m4aSongNumStartOrChange
+m4aSongNumStartOrChange: @ 0x08011FA8
 	push {lr}
 	lsls r0, r0, #0x10
 	ldr r2, _08011FD4
@@ -1757,7 +1757,7 @@ sub_8012048: @ 0x08012048
 	cmp r1, r0
 	bne _0801206E
 	adds r0, r2, #0
-	bl sub_8012794
+	bl m4aMPlayStop
 _0801206E:
 	pop {r0}
 	bx r0
@@ -1804,7 +1804,7 @@ m4aMPlayAllStop: @ 0x080120B0
 	adds r4, r0, #0
 _080120C0:
 	ldr r0, [r5]
-	bl sub_8012794
+	bl m4aMPlayStop
 	adds r5, #0xc
 	subs r4, #1
 	cmp r4, #0
@@ -1817,8 +1817,8 @@ _080120CE:
 _080120D4: .4byte 0x00000004
 _080120D8: .4byte gUnknown_080412FC
 
-	THUMB_FUNC_START sub_80120DC
-sub_80120DC: @ 0x080120DC
+	THUMB_FUNC_START m4aMPlayContinue
+m4aMPlayContinue: @ 0x080120DC
 	push {lr}
 	bl sub_8011EBC
 	pop {r0}
@@ -1860,8 +1860,8 @@ sub_8012114: @ 0x08012114
 	bx r0
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8012124
-sub_8012124: @ 0x08012124
+	THUMB_FUNC_START m4aMPlayFadeOutTemporarily
+m4aMPlayFadeOutTemporarily: @ 0x08012124
 	adds r2, r0, #0
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
@@ -1879,8 +1879,8 @@ _0801213A:
 _0801213C: .4byte 0x68736D53
 _08012140: .4byte 0x00000101
 
-	THUMB_FUNC_START sub_8012144
-sub_8012144: @ 0x08012144
+	THUMB_FUNC_START m4aMPlayFadeIn
+m4aMPlayFadeIn: @ 0x08012144
 	adds r2, r0, #0
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
@@ -1902,8 +1902,8 @@ _08012162:
 _08012164: .4byte 0x68736D53
 _08012168: .4byte 0x7FFFFFFF
 
-	THUMB_FUNC_START sub_801216C
-sub_801216C: @ 0x0801216C
+	THUMB_FUNC_START m4aMPlayImmInit
+m4aMPlayImmInit: @ 0x0801216C
 	push {r4, r5, r6, r7, lr}
 	ldrb r5, [r0, #8]
 	ldr r4, [r0, #0x2c]
@@ -2685,8 +2685,8 @@ _08012786:
 	.align 2, 0
 _08012790: .4byte 0x68736D53
 
-	THUMB_FUNC_START sub_8012794
-sub_8012794: @ 0x08012794
+	THUMB_FUNC_START m4aMPlayStop
+m4aMPlayStop: @ 0x08012794
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldr r1, [r6, #0x34]
@@ -3740,8 +3740,8 @@ _08012F18:
 	.align 2, 0
 _08012F20: .4byte 0x68736D53
 
-	THUMB_FUNC_START sub_8012F24
-sub_8012F24: @ 0x08012F24
+	THUMB_FUNC_START m4aMPlayVolumeControl
+m4aMPlayVolumeControl: @ 0x08012F24
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -3864,8 +3864,8 @@ _08012FEE:
 	.align 2, 0
 _08012FFC: .4byte 0x68736D53
 
-	THUMB_FUNC_START sub_8013000
-sub_8013000: @ 0x08013000
+	THUMB_FUNC_START m4aMPlayPanpotControl
+m4aMPlayPanpotControl: @ 0x08013000
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
