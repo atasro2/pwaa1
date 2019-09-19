@@ -68,7 +68,7 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
                 sub_8001744(gUnknown_03003730.unk28);
             }
             sub_800F614();
-            sub_8011F70();
+            m4aSoundMain();
             goto LOOP2;
         }
     }

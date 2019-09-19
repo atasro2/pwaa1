@@ -10446,7 +10446,7 @@ sub_8005EF8: @ 0x08005EF8
 	b _08005F1C
 _08005F16:
 	adds r0, r2, #0
-	bl sub_8012048
+	bl m4aSongNumStop
 _08005F1C:
 	ldr r0, [r4, #4]
 	adds r0, #2
