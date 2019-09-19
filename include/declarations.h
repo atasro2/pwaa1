@@ -42,6 +42,7 @@ extern struct Struct2000000 gUnknown_02000000;
 
 //IWRAM
 extern struct Struct3000000 gUnknown_03000000;
+extern u16 gUnknown_03001000[0xBABE]; //TODO: please find the size of this
 extern u16 gUnknown_03002000[0x400];
 extern u32 gUnknown_03002800[0x10];
 extern struct Struct3002840 gUnknown_03002840;

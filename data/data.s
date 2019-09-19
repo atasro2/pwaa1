@@ -534,7 +534,22 @@ gUnknown_080795FC:
 
     .global gUnknown_0811DBB4
 gUnknown_0811DBB4:
-    .incbin "baserom.gba", 0x0011DBB4, 0x3C
+@ replacing .incbin "baserom.gba", 0x0011dbb4, 0x3c
+.4byte sub_8007A0C
+.4byte sub_8007AC4
+.4byte sub_8007E78
+.4byte sub_800A3D4
+.4byte sub_800B7BC
+.4byte sub_800A87C
+.4byte sub_800AB40
+.4byte sub_800D824
+.4byte sub_800D860
+.4byte sub_800B038
+.4byte sub_80084D4
+.4byte sub_80090E8
+.4byte sub_80094E4
+.4byte sub_8009A64
+.4byte sub_80081EC
 
     .global gUnknown_0811DBF0
 gUnknown_0811DBF0:
@@ -570,7 +585,103 @@ gUnknown_0811DD64:
 
     .global gUnknown_0811DDA8
 gUnknown_0811DDA8:
-    .incbin "baserom.gba", 0x0011DDA8, 0x180
+@ replacing .incbin "baserom.gba", 0x0011dda8, 0x180
+    .4byte sub_8005BA4
+    .4byte sub_8005BC4
+    .4byte sub_8005BF4
+    .4byte sub_8005EA0
+    .4byte sub_8005EB8
+    .4byte sub_8005ED4
+    .4byte sub_8005EF8
+    .4byte sub_8005BF4
+    .4byte sub_8005F2C
+    .4byte sub_80060D8
+    .4byte sub_8005BF4
+    .4byte sub_800628C
+    .4byte sub_80062BC
+    .4byte sub_8006300
+    .4byte sub_8006314
+    .4byte sub_8006380
+    .4byte sub_80063A0
+    .4byte sub_80063C4
+    .4byte sub_8006404
+    .4byte sub_8006430
+    .4byte sub_8006468
+    .4byte sub_8006488
+    .4byte sub_80064C4
+    .4byte sub_8006500
+    .4byte sub_800659C
+    .4byte sub_80065FC
+    .4byte sub_8006680
+    .4byte sub_80066D4
+    .4byte sub_800671C
+    .4byte sub_8006830
+    .4byte sub_80068B8
+    .4byte sub_8006920
+    .4byte sub_8006978
+    .4byte sub_8006988
+    .4byte sub_80069C8
+    .4byte sub_80069F4
+    .4byte sub_8006A20
+    .4byte sub_8006A3C
+    .4byte sub_8006A4C
+    .4byte sub_8006A88
+    .4byte sub_8006AB4
+    .4byte sub_8006AEC
+    .4byte sub_8006B98
+    .4byte sub_8006BC8
+    .4byte sub_8006C20
+    .4byte sub_8005BF4
+    .4byte sub_8006C8C
+    .4byte sub_8006CF4
+    .4byte sub_8006D28
+    .4byte sub_8006D4C
+    .4byte sub_8006D70
+    .4byte sub_8006D90
+    .4byte sub_8006DE8
+    .4byte sub_8006E1C
+    .4byte sub_8006EA0
+    .4byte sub_8006ED4
+    .4byte sub_8006F00
+    .4byte sub_8006F3C
+    .4byte sub_8007054
+    .4byte sub_80070BC
+    .4byte sub_8007124
+    .4byte sub_800718C
+    .4byte sub_80071D8
+    .4byte sub_800724C
+    .4byte sub_8007574
+    .4byte sub_800759C
+    .4byte sub_8007604
+    .4byte sub_8007648
+    .4byte sub_80076B4
+    .4byte sub_8006488
+    .4byte sub_80077A0
+    .4byte sub_8007868
+    .4byte sub_800788C
+    .4byte sub_80078EC
+    .4byte sub_8007908
+    .4byte sub_8007944
+    .4byte sub_80079A0
+    .4byte nullsub_13
+    .4byte nullsub_14
+    .4byte nullsub_15
+    .4byte nullsub_38
+    .4byte nullsub_17
+    .4byte nullsub_18
+    .4byte nullsub_19
+    .4byte nullsub_20
+    .4byte nullsub_21
+    .4byte nullsub_39
+    .4byte nullsub_23
+    .4byte nullsub_24
+    .4byte nullsub_25
+    .4byte nullsub_26
+    .4byte nullsub_27
+    .4byte nullsub_28
+    .4byte nullsub_29
+    .4byte nullsub_30
+    .4byte nullsub_31
 
     .global gUnknown_0811DF28
 gUnknown_0811DF28:
@@ -793,11 +904,12 @@ gUnknown_081D310C:
     .incbin "baserom.gba", 0x001D310C, 0x20
 
     .global gUnknown_081D312C
-gUnknown_081D312C:
+gUnknown_081D312C:  @ Charset
     .incbin "baserom.gba", 0x001D312C, 0x7100
 
-    .global gUnknown_081DA22C
-gUnknown_081DA22C:
+    @ this is a bruh moment
+    .global gUnknown_081DA22C @ bruh this isn't even a second tileset smh
+gUnknown_081DA22C:  @ this is the address of the pointer finger character for selecting something in a texbox
     .incbin "baserom.gba", 0x001DA22C, 0x23700
 
     .global gUnknown_081FD92C
@@ -1434,3 +1546,5 @@ gUnknown_087B7150:
     .incbin "baserom.gba", 0x007B7150, 0xB88C ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     
 @ ; END SCRIPTS ?
+
+

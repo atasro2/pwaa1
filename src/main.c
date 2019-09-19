@@ -456,3 +456,14 @@ void sub_8000930()
     gUnknown_030038D0.lcd_bg2hofs = 8;
     sub_80009AC();
 }
+/*
+void sub_80009AC()
+{
+    u32 i;
+    for(i = 0; i < 0x1E; i++)
+    {
+        gUnknown_03001000[i+1] = 0x258 + i;
+    }
+}
+decomp later ig
+*/
