@@ -9354,7 +9354,7 @@ _080056D8:
 @ MESSAGE_SYSTEM.c is around here somewhere
 
 @ Args: u32 u32 u32 or u16 u8 u8
-	THUMB_FUNC_START sub_80056E0 @ CopyCharlyphToWindow?
+	THUMB_FUNC_START sub_80056E0 @ CopyCharGlyphToWindow?
 sub_80056E0: @ 0x080056E0
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
