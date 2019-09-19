@@ -1,6 +1,8 @@
 #include "global.h"
 #include "m4a.h"
 
+// perhaps this file is mus_utils.c and not very script related
+
 void sub_800F3E0(u32 songNum)
 {
     struct Struct3003730 * struct3730p = &gUnknown_03003730;
