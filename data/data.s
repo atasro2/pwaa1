@@ -1,8 +1,23 @@
 	.section .data
 
-    .global gUnknown_08013798
-gUnknown_08013798:
-	.incbin "data/bins/8013798.bin"
+    .global IntrTableFunctionPtrs
+IntrTableFunctionPtrs:
+    .4byte VCountIntr
+    .4byte SerialIntrDummy
+    .4byte IntrDummy
+    .4byte IntrDummy
+    .4byte IntrDummy
+    .4byte IntrDummy
+    .4byte IntrDummy
+    .4byte IntrDummy
+    .4byte IntrDummy
+    .4byte IntrDummy
+    .4byte IntrDummy
+    .4byte IntrDummy
+    .4byte IntrDummy
+    .4byte IntrDummy
+    .4byte IntrDummy
+    .4byte IntrDummy
 	
     .global gUnknown_080137D8
 gUnknown_080137D8:
@@ -483,12 +498,12 @@ gUnknown_080194AB:
     .global gUnknown_080194CA
 gUnknown_080194CA:
     .incbin "baserom.gba", 0x000194CA, 0x27E32
-
-    .global gUnknown_080412FC
+    @ Voicegroups around here
+    .global gUnknown_080412FC @ MPlayTable
 gUnknown_080412FC:
     .incbin "baserom.gba", 0x000412FC, 0x30
 
-    .global gUnknown_0804132C
+    .global gUnknown_0804132C @ Songtable
 gUnknown_0804132C:
     .incbin "baserom.gba", 0x0004132C, 0x38028
 
@@ -534,22 +549,21 @@ gUnknown_080795FC:
 
     .global gUnknown_0811DBB4
 gUnknown_0811DBB4:
-@ replacing .incbin "baserom.gba", 0x0011dbb4, 0x3c
-.4byte sub_8007A0C
-.4byte sub_8007AC4
-.4byte sub_8007E78
-.4byte sub_800A3D4
-.4byte sub_800B7BC
-.4byte sub_800A87C
-.4byte sub_800AB40
-.4byte sub_800D824
-.4byte sub_800D860
-.4byte sub_800B038
-.4byte sub_80084D4
-.4byte sub_80090E8
-.4byte sub_80094E4
-.4byte sub_8009A64
-.4byte sub_80081EC
+    .4byte sub_8007A0C
+    .4byte sub_8007AC4
+    .4byte sub_8007E78
+    .4byte sub_800A3D4
+    .4byte sub_800B7BC
+    .4byte sub_800A87C
+    .4byte sub_800AB40
+    .4byte sub_800D824
+    .4byte sub_800D860
+    .4byte sub_800B038
+    .4byte sub_80084D4
+    .4byte sub_80090E8
+    .4byte sub_80094E4
+    .4byte sub_8009A64
+    .4byte sub_80081EC
 
     .global gUnknown_0811DBF0
 gUnknown_0811DBF0:
@@ -585,7 +599,6 @@ gUnknown_0811DD64:
 
     .global gUnknown_0811DDA8
 gUnknown_0811DDA8:
-@ replacing .incbin "baserom.gba", 0x0011dda8, 0x180
     .4byte sub_8005BA4
     .4byte sub_8005BC4
     .4byte sub_8005BF4

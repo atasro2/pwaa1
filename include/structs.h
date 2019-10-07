@@ -1,9 +1,9 @@
-#ifndef GUARD_STRUCTS_H //TODO: get rid of this
+#ifndef GUARD_STRUCTS_H //TODO: get rid of this file and move everything to the place they should be in
 #define GUARD_STRUCTS_H
 
 struct Struct3000000
 {
-    u8 filler0[0x800];
+    u8 filler0[0x800]; // this struct could actually be an array?
 };
 struct Struct3004000
 {
@@ -21,7 +21,7 @@ union UnknownUnion
     u32 field1;
 };
 
-struct Struct3002F20
+struct Struct3002F20 // this might be a array actually
 {
     u8 filler0[0x800]; // this struct either has structs in it or it's huge as fuck
 };

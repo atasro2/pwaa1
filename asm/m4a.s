@@ -5,7 +5,7 @@
 
 	THUMB_FUNC_START umul3232H32
 umul3232H32: @ 0x08011238
-	add r2, pc, #0x0
+	adr r2, __umul3232H32
 	bx r2
 
 	ARM_FUNC_START __umul3232H32
@@ -85,7 +85,7 @@ SoundMainRAM: @ 0x080112CC
 	ldrb r3, [r0, #5]
 	cmp r3, #0
 	beq _0801132C
-	add r1, pc, #0x4
+	adr r1, _080112D8
 	bx r1
 	.align 2, 0
 _080112D8:
@@ -263,7 +263,7 @@ _08011458:
 	ldr r5, [sp, #8]
 	ldr r2, [r4, #0x18]
 	ldr r3, [r4, #0x28]
-	add r0, pc, #0x4
+	adr r0, _08011464
 	bx r0
 	.align 2, 0
 _08011464:
@@ -1637,7 +1637,7 @@ m4aSongNumStart: @ 0x08011F7C
 	push {lr}
 	lsls r0, r0, #0x10
 	ldr r2, _08011FA0
-	ldr r1, _08011FA4
+	ldr r1, _08011FA4 @ r1 = songtable
 	lsrs r0, r0, #0xd
 	adds r0, r0, r1
 	ldrh r3, [r0, #4]

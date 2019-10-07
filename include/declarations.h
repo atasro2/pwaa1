@@ -4,7 +4,7 @@
 #include "structs.h"
 
 //DATA
-extern const u32 gUnknown_08013798[0x10];
+extern const u32 IntrTableFunctionPtrs[0x10];
 extern const u8 gUnknown_08013B70[0x400];
 extern void (*gUnknown_0811DBB4[15])(struct Struct3003730 *); 
 
@@ -43,7 +43,7 @@ extern struct Struct2000000 gUnknown_02000000;
 extern struct Struct3000000 gUnknown_03000000;
 extern u16 gUnknown_03001000[0xBABE]; //TODO: please find the size of this
 extern u16 gUnknown_03002000[0x400];
-extern u32 gUnknown_03002800[0x10];
+extern u32 IntrTable[0x10];
 extern struct Struct3002840 gUnknown_03002840;
 extern struct Struct3002F20 gUnknown_03002F20;
 extern struct Struct3003720 gUnknown_03003720;
