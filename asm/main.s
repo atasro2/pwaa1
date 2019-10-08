@@ -2,69 +2,6 @@
 
 .syntax unified
 
-	THUMB_FUNC_START sub_80009AC
-sub_80009AC: @ 0x080009AC
-	push {r4, r5, r6, lr}
-	sub sp, #4
-	movs r1, #0
-	ldr r6, _08000A14
-	ldr r0, _08000A18
-	movs r2, #0x96
-	lsls r2, r2, #2
-	adds r3, r2, #0
-	adds r2, r0, #2
-_080009BE:
-	adds r0, r1, r3
-	strh r0, [r2]
-	adds r2, #2
-	adds r1, #1
-	cmp r1, #0x1d
-	bls _080009BE
-	movs r1, #0
-	ldr r5, _08000A18
-_080009CE:
-	movs r2, #0
-	adds r4, r1, #1
-	lsls r0, r1, #4
-	subs r0, r0, r1
-	lsls r3, r0, #1
-	lsls r0, r1, #6
-	adds r0, #0x42
-	adds r1, r0, r5
-_080009DE:
-	adds r0, r2, r3
-	strh r0, [r1]
-	adds r1, #2
-	adds r2, #1
-	cmp r2, #0x1d
-	bls _080009DE
-	adds r1, r4, #0
-	cmp r1, #0x14
-	bls _080009CE
-	movs r1, #0
-	movs r0, #8
-	strh r0, [r6, #0x16]
-	strh r0, [r6, #0x14]
-	mov r0, sp
-	strh r1, [r0]
-	ldr r1, _08000A1C
-	str r0, [r1]
-	ldr r0, _08000A20
-	str r0, [r1, #4]
-	ldr r0, _08000A24
-	str r0, [r1, #8]
-	ldr r0, [r1, #8]
-	add sp, #4
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08000A14: .4byte gUnknown_030038D0
-_08000A18: .4byte gUnknown_03001000
-_08000A1C: .4byte 0x040000D4
-_08000A20: .4byte 0x0600DD80
-_08000A24: .4byte 0x81000020
-
 	THUMB_FUNC_START sub_8000A28
 sub_8000A28: @ 0x08000A28
 	push {r4, r5, r6, r7, lr}
@@ -9351,7 +9288,10 @@ _080056D8:
 	bx r0
 	.align 2, 0
 
-	THUMB_FUNC_START sub_80056E0
+@ MESSAGE_SYSTEM.c is around here somewhere
+
+@ Args: u32 u32 u32 or u16 u8 u8
+	THUMB_FUNC_START sub_80056E0 @ CopyCharGlyphToWindow?
 sub_80056E0: @ 0x080056E0
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
@@ -10443,7 +10383,7 @@ sub_8005EF8: @ 0x08005EF8
 	b _08005F1C
 _08005F16:
 	adds r0, r2, #0
-	bl sub_8012048
+	bl m4aSongNumStop
 _08005F1C:
 	ldr r0, [r4, #4]
 	adds r0, #2

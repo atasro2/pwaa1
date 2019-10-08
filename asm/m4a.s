@@ -5,7 +5,7 @@
 
 	THUMB_FUNC_START umul3232H32
 umul3232H32: @ 0x08011238
-	add r2, pc, #0x0
+	adr r2, __umul3232H32
 	bx r2
 
 	ARM_FUNC_START __umul3232H32
@@ -85,7 +85,7 @@ SoundMainRAM: @ 0x080112CC
 	ldrb r3, [r0, #5]
 	cmp r3, #0
 	beq _0801132C
-	add r1, pc, #0x4
+	adr r1, _080112D8
 	bx r1
 	.align 2, 0
 _080112D8:
@@ -263,7 +263,7 @@ _08011458:
 	ldr r5, [sp, #8]
 	ldr r2, [r4, #0x18]
 	ldr r3, [r4, #0x28]
-	add r0, pc, #0x4
+	adr r0, _08011464
 	bx r0
 	.align 2, 0
 _08011464:
@@ -335,8 +335,8 @@ SoundMainBTM: @ 0x08011670
 	bx lr
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8011688
-sub_8011688: @ 0x08011688
+	THUMB_FUNC_START ClearChain
+ClearChain: @ 0x08011688
 	ldr r3, [r0, #0x2c]
 	cmp r3, #0
 	beq _080116A6
@@ -373,7 +373,7 @@ _080116B2:
 	strb r1, [r4]
 _080116C0:
 	adds r0, r4, #0
-	bl sub_8011688
+	bl ClearChain
 	ldr r4, [r4, #0x34]
 	cmp r4, #0
 	bne _080116B2
@@ -385,8 +385,8 @@ _080116CC:
 	bx r0
 	.align 2, 0
 
-	THUMB_FUNC_START sub_80116D8
-sub_80116D8: @ 0x080116D8
+	THUMB_FUNC_START MPlyJmpTblCopy
+MPlyJmpTblCopy: @ 0x080116D8
 	mov ip, lr
 	movs r1, #0x24
 	ldr r2, _08011708
@@ -447,8 +447,8 @@ _0801171A:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_START sub_8011738
-sub_8011738: @ 0x08011738
+	THUMB_FUNC_START ply_patt
+ply_patt: @ 0x08011738
 	ldrb r2, [r1, #2]
 	cmp r2, #3
 	bhs _08011750
@@ -465,8 +465,8 @@ _08011750:
 	b _080116A8
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8011754
-sub_8011754: @ 0x08011754
+	THUMB_FUNC_START ply_pend
+ply_pend: @ 0x08011754
 	ldrb r2, [r1, #2]
 	cmp r2, #0
 	beq _08011766
@@ -479,8 +479,8 @@ sub_8011754: @ 0x08011754
 _08011766:
 	bx lr
 
-	THUMB_FUNC_START sub_8011768
-sub_8011768: @ 0x08011768
+	THUMB_FUNC_START ply_rept
+ply_rept: @ 0x08011768
 	push {lr}
 	ldr r2, [r1, #0x40]
 	ldrb r3, [r2]
@@ -507,16 +507,16 @@ _0801178A:
 	bx r0
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8011798
-sub_8011798: @ 0x08011798
+	THUMB_FUNC_START ply_prio
+ply_prio: @ 0x08011798
 	mov ip, lr
 	bl sub_801170C
 	strb r3, [r1, #0x1d]
 	bx ip
 	.align 2, 0
 
-	THUMB_FUNC_START sub_80117A4
-sub_80117A4: @ 0x080117A4
+	THUMB_FUNC_START ply_tempo
+ply_tempo: @ 0x080117A4
 	mov ip, lr
 	bl sub_801170C
 	lsls r3, r3, #1
@@ -527,8 +527,8 @@ sub_80117A4: @ 0x080117A4
 	strh r3, [r0, #0x20]
 	bx ip
 
-	THUMB_FUNC_START sub_80117B8
-sub_80117B8: @ 0x080117B8
+	THUMB_FUNC_START ply_keysh
+ply_keysh: @ 0x080117B8
 	mov ip, lr
 	bl sub_801170C
 	strb r3, [r1, #0xa]
@@ -539,8 +539,8 @@ sub_80117B8: @ 0x080117B8
 	bx ip
 	.align 2, 0
 
-	THUMB_FUNC_START sub_80117CC
-sub_80117CC: @ 0x080117CC
+	THUMB_FUNC_START ply_voice
+ply_voice: @ 0x080117CC
 	mov ip, lr
 	ldr r2, [r1, #0x40]
 	ldrb r3, [r2]
@@ -563,8 +563,8 @@ sub_80117CC: @ 0x080117CC
 	bx ip
 	.align 2, 0
 
-	THUMB_FUNC_START sub_80117FC
-sub_80117FC: @ 0x080117FC
+	THUMB_FUNC_START ply_vol
+ply_vol: @ 0x080117FC
 	mov ip, lr
 	bl sub_801170C
 	strb r3, [r1, #0x12]
@@ -575,8 +575,8 @@ sub_80117FC: @ 0x080117FC
 	bx ip
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8011810
-sub_8011810: @ 0x08011810
+	THUMB_FUNC_START ply_pan
+ply_pan: @ 0x08011810
 	mov ip, lr
 	bl sub_801170C
 	subs r3, #0x40
@@ -587,8 +587,8 @@ sub_8011810: @ 0x08011810
 	strb r3, [r1]
 	bx ip
 
-	THUMB_FUNC_START sub_8011824
-sub_8011824: @ 0x08011824
+	THUMB_FUNC_START ply_bend
+ply_bend: @ 0x08011824
 	mov ip, lr
 	bl sub_801170C
 	subs r3, #0x40
@@ -599,8 +599,8 @@ sub_8011824: @ 0x08011824
 	strb r3, [r1]
 	bx ip
 
-	THUMB_FUNC_START sub_8011838
-sub_8011838: @ 0x08011838
+	THUMB_FUNC_START ply_bendr
+ply_bendr: @ 0x08011838
 	mov ip, lr
 	bl sub_801170C
 	strb r3, [r1, #0xf]
@@ -611,16 +611,16 @@ sub_8011838: @ 0x08011838
 	bx ip
 	.align 2, 0
 
-	THUMB_FUNC_START sub_801184C
-sub_801184C: @ 0x0801184C
+	THUMB_FUNC_START ply_lfodl
+ply_lfodl: @ 0x0801184C
 	mov ip, lr
 	bl sub_801170C
 	strb r3, [r1, #0x1b]
 	bx ip
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8011858
-sub_8011858: @ 0x08011858
+	THUMB_FUNC_START ply_modt
+ply_modt: @ 0x08011858
 	mov ip, lr
 	bl sub_801170C
 	ldrb r0, [r1, #0x18]
@@ -634,8 +634,8 @@ sub_8011858: @ 0x08011858
 _0801186E:
 	bx ip
 
-	THUMB_FUNC_START sub_8011870
-sub_8011870: @ 0x08011870
+	THUMB_FUNC_START ply_tune
+ply_tune: @ 0x08011870
 	mov ip, lr
 	bl sub_801170C
 	subs r3, #0x40
@@ -646,8 +646,8 @@ sub_8011870: @ 0x08011870
 	strb r3, [r1]
 	bx ip
 
-	THUMB_FUNC_START sub_8011884
-sub_8011884: @ 0x08011884
+	THUMB_FUNC_START ply_port
+ply_port: @ 0x08011884
 	mov ip, lr
 	ldr r2, [r1, #0x40]
 	ldrb r3, [r2]
@@ -702,8 +702,8 @@ _080118DC:
 _080118E0: .4byte 0x040000BC
 _080118E4: .4byte 0x84400004
 
-	THUMB_FUNC_START sub_80118E8
-sub_80118E8: @ 0x080118E8
+	THUMB_FUNC_START MPlayMain_rev01
+MPlayMain_rev01: @ 0x080118E8
 	ldr r2, _08011B4C
 	ldr r3, [r0, #0x34]
 	cmp r2, r3
@@ -736,7 +736,7 @@ _0801191C:
 	ldr r0, [r0]
 	mov r8, r0
 	adds r0, r7, #0
-	bl sub_80127D4
+	bl FadeOutBody_rev01
 	ldr r0, [r7, #4]
 	cmp r0, #0
 	bge _08011930
@@ -781,7 +781,7 @@ _08011956:
 	b _08011978
 _08011972:
 	adds r0, r4, #0
-	bl sub_80122D0
+	bl ClearChain_rev
 _08011978:
 	ldr r4, [r4, #0x34]
 	cmp r4, #0
@@ -792,7 +792,7 @@ _0801197E:
 	tst r0, r3
 	beq _080119FC
 	adds r0, r5, #0
-	bl sub_80122E4
+	bl Clear64byte_rev
 	movs r0, #0x80
 	strb r0, [r5]
 	movs r0, #2
@@ -947,7 +947,7 @@ _08011A8C:
 	mov sb, r2
 	adds r0, r7, #0
 	adds r1, r5, #0
-	bl sub_801289C
+	bl TrkVolPitSet_rev01
 	ldr r4, [r5, #0x20]
 	cmp r4, #0
 	beq _08011B1C
@@ -957,7 +957,7 @@ _08011AAA:
 	tst r0, r1
 	bne _08011ABA
 	adds r0, r4, #0
-	bl sub_80122D0
+	bl ClearChain_rev
 	b _08011B16
 _08011ABA:
 	ldrb r0, [r4, #1]
@@ -967,7 +967,7 @@ _08011ABA:
 	movs r0, #3
 	tst r0, r3
 	beq _08011AD8
-	bl sub_8011B94
+	bl ChnVolSetAsm
 	cmp r6, #0
 	beq _08011AD8
 	ldrb r0, [r4, #0x1d]
@@ -1004,7 +1004,7 @@ _08011B0A:
 	adds r1, r2, #0
 	ldrb r2, [r5, #9]
 	ldr r0, [r4, #0x24]
-	bl sub_8011E54
+	bl MidiKey2fr
 	str r0, [r4, #0x20]
 _08011B16:
 	ldr r4, [r4, #0x34]
@@ -1040,8 +1040,8 @@ _08011B44: .4byte gUnknown_080795C8
 _08011B48: .4byte gUnknown_03007FF0
 _08011B4C: .4byte 0x68736D53
 
-	THUMB_FUNC_START sub_8011B50
-sub_8011B50: @ 0x08011B50
+	THUMB_FUNC_START TrackStop_rev01
+TrackStop_rev01: @ 0x08011B50
 	push {r4, r5, r6, lr}
 	adds r5, r1, #0
 	ldrb r1, [r5]
@@ -1080,8 +1080,8 @@ _08011B88:
 	.align 2, 0
 _08011B90: .4byte gUnknown_03007FF0
 
-	THUMB_FUNC_START sub_8011B94
-sub_8011B94: @ 0x08011B94
+	THUMB_FUNC_START ChnVolSetAsm
+ChnVolSetAsm: @ 0x08011B94
 	ldrb r1, [r4, #0x12]
 	movs r0, #0x14
 	ldrsb r2, [r4, r0]
@@ -1109,8 +1109,8 @@ _08011BC0:
 	strb r0, [r4, #3]
 	bx lr
 
-	THUMB_FUNC_START sub_8011BC4
-sub_8011BC4: @ 0x08011BC4
+	THUMB_FUNC_START ply_note_rev01
+ply_note_rev01: @ 0x08011BC4
 	push {r4, r5, r6, r7, lr}
 	mov r4, r8
 	mov r5, sb
@@ -1292,7 +1292,7 @@ _08011CF8:
 	beq _08011DAA
 _08011D04:
 	adds r0, r4, #0
-	bl sub_80122D0
+	bl ClearChain_rev
 	movs r1, #0
 	str r1, [r4, #0x30]
 	ldr r3, [r5, #0x20]
@@ -1308,11 +1308,11 @@ _08011D18:
 	cmp r0, r1
 	beq _08011D2A
 	adds r1, r5, #0
-	bl sub_8011E04
+	bl clear_modM
 _08011D2A:
 	ldr r0, [sp]
 	adds r1, r5, #0
-	bl sub_801289C
+	bl TrkVolPitSet_rev01
 	ldr r0, [r5, #4]
 	str r0, [r4, #0x10]
 	ldr r0, [sp, #0x10]
@@ -1330,7 +1330,7 @@ _08011D2A:
 	str r0, [r4, #4]
 	ldrh r0, [r5, #0x1e]
 	strh r0, [r4, #0xc]
-	bl sub_8011B94
+	bl ChnVolSetAsm
 	ldrb r1, [r4, #8]
 	movs r0, #8
 	ldrsb r0, [r5, r0]
@@ -1366,7 +1366,7 @@ _08011D92:
 	ldrb r2, [r5, #9]
 	adds r1, r3, #0
 	adds r0, r7, #0
-	bl sub_8011E54
+	bl MidiKey2fr
 _08011D9C:
 	str r0, [r4, #0x20]
 	movs r0, #0x80
@@ -1388,8 +1388,8 @@ _08011DAA:
 _08011DBC: .4byte gUnknown_03007FF0
 _08011DC0: .4byte gUnknown_080795C8
 
-	THUMB_FUNC_START sub_8011DC4
-sub_8011DC4: @ 0x08011DC4
+	THUMB_FUNC_START ply_endtie_rev01
+ply_endtie_rev01: @ 0x08011DC4
 	push {r4, r5}
 	ldr r2, [r1, #0x40]
 	ldrb r3, [r2]
@@ -1428,8 +1428,8 @@ _08011E00:
 	pop {r4, r5}
 	bx lr
 
-	THUMB_FUNC_START sub_8011E04
-sub_8011E04: @ 0x08011E04
+	THUMB_FUNC_START clear_modM
+clear_modM: @ 0x08011E04
 	movs r2, #0
 	strb r2, [r1, #0x16]
 	strb r2, [r1, #0x1a]
@@ -1447,8 +1447,8 @@ _08011E16:
 	bx lr
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8011E20
-sub_8011E20: @ 0x08011E20
+	THUMB_FUNC_START ld_r3_tp_adr_i_rev
+ld_r3_tp_adr_i_rev: @ 0x08011E20
 	ldr r2, [r1, #0x40]
 	adds r3, r2, #1
 	str r3, [r1, #0x40]
@@ -1456,32 +1456,32 @@ sub_8011E20: @ 0x08011E20
 	bx lr
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8011E2C
-sub_8011E2C: @ 0x08011E2C
+	THUMB_FUNC_START ply_lfos_rev01
+ply_lfos_rev01: @ 0x08011E2C
 	mov ip, lr
-	bl sub_8011E20
+	bl ld_r3_tp_adr_i_rev
 	strb r3, [r1, #0x19]
 	cmp r3, #0
 	bne _08011E3C
-	bl sub_8011E04
+	bl clear_modM
 _08011E3C:
 	bx ip
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8011E40
-sub_8011E40: @ 0x08011E40
+	THUMB_FUNC_START ply_mod_rev01
+ply_mod_rev01: @ 0x08011E40
 	mov ip, lr
-	bl sub_8011E20
+	bl ld_r3_tp_adr_i_rev
 	strb r3, [r1, #0x17]
 	cmp r3, #0
 	bne _08011E50
-	bl sub_8011E04
+	bl clear_modM
 _08011E50:
 	bx ip
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8011E54
-sub_8011E54: @ 0x08011E54
+	THUMB_FUNC_START MidiKey2fr
+MidiKey2fr: @ 0x08011E54
 	push {r4, r5, r6, r7, lr}
 	mov ip, r0
 	lsls r1, r1, #0x18
@@ -1536,8 +1536,8 @@ nullsub_33: @ 0x08011EB8
 	bx lr
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8011EBC
-sub_8011EBC: @ 0x08011EBC
+	THUMB_FUNC_START MPlayContinue
+MPlayContinue: @ 0x08011EBC
 	adds r2, r0, #0
 	ldr r3, [r2, #0x34]
 	ldr r0, _08011ED0
@@ -1553,8 +1553,8 @@ _08011ECE:
 _08011ED0: .4byte 0x68736D53
 _08011ED4: .4byte 0x7FFFFFFF
 
-	THUMB_FUNC_START sub_8011ED8
-sub_8011ED8: @ 0x08011ED8
+	THUMB_FUNC_START MPlayFadeOut
+MPlayFadeOut: @ 0x08011ED8
 	adds r2, r0, #0
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
@@ -1583,11 +1583,11 @@ m4aSoundInit: @ 0x08011EF8
 	ldr r2, _08011F54
 	bl CpuSet
 	ldr r0, _08011F58
-	bl sub_80122F8
+	bl SoundInit_rev01
 	ldr r0, _08011F5C
-	bl sub_80121B4
+	bl MPlayExtender
 	ldr r0, _08011F60
-	bl sub_8012494
+	bl SoundMode_rev01
 	ldr r0, _08011F64
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
@@ -1600,7 +1600,7 @@ _08011F2A:
 	ldr r1, [r5, #4]
 	ldrb r2, [r5, #8]
 	adds r0, r4, #0
-	bl sub_8012638
+	bl MPlayOpen_rev01
 	ldrh r0, [r5, #0xa]
 	strb r0, [r4, #0xb]
 	ldr r0, _08011F6C
@@ -1624,8 +1624,8 @@ _08011F64: .4byte 0x00000004
 _08011F68: .4byte gUnknown_080412FC
 _08011F6C: .4byte gUnknown_03005980
 
-	THUMB_FUNC_START sub_8011F70
-sub_8011F70: @ 0x08011F70
+	THUMB_FUNC_START m4aSoundMain
+m4aSoundMain: @ 0x08011F70
 	push {lr}
 	bl SoundMain
 	pop {r0}
@@ -1637,7 +1637,7 @@ m4aSongNumStart: @ 0x08011F7C
 	push {lr}
 	lsls r0, r0, #0x10
 	ldr r2, _08011FA0
-	ldr r1, _08011FA4
+	ldr r1, _08011FA4 @ r1 = songtable
 	lsrs r0, r0, #0xd
 	adds r0, r0, r1
 	ldrh r3, [r0, #4]
@@ -1648,7 +1648,7 @@ m4aSongNumStart: @ 0x08011F7C
 	ldr r2, [r1]
 	ldr r1, [r0]
 	adds r0, r2, #0
-	bl sub_80126B0
+	bl MPlayStart_rev01
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -1675,7 +1675,7 @@ m4aSongNumStartOrChange: @ 0x08011FA8
 	beq _08011FDC
 	adds r0, r1, #0
 	adds r1, r2, #0
-	bl sub_80126B0
+	bl MPlayStart_rev01
 	b _08011FF0
 	.align 2, 0
 _08011FD4: .4byte gUnknown_080412FC
@@ -1690,13 +1690,13 @@ _08011FDC:
 _08011FE8:
 	adds r0, r1, #0
 	adds r1, r3, #0
-	bl sub_80126B0
+	bl MPlayStart_rev01
 _08011FF0:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_START sub_8011FF4
-sub_8011FF4: @ 0x08011FF4
+	THUMB_FUNC_START m4aSongNumStartOrContinue
+m4aSongNumStartOrContinue: @ 0x08011FF4
 	push {lr}
 	lsls r0, r0, #0x10
 	ldr r2, _08012020
@@ -1715,7 +1715,7 @@ sub_8011FF4: @ 0x08011FF4
 	beq _08012028
 	adds r0, r1, #0
 	adds r1, r2, #0
-	bl sub_80126B0
+	bl MPlayStart_rev01
 	b _08012044
 	.align 2, 0
 _08012020: .4byte gUnknown_080412FC
@@ -1727,19 +1727,19 @@ _08012028:
 	bne _0801203A
 	adds r0, r1, #0
 	adds r1, r3, #0
-	bl sub_80126B0
+	bl MPlayStart_rev01
 	b _08012044
 _0801203A:
 	cmp r2, #0
 	bge _08012044
 	adds r0, r1, #0
-	bl sub_8011EBC
+	bl MPlayContinue
 _08012044:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_START sub_8012048
-sub_8012048: @ 0x08012048
+	THUMB_FUNC_START m4aSongNumStop
+m4aSongNumStop: @ 0x08012048
 	push {lr}
 	lsls r0, r0, #0x10
 	ldr r2, _08012074
@@ -1765,8 +1765,8 @@ _0801206E:
 _08012074: .4byte gUnknown_080412FC
 _08012078: .4byte gUnknown_0804132C
 
-	THUMB_FUNC_START sub_801207C
-sub_801207C: @ 0x0801207C
+	THUMB_FUNC_START m4aSongNumContinue
+m4aSongNumContinue: @ 0x0801207C
 	push {lr}
 	lsls r0, r0, #0x10
 	ldr r2, _080120A8
@@ -1784,7 +1784,7 @@ sub_801207C: @ 0x0801207C
 	cmp r1, r0
 	bne _080120A2
 	adds r0, r2, #0
-	bl sub_8011EBC
+	bl MPlayContinue
 _080120A2:
 	pop {r0}
 	bx r0
@@ -1820,13 +1820,13 @@ _080120D8: .4byte gUnknown_080412FC
 	THUMB_FUNC_START m4aMPlayContinue
 m4aMPlayContinue: @ 0x080120DC
 	push {lr}
-	bl sub_8011EBC
+	bl MPlayContinue
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	THUMB_FUNC_START sub_80120E8
-sub_80120E8: @ 0x080120E8
+	THUMB_FUNC_START m4aMPlayAllContinue
+m4aMPlayAllContinue: @ 0x080120E8
 	push {r4, r5, lr}
 	ldr r0, _0801210C
 	lsls r0, r0, #0x10
@@ -1837,7 +1837,7 @@ sub_80120E8: @ 0x080120E8
 	adds r4, r0, #0
 _080120F8:
 	ldr r0, [r5]
-	bl sub_8011EBC
+	bl MPlayContinue
 	adds r5, #0xc
 	subs r4, #1
 	cmp r4, #0
@@ -1850,12 +1850,12 @@ _08012106:
 _0801210C: .4byte 0x00000004
 _08012110: .4byte gUnknown_080412FC
 
-	THUMB_FUNC_START sub_8012114
-sub_8012114: @ 0x08012114
+	THUMB_FUNC_START m4aMPlayFadeOut
+m4aMPlayFadeOut: @ 0x08012114
 	push {lr}
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
-	bl sub_8011ED8
+	bl MPlayFadeOut
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -1922,7 +1922,7 @@ _08012178:
 	cmp r0, #0
 	beq _080121A6
 	adds r0, r4, #0
-	bl sub_80122E4
+	bl Clear64byte_rev
 	strb r7, [r4]
 	movs r0, #2
 	strb r0, [r4, #0xf]
@@ -1943,8 +1943,8 @@ _080121AE:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_START sub_80121B4
-sub_80121B4: @ 0x080121B4
+	THUMB_FUNC_START MPlayExtender
+MPlayExtender: @ 0x080121B4
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -2052,18 +2052,18 @@ _08012284: .4byte 0x04000063
 _08012288: .4byte gUnknown_03007FF0
 _0801228C: .4byte 0x68736D53
 _08012290: .4byte gUnknown_030053C0
-_08012294: .4byte sub_8013170+1
-_08012298: .4byte sub_8011E2C+1
-_0801229C: .4byte sub_8011E40+1
-_080122A0: .4byte sub_80132C8+1
-_080122A4: .4byte sub_8011DC4+1
-_080122A8: .4byte sub_80123F0+1
-_080122AC: .4byte sub_8011B50+1
-_080122B0: .4byte sub_80127D4+1
-_080122B4: .4byte sub_801289C+1
-_080122B8: .4byte sub_8012AB0+1
-_080122BC: .4byte sub_80129F8+1
-_080122C0: .4byte sub_8012950+1
+_08012294: .4byte ply_memacc+1
+_08012298: .4byte ply_lfos_rev01+1
+_0801229C: .4byte ply_mod_rev01+1
+_080122A0: .4byte ply_xcmd+1
+_080122A4: .4byte ply_endtie_rev01+1
+_080122A8: .4byte SampFreqSet_rev01+1
+_080122AC: .4byte TrackStop_rev01+1
+_080122B0: .4byte FadeOutBody_rev01+1
+_080122B4: .4byte TrkVolPitSet_rev01+1
+_080122B8: .4byte CgbSound+1
+_080122BC: .4byte CgbOscOff+1
+_080122C0: .4byte MidiKey2CgbFr+1
 _080122C4: .4byte 0x00000050
 _080122C8: .4byte 0x05000040
 
@@ -2072,8 +2072,8 @@ SoundGetJumpList: @ 0x080122CC
 	svc #0x2a
 	bx lr
 
-	THUMB_FUNC_START sub_80122D0
-sub_80122D0: @ 0x080122D0
+	THUMB_FUNC_START ClearChain_rev
+ClearChain_rev: @ 0x080122D0
 	push {lr}
 	ldr r1, _080122E0
 	ldr r1, [r1]
@@ -2083,8 +2083,8 @@ sub_80122D0: @ 0x080122D0
 	.align 2, 0
 _080122E0: .4byte gUnknown_03005448
 
-	THUMB_FUNC_START sub_80122E4
-sub_80122E4: @ 0x080122E4
+	THUMB_FUNC_START Clear64byte_rev
+Clear64byte_rev: @ 0x080122E4
 	push {lr}
 	ldr r1, _080122F4
 	ldr r1, [r1]
@@ -2094,8 +2094,8 @@ sub_80122E4: @ 0x080122E4
 	.align 2, 0
 _080122F4: .4byte gUnknown_0300544C
 
-	THUMB_FUNC_START sub_80122F8
-sub_80122F8: @ 0x080122F8
+	THUMB_FUNC_START SoundInit_rev01
+SoundInit_rev01: @ 0x080122F8
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -2176,11 +2176,11 @@ _08012322:
 	str r0, [r5, #0x3c]
 	ldr r4, _080123E8
 	adds r0, r4, #0
-	bl sub_80116D8
+	bl MPlyJmpTblCopy
 	str r4, [r5, #0x34]
 	movs r0, #0x80
 	lsls r0, r0, #0xb
-	bl sub_80123F0
+	bl SampFreqSet_rev01
 	ldr r0, _080123EC
 	str r0, [r5]
 	add sp, #4
@@ -2200,13 +2200,13 @@ _080123D0: .4byte 0x040000A0
 _080123D4: .4byte 0x040000A4
 _080123D8: .4byte gUnknown_03007FF0
 _080123DC: .4byte 0x050003EC
-_080123E0: .4byte sub_8011BC4+1
+_080123E0: .4byte ply_note_rev01+1
 _080123E4: .4byte nullsub_34+1
 _080123E8: .4byte gUnknown_030053C0
 _080123EC: .4byte 0x68736D53
 
-	THUMB_FUNC_START sub_80123F0
-sub_80123F0: @ 0x080123F0
+	THUMB_FUNC_START SampFreqSet_rev01
+SampFreqSet_rev01: @ 0x080123F0
 	push {r4, r5, r6, lr}
 	adds r2, r0, #0
 	ldr r0, _08012470
@@ -2250,7 +2250,7 @@ sub_80123F0: @ 0x080123F0
 	bl __divsi3
 	rsbs r0, r0, #0
 	strh r0, [r4]
-	bl sub_80125FC
+	bl SoundVSyncOn_rev01
 	ldr r1, _08012490
 _08012454:
 	ldrb r0, [r1]
@@ -2278,8 +2278,8 @@ _08012488: .4byte 0x04000100
 _0801248C: .4byte 0x00044940
 _08012490: .4byte 0x04000006
 
-	THUMB_FUNC_START sub_8012494
-sub_8012494: @ 0x08012494
+	THUMB_FUNC_START SoundMode_rev01
+SoundMode_rev01: @ 0x08012494
 	push {r4, r5, lr}
 	adds r3, r0, #0
 	ldr r0, _08012520
@@ -2345,9 +2345,9 @@ _08012502:
 	ands r4, r3
 	cmp r4, #0
 	beq _08012516
-	bl sub_8012580
+	bl SoundVSyncOff_rev01
 	adds r0, r4, #0
-	bl sub_80123F0
+	bl SampFreqSet_rev01
 _08012516:
 	ldr r0, _08012524
 	str r0, [r5]
@@ -2360,8 +2360,8 @@ _08012520: .4byte gUnknown_03007FF0
 _08012524: .4byte 0x68736D53
 _08012528: .4byte 0x04000089
 
-	THUMB_FUNC_START sub_801252C
-sub_801252C: @ 0x0801252C
+	THUMB_FUNC_START SoundClear_rev01
+SoundClear_rev01: @ 0x0801252C
 	push {r4, r5, r6, r7, lr}
 	ldr r0, _08012578
 	ldr r6, [r0]
@@ -2407,8 +2407,8 @@ _08012572:
 _08012578: .4byte gUnknown_03007FF0
 _0801257C: .4byte 0x68736D53
 
-	THUMB_FUNC_START sub_8012580
-sub_8012580: @ 0x08012580
+	THUMB_FUNC_START SoundVSyncOff_rev01
+SoundVSyncOff_rev01: @ 0x08012580
 	push {lr}
 	sub sp, #4
 	ldr r0, _080125E0
@@ -2467,8 +2467,8 @@ _080125F0: .4byte 0x040000D0
 _080125F4: .4byte 0x040000C6
 _080125F8: .4byte 0x05000318
 
-	THUMB_FUNC_START sub_80125FC
-sub_80125FC: @ 0x080125FC
+	THUMB_FUNC_START SoundVSyncOn_rev01
+SoundVSyncOn_rev01: @ 0x080125FC
 	push {r4, lr}
 	ldr r0, _0801262C
 	ldr r2, [r0]
@@ -2498,8 +2498,8 @@ _0801262C: .4byte gUnknown_03007FF0
 _08012630: .4byte 0x68736D53
 _08012634: .4byte 0x040000C6
 
-	THUMB_FUNC_START sub_8012638
-sub_8012638: @ 0x08012638
+	THUMB_FUNC_START MPlayOpen_rev01
+MPlayOpen_rev01: @ 0x08012638
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
 	adds r6, r1, #0
@@ -2520,7 +2520,7 @@ _0801264C:
 	adds r0, r1, #1
 	str r0, [r5]
 	adds r0, r7, #0
-	bl sub_80122E4
+	bl Clear64byte_rev
 	str r6, [r7, #0x2c]
 	strb r4, [r7, #8]
 	movs r0, #0x80
@@ -2560,10 +2560,10 @@ _0801269C:
 	.align 2, 0
 _080126A4: .4byte gUnknown_03007FF0
 _080126A8: .4byte 0x68736D53
-_080126AC: .4byte sub_80118E8+1
+_080126AC: .4byte MPlayMain_rev01+1
 
-	THUMB_FUNC_START sub_80126B0
-sub_80126B0: @ 0x080126B0
+	THUMB_FUNC_START MPlayStart_rev01
+MPlayStart_rev01: @ 0x080126B0
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -2629,7 +2629,7 @@ _080126F2:
 _08012726:
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl sub_8011B50
+	bl TrackStop_rev01
 	movs r0, #0xc0
 	strb r0, [r4]
 	mov r1, r8
@@ -2657,7 +2657,7 @@ _08012752:
 _0801275C:
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl sub_8011B50
+	bl TrackStop_rev01
 	mov r0, r8
 	strb r0, [r4]
 	adds r6, #1
@@ -2672,7 +2672,7 @@ _08012772:
 	cmp r0, #0
 	beq _08012782
 	ldrb r0, [r7, #3]
-	bl sub_8012494
+	bl SoundMode_rev01
 _08012782:
 	ldr r0, _08012790
 	str r0, [r5, #0x34]
@@ -2707,7 +2707,7 @@ m4aMPlayStop: @ 0x08012794
 _080127B6:
 	adds r0, r6, #0
 	adds r1, r5, #0
-	bl sub_8011B50
+	bl TrackStop_rev01
 	subs r4, #1
 	adds r5, #0x50
 	cmp r4, #0
@@ -2722,8 +2722,8 @@ _080127CA:
 	.align 2, 0
 _080127D0: .4byte 0x68736D53
 
-	THUMB_FUNC_START sub_80127D4
-sub_80127D4: @ 0x080127D4
+	THUMB_FUNC_START FadeOutBody_rev01
+FadeOutBody_rev01: @ 0x080127D4
 	push {r4, r5, r6, r7, lr}
 	adds r6, r0, #0
 	ldrh r1, [r6, #0x24]
@@ -2772,7 +2772,7 @@ _08012818:
 _0801282E:
 	adds r0, r6, #0
 	adds r1, r4, #0
-	bl sub_8011B50
+	bl TrackStop_rev01
 	movs r0, #1
 	ldrh r7, [r6, #0x28]
 	ands r0, r7
@@ -2833,8 +2833,8 @@ _08012896:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_START sub_801289C
-sub_801289C: @ 0x0801289C
+	THUMB_FUNC_START TrkVolPitSet_rev01
+TrkVolPitSet_rev01: @ 0x0801289C
 	push {r4, lr}
 	adds r2, r1, #0
 	movs r0, #1
@@ -2933,8 +2933,8 @@ _08012944:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_START sub_8012950
-sub_8012950: @ 0x08012950
+	THUMB_FUNC_START MidiKey2CgbFr
+MidiKey2CgbFr: @ 0x08012950
 	push {r4, r5, r6, r7, lr}
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
@@ -3024,8 +3024,8 @@ _080129EA:
 _080129F0: .4byte gUnknown_080794E0
 _080129F4: .4byte gUnknown_08079564
 
-	THUMB_FUNC_START sub_80129F8
-sub_80129F8: @ 0x080129F8
+	THUMB_FUNC_START CgbOscOff
+CgbOscOff: @ 0x080129F8
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	adds r1, r0, #0
@@ -3073,8 +3073,8 @@ _08012A3E:
 	.align 2, 0
 _08012A44: .4byte 0x04000079
 
-	THUMB_FUNC_START sub_8012A48
-sub_8012A48: @ 0x08012A48
+	THUMB_FUNC_START CgbModVol
+CgbModVol: @ 0x08012A48
 	push {r4, lr}
 	adds r1, r0, #0
 	ldrb r0, [r1, #2]
@@ -3133,8 +3133,8 @@ _08012A94:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_START sub_8012AB0
-sub_8012AB0: @ 0x08012AB0
+	THUMB_FUNC_START CgbSound
+CgbSound: @ 0x08012AB0
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -3263,7 +3263,7 @@ _08012B70:
 	strb r0, [r4, #0x1d]
 	adds r0, r4, #0
 	str r3, [sp, #0x18]
-	bl sub_8012A48
+	bl CgbModVol
 	ldr r3, [sp, #0x18]
 	cmp r6, #2
 	beq _08012BD8
@@ -3385,7 +3385,7 @@ _08012C66:
 _08012C8A:
 	lsls r0, r6, #0x18
 	lsrs r0, r0, #0x18
-	bl sub_80129F8
+	bl CgbOscOff
 	movs r0, #0
 	strb r0, [r4]
 	b _08012EDC
@@ -3434,7 +3434,7 @@ _08012CD8:
 	strb r0, [r4, #0x1d]
 _08012CEA:
 	adds r0, r4, #0
-	bl sub_8012A48
+	bl CgbModVol
 	movs r0, #3
 	ldrb r2, [r4]
 	ands r0, r2
@@ -3717,8 +3717,8 @@ _08012EEA:
 	bx r0
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8012EFC
-sub_8012EFC: @ 0x08012EFC
+	THUMB_FUNC_START MPlayTempoControl
+MPlayTempoControl: @ 0x08012EFC
 	push {r4, lr}
 	adds r2, r0, #0
 	lsls r1, r1, #0x10
@@ -3799,8 +3799,8 @@ _08012F7C:
 	.align 2, 0
 _08012F88: .4byte 0x68736D53
 
-	THUMB_FUNC_START sub_8012F8C
-sub_8012F8C: @ 0x08012F8C
+	THUMB_FUNC_START MPlayPitchControl
+MPlayPitchControl: @ 0x08012F8C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -3923,8 +3923,8 @@ _08013058:
 	.align 2, 0
 _08013064: .4byte 0x68736D53
 
-	THUMB_FUNC_START sub_8013068
-sub_8013068: @ 0x08013068
+	THUMB_FUNC_START MP_clear_modM
+MP_clear_modM: @ 0x08013068
 	adds r1, r0, #0
 	movs r2, #0
 	movs r0, #0
@@ -3944,8 +3944,8 @@ _0801307E:
 	bx lr
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8013088
-sub_8013088: @ 0x08013088
+	THUMB_FUNC_START MPlayModDepthSet
+MPlayModDepthSet: @ 0x08013088
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -3986,7 +3986,7 @@ _080130B8:
 	cmp r1, #0
 	bne _080130DA
 	adds r0, r4, #0
-	bl sub_8013068
+	bl MP_clear_modM
 _080130DA:
 	subs r5, #1
 	adds r4, #0x50
@@ -4007,8 +4007,8 @@ _080130E8:
 	.align 2, 0
 _080130F8: .4byte 0x68736D53
 
-	THUMB_FUNC_START sub_80130FC
-sub_80130FC: @ 0x080130FC
+	THUMB_FUNC_START MPlayLFOSpeedSet
+MPlayLFOSpeedSet: @ 0x080130FC
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -4049,7 +4049,7 @@ _0801312C:
 	cmp r1, #0
 	bne _0801314E
 	adds r0, r4, #0
-	bl sub_8013068
+	bl MP_clear_modM
 _0801314E:
 	subs r5, #1
 	adds r4, #0x50
@@ -4070,8 +4070,8 @@ _0801315C:
 	.align 2, 0
 _0801316C: .4byte 0x68736D53
 
-	THUMB_FUNC_START sub_8013170
-sub_8013170: @ 0x08013170
+	THUMB_FUNC_START ply_memacc
+ply_memacc: @ 0x08013170
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	adds r6, r1, #0
@@ -4247,8 +4247,8 @@ _080132C2:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_START sub_80132C8
-sub_80132C8: @ 0x080132C8
+	THUMB_FUNC_START ply_xcmd
+ply_xcmd: @ 0x080132C8
 	push {lr}
 	ldr r2, [r1, #0x40]
 	ldrb r3, [r2]
@@ -4264,8 +4264,8 @@ sub_80132C8: @ 0x080132C8
 	.align 2, 0
 _080132E4: .4byte gUnknown_080795FC
 
-	THUMB_FUNC_START sub_80132E8
-sub_80132E8: @ 0x080132E8
+	THUMB_FUNC_START ply_xxx
+ply_xxx: @ 0x080132E8
 	push {lr}
 	ldr r2, _080132F8
 	ldr r2, [r2]
@@ -4275,8 +4275,8 @@ sub_80132E8: @ 0x080132E8
 	.align 2, 0
 _080132F8: .4byte gUnknown_030053C0
 
-	THUMB_FUNC_START sub_80132FC
-sub_80132FC: @ 0x080132FC
+	THUMB_FUNC_START ply_xwave
+ply_xwave: @ 0x080132FC
 	push {r4, lr}
 	ldr r2, [r1, #0x40]
 	ldr r0, _08013334
@@ -4310,8 +4310,8 @@ _08013338: .4byte 0xFFFF00FF
 _0801333C: .4byte 0xFF00FFFF
 _08013340: .4byte 0x00FFFFFF
 
-	THUMB_FUNC_START sub_8013344
-sub_8013344: @ 0x08013344
+	THUMB_FUNC_START ply_xtype
+ply_xtype: @ 0x08013344
 	ldr r0, [r1, #0x40]
 	ldrb r2, [r0]
 	adds r0, r1, #0
@@ -4323,8 +4323,8 @@ sub_8013344: @ 0x08013344
 	bx lr
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8013358
-sub_8013358: @ 0x08013358
+	THUMB_FUNC_START ply_xatta
+ply_xatta: @ 0x08013358
 	ldr r0, [r1, #0x40]
 	ldrb r2, [r0]
 	adds r0, r1, #0
@@ -4336,8 +4336,8 @@ sub_8013358: @ 0x08013358
 	bx lr
 	.align 2, 0
 
-	THUMB_FUNC_START sub_801336C
-sub_801336C: @ 0x0801336C
+	THUMB_FUNC_START ply_xdeca
+ply_xdeca: @ 0x0801336C
 	ldr r0, [r1, #0x40]
 	ldrb r0, [r0]
 	adds r2, r1, #0
@@ -4349,8 +4349,8 @@ sub_801336C: @ 0x0801336C
 	bx lr
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8013380
-sub_8013380: @ 0x08013380
+	THUMB_FUNC_START ply_xsust
+ply_xsust: @ 0x08013380
 	ldr r0, [r1, #0x40]
 	ldrb r0, [r0]
 	adds r2, r1, #0
@@ -4362,8 +4362,8 @@ sub_8013380: @ 0x08013380
 	bx lr
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8013394
-sub_8013394: @ 0x08013394
+	THUMB_FUNC_START ply_xrele
+ply_xrele: @ 0x08013394
 	ldr r0, [r1, #0x40]
 	ldrb r0, [r0]
 	adds r2, r1, #0
@@ -4375,8 +4375,8 @@ sub_8013394: @ 0x08013394
 	bx lr
 	.align 2, 0
 
-	THUMB_FUNC_START sub_80133A8
-sub_80133A8: @ 0x080133A8
+	THUMB_FUNC_START ply_xiecv
+ply_xiecv: @ 0x080133A8
 	ldr r0, [r1, #0x40]
 	ldrb r2, [r0]
 	strb r2, [r1, #0x1e]
@@ -4384,8 +4384,8 @@ sub_80133A8: @ 0x080133A8
 	str r0, [r1, #0x40]
 	bx lr
 
-	THUMB_FUNC_START sub_80133B4
-sub_80133B4: @ 0x080133B4
+	THUMB_FUNC_START ply_xiecl
+ply_xiecl: @ 0x080133B4
 	ldr r0, [r1, #0x40]
 	ldrb r2, [r0]
 	strb r2, [r1, #0x1f]
@@ -4393,8 +4393,8 @@ sub_80133B4: @ 0x080133B4
 	str r0, [r1, #0x40]
 	bx lr
 
-	THUMB_FUNC_START sub_80133C0
-sub_80133C0: @ 0x080133C0
+	THUMB_FUNC_START ply_xleng
+ply_xleng: @ 0x080133C0
 	ldr r0, [r1, #0x40]
 	ldrb r0, [r0]
 	adds r2, r1, #0
@@ -4406,8 +4406,8 @@ sub_80133C0: @ 0x080133C0
 	bx lr
 	.align 2, 0
 
-	THUMB_FUNC_START sub_80133D4
-sub_80133D4: @ 0x080133D4
+	THUMB_FUNC_START ply_xswee
+ply_xswee: @ 0x080133D4
 	ldr r0, [r1, #0x40]
 	ldrb r0, [r0]
 	adds r2, r1, #0

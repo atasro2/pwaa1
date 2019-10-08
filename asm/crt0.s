@@ -90,4 +90,4 @@ _080001D8: .4byte gUnknown_03007F00
 _080001DC: .4byte _intr
 _080001E0: .4byte gUnknown_03007FFC
 _080001E4: .4byte AgbMain+1
-_080001E8: .4byte gUnknown_03002800
+_080001E8: .4byte IntrTable

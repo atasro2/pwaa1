@@ -1,10 +1,13 @@
 #include "gba/gba.h"
 
+/*
+    AgbBackup Sram library version 1.1.2
+*/
+
 void ReadSram_Core(const u8 *src, u8 *dest, u32 size)
 {
     while (--size != -1)
         *dest++ = *src++;
-
 }
 
 void ReadSram(const u8 *src, u8 *dst, u32 size)
@@ -13,7 +16,7 @@ void ReadSram(const u8 *src, u8 *dst, u32 size)
     u16 *src_;
     u16 *dst_;
     u16 size_;
-    void (*function)(const u8 *src, u8 *dest, u32 size);  // pointer to readSramFast_Work
+    void (*ReadSramWram)(const u8 *src, u8 *dest, u32 size); // pointer to readSramFast_Work
 
     REG_WAITCNT = (REG_WAITCNT & ~3) | 3;
 
@@ -30,9 +33,9 @@ void ReadSram(const u8 *src, u8 *dst, u32 size)
         size_--;
     }
     // add 1 to the address of the buffer so that we stay in THUMB mode when bx-ing to the address
-    function = (void *)((uintptr_t)readSram_Work + 1);
+    ReadSramWram = (void *)((uintptr_t)readSram_Work + 1);
 
-    function(src,dst,size);
+    ReadSramWram(src, dst, size);
 }
 
 void WriteSram(const u8 *src, u8 *dest, u32 size)
@@ -58,7 +61,7 @@ u32 VerifySram(const u8 *src, u8 *dst, u32 size)
     u16 *src_;
     u16 *dst_;
     u16 size_;
-    u32 (*function)(const u8 *src, u8 *dest, u32 size);  // pointer to verifySramFast_Work
+    u32 (*VerifySramWram)(const u8 *src, u8 *dest, u32 size); // pointer to verifySramFast_Work
 
     REG_WAITCNT = (REG_WAITCNT & ~3) | 3;
 
@@ -75,21 +78,21 @@ u32 VerifySram(const u8 *src, u8 *dst, u32 size)
         size_--;
     }
     // add 1 to the address of the buffer so that we stay in THUMB mode when bx-ing to the address
-    function = (void *)((uintptr_t)verifySram_Work + 1);
+    VerifySramWram = (void *)((uintptr_t)verifySram_Work + 1);
 
-    return function(src,dst,size);
+    return VerifySramWram(src, dst, size);
 }
 
 u32 WriteSramEx(const u8 *src, u8 *dst, u32 size) // Write to the Sram verify that data is OK
-{                                                        // if not try again for only 2 times
+{                                                 // if not try again for 2 times
     u8 i;
     u32 isSramOk;
 
-    for(i = 0; i < 3; i++)
+    for (i = 0; i < 3; i++)
     {
         WriteSram(src, dst, size);
         isSramOk = VerifySram(src, dst, size);
-        if(isSramOk == 0)
+        if (isSramOk == 0)
             break;
     }
 
