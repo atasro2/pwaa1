@@ -56,8 +56,11 @@ Temporary Items
 *.o
 *.i
 *.dump
+*.bin
 src/*.s
-tools/
+tools/ignore/
+tools/agbcc/
+tools/binutils/
 build/
 *.sav
 *.code-workspace
