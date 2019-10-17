@@ -33,4 +33,4 @@ matrix:
         - rm tmp.bin
         - make compare
 after_success:
-  - sh .travis/calcrom/webhook.sh GS1
+  - bash .travis/calcrom/webhook.sh GS1
