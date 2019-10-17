@@ -922,7 +922,7 @@ gUnknown_081D312C:  @ Charset
 
     @ this is a bruh moment
     .global gUnknown_081DA22C @ bruh this isn't even a second tileset smh
-gUnknown_081DA22C:  @ this is the address of the pointer finger character for selecting something in a texbox
+gUnknown_081DA22C:  @ this is the address of the pointer finger character for selecting something in a textbox
     .incbin "baserom.gba", 0x001DA22C, 0x23700
 
     .global gUnknown_081FD92C
