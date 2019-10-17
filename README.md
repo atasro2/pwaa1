@@ -11,23 +11,25 @@ It builds the following ROM:
 
 * **THIS README ASSUMES YOU HAVE EXPERIENCE WITH VARIOUS OTHER GBA DECOMPILATION REPOSITORIES AND A LINUX TERMINAL** 
 
-* You must have a copy of the Gyakuten Saiban (Japan) Rev 0 ROM named `baserom.gba` in the repository directory.
+* Go into the root folder of the repository.
 
-* get the source code for the gbafix tool from https://github.com/pret/pokefirered. Copy the `gbafix` folder into the repository directory.
-
-* go into the `gbafix` directory and run `make` in the terminal.
-
-* go into the root folder of the repository.
-
-* Then compile agbcc using the following command.
-
+* **Note (until further notice):** If this is your first time building Gyakuten Saiban 1 (Rev 0), an unmodified copy of the game is required in the project root under the name `baserom.gba`. To generate this, you should run the following commands:
 ```
-  git clone https://github.com/luckytyphlosion/agbcc -b new_layout_with_libs
-
-	cd ./agbcc
-	make
-	make install prefix=../
-	make install-sdk prefix=../
+make ips_patch -C tools/br_ips
+head -c 16777216 /dev/zero > tmp.bin
+tools/br_ips/ips_patch tmp.bin baserom.ips baserom.gba
+make compare -j$(nproc)
+cp pokefirered.gba baserom.gba
 ```
+
+* Then compile agbcc using the following command:
+```
+git clone https://github.com/luckytyphlosion/agbcc -b new_layout_with_libs
+cd ./agbcc
+make
+make install prefix=../
+make install-sdk prefix=../
+```
+* Compile the tools by running the `build_tools.sh` script
 
 * You can then build GS1 using `make` in your linux/wsl terminal.
