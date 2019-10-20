@@ -1,13 +1,4 @@
-. = 0x00000000; gUnknown_02000000 = .;
-. = 0x00000004; gUnknown_02000004 = .;
-. = 0x00000007; gUnknown_02000007 = .;
-. = 0x0000000B; gUnknown_0200000B = .;
-. = 0x00000034; gUnknown_02000034 = .;
-. = 0x00000750; gUnknown_02000750 = .;
-. = 0x00000B50; gUnknown_02000B50 = .;
-. = 0x00000E50; gUnknown_02000E50 = .;
-. = 0x00001650; gUnknown_02001650 = .;
-. = 0x00001E50; gUnknown_02001E50 = .;
+. = 0x00000000; gSaveDataBuffer = .;
 . = 0x0000AFC0; gUnknown_0200AFC0 = .;
 . = 0x0000AFC8; gUnknown_0200AFC8 = .;
 . = 0x0000AFD0; gUnknown_0200AFD0 = .;

@@ -198,7 +198,7 @@ void sub_80004B0() // reset a bunch of shit
     DmaFill16(3, 0, &gUnknown_03003AB0, sizeof(gUnknown_03003AB0));
     DmaFill16(3, 0, &gUnknown_03003A50, sizeof(gUnknown_03003A50));
     DmaFill16(3, 0, &gUnknown_03002840, sizeof(gUnknown_03002840));
-    DmaFill16(3, 0, &gUnknown_02000000, 0x29D0); //TODO: the ewram stuff is a joke here, can't decide the true size of gUnknown_02000000 yet.
+    DmaFill16(3, 0, &gSaveDataBuffer, sizeof(gSaveDataBuffer));
     iwstruct3730p->unk24 = 0xD37;
     iwstruct3730p->unk8D = 0;
     iwstruct3730p->unk8E = 1;

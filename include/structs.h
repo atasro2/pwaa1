@@ -126,9 +126,12 @@ struct Struct3003A70
     u8 filler0[0x40];
 };
 
-struct Struct2000000
+struct SaveData
 {
-    u8 filler0;
+    char saveDataVer[0x30];
+    u32 magic;
+    u8 fill38[0x2998]; /*  other structs maybe? */
+    u8 unk29D0;       /**/
 };
 
 struct Struct3002840
