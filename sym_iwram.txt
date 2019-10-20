@@ -39,11 +39,6 @@
 . = 0x00002F20; gUnknown_03002F20 = .;
 . = 0x00003720; gUnknown_03003720 = .;
 . = 0x00003730; gUnknown_03003730 = .;
-. = 0x00003734; gUnknown_03003734 = .;
-. = 0x00003738; gUnknown_03003738 = .;
-. = 0x0000375E; gUnknown_0300375E = .;
-. = 0x000037BC; gUnknown_030037BC = .;
-. = 0x00003808; gUnknown_03003808 = .;
 . = 0x000038D0; gUnknown_030038D0 = .;
 . = 0x0000391A; gUnknown_0300391A = .;
 . = 0x00003930; gUnknown_03003930 = .;
@@ -63,10 +58,15 @@
 . = 0x00005448; gUnknown_03005448 = .;
 . = 0x0000544C; gUnknown_0300544C = .;
 . = 0x00005450; gUnknown_03005450 = .;
-. = 0x000058C0; gUnknown_030058C0 = .;
-. = 0x00005900; gUnknown_03005900 = .;
-. = 0x00005940; gUnknown_03005940 = .;
-. = 0x00005980; gUnknown_03005980 = .;
+. = 0x00005550; gMPlayTrack_BGM = .;
+. = 0x00005780; gMPlayTrack_SE1 = .;
+. = 0x00005820; gMPlayTrack_SE2 = .;
+. = 0x00005870; gMPlayTrack_SE3 = .;
+. = 0x000058C0; gMPlayInfo_BGM = .;
+. = 0x00005900; gMPlayInfo_SE1 = .;
+. = 0x00005940; gMPlayInfo_SE2 = .;
+. = 0x00005980; gMPlayMemAccArea = .; /*why the hell is this between two music players*/
+. = 0x00005990; gMPlayInfo_SE3 = .;
 . = 0x00007F00; gUnknown_03007F00 = .;
 . = 0x00007F80; gUnknown_03007F80 = .;
 . = 0x00007FF0; gUnknown_03007FF0 = .;

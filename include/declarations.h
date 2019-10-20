@@ -37,7 +37,7 @@ extern void sub_800F3C4();
 extern void sub_8005408();
 
 //EWRAM
-extern struct Struct2000000 gUnknown_02000000;
+extern struct SaveData gSaveDataBuffer;
 
 //IWRAM
 extern struct Struct3000000 gUnknown_03000000;
@@ -53,8 +53,9 @@ extern struct Struct3003A50 gUnknown_03003A50;
 extern struct Struct3003A70 gUnknown_03003A70;
 extern struct Struct3003AB0 gUnknown_03003AB0; 
 extern struct Struct3004000 gUnknown_03004000;
-extern struct MusicPlayerInfo gUnknown_030058C0;
-extern struct MusicPlayerInfo gUnknown_03005900;
-extern struct MusicPlayerInfo gUnknown_03005940;
+extern struct MusicPlayerInfo gMPlayInfo_BGM;
+extern struct MusicPlayerInfo gMPlayInfo_SE1;
+extern struct MusicPlayerInfo gMPlayInfo_SE2;
+extern struct MusicPlayerInfo gUnknown_03005990;
 extern struct OamData gOamObjects[128];
 #endif//GUARD_DECLARATIONS_H

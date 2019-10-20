@@ -36,13 +36,13 @@ void sub_800F454()
     struct Struct3003730 * struct3730p = &gUnknown_03003730;
     if(struct3730p->unk1C & 4)
     {
-        m4aMPlayStop(&gUnknown_030058C0);
+        m4aMPlayStop(&gMPlayInfo_BGM);
         struct3730p->unk1C &= 0xFB;
         struct3730p->unk1C |= 2 | 0;
         if(struct3730p->unk1C & 0x10)
         {
             struct3730p->unk1C |= 1;
-            m4aMPlayVolumeControl(&gUnknown_030058C0, 0xFFFF, 4);
+            m4aMPlayVolumeControl(&gMPlayInfo_BGM, 0xFFFF, 4);
         }
     }
     else
@@ -56,7 +56,7 @@ void sub_800F4AC()
     struct Struct3003730 * struct3730p = &gUnknown_03003730;
     if((struct3730p->unk1C & 1) == 0)
     {
-        m4aMPlayStop(&gUnknown_030058C0);
+        m4aMPlayStop(&gMPlayInfo_BGM);
         struct3730p->unk1C = 1;
         struct3730p->unk1D = 0xFF;
     }
@@ -69,7 +69,7 @@ void sub_800F4D8()
     {
         if((struct3730p->unk1C & 1) == 0)
         {
-            m4aMPlayContinue(&gUnknown_030058C0);
+            m4aMPlayContinue(&gMPlayInfo_BGM);
             struct3730p->unk1C &= 0xFD;
             struct3730p->unk1C |= 4;
         }
@@ -85,7 +85,7 @@ void sub_800F514(u32 speed)
     struct Struct3003730 * struct3730p = &gUnknown_03003730;
     if(struct3730p->unk1C & 4)
     {
-        m4aMPlayFadeOutTemporarily(&gUnknown_030058C0, speed/16);
+        m4aMPlayFadeOutTemporarily(&gMPlayInfo_BGM, speed/16);
         struct3730p->unk1C = 0x14;
     }
 }
@@ -101,8 +101,8 @@ void sub_800F540(u32 speed, u32 songNum)
             {
                 struct3730p->unk1C &= 0xEE;
                 m4aSongNumStart(songNum);
-                m4aMPlayImmInit(&gUnknown_030058C0);
-                m4aMPlayStop(&gUnknown_030058C0);
+                m4aMPlayImmInit(&gMPlayInfo_BGM);
+                m4aMPlayStop(&gMPlayInfo_BGM);
                 return;
             }
             return;
@@ -127,7 +127,7 @@ void sub_800F540(u32 speed, u32 songNum)
                 {
                     if(struct3730p->unk1C & 0x10)
                     {
-                        m4aMPlayFadeIn(&gUnknown_030058C0, speed/16);
+                        m4aMPlayFadeIn(&gMPlayInfo_BGM, speed/16);
                         struct3730p->unk1C = 4;
                         return;
                     }
@@ -140,7 +140,7 @@ void sub_800F540(u32 speed, u32 songNum)
             else
             {
                 sub_800F408(songNum);
-                m4aMPlayImmInit(&gUnknown_030058C0);
+                m4aMPlayImmInit(&gMPlayInfo_BGM);
             }
         }
         if(speed == 0)
@@ -179,12 +179,12 @@ void sub_800F614()
                     struct3730p->unk1C = 4;
                 }
             }
-            m4aMPlayVolumeControl(&gUnknown_030058C0, 0xFFFF, (struct3730p->unk22 / 10) & 0x1FC);
+            m4aMPlayVolumeControl(&gMPlayInfo_BGM, 0xFFFF, (struct3730p->unk22 / 10) & 0x1FC);
             return;
         }
         else
         {
-            if(gUnknown_030058C0.status & 0x80000000)
+            if(gMPlayInfo_BGM.status & 0x80000000)
             {
                 struct3730p->unk1C = 2;
             }
@@ -201,16 +201,16 @@ void sub_800F69C(u32 arg0, u32 arg1)
     }
     if(arg0 & 1)
     {
-        m4aMPlayVolumeControl(&gUnknown_030058C0, 0xFFFF, var0 & 0x1FC);
+        m4aMPlayVolumeControl(&gMPlayInfo_BGM, 0xFFFF, var0 & 0x1FC);
         gUnknown_03003730.unk22 = var0 * 10;
     }
     if(arg0 & 2)
     {
-        m4aMPlayVolumeControl(&gUnknown_03005900, 0xFFFF, var0 & 0x1FC);
+        m4aMPlayVolumeControl(&gMPlayInfo_SE1, 0xFFFF, var0 & 0x1FC);
     }
     if(arg0 & 4)
     {
-        m4aMPlayVolumeControl(&gUnknown_03005940, 0xFFFF, var0 & 0x1FC);
+        m4aMPlayVolumeControl(&gMPlayInfo_SE2, 0xFFFF, var0 & 0x1FC);
     }
 }
 
@@ -235,7 +235,7 @@ void sub_800F71C(u32 arg0, s32 arg1)
         }
         else
         {
-            m4aMPlayVolumeControl(&gUnknown_030058C0, 0xFFFF, arg0 & 0x1FC);
+            m4aMPlayVolumeControl(&gMPlayInfo_BGM, 0xFFFF, arg0 & 0x1FC);
             struct3730p->unk22 = arg0 * 10;        
         }
     }
@@ -245,14 +245,14 @@ void sub_800F798(u32 arg0, s32 arg1)
 {
     if(arg0 & 1)
     {
-        m4aMPlayPanpotControl(&gUnknown_030058C0, 0xFFFF, arg1);
+        m4aMPlayPanpotControl(&gMPlayInfo_BGM, 0xFFFF, arg1);
     }
     if(arg0 & 2)
     {
-        m4aMPlayPanpotControl(&gUnknown_03005900, 0xFFFF, arg1);
+        m4aMPlayPanpotControl(&gMPlayInfo_SE1, 0xFFFF, arg1);
     }
     if(arg0 & 4)
     {
-        m4aMPlayPanpotControl(&gUnknown_03005940, 0xFFFF, arg1);
+        m4aMPlayPanpotControl(&gMPlayInfo_SE2, 0xFFFF, arg1);
     }
 }

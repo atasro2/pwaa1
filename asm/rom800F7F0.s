@@ -2077,7 +2077,7 @@ _0801073E:
 	b _080107A0
 	.align 2, 0
 _0801074C: .4byte gUnknown_03000840
-_08010750: .4byte gUnknown_02000004
+_08010750: .4byte gSaveDataBuffer+0x4
 _08010754: .4byte 0xF3FFFFFB
 _08010758:
 	movs r3, #4
@@ -2164,7 +2164,7 @@ _080107E8:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080107F8: .4byte gUnknown_02000004
+_080107F8: .4byte gSaveDataBuffer+0x4
 _080107FC: .4byte 0x04000050
 
 	THUMB_FUNC_START sub_8010800

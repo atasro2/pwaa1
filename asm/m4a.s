@@ -357,33 +357,34 @@ _080116A2:
 	str r1, [r0, #0x2c]
 _080116A6:
 	bx lr
-_080116A8:
-	push {r4, r5, lr}
-	adds r5, r1, #0
-	ldr r4, [r5, #0x20]
-	cmp r4, #0
-	beq _080116CC
-_080116B2:
+
+	thumb_func_start ply_fine
+ply_fine:
+	push {r4,r5,lr}
+	adds r5, r1, 0
+	ldr r4, [r5, 0x20]
+	cmp r4, 0
+	beq ply_fine_done
+ply_fine_loop:
 	ldrb r1, [r4]
-	movs r0, #0xc7
+	movs r0, 0xC7
 	tst r0, r1
-	beq _080116C0
-	movs r0, #0x40
+	beq ply_fine_ok
+	movs r0, 0x40
 	orrs r1, r0
 	strb r1, [r4]
-_080116C0:
-	adds r0, r4, #0
+ply_fine_ok:
+	adds r0, r4, 0
 	bl ClearChain
-	ldr r4, [r4, #0x34]
-	cmp r4, #0
-	bne _080116B2
-_080116CC:
-	movs r0, #0
+	ldr r4, [r4, 0x34]
+	cmp r4, 0
+	bne ply_fine_loop
+ply_fine_done:
+	movs r0, 0
 	strb r0, [r5]
-	pop {r4, r5}
+	pop {r4,r5}
 	pop {r0}
 	bx r0
-	.align 2, 0
 
 	THUMB_FUNC_START MPlyJmpTblCopy
 MPlyJmpTblCopy: @ 0x080116D8
@@ -418,10 +419,10 @@ _08011704:
 	pop {r0}
 	bx lr
 	.align 2, 0
-_08011708: .4byte gUnknown_08079354
+_08011708: .4byte gMPlayJumpTableTemplate
 
-	THUMB_FUNC_START sub_801170C
-sub_801170C: @ 0x0801170C
+	THUMB_FUNC_START ld_r3_tp_adr_i
+ld_r3_tp_adr_i: @ 0x0801170C
 	ldr r2, [r1, #0x40]
 _0801170D:
 	adds r3, r2, #1
@@ -429,9 +430,11 @@ _0801170D:
 	ldrb r3, [r2]
 	b _080116F2
 	.align 2, 0
-_08011718:
+
+	thumb_func_start ply_goto
+ply_goto:
 	push {lr}
-_0801171A:
+ply_goto_1:
 	ldr r2, [r1, #0x40]
 	ldrb r0, [r2, #3]
 	lsls r0, r0, #8
@@ -460,9 +463,9 @@ ply_patt: @ 0x08011738
 	ldrb r2, [r1, #2]
 	adds r2, #1
 	strb r2, [r1, #2]
-	b _08011718
+	b ply_goto
 _08011750:
-	b _080116A8
+	b ply_fine
 	.align 2, 0
 
 	THUMB_FUNC_START ply_pend
@@ -488,16 +491,16 @@ ply_rept: @ 0x08011768
 	bne _08011778
 	adds r2, #1
 	str r2, [r1, #0x40]
-	b _0801171A
+	b ply_goto_1
 _08011778:
 	ldrb r3, [r1, #3]
 	adds r3, #1
 	strb r3, [r1, #3]
 	mov ip, r3
-	bl sub_801170C
+	bl ld_r3_tp_adr_i
 	cmp ip, r3
 	bhs _0801178A
-	b _0801171A
+	b ply_goto_1
 _0801178A:
 	movs r3, #0
 	strb r3, [r1, #3]
@@ -510,7 +513,7 @@ _0801178A:
 	THUMB_FUNC_START ply_prio
 ply_prio: @ 0x08011798
 	mov ip, lr
-	bl sub_801170C
+	bl ld_r3_tp_adr_i
 	strb r3, [r1, #0x1d]
 	bx ip
 	.align 2, 0
@@ -518,7 +521,7 @@ ply_prio: @ 0x08011798
 	THUMB_FUNC_START ply_tempo
 ply_tempo: @ 0x080117A4
 	mov ip, lr
-	bl sub_801170C
+	bl ld_r3_tp_adr_i
 	lsls r3, r3, #1
 	strh r3, [r0, #0x1c]
 	ldrh r2, [r0, #0x1e]
@@ -530,7 +533,7 @@ ply_tempo: @ 0x080117A4
 	THUMB_FUNC_START ply_keysh
 ply_keysh: @ 0x080117B8
 	mov ip, lr
-	bl sub_801170C
+	bl ld_r3_tp_adr_i
 	strb r3, [r1, #0xa]
 	ldrb r3, [r1]
 	movs r2, #0xc
@@ -566,7 +569,7 @@ ply_voice: @ 0x080117CC
 	THUMB_FUNC_START ply_vol
 ply_vol: @ 0x080117FC
 	mov ip, lr
-	bl sub_801170C
+	bl ld_r3_tp_adr_i
 	strb r3, [r1, #0x12]
 	ldrb r3, [r1]
 	movs r2, #3
@@ -578,7 +581,7 @@ ply_vol: @ 0x080117FC
 	THUMB_FUNC_START ply_pan
 ply_pan: @ 0x08011810
 	mov ip, lr
-	bl sub_801170C
+	bl ld_r3_tp_adr_i
 	subs r3, #0x40
 	strb r3, [r1, #0x14]
 	ldrb r3, [r1]
@@ -590,7 +593,7 @@ ply_pan: @ 0x08011810
 	THUMB_FUNC_START ply_bend
 ply_bend: @ 0x08011824
 	mov ip, lr
-	bl sub_801170C
+	bl ld_r3_tp_adr_i
 	subs r3, #0x40
 	strb r3, [r1, #0xe]
 	ldrb r3, [r1]
@@ -602,7 +605,7 @@ ply_bend: @ 0x08011824
 	THUMB_FUNC_START ply_bendr
 ply_bendr: @ 0x08011838
 	mov ip, lr
-	bl sub_801170C
+	bl ld_r3_tp_adr_i
 	strb r3, [r1, #0xf]
 	ldrb r3, [r1]
 	movs r2, #0xc
@@ -614,7 +617,7 @@ ply_bendr: @ 0x08011838
 	THUMB_FUNC_START ply_lfodl
 ply_lfodl: @ 0x0801184C
 	mov ip, lr
-	bl sub_801170C
+	bl ld_r3_tp_adr_i
 	strb r3, [r1, #0x1b]
 	bx ip
 	.align 2, 0
@@ -622,7 +625,7 @@ ply_lfodl: @ 0x0801184C
 	THUMB_FUNC_START ply_modt
 ply_modt: @ 0x08011858
 	mov ip, lr
-	bl sub_801170C
+	bl ld_r3_tp_adr_i
 	ldrb r0, [r1, #0x18]
 	cmp r0, r3
 	beq _0801186E
@@ -637,7 +640,7 @@ _0801186E:
 	THUMB_FUNC_START ply_tune
 ply_tune: @ 0x08011870
 	mov ip, lr
-	bl sub_801170C
+	bl ld_r3_tp_adr_i
 	subs r3, #0x40
 	strb r3, [r1, #0xc]
 	ldrb r3, [r1]
@@ -1621,8 +1624,8 @@ _08011F58: .4byte gUnknown_03004410
 _08011F5C: .4byte gUnknown_03005450
 _08011F60: .4byte 0x0095E600
 _08011F64: .4byte 0x00000004
-_08011F68: .4byte gUnknown_080412FC
-_08011F6C: .4byte gUnknown_03005980
+_08011F68: .4byte gMPlayTable
+_08011F6C: .4byte gMPlayMemAccArea
 
 	THUMB_FUNC_START m4aSoundMain
 m4aSoundMain: @ 0x08011F70
@@ -1652,8 +1655,8 @@ m4aSongNumStart: @ 0x08011F7C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08011FA0: .4byte gUnknown_080412FC
-_08011FA4: .4byte gUnknown_0804132C
+_08011FA0: .4byte gMPlayTable
+_08011FA4: .4byte gSongTable
 
 	THUMB_FUNC_START m4aSongNumStartOrChange
 m4aSongNumStartOrChange: @ 0x08011FA8
@@ -1678,8 +1681,8 @@ m4aSongNumStartOrChange: @ 0x08011FA8
 	bl MPlayStart_rev01
 	b _08011FF0
 	.align 2, 0
-_08011FD4: .4byte gUnknown_080412FC
-_08011FD8: .4byte gUnknown_0804132C
+_08011FD4: .4byte gMPlayTable
+_08011FD8: .4byte gSongTable
 _08011FDC:
 	ldr r2, [r1, #4]
 	ldrh r0, [r1, #4]
@@ -1718,8 +1721,8 @@ m4aSongNumStartOrContinue: @ 0x08011FF4
 	bl MPlayStart_rev01
 	b _08012044
 	.align 2, 0
-_08012020: .4byte gUnknown_080412FC
-_08012024: .4byte gUnknown_0804132C
+_08012020: .4byte gMPlayTable
+_08012024: .4byte gSongTable
 _08012028:
 	ldr r2, [r1, #4]
 	ldrh r0, [r1, #4]
@@ -1762,8 +1765,8 @@ _0801206E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08012074: .4byte gUnknown_080412FC
-_08012078: .4byte gUnknown_0804132C
+_08012074: .4byte gMPlayTable
+_08012078: .4byte gSongTable
 
 	THUMB_FUNC_START m4aSongNumContinue
 m4aSongNumContinue: @ 0x0801207C
@@ -1789,8 +1792,8 @@ _080120A2:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080120A8: .4byte gUnknown_080412FC
-_080120AC: .4byte gUnknown_0804132C
+_080120A8: .4byte gMPlayTable
+_080120AC: .4byte gSongTable
 
 	THUMB_FUNC_START m4aMPlayAllStop
 m4aMPlayAllStop: @ 0x080120B0
@@ -1815,7 +1818,7 @@ _080120CE:
 	bx r0
 	.align 2, 0
 _080120D4: .4byte 0x00000004
-_080120D8: .4byte gUnknown_080412FC
+_080120D8: .4byte gMPlayTable
 
 	THUMB_FUNC_START m4aMPlayContinue
 m4aMPlayContinue: @ 0x080120DC
@@ -1848,7 +1851,7 @@ _08012106:
 	bx r0
 	.align 2, 0
 _0801210C: .4byte 0x00000004
-_08012110: .4byte gUnknown_080412FC
+_08012110: .4byte gMPlayTable
 
 	THUMB_FUNC_START m4aMPlayFadeOut
 m4aMPlayFadeOut: @ 0x08012114
