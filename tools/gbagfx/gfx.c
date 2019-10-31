@@ -515,7 +515,7 @@ void WriteStripedImage(char *path, int numTiles, int bitDepth, int metatileWidth
 	
 	unsigned char *copFileBuf = fileBuffer;
 	unsigned char *copyPalBuf = paletteBuf;
-	unsigned int prevOffset;
+	unsigned int prevOffset = 42069;
 	
 	unsigned int * buf = (unsigned int*)copFileBuf;
 	
