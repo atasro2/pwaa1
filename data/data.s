@@ -459,8 +459,8 @@ gUnknown_08018784:
     .global gUnknown_080187B4
 gUnknown_080187B4:
     .4byte gUnknown_08427D88
-    .4byte 0x08472f88 @ these are probably seperate incbins we don't have and i can't procrastinate less
-    .4byte 0x084be188
+    .4byte gUnknown_08472F88
+    .4byte gUnknown_084BE188
 
     .global gUnknown_080187C0
 gUnknown_080187C0:
@@ -1716,7 +1716,7 @@ gUnknown_0824696C:
 
     .global gUnknown_08248C4C
 gUnknown_08248C4C:
-    .incbin "baserom.gba", 0x00248C4C, 0x9BC0
+    .incbin "graphics/striped_images/backgrounds/wright_co_law_offices/fey_co_murder_night.8bpp.striped"
 
     .global gUnknown_0825280C
 gUnknown_0825280C:
@@ -1988,7 +1988,7 @@ gUnknown_08362524:
 gUnknown_08362544:
     .incbin "baserom.gba", 0x00362544, 0x2250
     
-@ ; BEGIN
+@ ; BEGIN STRIPED IMAGES
 
     .global gUnknown_08364794
 gUnknown_08364794:
@@ -2007,17 +2007,14 @@ gUnknown_08368BC4:
 @ ; this entry here spills over into an explicitly referenced one (the next), why though...
     .global gUnknown_08369890
 gUnknown_08369890:
-    @ ; actual .incbin "baserom.gba", 0x00369890, 0x2094
     .incbin "baserom.gba", 0x00369890, 0x28
-    
-@ ; END
 
 @ ; it looks like this reference skips the "table" of this striped image and directly goes to the data?
     .global gUnknown_083698B8
 gUnknown_083698B8:
     .incbin "baserom.gba", 0x003698B8, 0x206C
     
-@ ; BEGIN
+@ ;
 
     .global gUnknown_0836B924
 gUnknown_0836B924:
@@ -2038,7 +2035,7 @@ gUnknown_0837920C:
 gUnknown_0837E52C:
     .incbin "baserom.gba", 0x0037E52C, 0xB498
 
-@ ; END
+@ ; this striped image is referenced in code
 
     .global gUnknown_083899C4
 gUnknown_083899C4:
@@ -2048,7 +2045,7 @@ gUnknown_083899C4:
 gUnknown_083899EC:
     .incbin "baserom.gba", 0x003899EC, 0x1978
     
-@ ; BEGIN
+@ ;
     
     .global gUnknown_0838B364
 gUnknown_0838B364:
@@ -2237,7 +2234,15 @@ gUnknown_08427608:
 
     .global gUnknown_08427D88
 gUnknown_08427D88:
-    .incbin "baserom.gba", 0x00427D88, 0x2F6E34
+    .incbin "baserom.gba", 0x00427D88, 0x4B200
+
+    .global gUnknown_08472F88
+gUnknown_08472F88:
+    .incbin "baserom.gba", 0x00472F88, 0x4B200
+    
+    .global gUnknown_084BE188
+gUnknown_084BE188:
+    .incbin "baserom.gba", 0x004BE188, 0x260A34
 
     .global gUnknown_0871EBBC
 gUnknown_0871EBBC:

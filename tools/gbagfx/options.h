@@ -15,6 +15,7 @@ struct GbaToPngOptions {
 };
 
 struct PngToGbaOptions {
+	char *paletteFilePath;
     int numTiles;
     int bitDepth;
     int metatileWidth;

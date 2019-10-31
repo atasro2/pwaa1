@@ -4,6 +4,21 @@ LD := tools/binutils/bin/arm-none-eabi-ld
 OBJCOPY := tools/binutils/bin/arm-none-eabi-objcopy
 SHA1SUM := sha1sum -c
 GBAFIX := tools/gbafix/gbafix
+GBAGFX := tools/gbagfx/gbagfx
+SCANINC := tools/scaninc/scaninc
+
+# Clear the default suffixes
+.SUFFIXES:
+# Don't delete intermediate files
+.SECONDARY:
+# Delete files that weren't built properly
+.DELETE_ON_ERROR:
+
+# Secondary expansion is required for dependency variables in object rules.
+.SECONDEXPANSION:
+
+
+.PHONY: rom compare clean
 
 OBJ_DIR := build/GS1
 
@@ -38,8 +53,6 @@ override CFLAGS += -mthumb-interwork -Wimplicit -Wparentheses -Werror -O2 -fhex-
 
 CPPFLAGS := -I tools/agbcc -I tools/agbcc/include -iquote include -nostdinc
 
-$(C_BUILDDIR)/agb_sram.o: CFLAGS := -O -mthumb-interwork
-
 NAME := GS1
 ROM := $(NAME).gba
 ELF = $(ROM:.gba=.elf)
@@ -47,9 +60,8 @@ MAP = $(ROM:.gba=.map)
 TITLE := GYAKUTEN_SAI
 GAMECODE := ASBJ
 
-.PHONY: all compare clean
 
-all: $(ROM)
+rom: $(ROM)
 
 compare: $(ROM)
 	$(SHA1SUM) rom.sha1
@@ -57,6 +69,24 @@ compare: $(ROM)
 clean:
 	rm -f $(ROM) $(ELF) $(MAP)
 	rm -r $(OBJ_DIR)
+	find . \( -iname '*.1bpp' -o -iname '*.4bpp' -o -iname '*.8bpp' -o -iname '*.gbapal' -o -iname '*.lz' -o -iname '*.striped' \) -exec rm {} +
+
+%.s: ;
+%.png: ;
+%.pal: ;
+%.aif: ;
+
+%.1bpp: %.png  ; $(GFX) $< $@
+%.4bpp: %.png  ; $(GFX) $< $@
+%.8bpp: %.png  ; $(GFX) $< $@
+%.8bpp.striped: %.png ; $(GBAGFX) $< $@
+%.4bpp.striped: %.png ; $(GBAGFX) $< $@
+%.gbapal: %.pal ; $(GFX) $< $@
+%.gbapal: %.png ; $(GFX) $< $@
+%.lz: % ; $(GFX) $< $@
+%.rl: % ; $(GFX) $< $@
+
+$(C_BUILDDIR)/agb_sram.o: CFLAGS := -O -mthumb-interwork
 
 $(ROM): $(ELF)
 	$(OBJCOPY) -O binary $< $@
@@ -72,8 +102,14 @@ $(ELF): %.elf: $(OBJS) ld_script.txt
 $(ASM_BUILDDIR)/%.o: $(ASM_SUBDIR)/%.s
 	$(AS) $(ASFLAGS) -o $@ $<
 
-$(DATA_ASM_BUILDDIR)/%.o: $(DATA_ASM_SUBDIR)/%.s
-	$(AS) $(ASFLAGS) -o $@ $<
+ifeq ($(NODEP),1)
+$(DATA_ASM_BUILDDIR)/%.o: data_dep :=
+else
+$(DATA_ASM_BUILDDIR)/%.o: data_dep = $(shell $(SCANINC) -I include -I "" $(DATA_ASM_SUBDIR)/$*.s)
+endif
+
+$(DATA_ASM_BUILDDIR)/%.o: $(DATA_ASM_SUBDIR)/%.s $$(data_dep)
+	$(AS) $(ASFLAGS) -o $@ $< 
 	
 $(C_BUILDDIR)/%.o: $(C_SUBDIR)/%.c
 	$(CPP) $(CPPFLAGS) $< | $(CC1) $(CFLAGS) -o $(C_BUILDDIR)/$*.s

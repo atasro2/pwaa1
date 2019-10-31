@@ -10,6 +10,7 @@ struct Color {
 	unsigned char red;
 	unsigned char green;
 	unsigned char blue;
+	unsigned char green_lsb;
 };
 
 struct Palette {
@@ -29,6 +30,7 @@ struct Image {
 
 void ReadImage(char *path, int tilesWidth, int bitDepth, int metatileWidth, int metatileHeight, struct Image *image, bool invertColors);
 void WriteImage(char *path, int numTiles, int bitDepth, int metatileWidth, int metatileHeight, struct Image *image, bool invertColors);
+void WriteStripedImage(char *path, int numTiles, int bitDepth, int metatileWidth, int metatileHeight, struct Image *image, bool invertColors, char *palettePath, struct Palette * palette);
 void FreeImage(struct Image *image);
 void ReadGbaPalette(char *path, struct Palette *palette);
 void WriteGbaPalette(char *path, struct Palette *palette);
