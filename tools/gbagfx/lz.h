@@ -5,5 +5,5 @@
 
 unsigned char *LZDecompress(unsigned char *src, int srcSize, int *uncompressedSize);
 unsigned char *LZCompress(unsigned char *src, int srcSize, int *compressedSize, const int minDistance);
-
+unsigned char *unpackBuffer(unsigned char *source, unsigned int *resultsize, unsigned int compressedsize);
 #endif // LZ_H

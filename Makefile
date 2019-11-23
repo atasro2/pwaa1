@@ -71,20 +71,21 @@ clean:
 	rm -r $(OBJ_DIR)
 	find . \( -iname '*.1bpp' -o -iname '*.4bpp' -o -iname '*.8bpp' -o -iname '*.gbapal' -o -iname '*.lz' -o -iname '*.striped' \) -exec rm {} +
 
+%.bin: ;
 %.s: ;
 %.png: ;
 %.pal: ;
 %.aif: ;
 
-%.1bpp: %.png  ; $(GFX) $< $@
-%.4bpp: %.png  ; $(GFX) $< $@
-%.8bpp: %.png  ; $(GFX) $< $@
+%.1bpp: %.png  ; $(GBAGFX) $< $@
+%.4bpp: %.png  ; $(GBAGFX) $< $@
+%.8bpp: %.png  ; $(GBAGFX) $< $@
 %.8bpp.striped: %.png ; $(GBAGFX) $< $@
 %.4bpp.striped: %.png ; $(GBAGFX) $< $@
-%.gbapal: %.pal ; $(GFX) $< $@
-%.gbapal: %.png ; $(GFX) $< $@
-%.lz: % ; $(GFX) $< $@
-%.rl: % ; $(GFX) $< $@
+%.gbapal: %.pal ; $(GBAGFX) $< $@
+%.gbapal: %.png ; $(GBAGFX) $< $@
+%.lz: % ; $(GBAGFX) $< $@
+%.rl: % ; $(GBAGFX) $< $@
 
 $(C_BUILDDIR)/agb_sram.o: CFLAGS := -O -mthumb-interwork
 
