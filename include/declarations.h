@@ -37,7 +37,7 @@ extern void sub_800F3C4();
 extern void sub_8005408();
 
 //EWRAM
-extern struct SaveData gSaveDataBuffer;
+extern EWRAM_DATA struct SaveData gSaveDataBuffer;
 
 //IWRAM
 extern struct Struct3000000 gUnknown_03000000;

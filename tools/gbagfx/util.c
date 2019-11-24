@@ -37,6 +37,34 @@ bool ParseNumber(char *s, char **end, int radix, int *intValue)
 	return true;
 }
 
+char *GetFullFileExtension(char *path)
+{
+	char *extension = path;
+	char *fullextension = path;
+	
+	while (*extension != 0)
+		extension++;
+
+	while (extension > path)
+	{
+		if(*extension == '.')
+		{
+			fullextension = extension;
+		}
+		extension--;
+	}
+	
+	if (fullextension == path)
+		return NULL;
+
+	fullextension++;
+
+	if (*fullextension == 0)
+		return NULL;
+
+	return fullextension;
+}
+
 char *GetFileExtension(char *path)
 {
 	char *extension = path;

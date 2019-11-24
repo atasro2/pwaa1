@@ -7,29 +7,44 @@
 
 unsigned char *LZDecompress(unsigned char *src, int srcSize, int *uncompressedSize)
 {
+	int error;
 	if (srcSize < 4)
+	{
+		error = 1;
 		goto fail;
-
+	}
 	int destSize = (src[3] << 16) | (src[2] << 8) | src[1];
 
 	unsigned char *dest = malloc(destSize);
 
 	if (dest == NULL)
+	{
+		error = 2;
 		goto fail;
+	}
 
 	int srcPos = 4;
 	int destPos = 0;
 
-	for (;;) {
+	for (;;)
+	{
 		if (srcPos >= srcSize)
+		{
+			error = 3;
 			goto fail;
+		}
 
 		unsigned char flags = src[srcPos++];
 
-		for (int i = 0; i < 8; i++) {
-			if (flags & 0x80) {
+		for (int i = 0; i < 8; i++)
+		{
+			if (flags & 0x80)
+			{
 				if (srcPos + 1 >= srcSize)
+				{
+					error = 4;
 					goto fail;
+				}
 
 				int blockSize = (src[srcPos] >> 4) + 3;
 				int blockDistance = (((src[srcPos] & 0xF) << 8) | src[srcPos + 1]) + 1;
@@ -39,24 +54,34 @@ unsigned char *LZDecompress(unsigned char *src, int srcSize, int *uncompressedSi
 				int blockPos = destPos - blockDistance;
 
 				// Some Ruby/Sapphire tilesets overflow.
-				if (destPos + blockSize > destSize) {
+				if (destPos + blockSize > destSize)
+				{
 					blockSize = destSize - destPos;
 					fprintf(stderr, "Destination buffer overflow.\n");
 				}
 
 				if (blockPos < 0)
+				{
+					error = 5;
 					goto fail;
+				}
 
 				for (int j = 0; j < blockSize; j++)
 					dest[destPos++] = dest[blockPos + j];
-			} else {
+			}
+			else
+			{
 				if (srcPos >= srcSize || destPos >= destSize)
+				{
+					error = 6;
 					goto fail;
+				}
 
 				dest[destPos++] = src[srcPos++];
 			}
 
-			if (destPos == destSize) {
+			if (destPos == destSize)
+			{
 				*uncompressedSize = destSize;
 				return dest;
 			}
@@ -66,13 +91,11 @@ unsigned char *LZDecompress(unsigned char *src, int srcSize, int *uncompressedSi
 	}
 
 fail:
-	FATAL_ERROR("Fatal error while decompressing LZ file.\n");
+	FATAL_ERROR("Fatal error while decompressing LZ file. Error (%d) \n", error);
 }
 
-unsigned char *LZCompress(unsigned char *src, int srcSize, int *compressedSize)
+unsigned char *LZCompress(unsigned char *src, int srcSize, int *compressedSize, const int minDistance)
 {
-	const int minDistance = 2; // for compatibility with LZ77UnCompVram()
-
 	if (srcSize <= 0)
 		goto fail;
 
@@ -95,25 +118,27 @@ unsigned char *LZCompress(unsigned char *src, int srcSize, int *compressedSize)
 	int srcPos = 0;
 	int destPos = 4;
 
-	for (;;) {
+	for (;;)
+	{
 		unsigned char *flags = &dest[destPos++];
 		*flags = 0;
 
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 8; i++)
+		{
 			int bestBlockDistance = 0;
 			int bestBlockSize = 0;
 			int blockDistance = minDistance;
 
-			while (blockDistance <= srcPos && blockDistance <= 0x1000) {
+			while (blockDistance <= srcPos && blockDistance <= 0x1000)
+			{
 				int blockStart = srcPos - blockDistance;
 				int blockSize = 0;
 
-				while (blockSize < 18
-				    && srcPos + blockSize < srcSize
-				    && src[blockStart + blockSize] == src[srcPos + blockSize])
+				while (blockSize < 18 && srcPos + blockSize < srcSize && src[blockStart + blockSize] == src[srcPos + blockSize])
 					blockSize++;
 
-				if (blockSize > bestBlockSize) {
+				if (blockSize > bestBlockSize)
+				{
 					bestBlockDistance = blockDistance;
 					bestBlockSize = blockSize;
 
@@ -124,22 +149,27 @@ unsigned char *LZCompress(unsigned char *src, int srcSize, int *compressedSize)
 				blockDistance++;
 			}
 
-			if (bestBlockSize >= 3) {
+			if (bestBlockSize >= 3)
+			{
 				*flags |= (0x80 >> i);
 				srcPos += bestBlockSize;
 				bestBlockSize -= 3;
 				bestBlockDistance--;
 				dest[destPos++] = (bestBlockSize << 4) | ((unsigned int)bestBlockDistance >> 8);
 				dest[destPos++] = (unsigned char)bestBlockDistance;
-			} else {
+			}
+			else
+			{
 				dest[destPos++] = src[srcPos++];
 			}
 
-			if (srcPos == srcSize) {
+			if (srcPos == srcSize)
+			{
 				// Pad to multiple of 4 bytes.
 				int remainder = destPos % 4;
 
-				if (remainder != 0) {
+				if (remainder != 0)
+				{
 					for (int i = 0; i < 4 - remainder; i++)
 						dest[destPos++] = 0;
 				}
@@ -152,4 +182,24 @@ unsigned char *LZCompress(unsigned char *src, int srcSize, int *compressedSize)
 
 fail:
 	FATAL_ERROR("Fatal error while compressing LZ file.\n");
+}
+
+/* Code from phoenixtool's ntrcom because idk*/
+
+/*	decompresses a file in source
+	the header of the compressed file must be in the first 4 bytes of source */
+
+unsigned char *unpackBuffer(unsigned char *source, unsigned int *resultsize, unsigned int compressedsize)
+{
+	unsigned char *comsource = source;
+	unsigned int type;
+	type = source[0] >> 4;
+	switch (type)
+	{
+		case 1:
+		{
+			return LZDecompress(comsource, compressedsize, (int *)resultsize);
+		}
+	}
+	return 0;
 }
