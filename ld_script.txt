@@ -19,6 +19,7 @@ SECTIONS {
         src/main.o(.text);
         asm/main.o(.text);
         src/cmd_mus.o(.text);
+        src/rom800F7F0.o(.text);
         asm/rom800F7F0.o(.text);
         asm/m4a.o(.text);
         asm/libagbsyscall.o(.text);
@@ -32,6 +33,7 @@ SECTIONS {
     .data :
     ALIGN(4)
     {
+        src/main.o(.data);
         data/data.o(.data);
     } =0
 

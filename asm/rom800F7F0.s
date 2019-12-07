@@ -2,53 +2,6 @@
 
 .syntax unified
 
-	THUMB_FUNC_START sub_800F7F0
-sub_800F7F0: @ 0x0800F7F0
-	ldr r0, _0800F800
-	movs r1, #1
-	str r1, [r0]
-	movs r1, #0
-	str r1, [r0, #8]
-	str r1, [r0, #4]
-	bx lr
-	.align 2, 0
-_0800F800: .4byte gUnknown_03000800
-
-	THUMB_FUNC_START sub_800F804
-sub_800F804: @ 0x0800F804
-	push {r4, lr}
-	sub sp, #4
-	ldr r2, _0800F83C
-	mov r0, sp
-	movs r3, #0
-	strh r3, [r0]
-	ldr r0, _0800F840
-	mov r1, sp
-	str r1, [r0]
-	str r2, [r0, #4]
-	ldr r1, _0800F844
-	str r1, [r0, #8]
-	ldr r0, [r0, #8]
-	ldr r1, _0800F848
-	movs r0, #3
-	ldrb r4, [r1, #0x1f]
-	orrs r0, r4
-	strb r0, [r1, #0x1f]
-	adds r2, #0x40
-	movs r0, #0xff
-	strh r0, [r2, #0xc]
-	strb r3, [r2, #0xe]
-	bl sub_800F7F0
-	add sp, #4
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800F83C: .4byte gUnknown_03000800
-_0800F840: .4byte 0x040000D4
-_0800F844: .4byte 0x81000400
-_0800F848: .4byte gUnknown_03003730
-
 	THUMB_FUNC_START sub_800F84C
 sub_800F84C: @ 0x0800F84C
 	push {r4, r5, r6, r7, lr}
@@ -107,7 +60,7 @@ _0800F8A8:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800F8B4: .4byte gUnknown_03000840
+_0800F8B4: .4byte gUnknown_03000800+0x40
 _0800F8B8: .4byte gOamObjects
 
 	THUMB_FUNC_START sub_800F8BC
@@ -1230,7 +1183,7 @@ _080100D2:
 	b _080101FA
 	.align 2, 0
 _080100D8: .4byte gUnknown_03003730
-_080100DC: .4byte gUnknown_03000840
+_080100DC: .4byte gUnknown_03000800+0x40
 _080100E0:
 	mov r0, sp
 	strh r2, [r0]
@@ -1530,9 +1483,9 @@ sub_8010304: @ 0x08010304
 	str r0, [sp, #0x10]
 	ldr r2, _08010420
 	ldrb r1, [r4, #2]
-	lsls r0, r1, #1
-	adds r0, r0, r1
-	lsls r0, r0, #2
+	lsls r0, r1, #1 @ *2
+	adds r0, r0, r1 @ *3 
+	lsls r0, r0, #2 @ *C
 	adds r0, r0, r2
 	ldr r0, [r0]
 	str r0, [sp, #0x14]
@@ -1648,7 +1601,7 @@ _08010408:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08010418: .4byte gUnknown_03000840
+_08010418: .4byte gUnknown_03000800+0x40
 _0801041C: .4byte 0x06015800
 _08010420: .4byte gUnknown_08018DD4
 _08010424: .4byte 0x040000D4
@@ -1687,7 +1640,7 @@ _08010460:
 	adds r0, r1, #0
 	bx lr
 	.align 2, 0
-_08010464: .4byte gUnknown_03000840
+_08010464: .4byte gUnknown_03000800+0x40
 
 	THUMB_FUNC_START sub_8010468
 sub_8010468: @ 0x08010468
@@ -2076,7 +2029,7 @@ _0801073E:
 	adds r2, r1, #0
 	b _080107A0
 	.align 2, 0
-_0801074C: .4byte gUnknown_03000840
+_0801074C: .4byte gUnknown_03000800+0x40
 _08010750: .4byte gSaveDataBuffer+0x4
 _08010754: .4byte 0xF3FFFFFB
 _08010758:
@@ -3354,7 +3307,7 @@ sub_80110E4: @ 0x080110E4
 	.align 2, 0
 _080110FC: .4byte gUnknown_03004000
 _08011100: .4byte gUnknown_0811DFFC
-_08011104: .4byte gUnknown_03000840
+_08011104: .4byte gUnknown_03000800+0x40
 
 	THUMB_FUNC_START sub_8011108
 sub_8011108: @ 0x08011108
