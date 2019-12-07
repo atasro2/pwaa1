@@ -37,6 +37,7 @@ extern void sub_8005408();
 
 //EWRAM
 extern EWRAM_DATA struct SaveData gSaveDataBuffer;
+
 //IWRAM
 extern u16 gUnknown_03000000[0x400]; // some kind of BG 2 buffer
 extern struct Struct3000800 gUnknown_03000800; // size unknown
