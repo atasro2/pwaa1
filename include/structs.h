@@ -1,29 +1,23 @@
 #ifndef GUARD_STRUCTS_H //TODO: get rid of this file and move everything to the place they should be in
 #define GUARD_STRUCTS_H
 
-struct Struct3000000
-{
-    u8 filler0[0x800]; // this struct could actually be an array?
-};
-struct Struct3004000
+struct Struct3000800 // unknown size
 {
     u32 unk0;
-    u16 unk4;
-    u8 filler6[0x6];
-    s16 unkC;
-    s16 unkE;
-
-};
-
-union UnknownUnion
-{
-    u8 field0;
-    u32 field1;
-};
-
-struct Struct3002F20 // this might be a array actually
-{
-    u8 filler0[0x800]; // this struct either has structs in it or it's huge as fuck
+    u32 unk4;
+    u32 unk8;
+    u8 fillerC[0x34];
+    struct Struct3000840
+    {
+        u32 unk0;
+        u32 unk4;
+        u32 unk8;
+        u16 unkC;
+        u8 unkE;
+        u8 fillerF[0x2B];
+        u8 unk3A;
+        u8 unk3B;
+    } unk40;
 };
 
 struct Struct3003720
@@ -41,8 +35,12 @@ struct Struct3003720
 struct Struct3003730
 {
     u32 unk0;
-    union UnknownUnion unk1;
-    u8 filler6[0x4];
+    union UnknownUnion
+    {   
+        u8 field0;
+        u32 field1;
+    } unk1;
+    u8 filler8[0x4];
     u8 unkC;
     u8 unkD;
     s8 unkE;
@@ -53,7 +51,8 @@ struct Struct3003730
     s16 unk1A;
     u8 unk1C;
     u8 unk1D;
-    u8 filler1E[0x2];
+    u8 filler1E[0x1];
+    u8 unk1F;
     s16 unk20;
     s16 unk22;
     u16 unk24;
@@ -147,6 +146,16 @@ struct Struct3003A50
 struct Struct3003AB0
 {
     u8 filler0[0x8];
+};
+
+struct Struct3004000
+{
+    u32 unk0;
+    u16 unk4;
+    u8 filler6[0x6];
+    s16 unkC;
+    s16 unkE;
+
 };
 
 #endif//GUARD_STRUCTS_H

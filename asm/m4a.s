@@ -73,9 +73,9 @@ _080112AA:
 	ldr r3, _080112BC
 	bx r3
 	.align 2, 0
-_080112B4: .4byte gUnknown_03007FF0
+_080112B4: .4byte 0x03007FF0 @ SOUND_INFO_PTR
 _080112B8: .4byte 0x68736D53
-_080112BC: .4byte gUnknown_03004010+1
+_080112BC: .4byte SoundMainRAM_Buffer+1
 _080112C0: .4byte 0x04000006
 _080112C4: .4byte 0x00000350
 _080112C8: .4byte 0x00000630
@@ -1059,7 +1059,7 @@ sub_8011B40: @ 0x08011B40
 	bx r3
 	.align 2, 0
 _08011B44: .4byte gUnknown_080795C8
-_08011B48: .4byte gUnknown_03007FF0
+_08011B48: .4byte 0x03007FF0 @ SOUND_INFO_PTR
 _08011B4C: .4byte 0x68736D53
 
 	THUMB_FUNC_START TrackStop_rev01
@@ -1100,7 +1100,7 @@ _08011B88:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08011B90: .4byte gUnknown_03007FF0
+_08011B90: .4byte 0x03007FF0 @ SOUND_INFO_PTR
 
 	THUMB_FUNC_START ChnVolSetAsm
 ChnVolSetAsm: @ 0x08011B94
@@ -1407,7 +1407,7 @@ _08011DAA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08011DBC: .4byte gUnknown_03007FF0
+_08011DBC: .4byte 0x03007FF0 @ SOUND_INFO_PTR
 _08011DC0: .4byte gUnknown_080795C8
 
 	THUMB_FUNC_START ply_endtie_rev01
@@ -1637,10 +1637,10 @@ _08011F46:
 	bx r0
 	.align 2, 0
 _08011F4C: .4byte SoundMainRAM+1
-_08011F50: .4byte gUnknown_03004010
+_08011F50: .4byte SoundMainRAM_Buffer
 _08011F54: .4byte 0x04000100
-_08011F58: .4byte gUnknown_03004410
-_08011F5C: .4byte gUnknown_03005450
+_08011F58: .4byte gSoundInfo
+_08011F5C: .4byte gCgbChans
 _08011F60: .4byte 0x0095E600
 _08011F64: .4byte 0x00000004
 _08011F68: .4byte gMPlayTable
@@ -2071,9 +2071,9 @@ _08012274:
 _0801227C: .4byte 0x04000084
 _08012280: .4byte 0x04000080
 _08012284: .4byte 0x04000063
-_08012288: .4byte gUnknown_03007FF0
+_08012288: .4byte 0x03007FF0 @ SOUND_INFO_PTR
 _0801228C: .4byte 0x68736D53
-_08012290: .4byte gUnknown_030053C0
+_08012290: .4byte gMPlayJumpTable
 _08012294: .4byte ply_memacc+1
 _08012298: .4byte ply_lfos_rev01+1
 _0801229C: .4byte ply_mod_rev01+1
@@ -2103,7 +2103,7 @@ ClearChain_rev: @ 0x080122D0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080122E0: .4byte gUnknown_03005448
+_080122E0: .4byte gMPlayJumpTable+0x88
 
 	THUMB_FUNC_START Clear64byte_rev
 Clear64byte_rev: @ 0x080122E4
@@ -2114,7 +2114,7 @@ Clear64byte_rev: @ 0x080122E4
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080122F4: .4byte gUnknown_0300544C
+_080122F4: .4byte gMPlayJumpTable+0x8C
 
 	THUMB_FUNC_START SoundInit_rev01
 SoundInit_rev01: @ 0x080122F8
@@ -2220,11 +2220,11 @@ _080123C8: .4byte 0x04000089
 _080123CC: .4byte 0x040000BC
 _080123D0: .4byte 0x040000A0
 _080123D4: .4byte 0x040000A4
-_080123D8: .4byte gUnknown_03007FF0
+_080123D8: .4byte 0x03007FF0 @ SOUND_INFO_PTR
 _080123DC: .4byte 0x050003EC
 _080123E0: .4byte ply_note_rev01+1
 _080123E4: .4byte nullsub_34+1
-_080123E8: .4byte gUnknown_030053C0
+_080123E8: .4byte gMPlayJumpTable
 _080123EC: .4byte 0x68736D53
 
 	THUMB_FUNC_START SampFreqSet_rev01
@@ -2290,7 +2290,7 @@ _0801245C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08012470: .4byte gUnknown_03007FF0
+_08012470: .4byte 0x03007FF0 @ SOUND_INFO_PTR
 _08012474: .4byte gUnknown_080794C8
 _08012478: .4byte 0x00091D1B
 _0801247C: .4byte 0x00001388
@@ -2378,7 +2378,7 @@ _0801251A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08012520: .4byte gUnknown_03007FF0
+_08012520: .4byte 0x03007FF0 @ SOUND_INFO_PTR
 _08012524: .4byte 0x68736D53
 _08012528: .4byte 0x04000089
 
@@ -2426,7 +2426,7 @@ _08012572:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08012578: .4byte gUnknown_03007FF0
+_08012578: .4byte 0x03007FF0 @ SOUND_INFO_PTR
 _0801257C: .4byte 0x68736D53
 
 	THUMB_FUNC_START SoundVSyncOff_rev01
@@ -2481,7 +2481,7 @@ _080125D8:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080125E0: .4byte gUnknown_03007FF0
+_080125E0: .4byte 0x03007FF0 @ SOUND_INFO_PTR
 _080125E4: .4byte 0x978C92AD
 _080125E8: .4byte 0x040000C4
 _080125EC: .4byte 0x84400004
@@ -2516,7 +2516,7 @@ _08012624:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801262C: .4byte gUnknown_03007FF0
+_0801262C: .4byte 0x03007FF0 @ SOUND_INFO_PTR
 _08012630: .4byte 0x68736D53
 _08012634: .4byte 0x040000C6
 
@@ -2580,7 +2580,7 @@ _0801269C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080126A4: .4byte gUnknown_03007FF0
+_080126A4: .4byte 0x03007FF0 @ SOUND_INFO_PTR
 _080126A8: .4byte 0x68736D53
 _080126AC: .4byte MPlayMain_rev01+1
 
@@ -3174,7 +3174,7 @@ CgbSound: @ 0x08012AB0
 	strb r0, [r1, #0xa]
 	b _08012ADA
 	.align 2, 0
-_08012AD0: .4byte gUnknown_03007FF0
+_08012AD0: .4byte 0x03007FF0 @ SOUND_INFO_PTR
 _08012AD4:
 	movs r0, #0xe
 	ldr r2, [sp, #4]
@@ -4259,7 +4259,7 @@ _080132A8:
 	bl _call_via_r2
 	b _080132C2
 	.align 2, 0
-_080132B8: .4byte gUnknown_030053C4
+_080132B8: .4byte gMPlayJumpTable+0x4
 _080132BC:
 	ldr r0, [r6, #0x40]
 	adds r0, #4
@@ -4295,7 +4295,7 @@ ply_xxx: @ 0x080132E8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080132F8: .4byte gUnknown_030053C0
+_080132F8: .4byte gMPlayJumpTable
 
 	THUMB_FUNC_START ply_xwave
 ply_xwave: @ 0x080132FC

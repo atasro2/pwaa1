@@ -184,7 +184,7 @@ void sub_800F614()
         }
         else
         {
-            if(gMPlayInfo_BGM.status & 0x80000000)
+            if(gMPlayInfo_BGM.status & MUSICPLAYER_STATUS_PAUSE)
             {
                 struct3730p->unk1C = 2;
             }
@@ -192,67 +192,61 @@ void sub_800F614()
     }
 }
 
-void sub_800F69C(u32 arg0, u32 arg1)
+void sub_800F69C(u32 track, u32 volume)
 {
-    u32 var0 = arg1;
-    if(arg1 < 4)
+    if (volume < 4) 
+        volume = 4;
+        
+    if(track & 1)
     {
-        var0 = 4;
+        m4aMPlayVolumeControl(&gMPlayInfo_BGM, 0xFFFF, volume & 0x1FC);
+        gUnknown_03003730.unk22 = volume * 10;
     }
-    if(arg0 & 1)
-    {
-        m4aMPlayVolumeControl(&gMPlayInfo_BGM, 0xFFFF, var0 & 0x1FC);
-        gUnknown_03003730.unk22 = var0 * 10;
-    }
-    if(arg0 & 2)
-    {
-        m4aMPlayVolumeControl(&gMPlayInfo_SE1, 0xFFFF, var0 & 0x1FC);
-    }
-    if(arg0 & 4)
-    {
-        m4aMPlayVolumeControl(&gMPlayInfo_SE2, 0xFFFF, var0 & 0x1FC);
-    }
+    if(track & 2)
+        m4aMPlayVolumeControl(&gMPlayInfo_SE1, 0xFFFF, volume & 0x1FC);
+    if(track & 4)
+        m4aMPlayVolumeControl(&gMPlayInfo_SE2, 0xFFFF, volume & 0x1FC);
 }
 
-void sub_800F71C(u32 arg0, s32 arg1)
+void sub_800F71C(u32 volume, s32 arg1)
 {
     struct Struct3003730 * struct3730p = &gUnknown_03003730;
     if((struct3730p->unk1C & 3) == 0)
     {
-        if(arg0 > 256)
+        if(volume > 256)
         {
-            arg0 = 256;
+            volume = 256;
         }
-        else if(arg0 < 4)
+        else if(volume < 4)
         {
-            arg0 = 4;
+            volume = 4;
         }
         if(arg1 != 0)
         {
-            struct3730p->unk1A = arg0 * 10;
+            struct3730p->unk1A = volume * 10;
             struct3730p->unk20 = ((struct3730p->unk1A - struct3730p->unk22) / arg1);
             struct3730p->unk1C |= 8;
         }
         else
         {
-            m4aMPlayVolumeControl(&gMPlayInfo_BGM, 0xFFFF, arg0 & 0x1FC);
-            struct3730p->unk22 = arg0 * 10;        
+            m4aMPlayVolumeControl(&gMPlayInfo_BGM, 0xFFFF, volume & 0x1FC);
+            struct3730p->unk22 = volume * 10;        
         }
     }
 }
 
-void sub_800F798(u32 arg0, s32 arg1)
+void sub_800F798(u32 track, u32 pan)
 {
-    if(arg0 & 1)
+    if(track & 1)
     {
-        m4aMPlayPanpotControl(&gMPlayInfo_BGM, 0xFFFF, arg1);
+        m4aMPlayPanpotControl(&gMPlayInfo_BGM, 0xFFFF, pan);
     }
-    if(arg0 & 2)
+    if(track & 2)
     {
-        m4aMPlayPanpotControl(&gMPlayInfo_SE1, 0xFFFF, arg1);
+        m4aMPlayPanpotControl(&gMPlayInfo_SE1, 0xFFFF, pan);
     }
-    if(arg0 & 4)
+    if(track & 4)
     {
-        m4aMPlayPanpotControl(&gMPlayInfo_SE2, 0xFFFF, arg1);
+        m4aMPlayPanpotControl(&gMPlayInfo_SE2, 0xFFFF, pan);
     }
 }

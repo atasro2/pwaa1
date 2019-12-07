@@ -2,16 +2,37 @@
 #include "m4a.h"
 
 static void sub_80002E4();
+static void VCountIntr();
+static void SerialIntrDummy();
+static void IntrDummy();
+
+static void (*IntrTableFunctionPtrs[])() =
+{
+    VCountIntr,
+    SerialIntrDummy,
+    IntrDummy,
+    IntrDummy,
+    IntrDummy,
+    IntrDummy,
+    IntrDummy,
+    IntrDummy,
+    IntrDummy,
+    IntrDummy,
+    IntrDummy,
+    IntrDummy,
+    IntrDummy,
+    IntrDummy,
+    IntrDummy,
+    IntrDummy
+};
+
+#define KEY_NEW() ({ (*(u16 *)REG_ADDR_KEYINPUT) ^ KEYS_MASK; })
 
 void CheckAButtonAndGoToClearSaveScreen()
 {
-    u16 *input;
-    u16 keys;
     if (gUnknown_03003730.unk1.field0 == 0)
     {
-        input = (u16 *)REG_ADDR_KEYINPUT;
-        keys = (KEYS_MASK ^ *input);
-        if (A_BUTTON & keys)
+        if (A_BUTTON & KEY_NEW())
             gUnknown_03003730.unk1.field0 = 0xE;
     }
 }
@@ -83,7 +104,7 @@ void sub_80002E4()
     u8 var1;
     u32 var2 = iwstruct3730p->unkB4 & 1;
 
-    if ((var2))
+    if (var2)
     {
         switch (iwstruct3730p->unk12)
         {
@@ -171,7 +192,7 @@ void sub_80003E0()
 
     for (temp = 0; temp < ARRAY_COUNT(IntrTableFunctionPtrs); temp++)
     {
-        IntrTable[temp] = IntrTableFunctionPtrs[temp];
+        gIntrTable[temp] = IntrTableFunctionPtrs[temp];
     }
 
     m4aSoundInit();
@@ -258,20 +279,18 @@ void sub_8000624()
     REG_BLDY = iwstruct38D0p->lcd_bldy;
 }
 
-void sub_80006DC() // TODO: this function sucks
-                   // TODO: Rename to ReadKeys ?
+void sub_80006DC() // TODO: Rename to ReadKeys ?
 {
     struct Struct3003720 *iwstruct3720p = &gUnknown_03003720;
-    u16 *keyInput = (u16 *)REG_ADDR_KEYINPUT;
-    u16 temp = KEYS_MASK ^ *keyInput;
+    u16 temp = KEY_NEW();
     u32 temp2;
     iwstruct3720p->unk4 = iwstruct3720p->unk0;
     iwstruct3720p->unk6 = iwstruct3720p->unk2;
-    iwstruct3720p->unk0 = (KEYS_MASK ^ *keyInput);
+    iwstruct3720p->unk0 = KEY_NEW();
     iwstruct3720p->unk2 = temp & ~iwstruct3720p->unk4;
     iwstruct3720p->unk8 = 0;
     temp2 = iwstruct3720p->unkA;
-    if ((KEYS_MASK ^ *keyInput) & temp2)
+    if (KEY_NEW() & temp2)
     {
         temp2 = iwstruct3720p->unkC;
         if (iwstruct3720p->unkE >= temp2)
@@ -465,7 +484,7 @@ void sub_80009AC()
 
     for (i = 0; i < 0x1E; i++)
     {
-        gUnknown_03001000[i + 1] = 0x258 + i;
+        gUnknown_03001000[i+1] = 0x258 + i;
     }
     for (i = 0; i < 0x15; i++)
     {
