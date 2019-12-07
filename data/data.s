@@ -2445,15 +2445,11 @@ gUnknown_08472F88:
     
     .global gUnknown_084BE188
 gUnknown_084BE188:
-<<<<<<< HEAD
-    .incbin "baserom.gba", 0x004BE188, 0x260A34
-=======
     .incbin "baserom.gba", 0x004BE188, 0x4B200
 
     .global gUnknown_08509388 @ character animations and shit
 gUnknown_08509388:
     .incbin "baserom.gba", 0x00509388, 0x215834
->>>>>>> fe94b919fcb085a7502dcc18d7ef7c2ee185daed
 
     .global gUnknown_0871EBBC
 gUnknown_0871EBBC:
