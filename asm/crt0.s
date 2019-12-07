@@ -4,17 +4,17 @@
 
 _start:
 	b _init
-_08000004:
+rom_header:
 	.include "asm/rom_header.inc"
 _init:
 	mov r0, #0x12
 	msr cpsr_fc, r0
-	ldr sp, _080001D4
+	ldr sp, sp_irq
 	mov r0, #0x1f
 	msr cpsr_fc, r0
-	ldr sp, _080001D8
+	ldr sp, sp_sys
 	ldr r0, _080001DC
-	ldr r1, _080001E0
+	ldr r1, INTR_VECTOR
 	str r0, [r1]
 	ldr r0, _080001E4
 	bx r0
@@ -85,9 +85,9 @@ _080001B0:
 _080001CC:
 	.byte 0x00, 0x40, 0xBD, 0xE8
 	.byte 0x1E, 0xFF, 0x2F, 0xE1
-_080001D4: .4byte gUnknown_03007F80
-_080001D8: .4byte gUnknown_03007F00
+sp_irq: .4byte 0x03007F80
+sp_sys: .4byte 0x03007F00
 _080001DC: .4byte _intr
-_080001E0: .4byte gUnknown_03007FFC
+INTR_VECTOR: .4byte 0x03007FFC
 _080001E4: .4byte AgbMain+1
-_080001E8: .4byte IntrTable
+_080001E8: .4byte gIntrTable
