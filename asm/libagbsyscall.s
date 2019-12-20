@@ -1,6 +1,5 @@
-.include "asm/macros.inc"
-
-.syntax unified
+	.include "asm/macros.inc"
+	.syntax unified
 
 	THUMB_FUNC_START CpuSet
 CpuSet: @ 0x080133EC

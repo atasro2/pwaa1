@@ -26,15 +26,10 @@ static void (*IntrTableFunctionPtrs[])() =
     IntrDummy
 };
 
-#define KEY_NEW() ({ (*(u16 *)REG_ADDR_KEYINPUT) ^ KEYS_MASK; })
-
 void CheckAButtonAndGoToClearSaveScreen()
 {
-    if (gUnknown_03003730.unk1.field0 == 0)
-    {
-        if (A_BUTTON & KEY_NEW())
-            gUnknown_03003730.unk1.field0 = 0xE;
-    }
+    if ((gUnknown_03003730.unk4.field0 == 0) && (A_BUTTON & KEY_NEW()))
+        gUnknown_03003730.unk4.field0 = 0xE;
 }
 
 void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
@@ -68,7 +63,7 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
                 sub_80013EC();
                 sub_80029B0();
                 sub_8010C4C(0);
-                sub_8002A48();
+                MoveSpritesToOAM();
                 sub_8000624();
             }
             if (gUnknown_03003730.unk2C > 10)
@@ -144,10 +139,10 @@ void sub_80002E4()
             iwstruct3730p->unkF = var1 & mask;
         }
 
-        gUnknown_030038D0.lcd_bg3vofs = iwstruct3730p->unkF + 8;
-        gUnknown_030038D0.lcd_bg3hofs = iwstruct3730p->unkE + 8;
-        gUnknown_030038D0.lcd_bg1vofs = iwstruct3730p->unkE;
-        gUnknown_030038D0.lcd_bg1hofs = iwstruct3730p->unkF;
+        gLCDIORegisters.lcd_bg3vofs = iwstruct3730p->unkF + 8;
+        gLCDIORegisters.lcd_bg3hofs = iwstruct3730p->unkE + 8;
+        gLCDIORegisters.lcd_bg1vofs = iwstruct3730p->unkE;
+        gLCDIORegisters.lcd_bg1hofs = iwstruct3730p->unkF;
 
         if (iwstruct3730p->unk10 != 0)
         {
@@ -155,10 +150,10 @@ void sub_80002E4()
             if (iwstruct3730p->unk10 == 0)
             {
                 iwstruct3730p->unkB4 &= ~1;
-                gUnknown_030038D0.lcd_bg3vofs = 8;
-                gUnknown_030038D0.lcd_bg3hofs = 8;
-                gUnknown_030038D0.lcd_bg1vofs = 0;
-                gUnknown_030038D0.lcd_bg1hofs = 0;
+                gLCDIORegisters.lcd_bg3vofs = 8;
+                gLCDIORegisters.lcd_bg3hofs = 8;
+                gLCDIORegisters.lcd_bg1vofs = 0;
+                gLCDIORegisters.lcd_bg1hofs = 0;
             }
         }
     }
@@ -168,7 +163,7 @@ void sub_80002E4()
         gUnknown_03003730.unkF = var2;
     }
 
-    gUnknown_0811DBB4[gUnknown_03003730.unk1.field0](&gUnknown_03003730);
+    gUnknown_0811DBB4[gUnknown_03003730.unk4.field0](&gUnknown_03003730);
 
     if (iwstruct4000p->unk4)
     {
@@ -179,14 +174,14 @@ void sub_80002E4()
 void sub_80003E0()
 {
     struct Struct3003730 *iwstruct3730p = &gUnknown_03003730;
-    struct Struct30038D0 *iwstruct38D0p = &gUnknown_030038D0;
-    u32 temp = iwstruct3730p->unk1.field0 ? 1 : 0;
+    struct LCDIORegisters *lcdIoRegsp = &gLCDIORegisters;
+    u32 temp = iwstruct3730p->unk4.field0 ? 1 : 0;
 
     RegisterRamReset(RESET_SIO_REGS | RESET_SOUND_REGS | RESET_REGS);
     DmaFill32(3, 0, IWRAM_START, 0x7E00);  // Clear IWRAM
     DmaFill32(3, 0, EWRAM_START, 0x40000); // Clear EWRAM
 
-    iwstruct3730p->unk1.field1 = temp; // TODO: !? scrub c?
+    iwstruct3730p->unk4.field1 = temp; // TODO: !? scrub c?
 
     RegisterRamReset(RESET_OAM | RESET_VRAM | RESET_PALETTE);
 
@@ -197,18 +192,18 @@ void sub_80003E0()
 
     m4aSoundInit();
     REG_WAITCNT = WAITCNT_SRAM_4 | WAITCNT_WS0_N_3 | WAITCNT_WS0_S_1 | WAITCNT_WS1_N_4 | WAITCNT_WS1_S_4 | WAITCNT_WS2_N_4 | WAITCNT_WS2_S_8 | WAITCNT_PHI_OUT_NONE | WAITCNT_PREFETCH_ENABLE;
-    iwstruct38D0p->iwp_ie = INTR_FLAG_VBLANK | INTR_FLAG_GAMEPAK;
-    iwstruct38D0p->lcd_dispstat = DISPSTAT_VBLANK_INTR;
-    iwstruct38D0p->lcd_bldcnt = BLDCNT_TGT1_BG0 | BLDCNT_TGT1_BG1 | BLDCNT_TGT1_BG2 | BLDCNT_TGT1_BG3 | BLDCNT_TGT1_OBJ | BLDCNT_EFFECT_DARKEN;
-    iwstruct38D0p->lcd_bldy = 0x10;
-    REG_IE = iwstruct38D0p->iwp_ie;
-    REG_DISPSTAT = iwstruct38D0p->lcd_dispstat;
+    lcdIoRegsp->iwp_ie = INTR_FLAG_VBLANK | INTR_FLAG_GAMEPAK;
+    lcdIoRegsp->lcd_dispstat = DISPSTAT_VBLANK_INTR;
+    lcdIoRegsp->lcd_bldcnt = BLDCNT_TGT1_BG0 | BLDCNT_TGT1_BG1 | BLDCNT_TGT1_BG2 | BLDCNT_TGT1_BG3 | BLDCNT_TGT1_OBJ | BLDCNT_EFFECT_DARKEN;
+    lcdIoRegsp->lcd_bldy = 0x10;
+    REG_IE = lcdIoRegsp->iwp_ie;
+    REG_DISPSTAT = lcdIoRegsp->lcd_dispstat;
     REG_IME = TRUE;
 }
 
 void sub_80004B0() // reset a bunch of shit
 {
-    struct Struct30038D0 *iwstruct38D0p = &gUnknown_030038D0;
+    struct LCDIORegisters *lcdIoRegsp = &gLCDIORegisters;
     struct Struct3003730 *iwstruct3730p = &gUnknown_03003730;
     DmaFill16(3, 0, VRAM, VRAM_SIZE);
     DmaFill16(3, 0, OAM, OAM_SIZE);
@@ -223,18 +218,18 @@ void sub_80004B0() // reset a bunch of shit
     iwstruct3730p->unk24 = 0xD37;
     iwstruct3730p->unk8D = 0;
     iwstruct3730p->unk8E = 1;
-    iwstruct38D0p->lcd_bg0cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(28) | BGCNT_16COLOR | BGCNT_WRAP;                 // TODO: add TXT/AFF macro once known which one is used
-    iwstruct38D0p->lcd_bg1cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(29) | BGCNT_16COLOR | BGCNT_WRAP;                 // TODO: add TXT/AFF macro once known which one is used
-    iwstruct38D0p->lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP;                 // TODO: add TXT/AFF macro once known which one is used
-    iwstruct38D0p->lcd_bg3cnt = BGCNT_PRIORITY(3) | BGCNT_CHARBASE(1) | BGCNT_SCREENBASE(31) | BGCNT_MOSAIC | BGCNT_256COLOR | BGCNT_WRAP; // TODO: add TXT/AFF macro once known which one is used
-    iwstruct38D0p->lcd_bldcnt = BLDCNT_TGT1_BG0 | BLDCNT_TGT1_BG1 | BLDCNT_TGT1_BG2 | BLDCNT_TGT1_BG3 | BLDCNT_TGT1_OBJ | BLDCNT_EFFECT_DARKEN;
-    iwstruct38D0p->lcd_bldy = 0x10;
+    lcdIoRegsp->lcd_bg0cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(28) | BGCNT_16COLOR | BGCNT_WRAP;                 // TODO: add TXT/AFF macro once known which one is used
+    lcdIoRegsp->lcd_bg1cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(29) | BGCNT_16COLOR | BGCNT_WRAP;                 // TODO: add TXT/AFF macro once known which one is used
+    lcdIoRegsp->lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP;                 // TODO: add TXT/AFF macro once known which one is used
+    lcdIoRegsp->lcd_bg3cnt = BGCNT_PRIORITY(3) | BGCNT_CHARBASE(1) | BGCNT_SCREENBASE(31) | BGCNT_MOSAIC | BGCNT_256COLOR | BGCNT_WRAP; // TODO: add TXT/AFF macro once known which one is used
+    lcdIoRegsp->lcd_bldcnt = BLDCNT_TGT1_BG0 | BLDCNT_TGT1_BG1 | BLDCNT_TGT1_BG2 | BLDCNT_TGT1_BG3 | BLDCNT_TGT1_OBJ | BLDCNT_EFFECT_DARKEN;
+    lcdIoRegsp->lcd_bldy = 0x10;
     sub_800060C();
     sub_8000930();
     sub_800F804();
     sub_800F3C4();
     sub_8005408();
-    sub_8000738(0x30, 0xf);
+    sub_8000738(0x30, 0xF);
     m4aMPlayAllStop();
 }
 
@@ -244,39 +239,39 @@ void sub_800060C()
     for (i = 0; i < MAX_OAM_OBJ_COUNT; i++)
     {
         u32 temp = ST_OAM_AFFINE_ERASE << 8;
-        *((u16 *)&gOamObjects[i]) = temp;
+        gOamObjects[i].first16 = temp;
     }
 }
 
 void sub_8000624()
 {
-    struct Struct30038D0 *iwstruct38D0p = &gUnknown_030038D0;
+    struct LCDIORegisters *lcdIoRegsp = &gLCDIORegisters;
 
-    REG_IE = iwstruct38D0p->iwp_ie;
-    REG_DISPSTAT = iwstruct38D0p->lcd_dispstat;
-    REG_DISPCNT = iwstruct38D0p->lcd_dispcnt;
+    REG_IE = lcdIoRegsp->iwp_ie;
+    REG_DISPSTAT = lcdIoRegsp->lcd_dispstat;
+    REG_DISPCNT = lcdIoRegsp->lcd_dispcnt;
     // TODO: make these better
-    (*(vu32 *)REG_ADDR_BG0CNT) = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_bg0cnt);
-    (*(vu32 *)REG_ADDR_BG0HOFS) = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_bg0hofs);
-    (*(vu32 *)REG_ADDR_BG1HOFS) = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_bg1hofs);
-    (*(vu32 *)REG_ADDR_BG2CNT) = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_bg2cnt);
-    (*(vu32 *)REG_ADDR_BG2HOFS) = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_bg2hofs);
-    (*(vu32 *)REG_ADDR_BG3HOFS) = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_bg3hofs);
-    (*(vu32 *)REG_ADDR_BG2PA) = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_bg2pa);
-    (*(vu32 *)REG_ADDR_BG2PC) = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_bg2pc);
-    REG_BG2X = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_bg2x);
-    REG_BG2Y = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_bg2y);
-    (*(vu32 *)REG_ADDR_BG3PA) = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_bg3pa);
-    (*(vu32 *)REG_ADDR_BG3PC) = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_bg3pc);
-    REG_BG3X = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_bg3x);
-    REG_BG3Y = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_bg3y);
-    (*(vu32 *)REG_ADDR_WIN0H) = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_win0h);
-    (*(vu32 *)REG_ADDR_WIN0V) = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_win0v);
-    (*(vu32 *)REG_ADDR_WININ) = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_winin);
-    (*(vu32 *)REG_ADDR_MOSAIC) = IO_REG_STRUCT_MEMBER(iwstruct38D0p, lcd_mosaic);
-    REG_BLDCNT = iwstruct38D0p->lcd_bldcnt;
-    REG_BLDALPHA = iwstruct38D0p->lcd_bldalpha;
-    REG_BLDY = iwstruct38D0p->lcd_bldy;
+    (*(vu32 *)REG_ADDR_BG0CNT) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg0cnt);
+    (*(vu32 *)REG_ADDR_BG0HOFS) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg0hofs);
+    (*(vu32 *)REG_ADDR_BG1HOFS) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg1hofs);
+    (*(vu32 *)REG_ADDR_BG2CNT) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg2cnt);
+    (*(vu32 *)REG_ADDR_BG2HOFS) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg2hofs);
+    (*(vu32 *)REG_ADDR_BG3HOFS) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg3hofs);
+    (*(vu32 *)REG_ADDR_BG2PA) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg2pa);
+    (*(vu32 *)REG_ADDR_BG2PC) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg2pc);
+    REG_BG2X = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg2x);
+    REG_BG2Y = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg2y);
+    (*(vu32 *)REG_ADDR_BG3PA) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg3pa);
+    (*(vu32 *)REG_ADDR_BG3PC) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg3pc);
+    REG_BG3X = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg3x);
+    REG_BG3Y = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg3y);
+    (*(vu32 *)REG_ADDR_WIN0H) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_win0h);
+    (*(vu32 *)REG_ADDR_WIN0V) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_win0v);
+    (*(vu32 *)REG_ADDR_WININ) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_winin);
+    (*(vu32 *)REG_ADDR_MOSAIC) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_mosaic);
+    REG_BLDCNT = lcdIoRegsp->lcd_bldcnt;
+    REG_BLDALPHA = lcdIoRegsp->lcd_bldalpha;
+    REG_BLDY = lcdIoRegsp->lcd_bldy;
 }
 
 void sub_80006DC() // TODO: Rename to ReadKeys ?
@@ -373,7 +368,7 @@ void sub_80007D8(u16 arg0, u8 arg1, u8 arg2, u16 arg3)
 void sub_8000804()
 {
     struct Struct3003730 *iwstruct3730p = &gUnknown_03003730;
-    struct Struct30038D0 *iwstruct38D0p = &gUnknown_030038D0;
+    struct LCDIORegisters *lcdIoRegsp = &gLCDIORegisters;
     u16 temp;
     switch (iwstruct3730p->unk76)
     {
@@ -381,62 +376,62 @@ void sub_8000804()
     default:
         break;
     case 1:
-        iwstruct38D0p->lcd_bldcnt = iwstruct3730p->unk74 | 0xC0;
+        lcdIoRegsp->lcd_bldcnt = iwstruct3730p->unk74 | 0xC0;
         iwstruct3730p->unk78++;
         if (iwstruct3730p->unk78 >= iwstruct3730p->unk7A)
         {
             iwstruct3730p->unk78 = 0;
-            iwstruct38D0p->lcd_bldy -= iwstruct3730p->unk7B;
+            lcdIoRegsp->lcd_bldy -= iwstruct3730p->unk7B;
         }
-        temp = iwstruct38D0p->lcd_bldy &= 0x1F;
+        temp = lcdIoRegsp->lcd_bldy &= 0x1F;
         if (temp == 0)
         {
-            iwstruct38D0p->lcd_bldy = temp;
-            iwstruct38D0p->lcd_bldcnt = 0x1C42;
-            iwstruct38D0p->lcd_bldalpha = 0x71F;
+            lcdIoRegsp->lcd_bldy = temp;
+            lcdIoRegsp->lcd_bldcnt = 0x1C42;
+            lcdIoRegsp->lcd_bldalpha = 0x71F;
             iwstruct3730p->unk76 = temp;
         }
         break;
     case 2:
-        iwstruct38D0p->lcd_bldcnt = iwstruct3730p->unk74 | 0xC0;
+        lcdIoRegsp->lcd_bldcnt = iwstruct3730p->unk74 | 0xC0;
         iwstruct3730p->unk78++;
         if (iwstruct3730p->unk78 >= iwstruct3730p->unk7A)
         {
             iwstruct3730p->unk78 = 0;
-            iwstruct38D0p->lcd_bldy += iwstruct3730p->unk7B;
+            lcdIoRegsp->lcd_bldy += iwstruct3730p->unk7B;
         }
-        temp = iwstruct38D0p->lcd_bldy &= 0x1F;
+        temp = lcdIoRegsp->lcd_bldy &= 0x1F;
         if (temp == 0x10)
         {
             iwstruct3730p->unk76 = 0;
         }
         break;
     case 3:
-        iwstruct38D0p->lcd_bldcnt = iwstruct3730p->unk74 | 0x80;
+        lcdIoRegsp->lcd_bldcnt = iwstruct3730p->unk74 | 0x80;
         iwstruct3730p->unk78++;
         if (iwstruct3730p->unk78 >= iwstruct3730p->unk7A)
         {
             iwstruct3730p->unk78 = 0;
-            iwstruct38D0p->lcd_bldy -= iwstruct3730p->unk7B;
+            lcdIoRegsp->lcd_bldy -= iwstruct3730p->unk7B;
         }
-        temp = iwstruct38D0p->lcd_bldy &= 0x1F;
+        temp = lcdIoRegsp->lcd_bldy &= 0x1F;
         if (temp == 0)
         {
-            iwstruct38D0p->lcd_bldy = temp;
-            iwstruct38D0p->lcd_bldcnt = 0x1C42;
-            iwstruct38D0p->lcd_bldalpha = 0x71F;
+            lcdIoRegsp->lcd_bldy = temp;
+            lcdIoRegsp->lcd_bldcnt = 0x1C42;
+            lcdIoRegsp->lcd_bldalpha = 0x71F;
             iwstruct3730p->unk76 = temp;
         }
         break;
     case 4:
-        iwstruct38D0p->lcd_bldcnt = iwstruct3730p->unk74 | 0x80;
+        lcdIoRegsp->lcd_bldcnt = iwstruct3730p->unk74 | 0x80;
         iwstruct3730p->unk78++;
         if (iwstruct3730p->unk78 >= iwstruct3730p->unk7A)
         {
             iwstruct3730p->unk78 = 0;
-            iwstruct38D0p->lcd_bldy += iwstruct3730p->unk7B;
+            lcdIoRegsp->lcd_bldy += iwstruct3730p->unk7B;
         }
-        temp = iwstruct38D0p->lcd_bldy &= 0x1F;
+        temp = lcdIoRegsp->lcd_bldy &= 0x1F;
         if (temp == 0x10)
         {
             iwstruct3730p->unk76 = 0;
@@ -457,43 +452,4 @@ void SerialIntrDummy()
 
 void IntrDummy()
 {
-}
-
-//  End of main.c?
-
-void sub_8000930()
-{
-    u32 i;
-    u16 *temp;
-    DmaFill16(3, 0, &gUnknown_03002F20, sizeof(gUnknown_03002F20));
-    for (temp = gUnknown_03002000, i = 0; i < ARRAY_COUNT(gUnknown_08013B70); i++, temp++)
-    {
-        (*temp) = gUnknown_08013B70[i];
-    }
-    DmaFill16(3, 0, &gUnknown_03000000, sizeof(gUnknown_03000000));
-    gUnknown_030038D0.lcd_bg2vofs = 0;
-    gUnknown_030038D0.lcd_bg2hofs = 8;
-    sub_80009AC();
-}
-
-void sub_80009AC()
-{
-    u32 i = 0;
-    u32 j = 0;
-    struct Struct30038D0 *iwstruct38D0p = &gUnknown_030038D0;
-
-    for (i = 0; i < 0x1E; i++)
-    {
-        gUnknown_03001000[i+1] = 0x258 + i;
-    }
-    for (i = 0; i < 0x15; i++)
-    {
-        for (j = 0; j < 0x1E; j++)
-        {
-            gUnknown_03001000[i * 32 + 0x21 + j] = j + i * 30; // what the fuck
-        }
-    }
-    iwstruct38D0p->lcd_bg3vofs = 8;
-    iwstruct38D0p->lcd_bg3hofs = 8;
-    DmaFill16(3, 0, VRAM + 0xDD80, 0x40);
 }

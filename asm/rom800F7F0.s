@@ -1,6 +1,5 @@
-.include "asm/macros.inc"
-
-.syntax unified
+	.include "asm/macros.inc"
+	.syntax unified
 
 	THUMB_FUNC_START sub_800F84C
 sub_800F84C: @ 0x0800F84C
@@ -275,7 +274,7 @@ _0800FA42:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800FA48: .4byte gUnknown_08014AF0
+_0800FA48: .4byte gSineTable
 _0800FA4C: .4byte gOamObjects
 
 	THUMB_FUNC_START sub_800FA50
@@ -1967,7 +1966,7 @@ sub_80106A4: @ 0x080106A4
 	adds r4, r0, #0
 	b _080106DE
 	.align 2, 0
-_080106D4: .4byte gUnknown_030038D0
+_080106D4: .4byte gLCDIORegisters
 _080106D8: .4byte gUnknown_03003730
 _080106DC:
 	ldr r4, _0801074C
@@ -2139,7 +2138,7 @@ sub_8010800: @ 0x08010800
 	b _08010920
 	.align 2, 0
 _08010820: .4byte gUnknown_03003730
-_08010824: .4byte gUnknown_030038D0
+_08010824: .4byte gLCDIORegisters
 _08010828: .4byte 0xFDFFFFFF
 _0801082C:
 	ldrb r0, [r4, #0xe]

@@ -11,7 +11,7 @@
 . = 0x00002F20; gUnknown_03002F20 = .;
 . = 0x00003720; gUnknown_03003720 = .;
 . = 0x00003730; gUnknown_03003730 = .;
-. = 0x000038D0; gUnknown_030038D0 = .;
+. = 0x000038D0; gLCDIORegisters = .;
 . = 0x00003930; gUnknown_03003930 = .;
 . = 0x000039D0; gUnknown_030039D0 = .;
 . = 0x00003A50; gUnknown_03003A50 = .;

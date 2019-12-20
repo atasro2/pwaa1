@@ -1,6 +1,14 @@
 #ifndef GUARD_STRUCTS_H //TODO: get rid of this file and move everything to the place they should be in
 #define GUARD_STRUCTS_H
 
+struct OamBits
+{
+    u16 first16;
+    u16 second16;
+    u16 third16;
+    u16 fourth16;
+};
+
 struct Struct3000800 // unknown size
 {
     u32 unk0;
@@ -35,11 +43,11 @@ struct Struct3003720
 struct Struct3003730
 {
     u32 unk0;
-    union UnknownUnion
+    union Union3003734
     {   
         u8 field0;
         u32 field1;
-    } unk1;
+    } unk4;
     u8 filler8[0x4];
     u8 unkC;
     u8 unkD;
@@ -68,17 +76,25 @@ struct Struct3003730
     u16 unk78;
     u8 unk7A;
     u8 unk7B;
-    u8 filler7C[0x11];
+    u8 filler7C[0x10];
+    u8 unk8C;
     u8 unk8D;
     u8 unk8E;
-    u8 filler8F[0x25];
+    u8 unk8F;
+    u16 unk90;
+    u16 unk92;
+    u32 unk94;
+    u8 filler98[0x1C];
     u32 unkB4;
-    u8 fillerB8[0xE0];
+    u32 unkB8;
+    u8 fillerBC[0x1C];
+    u32 unkD8;
+    u8 fillerDC[0xBC];
     u32 unk198;
     u8 filler19C[0x4];
 };
 
-struct Struct30038D0
+struct LCDIORegisters
 {
     u16 lcd_bg0cnt;   /* + 0 */
     u16 lcd_bg1cnt;   /* + 2 */
@@ -111,7 +127,7 @@ struct Struct30038D0
     u16 lcd_winin;    /* +40 */
     u16 lcd_winout;   /* +42 */
     u16 lcd_mosaic;   /* +44 */
-    u8 filler46[2];   /* +46 */
+    u8 filler46[2];   /* +46 */ 
     u16 lcd_bldcnt;   /* +48 */
     u16 lcd_dispcnt;  /* +4A */
     u16 lcd_bldalpha; /* +4C */
@@ -138,9 +154,18 @@ struct Struct3002840
     u8 filler0[0x58];
 };
 
+struct Struct30028A0
+{
+    u8 filler0[0x280];
+};
+
 struct Struct3003A50
 {
-    u8 filler0[0x18];
+    u8 filler0[0x5];
+    u8 unk5;
+    u8 filler6[0x8];
+    u8 unkE;
+    u8 fillerF[0x9];
 };
 
 struct Struct3003AB0
@@ -155,7 +180,6 @@ struct Struct3004000
     u8 filler6[0x6];
     s16 unkC;
     s16 unkE;
-
 };
 
 #endif//GUARD_STRUCTS_H

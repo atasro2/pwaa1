@@ -17,7 +17,10 @@ SECTIONS {
     {
         asm/crt0.o(.text);
         src/main.o(.text);
-        asm/main.o(.text);
+        src/cmd_bg.o(.text);
+        asm/cmd_bg.o(.text);
+        src/rom8002A48.o(.text);
+        asm/rom8002A48.o(.text);
         src/cmd_mus.o(.text);
         src/rom800F7F0.o(.text);
         asm/rom800F7F0.o(.text);
