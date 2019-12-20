@@ -6,7 +6,7 @@ void MoveSpritesToOAM()
     DmaCopy16(3, gOamObjects, OAM, sizeof(gOamObjects));
 }
 
-#ifdef NONMATCHING // i don't want anything to do with these stupid ass functions this is not even close
+#ifdef NONMATCHING // i don't want anything to do with this stupid ass function it's not even close
 bool32 sub_8002A68(u16 * arg0, struct unkdatastruct * arg1)
 {
     s32 unk0 = arg1->unk0; // r4
