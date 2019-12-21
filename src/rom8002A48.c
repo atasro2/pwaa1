@@ -199,13 +199,7 @@ bool32 sub_8002BD0(u32 arg0, u32 arg1) // ! Not all code paths return a value
     unk0 += (arg1 / 32);
     unk1 = 1 << (arg1 & 0x1F);
 
-    if((*unk0 & unk1) != FALSE)
-    {
-        return TRUE;
-    }
-    #ifdef CODEFIX // might cause problems in the future idk
-    return 0;
-    #endif
+    return (*unk0 & unk1) ? TRUE : FALSE;
 }
 
 // unreferenced?? // bm_rotate ?

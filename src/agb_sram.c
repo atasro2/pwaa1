@@ -4,6 +4,8 @@
     AgbBackup Sram library version 1.1.2
 */
 
+#define SRAM_RETRY_MAX 3
+
 void ReadSram_Core(const u8 *src, u8 *dest, u32 size)
 {
     while (--size != -1)
@@ -83,18 +85,19 @@ u32 VerifySram(const u8 *src, u8 *dst, u32 size)
     return VerifySramWram(src, dst, size);
 }
 
-u32 WriteSramEx(const u8 *src, u8 *dst, u32 size) // Write to the Sram verify that data is OK
-{                                                 // if not try again for 2 times
-    u8 i;
-    u32 isSramOk;
+// Write to Sram then verify that data is OK
+u32 WriteSramEx(const u8 *src, u8 *dst, u32 size) 
+{
+    u8 retry;
+    u32 result;
 
-    for (i = 0; i < 3; i++)
+    for (retry = 0; retry < SRAM_RETRY_MAX; retry++)
     {
         WriteSram(src, dst, size);
-        isSramOk = VerifySram(src, dst, size);
-        if (isSramOk == 0)
+        result = VerifySram(src, dst, size);
+        if (result == 0)
             break;
     }
 
-    return isSramOk;
+    return result;
 }
