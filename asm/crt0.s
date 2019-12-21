@@ -1,6 +1,5 @@
-.include "asm/macros.inc"
-
-.syntax unified
+	.include "asm/macros.inc"
+	.syntax unified
 
 _start:
 	b _init

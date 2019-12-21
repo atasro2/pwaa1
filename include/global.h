@@ -17,6 +17,10 @@
 #define MAX_OAM_OBJ_COUNT 128
 
 #define IO_REG_STRUCT_MEMBER(localBgStruct, field) \
-    *((u32 *) localBgStruct + (offsetof(struct Struct30038D0, field) / 4)) \
+    *((u32 *) localBgStruct + (offsetof(struct LCDIORegisters, field) / 4)) \
 
+#define KEY_NEW() ({ (*(u16 *)REG_ADDR_KEYINPUT) ^ KEYS_MASK; })
+
+#define   _Sin( a ) (gSineTable[(a)])
+#define   _Cos( a ) (gSineTable[(a)+64])
 #endif//GUARD_GLOBAL_H
