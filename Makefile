@@ -46,12 +46,16 @@ SUBDIRS  := $(sort $(dir $(OBJS)))
 
 $(shell mkdir -p $(SUBDIRS))
 
-ASFLAGS := -mcpu=arm7tdmi
+ASFLAGS := -mcpu=arm7tdmi -mthumb-interwork
 
 CC1             := tools/agbcc/bin/old_agbcc
 override CFLAGS += -mthumb-interwork -Wimplicit -Wparentheses -Werror -O2 -fhex-asm
 
 CPPFLAGS := -I tools/agbcc -I tools/agbcc/include -iquote include -nostdinc
+
+ifeq ($(DINFO),1)
+CFLAGS += -g
+endif
 
 NAME := GS1
 ROM := $(NAME).gba
