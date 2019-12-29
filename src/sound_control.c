@@ -1,8 +1,6 @@
 #include "global.h"
 #include "m4a.h"
 
-// perhaps this file is mus_utils.c and not very script related
-
 void sub_800F3E0(u32 songNum)
 {
     struct Struct3003730 * struct3730p = &gUnknown_03003730;
@@ -62,7 +60,7 @@ void sub_800F4AC()
     }
 }
 
-void sub_800F4D8()
+void sub_800F4D8() // UnpauseBGM?
 {
     struct Struct3003730 * struct3730p = &gUnknown_03003730;
     if(struct3730p->unk1C & 2)
@@ -90,7 +88,7 @@ void sub_800F514(u32 speed)
     }
 }
 
-void sub_800F540(u32 speed, u32 songNum)
+void PlayBGM(u32 speed, u32 songNum) // named according to phoenix unity
 {
     struct Struct3003730 * struct3730p = &gUnknown_03003730;
     if(!(struct3730p->unk198 & 2))

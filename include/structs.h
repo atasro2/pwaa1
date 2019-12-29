@@ -46,7 +46,8 @@ struct Struct3003730
     union Union3003734
     {   
         u8 field0;
-        u32 field1;
+        u16 field1;
+        u32 field2;
     } unk4;
     u8 filler8[0x4];
     u8 unkC;
@@ -55,7 +56,9 @@ struct Struct3003730
     s8 unkF;
     u16 unk10;
     u8 unk12;
-    u8 filler13[0x7];
+    u8 unk13;
+    u8 unk14;
+    u8 filler15[0x5];
     s16 unk1A;
     u8 unk1C;
     u8 unk1D;
@@ -136,9 +139,55 @@ struct LCDIORegisters
     u16 lcd_dispstat; /* +52 */
 };
 
+struct Struct3003930 
+{ 
+    u8 unk0; 
+    u8 unk1;
+    u8 filler2[0x3];
+    u8 unk5;
+    u8 filler6[0x2];
+    u16 unk8;
+    u8 fillerA[0xA]; 
+};
+
 struct Struct3003A70
 {
-    u8 filler0[0x40];
+    u16 unk0; // message status
+    u16 unk2; // wait timer
+    u16 * scriptPtr; /* +4 */
+    u16 * scriptPtr2;
+    u16 unkC;
+    u8 unkE;
+    u8 unkF;
+    u8 unk10;
+    u8 unk11;
+    u8 unk12;
+    u8 unk13;
+    u8 unk14;
+    u8 unk15;
+    u8 unk16;
+    u8 unk17;
+    u16 unk18;
+    u16 unk1A;
+    u16 unk1C;
+    u16 unk1E;
+    u16 unk20;
+    u16 unk22;
+    u8 unk24; // color
+    u8 unk25; // speed
+    u8 unk26;
+    u8 unk27;
+    u16 unk28;
+    u16 unk2A;
+    u16 unk2C;
+    u8 unk2E;
+    u8 filler2F[0x5];
+    u8 unk34;
+    u8 unk35;
+    u8 unk36;
+    u8 unk37;
+    u8 filler38[0x4];
+    u32 unk3C;
 };
 
 struct SaveData

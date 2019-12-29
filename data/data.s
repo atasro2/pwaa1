@@ -1548,7 +1548,7 @@ gUnknown_0811DD64:
 
     .global gUnknown_0811DDA8
 gUnknown_0811DDA8:
-    .4byte sub_8005BA4
+    .4byte Command00
     .4byte sub_8005BC4
     .4byte sub_8005BF4
     .4byte sub_8005EA0
@@ -1906,8 +1906,8 @@ gUnknown_081B290C:
 gUnknown_081B292C:
     .incbin "baserom.gba", 0x001B292C, 0x207E0
 
-    .global gUnknown_081D310C
-gUnknown_081D310C:
+    .global gTextPal
+gTextPal:
     .incbin "baserom.gba", 0x001D310C, 0x20
 
     .global gUnknown_081D312C
@@ -2486,11 +2486,11 @@ gUnknown_0871FDF8:
 gUnknown_08748218:
     .incbin "baserom.gba", 0x00748218, 0x1210
 
-    .global gUnknown_08749428
+@ ; BEGIN SCRIPTS
+    
+    .global gUnknown_08749428 @ uncompressed
 gUnknown_08749428:
     .incbin "baserom.gba", 0x00749428, 0xDEC
-    
-@ ; BEGIN SCRIPTS
     
     .global gUnknown_0874A214
 gUnknown_0874A214:

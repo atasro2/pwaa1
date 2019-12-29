@@ -3,8 +3,10 @@
 
 #include <stddef.h>
 #include "gba/gba.h"
-#include "declarations.h"
 
+#define PALL 0x05000000
+
+#include "declarations.h"
 // Prevent cross-jump optimization.
 #define BLOCK_CROSS_JUMP asm("");
 
@@ -23,4 +25,5 @@
 
 #define   _Sin( a ) (gSineTable[(a)])
 #define   _Cos( a ) (gSineTable[(a)+64])
+
 #endif//GUARD_GLOBAL_H

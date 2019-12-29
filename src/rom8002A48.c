@@ -1,5 +1,5 @@
 #include "global.h"
-#include "cmd_mus.h"
+#include "sound_control.h"
 
 void MoveSpritesToOAM()
 {
@@ -180,7 +180,7 @@ void sub_8002B94(u32 arg0, u32 arg1, bool32 arg2)
 {
     u32 * unk0 = gUnknown_0811DC04[arg0];
     unk0 += (arg1 / 32);
-    if(arg2 != FALSE)
+    if(arg2)
     {
         u32 unk1 = 1 << (arg1 & 0x1F);
         *unk0 |= unk1;
@@ -247,7 +247,7 @@ void sub_8002CF0(u32 arg0, u32 arg1)
         sprite->second16 = 60 * i + 0xC000;
         sprite->third16 = (0x100 + i * 0x20) + (5 << 12);
     }
-    union3734->field1 = 260;
+    union3734->field2 = 260;
     sub_8002B94(0, arg1, TRUE);
     sub_800549C(arg0);
     sub_800244C(1);
