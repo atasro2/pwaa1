@@ -655,8 +655,8 @@ gUnknown_08018678:
 gUnknown_080186DC:
     .incbin "baserom.gba", 0x000186DC, 0x64
 
-    .global gUnknown_08018740 @ These are pointers to all the scripts
-gUnknown_08018740:
+    .global gScriptTable @ These are pointers to all the scripts
+gScriptTable:
     .4byte gUnknown_0874A214
     .4byte gUnknown_0874FC3C
     .4byte gUnknown_087560F8
@@ -1546,8 +1546,8 @@ gUnknown_0811DD64:
 	.4byte nullsub_37
 	.4byte nullsub_4
 
-    .global gUnknown_0811DDA8
-gUnknown_0811DDA8:
+    .global gScriptCmdFuncs
+gScriptCmdFuncs:
     .4byte Command00
     .4byte sub_8005BC4
     .4byte sub_8005BF4
@@ -1910,14 +1910,9 @@ gUnknown_081B292C:
 gTextPal:
     .incbin "baserom.gba", 0x001D310C, 0x20
 
-    .global gUnknown_081D312C
-gUnknown_081D312C:  @ Charset
-    .incbin "baserom.gba", 0x001D312C, 0x7100
-
-    @ this is a bruh moment
-    .global gUnknown_081DA22C @ bruh this isn't even a second tileset smh
-gUnknown_081DA22C:  @ this is the address of the pointer finger character for selecting something in a textbox
-    .incbin "baserom.gba", 0x001DA22C, 0x23700
+    .global gCharSet
+gCharSet:  @ Charset
+    .incbin "baserom.gba", 0x001D312C, 0x2A800
 
     .global gUnknown_081FD92C
 gUnknown_081FD92C:

@@ -4,7 +4,7 @@ void sub_80054BC(struct Struct3003A70 *scriptCtx);
 void sub_80055B0(struct Struct3003A70 *scriptCtx);
 extern void sub_8005890(struct Struct3003A70 *scriptCtx);
 extern void sub_80056E0(u32, u32, u32);
-extern bool32 (*gUnknown_0811DDA8[0x5F])(struct Struct3003A70 *);
+extern bool32 (*gScriptCmdFuncs[0x5F])(struct Struct3003A70 *);
 
 void sub_8005408(void)
 {
@@ -16,7 +16,7 @@ void sub_8005408(void)
     {
         gUnknown_03003C00[i][0] &= 0x7FFF;
     }
-    src = gUnknown_08018740[gUnknown_03003730.unk8D];
+    src = gScriptTable[gUnknown_03003730.unk8D];
 
     if (!(i < ARRAY_COUNT(gUnknown_03003C00))) // this is a fucking fakematch!
         LZ77UnCompWram(src, gScriptHeap);
@@ -230,7 +230,7 @@ void sub_80055B0(struct Struct3003A70 * scriptCxt)
     scriptCxt->unkC = *scriptCxt->scriptPtr;
     if(scriptCxt->unkC < 0x80)
     {
-        if(gUnknown_0811DDA8[scriptCxt->unkC](scriptCxt))
+        if(gScriptCmdFuncs[scriptCxt->unkC](scriptCxt))
             return;
         else
             goto loop;

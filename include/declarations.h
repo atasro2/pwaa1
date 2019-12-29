@@ -11,8 +11,8 @@ extern s16 gSineTable[256+64];
 extern u32 gUnknown_080150D0[12];
 extern u16 gUnknown_08014FB8[0x8C];
 extern u8 gTextPal[0x20];
-extern u32 * gUnknown_08018740[17];
-extern u32 gUnknown_08749428[0xDEC/4];
+extern u8 gUnknown_08749428[0xDEC]; // some uncompressed script probably mes_sys
+extern u32 * gScriptTable[17];
 
 //FUNCTIONS // these should be moved soon
 void sub_80003E0();
