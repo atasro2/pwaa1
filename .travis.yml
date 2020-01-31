@@ -27,7 +27,7 @@ matrix:
       env: _="Build"
       script:
         - sh build_tools.sh
-        - head -c 16777216 /dev/zero > tmp.bin
+        - head -c 8388608 /dev/zero > tmp.bin
         - make ips_patch -C tools/br_ips
         - tools/br_ips/ips_patch tmp.bin baserom.ips baserom.gba
         - rm tmp.bin
