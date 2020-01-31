@@ -18,8 +18,6 @@ It builds the following ROM:
 make ips_patch -C tools/br_ips
 head -c 16777216 /dev/zero > tmp.bin
 tools/br_ips/ips_patch tmp.bin baserom.ips baserom.gba
-make compare -j$(nproc)
-cp GS1.gba baserom.gba
 ```
 
 * Then compile agbcc using the following command:
