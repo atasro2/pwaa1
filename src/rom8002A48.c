@@ -176,7 +176,7 @@ u8 sub_8002B40()
     return unk0;
 }
 
-void sub_8002B94(u32 arg0, u32 arg1, bool32 arg2)
+void sub_8002B94(u32 arg0, u32 arg1, bool32 arg2) // set flag?
 {
     u32 * unk0 = gUnknown_0811DC04[arg0];
     unk0 += (arg1 / 32);
@@ -192,7 +192,7 @@ void sub_8002B94(u32 arg0, u32 arg1, bool32 arg2)
     }
 }
 
-bool32 sub_8002BD0(u32 arg0, u32 arg1) // ! Not all code paths return a value
+bool32 sub_8002BD0(u32 arg0, u32 arg1) // is flag set?
 {
     u32 * unk0 = gUnknown_0811DC04[arg0];
     u32 unk1;
@@ -207,7 +207,7 @@ bool32 sub_8002BD0(u32 arg0, u32 arg1) // ! Not all code paths return a value
 void sub_8002BF8(s16 scale)
 {
     struct LCDIORegisters * lcdIoRegsp = &gLCDIORegisters;
-    s32 cos = _Cos(0);
+    s16 cos = _Cos(0);
 
     lcdIoRegsp->lcd_bg2pa = fix_mul(cos, scale);
     lcdIoRegsp->lcd_bg2pb = fix_mul(_Sin(0), scale);
@@ -237,15 +237,15 @@ void sub_8002CCC(u32 arg0, u32 arg1)
 
 void sub_8002CF0(u32 arg0, u32 arg1)
 {
-    struct OamBits * sprite = &gOamObjects[49];
+    struct OamAttrs * sprite = &gOamObjects[49];
     u32 i = 0;
     union Union3003734 * union3734 = &gUnknown_03003730.unk4;
 
     for(i = 0; i < 4; sprite++, i++)
     {
-        sprite->first16 = 192 + (ST_OAM_H_RECTANGLE << 14);
-        sprite->second16 = 60 * i + 0xC000;
-        sprite->third16 = (0x100 + i * 0x20) + (5 << 12);
+        sprite->attr0 = SPRITE_ATTR0(192, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
+        sprite->attr1 = 60 * i + (3 << 14); // TODO: NON AFFINE attr1 macro
+        sprite->attr2 = SPRITE_ATTR2((256 + i * 32), 0, 5);
     }
     union3734->field1 = 260;
     sub_8002B94(0, arg1, TRUE);

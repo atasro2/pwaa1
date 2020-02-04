@@ -19,8 +19,19 @@
 #define IO_REG_STRUCT_MEMBER(localBgStruct, field) \
     *((u32 *) localBgStruct + (offsetof(struct LCDIORegisters, field) / 4)) \
 
+#define SPRITE_ATTR0(y, affineMode, objMode, mosaic, bpp, shape) \
+	((y) + ((affineMode) << 8) + ((objMode) << 10) + ((mosaic) << 12) + ((bpp) << 13) + + ((shape) << 14)) \
+
+//#define SPRITE_ATTR1()
+//TODO: make different macros for affine and non affine sprites, aka Pidgey is lazy
+#define SPRITE_ATTR2(tileNum, priority, paletteNum) \
+	((tileNum) + ((priority) << 10) + ((paletteNum) << 12)) \
+
+
 #define KEY_NEW() ({ (*(u16 *)REG_ADDR_KEYINPUT) ^ KEYS_MASK; })
 
-#define   _Sin( a ) (gSineTable[(a)])
-#define   _Cos( a ) (gSineTable[(a)+64])
+#define _Sin( a ) (gSineTable[(a)])
+#define _Cos( a ) (gSineTable[(a)+64])
+
+
 #endif//GUARD_GLOBAL_H

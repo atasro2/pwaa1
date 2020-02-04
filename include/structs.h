@@ -1,12 +1,13 @@
 #ifndef GUARD_STRUCTS_H //TODO: get rid of this file and move everything to the place they should be in
 #define GUARD_STRUCTS_H
 
-struct OamBits
+struct OamAttrs // why tho capcom there is already a struct called OamData that is the same thing as what you have here please for the love of god
+				// maybe it's because of access times for u16 vs u32 but idk it seems too insignificant
 {
-    u16 first16;
-    u16 second16;
-    u16 third16;
-    u16 fourth16;
+    u16 attr0;
+    u16 attr1;
+    u16 attr2;
+    u16 attr3;
 };
 
 struct Struct3000800 // unknown size
