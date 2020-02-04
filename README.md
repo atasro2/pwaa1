@@ -16,10 +16,8 @@ It builds the following ROM:
 * **Note (until further notice):** If this is your first time building Gyakuten Saiban 1 (Rev 0), an unmodified copy of the game is required in the project root under the name `baserom.gba`. To generate this, you should run the following commands:
 ```
 make ips_patch -C tools/br_ips
-head -c 16777216 /dev/zero > tmp.bin
+head -c 8388608 /dev/zero > tmp.bin
 tools/br_ips/ips_patch tmp.bin baserom.ips baserom.gba
-make compare -j$(nproc)
-cp GS1.gba baserom.gba
 ```
 
 * Then compile agbcc using the following command:
