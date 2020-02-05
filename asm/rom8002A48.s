@@ -13816,7 +13816,7 @@ _08009D8C:
 	beq _08009D98
 	b _0800A322
 _08009D98:
-	bl sub_800060C
+	bl HideAllSprites
 	bl sub_8000930
 	bl sub_800F804
 	bl sub_800F3C4
@@ -14566,7 +14566,7 @@ sub_800A3EC: @ 0x0800A3EC
 	ldr r0, _0800A554
 	str r0, [r4, #8]
 	ldr r0, [r4, #8]
-	bl sub_800060C
+	bl HideAllSprites
 	bl sub_8000930
 	bl sub_800F804
 	bl sub_8005408
@@ -17003,7 +17003,7 @@ sub_800B808: @ 0x0800B808
 	ldr r0, _0800BA48
 	str r0, [r4, #8]
 	ldr r0, [r4, #8]
-	bl sub_800060C
+	bl HideAllSprites
 	bl sub_8000930
 	bl sub_800F804
 	bl sub_8005408

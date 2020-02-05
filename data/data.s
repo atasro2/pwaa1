@@ -718,7 +718,7 @@ gUnknown_08018DD0:
     .incbin "baserom.gba", 0x00018DD0, 0x4
 
     .global gUnknown_08018DD4
-gUnknown_08018DD4:
+gUnknown_08018DD4: @ person data
     .incbin "baserom.gba", 0x00018DD4, 0x1A4
 
     .global gUnknown_08018F78
