@@ -2,14 +2,14 @@
 #include "m4a.h"
 
 static void sub_80002E4();
-static void VCountIntr();
-static void SerialIntrDummy();
+static void VBlankIntr();
+static void HBlankIntr();
 static void IntrDummy();
 
 static void (*IntrTableFunctionPtrs[])() =
 {
-    VCountIntr,
-    SerialIntrDummy,
+    VBlankIntr,
+    HBlankIntr,
     IntrDummy,
     IntrDummy,
     IntrDummy,
@@ -440,13 +440,13 @@ void sub_8000804() // update hardware blend
     }
 }
 
-void VCountIntr()
+void VBlankIntr()
 {
     m4aSoundVSync();
     gUnknown_03003730.unkC++;
 }
 
-void SerialIntrDummy()
+void HBlankIntr()
 {
 }
 
