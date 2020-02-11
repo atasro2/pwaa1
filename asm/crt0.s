@@ -8,22 +8,19 @@ rom_header:
 _init:
 	mov r0, #0x12
 	msr cpsr_fc, r0
-	ldr sp, sp_irq
+	ldr sp, =0x03007F80
 	mov r0, #0x1f
 	msr cpsr_fc, r0
-	ldr sp, sp_sys
-	ldr r0, _080001DC
-	ldr r1, INTR_VECTOR
+	ldr sp, =0x03007F00
+	ldr r0, =_intr
+	ldr r1, =0x03007FFC
 	str r0, [r1]
-	ldr r0, _080001E4
+	ldr r0, =AgbMain+1
 	bx r0
-
-	ARM_FUNC_START _init.ret
-_init.ret: @ 0x080000EC
 	b _start
-
+	
 	ARM_FUNC_START _intr
-_intr: @ sub_80000F0
+_intr:
 	mov r3, #0x4000000
 	add r3, r3, #0x200
 	ldr r2, [r3]
@@ -75,18 +72,14 @@ _08000110:
 	bne _080001B0
 _080001B0:
 	strh r0, [r3, #2]
-	ldr r1, _080001E8
+	ldr r1, =gIntrTable
 	add r1, r1, r2
 	ldr r0, [r1]
 	stmdb sp!, {lr}
 	mov lr, pc
 	bx r0
 _080001CC:
-	ldm	sp!, {lr}
+	ldm sp!, {lr}
 	bx lr
-sp_irq: .4byte 0x03007F80
-sp_sys: .4byte 0x03007F00
-_080001DC: .4byte _intr
-INTR_VECTOR: .4byte 0x03007FFC
-_080001E4: .4byte AgbMain+1
-_080001E8: .4byte gIntrTable
+
+	.pool
