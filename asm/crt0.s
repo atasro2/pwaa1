@@ -82,8 +82,8 @@ _080001B0:
 	mov lr, pc
 	bx r0
 _080001CC:
-	.byte 0x00, 0x40, 0xBD, 0xE8
-	.byte 0x1E, 0xFF, 0x2F, 0xE1
+	ldm	sp!, {lr}
+	bx lr
 sp_irq: .4byte 0x03007F80
 sp_sys: .4byte 0x03007F00
 _080001DC: .4byte _intr
