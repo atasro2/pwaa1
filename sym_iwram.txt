@@ -9,7 +9,7 @@
 . = 0x000028A0; gUnknown_030028A0 = .;
 . = 0x00002B20; gOamObjects = .;
 . = 0x00002F20; gUnknown_03002F20 = .;
-. = 0x00003720; gUnknown_03003720 = .;
+. = 0x00003720; gJoypad = .;
 . = 0x00003730; gUnknown_03003730 = .;
 . = 0x000038D0; gLCDIORegisters = .;
 . = 0x00003930; gUnknown_03003930 = .;

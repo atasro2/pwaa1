@@ -271,7 +271,7 @@ _08007C30:
 	str r0, [r6, #4]
 	b _08007C82
 	.align 2, 0
-_08007C50: .4byte gUnknown_03003720
+_08007C50: .4byte gJoypad
 _08007C54: .4byte gUnknown_03003A70
 _08007C58: .4byte 0x00000301
 _08007C5C:
@@ -1226,7 +1226,7 @@ _080083C8:
 	b _0800841A
 	.align 2, 0
 _080083F0: .4byte gUnknown_03003A70
-_080083F4: .4byte gUnknown_03003720
+_080083F4: .4byte gJoypad
 _080083F8:
 	movs r0, #1
 	ands r0, r1
@@ -1765,7 +1765,7 @@ _0800886E:
 	b _0800896A
 	.align 2, 0
 _0800888C: .4byte gUnknown_03003A70
-_08008890: .4byte gUnknown_03003720
+_08008890: .4byte gJoypad
 _08008894:
 	movs r0, #1
 	ands r0, r1
@@ -2298,7 +2298,7 @@ sub_8008CC0: @ 0x08008CC0
 	b _08008D06
 	.align 2, 0
 _08008CF4: .4byte gUnknown_03003A70
-_08008CF8: .4byte gUnknown_03003720
+_08008CF8: .4byte gJoypad
 _08008CFC: .4byte 0x0000FFFF
 _08008D00:
 	movs r0, #1
@@ -3287,7 +3287,7 @@ _080094C6:
 	bx r0
 	.align 2, 0
 _080094D4: .4byte gUnknown_03003A70
-_080094D8: .4byte gUnknown_03003720
+_080094D8: .4byte gJoypad
 _080094DC: .4byte gSaveDataBuffer
 _080094E0: .4byte 0x0100000A
 
@@ -3533,7 +3533,7 @@ _080096C8:
 	b _0800977A
 	.align 2, 0
 _080096D0: .4byte gUnknown_03003A70
-_080096D4: .4byte gUnknown_03003720
+_080096D4: .4byte gJoypad
 _080096D8:
 	movs r0, #0x80
 	ands r0, r1
@@ -4252,7 +4252,7 @@ _08009C14:
 	b _08009CBC
 	.align 2, 0
 _08009C48: .4byte gUnknown_03003A70
-_08009C4C: .4byte gUnknown_03003720
+_08009C4C: .4byte gJoypad
 _08009C50:
 	ldrh r1, [r1, #2]
 	movs r5, #1
@@ -4423,7 +4423,7 @@ _08009D8C:
 	beq _08009D98
 	b _0800A322
 _08009D98:
-	bl sub_800060C
+	bl HideAllSprites
 	bl sub_8000930
 	bl sub_800F804
 	bl sub_800F3C4
@@ -4867,7 +4867,7 @@ _0800A1B0: .4byte 0x80000040
 _0800A1B4: .4byte gUnknown_08190AC0
 _0800A1B8: .4byte 0xFFFFFC00
 _0800A1BC: .4byte gOamObjects
-_0800A1C0: .4byte gUnknown_03003720
+_0800A1C0: .4byte gJoypad
 _0800A1C4:
 	adds r0, r7, #0
 	adds r0, #0x76
@@ -5173,7 +5173,7 @@ sub_800A3EC: @ 0x0800A3EC
 	ldr r0, _0800A554
 	str r0, [r4, #8]
 	ldr r0, [r4, #8]
-	bl sub_800060C
+	bl HideAllSprites
 	bl sub_8000930
 	bl sub_800F804
 	bl sub_8005408
@@ -5395,7 +5395,7 @@ sub_800A5B0: @ 0x0800A5B0
 	b _0800A67C
 	.align 2, 0
 _0800A624: .4byte gUnknown_03003AB0
-_0800A628: .4byte gUnknown_03003720
+_0800A628: .4byte gJoypad
 _0800A62C: .4byte gUnknown_03003A70
 _0800A630: .4byte 0x040000D4
 _0800A634: .4byte gOamObjects
@@ -5780,7 +5780,7 @@ _0800A8EE:
 	movs r0, #0xa
 	b _0800A9AC
 	.align 2, 0
-_0800A954: .4byte gUnknown_03003720
+_0800A954: .4byte gJoypad
 _0800A958: .4byte gUnknown_03003A70
 _0800A95C: .4byte 0x040000D4
 _0800A960: .4byte gOamObjects
@@ -6172,7 +6172,7 @@ _0800AC56:
 	movs r0, #0xa
 	b _0800ADB2
 	.align 2, 0
-_0800AC94: .4byte gUnknown_03003720
+_0800AC94: .4byte gJoypad
 _0800AC98: .4byte gUnknown_03003A70
 _0800AC9C: .4byte 0x040000D4
 _0800ACA0: .4byte gOamObjects
@@ -7610,7 +7610,7 @@ sub_800B808: @ 0x0800B808
 	ldr r0, _0800BA48
 	str r0, [r4, #8]
 	ldr r0, [r4, #8]
-	bl sub_800060C
+	bl HideAllSprites
 	bl sub_8000930
 	bl sub_800F804
 	bl sub_8005408
@@ -7951,7 +7951,7 @@ _0800BB40:
 	bl sub_800D530
 	b _0800BD6E
 	.align 2, 0
-_0800BB4C: .4byte gUnknown_03003720
+_0800BB4C: .4byte gJoypad
 _0800BB50: .4byte gUnknown_03003A70
 _0800BB54:
 	adds r0, r5, #0
@@ -8002,7 +8002,7 @@ _0800BB78:
 	str r0, [r5, #4]
 	b _0800BD6E
 	.align 2, 0
-_0800BBB8: .4byte gUnknown_03003720
+_0800BBB8: .4byte gJoypad
 _0800BBBC: .4byte 0x040000D4
 _0800BBC0: .4byte gOamObjects
 _0800BBC4: .4byte gSaveDataBuffer+0x750
@@ -8045,7 +8045,7 @@ _0800BBF6:
 	strb r0, [r4, #0xb]
 	b _0800BD6E
 	.align 2, 0
-_0800BC1C: .4byte gUnknown_03003720
+_0800BC1C: .4byte gJoypad
 _0800BC20: .4byte gUnknown_03003730+0x4
 _0800BC24:
 	movs r0, #0x30
@@ -8587,7 +8587,7 @@ _0800C028:
 	.align 2, 0
 _0800C038: .4byte gOamObjects+0x2C0
 _0800C03C: .4byte gUnknown_03000800
-_0800C040: .4byte gUnknown_03003720
+_0800C040: .4byte gJoypad
 _0800C044: .4byte gUnknown_03003A70
 _0800C048:
 	cmp r1, #2
@@ -9237,7 +9237,7 @@ _0800C504:
 	str r0, [r1, #4]
 	b _0800C84A
 	.align 2, 0
-_0800C544: .4byte gUnknown_03003720
+_0800C544: .4byte gJoypad
 _0800C548: .4byte 0x040000D4
 _0800C54C: .4byte gOamObjects
 _0800C550: .4byte gSaveDataBuffer+0x750
@@ -10071,7 +10071,7 @@ _0800CBB8: .4byte 0x05000360
 _0800CBBC: .4byte 0x80000010
 _0800CBC0: .4byte gUnknown_030028A0
 _0800CBC4: .4byte gUnknown_03000800+0x4E
-_0800CBC8: .4byte gUnknown_03003720
+_0800CBC8: .4byte gJoypad
 _0800CBCC: .4byte gOamObjects
 _0800CBD0: .4byte gSaveDataBuffer+0x750
 _0800CBD4: .4byte 0x80000200
@@ -10509,7 +10509,7 @@ _0800CEB8:
 	str r0, [r1, #4]
 	b _0800D29C
 	.align 2, 0
-_0800CF24: .4byte gUnknown_03003720
+_0800CF24: .4byte gJoypad
 _0800CF28: .4byte gUnknown_03003A70
 _0800CF2C: .4byte 0x040000D4
 _0800CF30: .4byte gOamObjects
@@ -11883,7 +11883,7 @@ sub_800D94C: @ 0x0800D94C
 	bl sub_80007D8
 	b _0800DD78
 	.align 2, 0
-_0800D99C: .4byte gUnknown_03003720
+_0800D99C: .4byte gJoypad
 _0800D9A0: .4byte gUnknown_08018A6C
 _0800D9A4:
 	ldrh r1, [r3]
@@ -12889,7 +12889,7 @@ _0800E1E0:
 	adds r0, #1
 	b _0800E476
 	.align 2, 0
-_0800E204: .4byte gUnknown_03003720
+_0800E204: .4byte gJoypad
 _0800E208: .4byte 0x00000202
 _0800E20C:
 	movs r0, #0x81
@@ -13656,7 +13656,7 @@ _0800E818:
 	bx r0
 	.align 2, 0
 _0800E820: .4byte gUnknown_03003A70
-_0800E824: .4byte gUnknown_03003720
+_0800E824: .4byte gJoypad
 
 	THUMB_FUNC_START sub_800E828
 sub_800E828: @ 0x0800E828

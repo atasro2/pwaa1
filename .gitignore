@@ -50,6 +50,7 @@ Temporary Items
 # Build Outputs
 # =========================
 
+*.exe
 *.gba
 *.elf
 *.map

@@ -718,7 +718,7 @@ gUnknown_08018DD0:
     .incbin "baserom.gba", 0x00018DD0, 0x4
 
     .global gUnknown_08018DD4
-gUnknown_08018DD4:
+gUnknown_08018DD4: @ person data
     .incbin "baserom.gba", 0x00018DD4, 0x1A4
 
     .global gUnknown_08018F78
@@ -1549,38 +1549,38 @@ gUnknown_0811DD64:
     .global gScriptCmdFuncs
 gScriptCmdFuncs:
     .4byte Command00
-    .4byte sub_8005BC4
-    .4byte sub_8005BF4
-    .4byte sub_8005EA0
-    .4byte sub_8005EB8
-    .4byte sub_8005ED4
-    .4byte sub_8005EF8
-    .4byte sub_8005BF4
-    .4byte sub_8005F2C
-    .4byte sub_80060D8
-    .4byte sub_8005BF4
-    .4byte sub_800628C
-    .4byte sub_80062BC
-    .4byte sub_8006300
-    .4byte sub_8006314
-    .4byte sub_8006380
-    .4byte sub_80063A0
-    .4byte sub_80063C4
-    .4byte sub_8006404
-    .4byte sub_8006430
-    .4byte sub_8006468
-    .4byte sub_8006488
-    .4byte sub_80064C4
-    .4byte sub_8006500
-    .4byte sub_800659C
-    .4byte sub_80065FC
-    .4byte sub_8006680
-    .4byte sub_80066D4
-    .4byte sub_800671C
-    .4byte sub_8006830
-    .4byte sub_80068B8
-    .4byte sub_8006920
-    .4byte sub_8006978
+    .4byte Command01
+    .4byte Command02
+    .4byte Command03
+    .4byte Command04
+    .4byte Command05
+    .4byte Command06
+    .4byte Command02
+    .4byte Command08
+    .4byte Command09
+    .4byte Command02
+    .4byte Command0B
+    .4byte Command0C
+    .4byte Command0D
+    .4byte Command0E
+    .4byte Command0F
+    .4byte Command10
+    .4byte Command11
+    .4byte Command12
+    .4byte Command13
+    .4byte Command14
+    .4byte Command15
+    .4byte Command16
+    .4byte Command17
+    .4byte Command18
+    .4byte Command19
+    .4byte Command1A
+    .4byte Command1B
+    .4byte Command1C
+    .4byte Command1D
+    .4byte Command1E
+    .4byte Command1F
+    .4byte Command20
     .4byte sub_8006988
     .4byte sub_80069C8
     .4byte sub_80069F4
@@ -1593,7 +1593,7 @@ gScriptCmdFuncs:
     .4byte sub_8006B98
     .4byte sub_8006BC8
     .4byte sub_8006C20
-    .4byte sub_8005BF4
+    .4byte Command02
     .4byte sub_8006C8C
     .4byte sub_8006CF4
     .4byte sub_8006D28
@@ -1617,7 +1617,7 @@ gScriptCmdFuncs:
     .4byte sub_8007604
     .4byte sub_8007648
     .4byte sub_80076B4
-    .4byte sub_8006488
+    .4byte Command15
     .4byte sub_80077A0
     .4byte sub_8007868
     .4byte sub_800788C

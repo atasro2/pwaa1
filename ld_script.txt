@@ -23,6 +23,8 @@ SECTIONS {
         asm/rom8002A48.o(.text);
         src/script_main.o(.text);
         asm/script_main.o(.text);
+        src/script_commands.o(.text);
+        asm/script_commands.o(.text);
         asm/rom8007A0C.o(.text);
         src/sound_control.o(.text);
         src/rom800F7F0.o(.text);

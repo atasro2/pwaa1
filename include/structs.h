@@ -1,12 +1,13 @@
 #ifndef GUARD_STRUCTS_H //TODO: get rid of this file and move everything to the place they should be in
 #define GUARD_STRUCTS_H
 
-struct OamBits
+struct OamAttrs // why tho capcom there is already a struct called OamData that is the same thing as what you have here please for the love of god
+				// maybe it's because of access times for u16 vs u32 but idk it seems too insignificant
 {
-    u16 first16;
-    u16 second16;
-    u16 third16;
-    u16 fourth16;
+    u16 attr0;
+    u16 attr1;
+    u16 attr2;
+    u16 attr3;
 };
 
 struct Struct3000800 // unknown size
@@ -28,12 +29,12 @@ struct Struct3000800 // unknown size
     } unk40;
 };
 
-struct Struct3003720
+struct Joypad
 {
-    u16 unk0;
-    u16 unk2;
-    u16 unk4;
-    u16 unk6;
+    u16 heldKeysRaw;
+    u16 newKeysRaw;
+    u16 heldKeys;
+    u16 newKeys;
     u16 unk8;
     u16 unkA;
     u16 unkC;
@@ -58,7 +59,8 @@ struct Struct3003730
     u8 unk12;
     u8 unk13;
     u8 unk14;
-    u8 filler15[0x5];
+    u8 unk15;
+    u8 filler16[0x4];
     s16 unk1A;
     u8 unk1C;
     u8 unk1D;
@@ -83,7 +85,7 @@ struct Struct3003730
     u8 unk8C;
     u8 unk8D;
     u8 unk8E;
-    u8 unk8F;
+    s8 unk8F;
     u16 unk90;
     u16 unk92;
     u32 unk94;
@@ -181,12 +183,16 @@ struct Struct3003A70
     u16 unk2A;
     u16 unk2C;
     u8 unk2E;
-    u8 filler2F[0x5];
+    u8 filler2F[0x3];
+    u8 unk32;
+    u8 unk33;
     u8 unk34;
     u8 unk35;
     u8 unk36;
     u8 unk37;
-    u8 filler38[0x4];
+    u8 unk38;
+    u8 unk39;
+    u8 filler3A[0x2];
     u32 unk3C;
 };
 
@@ -220,6 +226,15 @@ struct Struct3003A50
 struct Struct3003AB0
 {
     u8 filler0[0x8];
+};
+
+struct Struct3003C00
+{
+    u16 unk0;
+    u16 unk2;
+    u16 unk4;
+    u16 unk6;
+    u16 unk8;
 };
 
 struct Struct3004000

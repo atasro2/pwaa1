@@ -2,14 +2,14 @@
 #include "m4a.h"
 
 static void sub_80002E4();
-static void VCountIntr();
-static void SerialIntrDummy();
+static void VBlankIntr();
+static void HBlankIntr();
 static void IntrDummy();
 
 static void (*IntrTableFunctionPtrs[])() =
 {
-    VCountIntr,
-    SerialIntrDummy,
+    VBlankIntr,
+    HBlankIntr,
     IntrDummy,
     IntrDummy,
     IntrDummy,
@@ -34,7 +34,6 @@ void CheckAButtonAndGoToClearSaveScreen()
 
 void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
 {
-    u32 v0;
     DmaFill32(3, 0, IWRAM_START, 0x7E00); // clear IWRAM
 
     LOOP1:
@@ -43,17 +42,18 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
         CheckAButtonAndGoToClearSaveScreen();
         LOOP2:
         {
+			u32 v0;
             v0 = sub_8000744();
             if (v0 != 0)
                 goto LOOP1;
 
-            gUnknown_03003730.unkC = v0;
+    gUnknown_03003730.unkC = v0;
 
             LOOP3:
             {
                 if (gUnknown_03003730.unkC != gUnknown_03003730.unkD)
                 {
-                    goto LOOP3;
+                    goto LOOP3; // how the fuck do i get out of here? interrupts??
                 }
             }
 
@@ -64,13 +64,14 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
                 sub_80029B0();
                 sub_8010C4C(0);
                 MoveSpritesToOAM();
-                sub_8000624();
+                SetLCDIORegs();
             }
             if (gUnknown_03003730.unk2C > 10)
             {
                 gUnknown_03003730.unk2C = 0;
                 sub_8001A9C(gUnknown_03003730.unk28);
             }
+			// fakematch? scrub C? the fuck am i supposed to look at anyways?
             if (gUnknown_03003730.unk2C == 0 && (sub_8005470(), gUnknown_03003730.unk2C == 0))
             {
                 sub_800232C(gUnknown_03003730.unk2C);
@@ -88,9 +89,24 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
             goto LOOP2;
         }
     }
+    if (gUnknown_03003730.unk2C == 0 && (sub_8005470(), gUnknown_03003730.unk2C == 0))
+    {
+        sub_800232C(gUnknown_03003730.unk2C);
+        sub_800EEFC(&gUnknown_03003730);
+        sub_80002E4();
+        sub_8010E14(gUnknown_03003730.unk2A);
+        sub_8000804();
+    }
+    else
+    {
+        sub_8001744(gUnknown_03003730.unk28);
+    }
+    sub_800F614();
+    m4aSoundMain();
+    goto LOOP2;
 }
 
-void sub_80002E4()
+void sub_80002E4() // related to screen shakes
 {
     struct Struct3004000 *iwstruct4000p = &gUnknown_03004000;
     struct Struct3003730 *iwstruct3730p = &gUnknown_03003730;
@@ -178,7 +194,7 @@ void sub_80003E0()
     u32 temp = iwstruct3730p->unk4.field0 ? 1 : 0;
 
     RegisterRamReset(RESET_SIO_REGS | RESET_SOUND_REGS | RESET_REGS);
-    DmaFill32(3, 0, IWRAM_START, 0x7E00);  // Clear IWRAM
+    DmaFill32(3, 0, IWRAM_START, 0x7E00);  // Clear IWRAM // doesn't clear stack!
     DmaFill32(3, 0, EWRAM_START, 0x40000); // Clear EWRAM
 
     iwstruct3730p->unk4.field2 = temp; // TODO: !? scrub c?
@@ -224,7 +240,7 @@ void sub_80004B0() // reset a bunch of shit
     lcdIoRegsp->lcd_bg3cnt = BGCNT_PRIORITY(3) | BGCNT_CHARBASE(1) | BGCNT_SCREENBASE(31) | BGCNT_MOSAIC | BGCNT_256COLOR | BGCNT_WRAP; // TODO: add TXT/AFF macro once known which one is used
     lcdIoRegsp->lcd_bldcnt = BLDCNT_TGT1_BG0 | BLDCNT_TGT1_BG1 | BLDCNT_TGT1_BG2 | BLDCNT_TGT1_BG3 | BLDCNT_TGT1_OBJ | BLDCNT_EFFECT_DARKEN;
     lcdIoRegsp->lcd_bldy = 0x10;
-    sub_800060C();
+    HideAllSprites();
     sub_8000930();
     sub_800F804();
     sub_800F3C4();
@@ -233,17 +249,16 @@ void sub_80004B0() // reset a bunch of shit
     m4aMPlayAllStop();
 }
 
-void sub_800060C()
+void HideAllSprites()
 {
     u32 i;
     for (i = 0; i < MAX_OAM_OBJ_COUNT; i++)
     {
-        u32 temp = ST_OAM_AFFINE_ERASE << 8;
-        gOamObjects[i].first16 = temp;
+        gOamObjects[i].attr0 = ST_OAM_AFFINE_ERASE << 8;
     }
 }
 
-void sub_8000624()
+void SetLCDIORegs()
 {
     struct LCDIORegisters *lcdIoRegsp = &gLCDIORegisters;
 
@@ -274,53 +289,53 @@ void sub_8000624()
     REG_BLDY = lcdIoRegsp->lcd_bldy;
 }
 
-void sub_80006DC() // TODO: Rename to ReadKeys ?
+void ReadKeys() // TODO: Rename to ReaReadKeys
 {
-    struct Struct3003720 *iwstruct3720p = &gUnknown_03003720;
-    u16 temp = KEY_NEW();
-    u32 temp2;
-    iwstruct3720p->unk4 = iwstruct3720p->unk0;
-    iwstruct3720p->unk6 = iwstruct3720p->unk2;
-    iwstruct3720p->unk0 = KEY_NEW();
-    iwstruct3720p->unk2 = temp & ~iwstruct3720p->unk4;
-    iwstruct3720p->unk8 = 0;
-    temp2 = iwstruct3720p->unkA;
-    if (KEY_NEW() & temp2)
+    struct Joypad *joypadCtrl = &gJoypad;
+    u16 keyInput = KEY_NEW();
+
+    joypadCtrl->heldKeys = joypadCtrl->heldKeysRaw;
+    joypadCtrl->newKeys = joypadCtrl->newKeysRaw;
+    joypadCtrl->heldKeysRaw = KEY_NEW();
+    joypadCtrl->newKeysRaw = keyInput & ~joypadCtrl->heldKeys;
+    
+    joypadCtrl->unk8 = 0;
+
+    if (KEY_NEW() & joypadCtrl->unkA)
     {
-        temp2 = iwstruct3720p->unkC;
-        if (iwstruct3720p->unkE >= temp2)
+        if (joypadCtrl->unkE >= joypadCtrl->unkC)
         {
-            iwstruct3720p->unkE = 0;
-            iwstruct3720p->unk8 = temp & iwstruct3720p->unkA;
+            joypadCtrl->unkE = 0;
+            joypadCtrl->unk8 = keyInput & joypadCtrl->unkA;
         }
         else
         {
-            iwstruct3720p->unkE++;
+            joypadCtrl->unkE++;
         }
     }
     else
     {
-        iwstruct3720p->unkE = iwstruct3720p->unkC;
+        joypadCtrl->unkE = joypadCtrl->unkC;
     }
 }
 
 void sub_8000738(u16 arg0, u16 arg1)
 {
-    gUnknown_03003720.unkA = arg0;
-    gUnknown_03003720.unkC = arg1;
+    gJoypad.unkA = arg0;
+    gJoypad.unkC = arg1;
 }
 
 u32 sub_8000744()
 {
-    struct Struct3003720 *iwstruct3720p = &gUnknown_03003720;
+    struct Joypad *joypadCtrl = &gJoypad;
     if (gUnknown_03003730.unk2C == 0)
     {
-        sub_80006DC();
+        ReadKeys();
     }
 
     gUnknown_03003730.unkD = 1;
 
-    if (iwstruct3720p->unk0 == 15)
+    if (joypadCtrl->heldKeysRaw == 15)
     {
         return 1;
     }
@@ -365,7 +380,7 @@ void sub_80007D8(u16 arg0, u8 arg1, u8 arg2, u16 arg3)
     gUnknown_03003730.unk78 = 0;
 }
 
-void sub_8000804()
+void sub_8000804() // update hardware blend
 {
     struct Struct3003730 *iwstruct3730p = &gUnknown_03003730;
     struct LCDIORegisters *lcdIoRegsp = &gLCDIORegisters;
@@ -440,13 +455,13 @@ void sub_8000804()
     }
 }
 
-void VCountIntr()
+void VBlankIntr()
 {
     m4aSoundVSync();
     gUnknown_03003730.unkC++;
 }
 
-void SerialIntrDummy()
+void HBlankIntr()
 {
 }
 

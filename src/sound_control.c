@@ -1,4 +1,5 @@
 #include "global.h"
+#include "sound_control.h"
 #include "m4a.h"
 
 void sub_800F3E0(u32 songNum)
@@ -78,17 +79,17 @@ void sub_800F4D8() // UnpauseBGM?
     }
 }
 
-void sub_800F514(u32 speed)
+void sub_800F514(u32 fadeInSpeed)
 {
     struct Struct3003730 * struct3730p = &gUnknown_03003730;
     if(struct3730p->unk1C & 4)
     {
-        m4aMPlayFadeOutTemporarily(&gMPlayInfo_BGM, speed/16);
+        m4aMPlayFadeOutTemporarily(&gMPlayInfo_BGM, fadeInSpeed/16);
         struct3730p->unk1C = 0x14;
     }
 }
 
-void PlayBGM(u32 speed, u32 songNum) // named according to phoenix unity
+void PlayBGM(u32 fadeInSpeed, u32 songNum) // named according to phoenix unity
 {
     struct Struct3003730 * struct3730p = &gUnknown_03003730;
     if(!(struct3730p->unk198 & 2))
@@ -125,7 +126,7 @@ void PlayBGM(u32 speed, u32 songNum) // named according to phoenix unity
                 {
                     if(struct3730p->unk1C & 0x10)
                     {
-                        m4aMPlayFadeIn(&gMPlayInfo_BGM, speed/16);
+                        m4aMPlayFadeIn(&gMPlayInfo_BGM, fadeInSpeed/16);
                         struct3730p->unk1C = 4;
                         return;
                     }
@@ -141,11 +142,11 @@ void PlayBGM(u32 speed, u32 songNum) // named according to phoenix unity
                 m4aMPlayImmInit(&gMPlayInfo_BGM);
             }
         }
-        if(speed == 0)
+        if(fadeInSpeed == 0)
         {
             return;
         }
-        struct3730p->unk20 = (struct3730p->unk1A / speed) + 1;
+        struct3730p->unk20 = (struct3730p->unk1A / fadeInSpeed) + 1;
         struct3730p->unk1C = 0xC;
         struct3730p->unk22 = 4 * 10;
     }

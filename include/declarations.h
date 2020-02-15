@@ -13,11 +13,12 @@ extern u16 gUnknown_08014FB8[0x8C];
 extern u8 gTextPal[0x20];
 extern u8 gUnknown_08749428[0xDEC]; // some uncompressed script probably mes_sys
 extern u32 * gScriptTable[17];
+extern u8 gUnknown_080187C0[8];
 
 //FUNCTIONS // these should be moved soon
 void sub_80003E0();
-void sub_800060C();
-void sub_8000624();
+void HideAllSprites();
+void SetLCDIORegs();
 void sub_8000738(u16, u16);
 u32 sub_8000744();
 void sub_8000804();
@@ -45,6 +46,9 @@ extern void sub_8010048(u32, u32, u32, u32);
 extern void sub_800B7A8(struct Struct3003A50 *, u32);
 extern void sub_800549C(u32);
 extern void sub_800244C(u32);
+extern void sub_80028B4(u32, u32);
+extern void sub_8002244(u32);
+extern void sub_800FBA0(struct Struct3000840 *, u32);
 
 //EWRAM
 extern EWRAM_DATA u32 gUnknown_02011DC0[0x80];
@@ -52,24 +56,25 @@ extern EWRAM_DATA u32 gScriptHeap[0x1B000/4];
 extern EWRAM_DATA struct SaveData gSaveDataBuffer;
 extern EWRAM_DATA u8 gUnknown_0202CFC0[0x9B00]; // got no idea how big this actually is
 //IWRAM
-extern u16 gUnknown_03000000[0x400]; // BG2 map buffer
+extern u16 gUnknown_03000000[0x400]; // BG 2 Map buffer
 extern struct Struct3000800 gUnknown_03000800; // size unknown
-extern u16 gUnknown_03001000[0x400]; // BG3 map buffer
-extern u16 gUnknown_03001800[0x400]; // BG3 map buffer copy?
-extern u16 gUnknown_03002000[0x400]; // BG1 map buffer
+extern u16 gUnknown_03001000[0x400]; // BG 3 Map buffer
+extern u16 gUnknown_03001800[0x400]; // BG 3 Map buffer copy TODO: this 1 array is keeping me away from naming the other ones..  BG Pan related?
+extern u16 gUnknown_03002000[0x400]; // BG 1 Map buffer
 extern void (*gIntrTable[0x10]);
 extern struct Struct3002840 gUnknown_03002840;
 extern struct Struct30028A0 gUnknown_030028A0;
-extern struct OamBits gOamObjects[128];
-extern u16 gUnknown_03002F20[0x400]; // BG0 map buffer
-extern struct Struct3003720 gUnknown_03003720;
+extern struct OamAttrs gOamObjects[128];
+extern u16 gUnknown_03002F20[0x400]; // BG 0 Map buffer
+extern struct Joypad gJoypad;
 extern struct Struct3003730 gUnknown_03003730;
 extern struct LCDIORegisters gLCDIORegisters;
 extern struct Struct3003930 gUnknown_03003930[8];
+extern u8 gUnknown_030039D0[0x80];
 extern struct Struct3003A50 gUnknown_03003A50;
 extern struct Struct3003A70 gUnknown_03003A70;
 extern struct Struct3003AB0 gUnknown_03003AB0; 
-extern u16 gUnknown_03003C00[0x3F][6];
+extern struct Struct3003C00 gUnknown_03003C00[0x3F];
 extern struct Struct3004000 gUnknown_03004000;
 extern struct MusicPlayerInfo gMPlayInfo_BGM;
 extern struct MusicPlayerInfo gMPlayInfo_SE1;
