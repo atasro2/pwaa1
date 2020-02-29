@@ -43,6 +43,10 @@ SECTIONS {
     {
         src/main.o(.data);
         data/data.o(.data);
+        data/sound_data.o(.rodata);
+        data/data_2.o(.data);
+        data/sound_data2.o(.rodata);
+        data/data_3.o(.data);
     } =0
 
     /* DWARF debug sections.

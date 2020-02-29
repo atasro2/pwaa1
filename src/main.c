@@ -289,7 +289,7 @@ void SetLCDIORegs()
     REG_BLDY = lcdIoRegsp->lcd_bldy;
 }
 
-void ReadKeys() // TODO: Rename to ReaReadKeys
+void ReadKeys()
 {
     struct Joypad *joypadCtrl = &gJoypad;
     u16 keyInput = KEY_NEW();
