@@ -21,7 +21,12 @@ SECTIONS {
         asm/cmd_bg.o(.text);
         src/rom8002A48.o(.text);
         asm/rom8002A48.o(.text);
-        src/cmd_mus.o(.text);
+        src/script_main.o(.text);
+        asm/script_main.o(.text);
+        src/script_commands.o(.text);
+        asm/script_commands.o(.text);
+        asm/rom8007A0C.o(.text);
+        src/sound_control.o(.text);
         src/rom800F7F0.o(.text);
         asm/rom800F7F0.o(.text);
         asm/m4a.o(.text);
@@ -38,6 +43,10 @@ SECTIONS {
     {
         src/main.o(.data);
         data/data.o(.data);
+        data/sound_data.o(.rodata);
+        data/data_2.o(.data);
+        data/sound_data2.o(.rodata);
+        data/data_3.o(.data);
     } =0
 
     /* DWARF debug sections.

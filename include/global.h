@@ -5,6 +5,8 @@
 #include "gba/gba.h"
 #include "declarations.h"
 
+#define PALETTE 0x05000000
+
 // Prevent cross-jump optimization.
 #define BLOCK_CROSS_JUMP asm("");
 

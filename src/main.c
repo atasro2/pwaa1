@@ -47,7 +47,7 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
             if (v0 != 0)
                 goto LOOP1;
 
-            gUnknown_03003730.unkC = v0;
+    gUnknown_03003730.unkC = v0;
 
             LOOP3:
             {
@@ -89,6 +89,21 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
             goto LOOP2;
         }
     }
+    if (gUnknown_03003730.unk2C == 0 && (sub_8005470(), gUnknown_03003730.unk2C == 0))
+    {
+        sub_800232C(gUnknown_03003730.unk2C);
+        sub_800EEFC(&gUnknown_03003730);
+        sub_80002E4();
+        sub_8010E14(gUnknown_03003730.unk2A);
+        sub_8000804();
+    }
+    else
+    {
+        sub_8001744(gUnknown_03003730.unk28);
+    }
+    sub_800F614();
+    m4aSoundMain();
+    goto LOOP2;
 }
 
 void sub_80002E4() // related to screen shakes
@@ -182,7 +197,7 @@ void sub_80003E0()
     DmaFill32(3, 0, IWRAM_START, 0x7E00);  // Clear IWRAM // doesn't clear stack!
     DmaFill32(3, 0, EWRAM_START, 0x40000); // Clear EWRAM
 
-    iwstruct3730p->unk4.field1 = temp; // TODO: !? scrub c?
+    iwstruct3730p->unk4.field2 = temp; // TODO: !? scrub c?
 
     RegisterRamReset(RESET_OAM | RESET_VRAM | RESET_PALETTE);
 
@@ -274,53 +289,53 @@ void SetLCDIORegs()
     REG_BLDY = lcdIoRegsp->lcd_bldy;
 }
 
-void sub_80006DC() // TODO: Rename to ReadKeys ?
+void ReadKeys()
 {
-    struct Struct3003720 *iwstruct3720p = &gUnknown_03003720;
-    u16 temp = KEY_NEW();
-    u32 temp2;
-    iwstruct3720p->unk4 = iwstruct3720p->unk0;
-    iwstruct3720p->unk6 = iwstruct3720p->unk2;
-    iwstruct3720p->unk0 = KEY_NEW();
-    iwstruct3720p->unk2 = temp & ~iwstruct3720p->unk4;
-    iwstruct3720p->unk8 = 0;
-    temp2 = iwstruct3720p->unkA;
-    if (KEY_NEW() & temp2)
+    struct Joypad *joypadCtrl = &gJoypad;
+    u16 keyInput = KEY_NEW();
+
+    joypadCtrl->heldKeys = joypadCtrl->heldKeysRaw;
+    joypadCtrl->newKeys = joypadCtrl->newKeysRaw;
+    joypadCtrl->heldKeysRaw = KEY_NEW();
+    joypadCtrl->newKeysRaw = keyInput & ~joypadCtrl->heldKeys;
+    
+    joypadCtrl->unk8 = 0;
+
+    if (KEY_NEW() & joypadCtrl->unkA)
     {
-        temp2 = iwstruct3720p->unkC;
-        if (iwstruct3720p->unkE >= temp2)
+        if (joypadCtrl->unkE >= joypadCtrl->unkC)
         {
-            iwstruct3720p->unkE = 0;
-            iwstruct3720p->unk8 = temp & iwstruct3720p->unkA;
+            joypadCtrl->unkE = 0;
+            joypadCtrl->unk8 = keyInput & joypadCtrl->unkA;
         }
         else
         {
-            iwstruct3720p->unkE++;
+            joypadCtrl->unkE++;
         }
     }
     else
     {
-        iwstruct3720p->unkE = iwstruct3720p->unkC;
+        joypadCtrl->unkE = joypadCtrl->unkC;
     }
 }
 
 void sub_8000738(u16 arg0, u16 arg1)
 {
-    gUnknown_03003720.unkA = arg0;
-    gUnknown_03003720.unkC = arg1;
+    gJoypad.unkA = arg0;
+    gJoypad.unkC = arg1;
 }
 
 u32 sub_8000744()
 {
-    struct Struct3003720 *iwstruct3720p = &gUnknown_03003720;
+    struct Joypad *joypadCtrl = &gJoypad;
     if (gUnknown_03003730.unk2C == 0)
     {
-        sub_80006DC();
+        ReadKeys();
     }
 
     gUnknown_03003730.unkD = 1;
 
-    if (iwstruct3720p->unk0 == 15)
+    if (joypadCtrl->heldKeysRaw == 15)
     {
         return 1;
     }

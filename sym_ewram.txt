@@ -4,8 +4,7 @@
 . = 0x0000AFD0; gUnknown_0200AFD0 = .;
 . = 0x0000B1C0; gUnknown_0200B1C0 = .;
 . = 0x00011DC0; gUnknown_02011DC0 = .;
-. = 0x00011FC0; gUnknown_02011FC0 = .;
-. = 0x00011FC4; gUnknown_02011FC4 = .;
+. = 0x00011FC0; gScriptHeap = .;
 . = 0x0002CFC0; gUnknown_0202CFC0 = .;
 . = 0x00031AC0; gUnknown_02031AC0 = .;
 . = 0x00031FC0; gUnknown_02031FC0 = .;

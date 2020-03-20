@@ -100,6 +100,16 @@
 	.byte (\release & 0x7)
 	.endm
 
+	.macro voice_noise_alt_custom unk0, unk1, unk2, period, attack, decay, sustain, release
+	.byte 12, \unk0, \unk1, \unk2
+	.byte (\period & 0x1)
+	.byte 0, 0, 0
+	.byte (\attack  & 0x7)
+	.byte (\decay   & 0x7)
+	.byte (\sustain & 0xF)
+	.byte (\release & 0x7)
+	.endm
+
 	.macro voice_keysplit voice_group_pointer, keysplit_table_pointer
 	.byte 0x40, 0, 0, 0
 	.4byte \voice_group_pointer
@@ -110,16 +120,4 @@
 	.byte 0x80, 0, 0, 0
 	.4byte \voice_group_pointer
 	.4byte 0
-	.endm
-
-	.macro cry sample
-	.byte 0x20, 60, 0, 0
-	.4byte \sample
-	.byte 0xff, 0, 0xff, 0
-	.endm
-
-	.macro cry2 sample
-	.byte 0x30, 60, 0, 0
-	.4byte \sample
-	.byte 0xff, 0, 0xff, 0
 	.endm

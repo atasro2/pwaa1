@@ -57,7 +57,6 @@ Temporary Items
 *.o
 *.i
 *.dump
-*.bin
 src/*.s
 tools/ignore/
 tools/agbcc/
