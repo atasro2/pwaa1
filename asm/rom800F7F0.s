@@ -1718,7 +1718,7 @@ _080104C2:
 	cmp r0, #0
 	beq _08010504
 	ldrb r0, [r1, #4]
-	bl sub_800F3E0
+	bl PlaySE
 _08010504:
 	ldr r1, [r4, #0x34]
 	movs r0, #4
@@ -1755,7 +1755,7 @@ sub_801052C: @ 0x0801052C
 	movs r0, #4
 	b _080105F4
 	.align 2, 0
-_08010548: .4byte gUnknown_03003A70
+_08010548: .4byte gScriptState
 _0801054C:
 	ldr r2, [r4, #0x34]
 	ldrb r1, [r2, #2]
@@ -1777,7 +1777,7 @@ _0801054C:
 	cmp r0, #0
 	beq _08010578
 	ldrb r0, [r1, #4]
-	bl sub_800F3E0
+	bl PlaySE
 _08010578:
 	ldr r1, [r4, #0x34]
 	movs r0, #4

@@ -3137,7 +3137,7 @@ sub_8002244: @ 0x08002244
 	beq _080022BE
 	b _08002312
 	.align 2, 0
-_08002258: .4byte gUnknown_03003A70
+_08002258: .4byte gScriptState
 _0800225C:
 	ldr r1, _08002294
 	movs r3, #0
@@ -3259,7 +3259,7 @@ _0800233C:
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-_08002348: .4byte gUnknown_03003A70
+_08002348: .4byte gScriptState
 _0800234C: .4byte _08002350
 _08002350: @ jump table
 	.4byte _08002438 @ case 0
@@ -3420,7 +3420,7 @@ sub_800244C: @ 0x0800244C
 	b _080024BA
 	.align 2, 0
 _08002490: .4byte gUnknown_03003730
-_08002494: .4byte gUnknown_03003A70
+_08002494: .4byte gScriptState
 _08002498: .4byte gUnknown_03003A50
 _0800249C: .4byte gLCDIORegisters
 _080024A0: .4byte gUnknown_03002000
@@ -3439,7 +3439,7 @@ _080024BA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080024C0: .4byte gUnknown_03003A70
+_080024C0: .4byte gScriptState
 _080024C4: .4byte gUnknown_03003A50
 
 	THUMB_FUNC_START sub_80024C8

@@ -1,0 +1,9 @@
+#ifndef GUARD_BACKGROUND_H
+#define GUARD_BACKGROUND_H
+
+#define BG_SHIFT_LEFT 0
+#define BG_SHIFT_RIGHT 1
+#define BG_SHIFT_UP 2
+#define BG_SHIFT_DOWN 3
+
+#endif//GUARD_BACKGROUND_H
