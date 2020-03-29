@@ -1,6 +1,6 @@
 	.section .data
     .include "asm/macros.inc"
-    
+
     .align 2
     .global gMPlayJumpTableTemplate
 gMPlayJumpTableTemplate: @ 79354
@@ -75,4 +75,15 @@ gUnknown_080795C8:
 
     .global gUnknown_080795FC
 gUnknown_080795FC:
-    .incbin "baserom.gba", 0x000795FC, 0x30
+    .4byte ply_xxx
+    .4byte ply_xwave
+    .4byte ply_xtype
+    .4byte ply_xxx
+    .4byte ply_xatta
+    .4byte ply_xdeca
+    .4byte ply_xsust
+    .4byte ply_xrele
+    .4byte ply_xiecv
+    .4byte ply_xiecl
+    .4byte ply_xleng
+    .4byte ply_xswee

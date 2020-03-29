@@ -1,60 +1,6 @@
 	.include "asm/macros.inc"
 	.syntax unified
 
-	THUMB_FUNC_START Command1F
-Command1F: @ 0x08006920
-	push {r4, r5, lr}
-	adds r3, r0, #0
-	ldr r0, [r3, #4]
-	adds r0, #2
-	str r0, [r3, #4]
-	ldr r1, _08006964
-	adds r2, r1, #0
-	adds r2, #0x4a
-	ldr r0, _08006968
-	ldrh r4, [r2]
-	ands r0, r4
-	strh r0, [r2]
-	ldr r2, _0800696C
-	movs r0, #0
-	ldr r4, _08006970
-	adds r5, r1, #0
-	movs r1, #0
-_08006942:
-	strh r1, [r2]
-	adds r0, #1
-	adds r2, #2
-	cmp r0, r4
-	bls _08006942
-	movs r0, #0xf8
-	lsls r0, r0, #6
-	strh r0, [r5, #4]
-	ldr r0, _08006974
-	ldrh r1, [r3]
-	ands r0, r1
-	strh r0, [r3]
-	movs r0, #0
-	pop {r4, r5}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_08006964: .4byte gLCDIORegisters
-_08006968: .4byte 0x0000FBFF
-_0800696C: .4byte gUnknown_03000000
-_08006970: .4byte 0x0000029F
-_08006974: .4byte 0x0000FFBF
-
-	THUMB_FUNC_START Command20
-Command20: @ 0x08006978
-	ldr r1, [r0, #4]
-	ldrh r2, [r1, #2]
-	strh r2, [r0, #0x20]
-	adds r1, #4
-	str r1, [r0, #4]
-	movs r0, #0
-	bx lr
-	.align 2, 0
-
 	THUMB_FUNC_START sub_8006988
 sub_8006988: @ 0x08006988
 	push {r4, lr}

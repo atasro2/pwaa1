@@ -2,7 +2,7 @@
 	.syntax unified
 
 	.section .rodata
-	
+
 	.align 2
 	.global gUnknown_0807962C
 gUnknown_0807962C:

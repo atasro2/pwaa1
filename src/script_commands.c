@@ -1084,3 +1084,27 @@ u32 Command1E(struct ScriptState * scriptCtx)
     }
     return 0;
 }
+
+u32 Command1F(struct ScriptState * scriptCtx)
+{
+    u32 i;
+    u16 * tilemapBuffer;
+    scriptCtx->scriptPtr++;
+    gLCDIORegisters.lcd_dispcnt &= ~0x400;
+    tilemapBuffer = gUnknown_03000000;
+    for(i = 0; i < 0x2A0; i++, tilemapBuffer++)
+    {
+       *tilemapBuffer = 0;
+    }
+    gLCDIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP; // TODO: add TXT/AFF macro once known which one is used
+    scriptCtx->unk0 &= ~0x40;
+    return 0;
+}
+
+u32 Command20(struct ScriptState * scriptCtx)
+{
+    scriptCtx->scriptPtr++;
+    scriptCtx->unk20 = *scriptCtx->scriptPtr;
+    scriptCtx->scriptPtr++;
+    return 0;
+}

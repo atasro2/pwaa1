@@ -3672,7 +3672,6 @@ dmy_song:
 gUnknown_080416A8:
 	.incbin "sound/direct_sound_samples/080416A8.bin"
 
-	
 	.global gUnknown_08044320
 gUnknown_08044320_1:	@ 0x0804404C
 	.byte	0xBC
@@ -19616,7 +19615,6 @@ gUnknown_08047E30:	@ 0x08047E30
 	.word	gUnknown_08047E30_4		@ track
 	.word	gUnknown_08047E30_5		@ track
 
-	
 	.global gUnknown_08048320
 gUnknown_08048320_1:	@ 0x08047E4C
 	.byte	0xBC
@@ -19790,7 +19788,6 @@ gUnknown_08048320_1:	@ 0x08047E4C
 	.byte	0x08
 	.byte	0xB1
 
-	
 	.global gUnknown_08048320
 gUnknown_08048320_2:	@ 0x08047EF6
 	.byte	0xBC
