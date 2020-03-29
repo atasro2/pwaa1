@@ -82,16 +82,16 @@
 	.byte (\release & 0x7)
 	.endm
 
-	.macro voice_noise period, attack, decay, sustain, release
-	_voice_noise 4, \period, \attack, \decay, \sustain, \release
+	.macro voice_noise unk1, unk2, unk3, period, attack, decay, sustain, release
+	_voice_noise 4, \unk1, \unk2, \unk3, \period, \attack, \decay, \sustain, \release
 	.endm
 
-	.macro voice_noise_alt period, attack, decay, sustain, release
-	_voice_noise 12, \period, \attack, \decay, \sustain, \release
+	.macro voice_noise_alt unk1, unk2, unk3, period, attack, decay, sustain, release
+	_voice_noise 12, \unk1, \unk2, \unk3, \period, \attack, \decay, \sustain, \release
 	.endm
 
-	.macro _voice_noise type, period, attack, decay, sustain, release
-	.byte \type, 60, 0, 0
+	.macro _voice_noise type, unk1, unk2, unk3, period, attack, decay, sustain, release
+	.byte \type, \unk1, \unk2, \unk3
 	.byte (\period & 0x1)
 	.byte 0, 0, 0
 	.byte (\attack  & 0x7)

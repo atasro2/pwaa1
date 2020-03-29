@@ -2,7 +2,7 @@
 	.syntax unified
 
 	.section .rodata
-	
+
 	.align 2
 	.global gUnknown_080194EC
 gUnknown_080194EC:
@@ -161,6 +161,9 @@ gUnknown_08037BD0:	@ 0x08037BD0
 	voice_square_1 0, 2, 0, 0, 15, 0	@08038008
 	voice_square_1 0, 2, 0, 0, 15, 0	@08038014
 
+	.align 2
+	@********************** Voicegroup **********************@
+
 	.global gUnknown_08038020
 gUnknown_08038020:	@ 0x08038020
 	voice_square_1 0, 2, 0, 0, 15, 0	@08038020
@@ -203,7 +206,7 @@ gUnknown_08038020:	@ 0x08038020
 	voice_directsound_no_resample 60, 64, gUnknown_08037228, 255, 0, 255, 0	@080381DC
 	voice_directsound 60, 24, gUnknown_080536DC, 255, 0, 255, 0	@080381E8
 	voice_directsound 60, 24, gUnknown_08085CC0, 255, 0, 255, 0	@080381F4
-	voice_noise_alt_custom 80, 0, 152, 0, 0, 4, 4, 1	@08038200
+	voice_noise_alt 80, 0, 152, 0, 0, 4, 4, 1	@08038200
 	voice_directsound_no_resample 60, 64, gUnknown_080352A0, 255, 0, 255, 0	@0803820C
 	voice_square_1 0, 2, 0, 0, 15, 0	@08038218
 	voice_square_1 0, 2, 0, 0, 15, 0	@08038224
@@ -248,7 +251,10 @@ gUnknown_08038020:	@ 0x08038020
 	voice_square_1 0, 2, 0, 0, 15, 0	@080383F8
 	voice_square_1 0, 2, 0, 0, 15, 0	@08038404
 	voice_square_1 0, 2, 0, 0, 15, 0	@08038410
-	
+
+	.align 2
+	@********************** Voicegroup **********************@
+
 	.global gUnknown_0803841C
 gUnknown_0803841C:	@ 0x0803841C
 	voice_square_1 0, 2, 0, 0, 15, 0	@0803841C
@@ -284,9 +290,9 @@ gUnknown_0803841C:	@ 0x0803841C
 	voice_square_1 0, 2, 0, 0, 15, 0	@08038584
 	voice_square_1 0, 2, 0, 0, 15, 0	@08038590
 	voice_square_1 0, 2, 0, 0, 15, 0	@0803859C
-	voice_noise_alt_custom 80, 0, 192, 0, 6, 6, 15, 1	@080385A8
+	voice_noise_alt 80, 0, 192, 0, 6, 6, 15, 1	@080385A8
 	voice_square_1 0, 2, 0, 0, 15, 0	@080385B4
-	voice_noise_alt_custom 120, 0, 162, 0, 0, 6, 4, 1	@080385C0
+	voice_noise_alt 120, 0, 162, 0, 0, 6, 4, 1	@080385C0
 	voice_directsound_no_resample 60, 64, gUnknown_080194EC, 255, 0, 255, 0	@080385CC
 	voice_directsound_no_resample 60, 64, gUnknown_08088D80, 255, 0, 255, 0	@080385D8
 	voice_directsound_no_resample 60, 64, gUnknown_08035B4C, 255, 0, 255, 0	@080385E4
@@ -310,9 +316,9 @@ gUnknown_08038674:	@ 0x08038674
 	voice_directsound 60, 0, gUnknown_08027B9C, 255, 0, 255, 0	@08038674
 	voice_square_1_alt 0, 2, 0, 4, 6, 2	@08038680
 	voice_square_2 0, 0, 3, 7, 0	@0803868C
-	voice_noise_alt 0, 0, 6, 12, 1	@08038698
+	voice_noise_alt 60, 0, 0, 0, 0, 6, 12, 1	@08038698
 	voice_programmable_wave_alt gUnknown_080411FC, 0, 0, 15, 0	@080386A4
-	voice_noise_alt 0, 6, 6, 15, 1	@080386B0
+	voice_noise_alt 60, 0, 0, 0, 6, 6, 15, 1	@080386B0
 	voice_directsound 60, 0, gUnknown_0802A070, 255, 0, 255, 0	@080386BC
 	voice_square_1_alt 0, 0, 0, 4, 9, 1	@080386C8
 	voice_square_1 0, 2, 0, 0, 15, 0	@080386D4
@@ -1920,7 +1926,7 @@ gUnknown_0803CE74:	@ 0x0803CE74
 	voice_directsound 60, 0, gUnknown_08022080, 37, 0, 255, 0	@0803CE8C
 	voice_directsound 60, 0, gUnknown_0802C5D0, 255, 0, 255, 0	@0803CE98
 	voice_directsound 60, 0, gUnknown_08022080, 255, 0, 255, 0	@0803CEA4
-	voice_noise_alt 0, 0, 6, 1, 1	@0803CEB0
+	voice_noise_alt 60, 0, 0, 0, 0, 6, 1, 1	@0803CEB0
 	voice_directsound 60, 0, gUnknown_080416A8, 255, 0, 255, 0	@0803CEBC
 	voice_square_1 0, 2, 0, 3, 7, 0	@0803CEC8
 	voice_square_2 2, 0, 3, 7, 0	@0803CED4
@@ -2051,7 +2057,7 @@ gUnknown_0803D468:	@ 0x0803D468
 	voice_square_1 0, 1, 0, 2, 9, 0	@0803D468
 	voice_square_2 1, 0, 2, 9, 0	@0803D474
 	voice_directsound 60, 0, gUnknown_08022080, 255, 0, 255, 0	@0803D480
-	voice_noise_alt 0, 0, 6, 1, 0	@0803D48C
+	voice_noise_alt 60, 0, 0, 0, 0, 6, 1, 0	@0803D48C
 	voice_directsound 60, 0, gUnknown_0802A070, 255, 0, 255, 0	@0803D498
 	voice_directsound 60, 0, gUnknown_0805AC80, 255, 0, 255, 0	@0803D4A4
 	voice_directsound 60, 0, gUnknown_080416A8, 255, 0, 255, 0	@0803D4B0
@@ -2184,7 +2190,7 @@ gUnknown_0803DA5C:	@ 0x0803DA5C
 	voice_directsound 60, 0, gUnknown_08030CE4, 255, 0, 255, 0	@0803DA5C
 	voice_square_2 2, 0, 4, 6, 0	@0803DA68
 	voice_square_1 0, 2, 0, 4, 6, 0	@0803DA74
-	voice_noise_alt 0, 0, 4, 4, 1	@0803DA80
+	voice_noise_alt 60, 0, 0, 0, 0, 4, 4, 1	@0803DA80
 	voice_square_1 0, 2, 0, 0, 15, 0	@0803DA8C
 	voice_directsound 60, 0, gUnknown_08022080, 255, 0, 255, 0	@0803DA98
 	voice_square_1 0, 2, 0, 0, 15, 0	@0803DAA4
@@ -3390,6 +3396,7 @@ gUnknown_08040CCC:	@ 0x08040CCC
 	voice_directsound_no_resample 60, 0, gUnknown_0811A444, 255, 0, 255, 0	@08040F3C
 	voice_directsound_no_resample 60, 0, gUnknown_08110808, 255, 0, 255, 0	@08040F48
 	voice_directsound_no_resample 60, 0, gUnknown_08110808, 255, 0, 255, 0	@08040F54
+
 	.align 2
 	@********************** Voicegroup **********************@
 
@@ -3432,12 +3439,12 @@ gUnknown_08040F60:	@ 0x08040F60
 	voice_square_2_alt 1, 0, 0, 15, 0	@080410F8
 	voice_square_2_alt 2, 0, 0, 15, 0	@08041104
 	voice_square_2_alt 3, 0, 0, 15, 0	@08041110
-	voice_noise 1, 0, 0, 15, 0	@0804111C
-	voice_noise_alt 1, 0, 0, 15, 0	@08041128
-	voice_noise 0, 0, 0, 15, 0	@08041134
-	voice_noise_alt 0, 0, 0, 15, 0	@08041140
-
-	spltbl000: @ unused keysplit table, possible leftover from mks4agb 
+	voice_noise 60, 0, 0, 1, 0, 0, 15, 0	@0804111C
+	voice_noise_alt 60, 0, 0, 1, 0, 0, 15, 0	@08041128
+	voice_noise 60, 0, 0, 0, 0, 0, 15, 0	@08041134
+	voice_noise_alt 60, 0, 0, 0, 0, 0, 15, 0	@08041140
+    
+spltbl000: @ unused keysplit table, possible leftover from mks4agb 
 	.byte	  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
 	.byte	  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
 	.byte	  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
@@ -3545,56 +3552,56 @@ gUnknown_080412EC:
 	.align 2
 	.global gMPlayTable
 gMPlayTable: @ 80412FC
-	music_player gMPlayInfo_BGM, gMPlayTrack_BGM, 7, 0
-	music_player gMPlayInfo_SE1, gMPlayTrack_SE1, 2, 0
-	music_player gMPlayInfo_SE2, gMPlayTrack_SE2, 1, 0
-	music_player gMPlayInfo_SE3, gMPlayTrack_SE3, 1, 0
+    music_player gMPlayInfo_BGM, gMPlayTrack_BGM, 7, 0
+    music_player gMPlayInfo_SE1, gMPlayTrack_SE1, 2, 0
+    music_player gMPlayInfo_SE2, gMPlayTrack_SE2, 1, 0
+    music_player gMPlayInfo_SE3, gMPlayTrack_SE3, 1, 0
 
 	.align 2
-    .global gSongTable
+	.global gSongTable
 gSongTable:	@ 0x0804132C
-	song gUnknown_08044320, 0, 0 @ Detention Center ~ Jailers' Elegy
-	song gUnknown_08044B78, 0, 0 @ Dick Gumshoe
-	song gUnknown_080453D8, 0, 0 @ Pressing Pursuit ~ Cornered
-	song gUnknown_08045D58, 0, 0 @ Pressing Pursuit ~ Cornered - Variation
-	song gUnknown_0804670C, 0, 0 @ Objection! 2001 
-	song gUnknown_08046B98, 0, 0 @ Logic and Trick
-	song gUnknown_080475B0, 0, 0 @ Maya Fey ~ Turnabout Sisters Theme 2001
-	song gUnknown_08047E30, 0, 0 @ End
-	song gUnknown_08048320, 0, 0 @ Courtroom Lobby ~ Beginning Overture
-	song gUnknown_080488D4, 0, 0 @ Unused song thought to be an old ending theme
-	song gUnknown_08048D18, 0, 0 @ Questioning ~ Moderato 2001
-	song gUnknown_08049510, 0, 0 @ Questioning ~ Allegro 2001
-	song gUnknown_08049FF0, 0, 0 @ Investigation ~ Core 2001
-	song gUnknown_0804A6D0, 0, 0 @ Trial
-	song gUnknown_0804A704, 1, 1 @ SE Realization 1
-	song gUnknown_0804A720, 1, 1 @ SE Got Evidence Jingle
-	song gUnknown_0804A848, 0, 0 @ Jingle ~ It Can't End Here
-	song gUnknown_0804A874, 1, 1 @ SE Realization 2
-	song gUnknown_0804AFD4, 0, 0 @ Suspense
-	song gUnknown_0804B5DC, 0, 0 @ Turnabout Sisters Ballad
-	song gUnknown_0804BD08, 0, 0 @ Victory! ~ The First Victory
-	song gUnknown_0804C4B4, 0, 0 @ The Steel Samurai
-	song gUnknown_0804CA70, 0, 0 @ Happy People
-	song gUnknown_0804D02C, 0, 0 @ The First Turnabout
-	song gUnknown_0804D784, 0, 0 @ Telling the Truth 2001
-	song gUnknown_0804DFC4, 0, 0 @ Investigation ~ Opening 2001
-	song gUnknown_0804E55C, 0, 0 @ Marvin Grossberg ~ Old Age, Regret, Retribution
-	song gUnknown_0804ECEC, 0, 0 @ Recollection ~ The DL-6 Incident
-	song gUnknown_0804F2B0, 0, 0 @ Recollection ~ Heartbroken Maya
-	song gUnknown_0804F6D8, 0, 0 @ Recollection ~ Class Trial
-	song gUnknown_0804FC98, 0, 0 @ Recollection ~ Light and Shadow of the Film Studio
-	song gUnknown_0804FD4C, 0, 0 @ Birds chirping i guess
-	song gUnknown_0804FD68, 1, 1 @ SE Whoops
-	song gUnknown_0804FD84, 0, 0 @ SE Realization 1 (Clone with BGM music player)
-	song gUnknown_0804FD90, 0, 0 @ Dummy
-	song gUnknown_0804FD98, 0, 0 @ Dummy
-	song gUnknown_0804FDA0, 0, 0 @ Dummy
-	song gUnknown_0804FDA8, 0, 0 @ Dummy
-	song gUnknown_0804FDB0, 0, 0 @ Dummy
-	song gUnknown_0804FDB8, 0, 0 @ Dummy
-	song gUnknown_0804FDC0, 0, 0 @ Dummy
-	song gUnknown_0804FDC8, 0, 0 @ Dummy
+	song gUnknown_08044320, 0, 0
+	song gUnknown_08044B78, 0, 0
+	song gUnknown_080453D8, 0, 0
+	song gUnknown_08045D58, 0, 0
+	song gUnknown_0804670C, 0, 0
+	song gUnknown_08046B98, 0, 0
+	song gUnknown_080475B0, 0, 0
+	song gUnknown_08047E30, 0, 0
+	song gUnknown_08048320, 0, 0
+	song gUnknown_080488D4, 0, 0
+	song gUnknown_08048D18, 0, 0
+	song gUnknown_08049510, 0, 0
+	song gUnknown_08049FF0, 0, 0
+	song gUnknown_0804A6D0, 0, 0
+	song gUnknown_0804A704, 1, 1
+	song gUnknown_0804A720, 1, 1
+	song gUnknown_0804A848, 0, 0
+	song gUnknown_0804A874, 1, 1
+	song gUnknown_0804AFD4, 0, 0
+	song gUnknown_0804B5DC, 0, 0
+	song gUnknown_0804BD08, 0, 0
+	song gUnknown_0804C4B4, 0, 0
+	song gUnknown_0804CA70, 0, 0
+	song gUnknown_0804D02C, 0, 0
+	song gUnknown_0804D784, 0, 0
+	song gUnknown_0804DFC4, 0, 0
+	song gUnknown_0804E55C, 0, 0
+	song gUnknown_0804ECEC, 0, 0
+	song gUnknown_0804F2B0, 0, 0
+	song gUnknown_0804F6D8, 0, 0
+	song gUnknown_0804FC98, 0, 0
+	song gUnknown_0804FD4C, 0, 0
+	song gUnknown_0804FD68, 1, 1
+	song gUnknown_0804FD84, 0, 0
+	song gUnknown_0804FD90, 0, 0
+	song gUnknown_0804FD98, 0, 0
+	song gUnknown_0804FDA0, 0, 0
+	song gUnknown_0804FDA8, 0, 0
+	song gUnknown_0804FDB0, 0, 0
+	song gUnknown_0804FDB8, 0, 0
+	song gUnknown_0804FDC0, 0, 0
+	song gUnknown_0804FDC8, 0, 0
 	song gUnknown_08088424, 2, 2
 	song gUnknown_08088450, 2, 2
 	song gUnknown_08088480, 2, 2
@@ -3611,9 +3618,9 @@ gSongTable:	@ 0x0804132C
 	song gUnknown_080885F0, 1, 1
 	song gUnknown_08088610, 1, 1
 	song gUnknown_08088630, 1, 1
-	song gUnknown_08088654, 3, 3 @ 1 gavel
-	song gUnknown_08088680, 3, 3 @ 3 gavel
-	song gUnknown_080886A4, 3, 3 @ the judge is out of control help
+	song gUnknown_08088654, 3, 3
+	song gUnknown_08088680, 3, 3
+	song gUnknown_080886A4, 3, 3
 	song gUnknown_080886C0, 1, 1
 	song gUnknown_080886E0, 1, 1
 	song gUnknown_08088774, 1, 1
@@ -3666,13 +3673,16 @@ gSongTable:	@ 0x0804132C
 	song gUnknown_08088D74, 1, 1
 dmy_song:
 	.byte 0,0,0,0
-
+    
 	.align 2
 	.global gUnknown_080416A8
 gUnknown_080416A8:
 	.incbin "sound/direct_sound_samples/080416A8.bin"
 
-	.global gUnknown_08044320
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_08044320_1
 gUnknown_08044320_1:	@ 0x0804404C
 	.byte	0xBC
 	.byte	0x00
@@ -3750,7 +3760,7 @@ gUnknown_08044320_1:	@ 0x0804404C
 
 	@********************** Track  2 **********************@
 
-	.global gUnknown_08044320
+	.global gUnknown_08044320_2
 gUnknown_08044320_2:	@ 0x08044095
 	.byte	0xBC
 	.byte	0x00
@@ -3908,8 +3918,9 @@ gUnknown_08044320_2:	@ 0x08044095
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08044320
+	@********************** Track  3 **********************@
+
+	.global gUnknown_08044320_3
 gUnknown_08044320_3:	@ 0x08044130
 	.byte	0xBC
 	.byte	0x00
@@ -4140,8 +4151,9 @@ gUnknown_08044320_3:	@ 0x08044130
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08044320
+	@********************** Track  4 **********************@
+
+	.global gUnknown_08044320_4
 gUnknown_08044320_4:	@ 0x08044214
 	.byte	0xBC
 	.byte	0x00
@@ -4427,8 +4439,10 @@ gUnknown_08044320:	@ 0x08044320
 	.word	gUnknown_08044320_3		@ track
 	.word	gUnknown_08044320_4		@ track
 
-	
-	.global gUnknown_08044B78
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_08044B78_1
 gUnknown_08044B78_1:	@ 0x08044338
 	.byte	0xBC
 	.byte	0x00
@@ -4731,7 +4745,7 @@ gUnknown_08044B78_1:	@ 0x08044338
 
 	@********************** Track  2 **********************@
 
-	.global gUnknown_08044B78
+	.global gUnknown_08044B78_2
 gUnknown_08044B78_2:	@ 0x08044462
 	.byte	0xBC
 	.byte	0x00
@@ -4980,8 +4994,9 @@ gUnknown_08044B78_2:	@ 0x08044462
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08044B78
+	@********************** Track  3 **********************@
+
+	.global gUnknown_08044B78_3
 gUnknown_08044B78_3:	@ 0x08044558
 	.byte	0xBC
 	.byte	0x00
@@ -5192,8 +5207,9 @@ gUnknown_08044B78_3:	@ 0x08044558
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08044B78
+	@********************** Track  4 **********************@
+
+	.global gUnknown_08044B78_4
 gUnknown_08044B78_4:	@ 0x08044628
 	.byte	0xBC
 	.byte	0x00
@@ -5813,7 +5829,7 @@ gUnknown_08044B78_4:	@ 0x08044628
 
 	@********************** Track  5 **********************@
 
-	.global gUnknown_08044B78
+	.global gUnknown_08044B78_5
 gUnknown_08044B78_5:	@ 0x0804488F
 	.byte	0xBC
 	.byte	0x00
@@ -6114,7 +6130,7 @@ gUnknown_08044B78_5:	@ 0x0804488F
 
 	@********************** Track  6 **********************@
 
-	.global gUnknown_08044B78
+	.global gUnknown_08044B78_6
 gUnknown_08044B78_6:	@ 0x080449B7
 	.byte	0xBC
 	.byte	0x00
@@ -6583,8 +6599,10 @@ gUnknown_08044B78:	@ 0x08044B78
 	.word	gUnknown_08044B78_5		@ track
 	.word	gUnknown_08044B78_6		@ track
 
-	
-	.global gUnknown_080453D8
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_080453D8_1
 gUnknown_080453D8_1:	@ 0x08044B98
 	.byte	0xBC
 	.byte	0x00
@@ -6839,8 +6857,9 @@ gUnknown_080453D8_1:	@ 0x08044B98
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_080453D8
+	@********************** Track  2 **********************@
+
+	.global gUnknown_080453D8_2
 gUnknown_080453D8_2:	@ 0x08044C94
 	.byte	0xBC
 	.byte	0x00
@@ -7179,8 +7198,9 @@ gUnknown_080453D8_2:	@ 0x08044C94
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_080453D8
+	@********************** Track  3 **********************@
+
+	.global gUnknown_080453D8_3
 gUnknown_080453D8_3:	@ 0x08044DE4
 	.byte	0xBC
 	.byte	0x00
@@ -7519,7 +7539,7 @@ gUnknown_080453D8_3:	@ 0x08044DE4
 
 	@********************** Track  4 **********************@
 
-	.global gUnknown_080453D8
+	.global gUnknown_080453D8_4
 gUnknown_080453D8_4:	@ 0x08044F32
 	.byte	0xBC
 	.byte	0x00
@@ -7795,8 +7815,9 @@ gUnknown_080453D8_4:	@ 0x08044F32
 	.byte	0xAC
 	.byte	0xB1
 
-	
-	.global gUnknown_080453D8
+	@********************** Track  5 **********************@
+
+	.global gUnknown_080453D8_5
 gUnknown_080453D8_5:	@ 0x08045043
 	.byte	0xBC
 	.byte	0x00
@@ -8410,8 +8431,9 @@ gUnknown_080453D8_5:	@ 0x08045043
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_080453D8
+	@********************** Track  6 **********************@
+
+	.global gUnknown_080453D8_6
 gUnknown_080453D8_6:	@ 0x080452A6
 	.byte	0xBC
 	.byte	0x00
@@ -8737,8 +8759,10 @@ gUnknown_080453D8:	@ 0x080453D8
 	.word	gUnknown_080453D8_5		@ track
 	.word	gUnknown_080453D8_6		@ track
 
-	
-	.global gUnknown_08045D58
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_08045D58_1
 gUnknown_08045D58_1:	@ 0x080453F8
 	.byte	0xBC
 	.byte	0x00
@@ -9008,8 +9032,9 @@ gUnknown_08045D58_1:	@ 0x080453F8
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08045D58
+	@********************** Track  2 **********************@
+
+	.global gUnknown_08045D58_2
 gUnknown_08045D58_2:	@ 0x08045503
 	.byte	0xBC
 	.byte	0x00
@@ -9271,8 +9296,9 @@ gUnknown_08045D58_2:	@ 0x08045503
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08045D58
+	@********************** Track  3 **********************@
+
+	.global gUnknown_08045D58_3
 gUnknown_08045D58_3:	@ 0x08045606
 	.byte	0xBC
 	.byte	0x00
@@ -9610,8 +9636,9 @@ gUnknown_08045D58_3:	@ 0x08045606
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08045D58
+	@********************** Track  4 **********************@
+
+	.global gUnknown_08045D58_4
 gUnknown_08045D58_4:	@ 0x08045755
 	.byte	0xBC
 	.byte	0x00
@@ -9876,8 +9903,9 @@ gUnknown_08045D58_4:	@ 0x08045755
 	.byte	0xA0
 	.byte	0xB1
 
-	
-	.global gUnknown_08045D58
+	@********************** Track  5 **********************@
+
+	.global gUnknown_08045D58_5
 gUnknown_08045D58_5:	@ 0x0804585B
 	.byte	0xBC
 	.byte	0x00
@@ -10646,8 +10674,9 @@ gUnknown_08045D58_5:	@ 0x0804585B
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08045D58
+	@********************** Track  6 **********************@
+
+	.global gUnknown_08045D58_6
 gUnknown_08045D58_6:	@ 0x08045B59
 	.byte	0xBC
 	.byte	0x00
@@ -11061,8 +11090,9 @@ gUnknown_08045D58_6:	@ 0x08045B59
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08045D58
+	@********************** Track  7 **********************@
+
+	.global gUnknown_08045D58_7
 gUnknown_08045D58_7:	@ 0x08045CF4
 	.byte	0xBC
 	.byte	0x00
@@ -11183,8 +11213,10 @@ gUnknown_08045D58:	@ 0x08045D58
 	.word	gUnknown_08045D58_6		@ track
 	.word	gUnknown_08045D58_7		@ track
 
-	
-	.global gUnknown_0804670C
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_0804670C_1
 gUnknown_0804670C_1:	@ 0x08045D7C
 	.byte	0xBC
 	.byte	0x00
@@ -11421,8 +11453,9 @@ gUnknown_0804670C_1:	@ 0x08045D7C
 	.byte	0xB0
 	.byte	0xB1
 
-	
-	.global gUnknown_0804670C
+	@********************** Track  2 **********************@
+
+	.global gUnknown_0804670C_2
 gUnknown_0804670C_2:	@ 0x08045E66
 	.byte	0xBC
 	.byte	0x00
@@ -11663,8 +11696,9 @@ gUnknown_0804670C_2:	@ 0x08045E66
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804670C
+	@********************** Track  3 **********************@
+
+	.global gUnknown_0804670C_3
 gUnknown_0804670C_3:	@ 0x08045F54
 	.byte	0xBC
 	.byte	0x00
@@ -11935,8 +11969,9 @@ gUnknown_0804670C_3:	@ 0x08045F54
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804670C
+	@********************** Track  4 **********************@
+
+	.global gUnknown_0804670C_4
 gUnknown_0804670C_4:	@ 0x08046060
 	.byte	0xBC
 	.byte	0x00
@@ -12377,8 +12412,9 @@ gUnknown_0804670C_4:	@ 0x08046060
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804670C
+	@********************** Track  5 **********************@
+
+	.global gUnknown_0804670C_5
 gUnknown_0804670C_5:	@ 0x08046216
 	.byte	0xBC
 	.byte	0x00
@@ -12643,8 +12679,9 @@ gUnknown_0804670C_5:	@ 0x08046216
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804670C
+	@********************** Track  6 **********************@
+
+	.global gUnknown_0804670C_6
 gUnknown_0804670C_6:	@ 0x0804631C
 	.byte	0xBC
 	.byte	0x00
@@ -12904,8 +12941,9 @@ gUnknown_0804670C_6:	@ 0x0804631C
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804670C
+	@********************** Track  7 **********************@
+
+	.global gUnknown_0804670C_7
 gUnknown_0804670C_7:	@ 0x0804641D
 	.byte	0xBC
 	.byte	0x00
@@ -13677,8 +13715,10 @@ gUnknown_0804670C:	@ 0x0804670C
 	.word	gUnknown_0804670C_6		@ track
 	.word	gUnknown_0804670C_7		@ track
 
-	
-	.global gUnknown_08046B98
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_08046B98_1
 gUnknown_08046B98_1:	@ 0x08046730
 	.byte	0xBC
 	.byte	0x00
@@ -13942,8 +13982,9 @@ gUnknown_08046B98_1:	@ 0x08046730
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08046B98
+	@********************** Track  2 **********************@
+
+	.global gUnknown_08046B98_2
 gUnknown_08046B98_2:	@ 0x08046835
 	.byte	0xBC
 	.byte	0x00
@@ -14210,8 +14251,9 @@ gUnknown_08046B98_2:	@ 0x08046835
 	.byte	0xAC
 	.byte	0xB1
 
-	
-	.global gUnknown_08046B98
+	@********************** Track  3 **********************@
+
+	.global gUnknown_08046B98_3
 gUnknown_08046B98_3:	@ 0x0804693D
 	.byte	0xBC
 	.byte	0x00
@@ -14831,8 +14873,10 @@ gUnknown_08046B98:	@ 0x08046B98
 	.word	gUnknown_08046B98_2		@ track
 	.word	gUnknown_08046B98_3		@ track
 
-	
-	.global gUnknown_080475B0
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_080475B0_1
 gUnknown_080475B0_1:	@ 0x08046BAC
 	.byte	0xBC
 	.byte	0x00
@@ -15248,8 +15292,9 @@ gUnknown_080475B0_1:	@ 0x08046BAC
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_080475B0
+	@********************** Track  2 **********************@
+
+	.global gUnknown_080475B0_2
 gUnknown_080475B0_2:	@ 0x08046D49
 	.byte	0xBC
 	.byte	0x00
@@ -15607,8 +15652,9 @@ gUnknown_080475B0_2:	@ 0x08046D49
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_080475B0
+	@********************** Track  3 **********************@
+
+	.global gUnknown_080475B0_3
 gUnknown_080475B0_3:	@ 0x08046EAC
 	.byte	0xBC
 	.byte	0x00
@@ -15924,8 +15970,9 @@ gUnknown_080475B0_3:	@ 0x08046EAC
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_080475B0
+	@********************** Track  4 **********************@
+
+	.global gUnknown_080475B0_4
 gUnknown_080475B0_4:	@ 0x08046FE5
 	.byte	0xBC
 	.byte	0x00
@@ -16422,8 +16469,9 @@ gUnknown_080475B0_4:	@ 0x08046FE5
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_080475B0
+	@********************** Track  5 **********************@
+
+	.global gUnknown_080475B0_5
 gUnknown_080475B0_5:	@ 0x080471D3
 	.byte	0xBC
 	.byte	0x00
@@ -17431,8 +17479,10 @@ gUnknown_080475B0:	@ 0x080475B0
 	.word	gUnknown_080475B0_4		@ track
 	.word	gUnknown_080475B0_5		@ track
 
-	
-	.global gUnknown_08047E30
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_08047E30_1
 gUnknown_08047E30_1:	@ 0x080475CC
 	.byte	0xBC
 	.byte	0x00
@@ -17855,8 +17905,9 @@ gUnknown_08047E30_1:	@ 0x080475CC
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08047E30
+	@********************** Track  2 **********************@
+
+	.global gUnknown_08047E30_2
 gUnknown_08047E30_2:	@ 0x08047770
 	.byte	0xBC
 	.byte	0x00
@@ -18070,8 +18121,9 @@ gUnknown_08047E30_2:	@ 0x08047770
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08047E30
+	@********************** Track  3 **********************@
+
+	.global gUnknown_08047E30_3
 gUnknown_08047E30_3:	@ 0x08047843
 	.byte	0xBC
 	.byte	0x00
@@ -18337,8 +18389,9 @@ gUnknown_08047E30_3:	@ 0x08047843
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08047E30
+	@********************** Track  4 **********************@
+
+	.global gUnknown_08047E30_4
 gUnknown_08047E30_4:	@ 0x0804794A
 	.byte	0xBC
 	.byte	0x00
@@ -18698,8 +18751,9 @@ gUnknown_08047E30_4:	@ 0x0804794A
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08047E30
+	@********************** Track  5 **********************@
+
+	.global gUnknown_08047E30_5
 gUnknown_08047E30_5:	@ 0x08047AAF
 	.byte	0xBC
 	.byte	0x00
@@ -19615,7 +19669,10 @@ gUnknown_08047E30:	@ 0x08047E30
 	.word	gUnknown_08047E30_4		@ track
 	.word	gUnknown_08047E30_5		@ track
 
-	.global gUnknown_08048320
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_08048320_1
 gUnknown_08048320_1:	@ 0x08047E4C
 	.byte	0xBC
 	.byte	0x00
@@ -19788,7 +19845,9 @@ gUnknown_08048320_1:	@ 0x08047E4C
 	.byte	0x08
 	.byte	0xB1
 
-	.global gUnknown_08048320
+	@********************** Track  2 **********************@
+
+	.global gUnknown_08048320_2
 gUnknown_08048320_2:	@ 0x08047EF6
 	.byte	0xBC
 	.byte	0x00
@@ -20283,8 +20342,9 @@ gUnknown_08048320_2:	@ 0x08047EF6
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08048320
+	@********************** Track  3 **********************@
+
+	.global gUnknown_08048320_3
 gUnknown_08048320_3:	@ 0x080480E2
 	.byte	0xBC
 	.byte	0x00
@@ -20409,8 +20469,9 @@ gUnknown_08048320_3:	@ 0x080480E2
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08048320
+	@********************** Track  4 **********************@
+
+	.global gUnknown_08048320_4
 gUnknown_08048320_4:	@ 0x0804815C
 	.byte	0xBC
 	.byte	0x00
@@ -20518,8 +20579,9 @@ gUnknown_08048320_4:	@ 0x0804815C
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08048320
+	@********************** Track  5 **********************@
+
+	.global gUnknown_08048320_5
 gUnknown_08048320_5:	@ 0x080481C5
 	.byte	0xBC
 	.byte	0x00
@@ -20678,8 +20740,9 @@ gUnknown_08048320_5:	@ 0x080481C5
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08048320
+	@********************** Track  6 **********************@
+
+	.global gUnknown_08048320_6
 gUnknown_08048320_6:	@ 0x08048261
 	.byte	0xBC
 	.byte	0x00
@@ -20890,8 +20953,10 @@ gUnknown_08048320:	@ 0x08048320
 	.word	gUnknown_08048320_5		@ track
 	.word	gUnknown_08048320_6		@ track
 
-	
-	.global gUnknown_080488D4
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_080488D4_1
 gUnknown_080488D4_1:	@ 0x08048340
 	.byte	0xBC
 	.byte	0x00
@@ -21148,8 +21213,9 @@ gUnknown_080488D4_1:	@ 0x08048340
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_080488D4
+	@********************** Track  2 **********************@
+
+	.global gUnknown_080488D4_2
 gUnknown_080488D4_2:	@ 0x0804843E
 	.byte	0xBC
 	.byte	0x00
@@ -21409,8 +21475,9 @@ gUnknown_080488D4_2:	@ 0x0804843E
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_080488D4
+	@********************** Track  3 **********************@
+
+	.global gUnknown_080488D4_3
 gUnknown_080488D4_3:	@ 0x0804853F
 	.byte	0xBC
 	.byte	0x00
@@ -21583,8 +21650,9 @@ gUnknown_080488D4_3:	@ 0x0804853F
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_080488D4
+	@********************** Track  4 **********************@
+
+	.global gUnknown_080488D4_4
 gUnknown_080488D4_4:	@ 0x080485E9
 	.byte	0xBC
 	.byte	0x00
@@ -21733,8 +21801,9 @@ gUnknown_080488D4_4:	@ 0x080485E9
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_080488D4
+	@********************** Track  5 **********************@
+
+	.global gUnknown_080488D4_5
 gUnknown_080488D4_5:	@ 0x0804867B
 	.byte	0xBC
 	.byte	0x00
@@ -22354,8 +22423,10 @@ gUnknown_080488D4:	@ 0x080488D4
 	.word	gUnknown_080488D4_4		@ track
 	.word	gUnknown_080488D4_5		@ track
 
-	
-	.global gUnknown_08048D18
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_08048D18_1
 gUnknown_08048D18_1:	@ 0x080488F0
 	.byte	0xBC
 	.byte	0x00
@@ -22520,8 +22591,9 @@ gUnknown_08048D18_1:	@ 0x080488F0
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08048D18
+	@********************** Track  2 **********************@
+
+	.global gUnknown_08048D18_2
 gUnknown_08048D18_2:	@ 0x08048992
 	.byte	0xBC
 	.byte	0x00
@@ -22597,8 +22669,9 @@ gUnknown_08048D18_2:	@ 0x08048992
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08048D18
+	@********************** Track  3 **********************@
+
+	.global gUnknown_08048D18_3
 gUnknown_08048D18_3:	@ 0x080489DB
 	.byte	0xBC
 	.byte	0x00
@@ -22959,8 +23032,9 @@ gUnknown_08048D18_3:	@ 0x080489DB
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08048D18
+	@********************** Track  4 **********************@
+
+	.global gUnknown_08048D18_4
 gUnknown_08048D18_4:	@ 0x08048B41
 	.byte	0xBC
 	.byte	0x00
@@ -23164,8 +23238,9 @@ gUnknown_08048D18_4:	@ 0x08048B41
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08048D18
+	@********************** Track  5 **********************@
+
+	.global gUnknown_08048D18_5
 gUnknown_08048D18_5:	@ 0x08048C0A
 	.byte	0xBC
 	.byte	0x00
@@ -23374,8 +23449,9 @@ gUnknown_08048D18_5:	@ 0x08048C0A
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08048D18
+	@********************** Track  6 **********************@
+
+	.global gUnknown_08048D18_6
 gUnknown_08048D18_6:	@ 0x08048CD8
 	.byte	0xBC
 	.byte	0x00
@@ -23459,8 +23535,10 @@ gUnknown_08048D18:	@ 0x08048D18
 	.word	gUnknown_08048D18_5		@ track
 	.word	gUnknown_08048D18_6		@ track
 
-	
-	.global gUnknown_08049510
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_08049510_1
 gUnknown_08049510_1:	@ 0x08048D38
 	.byte	0xBC
 	.byte	0x00
@@ -23861,8 +23939,9 @@ gUnknown_08049510_1:	@ 0x08048D38
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08049510
+	@********************** Track  2 **********************@
+
+	.global gUnknown_08049510_2
 gUnknown_08049510_2:	@ 0x08048EC6
 	.byte	0xBC
 	.byte	0x00
@@ -23973,8 +24052,9 @@ gUnknown_08049510_2:	@ 0x08048EC6
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08049510
+	@********************** Track  3 **********************@
+
+	.global gUnknown_08049510_3
 gUnknown_08049510_3:	@ 0x08048F32
 	.byte	0xBC
 	.byte	0x00
@@ -24545,8 +24625,9 @@ gUnknown_08049510_3:	@ 0x08048F32
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08049510
+	@********************** Track  4 **********************@
+
+	.global gUnknown_08049510_4
 gUnknown_08049510_4:	@ 0x0804916A
 	.byte	0xBC
 	.byte	0x00
@@ -24936,8 +25017,9 @@ gUnknown_08049510_4:	@ 0x0804916A
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08049510
+	@********************** Track  5 **********************@
+
+	.global gUnknown_08049510_5
 gUnknown_08049510_5:	@ 0x080492ED
 	.byte	0xBC
 	.byte	0x00
@@ -25017,8 +25099,9 @@ gUnknown_08049510_5:	@ 0x080492ED
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08049510
+	@********************** Track  6 **********************@
+
+	.global gUnknown_08049510_6
 gUnknown_08049510_6:	@ 0x0804933A
 	.byte	0xBC
 	.byte	0x00
@@ -25508,8 +25591,10 @@ gUnknown_08049510:	@ 0x08049510
 	.word	gUnknown_08049510_5		@ track
 	.word	gUnknown_08049510_6		@ track
 
-	
-	.global gUnknown_08049FF0
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_08049FF0_1
 gUnknown_08049FF0_1:	@ 0x08049530
 	.byte	0xBC
 	.byte	0x00
@@ -26079,8 +26164,9 @@ gUnknown_08049FF0_1:	@ 0x08049530
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08049FF0
+	@********************** Track  2 **********************@
+
+	.global gUnknown_08049FF0_2
 gUnknown_08049FF0_2:	@ 0x08049767
 	.byte	0xBC
 	.byte	0x00
@@ -26543,8 +26629,9 @@ gUnknown_08049FF0_2:	@ 0x08049767
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08049FF0
+	@********************** Track  3 **********************@
+
+	.global gUnknown_08049FF0_3
 gUnknown_08049FF0_3:	@ 0x08049933
 	.byte	0xBC
 	.byte	0x00
@@ -26833,8 +26920,9 @@ gUnknown_08049FF0_3:	@ 0x08049933
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08049FF0
+	@********************** Track  4 **********************@
+
+	.global gUnknown_08049FF0_4
 gUnknown_08049FF0_4:	@ 0x08049A51
 	.byte	0xBC
 	.byte	0x00
@@ -27148,8 +27236,9 @@ gUnknown_08049FF0_4:	@ 0x08049A51
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08049FF0
+	@********************** Track  5 **********************@
+
+	.global gUnknown_08049FF0_5
 gUnknown_08049FF0_5:	@ 0x08049B88
 	.byte	0xBC
 	.byte	0x00
@@ -27611,8 +27700,9 @@ gUnknown_08049FF0_5:	@ 0x08049B88
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_08049FF0
+	@********************** Track  6 **********************@
+
+	.global gUnknown_08049FF0_6
 gUnknown_08049FF0_6:	@ 0x08049D53
 	.byte	0xBC
 	.byte	0x00
@@ -28301,8 +28391,10 @@ gUnknown_08049FF0:	@ 0x08049FF0
 	.word	gUnknown_08049FF0_5		@ track
 	.word	gUnknown_08049FF0_6		@ track
 
-	
-	.global gUnknown_0804A6D0
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_0804A6D0_1
 gUnknown_0804A6D0_1:	@ 0x0804A010
 	.byte	0xBC
 	.byte	0x00
@@ -28450,8 +28542,9 @@ gUnknown_0804A6D0_1:	@ 0x0804A010
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804A6D0
+	@********************** Track  2 **********************@
+
+	.global gUnknown_0804A6D0_2
 gUnknown_0804A6D0_2:	@ 0x0804A0A1
 	.byte	0xBC
 	.byte	0x00
@@ -28693,8 +28786,9 @@ gUnknown_0804A6D0_2:	@ 0x0804A0A1
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804A6D0
+	@********************** Track  3 **********************@
+
+	.global gUnknown_0804A6D0_3
 gUnknown_0804A6D0_3:	@ 0x0804A190
 	.byte	0xBC
 	.byte	0x00
@@ -28774,8 +28868,9 @@ gUnknown_0804A6D0_3:	@ 0x0804A190
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804A6D0
+	@********************** Track  4 **********************@
+
+	.global gUnknown_0804A6D0_4
 gUnknown_0804A6D0_4:	@ 0x0804A1DD
 	.byte	0xBC
 	.byte	0x00
@@ -28985,8 +29080,9 @@ gUnknown_0804A6D0_4:	@ 0x0804A1DD
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804A6D0
+	@********************** Track  5 **********************@
+
+	.global gUnknown_0804A6D0_5
 gUnknown_0804A6D0_5:	@ 0x0804A2AC
 	.byte	0xBC
 	.byte	0x00
@@ -29506,8 +29602,9 @@ gUnknown_0804A6D0_5:	@ 0x0804A2AC
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804A6D0
+	@********************** Track  6 **********************@
+
+	.global gUnknown_0804A6D0_6
 gUnknown_0804A6D0_6:	@ 0x0804A4B1
 	.byte	0xBC
 	.byte	0x00
@@ -29688,8 +29785,9 @@ gUnknown_0804A6D0_6:	@ 0x0804A4B1
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804A6D0
+	@********************** Track  7 **********************@
+
+	.global gUnknown_0804A6D0_7
 gUnknown_0804A6D0_7:	@ 0x0804A563
 	.byte	0xBC
 	.byte	0x00
@@ -30075,8 +30173,10 @@ gUnknown_0804A6D0:	@ 0x0804A6D0
 	.word	gUnknown_0804A6D0_6		@ track
 	.word	gUnknown_0804A6D0_7		@ track
 
-	
-	.global gUnknown_0804A704
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_0804A704_1
 gUnknown_0804A704_1:	@ 0x0804A6F4
 	.byte	0xBC
 	.byte	0x00
@@ -30107,8 +30207,10 @@ gUnknown_0804A704:	@ 0x0804A704
 
 	.word	gUnknown_0804A704_1		@ track
 
-	
-	.global gUnknown_0804A720
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_0804A720_1
 gUnknown_0804A720_1:	@ 0x0804A710
 	.byte	0xBC
 	.byte	0x00
@@ -30139,8 +30241,10 @@ gUnknown_0804A720:	@ 0x0804A720
 
 	.word	gUnknown_0804A720_1		@ track
 
-	
-	.global gUnknown_0804A848
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_0804A848_1
 gUnknown_0804A848_1:	@ 0x0804A72C
 	.byte	0xBC
 	.byte	0x00
@@ -30184,8 +30288,9 @@ gUnknown_0804A848_1:	@ 0x0804A72C
 	.byte	0xA0
 	.byte	0xB1
 
-	
-	.global gUnknown_0804A848
+	@********************** Track  2 **********************@
+
+	.global gUnknown_0804A848_2
 gUnknown_0804A848_2:	@ 0x0804A755
 	.byte	0xBC
 	.byte	0x00
@@ -30230,8 +30335,9 @@ gUnknown_0804A848_2:	@ 0x0804A755
 	.byte	0xA0
 	.byte	0xB1
 
-	
-	.global gUnknown_0804A848
+	@********************** Track  3 **********************@
+
+	.global gUnknown_0804A848_3
 gUnknown_0804A848_3:	@ 0x0804A77F
 	.byte	0xBC
 	.byte	0x00
@@ -30277,8 +30383,9 @@ gUnknown_0804A848_3:	@ 0x0804A77F
 	.byte	0xA0
 	.byte	0xB1
 
-	
-	.global gUnknown_0804A848
+	@********************** Track  4 **********************@
+
+	.global gUnknown_0804A848_4
 gUnknown_0804A848_4:	@ 0x0804A7AA
 	.byte	0xBC
 	.byte	0x00
@@ -30311,8 +30418,9 @@ gUnknown_0804A848_4:	@ 0x0804A7AA
 	.byte	0xA0
 	.byte	0xB1
 
-	
-	.global gUnknown_0804A848
+	@********************** Track  5 **********************@
+
+	.global gUnknown_0804A848_5
 gUnknown_0804A848_5:	@ 0x0804A7C8
 	.byte	0xBC
 	.byte	0x00
@@ -30459,8 +30567,10 @@ gUnknown_0804A848:	@ 0x0804A848
 	.word	gUnknown_0804A848_4		@ track
 	.word	gUnknown_0804A848_5		@ track
 
-	
-	.global gUnknown_0804A874
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_0804A874_1
 gUnknown_0804A874_1:	@ 0x0804A864
 	.byte	0xBE
 	.byte	0x7F
@@ -30491,8 +30601,10 @@ gUnknown_0804A874:	@ 0x0804A874
 
 	.word	gUnknown_0804A874_1		@ track
 
-	
-	.global gUnknown_0804AFD4
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_0804AFD4_1
 gUnknown_0804AFD4_1:	@ 0x0804A880
 	.byte	0xBC
 	.byte	0x00
@@ -30981,8 +31093,9 @@ gUnknown_0804AFD4_1:	@ 0x0804A880
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804AFD4
+	@********************** Track  2 **********************@
+
+	.global gUnknown_0804AFD4_2
 gUnknown_0804AFD4_2:	@ 0x0804AA66
 	.byte	0xBC
 	.byte	0x00
@@ -31468,8 +31581,9 @@ gUnknown_0804AFD4_2:	@ 0x0804AA66
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804AFD4
+	@********************** Track  3 **********************@
+
+	.global gUnknown_0804AFD4_3
 gUnknown_0804AFD4_3:	@ 0x0804AC49
 	.byte	0xBC
 	.byte	0x00
@@ -31956,8 +32070,9 @@ gUnknown_0804AFD4_3:	@ 0x0804AC49
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804AFD4
+	@********************** Track  4 **********************@
+
+	.global gUnknown_0804AFD4_4
 gUnknown_0804AFD4_4:	@ 0x0804AE2D
 	.byte	0xBC
 	.byte	0x00
@@ -32398,8 +32513,10 @@ gUnknown_0804AFD4:	@ 0x0804AFD4
 	.word	gUnknown_0804AFD4_3		@ track
 	.word	gUnknown_0804AFD4_4		@ track
 
-	
-	.global gUnknown_0804B5DC
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_0804B5DC_1
 gUnknown_0804B5DC_1:	@ 0x0804AFEC
 	.byte	0xBC
 	.byte	0x00
@@ -32578,8 +32695,9 @@ gUnknown_0804B5DC_1:	@ 0x0804AFEC
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804B5DC
+	@********************** Track  2 **********************@
+
+	.global gUnknown_0804B5DC_2
 gUnknown_0804B5DC_2:	@ 0x0804B09C
 	.byte	0xBC
 	.byte	0x00
@@ -33202,8 +33320,9 @@ gUnknown_0804B5DC_2:	@ 0x0804B09C
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804B5DC
+	@********************** Track  3 **********************@
+
+	.global gUnknown_0804B5DC_3
 gUnknown_0804B5DC_3:	@ 0x0804B308
 	.byte	0xBC
 	.byte	0x00
@@ -33337,8 +33456,9 @@ gUnknown_0804B5DC_3:	@ 0x0804B308
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804B5DC
+	@********************** Track  4 **********************@
+
+	.global gUnknown_0804B5DC_4
 gUnknown_0804B5DC_4:	@ 0x0804B38B
 	.byte	0xBC
 	.byte	0x00
@@ -33823,8 +33943,9 @@ gUnknown_0804B5DC_4:	@ 0x0804B38B
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804B5DC
+	@********************** Track  5 **********************@
+
+	.global gUnknown_0804B5DC_5
 gUnknown_0804B5DC_5:	@ 0x0804B56D
 	.byte	0xBC
 	.byte	0x00
@@ -33954,8 +34075,10 @@ gUnknown_0804B5DC:	@ 0x0804B5DC
 	.word	gUnknown_0804B5DC_4		@ track
 	.word	gUnknown_0804B5DC_5		@ track
 
-	
-	.global gUnknown_0804BD08
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_0804BD08_1
 gUnknown_0804BD08_1:	@ 0x0804B5F8
 	.byte	0xBC
 	.byte	0x00
@@ -34475,8 +34598,9 @@ gUnknown_0804BD08_1:	@ 0x0804B5F8
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804BD08
+	@********************** Track  2 **********************@
+
+	.global gUnknown_0804BD08_2
 gUnknown_0804BD08_2:	@ 0x0804B7FD
 	.byte	0xBC
 	.byte	0x00
@@ -34809,8 +34933,9 @@ gUnknown_0804BD08_2:	@ 0x0804B7FD
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804BD08
+	@********************** Track  3 **********************@
+
+	.global gUnknown_0804BD08_3
 gUnknown_0804BD08_3:	@ 0x0804B947
 	.byte	0xBC
 	.byte	0x00
@@ -34991,8 +35116,9 @@ gUnknown_0804BD08_3:	@ 0x0804B947
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804BD08
+	@********************** Track  4 **********************@
+
+	.global gUnknown_0804BD08_4
 gUnknown_0804BD08_4:	@ 0x0804B9F9
 	.byte	0xBC
 	.byte	0x00
@@ -35099,8 +35225,9 @@ gUnknown_0804BD08_4:	@ 0x0804B9F9
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804BD08
+	@********************** Track  5 **********************@
+
+	.global gUnknown_0804BD08_5
 gUnknown_0804BD08_5:	@ 0x0804BA61
 	.byte	0xBC
 	.byte	0x00
@@ -35242,8 +35369,9 @@ gUnknown_0804BD08_5:	@ 0x0804BA61
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804BD08
+	@********************** Track  6 **********************@
+
+	.global gUnknown_0804BD08_6
 gUnknown_0804BD08_6:	@ 0x0804BAEC
 	.byte	0xBC
 	.byte	0x00
@@ -35573,8 +35701,9 @@ gUnknown_0804BD08_6:	@ 0x0804BAEC
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804BD08
+	@********************** Track  7 **********************@
+
+	.global gUnknown_0804BD08_7
 gUnknown_0804BD08_7:	@ 0x0804BC33
 	.byte	0xBC
 	.byte	0x00
@@ -35808,8 +35937,10 @@ gUnknown_0804BD08:	@ 0x0804BD08
 	.word	gUnknown_0804BD08_6		@ track
 	.word	gUnknown_0804BD08_7		@ track
 
-	
-	.global gUnknown_0804C4B4
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_0804C4B4_1
 gUnknown_0804C4B4_1:	@ 0x0804BD2C
 	.byte	0xBC
 	.byte	0x00
@@ -36110,8 +36241,9 @@ gUnknown_0804C4B4_1:	@ 0x0804BD2C
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804C4B4
+	@********************** Track  2 **********************@
+
+	.global gUnknown_0804C4B4_2
 gUnknown_0804C4B4_2:	@ 0x0804BE56
 	.byte	0xBC
 	.byte	0x00
@@ -36598,8 +36730,9 @@ gUnknown_0804C4B4_2:	@ 0x0804BE56
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804C4B4
+	@********************** Track  3 **********************@
+
+	.global gUnknown_0804C4B4_3
 gUnknown_0804C4B4_3:	@ 0x0804C03A
 	.byte	0xBC
 	.byte	0x00
@@ -36853,8 +36986,9 @@ gUnknown_0804C4B4_3:	@ 0x0804C03A
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804C4B4
+	@********************** Track  4 **********************@
+
+	.global gUnknown_0804C4B4_4
 gUnknown_0804C4B4_4:	@ 0x0804C135
 	.byte	0xBC
 	.byte	0x00
@@ -36978,8 +37112,9 @@ gUnknown_0804C4B4_4:	@ 0x0804C135
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804C4B4
+	@********************** Track  5 **********************@
+
+	.global gUnknown_0804C4B4_5
 gUnknown_0804C4B4_5:	@ 0x0804C1AE
 	.byte	0xBC
 	.byte	0x00
@@ -37057,8 +37192,9 @@ gUnknown_0804C4B4_5:	@ 0x0804C1AE
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804C4B4
+	@********************** Track  6 **********************@
+
+	.global gUnknown_0804C4B4_6
 gUnknown_0804C4B4_6:	@ 0x0804C1F9
 	.byte	0xBC
 	.byte	0x00
@@ -37279,8 +37415,9 @@ gUnknown_0804C4B4_6:	@ 0x0804C1F9
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804C4B4
+	@********************** Track  7 **********************@
+
+	.global gUnknown_0804C4B4_7
 gUnknown_0804C4B4_7:	@ 0x0804C2D3
 	.byte	0xBC
 	.byte	0x00
@@ -37782,8 +37919,10 @@ gUnknown_0804C4B4:	@ 0x0804C4B4
 	.word	gUnknown_0804C4B4_6		@ track
 	.word	gUnknown_0804C4B4_7		@ track
 
-	
-	.global gUnknown_0804CA70
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_0804CA70_1
 gUnknown_0804CA70_1:	@ 0x0804C4D8
 	.byte	0xBC
 	.byte	0x00
@@ -38250,8 +38389,9 @@ gUnknown_0804CA70_1:	@ 0x0804C4D8
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804CA70
+	@********************** Track  2 **********************@
+
+	.global gUnknown_0804CA70_2
 gUnknown_0804CA70_2:	@ 0x0804C6A8
 	.byte	0xBC
 	.byte	0x00
@@ -38686,8 +38826,9 @@ gUnknown_0804CA70_2:	@ 0x0804C6A8
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804CA70
+	@********************** Track  3 **********************@
+
+	.global gUnknown_0804CA70_3
 gUnknown_0804CA70_3:	@ 0x0804C858
 	.byte	0xBC
 	.byte	0x00
@@ -38846,8 +38987,9 @@ gUnknown_0804CA70_3:	@ 0x0804C858
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804CA70
+	@********************** Track  4 **********************@
+
+	.global gUnknown_0804CA70_4
 gUnknown_0804CA70_4:	@ 0x0804C8F4
 	.byte	0xBC
 	.byte	0x00
@@ -38963,8 +39105,9 @@ gUnknown_0804CA70_4:	@ 0x0804C8F4
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804CA70
+	@********************** Track  5 **********************@
+
+	.global gUnknown_0804CA70_5
 gUnknown_0804CA70_5:	@ 0x0804C965
 	.byte	0xBC
 	.byte	0x00
@@ -39250,8 +39393,10 @@ gUnknown_0804CA70:	@ 0x0804CA70
 	.word	gUnknown_0804CA70_4		@ track
 	.word	gUnknown_0804CA70_5		@ track
 
-	
-	.global gUnknown_0804D02C
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_0804D02C_1
 gUnknown_0804D02C_1:	@ 0x0804CA8C
 	.byte	0xBC
 	.byte	0x00
@@ -39496,8 +39641,9 @@ gUnknown_0804D02C_1:	@ 0x0804CA8C
 	.byte	0x83
 	.byte	0xB1
 
-	
-	.global gUnknown_0804D02C
+	@********************** Track  2 **********************@
+
+	.global gUnknown_0804D02C_2
 gUnknown_0804D02C_2:	@ 0x0804CB7E
 	.byte	0xBC
 	.byte	0x00
@@ -39663,8 +39809,9 @@ gUnknown_0804D02C_2:	@ 0x0804CB7E
 	.byte	0x83
 	.byte	0xB1
 
-	
-	.global gUnknown_0804D02C
+	@********************** Track  3 **********************@
+
+	.global gUnknown_0804D02C_3
 gUnknown_0804D02C_3:	@ 0x0804CC21
 	.byte	0xBC
 	.byte	0x00
@@ -39846,8 +39993,9 @@ gUnknown_0804D02C_3:	@ 0x0804CC21
 	.byte	0x83
 	.byte	0xB1
 
-	
-	.global gUnknown_0804D02C
+	@********************** Track  4 **********************@
+
+	.global gUnknown_0804D02C_4
 gUnknown_0804D02C_4:	@ 0x0804CCD4
 	.byte	0xBC
 	.byte	0x00
@@ -40165,8 +40313,9 @@ gUnknown_0804D02C_4:	@ 0x0804CCD4
 	.byte	0x8F
 	.byte	0xB1
 
-	
-	.global gUnknown_0804D02C
+	@********************** Track  5 **********************@
+
+	.global gUnknown_0804D02C_5
 gUnknown_0804D02C_5:	@ 0x0804CE0F
 	.byte	0xBC
 	.byte	0x00
@@ -40279,8 +40428,9 @@ gUnknown_0804D02C_5:	@ 0x0804CE0F
 	.byte	0x93
 	.byte	0xB1
 
-	
-	.global gUnknown_0804D02C
+	@********************** Track  6 **********************@
+
+	.global gUnknown_0804D02C_6
 gUnknown_0804D02C_6:	@ 0x0804CE7D
 	.byte	0xBC
 	.byte	0x00
@@ -40731,8 +40881,10 @@ gUnknown_0804D02C:	@ 0x0804D02C
 	.word	gUnknown_0804D02C_5		@ track
 	.word	gUnknown_0804D02C_6		@ track
 
-	
-	.global gUnknown_0804D784
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_0804D784_1
 gUnknown_0804D784_1:	@ 0x0804D04C
 	.byte	0xBC
 	.byte	0x00
@@ -41064,8 +41216,9 @@ gUnknown_0804D784_1:	@ 0x0804D04C
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804D784
+	@********************** Track  2 **********************@
+
+	.global gUnknown_0804D784_2
 gUnknown_0804D784_2:	@ 0x0804D195
 	.byte	0xBC
 	.byte	0x00
@@ -41402,8 +41555,9 @@ gUnknown_0804D784_2:	@ 0x0804D195
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804D784
+	@********************** Track  3 **********************@
+
+	.global gUnknown_0804D784_3
 gUnknown_0804D784_3:	@ 0x0804D2E3
 	.byte	0xBC
 	.byte	0x00
@@ -41545,8 +41699,9 @@ gUnknown_0804D784_3:	@ 0x0804D2E3
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804D784
+	@********************** Track  4 **********************@
+
+	.global gUnknown_0804D784_4
 gUnknown_0804D784_4:	@ 0x0804D36E
 	.byte	0xBC
 	.byte	0x00
@@ -42171,8 +42326,9 @@ gUnknown_0804D784_4:	@ 0x0804D36E
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804D784
+	@********************** Track  5 **********************@
+
+	.global gUnknown_0804D784_5
 gUnknown_0804D784_5:	@ 0x0804D5DC
 	.byte	0xBC
 	.byte	0x00
@@ -42522,8 +42678,9 @@ gUnknown_0804D784_5:	@ 0x0804D5DC
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804D784
+	@********************** Track  6 **********************@
+
+	.global gUnknown_0804D784_6
 gUnknown_0804D784_6:	@ 0x0804D737
 	.byte	0xBC
 	.byte	0x00
@@ -42620,8 +42777,10 @@ gUnknown_0804D784:	@ 0x0804D784
 	.word	gUnknown_0804D784_5		@ track
 	.word	gUnknown_0804D784_6		@ track
 
-	
-	.global gUnknown_0804DFC4
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_0804DFC4_1
 gUnknown_0804DFC4_1:	@ 0x0804D7A4
 	.byte	0xBC
 	.byte	0x00
@@ -43148,8 +43307,9 @@ gUnknown_0804DFC4_1:	@ 0x0804D7A4
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804DFC4
+	@********************** Track  2 **********************@
+
+	.global gUnknown_0804DFC4_2
 gUnknown_0804DFC4_2:	@ 0x0804D9B0
 	.byte	0xBC
 	.byte	0x00
@@ -43736,8 +43896,9 @@ gUnknown_0804DFC4_2:	@ 0x0804D9B0
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804DFC4
+	@********************** Track  3 **********************@
+
+	.global gUnknown_0804DFC4_3
 gUnknown_0804DFC4_3:	@ 0x0804DBF8
 	.byte	0xBC
 	.byte	0x00
@@ -44317,8 +44478,9 @@ gUnknown_0804DFC4_3:	@ 0x0804DBF8
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804DFC4
+	@********************** Track  4 **********************@
+
+	.global gUnknown_0804DFC4_4
 gUnknown_0804DFC4_4:	@ 0x0804DE39
 	.byte	0xBC
 	.byte	0x00
@@ -44521,8 +44683,9 @@ gUnknown_0804DFC4_4:	@ 0x0804DE39
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804DFC4
+	@********************** Track  5 **********************@
+
+	.global gUnknown_0804DFC4_5
 gUnknown_0804DFC4_5:	@ 0x0804DF01
 	.byte	0xBC
 	.byte	0x00
@@ -44736,8 +44899,10 @@ gUnknown_0804DFC4:	@ 0x0804DFC4
 	.word	gUnknown_0804DFC4_4		@ track
 	.word	gUnknown_0804DFC4_5		@ track
 
-	
-	.global gUnknown_0804E55C
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_0804E55C_1
 gUnknown_0804E55C_1:	@ 0x0804DFE0
 	.byte	0xBC
 	.byte	0x00
@@ -44885,8 +45050,9 @@ gUnknown_0804E55C_1:	@ 0x0804DFE0
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804E55C
+	@********************** Track  2 **********************@
+
+	.global gUnknown_0804E55C_2
 gUnknown_0804E55C_2:	@ 0x0804E071
 	.byte	0xBC
 	.byte	0x00
@@ -45212,8 +45378,9 @@ gUnknown_0804E55C_2:	@ 0x0804E071
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804E55C
+	@********************** Track  3 **********************@
+
+	.global gUnknown_0804E55C_3
 gUnknown_0804E55C_3:	@ 0x0804E1B4
 	.byte	0xBC
 	.byte	0x00
@@ -45709,8 +45876,9 @@ gUnknown_0804E55C_3:	@ 0x0804E1B4
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804E55C
+	@********************** Track  4 **********************@
+
+	.global gUnknown_0804E55C_4
 gUnknown_0804E55C_4:	@ 0x0804E3A1
 	.byte	0xBC
 	.byte	0x00
@@ -45999,8 +46167,9 @@ gUnknown_0804E55C_4:	@ 0x0804E3A1
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804E55C
+	@********************** Track  5 **********************@
+
+	.global gUnknown_0804E55C_5
 gUnknown_0804E55C_5:	@ 0x0804E4BF
 	.byte	0xBC
 	.byte	0x00
@@ -46176,8 +46345,10 @@ gUnknown_0804E55C:	@ 0x0804E55C
 	.word	gUnknown_0804E55C_4		@ track
 	.word	gUnknown_0804E55C_5		@ track
 
-	
-	.global gUnknown_0804ECEC
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_0804ECEC_1
 gUnknown_0804ECEC_1:	@ 0x0804E578
 	.byte	0xBC
 	.byte	0x00
@@ -46306,8 +46477,9 @@ gUnknown_0804ECEC_1:	@ 0x0804E578
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804ECEC
+	@********************** Track  2 **********************@
+
+	.global gUnknown_0804ECEC_2
 gUnknown_0804ECEC_2:	@ 0x0804E5F6
 	.byte	0xBC
 	.byte	0x00
@@ -46519,8 +46691,9 @@ gUnknown_0804ECEC_2:	@ 0x0804E5F6
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804ECEC
+	@********************** Track  3 **********************@
+
+	.global gUnknown_0804ECEC_3
 gUnknown_0804ECEC_3:	@ 0x0804E6C7
 	.byte	0xBC
 	.byte	0x00
@@ -47131,8 +47304,9 @@ gUnknown_0804ECEC_3:	@ 0x0804E6C7
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804ECEC
+	@********************** Track  4 **********************@
+
+	.global gUnknown_0804ECEC_4
 gUnknown_0804ECEC_4:	@ 0x0804E927
 	.byte	0xBC
 	.byte	0x00
@@ -47750,8 +47924,9 @@ gUnknown_0804ECEC_4:	@ 0x0804E927
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804ECEC
+	@********************** Track  5 **********************@
+
+	.global gUnknown_0804ECEC_5
 gUnknown_0804ECEC_5:	@ 0x0804EB8E
 	.byte	0xBC
 	.byte	0x00
@@ -48120,8 +48295,10 @@ gUnknown_0804ECEC:	@ 0x0804ECEC
 	.word	gUnknown_0804ECEC_4		@ track
 	.word	gUnknown_0804ECEC_5		@ track
 
-	
-	.global gUnknown_0804F2B0
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_0804F2B0_1
 gUnknown_0804F2B0_1:	@ 0x0804ED08
 	.byte	0xBC
 	.byte	0x00
@@ -48249,8 +48426,9 @@ gUnknown_0804F2B0_1:	@ 0x0804ED08
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804F2B0
+	@********************** Track  2 **********************@
+
+	.global gUnknown_0804F2B0_2
 gUnknown_0804F2B0_2:	@ 0x0804ED85
 	.byte	0xBC
 	.byte	0x00
@@ -48574,8 +48752,9 @@ gUnknown_0804F2B0_2:	@ 0x0804ED85
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804F2B0
+	@********************** Track  3 **********************@
+
+	.global gUnknown_0804F2B0_3
 gUnknown_0804F2B0_3:	@ 0x0804EEC6
 	.byte	0xBC
 	.byte	0x00
@@ -49027,8 +49206,9 @@ gUnknown_0804F2B0_3:	@ 0x0804EEC6
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804F2B0
+	@********************** Track  4 **********************@
+
+	.global gUnknown_0804F2B0_4
 gUnknown_0804F2B0_4:	@ 0x0804F087
 	.byte	0xBC
 	.byte	0x00
@@ -49356,8 +49536,9 @@ gUnknown_0804F2B0_4:	@ 0x0804F087
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804F2B0
+	@********************** Track  5 **********************@
+
+	.global gUnknown_0804F2B0_5
 gUnknown_0804F2B0_5:	@ 0x0804F1CC
 	.byte	0xBC
 	.byte	0x00
@@ -49604,8 +49785,10 @@ gUnknown_0804F2B0:	@ 0x0804F2B0
 	.word	gUnknown_0804F2B0_4		@ track
 	.word	gUnknown_0804F2B0_5		@ track
 
-	
-	.global gUnknown_0804F6D8
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_0804F6D8_1
 gUnknown_0804F6D8_1:	@ 0x0804F2CC
 	.byte	0xBC
 	.byte	0x00
@@ -49681,8 +49864,9 @@ gUnknown_0804F6D8_1:	@ 0x0804F2CC
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804F6D8
+	@********************** Track  2 **********************@
+
+	.global gUnknown_0804F6D8_2
 gUnknown_0804F6D8_2:	@ 0x0804F315
 	.byte	0xBC
 	.byte	0x00
@@ -49863,8 +50047,9 @@ gUnknown_0804F6D8_2:	@ 0x0804F315
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804F6D8
+	@********************** Track  3 **********************@
+
+	.global gUnknown_0804F6D8_3
 gUnknown_0804F6D8_3:	@ 0x0804F3C7
 	.byte	0xBC
 	.byte	0x00
@@ -50187,8 +50372,9 @@ gUnknown_0804F6D8_3:	@ 0x0804F3C7
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804F6D8
+	@********************** Track  4 **********************@
+
+	.global gUnknown_0804F6D8_4
 gUnknown_0804F6D8_4:	@ 0x0804F507
 	.byte	0xBC
 	.byte	0x00
@@ -50554,8 +50740,9 @@ gUnknown_0804F6D8_4:	@ 0x0804F507
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804F6D8
+	@********************** Track  5 **********************@
+
+	.global gUnknown_0804F6D8_5
 gUnknown_0804F6D8_5:	@ 0x0804F672
 	.byte	0xBC
 	.byte	0x00
@@ -50676,8 +50863,10 @@ gUnknown_0804F6D8:	@ 0x0804F6D8
 	.word	gUnknown_0804F6D8_4		@ track
 	.word	gUnknown_0804F6D8_5		@ track
 
-	
-	.global gUnknown_0804FC98
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_0804FC98_1
 gUnknown_0804FC98_1:	@ 0x0804F6F4
 	.byte	0xBC
 	.byte	0x00
@@ -51051,8 +51240,9 @@ gUnknown_0804FC98_1:	@ 0x0804F6F4
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804FC98
+	@********************** Track  2 **********************@
+
+	.global gUnknown_0804FC98_2
 gUnknown_0804FC98_2:	@ 0x0804F867
 	.byte	0xBC
 	.byte	0x00
@@ -51353,8 +51543,9 @@ gUnknown_0804FC98_2:	@ 0x0804F867
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804FC98
+	@********************** Track  3 **********************@
+
+	.global gUnknown_0804FC98_3
 gUnknown_0804FC98_3:	@ 0x0804F991
 	.byte	0xBC
 	.byte	0x00
@@ -51654,8 +51845,9 @@ gUnknown_0804FC98_3:	@ 0x0804F991
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804FC98
+	@********************** Track  4 **********************@
+
+	.global gUnknown_0804FC98_4
 gUnknown_0804FC98_4:	@ 0x0804FABA
 	.byte	0xBC
 	.byte	0x00
@@ -51932,8 +52124,9 @@ gUnknown_0804FC98_4:	@ 0x0804FABA
 	.byte	0x08
 	.byte	0xB1
 
-	
-	.global gUnknown_0804FC98
+	@********************** Track  5 **********************@
+
+	.global gUnknown_0804FC98_5
 gUnknown_0804FC98_5:	@ 0x0804FBCC
 	.byte	0xBC
 	.byte	0x00
@@ -52156,8 +52349,10 @@ gUnknown_0804FC98:	@ 0x0804FC98
 	.word	gUnknown_0804FC98_4		@ track
 	.word	gUnknown_0804FC98_5		@ track
 
-	
-	.global gUnknown_0804FD4C
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_0804FD4C_1
 gUnknown_0804FD4C_1:	@ 0x0804FCB4
 	.byte	0xBC
 	.byte	0x00
@@ -52324,8 +52519,10 @@ gUnknown_0804FD4C:	@ 0x0804FD4C
 
 	.word	gUnknown_0804FD4C_1		@ track
 
-	
-	.global gUnknown_0804FD68
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_0804FD68_1
 gUnknown_0804FD68_1:	@ 0x0804FD58
 	.byte	0xBC
 	.byte	0x00
@@ -52356,8 +52553,10 @@ gUnknown_0804FD68:	@ 0x0804FD68
 
 	.word	gUnknown_0804FD68_1		@ track
 
-	
-	.global gUnknown_0804FD84
+	@********************** Track  1 **********************@
+
+	.align 2
+	.global gUnknown_0804FD84_1
 gUnknown_0804FD84_1:	@ 0x0804FD74
 	.byte	0xBC
 	.byte	0x00
