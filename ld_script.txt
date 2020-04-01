@@ -38,58 +38,14 @@ SECTIONS {
         *libgcc.a:*_udivsi3*.o(.text*);
         *libgcc.a:*_umodsi3*.o(.text*);
     } =0
-    .data_1 :
+    .data :
     ALIGN(4)
     {
         src/main.o(.data);
         data/data.o(.data);
         data/sound_data.o(.rodata);
-    } =0
-    .songs_1 :
-    ALIGN(4)
-    {
-        sound/songs/midi/bgm000.o(.rodata);
-        sound/songs/midi/bgm001.o(.rodata);
-        sound/songs/midi/bgm002.o(.rodata);
-        sound/songs/midi/bgm003.o(.rodata);
-        sound/songs/midi/bgm004.o(.rodata);
-        sound/songs/midi/bgm005.o(.rodata);
-        sound/songs/midi/bgm006.o(.rodata);
-        sound/songs/midi/bgm007.o(.rodata);
-        sound/songs/midi/bgm008.o(.rodata);
-        sound/songs/midi/bgm009.o(.rodata);
-        sound/songs/midi/bgm010.o(.rodata);
-        sound/songs/midi/bgm011.o(.rodata);
-        sound/songs/midi/bgm012.o(.rodata);
-        sound/songs/midi/bgm013.o(.rodata);
-        sound/songs/midi/bgm014.o(.rodata);
-        sound/songs/midi/bgm015.o(.rodata);
-        sound/songs/midi/bgm016.o(.rodata);
-        sound/songs/midi/bgm017.o(.rodata);
-        sound/songs/midi/bgm018.o(.rodata);
-        sound/songs/midi/bgm019.o(.rodata);
-        sound/songs/midi/bgm020.o(.rodata);
-        sound/songs/midi/bgm021.o(.rodata);
-        sound/songs/midi/bgm022.o(.rodata);
-        sound/songs/midi/bgm023.o(.rodata);
-        sound/songs/midi/bgm024.o(.rodata);
-        sound/songs/midi/bgm025.o(.rodata);
-        sound/songs/midi/bgm026.o(.rodata);
-        sound/songs/midi/bgm027.o(.rodata);
-        sound/songs/midi/bgm028.o(.rodata);
-        sound/songs/midi/bgm029.o(.rodata);
-        sound/songs/midi/bgm030.o(.rodata);
-        sound/songs/midi/bgm031.o(.rodata);
-        sound/songs/midi/bgm032.o(.rodata);
-        sound/songs/midi/bgm033.o(.rodata);
-        
-    } =0
-    .data_2 :
-    ALIGN(4)
-    {
+        data/m4a_rodata.o(.rodata);
         data/sound_data2.o(.rodata);
-        data/data_2.o(.data);
-        data/sound_data3.o(.rodata);
         data/data_3.o(.data);
     } =0
 

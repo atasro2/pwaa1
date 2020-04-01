@@ -81,8 +81,6 @@ clean:
 	rm -r $(OBJ_DIR)
 	find . \( -iname '*.1bpp' -o -iname '*.4bpp' -o -iname '*.8bpp' -o -iname '*.gbapal' -o -iname '*.lz' -o -iname '*.striped' \) -exec rm {} +
 
-include songs.mk
-
 %.bin: ;
 %.s: ;
 %.png: ;
@@ -126,4 +124,5 @@ $(DATA_ASM_BUILDDIR)/%.o: $(DATA_ASM_SUBDIR)/%.s $$(data_dep)
 	
 $(C_BUILDDIR)/%.o: $(C_SUBDIR)/%.c
 	$(CPP) $(CPPFLAGS) $< | $(CC1) $(CFLAGS) -o $(C_BUILDDIR)/$*.s
+	@echo ".text\n\t.align\t2, 0\n" >> $(C_BUILDDIR)/$*.s
 	$(AS) $(ASFLAGS) -o $@ $(C_BUILDDIR)/$*.s

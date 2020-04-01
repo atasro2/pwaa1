@@ -82,8 +82,8 @@ void sub_80054BC(struct ScriptState *scriptCtx)
         }
         else
         {
-            r1 = gUnknown_08749428;
-            r0 = &gUnknown_08749428[scriptCtx->unk1E];
+            r1 = common_scripts;
+            r0 = &common_scripts[scriptCtx->unk1E];
         }
         scriptCtx->scriptPtr2 = scriptCtx->scriptPtr = (u16 *)(r1 + 1 [(u32 *)r0]);
         scriptCtx->unk1C = ((u16 *)r1)[0];
@@ -217,7 +217,7 @@ _08005588:\n\
 	pop {r0}\n\
 	bx r0\n\
 	.align 2, 0\n\
-_080055A4: .4byte gUnknown_08749428\n\
+_080055A4: .4byte common_scripts\n\
 _080055A8: .4byte 0x06011800\n\
 _080055AC: .4byte gUnknown_03003930\n");
 }

@@ -11,7 +11,7 @@ extern s16 gSineTable[256+64];
 extern u32 gUnknown_080150D0[12];
 extern u16 gUnknown_08014FB8[0x8C];
 extern u8 gTextPal[0x20];
-extern u8 gUnknown_08749428[0xDEC]; // some uncompressed script probably mes_sys
+extern u8 common_scripts[0xDEC]; // some uncompressed script probably mes_sys
 extern u32 * gScriptTable[17];
 extern u8 gUnknown_08018784[0x30];
 extern u8 gUnknown_080187C0[8];
