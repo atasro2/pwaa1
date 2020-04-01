@@ -41,16 +41,27 @@ struct Joypad
     u16 unkE;
 };
 
+union Union3003734
+{   
+    struct {
+        u8 b1;
+        u8 b2;
+        u8 b3;
+        u8 b4;
+    } asBytes;
+    struct {
+        u16 s1;
+        u16 s2;
+    } asShorts;
+    u32 w1;
+};
+
+
 struct Struct3003730
 {
     u32 unk0;
-    union Union3003734
-    {   
-        u8 field0;
-        u16 field1;
-        u32 field2;
-    } unk4;
-    u8 filler8[0x4];
+    union Union3003734 unk4;
+    union Union3003734 unk8;
     u8 unkC;
     u8 unkD;
     s8 unkE;
@@ -69,19 +80,26 @@ struct Struct3003730
     s16 unk20;
     s16 unk22;
     u16 unk24;
-    u8 filler26[0x2];
-    u16 unk28;
-    s16 unk2A;
+    u8 unk26;
+    u8 unk27;
+    u16 currentBG; /* + 0x28 */
+    s16 previousBG; /* + 0x2A */
     s8 unk2C;
     u8 unk2D;
     u8 unk2E;
-    u8 filler2F[0x45];
+    u8 filler2F[0xD];
+    s8 unk3C;
+    s8 unk3D;
+    u8 filler3E[0x36];
     u16 unk74;
     u16 unk76;
     u16 unk78;
     u8 unk7A;
     u8 unk7B;
-    u8 filler7C[0x10];
+    u8 unk7C;
+    u8 unk7D;
+    u8 unk7E;
+    u8 filler7F[0xD];
     u8 unk8C;
     u8 unk8D;
     u8 unk8E;
@@ -152,10 +170,10 @@ struct Struct3003930
     u8 fillerA[0xA]; 
 };
 
-struct Struct3003A70
+struct ScriptState
 {
     u16 unk0; // message status
-    u16 unk2; // wait timer
+    u16 waitTimer; // wait timer
     u16 * scriptPtr; /* +4 */
     u16 * scriptPtr2;
     u16 unkC;
@@ -175,8 +193,8 @@ struct Struct3003A70
     u16 unk1E;
     u16 unk20;
     u16 unk22;
-    u8 unk24; // color
-    u8 unk25; // speed
+    u8 textColor; /* +0x24 */
+    u8 textSpeed; /* +0x25 */
     u8 unk26;
     u8 unk27;
     u16 unk28;
@@ -206,7 +224,12 @@ struct SaveData
 
 struct Struct3002840
 {
-    u8 filler0[0x58];
+    u8 filler0[0x10];
+    u8 unk10;
+    u8 unk11;
+    u8 filler12[0x6];
+    u8 unk18[0x20];
+    u8 unk38[0x20];
 };
 
 struct Struct30028A0
@@ -218,7 +241,12 @@ struct Struct3003A50
 {
     u8 filler0[0x5];
     u8 unk5;
-    u8 filler6[0x8];
+    u8 unk6;
+    u8 filler7[0x3];
+    u8 unkA;
+    u8 unkB;
+    u8 unkC;
+    u8 unkD;
     u8 unkE;
     u8 fillerF[0x9];
 };
@@ -239,7 +267,7 @@ struct Struct3003C00
 
 struct Struct3004000
 {
-    u32 unk0;
+    u8 * unk0;
     u16 unk4;
     u8 filler6[0x6];
     s16 unkC;

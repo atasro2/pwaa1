@@ -11,9 +11,11 @@ extern s16 gSineTable[256+64];
 extern u32 gUnknown_080150D0[12];
 extern u16 gUnknown_08014FB8[0x8C];
 extern u8 gTextPal[0x20];
-extern u8 gUnknown_08749428[0xDEC]; // some uncompressed script probably mes_sys
+extern u8 common_scripts[0xDEC]; // some uncompressed script probably mes_sys
 extern u32 * gScriptTable[17];
+extern u8 gUnknown_08018784[0x30];
 extern u8 gUnknown_080187C0[8];
+extern u8 * gUnknown_080187B4[3];
 
 //FUNCTIONS // these should be moved soon
 void sub_80003E0();
@@ -25,7 +27,9 @@ void sub_8000804();
 void sub_8000930();
 void sub_80009AC();
 void MoveSpritesToOAM();
-
+void sub_8002B94(u32, u32, bool32);
+void sub_80007D8(u32 arg0, u32 arg1, u32 arg2, u32 arg3);
+void sub_800077C(u8 *, u32, u32, u32);
 //ASMFUNCTIONS
 extern void sub_800F614();
 extern void sub_8001744(u16);
@@ -49,7 +53,12 @@ extern void sub_800244C(u32);
 extern void sub_80028B4(u32, u32);
 extern void sub_8002244(u32);
 extern void sub_800FBA0(struct Struct3000840 *, u32);
-
+extern s32 sub_800ECF8(u16, u32);
+extern s32 sub_800ED40(u16);
+extern void sub_800ED68(struct Struct3002840 *);
+extern void sub_8011108(u32, u32, u32, u32);
+extern void sub_8010960(struct Struct3000840 *);
+extern u32 sub_8002224(u32);
 //EWRAM
 extern EWRAM_DATA u32 gUnknown_02011DC0[0x80];
 extern EWRAM_DATA u32 gScriptHeap[0x1B000/4];
@@ -72,7 +81,7 @@ extern struct LCDIORegisters gLCDIORegisters;
 extern struct Struct3003930 gUnknown_03003930[8];
 extern u8 gUnknown_030039D0[0x80];
 extern struct Struct3003A50 gUnknown_03003A50;
-extern struct Struct3003A70 gUnknown_03003A70;
+extern struct ScriptState gScriptState;
 extern struct Struct3003AB0 gUnknown_03003AB0; 
 extern struct Struct3003C00 gUnknown_03003C00[0x3F];
 extern struct Struct3004000 gUnknown_03004000;

@@ -2,7 +2,7 @@
 #include "sound_control.h"
 #include "m4a.h"
 
-void sub_800F3E0(u32 songNum)
+void PlaySE(u32 songNum)
 {
     struct Struct3003730 * struct3730p = &gUnknown_03003730;
     if((struct3730p->unk198 & 1) == 0)

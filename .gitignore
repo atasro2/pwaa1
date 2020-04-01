@@ -62,9 +62,11 @@ tools/ignore/
 tools/agbcc/
 tools/binutils/
 build/
+sound/songs/midi/*.s
 *.sav
 *.code-workspace
 .vscode/
 ddump
 *.cs
 *.striped
+*.cheats

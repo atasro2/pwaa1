@@ -3,6 +3,6 @@
 
 extern u8 gCharSet[0x550][0x80];
 
-void sub_80054BC(struct Struct3003A70 *scriptCtx);
+void sub_80054BC(struct ScriptState *scriptCtx);
 
 #endif//GUARD_SCRIPT_H

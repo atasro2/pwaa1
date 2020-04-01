@@ -28,8 +28,8 @@ static void (*IntrTableFunctionPtrs[])() =
 
 void CheckAButtonAndGoToClearSaveScreen()
 {
-    if ((gUnknown_03003730.unk4.field0 == 0) && (A_BUTTON & KEY_NEW()))
-        gUnknown_03003730.unk4.field0 = 0xE;
+    if ((gUnknown_03003730.unk4.asBytes.b1 == 0) && (A_BUTTON & KEY_NEW()))
+        gUnknown_03003730.unk4.asBytes.b1 = 0xE;
 }
 
 void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
@@ -69,7 +69,7 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
             if (gUnknown_03003730.unk2C > 10)
             {
                 gUnknown_03003730.unk2C = 0;
-                sub_8001A9C(gUnknown_03003730.unk28);
+                sub_8001A9C(gUnknown_03003730.currentBG);
             }
 			// fakematch? scrub C? the fuck am i supposed to look at anyways?
             if (gUnknown_03003730.unk2C == 0 && (sub_8005470(), gUnknown_03003730.unk2C == 0))
@@ -77,12 +77,12 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
                 sub_800232C(gUnknown_03003730.unk2C);
                 sub_800EEFC(&gUnknown_03003730);
                 sub_80002E4();
-                sub_8010E14(gUnknown_03003730.unk2A);
+                sub_8010E14(gUnknown_03003730.previousBG);
                 sub_8000804();
             }
             else
             {
-                sub_8001744(gUnknown_03003730.unk28);
+                sub_8001744(gUnknown_03003730.currentBG);
             }
             sub_800F614();
             m4aSoundMain();
@@ -94,12 +94,12 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
         sub_800232C(gUnknown_03003730.unk2C);
         sub_800EEFC(&gUnknown_03003730);
         sub_80002E4();
-        sub_8010E14(gUnknown_03003730.unk2A);
+        sub_8010E14(gUnknown_03003730.previousBG);
         sub_8000804();
     }
     else
     {
-        sub_8001744(gUnknown_03003730.unk28);
+        sub_8001744(gUnknown_03003730.currentBG);
     }
     sub_800F614();
     m4aSoundMain();
@@ -179,7 +179,7 @@ void sub_80002E4() // related to screen shakes
         gUnknown_03003730.unkF = var2;
     }
 
-    gUnknown_0811DBB4[gUnknown_03003730.unk4.field0](&gUnknown_03003730);
+    gUnknown_0811DBB4[gUnknown_03003730.unk4.asBytes.b1](&gUnknown_03003730);
 
     if (iwstruct4000p->unk4)
     {
@@ -191,13 +191,13 @@ void sub_80003E0()
 {
     struct Struct3003730 *iwstruct3730p = &gUnknown_03003730;
     struct LCDIORegisters *lcdIoRegsp = &gLCDIORegisters;
-    u32 temp = iwstruct3730p->unk4.field0 ? 1 : 0;
+    u32 temp = iwstruct3730p->unk4.asBytes.b1 ? 1 : 0;
 
     RegisterRamReset(RESET_SIO_REGS | RESET_SOUND_REGS | RESET_REGS);
     DmaFill32(3, 0, IWRAM_START, 0x7E00);  // Clear IWRAM // doesn't clear stack!
     DmaFill32(3, 0, EWRAM_START, 0x40000); // Clear EWRAM
 
-    iwstruct3730p->unk4.field2 = temp; // TODO: !? scrub c?
+    iwstruct3730p->unk4.w1 = temp; // TODO: !? scrub c?
 
     RegisterRamReset(RESET_OAM | RESET_VRAM | RESET_PALETTE);
 
@@ -225,7 +225,7 @@ void sub_80004B0() // reset a bunch of shit
     DmaFill16(3, 0, OAM, OAM_SIZE);
     DmaFill16(3, 0, PLTT, PLTT_SIZE);
     DmaFill16(3, 0, &gUnknown_03003730, sizeof(gUnknown_03003730));
-    DmaFill16(3, 0, &gUnknown_03003A70, sizeof(gUnknown_03003A70));
+    DmaFill16(3, 0, &gScriptState, sizeof(gScriptState));
     DmaFill16(3, 0, &gUnknown_03004000, sizeof(gUnknown_03004000));
     DmaFill16(3, 0, &gUnknown_03003AB0, sizeof(gUnknown_03003AB0));
     DmaFill16(3, 0, &gUnknown_03003A50, sizeof(gUnknown_03003A50));
@@ -342,7 +342,7 @@ u32 sub_8000744()
     return 0;
 }
 
-void sub_800077C(u32 arg0, u16 arg1, u16 arg2, u16 arg3)
+void sub_800077C(u8 * arg0, u32 arg1, u32 arg2, u32 arg3)
 {
     gUnknown_03004000.unk0 = arg0;
     gUnknown_03004000.unk4 = arg3;
@@ -371,7 +371,7 @@ void sub_80007A0(struct Struct3004000 *arg0)
     }
 }
 
-void sub_80007D8(u16 arg0, u8 arg1, u8 arg2, u16 arg3)
+void sub_80007D8(u32 arg0, u32 arg1, u32 arg2, u32 arg3)
 {
     gUnknown_03003730.unk74 = arg3;
     gUnknown_03003730.unk76 = arg0;

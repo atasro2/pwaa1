@@ -247,7 +247,7 @@ void sub_8002CF0(u32 arg0, u32 arg1) // init investigation buttons?
         sprite->attr1 = 60 * i + (3 << 14); // TODO: NON AFFINE attr1 macro
         sprite->attr2 = SPRITE_ATTR2((256 + i * 32), 0, 5);
     }
-    union3734->field2 = 260;
+    union3734->w1 = 260;
     sub_8002B94(0, arg1, TRUE);
     sub_800549C(arg0);
     sub_800244C(1);

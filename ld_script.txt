@@ -44,7 +44,7 @@ SECTIONS {
         src/main.o(.data);
         data/data.o(.data);
         data/sound_data.o(.rodata);
-        data/data_2.o(.data);
+        data/m4a_rodata.o(.rodata);
         data/sound_data2.o(.rodata);
         data/data_3.o(.data);
     } =0
