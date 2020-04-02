@@ -197,7 +197,7 @@ void sub_80003E0()
     DmaFill32(3, 0, IWRAM_START, 0x7E00);  // Clear IWRAM // doesn't clear stack!
     DmaFill32(3, 0, EWRAM_START, 0x40000); // Clear EWRAM
 
-    iwstruct3730p->unk4.w1 = temp; // TODO: !? scrub c?
+    iwstruct3730p->unk4.w1 = temp;
 
     RegisterRamReset(RESET_OAM | RESET_VRAM | RESET_PALETTE);
 

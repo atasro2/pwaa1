@@ -124,5 +124,5 @@ $(DATA_ASM_BUILDDIR)/%.o: $(DATA_ASM_SUBDIR)/%.s $$(data_dep)
 	
 $(C_BUILDDIR)/%.o: $(C_SUBDIR)/%.c
 	$(CPP) $(CPPFLAGS) $< | $(CC1) $(CFLAGS) -o $(C_BUILDDIR)/$*.s
-	@echo ".text\n\t.align\t2, 0\n" >> $(C_BUILDDIR)/$*.s
+	@echo | sed "i.text\n\t.align\t2, 0" >> $(C_BUILDDIR)/$*.s
 	$(AS) $(ASFLAGS) -o $@ $(C_BUILDDIR)/$*.s
