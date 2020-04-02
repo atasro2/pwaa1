@@ -11,7 +11,7 @@ It builds the following ROM:
 
 * **THIS README ASSUMES YOU HAVE EXPERIENCE WITH VARIOUS OTHER GBA DECOMPILATION REPOSITORIES AND A LINUX TERMINAL** 
 
-* Go into the root folder of the repository.
+* Clone this repository and go into the root folder of it.
 
 * **Note (until further notice):** If this is your first time building Gyakuten Saiban 1 (Rev 0), an unmodified copy of the game is required in the project root under the name `baserom.gba`. To generate this, you should run the following commands:
 ```
