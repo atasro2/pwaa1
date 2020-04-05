@@ -206,7 +206,7 @@ gScriptCmdFuncs:
     .4byte Command1E
     .4byte Command1F
     .4byte Command20
-    .4byte sub_8006988
+    .4byte Command21
     .4byte sub_80069C8
     .4byte sub_80069F4
     .4byte sub_8006A20
