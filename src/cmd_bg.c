@@ -5,11 +5,11 @@ void sub_8000930()
     u32 i;
     u16 *temp;
     DmaFill16(3, 0, &gUnknown_03002F20, sizeof(gUnknown_03002F20));
+	//Capcom plz use DmaCopy16 or smth kthxbye
     for (temp = gUnknown_03002000, i = 0; i < ARRAY_COUNT(gUnknown_08013B70); i++, temp++)
     {
         (*temp) = gUnknown_08013B70[i];
     }
-	//Capcom plz use DmaCopy16 or smth kthxbye
     DmaFill16(3, 0, &gUnknown_03000000, sizeof(gUnknown_03000000));
     gLCDIORegisters.lcd_bg2vofs = 0;
     gLCDIORegisters.lcd_bg2hofs = 8;

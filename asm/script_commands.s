@@ -1,39 +1,6 @@
 	.include "asm/macros.inc"
 	.syntax unified
 
-	THUMB_FUNC_START sub_8006988
-sub_8006988: @ 0x08006988
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r0, [r4, #4]
-	adds r0, #2
-	str r0, [r4, #4]
-	movs r0, #0x31
-	bl PlaySE
-	movs r0, #0x10
-	ldrh r1, [r4]
-	orrs r0, r1
-	strh r0, [r4]
-	ldr r2, _080069C0
-	adds r3, r2, #0
-	adds r3, #0xb4
-	ldr r0, [r3]
-	movs r1, #0xc0
-	lsls r1, r1, #2
-	orrs r0, r1
-	str r0, [r3]
-	ldr r0, [r2, #4]
-	str r0, [r2, #8]
-	ldr r0, _080069C4
-	str r0, [r2, #4]
-	movs r0, #0
-	pop {r4}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_080069C0: .4byte gMain
-_080069C4: .4byte 0x01000007
-
 	THUMB_FUNC_START sub_80069C8
 sub_80069C8: @ 0x080069C8
 	push {r4, lr}

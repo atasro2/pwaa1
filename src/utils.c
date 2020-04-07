@@ -235,7 +235,7 @@ void sub_8002CCC(u32 arg0, u32 arg1)
     sub_800F454();
 }
 
-void sub_8002CF0(u32 arg0, u32 arg1) // init investigation buttons?
+void sub_8002CF0(u32 arg0, u32 arg1) // init investigation buttons? // unused?
 {
     struct OamAttrs * sprite = &gOamObjects[49];
     u32 i = 0;
