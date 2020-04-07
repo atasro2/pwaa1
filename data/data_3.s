@@ -207,49 +207,49 @@ gScriptCmdFuncs:
     .4byte Command1F
     .4byte Command20
     .4byte Command21
-    .4byte sub_80069C8
-    .4byte sub_80069F4
-    .4byte sub_8006A20
-    .4byte sub_8006A3C
-    .4byte sub_8006A4C
-    .4byte sub_8006A88
-    .4byte sub_8006AB4
-    .4byte sub_8006AEC
-    .4byte sub_8006B98
-    .4byte sub_8006BC8
-    .4byte sub_8006C20
+    .4byte Command22
+    .4byte Command23
+    .4byte Command24
+    .4byte Command25
+    .4byte Command26
+    .4byte Command27
+    .4byte Command28
+    .4byte Command29
+    .4byte Command2A
+    .4byte Command2B
+    .4byte Command2C
     .4byte Command02
-    .4byte sub_8006C8C
-    .4byte sub_8006CF4
-    .4byte sub_8006D28
-    .4byte sub_8006D4C
-    .4byte sub_8006D70
-    .4byte sub_8006D90
-    .4byte sub_8006DE8
-    .4byte sub_8006E1C
-    .4byte sub_8006EA0
-    .4byte sub_8006ED4
-    .4byte sub_8006F00
-    .4byte sub_8006F3C
-    .4byte sub_8007054
-    .4byte sub_80070BC
-    .4byte sub_8007124
-    .4byte sub_800718C
-    .4byte sub_80071D8
-    .4byte sub_800724C
-    .4byte sub_8007574
-    .4byte sub_800759C
-    .4byte sub_8007604
-    .4byte sub_8007648
-    .4byte sub_80076B4
+    .4byte Command2E
+    .4byte Command2F
+    .4byte Command30
+    .4byte Command31
+    .4byte Command32
+    .4byte Command33
+    .4byte Command34
+    .4byte Command35
+    .4byte Command36
+    .4byte Command37
+    .4byte Command38
+    .4byte Command39
+    .4byte Command3A
+    .4byte Command3B
+    .4byte Command3C
+    .4byte Command3D
+    .4byte Command3E
+    .4byte Command3F
+    .4byte Command40
+    .4byte Command41
+    .4byte Command42
+    .4byte Command43
+    .4byte Command44
     .4byte Command15
-    .4byte sub_80077A0
-    .4byte sub_8007868
-    .4byte sub_800788C
-    .4byte sub_80078EC
-    .4byte sub_8007908
-    .4byte sub_8007944
-    .4byte sub_80079A0
+    .4byte Command46
+    .4byte Command47
+    .4byte Command48
+    .4byte Command49
+    .4byte Command4A
+    .4byte Command4B
+    .4byte Command4C
     .4byte nullsub_13
     .4byte nullsub_14
     .4byte nullsub_15
