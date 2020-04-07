@@ -1,4 +1,5 @@
 #include "global.h"
+#include "sound_control.h"
 #include "m4a.h"
 
 static void sub_80002E4();
