@@ -1108,3 +1108,14 @@ u32 Command20(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     return 0;
 }
+
+bool32 Command21(struct ScriptContext * scriptCtx)
+{
+    scriptCtx->scriptPtr++;
+    PlaySE(0x31);
+    scriptCtx->unk0 |= 0x10;
+    gMain.unkB4 |= 0x300;
+    gMain.unk8 = gMain.unk4;
+    gMain.unk4.w1 = 0x01000007;
+    return 0;
+}

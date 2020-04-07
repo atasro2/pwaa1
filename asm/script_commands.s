@@ -1,41 +1,8 @@
 	.include "asm/macros.inc"
 	.syntax unified
 
-	THUMB_FUNC_START sub_8006988
-sub_8006988: @ 0x08006988
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r0, [r4, #4]
-	adds r0, #2
-	str r0, [r4, #4]
-	movs r0, #0x31
-	bl PlaySE
-	movs r0, #0x10
-	ldrh r1, [r4]
-	orrs r0, r1
-	strh r0, [r4]
-	ldr r2, _080069C0
-	adds r3, r2, #0
-	adds r3, #0xb4
-	ldr r0, [r3]
-	movs r1, #0xc0
-	lsls r1, r1, #2
-	orrs r0, r1
-	str r0, [r3]
-	ldr r0, [r2, #4]
-	str r0, [r2, #8]
-	ldr r0, _080069C4
-	str r0, [r2, #4]
-	movs r0, #0
-	pop {r4}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_080069C0: .4byte gMain
-_080069C4: .4byte 0x01000007
-
-	THUMB_FUNC_START sub_80069C8
-sub_80069C8: @ 0x080069C8
+	THUMB_FUNC_START Command22
+Command22: @ 0x080069C8
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #4]
@@ -59,8 +26,8 @@ _080069E4:
 	bx r1
 	.align 2, 0
 
-	THUMB_FUNC_START sub_80069F4
-sub_80069F4: @ 0x080069F4
+	THUMB_FUNC_START Command23
+Command23: @ 0x080069F4
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #4]
@@ -84,8 +51,8 @@ _08006A10:
 	bx r1
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8006A20
-sub_8006A20: @ 0x08006A20
+	THUMB_FUNC_START Command24
+Command24: @ 0x08006A20
 	ldr r1, [r0, #4]
 	adds r1, #2
 	str r1, [r0, #4]
@@ -100,8 +67,8 @@ sub_8006A20: @ 0x08006A20
 	.align 2, 0
 _08006A38: .4byte gMain
 
-	THUMB_FUNC_START sub_8006A3C
-sub_8006A3C: @ 0x08006A3C
+	THUMB_FUNC_START Command25
+Command25: @ 0x08006A3C
 	ldr r1, [r0, #4]
 	ldrh r2, [r1, #2]
 	strh r2, [r0, #0x22]
@@ -111,8 +78,8 @@ sub_8006A3C: @ 0x08006A3C
 	bx lr
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8006A4C
-sub_8006A4C: @ 0x08006A4C
+	THUMB_FUNC_START Command26
+Command26: @ 0x08006A4C
 	adds r3, r0, #0
 	ldr r0, [r3, #4]
 	adds r1, r0, #2
@@ -145,8 +112,8 @@ _08006A78:
 	.align 2, 0
 _08006A84: .4byte gMain
 
-	THUMB_FUNC_START sub_8006A88
-sub_8006A88: @ 0x08006A88
+	THUMB_FUNC_START Command27
+Command27: @ 0x08006A88
 	push {r4, r5, lr}
 	ldr r1, [r0, #4]
 	adds r4, r1, #2
@@ -170,8 +137,8 @@ sub_8006A88: @ 0x08006A88
 	.align 2, 0
 _08006AB0: .4byte gMain
 
-	THUMB_FUNC_START sub_8006AB4
-sub_8006AB4: @ 0x08006AB4
+	THUMB_FUNC_START Command28
+Command28: @ 0x08006AB4
 	adds r3, r0, #0
 	ldr r0, [r3, #4]
 	adds r1, r0, #2
@@ -202,8 +169,8 @@ _08006ADC:
 	.align 2, 0
 _08006AE8: .4byte gMain
 
-	THUMB_FUNC_START sub_8006AEC
-sub_8006AEC: @ 0x08006AEC
+	THUMB_FUNC_START Command29
+Command29: @ 0x08006AEC
 	adds r3, r0, #0
 	ldr r1, [r3, #4]
 	adds r0, r1, #2
@@ -290,8 +257,8 @@ _08006B86:
 _08006B90: .4byte gMain+0x4
 _08006B94: .4byte 0x00000103
 
-	THUMB_FUNC_START sub_8006B98
-sub_8006B98: @ 0x08006B98
+	THUMB_FUNC_START Command2A
+Command2A: @ 0x08006B98
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, [r4, #4]
@@ -318,8 +285,8 @@ _08006BB8:
 	bx r1
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8006BC8
-sub_8006BC8: @ 0x08006BC8
+	THUMB_FUNC_START Command2B
+Command2B: @ 0x08006BC8
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldr r0, [r6, #4]
@@ -363,8 +330,8 @@ _08006C0E:
 _08006C18: .4byte gMain
 _08006C1C: .4byte gUnknown_08014D82
 
-	THUMB_FUNC_START sub_8006C20
-sub_8006C20: @ 0x08006C20
+	THUMB_FUNC_START Command2C
+Command2C: @ 0x08006C20
 	push {r4, r5, r6, r7, lr}
 	ldr r1, [r0, #4]
 	ldrh r2, [r1, #2]
@@ -414,8 +381,8 @@ _08006C80: .4byte gUnknown_03003C00
 _08006C84: .4byte 0x000004DC
 _08006C88: .4byte 0x000004DE
 
-	THUMB_FUNC_START sub_8006C8C
-sub_8006C8C: @ 0x08006C8C
+	THUMB_FUNC_START Command2E
+Command2E: @ 0x08006C8C
 	push {r4, r5, lr}
 	ldr r1, _08006CDC
 	ldrh r2, [r0]
@@ -464,8 +431,8 @@ _08006CE8: .4byte gUnknown_03003C00
 _08006CEC: .4byte 0x000004DC
 _08006CF0: .4byte 0x000004DE
 
-	THUMB_FUNC_START sub_8006CF4
-sub_8006CF4: @ 0x08006CF4
+	THUMB_FUNC_START Command2F
+Command2F: @ 0x08006CF4
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #4]
@@ -492,8 +459,8 @@ _08006D1A:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_START sub_8006D28
-sub_8006D28: @ 0x08006D28
+	THUMB_FUNC_START Command30
+Command30: @ 0x08006D28
 	adds r2, r0, #0
 	ldr r1, [r2, #4]
 	adds r0, r1, #2
@@ -514,8 +481,8 @@ _08006D40:
 	bx lr
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8006D4C
-sub_8006D4C: @ 0x08006D4C
+	THUMB_FUNC_START Command31
+Command31: @ 0x08006D4C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #4]
@@ -534,8 +501,8 @@ sub_8006D4C: @ 0x08006D4C
 	bx r1
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8006D70
-sub_8006D70: @ 0x08006D70
+	THUMB_FUNC_START Command32
+Command32: @ 0x08006D70
 	ldr r2, [r0, #4]
 	adds r1, r2, #2
 	ldrh r2, [r2, #2]
@@ -552,8 +519,8 @@ sub_8006D70: @ 0x08006D70
 	.align 2, 0
 _08006D8C: .4byte gMain
 
-	THUMB_FUNC_START sub_8006D90
-sub_8006D90: @ 0x08006D90
+	THUMB_FUNC_START Command33
+Command33: @ 0x08006D90
 	ldr r1, [r0, #4]
 	adds r2, r1, #2
 	ldrh r3, [r1, #2]
@@ -598,8 +565,8 @@ sub_8006D90: @ 0x08006D90
 	.align 2, 0
 _08006DE4: .4byte gMain
 
-	THUMB_FUNC_START sub_8006DE8
-sub_8006DE8: @ 0x08006DE8
+	THUMB_FUNC_START Command34
+Command34: @ 0x08006DE8
 	push {r4, lr}
 	ldr r2, [r0, #4]
 	ldr r4, _08006E14
@@ -624,8 +591,8 @@ sub_8006DE8: @ 0x08006DE8
 _08006E14: .4byte gMain
 _08006E18: .4byte 0x00000504
 
-	THUMB_FUNC_START sub_8006E1C
-sub_8006E1C: @ 0x08006E1C
+	THUMB_FUNC_START Command35
+Command35: @ 0x08006E1C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, [r4, #4]
@@ -696,8 +663,8 @@ _08006E96:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_START sub_8006EA0
-sub_8006EA0: @ 0x08006EA0
+	THUMB_FUNC_START Command36
+Command36: @ 0x08006EA0
 	ldr r1, [r0, #4]
 	ldrh r1, [r1, #2]
 	lsls r1, r1, #2
@@ -724,8 +691,8 @@ sub_8006EA0: @ 0x08006EA0
 	.align 2, 0
 _08006ED0: .4byte gScriptHeap+4
 
-	THUMB_FUNC_START sub_8006ED4
-sub_8006ED4: @ 0x08006ED4
+	THUMB_FUNC_START Command37
+Command37: @ 0x08006ED4
 	push {r4, lr}
 	ldr r1, [r0, #4]
 	adds r4, r1, #2
@@ -749,8 +716,8 @@ sub_8006ED4: @ 0x08006ED4
 	.align 2, 0
 _08006EFC: .4byte gUnknown_030028A0
 
-	THUMB_FUNC_START sub_8006F00
-sub_8006F00: @ 0x08006F00
+	THUMB_FUNC_START Command38
+Command38: @ 0x08006F00
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #4]
@@ -780,8 +747,8 @@ _08006F28:
 	.align 2, 0
 _08006F38: .4byte gUnknown_03000800+0x40
 
-	THUMB_FUNC_START sub_8006F3C
-sub_8006F3C: @ 0x08006F3C
+	THUMB_FUNC_START Command39
+Command39: @ 0x08006F3C
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
 	ldr r1, [r7, #4]
@@ -914,8 +881,8 @@ _08007042:
 	.align 2, 0
 _08007050: .4byte gUnknown_03003930
 
-	THUMB_FUNC_START sub_8007054
-sub_8007054: @ 0x08007054
+	THUMB_FUNC_START Command3A
+Command3A: @ 0x08007054
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #4]
@@ -970,8 +937,8 @@ _080070B0:
 	bx r1
 	.align 2, 0
 
-	THUMB_FUNC_START sub_80070BC
-sub_80070BC: @ 0x080070BC
+	THUMB_FUNC_START Command3B
+Command3B: @ 0x080070BC
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #4]
@@ -1025,8 +992,8 @@ _0800711A:
 	bx r1
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8007124
-sub_8007124: @ 0x08007124
+	THUMB_FUNC_START Command3C
+Command3C: @ 0x08007124
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #4]
@@ -1078,8 +1045,8 @@ _08007166:
 _08007184: .4byte gUnknown_03003930
 _08007188: .4byte gOamObjects
 
-	THUMB_FUNC_START sub_800718C
-sub_800718C: @ 0x0800718C
+	THUMB_FUNC_START Command3D
+Command3D: @ 0x0800718C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #4]
@@ -1119,8 +1086,8 @@ _080071D0:
 	bx r1
 	.align 2, 0
 
-	THUMB_FUNC_START sub_80071D8
-sub_80071D8: @ 0x080071D8
+	THUMB_FUNC_START Command3E
+Command3E: @ 0x080071D8
 	push {r4, lr}
 	ldr r4, [r0, #4]
 	ldr r2, _0800722C
@@ -1173,8 +1140,8 @@ _08007240: .4byte 0x05000300
 _08007244: .4byte 0x80000010
 _08007248: .4byte gUnknown_03003A50
 
-	THUMB_FUNC_START sub_800724C
-sub_800724C: @ 0x0800724C
+	THUMB_FUNC_START Command3F
+Command3F: @ 0x0800724C
 	push {r4, r5, r6, lr}
 	sub sp, #8
 	adds r6, r0, #0
@@ -1581,8 +1548,8 @@ _08007570:
 _08007572:
 	bx lr
 
-	THUMB_FUNC_START sub_8007574
-sub_8007574: @ 0x08007574
+	THUMB_FUNC_START Command40
+Command40: @ 0x08007574
 	ldr r1, [r0, #4]
 	adds r1, #2
 	str r1, [r0, #4]
@@ -1602,8 +1569,8 @@ sub_8007574: @ 0x08007574
 _08007594: .4byte 0x0000FBFF
 _08007598: .4byte gOamObjects
 
-	THUMB_FUNC_START sub_800759C
-sub_800759C: @ 0x0800759C
+	THUMB_FUNC_START Command41
+Command41: @ 0x0800759C
 	push {r4, r5, r6, r7, lr}
 	ldr r1, [r0, #4]
 	adds r1, #2
@@ -1653,8 +1620,8 @@ _080075F8: .4byte gUnknown_03003A50
 _080075FC: .4byte 0x000040E0
 _08007600: .4byte gMain+0x4
 
-	THUMB_FUNC_START sub_8007604
-sub_8007604: @ 0x08007604
+	THUMB_FUNC_START Command42
+Command42: @ 0x08007604
 	adds r3, r0, #0
 	ldr r0, [r3, #4]
 	adds r1, r0, #2
@@ -1691,8 +1658,8 @@ _08007636:
 	.align 2, 0
 _08007644: .4byte gMain
 
-	THUMB_FUNC_START sub_8007648
-sub_8007648: @ 0x08007648
+	THUMB_FUNC_START Command43
+Command43: @ 0x08007648
 	adds r3, r0, #0
 	ldr r0, [r3, #4]
 	adds r1, r0, #2
@@ -1746,8 +1713,8 @@ _080076A8: .4byte gMain
 _080076AC: .4byte 0xFFFFFBFF
 _080076B0: .4byte gOamObjects+0x118
 
-	THUMB_FUNC_START sub_80076B4
-sub_80076B4: @ 0x080076B4
+	THUMB_FUNC_START Command44
+Command44: @ 0x080076B4
 	push {r4, r5, lr}
 	adds r3, r0, #0
 	ldr r5, _080076F8
@@ -1848,8 +1815,8 @@ _08007794: .4byte 0x000003EF
 _08007798: .4byte 0x0000C1EF
 _0800779C: .4byte 0x000051A0
 
-	THUMB_FUNC_START sub_80077A0
-sub_80077A0: @ 0x080077A0
+	THUMB_FUNC_START Command46
+Command46: @ 0x080077A0
 	push {r4, r5, r6, r7, lr}
 	adds r5, r0, #0
 	ldr r0, [r5, #4]
@@ -1943,8 +1910,8 @@ _0800785C: .4byte gUnknown_02031FC0
 _08007860: .4byte 0x80002580
 _08007864: .4byte 0x00003E0A
 
-	THUMB_FUNC_START sub_8007868
-sub_8007868: @ 0x08007868
+	THUMB_FUNC_START Command47
+Command47: @ 0x08007868
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #4]
@@ -1963,8 +1930,8 @@ sub_8007868: @ 0x08007868
 	bx r1
 	.align 2, 0
 
-	THUMB_FUNC_START sub_800788C
-sub_800788C: @ 0x0800788C
+	THUMB_FUNC_START Command48
+Command48: @ 0x0800788C
 	push {r4, r5, lr}
 	adds r2, r0, #0
 	ldr r4, [r2, #4]
@@ -2013,8 +1980,8 @@ _080078DA:
 _080078E4: .4byte gLCDIORegisters
 _080078E8: .4byte 0x0000FDFF
 
-	THUMB_FUNC_START sub_80078EC
-sub_80078EC: @ 0x080078EC
+	THUMB_FUNC_START Command49
+Command49: @ 0x080078EC
 	ldr r1, [r0, #4]
 	adds r1, #2
 	str r1, [r0, #4]
@@ -2029,8 +1996,8 @@ sub_80078EC: @ 0x080078EC
 	.align 2, 0
 _08007904: .4byte gMain
 
-	THUMB_FUNC_START sub_8007908
-sub_8007908: @ 0x08007908
+	THUMB_FUNC_START Command4A
+Command4A: @ 0x08007908
 	adds r1, r0, #0
 	ldr r0, [r1, #4]
 	adds r2, r0, #2
@@ -2066,8 +2033,8 @@ _08007940:
 	bx lr
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8007944
-sub_8007944: @ 0x08007944
+	THUMB_FUNC_START Command4B
+Command4B: @ 0x08007944
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #4]
@@ -2113,8 +2080,8 @@ _0800797A:
 _08007998: .4byte gUnknown_03003930
 _0800799C: .4byte 0x0000CFFF
 
-	THUMB_FUNC_START sub_80079A0
-sub_80079A0: @ 0x080079A0
+	THUMB_FUNC_START Command4C
+Command4C: @ 0x080079A0
 	adds r1, r0, #0
 	ldr r0, _080079B8
 	adds r0, #0x2e
