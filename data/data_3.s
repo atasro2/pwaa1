@@ -47,9 +47,9 @@ gUnknown_0811DBF0:
 
     .global gUnknown_0811DC04
 gUnknown_0811DC04:
-    .4byte gUnknown_03003730+0x94
-	.4byte gUnknown_03003730+0xB4
-	.4byte gUnknown_03003730+0xB8
+    .4byte gMain+0x94
+	.4byte gMain+0xB4
+	.4byte gMain+0xB8
 
     .global gUnknown_0811DC10
 gUnknown_0811DC10:

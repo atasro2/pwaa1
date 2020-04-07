@@ -1361,7 +1361,7 @@ _08001452:
 	strh r0, [r2, #0x14]
 	b _08001738
 	.align 2, 0
-_08001484: .4byte gUnknown_03003730
+_08001484: .4byte gMain
 _08001488: .4byte gLCDIORegisters
 _0800148C: .4byte gUnknown_03004000
 _08001490: .4byte 0x0000FF7F
@@ -1738,7 +1738,7 @@ sub_8001744: @ 0x08001744
 	b _08001828
 	.align 2, 0
 _08001764: .4byte 0xFFFF7FFF
-_08001768: .4byte gUnknown_03003730
+_08001768: .4byte gMain
 _0800176C:
 	ldr r0, _080017F8
 	lsls r2, r2, #3
@@ -1816,7 +1816,7 @@ _080017E6:
 	b _08001806
 	.align 2, 0
 _080017F8: .4byte gUnknown_080137D8
-_080017FC: .4byte gUnknown_03003730
+_080017FC: .4byte gMain
 _08001800:
 	movs r0, #0x80
 	lsls r0, r0, #2
@@ -1898,7 +1898,7 @@ _08001886:
 	adds r2, #0x20
 	b _080018A2
 	.align 2, 0
-_08001890: .4byte gUnknown_03003730
+_08001890: .4byte gMain
 _08001894: .4byte 0xFFFF7FFF
 _08001898: .4byte gUnknown_080137D8
 _0800189C:
@@ -1943,7 +1943,7 @@ _080018E0:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080018EC: .4byte gUnknown_03003730
+_080018EC: .4byte gMain
 _080018F0: .4byte gUnknown_0202CFC0
 _080018F4: .4byte gUnknown_080137D8
 
@@ -2127,7 +2127,7 @@ _08001A1A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08001A54: .4byte gUnknown_03003730
+_08001A54: .4byte gMain
 _08001A58: .4byte gLCDIORegisters
 _08001A5C: .4byte gUnknown_083698B8
 _08001A60: .4byte 0x040000D4
@@ -2166,7 +2166,7 @@ sub_8001A9C: @ 0x08001A9C
 	bl sub_80018F8
 	b _08002088
 	.align 2, 0
-_08001AC0: .4byte gUnknown_03003730
+_08001AC0: .4byte gMain
 _08001AC4: .4byte gLCDIORegisters
 _08001AC8:
 	movs r0, #0
@@ -2991,8 +2991,8 @@ sub_80020B0: @ 0x080020B0
 	lsls r0, r0, #1
 	b _08002160
 	.align 2, 0
-_08002150: .4byte gUnknown_03003730
-_08002154: .4byte gUnknown_03003730+0x2E
+_08002150: .4byte gMain
+_08002154: .4byte gMain+0x2E
 _08002158: .4byte gUnknown_080137D8
 _0800215C:
 	movs r0, #0xb4
@@ -3137,7 +3137,7 @@ sub_8002244: @ 0x08002244
 	beq _080022BE
 	b _08002312
 	.align 2, 0
-_08002258: .4byte gScriptState
+_08002258: .4byte gScriptContext
 _0800225C:
 	ldr r1, _08002294
 	movs r3, #0
@@ -3259,7 +3259,7 @@ _0800233C:
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-_08002348: .4byte gScriptState
+_08002348: .4byte gScriptContext
 _0800234C: .4byte _08002350
 _08002350: @ jump table
 	.4byte _08002438 @ case 0
@@ -3331,7 +3331,7 @@ _080023B0:
 	b _08002438
 	.align 2, 0
 _080023DC: .4byte gUnknown_03002000
-_080023E0: .4byte gUnknown_03003730
+_080023E0: .4byte gMain
 _080023E4:
 	ldr r2, _08002408
 	ldrh r0, [r2, #0xe]
@@ -3353,7 +3353,7 @@ _080023E4:
 	.align 2, 0
 _08002408: .4byte gLCDIORegisters
 _0800240C: .4byte 0xFFAF0000
-_08002410: .4byte gUnknown_03003730
+_08002410: .4byte gMain
 _08002414:
 	ldr r2, _08002440
 	ldrh r0, [r2, #0xe]
@@ -3419,8 +3419,8 @@ sub_800244C: @ 0x0800244C
 	strh r2, [r0]
 	b _080024BA
 	.align 2, 0
-_08002490: .4byte gUnknown_03003730
-_08002494: .4byte gScriptState
+_08002490: .4byte gMain
+_08002494: .4byte gScriptContext
 _08002498: .4byte gUnknown_03003A50
 _0800249C: .4byte gLCDIORegisters
 _080024A0: .4byte gUnknown_03002000
@@ -3439,7 +3439,7 @@ _080024BA:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080024C0: .4byte gScriptState
+_080024C0: .4byte gScriptContext
 _080024C4: .4byte gUnknown_03003A50
 
 	THUMB_FUNC_START sub_80024C8
@@ -3956,7 +3956,7 @@ _080028A0:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080028A8: .4byte gUnknown_03003730
+_080028A8: .4byte gMain
 _080028AC: .4byte gUnknown_0811DBF0
 _080028B0: .4byte gLCDIORegisters
 
@@ -4144,7 +4144,7 @@ _08002A00:
 _08002A18:
 	bx lr
 	.align 2, 0
-_08002A1C: .4byte gUnknown_03003730
+_08002A1C: .4byte gMain
 _08002A20: .4byte 0x040000D4
 _08002A24: .4byte gUnknown_03002F20
 _08002A28: .4byte 0x0600E000

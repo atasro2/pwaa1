@@ -1,4 +1,5 @@
 #include "global.h"
+#include "sound_control.h"
 #include "m4a.h"
 
 static void sub_80002E4();
@@ -28,8 +29,8 @@ static void (*IntrTableFunctionPtrs[])() =
 
 void CheckAButtonAndGoToClearSaveScreen()
 {
-    if ((gUnknown_03003730.unk4.asBytes.b1 == 0) && (A_BUTTON & KEY_NEW()))
-        gUnknown_03003730.unk4.asBytes.b1 = 0xE;
+    if ((gMain.unk4.asBytes.b1 == 0) && (A_BUTTON & KEY_NEW()))
+        gMain.unk4.asBytes.b1 = 0xE;
 }
 
 void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
@@ -42,130 +43,131 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
         CheckAButtonAndGoToClearSaveScreen();
         LOOP2:
         {
-			u32 v0;
-            v0 = sub_8000744();
-            if (v0 != 0)
+			u32 reset;
+            reset = sub_8000744();
+            if (reset != 0)
                 goto LOOP1;
 
-    gUnknown_03003730.unkC = v0;
+            gMain.frameCounter = reset;
 
             LOOP3:
             {
-                if (gUnknown_03003730.unkC != gUnknown_03003730.unkD)
+                if (gMain.frameCounter != gMain.unkD)
                 {
-                    goto LOOP3; // how the fuck do i get out of here? interrupts??
+                    goto LOOP3;
                 }
             }
 
-            if (gUnknown_03003730.unk2C == 0)
+            if (gMain.unk2C == 0)
             {
-                gUnknown_03003730.unk0++;
+                gMain.unk0++;
                 sub_80013EC();
                 sub_80029B0();
                 sub_8010C4C(0);
                 MoveSpritesToOAM();
                 SetLCDIORegs();
             }
-            if (gUnknown_03003730.unk2C > 10)
+            if (gMain.unk2C > 10)
             {
-                gUnknown_03003730.unk2C = 0;
-                sub_8001A9C(gUnknown_03003730.currentBG);
+                gMain.unk2C = 0;
+                sub_8001A9C(gMain.currentBG);
             }
 			// fakematch? scrub C? the fuck am i supposed to look at anyways?
-            if (gUnknown_03003730.unk2C == 0 && (sub_8005470(), gUnknown_03003730.unk2C == 0))
+            if (gMain.unk2C == 0 && (sub_8005470(), gMain.unk2C == 0))
             {
-                sub_800232C(gUnknown_03003730.unk2C);
-                sub_800EEFC(&gUnknown_03003730);
+                sub_800232C(gMain.unk2C);
+                sub_800EEFC(&gMain);
                 sub_80002E4();
-                sub_8010E14(gUnknown_03003730.previousBG);
+                sub_8010E14(gMain.previousBG);
                 sub_8000804();
             }
             else
             {
-                sub_8001744(gUnknown_03003730.currentBG);
+                sub_8001744(gMain.currentBG);
             }
             sub_800F614();
             m4aSoundMain();
             goto LOOP2;
         }
     }
-    if (gUnknown_03003730.unk2C == 0 && (sub_8005470(), gUnknown_03003730.unk2C == 0))
+    if (gMain.unk2C == 0 && (sub_8005470(), gMain.unk2C == 0))
     {
-        sub_800232C(gUnknown_03003730.unk2C);
-        sub_800EEFC(&gUnknown_03003730);
+        sub_800232C(gMain.unk2C);
+        sub_800EEFC(&gMain);
         sub_80002E4();
-        sub_8010E14(gUnknown_03003730.previousBG);
+        sub_8010E14(gMain.previousBG);
         sub_8000804();
     }
     else
     {
-        sub_8001744(gUnknown_03003730.currentBG);
+        sub_8001744(gMain.currentBG);
     }
     sub_800F614();
     m4aSoundMain();
     goto LOOP2;
 }
 
-void sub_80002E4() // related to screen shakes
+void sub_80002E4() // Proc?
 {
     struct Struct3004000 *iwstruct4000p = &gUnknown_03004000;
-    struct Struct3003730 *iwstruct3730p = &gUnknown_03003730;
+    struct Main *main = &gMain;
 
-    u8 mask;
-    u8 var1;
-    u32 var2 = iwstruct3730p->unkB4 & 1;
+    u8 amplitude;
+    u8 rand;
 
-    if (var2)
+    if (main->unkB4 & 1)
     {
-        switch (iwstruct3730p->unk12)
+        switch (main->shakeIntensity)
         {
         case 0:
-            mask = 1;
-            break;
-        case 2:
-            mask = 7;
+            amplitude = 1;
             break;
         case 1:
+            amplitude = 3;
+            break;
+        case 2:
+            amplitude = 7;
+            break;
         default:
-            mask = 3;
+            amplitude = 3;
             break;
         }
 
-        var1 = (sub_8002B40() & 15);
+        rand = Random() & 0xF;
 
-        if (var1 > 7)
+        if (rand > 7)
         {
-            iwstruct3730p->unkE = var1 & mask;
-            iwstruct3730p->unkE *= -1;
+            main->shakeAmountX = rand & amplitude;
+            main->shakeAmountX *= -1;
         }
         else
         {
-            iwstruct3730p->unkE = (var1 & mask);
+            main->shakeAmountX = rand & amplitude;
         }
 
-        var1 = sub_8002B40() & 15;
+        rand = Random() & 0xF;
 
-        if (var1 > 7)
+        if (rand > 7)
         {
-            iwstruct3730p->unkF = var1 & mask;
-            iwstruct3730p->unkF *= -1;
+            main->shakeAmountY = rand & amplitude;
+            main->shakeAmountY *= -1;
         }
         else
         {
-            iwstruct3730p->unkF = var1 & mask;
+            main->shakeAmountY = rand & amplitude;
         }
 
-        gLCDIORegisters.lcd_bg3vofs = iwstruct3730p->unkF + 8;
-        gLCDIORegisters.lcd_bg3hofs = iwstruct3730p->unkE + 8;
-        gLCDIORegisters.lcd_bg1vofs = iwstruct3730p->unkE;
-        gLCDIORegisters.lcd_bg1hofs = iwstruct3730p->unkF;
+        gLCDIORegisters.lcd_bg3vofs = main->shakeAmountY + 8;
+        gLCDIORegisters.lcd_bg3hofs = main->shakeAmountX + 8;
+        gLCDIORegisters.lcd_bg1vofs = main->shakeAmountX;
+        gLCDIORegisters.lcd_bg1hofs = main->shakeAmountY;
 
-        if (iwstruct3730p->unk10 != 0)
+        if (main->shakeTimer != 0)
         {
-            iwstruct3730p->unk10--;
-            if (iwstruct3730p->unk10 == 0)
+            main->shakeTimer--;
+            if (main->shakeTimer == 0)
             {
-                iwstruct3730p->unkB4 &= ~1;
+                main->unkB4 &= ~1;
                 gLCDIORegisters.lcd_bg3vofs = 8;
                 gLCDIORegisters.lcd_bg3hofs = 8;
                 gLCDIORegisters.lcd_bg1vofs = 0;
@@ -175,11 +177,11 @@ void sub_80002E4() // related to screen shakes
     }
     else
     {
-        gUnknown_03003730.unkE = var2;
-        gUnknown_03003730.unkF = var2;
+        main->shakeAmountX = 0;
+        main->shakeAmountY = 0;
     }
 
-    gUnknown_0811DBB4[gUnknown_03003730.unk4.asBytes.b1](&gUnknown_03003730);
+    gUnknown_0811DBB4[gMain.unk4.asBytes.b1](&gMain);
 
     if (iwstruct4000p->unk4)
     {
@@ -189,15 +191,15 @@ void sub_80002E4() // related to screen shakes
 
 void sub_80003E0()
 {
-    struct Struct3003730 *iwstruct3730p = &gUnknown_03003730;
+    struct Main *main = &gMain;
     struct LCDIORegisters *lcdIoRegsp = &gLCDIORegisters;
-    u32 temp = iwstruct3730p->unk4.asBytes.b1 ? 1 : 0;
+    u32 temp = main->unk4.asBytes.b1 ? 1 : 0;
 
     RegisterRamReset(RESET_SIO_REGS | RESET_SOUND_REGS | RESET_REGS);
     DmaFill32(3, 0, IWRAM_START, 0x7E00);  // Clear IWRAM // doesn't clear stack!
     DmaFill32(3, 0, EWRAM_START, 0x40000); // Clear EWRAM
 
-    iwstruct3730p->unk4.w1 = temp;
+    main->unk4.w1 = temp;
 
     RegisterRamReset(RESET_OAM | RESET_VRAM | RESET_PALETTE);
 
@@ -220,20 +222,20 @@ void sub_80003E0()
 void sub_80004B0() // reset a bunch of shit
 {
     struct LCDIORegisters *lcdIoRegsp = &gLCDIORegisters;
-    struct Struct3003730 *iwstruct3730p = &gUnknown_03003730;
+    struct Main *main = &gMain;
     DmaFill16(3, 0, VRAM, VRAM_SIZE);
     DmaFill16(3, 0, OAM, OAM_SIZE);
     DmaFill16(3, 0, PLTT, PLTT_SIZE);
-    DmaFill16(3, 0, &gUnknown_03003730, sizeof(gUnknown_03003730));
-    DmaFill16(3, 0, &gScriptState, sizeof(gScriptState));
+    DmaFill16(3, 0, &gMain, sizeof(gMain));
+    DmaFill16(3, 0, &gScriptContext, sizeof(gScriptContext));
     DmaFill16(3, 0, &gUnknown_03004000, sizeof(gUnknown_03004000));
     DmaFill16(3, 0, &gUnknown_03003AB0, sizeof(gUnknown_03003AB0));
     DmaFill16(3, 0, &gUnknown_03003A50, sizeof(gUnknown_03003A50));
     DmaFill16(3, 0, &gUnknown_03002840, sizeof(gUnknown_03002840));
     DmaFill16(3, 0, &gSaveDataBuffer, sizeof(gSaveDataBuffer));
-    iwstruct3730p->unk24 = 0xD37;
-    iwstruct3730p->unk8D = 0;
-    iwstruct3730p->unk8E = 1;
+    main->rngSeed = 0xD37;
+    main->unk8D = 0;
+    main->unk8E = 1;
     lcdIoRegsp->lcd_bg0cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(28) | BGCNT_16COLOR | BGCNT_WRAP;                 // TODO: add TXT/AFF macro once known which one is used
     lcdIoRegsp->lcd_bg1cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(29) | BGCNT_16COLOR | BGCNT_WRAP;                 // TODO: add TXT/AFF macro once known which one is used
     lcdIoRegsp->lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP;                 // TODO: add TXT/AFF macro once known which one is used
@@ -328,14 +330,14 @@ void sub_8000738(u16 arg0, u16 arg1)
 u32 sub_8000744()
 {
     struct Joypad *joypadCtrl = &gJoypad;
-    if (gUnknown_03003730.unk2C == 0)
+    if (gMain.unk2C == 0)
     {
         ReadKeys();
     }
 
-    gUnknown_03003730.unkD = 1;
+    gMain.unkD = 1;
 
-    if (joypadCtrl->heldKeysRaw == 15)
+    if (joypadCtrl->heldKeysRaw == (A_BUTTON|B_BUTTON|START_BUTTON|SELECT_BUTTON))
     {
         return 1;
     }
@@ -348,7 +350,7 @@ void sub_800077C(u8 * arg0, u32 arg1, u32 arg2, u32 arg3)
     gUnknown_03004000.unk4 = arg3;
     gUnknown_03004000.unkC = arg1;
     gUnknown_03004000.unkE = arg2;
-    gUnknown_03003730.unk2E = 0;
+    gMain.unk2E = 0;
 }
 
 void sub_80007A0(struct Struct3004000 *arg0)
@@ -373,83 +375,83 @@ void sub_80007A0(struct Struct3004000 *arg0)
 
 void sub_80007D8(u32 arg0, u32 arg1, u32 arg2, u32 arg3)
 {
-    gUnknown_03003730.unk74 = arg3;
-    gUnknown_03003730.unk76 = arg0;
-    gUnknown_03003730.unk7A = arg1;
-    gUnknown_03003730.unk7B = arg2;
-    gUnknown_03003730.unk78 = 0;
+    gMain.unk74 = arg3;
+    gMain.unk76 = arg0;
+    gMain.unk7A = arg1;
+    gMain.unk7B = arg2;
+    gMain.unk78 = 0;
 }
 
 void sub_8000804() // update hardware blend
 {
-    struct Struct3003730 *iwstruct3730p = &gUnknown_03003730;
+    struct Main *main = &gMain;
     struct LCDIORegisters *lcdIoRegsp = &gLCDIORegisters;
     u16 temp;
-    switch (iwstruct3730p->unk76)
+    switch (main->unk76)
     {
     case 0:
     default:
         break;
     case 1:
-        lcdIoRegsp->lcd_bldcnt = iwstruct3730p->unk74 | 0xC0;
-        iwstruct3730p->unk78++;
-        if (iwstruct3730p->unk78 >= iwstruct3730p->unk7A)
+        lcdIoRegsp->lcd_bldcnt = main->unk74 | BLDCNT_EFFECT_DARKEN;
+        main->unk78++;
+        if (main->unk78 >= main->unk7A)
         {
-            iwstruct3730p->unk78 = 0;
-            lcdIoRegsp->lcd_bldy -= iwstruct3730p->unk7B;
+            main->unk78 = 0;
+            lcdIoRegsp->lcd_bldy -= main->unk7B;
         }
         temp = lcdIoRegsp->lcd_bldy &= 0x1F;
         if (temp == 0)
         {
             lcdIoRegsp->lcd_bldy = temp;
-            lcdIoRegsp->lcd_bldcnt = 0x1C42;
-            lcdIoRegsp->lcd_bldalpha = 0x71F;
-            iwstruct3730p->unk76 = temp;
+            lcdIoRegsp->lcd_bldcnt = BLDCNT_TGT1_BG1 | BLDCNT_TGT2_BG2 | BLDCNT_TGT2_BG3 | BLDCNT_TGT2_OBJ | BLDCNT_EFFECT_BLEND;
+            lcdIoRegsp->lcd_bldalpha = BLDALPHA_BLEND(0x1F, 0x7);
+            main->unk76 = temp;
         }
         break;
     case 2:
-        lcdIoRegsp->lcd_bldcnt = iwstruct3730p->unk74 | 0xC0;
-        iwstruct3730p->unk78++;
-        if (iwstruct3730p->unk78 >= iwstruct3730p->unk7A)
+        lcdIoRegsp->lcd_bldcnt = main->unk74 | BLDCNT_EFFECT_DARKEN;
+        main->unk78++;
+        if (main->unk78 >= main->unk7A)
         {
-            iwstruct3730p->unk78 = 0;
-            lcdIoRegsp->lcd_bldy += iwstruct3730p->unk7B;
+            main->unk78 = 0;
+            lcdIoRegsp->lcd_bldy += main->unk7B;
         }
         temp = lcdIoRegsp->lcd_bldy &= 0x1F;
         if (temp == 0x10)
         {
-            iwstruct3730p->unk76 = 0;
+            main->unk76 = 0;
         }
         break;
     case 3:
-        lcdIoRegsp->lcd_bldcnt = iwstruct3730p->unk74 | 0x80;
-        iwstruct3730p->unk78++;
-        if (iwstruct3730p->unk78 >= iwstruct3730p->unk7A)
+        lcdIoRegsp->lcd_bldcnt = main->unk74 | BLDCNT_EFFECT_LIGHTEN;
+        main->unk78++;
+        if (main->unk78 >= main->unk7A)
         {
-            iwstruct3730p->unk78 = 0;
-            lcdIoRegsp->lcd_bldy -= iwstruct3730p->unk7B;
+            main->unk78 = 0;
+            lcdIoRegsp->lcd_bldy -= main->unk7B;
         }
         temp = lcdIoRegsp->lcd_bldy &= 0x1F;
         if (temp == 0)
         {
             lcdIoRegsp->lcd_bldy = temp;
-            lcdIoRegsp->lcd_bldcnt = 0x1C42;
-            lcdIoRegsp->lcd_bldalpha = 0x71F;
-            iwstruct3730p->unk76 = temp;
+            lcdIoRegsp->lcd_bldcnt = BLDCNT_TGT1_BG1 | BLDCNT_TGT2_BG2 | BLDCNT_TGT2_BG3 | BLDCNT_TGT2_OBJ | BLDCNT_EFFECT_BLEND;
+            lcdIoRegsp->lcd_bldalpha = BLDALPHA_BLEND(0x1F, 0x7);
+            main->unk76 = temp;
         }
         break;
     case 4:
-        lcdIoRegsp->lcd_bldcnt = iwstruct3730p->unk74 | 0x80;
-        iwstruct3730p->unk78++;
-        if (iwstruct3730p->unk78 >= iwstruct3730p->unk7A)
+        lcdIoRegsp->lcd_bldcnt = main->unk74 | BLDCNT_EFFECT_LIGHTEN;
+        main->unk78++;
+        if (main->unk78 >= main->unk7A)
         {
-            iwstruct3730p->unk78 = 0;
-            lcdIoRegsp->lcd_bldy += iwstruct3730p->unk7B;
+            main->unk78 = 0;
+            lcdIoRegsp->lcd_bldy += main->unk7B;
         }
         temp = lcdIoRegsp->lcd_bldy &= 0x1F;
         if (temp == 0x10)
         {
-            iwstruct3730p->unk76 = 0;
+            main->unk76 = 0;
         }
         break;
     }
@@ -458,7 +460,7 @@ void sub_8000804() // update hardware blend
 void VBlankIntr()
 {
     m4aSoundVSync();
-    gUnknown_03003730.unkC++;
+    gMain.frameCounter++;
 }
 
 void HBlankIntr()

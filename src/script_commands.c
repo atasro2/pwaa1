@@ -4,13 +4,13 @@
 #include "m4a.h"
 #include "constants/background.h"
 
-bool32 CommandDummy(struct ScriptState * scriptCtx)
+bool32 CommandDummy(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
     return 0;
 }
 
-bool32 Command00(struct ScriptState * scriptCtx)
+bool32 Command00(struct ScriptContext * scriptCtx)
 {
     sub_80054BC(scriptCtx);
     sub_80028B4(0, 0);
@@ -18,7 +18,7 @@ bool32 Command00(struct ScriptState * scriptCtx)
     return 0;
 }
 
-bool32 Command01(struct ScriptState * scriptCtx)
+bool32 Command01(struct ScriptContext * scriptCtx)
 {
     if(scriptCtx->unk0 & 4)
     {
@@ -35,7 +35,7 @@ bool32 Command01(struct ScriptState * scriptCtx)
     return 0;
 }
 
-bool32 Command02(struct ScriptState * scriptCtx)
+bool32 Command02(struct ScriptContext * scriptCtx)
 {
     u32 i;
     u32 temp;
@@ -60,7 +60,7 @@ bool32 Command02(struct ScriptState * scriptCtx)
             return 1;
         }
     }
-    if((u8)(gUnknown_03003730.unk4.asBytes.b1 - 3) <= 3)
+    if((u8)(gMain.unk4.asBytes.b1 - 3) <= 3)
     {
         if(scriptCtx->unk0 & 1)
             if(gJoypad.newKeysRaw & 1)
@@ -98,7 +98,7 @@ bool32 Command02(struct ScriptState * scriptCtx)
             scriptCtx->unk10 = 0;
             scriptCtx->unk11 = 2;
             scriptCtx->unk12 = 0;
-            gUnknown_03003730.unk15 = 0;
+            gMain.unk15 = 0;
             sub_8002244(1);
             for (i = 0; i < ARRAY_COUNT(gUnknown_03003930); i++)
             {
@@ -110,7 +110,7 @@ bool32 Command02(struct ScriptState * scriptCtx)
         scriptCtx->unk0 |= 0x20;
         if(scriptCtx->unkC == 0xA) // if script cmd is 0xA ?
         {
-            if(gUnknown_03003730.unk8F > 0)
+            if(gMain.unk8F > 0)
             {
                 //scriptCtx->scriptPtr++;
                 scriptCtx->unk20 = *(scriptCtx->scriptPtr+1);
@@ -128,16 +128,16 @@ bool32 Command02(struct ScriptState * scriptCtx)
             gUnknown_03003C00[i].unk0 &= ~0x8000;
         }
         if(scriptCtx->unkC == 0x2)
-            sub_800FBA0(&gUnknown_03000800.unk40, gUnknown_03003730.unk90);
+            sub_800FBA0(&gUnknown_03000800.unk40, gMain.unk90);
     }
     else
     {
         if((scriptCtx->unk0 & 1) == 0)
         {
-            sub_800FBA0(&gUnknown_03000800.unk40, gUnknown_03003730.unk92);
+            sub_800FBA0(&gUnknown_03000800.unk40, gMain.unk92);
             scriptCtx->unk0 |= 1;
         }
-        temp2 = gUnknown_03003730.unk4.asBytes.b1;
+        temp2 = gMain.unk4.asBytes.b1;
         if(temp2 != 9)
         {
             scriptCtx->unk37++;
@@ -169,7 +169,7 @@ bool32 Command02(struct ScriptState * scriptCtx)
     return 1;
 }
 
-bool32 Command03(struct ScriptState * scriptCtx)
+bool32 Command03(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
     scriptCtx->textColor = *scriptCtx->scriptPtr;
@@ -177,7 +177,7 @@ bool32 Command03(struct ScriptState * scriptCtx)
     return 0;
 }
 
-bool32 Command04(struct ScriptState * scriptCtx)
+bool32 Command04(struct ScriptContext * scriptCtx)
 {
 
     if(gJoypad.newKeysRaw & scriptCtx->scriptPtr[1]) 
@@ -185,7 +185,7 @@ bool32 Command04(struct ScriptState * scriptCtx)
     return 1;
 }
 
-bool32 Command05(struct ScriptState * scriptCtx)
+bool32 Command05(struct ScriptContext * scriptCtx)
 {
     u16 bgmNum;
     scriptCtx->scriptPtr++;
@@ -196,7 +196,7 @@ bool32 Command05(struct ScriptState * scriptCtx)
     return 0;
 }
 
-bool32 Command06(struct ScriptState * scriptCtx)
+bool32 Command06(struct ScriptContext * scriptCtx)
 {
     u32 soundNum;
     u32 flag;
@@ -216,7 +216,7 @@ bool32 Command06(struct ScriptState * scriptCtx)
 }
 
 NAKED
-bool32 Command08(struct ScriptState * scriptCtx)
+bool32 Command08(struct ScriptContext * scriptCtx)
 {
     asm_unified("push {r4, r5, r6, lr}\n\
 	adds r5, r0, #0\n\
@@ -256,7 +256,7 @@ _08005F5C:\n\
 	strh r1, [r0]\n\
 	b _080060BE\n\
 	.align 2, 0\n\
-_08005F74: .4byte gUnknown_03003730\n\
+_08005F74: .4byte gMain\n\
 _08005F78: .4byte gOamObjects\n\
 _08005F7C:\n\
 	adds r1, r5, #0\n\
@@ -434,7 +434,7 @@ _080060D4: .4byte 0x000004FC\n");
 }
 
 NAKED
-bool32 Command09(struct ScriptState * scriptCtx)
+bool32 Command09(struct ScriptContext * scriptCtx)
 {
     asm_unified("push {r4, r5, r6, lr}\n\
 	adds r5, r0, #0\n\
@@ -474,7 +474,7 @@ _08006108:\n\
 	strh r1, [r0]\n\
 	b _08006272\n\
 	.align 2, 0\n\
-_08006120: .4byte gUnknown_03003730\n\
+_08006120: .4byte gMain\n\
 _08006124: .4byte gOamObjects\n\
 _08006128:\n\
 	adds r1, r5, #0\n\
@@ -657,7 +657,7 @@ _08006284: .4byte 0x000002C2\n\
 _08006288: .4byte 0x000004FC\n");
 }
 
-bool32 Command0B(struct ScriptState * scriptCtx)
+bool32 Command0B(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
     scriptCtx->textSpeed = *scriptCtx->scriptPtr;
@@ -673,9 +673,9 @@ bool32 Command0B(struct ScriptState * scriptCtx)
     return 0;
 }
 
-bool32 Command0C(struct ScriptState * scriptCtx)
+bool32 Command0C(struct ScriptContext * scriptCtx)
 {
-    if(!gUnknown_03003730.unk76 != 0 && scriptCtx->unk13 > 1)
+    if(!gMain.unk76 != 0 && scriptCtx->unk13 > 1)
     {
         scriptCtx->scriptPtr++;
         scriptCtx->waitTimer = *scriptCtx->scriptPtr;
@@ -696,7 +696,7 @@ bool32 Command0C(struct ScriptState * scriptCtx)
     return 1;
 }
 
-bool32 Command0D(struct ScriptState * scriptCtx)
+bool32 Command0D(struct ScriptContext * scriptCtx)
 {
     scriptCtx->unk22 = scriptCtx->unk1E;
     scriptCtx->unk1E = scriptCtx->unk20;
@@ -704,7 +704,7 @@ bool32 Command0D(struct ScriptState * scriptCtx)
     return 0;
 }
 
-bool32 Command0E(struct ScriptState * scriptCtx)
+bool32 Command0E(struct ScriptContext * scriptCtx)
 {
     u8 temp;
     scriptCtx->scriptPtr++;
@@ -727,7 +727,7 @@ bool32 Command0E(struct ScriptState * scriptCtx)
     return 0;
 }
 
-bool32 Command0F(struct ScriptState * scriptCtx)
+bool32 Command0F(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
     scriptCtx->unk2C = *scriptCtx->scriptPtr;
@@ -737,7 +737,7 @@ bool32 Command0F(struct ScriptState * scriptCtx)
     return 0;
 }
 
-bool32 Command10(struct ScriptState * scriptCtx)
+bool32 Command10(struct ScriptContext * scriptCtx)
 {
     u32 num;
     u32 message;
@@ -752,18 +752,18 @@ bool32 Command10(struct ScriptState * scriptCtx)
     return 0;
 }
 
-bool32 Command11(struct ScriptState * scriptCtx)
+bool32 Command11(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
     PlaySE(49);
     scriptCtx->unk0 |= 0x10;
-    gUnknown_03003730.unkB4 |= 0x100;
-    gUnknown_03003730.unk8.w1 = gUnknown_03003730.unk4.w1;
-    gUnknown_03003730.unk4.w1 = 0x1000007;
+    gMain.unkB4 |= 0x100;
+    gMain.unk8.w1 = gMain.unk4.w1;
+    gMain.unk4.w1 = 0x1000007;
     return 0;
 }
 
-bool32 Command12(struct ScriptState * scriptCtx)
+bool32 Command12(struct ScriptContext * scriptCtx)
 {
     u32 var0;
     u32 var1;
@@ -778,26 +778,26 @@ bool32 Command12(struct ScriptState * scriptCtx)
     return 0;
 }
 
-bool32 Command13(struct ScriptState * scriptCtx)
+bool32 Command13(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
-    gUnknown_03003730.unk7D = 3;
-    gUnknown_03003730.unk7C = *scriptCtx->scriptPtr;
-    gUnknown_03003730.unk7E = *scriptCtx->scriptPtr >> 8;
+    gMain.unk7D = 3;
+    gMain.unk7C = *scriptCtx->scriptPtr;
+    gMain.unk7E = *scriptCtx->scriptPtr >> 8;
     scriptCtx->scriptPtr++;
     PlaySE(51);
     return 0;
 }
 
-bool32 Command14(struct ScriptState * scriptCtx)
+bool32 Command14(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
-    gUnknown_03003730.unk7D = 1;
+    gMain.unk7D = 1;
     PlaySE(51);
     return 0;
 } 
 
-bool32 Command15(struct ScriptState * scriptCtx)
+bool32 Command15(struct ScriptContext * scriptCtx)
 {
     if(scriptCtx->unk0 & 8)
     {
@@ -805,27 +805,27 @@ bool32 Command15(struct ScriptState * scriptCtx)
     }
     if(*scriptCtx->scriptPtr == 0x15)
     {
-        sub_800FBA0(&(gUnknown_03000800.unk40), gUnknown_03003730.unk92);
+        sub_800FBA0(&(gUnknown_03000800.unk40), gMain.unk92);
     }
     scriptCtx->unk0 |= 8;
     return 1;
 }
 
-bool32 Command16(struct ScriptState * scriptCtx)
+bool32 Command16(struct ScriptContext * scriptCtx)
 {
-    struct Struct3003730 *iwstruct3730p = &gUnknown_03003730;
+    struct Main *main = &gMain;
     scriptCtx->scriptPtr++;
-    iwstruct3730p->unk14 = 0;
-    iwstruct3730p->unk15 = 0;
-    iwstruct3730p->unk4.w1 = 0x203;
+    main->unk14 = 0;
+    main->unk15 = 0;
+    main->unk4.w1 = 0x203;
     gUnknown_03003A50.unkA = 0;
     gUnknown_03003A50.unkB = 0;
-    iwstruct3730p->unk8D++;
+    main->unk8D++;
     sub_800F408(16);
     return 1;
 }
 
-bool32 Command17(struct ScriptState * scriptCtx)
+bool32 Command17(struct ScriptContext * scriptCtx)
 {
     u16 var1;
     u16 var2;
@@ -851,10 +851,10 @@ bool32 Command17(struct ScriptState * scriptCtx)
             }
             if(*scriptCtx->scriptPtr & 0x4000)
             {
-                gUnknown_03003730.unk26 = var2;
-                gUnknown_03003730.unk27 = var1;
-                gUnknown_03003730.unk8.w1 = gUnknown_03003730.unk4.w1;
-                gUnknown_03003730.unk4.w1 = 0x8;
+                gMain.unk26 = var2;
+                gMain.unk27 = var1;
+                gMain.unk8.w1 = gMain.unk4.w1;
+                gMain.unk4.w1 = 0x8;
             }
         }
     }
@@ -862,7 +862,7 @@ bool32 Command17(struct ScriptState * scriptCtx)
     return 1;
 }
 
-bool32 Command18(struct ScriptState * scriptCtx)
+bool32 Command18(struct ScriptContext * scriptCtx)
 {
     u16 var1;
     u16 var2;
@@ -887,7 +887,7 @@ bool32 Command18(struct ScriptState * scriptCtx)
     return 0;
 }
 
-bool32 Command19(struct ScriptState * scriptCtx)
+bool32 Command19(struct ScriptContext * scriptCtx)
 {
     u16 var1;
     u16 var2;
@@ -911,17 +911,17 @@ bool32 Command19(struct ScriptState * scriptCtx)
         }
         if(*scriptCtx->scriptPtr & 0x4000)
         {
-            gUnknown_03003730.unk26 = var2;
-            gUnknown_03003730.unk27 = var1;
-            gUnknown_03003730.unk8.w1 = gUnknown_03003730.unk4.w1;
-            gUnknown_03003730.unk4.w1 = 0x8;
+            gMain.unk26 = var2;
+            gMain.unk27 = var1;
+            gMain.unk8.w1 = gMain.unk4.w1;
+            gMain.unk4.w1 = 0x8;
         }
     }
     scriptCtx->scriptPtr++;
     return 0;
 }
 
-u32 Command1A(struct ScriptState * scriptCtx)
+u32 Command1A(struct ScriptContext * scriptCtx)
 {
     u32 var0;
     u32 var1;
@@ -944,19 +944,19 @@ u32 Command1A(struct ScriptState * scriptCtx)
     return 0;
 }
 
-u32 Command1B(struct ScriptState * scriptCtx)
+u32 Command1B(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
-    if(gUnknown_03003730.currentBG != *scriptCtx->scriptPtr)
+    if(gMain.currentBG != *scriptCtx->scriptPtr)
     {
         changeBG:
-        gUnknown_03003730.previousBG = gUnknown_03003730.currentBG;
-        gUnknown_03003730.currentBG = *scriptCtx->scriptPtr;
-        gUnknown_03003730.unk2C = 1;
+        gMain.previousBG = gMain.currentBG;
+        gMain.currentBG = *scriptCtx->scriptPtr;
+        gMain.unk2C = 1;
         scriptCtx->scriptPtr++;
         return 1;
     }
-    if(gUnknown_03003730.currentBG != 0x42)
+    if(gMain.currentBG != 0x42)
     {
         scriptCtx->scriptPtr++;
         return 0;
@@ -967,23 +967,23 @@ u32 Command1B(struct ScriptState * scriptCtx)
     }
 }
 
-u32 Command1C(struct ScriptState * scriptCtx)
+u32 Command1C(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
     switch(*scriptCtx->scriptPtr)
     {
         case 0: // enable textbox
-            gUnknown_03003730.unk15 = 1; // show characters??
+            gMain.unk15 = 1; // show characters??
             gLCDIORegisters.lcd_dispcnt |= DISPCNT_BG1_ON;
             gLCDIORegisters.lcd_bg1vofs = 0;
             break;
         case 1: // disable textbox
-            gUnknown_03003730.unk15 = 0;
+            gMain.unk15 = 0;
             gLCDIORegisters.lcd_dispcnt &= ~DISPCNT_BG1_ON;
             gLCDIORegisters.lcd_bg1vofs = 0;
             break;
         case 2:
-            if(gUnknown_03003730.unk4.asBytes.b1 == 3)
+            if(gMain.unk4.asBytes.b1 == 3)
             {
                 sub_8010960(&(gUnknown_03000800.unk40));
                 gUnknown_03003A50.unk5 = 0;
@@ -992,27 +992,27 @@ u32 Command1C(struct ScriptState * scriptCtx)
             sub_800244C(1);
             break;
         case 3:
-            if(gUnknown_03003730.unk4.asBytes.b1 == 3)
+            if(gMain.unk4.asBytes.b1 == 3)
             {
                 sub_8010960(&(gUnknown_03000800.unk40));
                 gUnknown_03003A50.unk5 = 0;
                 sub_800B7A8(&gUnknown_03003A50, 15);
             }
             sub_800244C(0);
-            if(gUnknown_03003730.unk4.asBytes.b1 == 4)
+            if(gMain.unk4.asBytes.b1 == 4)
             {
                 gUnknown_03003A50.unkE = 0;
-                if(gUnknown_03003730.unk4.asBytes.b2 == 6)
+                if(gMain.unk4.asBytes.b2 == 6)
                 {
                     sub_800B7A8(&gUnknown_03003A50, 1);
                 }
-                if(gUnknown_03003730.unk4.asBytes.b2 == 8)
+                if(gMain.unk4.asBytes.b2 == 8)
                 {
                     sub_800B7A8(&gUnknown_03003A50, 4);
                     gUnknown_03003A50.unkC = 4;
                     gUnknown_03003A50.unkD = 0xE0;
                 }
-                if(gUnknown_03003730.unk4.asBytes.b2 == 9)
+                if(gMain.unk4.asBytes.b2 == 9)
                 {
                     sub_800B7A8(&gUnknown_03003A50, 8);
                 }
@@ -1026,37 +1026,37 @@ u32 Command1C(struct ScriptState * scriptCtx)
     return 0;
 }
 
-u32 Command1D(struct ScriptState * scriptCtx)
+u32 Command1D(struct ScriptContext * scriptCtx)
 {
     u32 var0;
     u32 var1;
     scriptCtx->scriptPtr++;
-    var0 = sub_8002224(gUnknown_03003730.currentBG);
+    var0 = sub_8002224(gMain.currentBG);
     if(var0 & 0xF)
-        gUnknown_03003730.unk2E = 1;
+        gMain.unk2E = 1;
     else
-        gUnknown_03003730.unk2E = 0;
+        gMain.unk2E = 0;
     var1 = *scriptCtx->scriptPtr;
     switch(var1 >> 8)
     {
         case BG_SHIFT_LEFT:
-            gUnknown_03003730.unk3C = -var1;
+            gMain.unk3C = -var1;
             break;
         case BG_SHIFT_RIGHT:
-            gUnknown_03003730.unk3C = var1;
+            gMain.unk3C = var1;
             break;
         case BG_SHIFT_UP:
-            gUnknown_03003730.unk3D = -var1;
+            gMain.unk3D = -var1;
             break;
         case BG_SHIFT_DOWN:
-            gUnknown_03003730.unk3D = var1;
+            gMain.unk3D = var1;
             break;
     }
     scriptCtx->scriptPtr++;
     return 0;
 }
 
-u32 Command1E(struct ScriptState * scriptCtx)
+u32 Command1E(struct ScriptContext * scriptCtx)
 {
     u32 var0;
     u32 var1;
@@ -1065,10 +1065,10 @@ u32 Command1E(struct ScriptState * scriptCtx)
     var0 = *scriptCtx->scriptPtr;
     scriptCtx->scriptPtr++;
     var1 = *scriptCtx->scriptPtr;
-    gUnknown_03003730.unk90 = var1;
+    gMain.unk90 = var1;
     scriptCtx->scriptPtr++;
     var2 = *scriptCtx->scriptPtr;
-    gUnknown_03003730.unk92 = var2;
+    gMain.unk92 = var2;
     scriptCtx->scriptPtr++;
     if(var0 != 0)
     {
@@ -1085,7 +1085,7 @@ u32 Command1E(struct ScriptState * scriptCtx)
     return 0;
 }
 
-u32 Command1F(struct ScriptState * scriptCtx)
+u32 Command1F(struct ScriptContext * scriptCtx)
 {
     u32 i;
     u16 * tilemapBuffer;
@@ -1101,7 +1101,7 @@ u32 Command1F(struct ScriptState * scriptCtx)
     return 0;
 }
 
-u32 Command20(struct ScriptState * scriptCtx)
+u32 Command20(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
     scriptCtx->unk20 = *scriptCtx->scriptPtr;

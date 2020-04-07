@@ -5,7 +5,7 @@
 
 //DATA
 extern const u8 gUnknown_08013B70[0x400];
-extern void (*gUnknown_0811DBB4[15])(struct Struct3003730 *);
+extern void (*gUnknown_0811DBB4[15])(struct Main *);
 extern u32 * gUnknown_0811DC04[3]; 
 extern s16 gSineTable[256+64];
 extern u32 gUnknown_080150D0[12];
@@ -18,6 +18,12 @@ extern u8 gUnknown_080187C0[8];
 extern u8 * gUnknown_080187B4[3];
 
 //FUNCTIONS // these should be moved soon
+void sub_80007A0(struct Struct3004000 *);
+u8 Random();
+void sub_800549C(u32);
+void sub_8005408();
+void sub_800F804();
+void sub_8005470();
 void sub_80003E0();
 void HideAllSprites();
 void SetLCDIORegs();
@@ -31,24 +37,17 @@ void sub_8002B94(u32, u32, bool32);
 void sub_80007D8(u32 arg0, u32 arg1, u32 arg2, u32 arg3);
 void sub_800077C(u8 *, u32, u32, u32);
 //ASMFUNCTIONS
-extern void sub_800F614();
 extern void sub_8001744(u16);
 extern void sub_8010E14(s16);
-extern void sub_800EEFC(struct Struct3003730 *);
+extern void sub_800EEFC(struct Main *);
 extern void sub_800232C();
-extern void sub_8005470();
 extern void sub_8001A9C(u16);
 extern void sub_8010C4C(u8);
 extern void sub_80029B0();
 extern void sub_80013EC();
-extern void sub_80007A0(struct Struct3004000 *);
-extern u8 sub_8002B40();
-extern void sub_800F804();
 extern void sub_800F3C4();
-extern void sub_8005408();
 extern void sub_8010048(u32, u32, u32, u32);
 extern void sub_800B7A8(struct Struct3003A50 *, u32);
-extern void sub_800549C(u32);
 extern void sub_800244C(u32);
 extern void sub_80028B4(u32, u32);
 extern void sub_8002244(u32);
@@ -76,12 +75,12 @@ extern struct Struct30028A0 gUnknown_030028A0;
 extern struct OamAttrs gOamObjects[128];
 extern u16 gUnknown_03002F20[0x400]; // BG 0 Map buffer
 extern struct Joypad gJoypad;
-extern struct Struct3003730 gUnknown_03003730;
+extern struct Main gMain;
 extern struct LCDIORegisters gLCDIORegisters;
 extern struct Struct3003930 gUnknown_03003930[8];
 extern u8 gUnknown_030039D0[0x80];
 extern struct Struct3003A50 gUnknown_03003A50;
-extern struct ScriptState gScriptState;
+extern struct ScriptContext gScriptContext;
 extern struct Struct3003AB0 gUnknown_03003AB0; 
 extern struct Struct3003C00 gUnknown_03003C00[0x3F];
 extern struct Struct3004000 gUnknown_03004000;
