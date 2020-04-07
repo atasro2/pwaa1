@@ -463,7 +463,7 @@ sub_800318C: @ 0x0800318C
 	.align 2, 0
 _080031B4: .4byte 0x040000D4
 _080031B8: .4byte gUnknown_08015520
-_080031BC: .4byte gUnknown_03003730+0xD8
+_080031BC: .4byte gMain+0xD8
 _080031C0: .4byte 0x80000018
 _080031C4: .4byte gUnknown_0801541C
 _080031C8: .4byte gUnknown_030028A0
@@ -923,7 +923,7 @@ sub_8003594: @ 0x08003594
 	.align 2, 0
 _080035BC: .4byte 0x040000D4
 _080035C0: .4byte gUnknown_08015B70
-_080035C4: .4byte gUnknown_03003730+0xD8
+_080035C4: .4byte gMain+0xD8
 _080035C8: .4byte 0x80000030
 _080035CC: .4byte gUnknown_08015A1C
 _080035D0: .4byte gUnknown_030028A0
@@ -1325,7 +1325,7 @@ sub_8003924: @ 0x08003924
 	.align 2, 0
 _0800394C: .4byte 0x040000D4
 _08003950: .4byte gUnknown_0801618C
-_08003954: .4byte gUnknown_03003730+0xD8
+_08003954: .4byte gMain+0xD8
 _08003958: .4byte 0x80000038
 _0800395C: .4byte gUnknown_08016024
 _08003960: .4byte gUnknown_030028A0
@@ -1737,7 +1737,7 @@ _08003D06:
 	ldr r0, _08003D2C
 	b _08004086
 	.align 2, 0
-_08003D14: .4byte gUnknown_03003730
+_08003D14: .4byte gMain
 _08003D18: .4byte 0x0000801C
 _08003D1C: .4byte gUnknown_03003A50
 _08003D20: .4byte 0x040000D4
@@ -2165,7 +2165,7 @@ sub_80040A4: @ 0x080040A4
 	.align 2, 0
 _080040CC: .4byte 0x040000D4
 _080040D0: .4byte gUnknown_08016C70
-_080040D4: .4byte gUnknown_03003730+0xD8
+_080040D4: .4byte gMain+0xD8
 _080040D8: .4byte 0x80000038
 _080040DC: .4byte gUnknown_08016B6C
 _080040E0: .4byte gUnknown_030028A0
@@ -2387,7 +2387,7 @@ _080042C8:
 	ldr r0, _080042F0
 	b _0800446A
 	.align 2, 0
-_080042D8: .4byte gUnknown_03003730
+_080042D8: .4byte gMain
 _080042DC: .4byte 0x00008014
 _080042E0: .4byte gUnknown_03003A50
 _080042E4: .4byte 0x040000D4
@@ -2634,7 +2634,7 @@ sub_80044D0: @ 0x080044D0
 	.align 2, 0
 _080044F8: .4byte 0x040000D4
 _080044FC: .4byte gUnknown_08017590
-_08004500: .4byte gUnknown_03003730+0xD8
+_08004500: .4byte gMain+0xD8
 _08004504: .4byte 0x80000054
 _08004508: .4byte gUnknown_080173B0
 _0800450C: .4byte gUnknown_030028A0
@@ -3213,7 +3213,7 @@ sub_80049F8: @ 0x080049F8
 	.align 2, 0
 _08004A20: .4byte 0x040000D4
 _08004A24: .4byte gUnknown_08017C8C
-_08004A28: .4byte gUnknown_03003730+0xD8
+_08004A28: .4byte gMain+0xD8
 _08004A2C: .4byte 0x80000054
 _08004A30: .4byte gUnknown_08017B24
 _08004A34: .4byte gUnknown_030028A0
@@ -3914,7 +3914,7 @@ sub_8005034: @ 0x08005034
 	.align 2, 0
 _0800505C: .4byte 0x040000D4
 _08005060: .4byte gUnknown_0801833C
-_08005064: .4byte gUnknown_03003730+0xD8
+_08005064: .4byte gMain+0xD8
 _08005068: .4byte 0x80000054
 _0800506C: .4byte gUnknown_0801824C
 _08005070: .4byte gUnknown_030028A0

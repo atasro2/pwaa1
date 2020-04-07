@@ -6,34 +6,34 @@ void MoveSpritesToOAM()
     DmaCopy16(3, gOamObjects, OAM, sizeof(gOamObjects));
 }
 
+
 #ifdef NONMATCHING // i don't want anything to do with this stupid ass function it's not even close
-bool32 sub_8002A68(u16 * arg0, struct unkdatastruct * arg1)
+bool32 sub_8002A68(struct GSPoint * p, struct GSPoint4 * cp)
 {
-    s32 unk0 = arg1->unk0; // r4
-    s32 unk1 = arg1->unk2; // ip
-    s32 unk2 = arg0[0] - unk1; // r5
-    s32 unk3 = arg0[1] - unk1; // r3
-    s32 unk4 = arg1->unk4 - unk0; // r8
-    s32 unk5 = arg1->unk6 - unk1; // r6
-    s32 unk7 = arg1->unkC - unk0; // sb
-    s32 unk8 = arg1->unkE - unk1; // r7
-    if((unk3 * unk4) >= (unk2 * unk8) && (unk3 * unk7) <= (unk2 * unk8))
+    s32 x = cp->x0;
+    s32 y = cp->y0;
+    s32 num = p->x - x;
+    s32 num2 = p->y - y;
+    s32 num3 = cp->x1 - x;
+    s32 num4 = cp->y1 - y;
+    s32 num5 = cp->x3 - x;
+    s32 num6 = cp->y3 - y;
+    
+    if (num3 * num2 < num4 * num || num5 * num2 > num6 * num)
     {
-        u32 unk9 = arg1->unk8 - unk0; // r1
-        u32 unk10; // r0
-        unk2 -= unk9;
-        unk10 = arg1->unkA - unk1;
-        unk3 -= unk10;
-        unk4 -= unk9;
-        unk5 -= unk10;
-        unk7 -= unk9;
-        unk8 -= unk10;
-        if((unk3 * unk4) <= (unk2 * unk5) && (unk3 * unk7) < (unk2 * unk8))
-        {
-            return 1;
-        }
+        return FALSE;
     }
-    return 0;
+    num -= cp->x2 - x;
+    num2 -= cp->y2 - y;
+    num3 -= cp->x2 - x;
+    num4 -= cp->y2 - y;
+    num5 -= cp->x2 - x;
+    num6 -= cp->y2 - y;
+    if (num3 * num2 > num4 * num || num5 * num2 < num6 * num)
+    {
+        return FALSE;
+    }
+    return TRUE;
 }
 #else
 NAKED
@@ -143,37 +143,37 @@ s16 fix_inverse(s16 b)
     return tmp;
 }
 
-u8 sub_8002B40()
+union u32asBitfields
 {
-    struct Struct3003730 * iwstruct3730p = &gUnknown_03003730;
-    s32 unk0;
-    s32 unk1;
-    u16 unk2;
-    u8 unk3;
-    s8 unk4;
-    u16 unk5;
+    struct
+    {
+        s32 low:8;
+        s32 high:8;
+    } bytes;
+    struct
+    {
+        s32 low:16;
+        s32 high:16;
+    } shorts;
+    s32 w:32;
+};
 
-    unk0 &= 0xFFFF0000;
-    unk0 |= iwstruct3730p->unk24;
+u8 Random()
+{
+    struct Main * main = &gMain;
+    union u32asBitfields unk0;
+    union u32asBitfields unk1;
 
-    unk2 = (s16)iwstruct3730p->unk24 * 3;
-    
-    unk1 &= 0xFFFF0000;
-    unk1 |= unk2;
+    unk0.shorts.low = (s16)main->rngSeed;
 
-    unk4 = unk1 >> 8;
-    unk3 = unk4 + unk0;
-    
-    unk0 &= 0xFFFFFF00;
-    unk0 |= unk3;
-    
-    unk5 = unk4 << 8;
-    
-    unk0 &= 0xFFFF00FF;
-    unk0 |= unk5;
+    unk1.shorts.low = (s16)main->rngSeed * 3;
 
-    iwstruct3730p->unk24 = unk0;
-    return unk0;
+    unk0.bytes.low += (u8)unk1.bytes.high;
+    
+    unk0.bytes.high = unk1.bytes.high;
+
+    main->rngSeed = unk0.w;
+    return unk0.w;
 }
 
 void sub_8002B94(u32 arg0, u32 arg1, bool32 arg2) // set flag?
@@ -202,7 +202,7 @@ bool32 sub_8002BD0(u32 arg0, u32 arg1) // is flag set?
     return (*unk0 & unk1) ? TRUE : FALSE;
 }
 
-// unreferenced?? // bm_rotate ?
+// unreferenced // bm_rotate ?
 
 void sub_8002BF8(s16 scale)
 {
@@ -219,9 +219,9 @@ void sub_8002BF8(s16 scale)
 
 void sub_8002C98(u32 arg0, u32 arg1, u32 arg2)
 {
-    struct Struct3003730 * iwstruct3730p = &gUnknown_03003730;
-    iwstruct3730p->unk90 = arg1;
-    iwstruct3730p->unk92 = arg2;
+    struct Main * main = &gMain;
+    main->unk90 = arg1;
+    main->unk92 = arg2;
     sub_8010048(arg0, 0, arg1, 0);
     gUnknown_03003A50.unk5 = 1;
     sub_800B7A8(&gUnknown_03003A50, 0xF);
@@ -239,7 +239,7 @@ void sub_8002CF0(u32 arg0, u32 arg1) // init investigation buttons?
 {
     struct OamAttrs * sprite = &gOamObjects[49];
     u32 i = 0;
-    union Union3003734 * union3734 = &gUnknown_03003730.unk4;
+    union Union3003734 * union3734 = &gMain.unk4;
 
     for(i = 0; i < 4; sprite++, i++)
     {
@@ -260,9 +260,9 @@ void nullsub_4(u32 arg0)
 
 }
 
-void sub_8002D70(struct Struct3003730 * struct3730p)
+void sub_8002D70(struct Main * struct3730p)
 {
-    DmaCopy16(3, gUnknown_080150D0, &gUnknown_03003730.unkD8, sizeof(gUnknown_080150D0));
+    DmaCopy16(3, gUnknown_080150D0, &gMain.unkD8, sizeof(gUnknown_080150D0));
     DmaCopy16(3, gUnknown_08014FB8, &gUnknown_030028A0, sizeof(gUnknown_08014FB8));
     struct3730p->unk8C = 0;
 }

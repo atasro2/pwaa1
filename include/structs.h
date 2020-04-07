@@ -57,33 +57,33 @@ union Union3003734
 };
 
 
-struct Struct3003730
+struct Main
 {
-    u32 unk0;
+    u32 unk0; // System_timer? unused in unity
     union Union3003734 unk4;
     union Union3003734 unk8;
-    u8 unkC;
+    u8 frameCounter; /* + 0xC */
     u8 unkD;
-    s8 unkE;
-    s8 unkF;
-    u16 unk10;
-    u8 unk12;
+    s8 shakeAmountX; /* + 0xE */ // Quake_x 
+    s8 shakeAmountY; /* + 0xF */ // Quake_y
+    u16 shakeTimer; /* + 0x10 */ // Quake_timer
+    u8 shakeIntensity; /* + 0x12 */
     u8 unk13;
     u8 unk14;
     u8 unk15;
     u8 filler16[0x4];
     s16 unk1A;
-    u8 unk1C;
+    u8 unk1C; // sound_status
     u8 unk1D;
     u8 filler1E[0x1];
     u8 unk1F;
-    s16 unk20;
-    s16 unk22;
-    u16 unk24;
+    s16 unk20; // fade vol adittion? // bgm_fade_time 
+    s16 unk22; // bgm volume // bgm_vol
+    u16 rngSeed; /* + 0x24 */ // Random_seed
     u8 unk26;
     u8 unk27;
-    u16 currentBG; /* + 0x28 */
-    s16 previousBG; /* + 0x2A */
+    u16 currentBG; /* + 0x28 */ // probably wrong 
+    s16 previousBG; /* + 0x2A */ // probably wrong
     s8 unk2C;
     u8 unk2D;
     u8 unk2E;
@@ -101,16 +101,14 @@ struct Struct3003730
     u8 unk7E;
     u8 filler7F[0xD];
     u8 unk8C;
-    u8 unk8D;
+    u8 unk8D; // scenario num? 
     u8 unk8E;
-    s8 unk8F;
+    s8 unk8F; // rest
     u16 unk90;
     u16 unk92;
-    u32 unk94;
-    u8 filler98[0x1C];
-    u32 unkB4;
-    u32 unkB8;
-    u8 fillerBC[0x1C];
+    u32 unk94[8]; // sce_flag
+    u32 unkB4; // status_flag
+    u8 fillerB8[0x20]; // talk_end_flag?
     u32 unkD8;
     u8 fillerDC[0xBC];
     u32 unk198;
@@ -170,7 +168,7 @@ struct Struct3003930
     u8 fillerA[0xA]; 
 };
 
-struct ScriptState
+struct ScriptContext
 {
     u16 unk0; // message status
     u16 waitTimer; // wait timer
@@ -273,5 +271,24 @@ struct Struct3004000
     s16 unkC;
     s16 unkE;
 };
+
+struct GSPoint4 // shamelessly stolen from unity
+{
+    u16 x0;
+    u16 y0;
+    u16 x1;
+    u16 y1;
+    u16 x2;
+    u16 y2;
+    u16 x3;
+    u16 y3;
+};
+
+struct GSPoint // shamelessly stolen from unity
+{
+    u16 x;
+    u16 y;
+};
+
 
 #endif//GUARD_STRUCTS_H

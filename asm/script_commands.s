@@ -31,7 +31,7 @@ sub_8006988: @ 0x08006988
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080069C0: .4byte gUnknown_03003730
+_080069C0: .4byte gMain
 _080069C4: .4byte 0x01000007
 
 	THUMB_FUNC_START sub_80069C8
@@ -98,7 +98,7 @@ sub_8006A20: @ 0x08006A20
 	movs r0, #1
 	bx lr
 	.align 2, 0
-_08006A38: .4byte gUnknown_03003730
+_08006A38: .4byte gMain
 
 	THUMB_FUNC_START sub_8006A3C
 sub_8006A3C: @ 0x08006A3C
@@ -127,7 +127,7 @@ sub_8006A4C: @ 0x08006A4C
 	orrs r1, r2
 	b _08006A78
 	.align 2, 0
-_08006A68: .4byte gUnknown_03003730
+_08006A68: .4byte gMain
 _08006A6C:
 	ldr r0, _08006A84
 	adds r0, #0xb4
@@ -143,7 +143,7 @@ _08006A78:
 	movs r0, #0
 	bx lr
 	.align 2, 0
-_08006A84: .4byte gUnknown_03003730
+_08006A84: .4byte gMain
 
 	THUMB_FUNC_START sub_8006A88
 sub_8006A88: @ 0x08006A88
@@ -168,7 +168,7 @@ sub_8006A88: @ 0x08006A88
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08006AB0: .4byte gUnknown_03003730
+_08006AB0: .4byte gMain
 
 	THUMB_FUNC_START sub_8006AB4
 sub_8006AB4: @ 0x08006AB4
@@ -187,7 +187,7 @@ sub_8006AB4: @ 0x08006AB4
 	str r0, [r2]
 	b _08006ADC
 	.align 2, 0
-_08006AD0: .4byte gUnknown_03003730+0x8
+_08006AD0: .4byte gMain+0x8
 _08006AD4:
 	ldr r1, _08006AE8
 	ldrb r0, [r1, #5]
@@ -200,7 +200,7 @@ _08006ADC:
 	movs r0, #0
 	bx lr
 	.align 2, 0
-_08006AE8: .4byte gUnknown_03003730
+_08006AE8: .4byte gMain
 
 	THUMB_FUNC_START sub_8006AEC
 sub_8006AEC: @ 0x08006AEC
@@ -275,7 +275,7 @@ _08006B68:
 	str r0, [r2]
 	b _08006B86
 	.align 2, 0
-_08006B7C: .4byte gUnknown_03003730+0x8
+_08006B7C: .4byte gMain+0x8
 _08006B80:
 	ldr r1, _08006B90
 	ldr r0, _08006B94
@@ -287,7 +287,7 @@ _08006B86:
 	movs r0, #0
 	bx lr
 	.align 2, 0
-_08006B90: .4byte gUnknown_03003730+0x4
+_08006B90: .4byte gMain+0x4
 _08006B94: .4byte 0x00000103
 
 	THUMB_FUNC_START sub_8006B98
@@ -360,7 +360,7 @@ _08006C0E:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08006C18: .4byte gUnknown_03003730
+_08006C18: .4byte gMain
 _08006C1C: .4byte gUnknown_08014D82
 
 	THUMB_FUNC_START sub_8006C20
@@ -408,7 +408,7 @@ _08006C3E:
 	.align 2, 0
 _08006C70: .4byte gUnknown_03002000
 _08006C74: .4byte gUnknown_03000800+0x40
-_08006C78: .4byte gUnknown_03003730
+_08006C78: .4byte gMain
 _08006C7C: .4byte 0x00007FFF
 _08006C80: .4byte gUnknown_03003C00
 _08006C84: .4byte 0x000004DC
@@ -550,7 +550,7 @@ sub_8006D70: @ 0x08006D70
 	movs r0, #0
 	bx lr
 	.align 2, 0
-_08006D8C: .4byte gUnknown_03003730
+_08006D8C: .4byte gMain
 
 	THUMB_FUNC_START sub_8006D90
 sub_8006D90: @ 0x08006D90
@@ -596,7 +596,7 @@ sub_8006D90: @ 0x08006D90
 	movs r0, #0
 	bx lr
 	.align 2, 0
-_08006DE4: .4byte gUnknown_03003730
+_08006DE4: .4byte gMain
 
 	THUMB_FUNC_START sub_8006DE8
 sub_8006DE8: @ 0x08006DE8
@@ -621,7 +621,7 @@ sub_8006DE8: @ 0x08006DE8
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08006E14: .4byte gUnknown_03003730
+_08006E14: .4byte gMain
 _08006E18: .4byte 0x00000504
 
 	THUMB_FUNC_START sub_8006E1C
@@ -1377,7 +1377,7 @@ _08007376:
 _080073CC: .4byte gUnknown_08018870
 _080073D0: .4byte gJoypad
 _080073D4: .4byte 0x0000FEF7
-_080073D8: .4byte gUnknown_03003730
+_080073D8: .4byte gMain
 _080073DC: .4byte 0xFFFF0000
 _080073E0: .4byte 0x0000FFFF
 _080073E4:
@@ -1651,7 +1651,7 @@ _080075B8:
 _080075F4: .4byte gOamObjects+0x188
 _080075F8: .4byte gUnknown_03003A50
 _080075FC: .4byte 0x000040E0
-_08007600: .4byte gUnknown_03003730+0x4
+_08007600: .4byte gMain+0x4
 
 	THUMB_FUNC_START sub_8007604
 sub_8007604: @ 0x08007604
@@ -1672,7 +1672,7 @@ sub_8007604: @ 0x08007604
 	ands r1, r2
 	b _08007636
 	.align 2, 0
-_08007624: .4byte gUnknown_03003730
+_08007624: .4byte gMain
 _08007628:
 	ldr r0, _08007644
 	movs r1, #0xcc
@@ -1689,7 +1689,7 @@ _08007636:
 	movs r0, #0
 	bx lr
 	.align 2, 0
-_08007644: .4byte gUnknown_03003730
+_08007644: .4byte gMain
 
 	THUMB_FUNC_START sub_8007648
 sub_8007648: @ 0x08007648
@@ -1713,7 +1713,7 @@ sub_8007648: @ 0x08007648
 	b _08007698
 	.align 2, 0
 _0800766C: .4byte gUnknown_03003AB0
-_08007670: .4byte gUnknown_03003730
+_08007670: .4byte gMain
 _08007674:
 	ldr r1, _080076A4
 	movs r0, #0xf0
@@ -1742,7 +1742,7 @@ _08007698:
 	bx lr
 	.align 2, 0
 _080076A4: .4byte gUnknown_03003AB0
-_080076A8: .4byte gUnknown_03003730
+_080076A8: .4byte gMain
 _080076AC: .4byte 0xFFFFFBFF
 _080076B0: .4byte gOamObjects+0x118
 
@@ -1784,7 +1784,7 @@ sub_80076B4: @ 0x080076B4
 	b _08007748
 	.align 2, 0
 _080076F8: .4byte gOamObjects+0x188
-_080076FC: .4byte gUnknown_03003730
+_080076FC: .4byte gMain
 _08007700: .4byte 0x040000D4
 _08007704: .4byte gUnknown_08191CA0
 _08007708: .4byte 0x06013400
@@ -1866,7 +1866,7 @@ sub_80077A0: @ 0x080077A0
 	ldr r3, _080077C8
 	b _080077D8
 	.align 2, 0
-_080077C0: .4byte gUnknown_03003730
+_080077C0: .4byte gMain
 _080077C4: .4byte gUnknown_08362524
 _080077C8: .4byte gUnknown_08362544
 _080077CC:
@@ -1933,7 +1933,7 @@ _080077EC:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08007844: .4byte gUnknown_03003730
+_08007844: .4byte gMain
 _08007848: .4byte gUnknown_08360834
 _0800784C: .4byte gUnknown_08360854
 _08007850: .4byte gLCDIORegisters
@@ -2027,7 +2027,7 @@ sub_80078EC: @ 0x080078EC
 	movs r0, #0
 	bx lr
 	.align 2, 0
-_08007904: .4byte gUnknown_03003730
+_08007904: .4byte gMain
 
 	THUMB_FUNC_START sub_8007908
 sub_8007908: @ 0x08007908
@@ -2044,7 +2044,7 @@ sub_8007908: @ 0x08007908
 	bne _08007938
 	b _0800792C
 	.align 2, 0
-_08007920: .4byte gUnknown_03003730
+_08007920: .4byte gMain
 _08007924:
 	ldr r0, _08007934
 	ldrb r0, [r0, #5]
@@ -2056,7 +2056,7 @@ _0800792C:
 	movs r0, #0
 	b _08007940
 	.align 2, 0
-_08007934: .4byte gUnknown_03003730
+_08007934: .4byte gMain
 _08007938:
 	ldr r0, [r1, #4]
 	subs r0, #2
@@ -2127,7 +2127,7 @@ sub_80079A0: @ 0x080079A0
 	movs r0, #0
 	b _080079BE
 	.align 2, 0
-_080079B8: .4byte gUnknown_03003730
+_080079B8: .4byte gMain
 _080079BC:
 	movs r0, #1
 _080079BE:

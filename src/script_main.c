@@ -2,10 +2,10 @@
 #include "script.h"
 #include "sound_control.h"
 
-static void sub_80055B0(struct ScriptState *scriptCtx);
-extern void sub_8005890(struct ScriptState *scriptCtx);
+static void sub_80055B0(struct ScriptContext *scriptCtx);
+extern void sub_8005890(struct ScriptContext *scriptCtx);
 static void CopyCharGlyphToWindow(u32, u32, u32);
-extern bool32 (*gScriptCmdFuncs[0x5F])(struct ScriptState *);
+extern bool32 (*gScriptCmdFuncs[0x5F])(struct ScriptContext *);
 
 void sub_8005408(void)
 {
@@ -17,7 +17,7 @@ void sub_8005408(void)
     {
         gUnknown_03003C00[i].unk0 &= ~0x8000;
     }
-    src = gScriptTable[gUnknown_03003730.unk8D];
+    src = gScriptTable[gMain.unk8D];
 
     if (!(i < ARRAY_COUNT(gUnknown_03003C00))) // this is a fucking fakematch!
         LZ77UnCompWram(src, gScriptHeap);
@@ -25,23 +25,23 @@ void sub_8005408(void)
 
 void sub_8005470(void)
 {
-    if (gUnknown_03003730.unk14 && !gUnknown_03003730.unk76)
+    if (gMain.unk14 && !gMain.unk76)
     {
-        sub_80055B0(&gScriptState);
+        sub_80055B0(&gScriptContext);
     }
-    sub_8005890(&gScriptState);
+    sub_8005890(&gScriptContext);
 }
 // arg may be a u16
 void sub_800549C(u32 arg0)
 {
-    gScriptState.unk22 = gScriptState.unk1E;
-    gScriptState.unk1E = arg0;
-    sub_80054BC(&gScriptState);
-    gScriptState.scriptPtr++;
+    gScriptContext.unk22 = gScriptContext.unk1E;
+    gScriptContext.unk1E = arg0;
+    sub_80054BC(&gScriptContext);
+    gScriptContext.scriptPtr++;
 }
 
 #ifdef NONMATCHING // i think this is functionally equivalent
-void sub_80054BC(struct ScriptState *scriptCtx)
+void sub_80054BC(struct ScriptContext *scriptCtx)
 {
     u32 i;
     for (i = 0; i < ARRAY_COUNT(gUnknown_03003C00); i++)
@@ -50,7 +50,7 @@ void sub_80054BC(struct ScriptState *scriptCtx)
     }
     scriptCtx->unkE = 0;
     scriptCtx->unkF = 0;
-    if (gUnknown_03003730.unk4.field1 != 0x804)
+    if (gMain.unk4.w1 != 0x804)
         scriptCtx->unk13 = 0;
     scriptCtx->unk15 = 0;
     scriptCtx->unk14 = 8;
@@ -99,7 +99,7 @@ void sub_80054BC(struct ScriptState *scriptCtx)
 }
 #else
 NAKED
-void sub_80054BC(struct ScriptState *scriptCtx)
+void sub_80054BC(struct ScriptContext *scriptCtx)
 {
     asm_unified("sub_80054BC: @ 0x080054BC\n\
 	push {r4, r5, r6, lr}\n\
@@ -176,7 +176,7 @@ _080054E8:\n\
 	adds r0, r0, r3\n\
 	b _0800556C\n\
 	.align 2, 0\n\
-_0800554C: .4byte gUnknown_03003730\n\
+_0800554C: .4byte gMain\n\
 _08005550: .4byte 0x00007FFF\n\
 _08005554: .4byte gUnknown_03003C00\n\
 _08005558: .4byte 0x00000804\n\
@@ -223,7 +223,7 @@ _080055AC: .4byte gUnknown_03003930\n");
 }
 #endif
 
-void sub_80055B0(struct ScriptState * scriptCxt)
+void sub_80055B0(struct ScriptContext * scriptCxt)
 {
     if(scriptCxt->unk13 && (gJoypad.newKeysRaw & 1 || gJoypad.heldKeysRaw & 2)) // text skip
         scriptCxt->unk13 = 2;
@@ -260,7 +260,7 @@ void sub_80055B0(struct ScriptState * scriptCxt)
 
         scriptCxt->scriptPtr++;
         
-        if ((scriptCxt->unk1E != 0x80 || gUnknown_03003730.unk8D) && scriptCxt->unkC != 0xFF)
+        if ((scriptCxt->unk1E != 0x80 || gMain.unk8D) && scriptCxt->unkC != 0xFF)
         {
                 if ( scriptCxt->textSpeed )
                 {
@@ -269,7 +269,7 @@ void sub_80055B0(struct ScriptState * scriptCxt)
                         if ( scriptCxt->unk17 != 2 )
                             scriptCxt->unk16 = 1;
 
-                        if (!(gUnknown_03003730.unk198 & 0x4))
+                        if (!(gMain.unk198 & 0x4))
                         {
                             if ( scriptCxt->unk17 == 2 )
                             {
@@ -311,14 +311,14 @@ void CopyCharGlyphToWindow(u32 arg0, u32 y, u32 x)
     u32 colorT4;
     u32 idx;
     // gUnknown_030039D0 is text color tile buffer 
-    if (gScriptState.textColor != 0) // if colored 
+    if (gScriptContext.textColor != 0) // if colored 
     {
         u8 * ptr;
         u32 temp;
         u32 color1;
         DmaCopy16(3, charTiles, gUnknown_030039D0, sizeof(gUnknown_030039D0))
         ptr = gUnknown_030039D0;
-        color1 = (gScriptState.textColor * 3); // does some palette stuff probably
+        color1 = (gScriptContext.textColor * 3); // does some palette stuff probably
 
         for(i = 0; i < ARRAY_COUNT(gUnknown_030039D0); i++) // add color to all tiles
         {
@@ -340,7 +340,7 @@ void CopyCharGlyphToWindow(u32 arg0, u32 y, u32 x)
         temp *= 0x80; 
         temp += (VRAM + 0x10000);
         // fuck this
-        if (gScriptState.unk0 & 0x4) // is fullscreen 
+        if (gScriptContext.unk0 & 0x4) // is fullscreen 
         {
             temp += 0x80 * (2 * 16);
         }
@@ -357,7 +357,7 @@ void CopyCharGlyphToWindow(u32 arg0, u32 y, u32 x)
         temp *= 0x80; 
         temp += (VRAM + 0x10000);
         // fuck this
-        if (gScriptState.unk0 & 0x4) // is fullscreen
+        if (gScriptContext.unk0 & 0x4) // is fullscreen
         {
             temp += 0x80 * (2 * 16);
         }
@@ -369,10 +369,10 @@ void CopyCharGlyphToWindow(u32 arg0, u32 y, u32 x)
         colorT4 = x * 4;
     }
     // matches completely after this other than small regalloc stuff
-    if(gScriptState.unk0 & 4)
+    if(gScriptContext.unk0 & 4)
     {
         idx = x + 2 * 0x10;
-        gUnknown_03003C00[idx].unk4 = gScriptState.unk12 * 14; 
+        gUnknown_03003C00[idx].unk4 = gScriptContext.unk12 * 14; 
         gUnknown_03003C00[idx].unk6 = (y - 2) * 20;
         gUnknown_03003C00[idx].unk2 = 2 * 0x40 + colorT4;
     }
@@ -385,7 +385,7 @@ void CopyCharGlyphToWindow(u32 arg0, u32 y, u32 x)
     }
     gUnknown_03003C00[idx].unk2 += 0x400;
     gUnknown_03003C00[idx].unk0 = arg0 | 0x8000;
-    gUnknown_03003C00[idx].unk8 = gScriptState.textColor;
+    gUnknown_03003C00[idx].unk8 = gScriptContext.textColor;
 }
 #else
 NAKED
@@ -468,7 +468,7 @@ _0800574A:\n\
 	b _0800578C\n\
 	.align 2, 0\n\
 _08005770: .4byte gCharSet\n\
-_08005774: .4byte gScriptState\n\
+_08005774: .4byte gScriptContext\n\
 _08005778: .4byte 0x040000D4\n\
 _0800577C: .4byte gUnknown_030039D0\n\
 _08005780: .4byte 0x80000040\n\
@@ -505,7 +505,7 @@ _080057A8:\n\
 	b _080057D0\n\
 	.align 2, 0\n\
 _080057C4: .4byte 0x06010000\n\
-_080057C8: .4byte gScriptState\n\
+_080057C8: .4byte gScriptContext\n\
 _080057CC:\n\
 	lsls r0, r7, #0xb\n\
 	adds r2, r2, r0\n\
@@ -551,7 +551,7 @@ _080057E0:\n\
 	.align 2, 0\n\
 _0800581C: .4byte 0x040000D4\n\
 _08005820: .4byte 0x80000040\n\
-_08005824: .4byte gScriptState\n\
+_08005824: .4byte gScriptContext\n\
 _08005828: .4byte gUnknown_03003C00\n\
 _0800582C:\n\
 	lsls r0, r7, #4\n\
@@ -603,6 +603,6 @@ _0800584E:\n\
 	bx r0\n\
 	.align 2, 0\n\
 _08005888: .4byte gUnknown_03003C00\n\
-_0800588C: .4byte gScriptState\n");
+_0800588C: .4byte gScriptContext\n");
 }
 #endif

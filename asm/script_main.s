@@ -195,7 +195,7 @@ _080059CE:
 	strh r0, [r5, #4]
 	b _08005A06
 	.align 2, 0
-_080059F4: .4byte gUnknown_03003730
+_080059F4: .4byte gMain
 _080059F8: .4byte gOamObjects+0x10
 _080059FC: .4byte gUnknown_03003C00
 _08005A00:

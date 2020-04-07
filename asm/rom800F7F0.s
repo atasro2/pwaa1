@@ -1084,7 +1084,7 @@ _08010006:
 	strb r2, [r3, #0x12]
 	b _0801003E
 	.align 2, 0
-_08010024: .4byte gUnknown_03003730
+_08010024: .4byte gMain
 _08010028:
 	ldr r0, _08010044
 	adds r0, #0x76
@@ -1101,7 +1101,7 @@ _0801003E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08010044: .4byte gUnknown_03003730
+_08010044: .4byte gMain
 
 	THUMB_FUNC_START sub_8010048
 sub_8010048: @ 0x08010048
@@ -1153,7 +1153,7 @@ _0801008E:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080100A4: .4byte gUnknown_03003730
+_080100A4: .4byte gMain
 
 	THUMB_FUNC_START sub_80100A8
 sub_80100A8: @ 0x080100A8
@@ -1181,7 +1181,7 @@ _080100D2:
 	movs r0, #0
 	b _080101FA
 	.align 2, 0
-_080100D8: .4byte gUnknown_03003730
+_080100D8: .4byte gMain
 _080100DC: .4byte gUnknown_03000800+0x40
 _080100E0:
 	mov r0, sp
@@ -1362,7 +1362,7 @@ _0801022C:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0801023C: .4byte gUnknown_03003730
+_0801023C: .4byte gMain
 _08010240: .4byte gUnknown_08018F78
 
 	THUMB_FUNC_START sub_8010244
@@ -1454,7 +1454,7 @@ _080102C8:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_080102F0: .4byte gUnknown_03003730
+_080102F0: .4byte gMain
 _080102F4: .4byte gUnknown_08018F78
 _080102F8: .4byte 0x05000200
 _080102FC: .4byte gUnknown_03003F00
@@ -1755,7 +1755,7 @@ sub_801052C: @ 0x0801052C
 	movs r0, #4
 	b _080105F4
 	.align 2, 0
-_08010548: .4byte gScriptState
+_08010548: .4byte gScriptContext
 _0801054C:
 	ldr r2, [r4, #0x34]
 	ldrb r1, [r2, #2]
@@ -1967,7 +1967,7 @@ sub_80106A4: @ 0x080106A4
 	b _080106DE
 	.align 2, 0
 _080106D4: .4byte gLCDIORegisters
-_080106D8: .4byte gUnknown_03003730
+_080106D8: .4byte gMain
 _080106DC:
 	ldr r4, _0801074C
 _080106DE:
@@ -2137,7 +2137,7 @@ sub_8010800: @ 0x08010800
 	str r0, [r4]
 	b _08010920
 	.align 2, 0
-_08010820: .4byte gUnknown_03003730
+_08010820: .4byte gMain
 _08010824: .4byte gLCDIORegisters
 _08010828: .4byte 0xFDFFFFFF
 _0801082C:
@@ -2403,7 +2403,7 @@ _08010A28:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08010A30: .4byte gUnknown_03003730
+_08010A30: .4byte gMain
 _08010A34: .4byte 0x00FFFFFF
 _08010A38: .4byte 0x001600FF
 _08010A3C: .4byte gOamObjects
@@ -2569,7 +2569,7 @@ _08010B3E:
 	.align 2, 0
 _08010B70: .4byte gUnknown_03002F20
 _08010B74: .4byte gUnknown_03000800
-_08010B78: .4byte gUnknown_03003730
+_08010B78: .4byte gMain
 _08010B7C: .4byte 0x00000FFF
 _08010B80: .4byte gUnknown_0200AFC0
 _08010B84: .4byte gUnknown_08019450
@@ -2960,7 +2960,7 @@ _08010E32:
 	bl sub_800FA74
 	b _08010F3C
 	.align 2, 0
-_08010E68: .4byte gUnknown_03003730
+_08010E68: .4byte gMain
 _08010E6C: .4byte gUnknown_03000800
 _08010E70: .4byte gUnknown_03004000
 _08010E74:
@@ -3335,11 +3335,11 @@ _0801112C: .4byte gUnknown_03004000
 sub_8011130: @ 0x08011130
 	push {r4, r5, lr}
 	adds r4, r0, #0
-	bl sub_8002B40
+	bl Random
 	movs r1, #3
 	ands r1, r0
 	adds r5, r1, #1
-	bl sub_8002B40
+	bl Random
 	movs r1, #7
 	ands r1, r0
 	subs r1, #4
@@ -3407,7 +3407,7 @@ sub_80111A0: @ 0x080111A0
 	bl sub_800FA74
 	b _08011230
 	.align 2, 0
-_080111B8: .4byte gUnknown_03003730
+_080111B8: .4byte gMain
 _080111BC:
 	adds r0, r4, #0
 	movs r1, #1
