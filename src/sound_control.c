@@ -30,7 +30,7 @@ void sub_800F408(u32 songNum)
     }
 }
 
-void sub_800F454()
+void PauseBGM()
 {
     struct Main * struct3730p = &gMain;
     if(struct3730p->unk1C & 4)
@@ -50,7 +50,7 @@ void sub_800F454()
     }
 }
 
-void sub_800F4AC()
+void StopBGM(void)
 {
     struct Main * struct3730p = &gMain;
     if((struct3730p->unk1C & 1) == 0)
@@ -61,7 +61,7 @@ void sub_800F4AC()
     }
 }
 
-void sub_800F4D8() // UnpauseBGM?
+void UnpauseBGM(void) // UnpauseBGM?
 {
     struct Main * struct3730p = &gMain;
     if(struct3730p->unk1C & 2)
@@ -79,12 +79,12 @@ void sub_800F4D8() // UnpauseBGM?
     }
 }
 
-void sub_800F514(u32 fadeInSpeed)
+void FadeOutBGM(u32 fadeOutSpeed)
 {
     struct Main * struct3730p = &gMain;
     if(struct3730p->unk1C & 4)
     {
-        m4aMPlayFadeOutTemporarily(&gMPlayInfo_BGM, fadeInSpeed/16);
+        m4aMPlayFadeOutTemporarily(&gMPlayInfo_BGM, fadeOutSpeed/16);
         struct3730p->unk1C = 0x10 | 0x4;
     }
 }
@@ -117,7 +117,7 @@ void PlayBGM(u32 fadeInSpeed, u32 songNum) // named according to phoenix unity
                         struct3730p->unk1C &= ~0x1;
                         if(struct3730p->unk1C & 0x10)
                         {
-                            sub_800F4D8();
+                            UnpauseBGM();
                         }
                     }
                     return;
@@ -132,7 +132,7 @@ void PlayBGM(u32 fadeInSpeed, u32 songNum) // named according to phoenix unity
                     }
                     else
                     {
-                        sub_800F4D8();
+                        UnpauseBGM();
                     }
                 }
             }

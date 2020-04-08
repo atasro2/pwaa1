@@ -129,7 +129,7 @@ _08000B02:
 _08000B14: .4byte 0x7FFFFFFF
 _08000B18: .4byte gUnknown_0202CFC0
 _08000B1C: .4byte 0x040000D4
-_08000B20: .4byte gUnknown_03001000
+_08000B20: .4byte gBG3MapBuffer
 _08000B24: .4byte 0x80000001
 _08000B28: .4byte 0x06004000
 _08000B2C:
@@ -352,12 +352,12 @@ _08000CAA:
 	bx r0
 	.align 2, 0
 _08000CC4: .4byte gUnknown_0202CFC0
-_08000CC8: .4byte gUnknown_03001000
+_08000CC8: .4byte gBG3MapBuffer
 _08000CCC: .4byte 0x040000D4
-_08000CD0: .4byte gUnknown_03001800
+_08000CD0: .4byte gBG3MapBufferCopy
 _08000CD4: .4byte 0x8000001E
 _08000CD8: .4byte 0x80000001
-_08000CDC: .4byte gUnknown_03001000+0x2
+_08000CDC: .4byte gBG3MapBuffer+0x2
 _08000CE0: .4byte 0x06004000
 
 	THUMB_FUNC_START sub_8000CE4
@@ -537,7 +537,7 @@ _08000E16:
 	.align 2, 0
 _08000E30: .4byte gUnknown_0202CFC0
 _08000E34: .4byte 0x040000D4
-_08000E38: .4byte gUnknown_03001000+0x3E
+_08000E38: .4byte gBG3MapBuffer+0x3E
 _08000E3C: .4byte 0x80000001
 _08000E40: .4byte 0x06004000
 
@@ -715,11 +715,11 @@ _08000F6C:
 	.align 2, 0
 _08000F88: .4byte gUnknown_0202CFC0
 _08000F8C: .4byte 0x040000D4
-_08000F90: .4byte gUnknown_03001000+0x2
-_08000F94: .4byte gUnknown_03001800
+_08000F90: .4byte gBG3MapBuffer+0x2
+_08000F94: .4byte gBG3MapBufferCopy
 _08000F98: .4byte 0x8000001F
-_08000F9C: .4byte gUnknown_03001000
-_08000FA0: .4byte gUnknown_03001000+0x3E
+_08000F9C: .4byte gBG3MapBuffer
+_08000FA0: .4byte gBG3MapBuffer+0x3E
 _08000FA4: .4byte 0x80000001
 _08000FA8: .4byte 0x06004000
 
@@ -812,7 +812,7 @@ _08001040:
 	b _0800106E
 	.align 2, 0
 _08001050: .4byte 0x7FFFFFFF
-_08001054: .4byte gUnknown_03001000
+_08001054: .4byte gBG3MapBuffer
 _08001058: .4byte 0x040000D4
 _0800105C: .4byte 0x80000020
 _08001060: .4byte 0x06004000
@@ -897,8 +897,8 @@ _080010D6:
 	mov sb, r1
 	b _0800110C
 	.align 2, 0
-_080010F8: .4byte gUnknown_03001000
-_080010FC: .4byte gUnknown_03001800
+_080010F8: .4byte gBG3MapBuffer
+_080010FC: .4byte gBG3MapBufferCopy
 _08001100:
 	movs r2, #1
 	rsbs r2, r2, #0
@@ -1122,7 +1122,7 @@ _0800129C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080012A8: .4byte gUnknown_03001000+0x540
+_080012A8: .4byte gBG3MapBuffer+0x540
 _080012AC: .4byte 0xFFFFFAC0
 _080012B0: .4byte 0x040000D4
 _080012B4: .4byte 0x80000020
@@ -1165,8 +1165,8 @@ _080012DE:
 	mov sb, r2
 	b _08001314
 	.align 2, 0
-_08001300: .4byte gUnknown_03001000+0x40
-_08001304: .4byte gUnknown_03001800
+_08001300: .4byte gBG3MapBuffer+0x40
+_08001304: .4byte gBG3MapBufferCopy
 _08001308:
 	movs r7, #1
 	rsbs r7, r7, #0
@@ -1276,7 +1276,7 @@ _080013B8:
 _080013D0: .4byte 0x040000D4
 _080013D4: .4byte 0x80000020
 _080013D8: .4byte 0x800002E0
-_080013DC: .4byte gUnknown_03001000
+_080013DC: .4byte gBG3MapBuffer
 _080013E0: .4byte 0x800002C0
 _080013E4: .4byte gUnknown_0202CFC0
 _080013E8: .4byte 0x06004000
@@ -2140,8 +2140,8 @@ _08001A78: .4byte gUnknown_02031FC0
 _08001A7C: .4byte gUnknown_083899EC
 _08001A80: .4byte 0x05000060
 _08001A84: .4byte 0x00003E08
-_08001A88: .4byte gUnknown_03000000
-_08001A8C: .4byte gUnknown_03001000
+_08001A88: .4byte gBG2MapBuffer
+_08001A8C: .4byte gBG3MapBuffer
 _08001A90: .4byte gUnknown_0202CFC0
 _08001A94: .4byte 0x06004000
 _08001A98: .4byte 0x80004D80
@@ -2221,7 +2221,7 @@ _08001AC8:
 	.align 2, 0
 _08001B30: .4byte 0xFFFF7FFF
 _08001B34: .4byte gUnknown_08014570
-_08001B38: .4byte gUnknown_03001000
+_08001B38: .4byte gBG3MapBuffer
 _08001B3C: .4byte 0x040000D4
 _08001B40: .4byte 0x800002C0
 _08001B44: .4byte 0x05000040
@@ -2316,7 +2316,7 @@ _08001BD0:
 	.align 2, 0
 _08001BF8: .4byte gUnknown_080137D8
 _08001BFC: .4byte gUnknown_08014570
-_08001C00: .4byte gUnknown_03001000
+_08001C00: .4byte gBG3MapBuffer
 _08001C04: .4byte 0x040000D4
 _08001C08: .4byte 0x800002C0
 _08001C0C: .4byte gUnknown_08427608
@@ -2432,7 +2432,7 @@ _08001CEC: .4byte gUnknown_08362524
 _08001CF0: .4byte gUnknown_02031AC0
 _08001CF4: .4byte 0x06008B00
 _08001CF8: .4byte 0x80002800
-_08001CFC: .4byte gUnknown_03000000
+_08001CFC: .4byte gBG2MapBuffer
 _08001D00: .4byte 0x0600F000
 _08001D04: .4byte 0x800002C0
 _08001D08: .4byte 0x0400000C
@@ -2532,7 +2532,7 @@ _08001DC0: .4byte 0x80000100
 _08001DC4: .4byte gLCDIORegisters+0x4A
 _08001DC8: .4byte gUnknown_0202CFC0
 _08001DCC: .4byte gUnknown_08014570
-_08001DD0: .4byte gUnknown_03001000
+_08001DD0: .4byte gBG3MapBuffer
 _08001DD4: .4byte 0x800002C0
 _08001DD8: .4byte 0x0600F800
 _08001DDC: .4byte 0x80000400
@@ -2702,7 +2702,7 @@ _08001F10:
 	bls _08001EFC
 	b _08002078
 	.align 2, 0
-_08001F28: .4byte gUnknown_03001000
+_08001F28: .4byte gBG3MapBuffer
 _08001F2C:
 	movs r6, #1
 	adds r2, r5, #0
@@ -2779,7 +2779,7 @@ _08001F9A:
 	bls _08001F8E
 	b _08002026
 	.align 2, 0
-_08001FB8: .4byte gUnknown_03001000
+_08001FB8: .4byte gBG3MapBuffer
 _08001FBC:
 	movs r0, #0x20
 	ands r0, r5
@@ -2902,7 +2902,7 @@ _08002088:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08002098: .4byte gUnknown_03001000
+_08002098: .4byte gBG3MapBuffer
 _0800209C: .4byte 0x00002276
 _080020A0: .4byte 0x06004000
 _080020A4: .4byte 0x040000D4
@@ -3167,7 +3167,7 @@ _0800226C:
 	bl sub_80028B4
 	b _08002312
 	.align 2, 0
-_08002294: .4byte gUnknown_03002000
+_08002294: .4byte gBG1MapBuffer
 _08002298: .4byte 0x000002BF
 _0800229C: .4byte gUnknown_08013B70
 _080022A0:
@@ -3236,7 +3236,7 @@ _08002312:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08002318: .4byte gUnknown_03002000
+_08002318: .4byte gBG1MapBuffer
 _0800231C: .4byte 0x000001BF
 _08002320: .4byte gUnknown_08013B70
 _08002324: .4byte 0x0000021F
@@ -3330,7 +3330,7 @@ _080023B0:
 	strb r2, [r0]
 	b _08002438
 	.align 2, 0
-_080023DC: .4byte gUnknown_03002000
+_080023DC: .4byte gBG1MapBuffer
 _080023E0: .4byte gMain
 _080023E4:
 	ldr r2, _08002408
@@ -3423,7 +3423,7 @@ _08002490: .4byte gMain
 _08002494: .4byte gScriptContext
 _08002498: .4byte gUnknown_03003A50
 _0800249C: .4byte gLCDIORegisters
-_080024A0: .4byte gUnknown_03002000
+_080024A0: .4byte gBG1MapBuffer
 _080024A4: .4byte 0x000004DC
 _080024A8: .4byte 0x000004DE
 _080024AC:
@@ -3614,11 +3614,11 @@ _080025E8:
 	b _08002642
 	.align 2, 0
 _08002600: .4byte 0x000001FF
-_08002604: .4byte gUnknown_03000000
+_08002604: .4byte gBG2MapBuffer
 _08002608: .4byte 0x0000017F
 _0800260C: .4byte 0x040000D4
-_08002610: .4byte gUnknown_03001800
-_08002614: .4byte gUnknown_03001800+0x2
+_08002610: .4byte gBG3MapBufferCopy
+_08002614: .4byte gBG3MapBufferCopy+0x2
 _08002618: .4byte 0x80000020
 _0800261C: .4byte 0x8000001F
 _08002620: .4byte gUnknown_08014270
@@ -3722,9 +3722,9 @@ _080026C0:
 	.align 2, 0
 _080026D8: .4byte gUnknown_08013F70
 _080026DC: .4byte 0x0000017F
-_080026E0: .4byte gUnknown_03000000
+_080026E0: .4byte gBG2MapBuffer
 _080026E4: .4byte 0x040000D4
-_080026E8: .4byte gUnknown_03001800
+_080026E8: .4byte gBG3MapBufferCopy
 _080026EC: .4byte 0x80000020
 _080026F0: .4byte 0x8000001F
 _080026F4: .4byte gUnknown_08014270
@@ -3922,10 +3922,10 @@ _08002848:
 	bx r0
 	.align 2, 0
 _08002858: .4byte 0x000001FF
-_0800285C: .4byte gUnknown_03001800
-_08002860: .4byte gUnknown_03000000
+_0800285C: .4byte gBG3MapBufferCopy
+_08002860: .4byte gBG2MapBuffer
 _08002864: .4byte 0x040000D4
-_08002868: .4byte gUnknown_03001800+0x2
+_08002868: .4byte gBG3MapBufferCopy+0x2
 _0800286C: .4byte 0x80000020
 _08002870: .4byte 0x8000001F
 _08002874: .4byte 0x0000017F
@@ -3986,7 +3986,7 @@ _080028CE:
 	b _0800299A
 	.align 2, 0
 _080028E0: .4byte 0x000001DF
-_080028E4: .4byte gUnknown_03002000
+_080028E4: .4byte gBG1MapBuffer
 _080028E8: .4byte gUnknown_08013B70
 _080028EC:
 	adds r0, r5, #0
@@ -4080,8 +4080,8 @@ _0800299A:
 	bx r0
 	.align 2, 0
 _080029A0: .4byte gUnknown_08013B64
-_080029A4: .4byte gUnknown_03002000+0x380
-_080029A8: .4byte gUnknown_03002000+0x300
+_080029A4: .4byte gBG1MapBuffer+0x380
+_080029A8: .4byte gBG1MapBuffer+0x300
 _080029AC: .4byte gUnknown_08013B58
 
 	THUMB_FUNC_START sub_80029B0
@@ -4146,12 +4146,12 @@ _08002A18:
 	.align 2, 0
 _08002A1C: .4byte gMain
 _08002A20: .4byte 0x040000D4
-_08002A24: .4byte gUnknown_03002F20
+_08002A24: .4byte gBG0MapBuffer
 _08002A28: .4byte 0x0600E000
 _08002A2C: .4byte 0x80000400
-_08002A30: .4byte gUnknown_03002000
+_08002A30: .4byte gBG1MapBuffer
 _08002A34: .4byte 0x0600E800
-_08002A38: .4byte gUnknown_03000000
+_08002A38: .4byte gBG2MapBuffer
 _08002A3C: .4byte 0x0600F000
-_08002A40: .4byte gUnknown_03001000
+_08002A40: .4byte gBG3MapBuffer
 _08002A44: .4byte 0x0600F800

@@ -4,6 +4,7 @@
 #include "structs.h"
 
 //DATA
+extern const u16 gUnknown_08014D82[]; // GS1_gameover_message_data_table
 extern const u8 gUnknown_08013B70[0x400];
 extern void (*gUnknown_0811DBB4[15])(struct Main *);
 extern u32 * gUnknown_0811DC04[3]; 
@@ -11,7 +12,7 @@ extern s16 gSineTable[256+64];
 extern u32 gUnknown_080150D0[12];
 extern u16 gUnknown_08014FB8[0x8C];
 extern u8 gTextPal[0x20];
-extern u8 common_scripts[0xDEC]; // some uncompressed script probably mes_sys
+extern u8 common_scripts[0xDEC];
 extern u32 * gScriptTable[17];
 extern u8 gUnknown_08018784[0x30];
 extern u8 gUnknown_080187C0[8];
@@ -33,9 +34,10 @@ void sub_8000804();
 void sub_8000930();
 void sub_80009AC();
 void MoveSpritesToOAM();
-void sub_8002B94(u32, u32, bool32);
+void SetFlag(u32, u32, bool32);
 void sub_80007D8(u32 arg0, u32 arg1, u32 arg2, u32 arg3);
 void sub_800077C(u8 *, u32, u32, u32);
+bool32 GetFlag(u32 arg0, u32 arg1);
 //ASMFUNCTIONS
 extern void sub_8001744(u16);
 extern void sub_8010E14(s16);
@@ -57,6 +59,9 @@ extern s32 sub_800ED40(u16);
 extern void sub_800ED68(struct Struct3002840 *);
 extern void sub_8011108(u32, u32, u32, u32);
 extern void sub_8010960(struct Struct3000840 *);
+extern struct Struct3000840 * sub_8010204(u32);
+extern void sub_80106A4(u32, u32);
+extern struct Struct3000840 * sub_800F8BC(u32);
 extern u32 sub_8002224(u32);
 //EWRAM
 extern EWRAM_DATA u32 gUnknown_02011DC0[0x80];
@@ -64,16 +69,16 @@ extern EWRAM_DATA u32 gScriptHeap[0x1B000/4];
 extern EWRAM_DATA struct SaveData gSaveDataBuffer;
 extern EWRAM_DATA u8 gUnknown_0202CFC0[0x9B00]; // got no idea how big this actually is
 //IWRAM
-extern u16 gUnknown_03000000[0x400]; // BG 2 Map buffer
+extern u16 gBG2MapBuffer[0x400]; // BG 2 Map buffer
 extern struct Struct3000800 gUnknown_03000800; // size unknown
-extern u16 gUnknown_03001000[0x400]; // BG 3 Map buffer
-extern u16 gUnknown_03001800[0x400]; // BG 3 Map buffer copy TODO: this 1 array is keeping me away from naming the other ones..  BG Pan related?
-extern u16 gUnknown_03002000[0x400]; // BG 1 Map buffer
+extern u16 gBG3MapBuffer[0x400]; // BG 3 Map buffer
+extern u16 gBG3MapBufferCopy[0x400]; // BG 3 Map buffer copy TODO: this 1 array is keeping me away from naming the other ones..  BG Pan related?
+extern u16 gBG1MapBuffer[0x400]; // BG 1 Map buffer
 extern void (*gIntrTable[0x10]);
 extern struct Struct3002840 gUnknown_03002840;
 extern struct Struct30028A0 gUnknown_030028A0;
 extern struct OamAttrs gOamObjects[128];
-extern u16 gUnknown_03002F20[0x400]; // BG 0 Map buffer
+extern u16 gBG0MapBuffer[0x400]; // BG 0 Map buffer
 extern struct Joypad gJoypad;
 extern struct Main gMain;
 extern struct LCDIORegisters gLCDIORegisters;

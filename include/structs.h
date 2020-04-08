@@ -99,18 +99,21 @@ struct Main
     u8 unk7C;
     u8 unk7D;
     u8 unk7E;
-    u8 filler7F[0xD];
-    u8 unk8C;
+    u8 filler7F[0x9];
+    u8 unk88;
+    u8 unk89;
+    u8 unk8A; // rest_old
+    u8 ukn8B;
+    u8 unk8C; // current room id
     u8 unk8D; // scenario num? 
     u8 unk8E;
     s8 unk8F; // rest
-    u16 unk90;
-    u16 unk92;
+    u16 talkingAnimationOffset; /* + 0x90 */
+    u16 idleAnimationOffset; /* + 0x92 */
     u32 unk94[8]; // sce_flag
     u32 unkB4; // status_flag
     u8 fillerB8[0x20]; // talk_end_flag?
-    u32 unkD8;
-    u8 fillerDC[0xBC];
+    u8 mapData[24][8]; /* + 0xD8 */ // Map_data //TODO: first size might be wrong
     u32 unk198;
     u8 filler19C[0x4];
 };
@@ -251,7 +254,12 @@ struct Struct3003A50
 
 struct Struct3003AB0
 {
-    u8 filler0[0x8];
+    u8 unk0;
+    u8 unk1;
+    u8 unk2;
+    u8 unk3;
+    u16 unk4;
+    u8 filler6[0x2];
 };
 
 struct Struct3003C00

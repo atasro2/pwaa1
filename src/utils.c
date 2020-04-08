@@ -7,115 +7,43 @@ void MoveSpritesToOAM()
 }
 
 
-#ifdef NONMATCHING // i don't want anything to do with this stupid ass function it's not even close
 bool32 sub_8002A68(struct GSPoint * p, struct GSPoint4 * cp)
 {
-    s32 x = cp->x0;
-    s32 y = cp->y0;
-    s32 num = p->x - x;
-    s32 num2 = p->y - y;
-    s32 num3 = cp->x1 - x;
-    s32 num4 = cp->y1 - y;
-    s32 num5 = cp->x3 - x;
-    s32 num6 = cp->y3 - y;
-    
+    s32 num;
+    s32 num2;
+    s32 num3;
+    s32 num4;
+    s32 num5;
+    s32 num6;
+    s32 x;
+    s32 y;
+
+    x = cp->x0;
+    y = cp->y0;
+    num = p->x - x;
+    num2 = p->y - y;
+    num3 = cp->x1 - x;
+    num4 = cp->y1 - y;
+    num5 = cp->x3 - x;
+    num6 = cp->y3 - y;
     if (num3 * num2 < num4 * num || num5 * num2 > num6 * num)
     {
         return FALSE;
     }
+
     num -= cp->x2 - x;
     num2 -= cp->y2 - y;
     num3 -= cp->x2 - x;
     num4 -= cp->y2 - y;
     num5 -= cp->x2 - x;
     num6 -= cp->y2 - y;
+    
     if (num3 * num2 > num4 * num || num5 * num2 < num6 * num)
     {
         return FALSE;
     }
     return TRUE;
 }
-#else
-NAKED
-bool32 sub_8002A68(u16 * arg0, void * arg1)
-{
-    asm_unified("push {r4, r5, r6, r7, lr}\n\
-	mov r7, sb\n\
-	mov r6, r8\n\
-	push {r6, r7}\n\
-	adds r2, r1, #0\n\
-	ldrh r4, [r2]\n\
-	ldrh r1, [r2, #2]\n\
-	mov ip, r1\n\
-	ldrh r1, [r0]\n\
-	subs r5, r1, r4\n\
-	ldrh r0, [r0, #2]\n\
-	mov r1, ip\n\
-	subs r3, r0, r1\n\
-	ldrh r0, [r2, #4]\n\
-	subs r0, r0, r4\n\
-	mov r8, r0\n\
-	ldrh r0, [r2, #6]\n\
-	subs r6, r0, r1\n\
-	ldrh r1, [r2, #0xc]\n\
-	subs r1, r1, r4\n\
-	mov sb, r1\n\
-	ldrh r0, [r2, #0xe]\n\
-	mov r1, ip\n\
-	subs r7, r0, r1\n\
-	mov r1, r8\n\
-	muls r1, r3, r1\n\
-	adds r0, r6, #0\n\
-	muls r0, r5, r0\n\
-	cmp r1, r0\n\
-	blt _08002AE6\n\
-	mov r1, sb\n\
-	muls r1, r3, r1\n\
-	adds r0, r7, #0\n\
-	muls r0, r5, r0\n\
-	cmp r1, r0\n\
-	bgt _08002AE6\n\
-	ldrh r0, [r2, #8]\n\
-	subs r1, r0, r4\n\
-	subs r5, r5, r1\n\
-	ldrh r2, [r2, #0xa]\n\
-	mov r4, ip\n\
-	subs r0, r2, r4\n\
-	subs r3, r3, r0\n\
-	mov r2, r8\n\
-	subs r2, r2, r1\n\
-	mov r8, r2\n\
-	subs r6, r6, r0\n\
-	mov r4, sb\n\
-	subs r4, r4, r1\n\
-	mov sb, r4\n\
-	subs r7, r7, r0\n\
-	mov r1, r8\n\
-	muls r1, r3, r1\n\
-	adds r0, r6, #0\n\
-	muls r0, r5, r0\n\
-	cmp r1, r0\n\
-	bgt _08002AE6\n\
-	mov r1, sb\n\
-	muls r1, r3, r1\n\
-	adds r0, r7, #0\n\
-	muls r0, r5, r0\n\
-	cmp r1, r0\n\
-	bge _08002AEA\n\
-_08002AE6:\n\
-	movs r0, #0\n\
-	b _08002AEC\n\
-_08002AEA:\n\
-	movs r0, #1\n\
-_08002AEC:\n\
-	pop {r3, r4}\n\
-	mov r8, r3\n\
-	mov sb, r4\n\
-	pop {r4, r5, r6, r7}\n\
-	pop {r1}\n\
-	bx r1\n");
-}
-#endif
 
 s16 fix_mul(s16 a, s16 b)
 {
@@ -176,7 +104,7 @@ u8 Random()
     return unk0.w;
 }
 
-void sub_8002B94(u32 arg0, u32 arg1, bool32 arg2) // set flag?
+void SetFlag(u32 arg0, u32 arg1, bool32 arg2)
 {
     u32 * unk0 = gUnknown_0811DC04[arg0];
     unk0 += (arg1 >> 5);
@@ -192,7 +120,7 @@ void sub_8002B94(u32 arg0, u32 arg1, bool32 arg2) // set flag?
     }
 }
 
-bool32 sub_8002BD0(u32 arg0, u32 arg1) // is flag set?
+bool32 GetFlag(u32 arg0, u32 arg1)
 {
     u32 * unk0 = gUnknown_0811DC04[arg0];
     u32 unk1;
@@ -220,8 +148,8 @@ void sub_8002BF8(s16 scale)
 void sub_8002C98(u32 arg0, u32 arg1, u32 arg2)
 {
     struct Main * main = &gMain;
-    main->unk90 = arg1;
-    main->unk92 = arg2;
+    main->talkingAnimationOffset = arg1;
+    main->idleAnimationOffset = arg2;
     sub_8010048(arg0, 0, arg1, 0);
     gUnknown_03003A50.unk5 = 1;
     sub_800B7A8(&gUnknown_03003A50, 0xF);
@@ -229,10 +157,10 @@ void sub_8002C98(u32 arg0, u32 arg1, u32 arg2)
 
 void sub_8002CCC(u32 arg0, u32 arg1)
 {
-    sub_8002B94(0, arg1, TRUE);
+    SetFlag(0, arg1, TRUE);
     sub_800549C(arg0);
     sub_800244C(1);
-    sub_800F454();
+    PauseBGM();
 }
 
 void sub_8002CF0(u32 arg0, u32 arg1) // init investigation buttons? // unused?
@@ -248,7 +176,7 @@ void sub_8002CF0(u32 arg0, u32 arg1) // init investigation buttons? // unused?
         sprite->attr2 = SPRITE_ATTR2((256 + i * 32), 0, 5);
     }
     union3734->w1 = 260;
-    sub_8002B94(0, arg1, TRUE);
+    SetFlag(0, arg1, TRUE);
     sub_800549C(arg0);
     sub_800244C(1);
     sub_800B7A8(&gUnknown_03003A50, 0xF);
@@ -262,7 +190,7 @@ void nullsub_4(u32 arg0)
 
 void sub_8002D70(struct Main * struct3730p)
 {
-    DmaCopy16(3, gUnknown_080150D0, &gMain.unkD8, sizeof(gUnknown_080150D0));
+    DmaCopy16(3, gUnknown_080150D0, &gMain.mapData, sizeof(gUnknown_080150D0));
     DmaCopy16(3, gUnknown_08014FB8, &gUnknown_030028A0, sizeof(gUnknown_08014FB8));
     struct3730p->unk8C = 0;
 }

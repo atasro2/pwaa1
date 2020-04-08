@@ -74,8 +74,8 @@ bool32 Command02(struct ScriptContext * scriptCtx)
     if(temp != 0)
     {
         PlaySE(47);
-        gUnknown_03002000[622] = 9;
-        gUnknown_03002000[623] = 9;
+        gBG1MapBuffer[622] = 9;
+        gBG1MapBuffer[623] = 9;
         scriptCtx->unk0 &= ~3;
         if(scriptCtx->unk13 != 0)
         {
@@ -128,13 +128,13 @@ bool32 Command02(struct ScriptContext * scriptCtx)
             gUnknown_03003C00[i].unk0 &= ~0x8000;
         }
         if(scriptCtx->unkC == 0x2)
-            sub_800FBA0(&gUnknown_03000800.unk40, gMain.unk90);
+            sub_800FBA0(&gUnknown_03000800.unk40, gMain.talkingAnimationOffset);
     }
     else
     {
         if((scriptCtx->unk0 & 1) == 0)
         {
-            sub_800FBA0(&gUnknown_03000800.unk40, gMain.unk92);
+            sub_800FBA0(&gUnknown_03000800.unk40, gMain.idleAnimationOffset);
             scriptCtx->unk0 |= 1;
         }
         temp2 = gMain.unk4.asBytes.b1;
@@ -157,14 +157,14 @@ bool32 Command02(struct ScriptContext * scriptCtx)
                     }
                 }
             }
-            gUnknown_03002000[622] = gUnknown_080187C0[scriptCtx->unk36];
-            gUnknown_03002000[623] = gUnknown_080187C0[scriptCtx->unk36]+1;
+            gBG1MapBuffer[622] = gUnknown_080187C0[scriptCtx->unk36];
+            gBG1MapBuffer[623] = gUnknown_080187C0[scriptCtx->unk36]+1;
             return 1;
         }
         scriptCtx->unk36 = temp;
         scriptCtx->unk37 = temp;
-        gUnknown_03002000[622] = temp2;
-        gUnknown_03002000[623] = temp2;
+        gBG1MapBuffer[622] = temp2;
+        gBG1MapBuffer[623] = temp2;
     }
     return 1;
 }
@@ -748,7 +748,7 @@ bool32 Command10(struct ScriptContext * scriptCtx)
     num2 = (num2 & 0x7F00) >> 8;
     num &= 0xFF;
     message >>= 15;
-    sub_8002B94(num2, num, message);
+    SetFlag(num2, num, message);
     return 0;
 }
 
@@ -805,7 +805,7 @@ bool32 Command15(struct ScriptContext * scriptCtx)
     }
     if(*scriptCtx->scriptPtr == 0x15)
     {
-        sub_800FBA0(&(gUnknown_03000800.unk40), gMain.unk92);
+        sub_800FBA0(&(gUnknown_03000800.unk40), gMain.idleAnimationOffset);
     }
     scriptCtx->unk0 |= 8;
     return 1;
@@ -1065,10 +1065,10 @@ u32 Command1E(struct ScriptContext * scriptCtx)
     var0 = *scriptCtx->scriptPtr;
     scriptCtx->scriptPtr++;
     var1 = *scriptCtx->scriptPtr;
-    gMain.unk90 = var1;
+    gMain.talkingAnimationOffset = var1;
     scriptCtx->scriptPtr++;
     var2 = *scriptCtx->scriptPtr;
-    gMain.unk92 = var2;
+    gMain.idleAnimationOffset = var2;
     scriptCtx->scriptPtr++;
     if(var0 != 0)
     {
@@ -1091,7 +1091,7 @@ u32 Command1F(struct ScriptContext * scriptCtx)
     u16 * tilemapBuffer;
     scriptCtx->scriptPtr++;
     gLCDIORegisters.lcd_dispcnt &= ~0x400;
-    tilemapBuffer = gUnknown_03000000;
+    tilemapBuffer = gBG2MapBuffer;
     for(i = 0; i < 0x2A0; i++, tilemapBuffer++)
     {
        *tilemapBuffer = 0;
@@ -1117,5 +1117,276 @@ bool32 Command21(struct ScriptContext * scriptCtx)
     gMain.unkB4 |= 0x300;
     gMain.unk8 = gMain.unk4;
     gMain.unk4.w1 = 0x01000007;
+    return 0;
+}
+
+bool32 Command22(struct ScriptContext * scriptCtx)
+{
+    u16 * speed;
+    scriptCtx->scriptPtr++;
+    scriptCtx->scriptPtr++;
+    if(*scriptCtx->scriptPtr != 0)
+        FadeOutBGM(*scriptCtx->scriptPtr);
+    else
+        StopBGM();
+    scriptCtx->scriptPtr++;
+    return 0;
+}
+
+bool32 Command23(struct ScriptContext * scriptCtx)
+{
+    u16 * speed;
+    scriptCtx->scriptPtr++;
+    scriptCtx->scriptPtr++;
+    if(*scriptCtx->scriptPtr != 0)
+        UnpauseBGM();
+    else
+        PauseBGM();
+    scriptCtx->scriptPtr++;
+    return 0;
+}
+
+bool32 Command24(struct ScriptContext * scriptCtx)
+{
+    scriptCtx->scriptPtr++;
+    gMain.unk14 = 0;
+    gMain.unk15 = 0;
+    gMain.unk4.w1 = 2;
+    return 1;
+}
+
+bool32 Command25(struct ScriptContext * scriptCtx)
+{
+    scriptCtx->scriptPtr++;
+    scriptCtx->unk22 = *scriptCtx->scriptPtr;
+    scriptCtx->scriptPtr++;
+    return 0;
+}
+
+bool32 Command26(struct ScriptContext * scriptCtx)
+{
+    scriptCtx->scriptPtr++;
+    if(*scriptCtx->scriptPtr != 0)
+        gMain.unkB4 |= 0x10;
+    else
+        gMain.unkB4 &= ~0x10;
+    scriptCtx->scriptPtr++;
+    return 0;
+}
+
+bool32 Command27(struct ScriptContext * scriptCtx)
+{
+    scriptCtx->scriptPtr++;
+    gMain.shakeTimer = *scriptCtx->scriptPtr;
+    scriptCtx->scriptPtr++;
+    gMain.unkB4 |= 1;
+    gMain.shakeIntensity = *scriptCtx->scriptPtr;
+    scriptCtx->scriptPtr++;
+    return 0;
+}
+
+bool32 Command28(struct ScriptContext * scriptCtx)
+{
+    scriptCtx->scriptPtr++;
+    if(*scriptCtx->scriptPtr != 0)
+    {
+        union Union3003734 * temp = &gMain.unk8;
+        union Union3003734 * temp2 = &gMain.unk4; 
+        *temp = *temp2;
+        temp2->w1 = 5;
+    }
+    else
+    {
+        gMain.unk4.asBytes.b2++;
+    }
+    scriptCtx->scriptPtr++;
+    return 0;
+}
+
+bool32 Command29(struct ScriptContext * scriptCtx)
+{
+    scriptCtx->scriptPtr++;
+    if(*scriptCtx->scriptPtr == 3)
+    {
+        gUnknown_03003AB0.unk4 = 0xF0;
+        gUnknown_03003AB0.unk2 = 0xE0;
+        gUnknown_03003AB0.unk3 = 0xE0;
+        gUnknown_03003AB0.unk0 = 2;
+        gLCDIORegisters.lcd_dispcnt &= ~DISPCNT_BG1_ON;
+    }
+    else if(*scriptCtx->scriptPtr == 2)
+    {
+        u32 i;
+        struct OamAttrs * oam;
+        gUnknown_03003AB0.unk4 = 0xF0;
+        gUnknown_03003AB0.unk2 = 0xE0;
+        gUnknown_03003AB0.unk3 = 0xE0;
+        gUnknown_03003AB0.unk0 = 0;
+        gLCDIORegisters.lcd_dispcnt |= DISPCNT_BG1_ON;
+        oam = &gOamObjects[35];
+        for(i = 0; i < 5; oam++, i++)
+        {
+            oam->attr0 = 0x200;
+        }
+    }
+    else if(*scriptCtx->scriptPtr != 0)
+    {
+        union Union3003734 * temp = &gMain.unk8;
+        union Union3003734 * temp2 = &gMain.unk4; 
+        *temp = *temp2;
+        temp2->w1 = 6;
+    }
+    else
+    {
+        union Union3003734 * temp2 = &gMain.unk4; 
+        temp2->w1 = 0x103;
+    }
+    scriptCtx->scriptPtr++;
+    return 0;
+}
+
+bool32 Command2A(struct ScriptContext * scriptCtx)
+{
+    u32 temp;
+    scriptCtx->scriptPtr++;
+    if(GetFlag(0, *scriptCtx->scriptPtr))
+    {
+        temp = *(scriptCtx->scriptPtr+1);
+    }
+    else
+    {
+        temp = *(scriptCtx->scriptPtr+2);
+    }
+    scriptCtx->unk20 = temp;
+    scriptCtx->scriptPtr+=3;
+    return 0;
+}
+
+bool32 Command2B(struct ScriptContext * scriptCtx)
+{
+    scriptCtx->scriptPtr++;
+    gMain.unk8A = gMain.unk8F;
+    gMain.unk8F--;
+    gMain.unk88 = 1; // damage related
+    gMain.unk89 = 3; // damage related
+    PlaySE(0x4C);
+    if(gMain.unk8F <= 0)
+    {
+        scriptCtx->unk20 = gUnknown_08014D82[gMain.unk8D];
+    }
+    return 0;
+}
+
+bool32 Command2C(struct ScriptContext * scriptCtx)
+{
+    u32 i;
+    scriptCtx->scriptPtr++;
+    scriptCtx->unk20 = *scriptCtx->scriptPtr;
+    scriptCtx->scriptPtr++;
+    scriptCtx->unkE = 0;
+    scriptCtx->unkF = 0;
+    for(i = 0; i < ARRAY_COUNT(gUnknown_03003C00); i++)
+    {
+        gUnknown_03003C00[i].unk0 &= ~0x8000;
+    }
+    gBG1MapBuffer[622] = 9; // clear downward arrow in text box
+    gBG1MapBuffer[623] = 9; // clear downward arrow in text box
+    sub_800FBA0(&(gUnknown_03000800.unk40), gMain.idleAnimationOffset); 
+    return 0;
+}
+
+bool32 Command2E(struct ScriptContext * scriptCtx)
+{
+    u32 i;
+    scriptCtx->unk0 &= ~(0x2 | 0x1);
+    scriptCtx->scriptPtr++;
+    scriptCtx->unkE = 0;
+    scriptCtx->unkF = 0;
+    scriptCtx->unk36 = 0;
+    scriptCtx->unk37 = 0;
+    for(i = 0; i < ARRAY_COUNT(gUnknown_03003C00); i++)
+    {
+        gUnknown_03003C00[i].unk0 &= ~0x8000;
+    }
+    gBG1MapBuffer[622] = 9; // clear downward arrow in text box
+    gBG1MapBuffer[623] = 9; // clear downward arrow in text box
+    return 1;
+}
+
+bool32 Command2F(struct ScriptContext * scriptCtx)
+{
+    u32 temp;
+    scriptCtx->scriptPtr++;
+    temp = *scriptCtx->scriptPtr;
+    scriptCtx->scriptPtr++;
+    if(*scriptCtx->scriptPtr)
+        sub_8010204(temp);
+    else
+        sub_8010960(sub_800F8BC(temp));
+    scriptCtx->scriptPtr++;
+    return 0;
+}
+
+bool32 Command30(struct ScriptContext * scriptCtx)
+{
+    scriptCtx->scriptPtr++;
+    scriptCtx->unk17 = *scriptCtx->scriptPtr;
+    if(scriptCtx->unk17 == 2)
+    {
+        scriptCtx->unk16 = 0;
+    }
+    scriptCtx->scriptPtr++;
+    return 0;
+}
+
+bool32 Command31(struct ScriptContext * scriptCtx)
+{
+    u32 unk0, unk1;
+    scriptCtx->scriptPtr++;
+    unk0 = *scriptCtx->scriptPtr;
+    scriptCtx->scriptPtr++;
+    unk1 = *scriptCtx->scriptPtr;
+    sub_80106A4(unk0, unk1);
+    scriptCtx->scriptPtr++;
+    return 0;
+}
+
+bool32 Command32(struct ScriptContext * scriptCtx)
+{
+    u32 location, unk1;
+    scriptCtx->scriptPtr++;
+    location = *scriptCtx->scriptPtr;
+    scriptCtx->scriptPtr++;
+    unk1 = *scriptCtx->scriptPtr;
+    scriptCtx->scriptPtr++;
+    gMain.mapData[location][0] = unk1;
+    return 0;
+}
+
+bool32 Command33(struct ScriptContext * scriptCtx)
+{
+    u32 startingLocation;
+
+    scriptCtx->scriptPtr++;
+    startingLocation = *scriptCtx->scriptPtr;
+    scriptCtx->scriptPtr++;
+    gMain.mapData[startingLocation][4] = *scriptCtx->scriptPtr;
+    scriptCtx->scriptPtr++;
+    gMain.mapData[startingLocation][5] = *scriptCtx->scriptPtr;
+    scriptCtx->scriptPtr++;
+    gMain.mapData[startingLocation][6] = *scriptCtx->scriptPtr;
+    scriptCtx->scriptPtr++;
+    gMain.mapData[startingLocation][7] = *scriptCtx->scriptPtr;
+    scriptCtx->scriptPtr++;
+    return 0;
+}
+
+bool32 Command34(struct ScriptContext * scriptCtx)
+{
+    scriptCtx->scriptPtr++;
+    gMain.unk8C = *scriptCtx->scriptPtr;
+    scriptCtx->scriptPtr++;
+    sub_80007D8(2, 0, 2, 0x1F);
+    gMain.unk4.w1 = 0x504;
     return 0;
 }
