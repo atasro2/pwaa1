@@ -7,7 +7,7 @@ void MoveSpritesToOAM()
 }
 
 
-bool32 sub_8002A68(struct GSPoint * p, struct GSPoint4 * cp)
+bool32 sub_8002A68(struct Point * p, struct Point4 * cp)
 {
     s32 num;
     s32 num2;

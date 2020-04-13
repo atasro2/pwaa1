@@ -52,7 +52,7 @@ bool32 Command02(struct ScriptContext * scriptCtx)
         {
             scriptCtx->unk0 &= ~0x20;
             scriptCtx->scriptPtr++; 
-            if(scriptCtx->unkC != 0xA) // if script cmd is 0xA ?
+            if(scriptCtx->unkC != 0xA) // if script cmd is not 0xA ?
             {
                 return 1;
             }
@@ -102,7 +102,7 @@ bool32 Command02(struct ScriptContext * scriptCtx)
             sub_8002244(1);
             for (i = 0; i < ARRAY_COUNT(gUnknown_03003930); i++)
             {
-                gUnknown_03003930[i].unk0 |= 0xFF;
+                gUnknown_03003930[i].id |= 0xFF;
             }
             return 0;
         }
@@ -112,8 +112,7 @@ bool32 Command02(struct ScriptContext * scriptCtx)
         {
             if(gMain.unk8F > 0)
             {
-                //scriptCtx->scriptPtr++;
-                scriptCtx->unk20 = *(scriptCtx->scriptPtr+1);
+                scriptCtx->nextSection = *(scriptCtx->scriptPtr+1);
             }
         }
         else
@@ -698,8 +697,8 @@ bool32 Command0C(struct ScriptContext * scriptCtx)
 
 bool32 Command0D(struct ScriptContext * scriptCtx)
 {
-    scriptCtx->unk22 = scriptCtx->unk1E;
-    scriptCtx->unk1E = scriptCtx->unk20;
+    scriptCtx->previousSection = scriptCtx->currentSection;
+    scriptCtx->currentSection = scriptCtx->nextSection;
     scriptCtx->scriptPtr++;
     return 0;
 }
@@ -1104,7 +1103,7 @@ u32 Command1F(struct ScriptContext * scriptCtx)
 u32 Command20(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
-    scriptCtx->unk20 = *scriptCtx->scriptPtr;
+    scriptCtx->nextSection = *scriptCtx->scriptPtr;
     scriptCtx->scriptPtr++;
     return 0;
 }
@@ -1158,7 +1157,7 @@ bool32 Command24(struct ScriptContext * scriptCtx)
 bool32 Command25(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
-    scriptCtx->unk22 = *scriptCtx->scriptPtr;
+    scriptCtx->previousSection = *scriptCtx->scriptPtr;
     scriptCtx->scriptPtr++;
     return 0;
 }
@@ -1257,7 +1256,7 @@ bool32 Command2A(struct ScriptContext * scriptCtx)
     {
         temp = *(scriptCtx->scriptPtr+2);
     }
-    scriptCtx->unk20 = temp;
+    scriptCtx->nextSection = temp;
     scriptCtx->scriptPtr+=3;
     return 0;
 }
@@ -1272,7 +1271,7 @@ bool32 Command2B(struct ScriptContext * scriptCtx)
     PlaySE(0x4C);
     if(gMain.unk8F <= 0)
     {
-        scriptCtx->unk20 = gUnknown_08014D82[gMain.unk8D];
+        scriptCtx->nextSection = gUnknown_08014D82[gMain.unk8D];
     }
     return 0;
 }
@@ -1281,7 +1280,7 @@ bool32 Command2C(struct ScriptContext * scriptCtx)
 {
     u32 i;
     scriptCtx->scriptPtr++;
-    scriptCtx->unk20 = *scriptCtx->scriptPtr;
+    scriptCtx->nextSection = *scriptCtx->scriptPtr;
     scriptCtx->scriptPtr++;
     scriptCtx->unkE = 0;
     scriptCtx->unkF = 0;
@@ -1389,4 +1388,355 @@ bool32 Command34(struct ScriptContext * scriptCtx)
     sub_80007D8(2, 0, 2, 0x1F);
     gMain.unk4.w1 = 0x504;
     return 0;
+}
+
+//fuck gScriptHeap
+
+#ifdef NONMATCHING
+bool32 Command35(struct ScriptContext *scriptCtx)
+{
+    u32 offset;
+    u32 flag;
+    u32 sectionNumber;
+    u16 * jmpArgs;
+
+    scriptCtx->scriptPtr++;
+    flag = *scriptCtx->scriptPtr >> 8;
+
+    if(*scriptCtx->scriptPtr & 1) 
+    {
+        if(!GetFlag(0, flag)) 
+        {
+            scriptCtx->scriptPtr += 2;
+            return 0;
+        }
+        
+    }
+    else 
+    {
+        if(GetFlag(0, flag)) 
+        {
+            scriptCtx->scriptPtr += 2;
+            return 0;
+        }
+    }
+    if(*(scriptCtx->scriptPtr) & 0x80) 
+    {
+        scriptCtx->scriptPtr++;
+        jmpArgs = (u16*)(gScriptHeap+1+*scriptCtx->scriptPtr);
+        offset = jmpArgs[0] / 2;
+        sectionNumber = jmpArgs[1];
+        scriptCtx->currentSection = sectionNumber + 0x80;
+        scriptCtx->scriptPtr2 = (void *)gScriptHeap + (gScriptHeap+1)[sectionNumber];
+        scriptCtx->scriptPtr = scriptCtx->scriptPtr2 + offset;
+    }
+    else 
+    {
+        scriptCtx->scriptPtr++;
+        offset = *scriptCtx->scriptPtr / 2;
+        scriptCtx->scriptPtr = scriptCtx->scriptPtr2 + offset;
+    }
+    return 0;
+}
+#else
+NAKED
+bool32 Command35(struct ScriptContext *scriptCtx)
+{
+    asm_unified("push {r4, lr}\n\
+	adds r4, r0, #0\n\
+	ldr r1, [r4, #4]\n\
+	adds r0, r1, #2\n\
+	str r0, [r4, #4]\n\
+	ldrh r1, [r1, #2]\n\
+	lsrs r2, r1, #8\n\
+	movs r0, #1\n\
+	ands r0, r1\n\
+	cmp r0, #0\n\
+	beq _08006E44\n\
+	movs r0, #0\n\
+	adds r1, r2, #0\n\
+	bl GetFlag\n\
+	cmp r0, #0\n\
+	bne _08006E56\n\
+	ldr r0, [r4, #4]\n\
+	adds r0, #4\n\
+	b _08006E96\n\
+_08006E44:\n\
+	movs r0, #0\n\
+	adds r1, r2, #0\n\
+	bl GetFlag\n\
+	cmp r0, #0\n\
+	beq _08006E56\n\
+	ldr r0, [r4, #4]\n\
+	adds r0, #4\n\
+	b _08006E96\n\
+_08006E56:\n\
+	ldr r1, [r4, #4]\n\
+	movs r0, #0x80\n\
+	ldrh r2, [r1]\n\
+	ands r0, r2\n\
+	cmp r0, #0\n\
+	beq _08006E8C\n\
+	ldrh r1, [r1, #2]\n\
+	lsls r0, r1, #2\n\
+	ldr r1, _08006E88\n\
+	adds r0, r0, r1\n\
+	ldrh r2, [r0]\n\
+	lsrs r1, r2, #1\n\
+	ldrh r2, [r0, #2]\n\
+	adds r0, r2, #0\n\
+	adds r0, #0x80\n\
+	strh r0, [r4, #0x1e]\n\
+	lsls r0, r2, #2\n\
+	ldr r2, _08006E88\n\
+	adds r0, r0, r2\n\
+	ldr r0, [r0]\n\
+	subs r2, #4\n\
+	adds r0, r0, r2\n\
+	str r0, [r4, #8]\n\
+	lsls r1, r1, #1\n\
+	b _08006E94\n\
+	.align 2, 0\n\
+_08006E88: .4byte gScriptHeap+4\n\
+_08006E8C:\n\
+	ldrh r1, [r1, #2]\n\
+	lsrs r2, r1, #1\n\
+	lsls r1, r2, #1\n\
+	ldr r0, [r4, #8]\n\
+_08006E94:\n\
+	adds r0, r0, r1\n\
+_08006E96:\n\
+	str r0, [r4, #4]\n\
+	movs r0, #0\n\
+	pop {r4}\n\
+	pop {r1}\n\
+	bx r1\n");
+}
+#endif
+
+#ifdef NONMATCHING
+bool32 Command36(struct ScriptContext * scriptCtx)
+{
+    u32 idx;
+    u32 offset;
+    u16 * ptr;
+    scriptCtx->scriptPtr++;
+    idx = *scriptCtx->scriptPtr;
+    ptr = (u16*)(gScriptHeap+1+idx);
+    offset = ptr[0] / 2;
+    idx = ptr[1];
+    scriptCtx->currentSection = idx + 0x80;
+    scriptCtx->scriptPtr2 = (gScriptHeap+1)[idx] + (void *)gScriptHeap;
+    scriptCtx->scriptPtr = scriptCtx->scriptPtr2 + offset;
+    return 0;
+}
+#else
+NAKED bool32 Command36(struct ScriptContext * scriptCtx)
+{
+    asm_unified("ldr r1, [r0, #4]\n\
+	ldrh r1, [r1, #2]\n\
+	lsls r1, r1, #2\n\
+	ldr r2, _08006ED0\n\
+	adds r1, r1, r2\n\
+	ldrh r2, [r1]\n\
+	lsrs r3, r2, #1\n\
+	ldrh r1, [r1, #2]\n\
+	adds r2, r1, #0\n\
+	adds r2, #0x80\n\
+	strh r2, [r0, #0x1e]\n\
+	lsls r1, r1, #2\n\
+	ldr r2, _08006ED0\n\
+	adds r1, r1, r2\n\
+	ldr r1, [r1]\n\
+	subs r2, #4\n\
+	adds r1, r1, r2\n\
+	str r1, [r0, #8]\n\
+	lsls r3, r3, #1\n\
+	adds r1, r1, r3\n\
+	str r1, [r0, #4]\n\
+	movs r0, #0\n\
+	bx lr\n\
+	.align 2, 0\n\
+_08006ED0: .4byte gScriptHeap+4\n");
+}
+#endif
+
+bool32 Command37(struct ScriptContext * scriptCtx)
+{
+    u32 temp;
+    scriptCtx->scriptPtr++;
+    temp = *scriptCtx->scriptPtr;
+    scriptCtx->scriptPtr++;
+    gUnknown_030028A0.talkData[temp].unk3 = *scriptCtx->scriptPtr;
+    scriptCtx->scriptPtr++;
+    return 0;
+}
+
+bool32 Command38(struct ScriptContext * scriptCtx)
+{
+    scriptCtx->scriptPtr++;
+    if(*scriptCtx->scriptPtr)
+    {
+        sub_800FA74(&(gUnknown_03000800.unk40), 1);
+    }
+    else
+    {
+        sub_800FA74(&(gUnknown_03000800.unk40), 0);
+    }
+    scriptCtx->scriptPtr++;
+    return 0;
+}
+
+bool32 Command39(struct ScriptContext * scriptCtx)
+{
+    u32 id;
+    u32 oamIdx;
+    struct Struct3003930 * iwstruct3930p;
+    struct OamAttrs * oamObject;
+    scriptCtx->scriptPtr++;
+    id = *scriptCtx->scriptPtr >> 8;
+    if(*scriptCtx->scriptPtr & 1)
+    {
+        oamIdx = sub_8007554(id);
+        if(oamIdx == 0xFF)
+        {
+            u32 size;
+            oamIdx = sub_8007554(0xFF);
+            iwstruct3930p = &gUnknown_03003930[oamIdx];
+            oamIdx += 0x39;
+            iwstruct3930p->id = id;
+            iwstruct3930p->vramPtr = scriptCtx->unk3C;
+            DmaCopy16(3, gUnknown_080187C8[id].tiles, iwstruct3930p->vramPtr, size = gUnknown_080187C8[id].size); // weird shit going on here
+            DmaCopy16(3, gUnknown_0824696C, PALETTE + 0x2C0, 32);
+            iwstruct3930p->oamIdx = oamIdx;
+            oamObject = &gOamObjects[oamIdx];
+            
+            oamObject->attr0 = gUnknown_080187C8[id].attr0;
+            iwstruct3930p->attr0 = oamObject->attr0;
+            
+            oamObject->attr1 = gUnknown_080187C8[id].attr1;
+            iwstruct3930p->attr1 = oamObject->attr1;
+
+            oamIdx = ((u32)iwstruct3930p->vramPtr - 0x6011800);
+            oamIdx /= 32;
+            oamObject->attr2 = 0x68C0 + oamIdx;
+            iwstruct3930p->attr2 = oamObject->attr2;
+
+            scriptCtx->unk3C += size;
+        }
+        else
+        {
+            iwstruct3930p = &gUnknown_03003930[oamIdx];
+            oamObject = &gOamObjects[iwstruct3930p->oamIdx];
+            oamObject->attr0 = iwstruct3930p->attr0;
+            oamObject->attr1 = iwstruct3930p->attr1;
+            oamObject->attr2 = iwstruct3930p->attr2;
+            iwstruct3930p->unk5 &= ~0x4;
+        }
+    }
+    else
+    {   
+        // TODO: BUGFIX
+        // ! Capcom forgot to check for 0xFF here..this will corrupt the sound buffer in gSoundInfo
+        oamIdx = sub_8007554(id); 
+        gUnknown_03003930[oamIdx].unk5 |= 4;
+    }
+    scriptCtx->scriptPtr++;
+    return 0;
+}
+
+bool32 Command3A(struct ScriptContext * scriptCtx)
+{
+    u32 oamIdx;
+    scriptCtx->scriptPtr++;
+    oamIdx = sub_8007554(*scriptCtx->scriptPtr >> 8);
+    if(oamIdx != 0xFF)
+    {
+        scriptCtx->scriptPtr++;
+        gUnknown_03003930[oamIdx].attr0 &= ~0xFF;
+        gUnknown_03003930[oamIdx].attr0 |= (u8)*scriptCtx->scriptPtr;
+        gUnknown_03003930[oamIdx].attr1 &= ~0x1FF;
+        gUnknown_03003930[oamIdx].attr1 |= (u8)(*scriptCtx->scriptPtr >> 8);
+        scriptCtx->scriptPtr++;
+    }
+    else
+    {
+        scriptCtx->scriptPtr++;
+        scriptCtx->scriptPtr++;
+    }
+    return 0;
+}
+
+bool32 Command3B(struct ScriptContext * scriptCtx)
+{
+    u32 oamIdx;
+    scriptCtx->scriptPtr++;
+    oamIdx = sub_8007554(*scriptCtx->scriptPtr >> 8);
+    if(oamIdx != 0xFF)
+    {
+        gUnknown_03003930[oamIdx].unk4 = (u8)*scriptCtx->scriptPtr & 3;
+        scriptCtx->scriptPtr++;
+        gUnknown_03003930[oamIdx].unk3 = (u8)(*scriptCtx->scriptPtr >> 8);
+        gUnknown_03003930[oamIdx].unk6 = (u8)*scriptCtx->scriptPtr;
+        scriptCtx->scriptPtr++;
+        gUnknown_03003930[oamIdx].unk5 |= 2;
+        gUnknown_03003930[oamIdx].unk7 = 0;
+    }
+    else
+    {
+        scriptCtx->scriptPtr++;
+        scriptCtx->scriptPtr++;
+    }
+    return 0;
+}
+
+bool32 Command3C(struct ScriptContext * scriptCtx)
+{
+    u32 oamIdx;
+    scriptCtx->scriptPtr++;
+    oamIdx = sub_8007554(*scriptCtx->scriptPtr >> 8);
+    if(oamIdx != 0xFF)
+    {
+        gUnknown_03003930[oamIdx].unk1 = *scriptCtx->scriptPtr;
+        if(!(*scriptCtx->scriptPtr & 1))
+        {
+            gOamObjects[oamIdx+0x39].attr1 = gUnknown_03003930[oamIdx].attr1;
+        }
+    }
+    gUnknown_03003930[oamIdx].unk2 = 0;
+    scriptCtx->scriptPtr++;
+    return 0;
+}
+
+bool32 Command3D(struct ScriptContext * scriptCtx)
+{
+    u32 oamIdx;
+    scriptCtx->scriptPtr++;
+    oamIdx = sub_8007554(*scriptCtx->scriptPtr >> 8);
+    if(oamIdx != 0xFF)
+    {
+        if(gUnknown_03003930[oamIdx].unk5 & 2)
+        {
+            scriptCtx->scriptPtr--;
+            return 1;
+        }
+    }
+    scriptCtx->scriptPtr++;
+    return 0; 
+}
+
+bool32 Command3E(struct ScriptContext * scriptCtx)
+{
+    scriptCtx->scriptPtr++;
+    DmaCopy16(3, gUnknown_08190AC0, VRAM + 0x11F80, 0x80);
+    DmaCopy16(3, gUnknown_081942C0, PALETTE + 0x300, 0x20);
+    gUnknown_03003A50.unk0 = 0xF0;
+    gUnknown_03003A50.unk2 = 0x30;
+    gUnknown_03003A50.unk17 = 0;
+    gUnknown_03003A50.unk16 = 8;
+    gUnknown_03003A50.unk8 = 0xF;
+    gUnknown_03003A50.unk9 = *scriptCtx->scriptPtr;
+    scriptCtx->unk0 |= 0x280;
+    scriptCtx->scriptPtr++;
+    return 0; 
 }

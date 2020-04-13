@@ -17,7 +17,10 @@ extern u32 * gScriptTable[17];
 extern u8 gUnknown_08018784[0x30];
 extern u8 gUnknown_080187C0[8];
 extern u8 * gUnknown_080187B4[3];
-
+extern struct Struct80187C8 gUnknown_080187C8[16];
+extern u8 gUnknown_0824696C[32]; // palette
+extern u8 gUnknown_08190AC0[]; // some tiles
+extern u8 gUnknown_081942C0[]; // probably 8bpp palette
 //FUNCTIONS // these should be moved soon
 void sub_80007A0(struct Struct3004000 *);
 u8 Random();
@@ -53,6 +56,7 @@ extern void sub_800B7A8(struct Struct3003A50 *, u32);
 extern void sub_800244C(u32);
 extern void sub_80028B4(u32, u32);
 extern void sub_8002244(u32);
+extern void sub_800FA74(struct Struct3000840 *, u32);
 extern void sub_800FBA0(struct Struct3000840 *, u32);
 extern s32 sub_800ECF8(u16, u32);
 extern s32 sub_800ED40(u16);
@@ -63,8 +67,8 @@ extern struct Struct3000840 * sub_8010204(u32);
 extern void sub_80106A4(u32, u32);
 extern struct Struct3000840 * sub_800F8BC(u32);
 extern u32 sub_8002224(u32);
+extern u32 sub_8007554(u32);
 //EWRAM
-extern EWRAM_DATA u32 gUnknown_02011DC0[0x80];
 extern EWRAM_DATA u32 gScriptHeap[0x1B000/4];
 extern EWRAM_DATA struct SaveData gSaveDataBuffer;
 extern EWRAM_DATA u8 gUnknown_0202CFC0[0x9B00]; // got no idea how big this actually is

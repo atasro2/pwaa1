@@ -32,15 +32,15 @@ void sub_8005470(void)
     sub_8005890(&gScriptContext);
 }
 // arg may be a u16
-void sub_800549C(u32 arg0)
+void sub_800549C(u32 newSection)
 {
-    gScriptContext.unk22 = gScriptContext.unk1E;
-    gScriptContext.unk1E = arg0;
+    gScriptContext.previousSection = gScriptContext.currentSection;
+    gScriptContext.currentSection = newSection;
     sub_80054BC(&gScriptContext);
     gScriptContext.scriptPtr++;
 }
 
-#ifdef NONMATCHING // i think this is functionally equivalent
+#ifdef NONMATCHING // i think this is functionally equivalent // maybe not
 void sub_80054BC(struct ScriptContext *scriptCtx)
 {
     u32 i;
@@ -58,7 +58,7 @@ void sub_80054BC(struct ScriptContext *scriptCtx)
     scriptCtx->unk17 = 0;
     scriptCtx->unk18 = 9;
     scriptCtx->unk1A = 0x74;
-    scriptCtx->unk20 = scriptCtx->unk1E + 1;
+    scriptCtx->nextSection = scriptCtx->currentSection + 1;
     scriptCtx->unk2C = 0;
     scriptCtx->unk2E = 0;
     scriptCtx->unk34 = 0;
@@ -75,15 +75,15 @@ void sub_80054BC(struct ScriptContext *scriptCtx)
     {
         void *r1;
         void *r0;
-        if (scriptCtx->unk1E > 0x7F)
+        if (scriptCtx->currentSection > 0x7F)
         {
             r1 = gScriptHeap;
-            r0 = &gUnknown_02011DC0[scriptCtx->unk1E];
+            r0 = &gScriptHeap[scriptCtx->currentSection-0x80];
         }
         else
         {
             r1 = common_scripts;
-            r0 = &common_scripts[scriptCtx->unk1E];
+            r0 = &common_scripts[scriptCtx->currentSection];
         }
         scriptCtx->scriptPtr2 = scriptCtx->scriptPtr = (u16 *)(r1 + 1 [(u32 *)r0]);
         scriptCtx->unk1C = ((u16 *)r1)[0];
@@ -181,7 +181,7 @@ _08005550: .4byte 0x00007FFF\n\
 _08005554: .4byte gUnknown_03003C00\n\
 _08005558: .4byte 0x00000804\n\
 _0800555C: .4byte gScriptHeap\n\
-_08005560: .4byte gUnknown_02011DC0\n\
+_08005560: .4byte gScriptHeap-0x200\n\
 _08005564:\n\
 	ldr r1, _080055A4\n\
 	ldrh r6, [r2, #0x1e]\n\
@@ -260,7 +260,7 @@ void sub_80055B0(struct ScriptContext * scriptCxt)
 
         scriptCxt->scriptPtr++;
         
-        if ((scriptCxt->unk1E != 0x80 || gMain.unk8D) && scriptCxt->unkC != 0xFF)
+        if ((scriptCxt->currentSection != 0x80 || gMain.unk8D) && scriptCxt->unkC != 0xFF)
         {
                 if ( scriptCxt->textSpeed )
                 {
@@ -310,7 +310,7 @@ void CopyCharGlyphToWindow(u32 arg0, u32 y, u32 x)
     u32 i;
     u32 colorT4;
     u32 idx;
-    // gUnknown_030039D0 is text color tile buffer 
+    // gUnknown_030039D0 == text color tile buffer 
     if (gScriptContext.textColor != 0) // if colored 
     {
         u8 * ptr;

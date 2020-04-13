@@ -160,15 +160,21 @@ struct LCDIORegisters
     u16 lcd_dispstat; /* +52 */
 };
 
-struct Struct3003930 
+struct Struct3003930 // ExplCharData
 { 
-    u8 unk0; 
+    u8 id; 
     u8 unk1;
-    u8 filler2[0x3];
-    u8 unk5;
-    u8 filler6[0x2];
-    u16 unk8;
-    u8 fillerA[0xA]; 
+    u8 unk2;
+    u8 unk3;
+    u8 unk4;
+    u8 unk5; // status
+    u8 unk6;
+    u8 unk7;
+    u16 attr0; /* +0x8 */
+    u16 attr1; /* +0xA */
+    u16 attr2; /* +0xC */
+    u16 oamIdx; /* +0xE */
+    u8 *volatile vramPtr; /* +0x10 */
 };
 
 struct ScriptContext
@@ -176,7 +182,7 @@ struct ScriptContext
     u16 unk0; // message status
     u16 waitTimer; // wait timer
     u16 * scriptPtr; /* +4 */
-    u16 * scriptPtr2;
+    u16 * scriptPtr2; /* +8 */
     u16 unkC;
     u8 unkE;
     u8 unkF;
@@ -191,9 +197,9 @@ struct ScriptContext
     u16 unk18;
     u16 unk1A;
     u16 unk1C;
-    u16 unk1E;
-    u16 unk20;
-    u16 unk22;
+    u16 currentSection; /* +0x1E */
+    u16 nextSection; /* +0x20 */
+    u16 previousSection; /* +0x22 */
     u8 textColor; /* +0x24 */
     u8 textSpeed; /* +0x25 */
     u8 unk26;
@@ -212,7 +218,7 @@ struct ScriptContext
     u8 unk38;
     u8 unk39;
     u8 filler3A[0x2];
-    u32 unk3C;
+    u8 * unk3C;
 };
 
 struct SaveData
@@ -233,23 +239,53 @@ struct Struct3002840
     u8 unk38[0x20];
 };
 
+struct TalkData
+{
+    /* // ?? TODO: is this all just u8s in GS1?
+    public uint room;
+
+    public uint pl_id;
+
+    public uint dm;
+
+    public uint sw;
+
+    public uint[] tag = new uint[4];
+
+    public uint[] flag = new uint[4];
+
+    public uint[] mess = new uint[4];
+    */
+    u8 unk0;
+    u8 unk1;
+    u8 unk2;
+    u8 unk3;
+    u8 filler4[0x10];
+};
+
 struct Struct30028A0
 {
-    u8 filler0[0x280];
+    struct TalkData talkData[32];
 };
 
 struct Struct3003A50
 {
-    u8 filler0[0x5];
+    u16 unk0;
+    u16 unk2;
+    u8 unk4;
     u8 unk5;
     u8 unk6;
-    u8 filler7[0x3];
+    u8 unk7;
+    u8 unk8;
+    u8 unk9;
     u8 unkA;
     u8 unkB;
     u8 unkC;
     u8 unkD;
     u8 unkE;
-    u8 fillerF[0x9];
+    u8 fillerF[0x7];
+    u8 unk16;
+    u8 unk17;
 };
 
 struct Struct3003AB0
@@ -280,7 +316,7 @@ struct Struct3004000
     s16 unkE;
 };
 
-struct GSPoint4 // shamelessly stolen from unity
+struct Point4 // shamelessly stolen from unity
 {
     u16 x0;
     u16 y0;
@@ -292,11 +328,19 @@ struct GSPoint4 // shamelessly stolen from unity
     u16 y3;
 };
 
-struct GSPoint // shamelessly stolen from unity
+struct Point // shamelessly stolen from unity
 {
     u16 x;
     u16 y;
 };
 
+struct Struct80187C8
+{
+    u8 * tiles;
+    u16 size;
+    u16 attr0;
+    u16 attr1;
+    u16 attr2;
+};
 
 #endif//GUARD_STRUCTS_H
