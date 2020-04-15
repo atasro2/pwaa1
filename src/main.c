@@ -1,4 +1,5 @@
 #include "global.h"
+#include "main.h"
 #include "sound_control.h"
 #include "m4a.h"
 
@@ -29,8 +30,8 @@ static void (*IntrTableFunctionPtrs[])() =
 
 void CheckAButtonAndGoToClearSaveScreen()
 {
-    if ((gMain.unk4.asBytes.b1 == 0) && (A_BUTTON & KEY_NEW()))
-        gMain.unk4.asBytes.b1 = 0xE;
+    if ((gMain.unk4[0] == 0) && (A_BUTTON & KEY_NEW()))
+        gMain.unk4[0] = 0xE;
 }
 
 void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
@@ -181,7 +182,7 @@ void sub_80002E4() // Proc?
         main->shakeAmountY = 0;
     }
 
-    gUnknown_0811DBB4[gMain.unk4.asBytes.b1](&gMain);
+    gUnknown_0811DBB4[gMain.unk4[0]](&gMain);
 
     if (iwstruct4000p->unk4)
     {
@@ -193,13 +194,13 @@ void sub_80003E0()
 {
     struct Main *main = &gMain;
     struct LCDIORegisters *lcdIoRegsp = &gLCDIORegisters;
-    u32 temp = main->unk4.asBytes.b1 ? 1 : 0;
+    u32 temp = main->unk4[0] ? 1 : 0;
 
     RegisterRamReset(RESET_SIO_REGS | RESET_SOUND_REGS | RESET_REGS);
-    DmaFill32(3, 0, IWRAM_START, 0x7E00);  // Clear IWRAM // doesn't clear stack!
+    DmaFill32(3, 0, IWRAM_START, 0x7E00);  // Clear IWRAM
     DmaFill32(3, 0, EWRAM_START, 0x40000); // Clear EWRAM
 
-    main->unk4.w1 = temp;
+    SET_UNK4(0, 0, 0, temp);
 
     RegisterRamReset(RESET_OAM | RESET_VRAM | RESET_PALETTE);
 

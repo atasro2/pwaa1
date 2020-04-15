@@ -83,9 +83,6 @@ extern struct Struct3002840 gUnknown_03002840;
 extern struct Struct30028A0 gUnknown_030028A0;
 extern struct OamAttrs gOamObjects[128];
 extern u16 gBG0MapBuffer[0x400]; // BG 0 Map buffer
-extern struct Joypad gJoypad;
-extern struct Main gMain;
-extern struct LCDIORegisters gLCDIORegisters;
 extern struct Struct3003930 gUnknown_03003930[8];
 extern u8 gUnknown_030039D0[0x80];
 extern struct Struct3003A50 gUnknown_03003A50;

@@ -1,4 +1,5 @@
 #include "global.h"
+#include "main.h"
 #include "sound_control.h"
 
 void MoveSpritesToOAM()
@@ -167,7 +168,6 @@ void sub_8002CF0(u32 arg0, u32 arg1) // init investigation buttons? // unused?
 {
     struct OamAttrs * sprite = &gOamObjects[49];
     u32 i = 0;
-    union Union3003734 * union3734 = &gMain.unk4;
 
     for(i = 0; i < 4; sprite++, i++)
     {
@@ -175,7 +175,7 @@ void sub_8002CF0(u32 arg0, u32 arg1) // init investigation buttons? // unused?
         sprite->attr1 = 60 * i + (3 << 14); // TODO: NON AFFINE attr1 macro
         sprite->attr2 = SPRITE_ATTR2((256 + i * 32), 0, 5);
     }
-    union3734->w1 = 260;
+    SET_UNK4(0, 0, 1, 4);
     SetFlag(0, arg1, TRUE);
     sub_800549C(arg0);
     sub_800244C(1);

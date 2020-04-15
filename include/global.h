@@ -3,6 +3,7 @@
 
 #include <stddef.h>
 #include "gba/gba.h"
+#include "main.h"
 #include "declarations.h"
 
 #define PALETTE 0x05000000

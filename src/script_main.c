@@ -1,4 +1,5 @@
 #include "global.h"
+#include "main.h"
 #include "script.h"
 #include "sound_control.h"
 
@@ -40,7 +41,7 @@ void sub_800549C(u32 newSection)
     gScriptContext.scriptPtr++;
 }
 
-#ifdef NONMATCHING // i think this is functionally equivalent // maybe not
+#ifdef NONMATCHING // i think this is functionally equivalent
 void sub_80054BC(struct ScriptContext *scriptCtx)
 {
     u32 i;
@@ -50,7 +51,7 @@ void sub_80054BC(struct ScriptContext *scriptCtx)
     }
     scriptCtx->unkE = 0;
     scriptCtx->unkF = 0;
-    if (gMain.unk4.w1 != 0x804)
+    if (gMain.unk4[0] != 4 || gMain.unk4[1] != 8)
         scriptCtx->unk13 = 0;
     scriptCtx->unk15 = 0;
     scriptCtx->unk14 = 8;

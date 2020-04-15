@@ -1,4 +1,5 @@
 #include "global.h"
+#include "main.h"
 #include "script.h"
 #include "sound_control.h"
 #include "m4a.h"
@@ -60,7 +61,7 @@ bool32 Command02(struct ScriptContext * scriptCtx)
             return 1;
         }
     }
-    if((u8)(gMain.unk4.asBytes.b1 - 3) <= 3)
+    if((u8)(gMain.unk4[0] - 3) <= 3)
     {
         if(scriptCtx->unk0 & 1)
             if(gJoypad.newKeysRaw & 1)
@@ -136,7 +137,7 @@ bool32 Command02(struct ScriptContext * scriptCtx)
             sub_800FBA0(&gUnknown_03000800.unk40, gMain.idleAnimationOffset);
             scriptCtx->unk0 |= 1;
         }
-        temp2 = gMain.unk4.asBytes.b1;
+        temp2 = gMain.unk4[0];
         if(temp2 != 9)
         {
             scriptCtx->unk37++;
@@ -757,8 +758,8 @@ bool32 Command11(struct ScriptContext * scriptCtx)
     PlaySE(49);
     scriptCtx->unk0 |= 0x10;
     gMain.unkB4 |= 0x100;
-    gMain.unk8.w1 = gMain.unk4.w1;
-    gMain.unk4.w1 = 0x1000007;
+    SET_UNK8_AS_UNK4();
+    SET_UNK4(1, 0, 0, 7);
     return 0;
 }
 
@@ -816,7 +817,7 @@ bool32 Command16(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     main->unk14 = 0;
     main->unk15 = 0;
-    main->unk4.w1 = 0x203;
+    SET_UNK4(0, 0, 2, 3);
     gUnknown_03003A50.unkA = 0;
     gUnknown_03003A50.unkB = 0;
     main->unk8D++;
@@ -852,8 +853,8 @@ bool32 Command17(struct ScriptContext * scriptCtx)
             {
                 gMain.unk26 = var2;
                 gMain.unk27 = var1;
-                gMain.unk8.w1 = gMain.unk4.w1;
-                gMain.unk4.w1 = 0x8;
+                SET_UNK8_AS_UNK4();
+                SET_UNK4(0, 0, 0, 8);
             }
         }
     }
@@ -912,8 +913,8 @@ bool32 Command19(struct ScriptContext * scriptCtx)
         {
             gMain.unk26 = var2;
             gMain.unk27 = var1;
-            gMain.unk8.w1 = gMain.unk4.w1;
-            gMain.unk4.w1 = 0x8;
+            SET_UNK8_AS_UNK4();
+            SET_UNK4(0, 0, 0, 8);
         }
     }
     scriptCtx->scriptPtr++;
@@ -982,7 +983,7 @@ u32 Command1C(struct ScriptContext * scriptCtx)
             gLCDIORegisters.lcd_bg1vofs = 0;
             break;
         case 2:
-            if(gMain.unk4.asBytes.b1 == 3)
+            if(gMain.unk4[0] == 3)
             {
                 sub_8010960(&(gUnknown_03000800.unk40));
                 gUnknown_03003A50.unk5 = 0;
@@ -991,27 +992,27 @@ u32 Command1C(struct ScriptContext * scriptCtx)
             sub_800244C(1);
             break;
         case 3:
-            if(gMain.unk4.asBytes.b1 == 3)
+            if(gMain.unk4[0] == 3)
             {
                 sub_8010960(&(gUnknown_03000800.unk40));
                 gUnknown_03003A50.unk5 = 0;
                 sub_800B7A8(&gUnknown_03003A50, 15);
             }
             sub_800244C(0);
-            if(gMain.unk4.asBytes.b1 == 4)
+            if(gMain.unk4[0] == 4)
             {
                 gUnknown_03003A50.unkE = 0;
-                if(gMain.unk4.asBytes.b2 == 6)
+                if(gMain.unk4[1] == 6)
                 {
                     sub_800B7A8(&gUnknown_03003A50, 1);
                 }
-                if(gMain.unk4.asBytes.b2 == 8)
+                if(gMain.unk4[1] == 8)
                 {
                     sub_800B7A8(&gUnknown_03003A50, 4);
                     gUnknown_03003A50.unkC = 4;
                     gUnknown_03003A50.unkD = 0xE0;
                 }
-                if(gMain.unk4.asBytes.b2 == 9)
+                if(gMain.unk4[1] == 9)
                 {
                     sub_800B7A8(&gUnknown_03003A50, 8);
                 }
@@ -1114,8 +1115,8 @@ bool32 Command21(struct ScriptContext * scriptCtx)
     PlaySE(0x31);
     scriptCtx->unk0 |= 0x10;
     gMain.unkB4 |= 0x300;
-    gMain.unk8 = gMain.unk4;
-    gMain.unk4.w1 = 0x01000007;
+    SET_UNK8_AS_UNK4();
+    SET_UNK4(1, 0, 0, 7);
     return 0;
 }
 
@@ -1150,7 +1151,7 @@ bool32 Command24(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     gMain.unk14 = 0;
     gMain.unk15 = 0;
-    gMain.unk4.w1 = 2;
+    SET_UNK4(0, 0, 0, 2);
     return 1;
 }
 
@@ -1189,14 +1190,12 @@ bool32 Command28(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     if(*scriptCtx->scriptPtr != 0)
     {
-        union Union3003734 * temp = &gMain.unk8;
-        union Union3003734 * temp2 = &gMain.unk4; 
-        *temp = *temp2;
-        temp2->w1 = 5;
+        SET_UNK8_AS_UNK4();
+        SET_UNK4(0, 0, 0, 5);
     }
     else
     {
-        gMain.unk4.asBytes.b2++;
+        gMain.unk4[1]++;
     }
     scriptCtx->scriptPtr++;
     return 0;
@@ -1230,15 +1229,12 @@ bool32 Command29(struct ScriptContext * scriptCtx)
     }
     else if(*scriptCtx->scriptPtr != 0)
     {
-        union Union3003734 * temp = &gMain.unk8;
-        union Union3003734 * temp2 = &gMain.unk4; 
-        *temp = *temp2;
-        temp2->w1 = 6;
+        SET_UNK8_AS_UNK4();
+        SET_UNK4(0, 0, 0, 6);
     }
     else
     {
-        union Union3003734 * temp2 = &gMain.unk4; 
-        temp2->w1 = 0x103;
+        SET_UNK4(0, 0, 1, 3);
     }
     scriptCtx->scriptPtr++;
     return 0;
@@ -1386,7 +1382,7 @@ bool32 Command34(struct ScriptContext * scriptCtx)
     gMain.unk8C = *scriptCtx->scriptPtr;
     scriptCtx->scriptPtr++;
     sub_80007D8(2, 0, 2, 0x1F);
-    gMain.unk4.w1 = 0x504;
+    SET_UNK4(0, 0, 5, 4);
     return 0;
 }
 
