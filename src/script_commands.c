@@ -61,14 +61,14 @@ bool32 Command02(struct ScriptContext * scriptCtx)
             return 1;
         }
     }
-    if((u8)(gMain.unk4[0] - 3) <= 3)
+    if(gMain.unk4[0] >= 3 && gMain.unk4[0] <= 6)
     {
         if(scriptCtx->unk0 & 1)
-            if(gJoypad.newKeysRaw & 1)
+            if(gJoypad.newKeysRaw & A_BUTTON)
                 scriptCtx->unk0 |= 2;
         if(scriptCtx->unk14 != 0)
             scriptCtx->unk14--;
-        if(gJoypad.heldKeysRaw & 2 && scriptCtx->unk13 != 0 && scriptCtx->unk14 == 0)
+        if(gJoypad.heldKeysRaw & B_BUTTON && scriptCtx->unk13 != 0 && scriptCtx->unk14 == 0)
             scriptCtx->unk0 |= 2;
     }
     temp = scriptCtx->unk0 & 2;
@@ -1122,8 +1122,8 @@ bool32 Command21(struct ScriptContext * scriptCtx)
 
 bool32 Command22(struct ScriptContext * scriptCtx)
 {
-    u16 * speed;
     scriptCtx->scriptPtr++;
+    // skips a token
     scriptCtx->scriptPtr++;
     if(*scriptCtx->scriptPtr != 0)
         FadeOutBGM(*scriptCtx->scriptPtr);
@@ -1135,8 +1135,8 @@ bool32 Command22(struct ScriptContext * scriptCtx)
 
 bool32 Command23(struct ScriptContext * scriptCtx)
 {
-    u16 * speed;
     scriptCtx->scriptPtr++;
+    // skips a token
     scriptCtx->scriptPtr++;
     if(*scriptCtx->scriptPtr != 0)
         UnpauseBGM();

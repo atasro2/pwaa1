@@ -229,7 +229,7 @@ _080055AC: .4byte gUnknown_03003930\n");
 
 void sub_80055B0(struct ScriptContext * scriptCxt)
 {
-    if(scriptCxt->unk13 && (gJoypad.newKeysRaw & 1 || gJoypad.heldKeysRaw & 2)) // text skip
+    if(scriptCxt->unk13 && (gJoypad.newKeysRaw & A_BUTTON || gJoypad.heldKeysRaw & B_BUTTON)) // text skip
         scriptCxt->unk13 = 2;
     
     loop:
