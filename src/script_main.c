@@ -74,27 +74,30 @@ void sub_80054BC(struct ScriptContext *scriptCtx)
     scriptCtx->unk2A = 0x56;
     {
         void *r1;
-        void *r0;
+        u32 *r0;
         if (scriptCtx->currentSection > 0x7F)
         {
             r1 = gScriptHeap;
             r0 = &gScriptHeap[scriptCtx->currentSection-0x80];
+            scriptCtx->scriptPtr2 = scriptCtx->scriptPtr = r1 + r0[1];
+            scriptCtx->unk1C = *(u16*)gScriptHeap;
         }
         else
         {
             r1 = common_scripts;
             r0 = &common_scripts[scriptCtx->currentSection];
+            scriptCtx->scriptPtr2 = scriptCtx->scriptPtr = r1 + r0[1];
+            scriptCtx->unk1C = *(u16*)common_scripts;
         }
-        scriptCtx->scriptPtr2 = scriptCtx->scriptPtr = (u16 *)(r1 + 1 [(u32 *)r0]);
-        scriptCtx->unk1C = ((u16 *)r1)[0];
     }
-    scriptCtx->unk3C = VRAM + 0x11800;
+    scriptCtx->unk3C = (void*)(VRAM + 0x11800);
     for (i = 0; i < ARRAY_COUNT(gUnknown_03003930); i++)
     {
-        gUnknown_03003930[i].unk0 |= 0xFF;
-        gUnknown_03003930[i].unk1 = 0;
-        gUnknown_03003930[i].unk5 = 0;
-        gUnknown_03003930[i].unk8 = 0x200;
+        struct Struct3003930 * structPtr = &gUnknown_03003930[i];
+        structPtr->id |= 0xFF;
+        structPtr->unk1 = 0;
+        structPtr->unk5 = 0;
+        structPtr->attr0 = 0x200;
     }
 }
 #else
