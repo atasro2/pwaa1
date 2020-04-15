@@ -188,9 +188,9 @@ void nullsub_4(u32 arg0)
 
 }
 
-void sub_8002D70(struct Main * struct3730p)
+void sub_8002D70(struct Main * main)
 {
     DmaCopy16(3, gUnknown_080150D0, &gMain.mapData, sizeof(gUnknown_080150D0));
     DmaCopy16(3, gUnknown_08014FB8, &gUnknown_030028A0, sizeof(gUnknown_08014FB8));
-    struct3730p->unk8C = 0;
+    main->unk8C = 0;
 }

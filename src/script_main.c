@@ -41,7 +41,7 @@ void sub_800549C(u32 newSection)
     gScriptContext.scriptPtr++;
 }
 
-#ifdef NONMATCHING // i think this is functionally equivalent
+#ifndef NONMATCHING // i think this is functionally equivalent
 void sub_80054BC(struct ScriptContext *scriptCtx)
 {
     u32 i;
