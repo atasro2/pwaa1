@@ -25,6 +25,7 @@ SECTIONS {
         asm/script_main.o(.text);
         src/script_commands.o(.text);
         asm/script_commands.o(.text);
+        src/script_commands2.o(.text);
         asm/script_commands2.o(.text);
         asm/rom8007A0C.o(.text);
         src/sound_control.o(.text);
