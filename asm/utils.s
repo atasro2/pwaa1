@@ -44,12 +44,12 @@ _08002DF8: @ jump table
 _08002E10:
 	movs r0, #0
 	movs r1, #0x53
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08002E50
 	movs r0, #0
 	movs r1, #0x4f
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08002E30
 	movs r0, #0xb1
@@ -71,12 +71,12 @@ _08002E4C: .4byte 0x80000032
 _08002E50:
 	movs r0, #0
 	movs r1, #0x48
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08002EA0
 	movs r0, #0
 	movs r1, #0x4a
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08002E72
 	movs r0, #0x94
@@ -106,12 +106,12 @@ _08002E9C: .4byte 0x80000032
 _08002EA0:
 	movs r0, #0
 	movs r1, #0x41
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08002F1C
 	movs r0, #0
 	movs r1, #0x42
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08002EC2
 	movs r0, #0x84
@@ -125,22 +125,22 @@ _08002EC2:
 	bl sub_8002C98
 	movs r0, #0
 	movs r1, #0x44
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08002F06
 	movs r0, #0
 	movs r1, #0x43
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08002F06
 	movs r0, #0
 	movs r1, #0x45
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08002F06
 	movs r0, #0
 	movs r1, #0x46
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08002F06
 	movs r0, #0x85
@@ -160,7 +160,7 @@ _08002F18: .4byte gUnknown_08015100
 _08002F1C:
 	movs r0, #0
 	movs r1, #0x3f
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08002F2A
 	b _08003170
@@ -172,7 +172,7 @@ _08002F2A:
 _08002F34:
 	movs r0, #0
 	movs r1, #0x41
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08002F50
 	movs r0, #0xb3
@@ -187,7 +187,7 @@ _08002F50:
 _08002F56:
 	movs r0, #0
 	movs r1, #0x49
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08002F68
 	movs r0, #0xc
@@ -208,22 +208,22 @@ _08002F84: .4byte 0x8000006E
 _08002F88:
 	movs r0, #0
 	movs r1, #0x62
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08002FEC
 	movs r0, #0
 	movs r1, #0x64
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08002FEC
 	movs r0, #0
 	movs r1, #0x63
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08002FEC
 	movs r0, #0
 	movs r1, #0x5c
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08002FC2
 	movs r0, #0xe1
@@ -237,7 +237,7 @@ _08002FC2:
 	bl sub_8002C98
 	movs r0, #0
 	movs r1, #0x5a
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08002FE4
 	movs r0, #0xc
@@ -252,12 +252,12 @@ _08002FE4:
 _08002FEC:
 	movs r0, #0
 	movs r1, #0x53
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _0800300E
 	movs r0, #0
 	movs r1, #0x61
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _0800306E
 	movs r0, #0xea
@@ -267,12 +267,12 @@ _08002FEC:
 _0800300E:
 	movs r0, #0
 	movs r1, #0x50
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08003048
 	movs r0, #0
 	movs r1, #0x5b
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003030
 	movs r0, #0xd8
@@ -292,7 +292,7 @@ _08003044: .4byte 0x00001FB0
 _08003048:
 	movs r0, #0
 	movs r1, #0x48
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _0800305E
 	movs r0, #0xc2
@@ -323,12 +323,12 @@ _0800308C: .4byte 0x80000014
 _08003090:
 	movs r0, #0
 	movs r1, #0x52
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _080030D0
 	movs r0, #0
 	movs r1, #0x53
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _080030B2
 	movs r0, #0xfb
@@ -338,7 +338,7 @@ _08003090:
 _080030B2:
 	movs r0, #0
 	movs r1, #0x53
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _080030C8
 	movs r0, #0xc
@@ -352,7 +352,7 @@ _080030C8:
 _080030D0:
 	movs r0, #0
 	movs r1, #0x50
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _080030E4
 	movs r0, #0xfa
@@ -374,12 +374,12 @@ _08003100: .4byte 0x80000032
 _08003104:
 	movs r0, #0
 	movs r1, #0x5a
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _0800312E
 	movs r0, #0
 	movs r1, #0x54
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003126
 	movs r0, #0xf7
@@ -393,7 +393,7 @@ _08003126:
 _0800312E:
 	movs r0, #0
 	movs r1, #0x51
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003144
 	movs r0, #0xeb
@@ -403,7 +403,7 @@ _0800312E:
 _08003144:
 	movs r0, #0
 	movs r1, #0x52
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _0800315A
 	movs r0, #0x16
@@ -512,12 +512,12 @@ _08003214: @ jump table
 _0800322C:
 	movs r0, #0
 	movs r1, #0x74
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _0800326C
 	movs r0, #0
 	movs r1, #0x7b
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _0800324C
 	movs r0, #0x80
@@ -539,7 +539,7 @@ _08003268: .4byte 0x80000032
 _0800326C:
 	movs r0, #0
 	movs r1, #0x7c
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003282
 	movs r0, #0x87
@@ -549,7 +549,7 @@ _0800326C:
 _08003282:
 	movs r0, #0
 	movs r1, #0x75
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08003296
 	movs r0, #0xc
@@ -581,12 +581,12 @@ _080032BC:
 	ldr r0, [r1, #8]
 	movs r0, #0
 	movs r1, #0x80
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _080032F8
 	movs r0, #0
 	movs r1, #0x7d
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _0800331A
 	movs r0, #0x9a
@@ -600,12 +600,12 @@ _080032F4: .4byte 0x80000014
 _080032F8:
 	movs r0, #0
 	movs r1, #0x70
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003330
 	movs r0, #0
 	movs r1, #0x7e
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _0800331A
 	movs r0, #0xa2
@@ -625,7 +625,7 @@ _0800332C: .4byte 0x00001D0C
 _08003330:
 	movs r0, #0
 	movs r1, #0x7f
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _0800333E
 	b _0800352E
@@ -644,12 +644,12 @@ _08003348:
 	ldr r0, [r1, #8]
 	movs r0, #0
 	movs r1, #0x72
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _0800338C
 	movs r0, #0
 	movs r1, #0x80
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003376
 	movs r0, #0xb9
@@ -666,12 +666,12 @@ _08003388: .4byte 0x8000003C
 _0800338C:
 	movs r0, #0
 	movs r1, #0x73
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _080033B0
 	movs r0, #0
 	movs r1, #0x81
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _080033A6
 	b _0800352E
@@ -683,12 +683,12 @@ _080033A6:
 _080033B0:
 	movs r0, #0
 	movs r1, #0x70
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _080033E0
 	movs r0, #0
 	movs r1, #0x83
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _080033D2
 	movs r0, #0xd4
@@ -705,7 +705,7 @@ _080033D2:
 _080033E0:
 	movs r0, #0
 	movs r1, #0x82
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _080033F6
 	movs r0, #0xe4
@@ -720,7 +720,7 @@ _080033F6:
 	bl sub_8002C98
 	movs r0, #0
 	movs r1, #0x88
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08003416
 	movs r0, #0xc
@@ -733,12 +733,12 @@ _08003416:
 _0800341E:
 	movs r0, #0
 	movs r1, #0x75
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003474
 	movs r0, #0
 	movs r1, #0x84
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003442
 	movs r0, #0x8d
@@ -770,7 +770,7 @@ _08003470: .4byte 0x80000032
 _08003474:
 	movs r0, #0
 	movs r1, #0x85
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _0800348C
 	movs r0, #0x96
@@ -802,12 +802,12 @@ _080034BC: .4byte 0x80000032
 _080034C0:
 	movs r0, #0
 	movs r1, #0x73
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003508
 	movs r0, #0
 	movs r1, #0x86
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _080034E4
 	movs r0, #0x80
@@ -833,7 +833,7 @@ _08003504: .4byte gUnknown_08015780
 _08003508:
 	movs r0, #0
 	movs r1, #0x87
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _0800351E
 	movs r0, #0x89
@@ -870,12 +870,12 @@ sub_8003544: @ 0x08003544
 	bne _08003580
 	movs r0, #0
 	movs r1, #0x71
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003580
 	movs r0, #0
 	movs r1, #0x70
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08003580
 	ldr r1, _08003584
@@ -889,7 +889,7 @@ sub_8003544: @ 0x08003544
 	movs r0, #0
 	movs r1, #0x71
 	movs r2, #1
-	bl sub_8002B94
+	bl SetFlag
 _08003580:
 	pop {r0}
 	bx r0
@@ -977,12 +977,12 @@ _08003620: @ jump table
 _08003648:
 	movs r0, #0
 	movs r1, #0xa0
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _0800367E
 	movs r0, #0
 	movs r1, #0x95
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _0800366A
 	movs r0, #0x8c
@@ -1001,7 +1001,7 @@ _0800366A:
 _0800367E:
 	movs r0, #0
 	movs r1, #0x94
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _0800369C
 	movs r2, #0xa2
@@ -1027,12 +1027,12 @@ _080036B8: .4byte 0x80000032
 _080036BC:
 	movs r0, #0
 	movs r1, #0xa0
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _080036DE
 	movs r0, #0
 	movs r1, #0x92
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003738
 	movs r0, #0x9f
@@ -1042,12 +1042,12 @@ _080036BC:
 _080036DE:
 	movs r0, #0
 	movs r1, #0x9a
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08003712
 	movs r0, #0
 	movs r1, #0x91
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003700
 	movs r0, #0x99
@@ -1065,7 +1065,7 @@ _08003700:
 _08003712:
 	movs r0, #0
 	movs r1, #0x90
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003728
 	movs r0, #0x90
@@ -1095,12 +1095,12 @@ _08003754: .4byte 0x80000014
 _08003758:
 	movs r0, #0
 	movs r1, #0xa8
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _0800378E
 	movs r0, #0
 	movs r1, #0xa9
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _0800377A
 	movs r0, #0xb4
@@ -1110,7 +1110,7 @@ _08003758:
 _0800377A:
 	movs r0, #0
 	movs r1, #0xaa
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _080037B0
 	movs r0, #0x1f
@@ -1119,12 +1119,12 @@ _0800377A:
 _0800378E:
 	movs r0, #0
 	movs r1, #0xa0
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _080037C2
 	movs r0, #0
 	movs r1, #0xa1
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _080037B0
 	movs r0, #0xae
@@ -1142,7 +1142,7 @@ _080037B0:
 _080037C2:
 	movs r0, #0
 	movs r1, #0x93
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _080037D8
 	movs r0, #0xa1
@@ -1172,7 +1172,7 @@ _08003804: .4byte 0x80000032
 _08003808:
 	movs r0, #0
 	movs r1, #0x9d
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _0800381C
 	movs r0, #0xbe
@@ -1194,7 +1194,7 @@ _08003838: .4byte 0x80000064
 _0800383C:
 	movs r0, #0
 	movs r1, #0xa2
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003850
 	movs r0, #0xc9
@@ -1216,7 +1216,7 @@ _0800386C: .4byte 0x80000046
 _08003870:
 	movs r0, #0
 	movs r1, #0x9c
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003886
 	movs r0, #0xd2
@@ -1240,12 +1240,12 @@ _080038A0: .4byte gUnknown_08015E14
 _080038A4:
 	movs r0, #0
 	movs r1, #0xaa
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _080038C6
 	movs r0, #0
 	movs r1, #0xab
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _080038F8
 	movs r0, #0xfa
@@ -1255,7 +1255,7 @@ _080038A4:
 _080038C6:
 	movs r0, #0
 	movs r1, #0xa4
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _080038DC
 	movs r0, #0xed
@@ -1265,7 +1265,7 @@ _080038C6:
 _080038DC:
 	movs r0, #0
 	movs r1, #0xa5
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _080038F2
 	movs r0, #0x10
@@ -1381,12 +1381,12 @@ _080039B0: @ jump table
 _080039E0:
 	movs r0, #0
 	movs r1, #0xca
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08003A30
 	movs r0, #0
 	movs r1, #0xcc
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003A02
 	movs r0, #0x8d
@@ -1416,7 +1416,7 @@ _08003A2C: .4byte 0x80000032
 _08003A30:
 	movs r0, #0
 	movs r1, #0xb0
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08003A4E
 	movs r2, #0xa2
@@ -1442,12 +1442,12 @@ _08003A68: .4byte 0x80000032
 _08003A6C:
 	movs r0, #0
 	movs r1, #0xcc
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08003A8E
 	movs r0, #0
 	movs r1, #0xd9
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003AB4
 	movs r0, #0x9c
@@ -1457,7 +1457,7 @@ _08003A6C:
 _08003A8E:
 	movs r0, #0
 	movs r1, #0xb1
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003AA4
 	movs r0, #0x93
@@ -1487,12 +1487,12 @@ _08003AD0: .4byte 0x80000014
 _08003AD4:
 	movs r0, #0
 	movs r1, #0xcc
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08003B3C
 	movs r0, #0
 	movs r1, #0xcd
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003AF6
 	movs r0, #0xb5
@@ -1502,7 +1502,7 @@ _08003AD4:
 _08003AF6:
 	movs r0, #0
 	movs r1, #0xd0
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003B16
 	movs r2, #0x82
@@ -1532,12 +1532,12 @@ _08003B38: .4byte 0x80000032
 _08003B3C:
 	movs r0, #0
 	movs r1, #0xc1
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08003B84
 	movs r0, #0
 	movs r1, #0xc2
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003B5E
 	movs r0, #0xb3
@@ -1563,17 +1563,17 @@ _08003B80: .4byte 0x80000032
 _08003B84:
 	movs r0, #0
 	movs r1, #0xbb
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08003BE0
 	movs r0, #0
 	movs r1, #0xbc
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08003BE0
 	movs r0, #0
 	movs r1, #0xbd
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003BB2
 	movs r0, #0xae
@@ -1603,12 +1603,12 @@ _08003BDC: .4byte 0x80000032
 _08003BE0:
 	movs r0, #0
 	movs r1, #0xb8
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08003C30
 	movs r0, #0
 	movs r1, #0xb9
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003C02
 	movs r0, #0xa5
@@ -1638,7 +1638,7 @@ _08003C2C: .4byte 0x80000032
 _08003C30:
 	movs r0, #0
 	movs r1, #0xb2
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003C46
 	movs r0, #0x9e
@@ -1664,12 +1664,12 @@ _08003C68: .4byte 0x80000032
 _08003C6C:
 	movs r0, #0
 	movs r1, #0xcc
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08003CAC
 	movs r0, #0
 	movs r1, #0xce
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003C8C
 	movs r0, #0xd4
@@ -1691,12 +1691,12 @@ _08003CA8: .4byte 0x80000064
 _08003CAC:
 	movs r0, #0
 	movs r1, #0xbd
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08003D30
 	movs r0, #0
 	movs r1, #0xbe
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003CCE
 	movs r0, #0xcd
@@ -1706,7 +1706,7 @@ _08003CAC:
 _08003CCE:
 	movs r0, #0
 	movs r1, #0xc1
-	bl sub_8002BD0
+	bl GetFlag
 	adds r2, r0, #0
 	cmp r2, #0
 	bne _08003D06
@@ -1747,7 +1747,7 @@ _08003D2C: .4byte 0x80000064
 _08003D30:
 	movs r0, #0
 	movs r1, #0xb8
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003D42
 	movs r0, #0xe
@@ -1755,7 +1755,7 @@ _08003D30:
 _08003D42:
 	movs r0, #0
 	movs r1, #0xb3
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003D56
 	movs r0, #0xbf
@@ -1777,12 +1777,12 @@ _08003D70: .4byte 0x80000064
 _08003D74:
 	movs r0, #0
 	movs r1, #0xcc
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08003DB4
 	movs r0, #0
 	movs r1, #0xcf
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003D96
 	movs r0, #0xeb
@@ -1806,12 +1806,12 @@ _08003DB0: .4byte gUnknown_080165D0
 _08003DB4:
 	movs r0, #0
 	movs r1, #0xba
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08003DF4
 	movs r0, #0
 	movs r1, #0xbb
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003DD6
 	movs r0, #0xe2
@@ -1835,7 +1835,7 @@ _08003DF0: .4byte gUnknown_08016544
 _08003DF4:
 	movs r0, #0
 	movs r1, #0xb4
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003E0A
 	movs r0, #0xda
@@ -1855,12 +1855,12 @@ _08003E1C: .4byte gUnknown_08016544
 _08003E20:
 	movs r0, #0
 	movs r1, #0xca
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08003E68
 	movs r0, #0
 	movs r1, #0xcb
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003E44
 	movs r0, #0x85
@@ -1887,7 +1887,7 @@ _08003E64: .4byte 0x8000003C
 _08003E68:
 	movs r0, #0
 	movs r1, #0xb5
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003E84
 	ldr r0, _08003E80
@@ -1915,7 +1915,7 @@ _08003EA4: .4byte 0x8000003C
 _08003EA8:
 	movs r0, #0
 	movs r1, #0xcc
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08003ED4
 	ldr r1, _08003EC4
@@ -1933,12 +1933,12 @@ _08003ED0: .4byte 0x8000003C
 _08003ED4:
 	movs r0, #0
 	movs r1, #0xc7
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08003EF8
 	movs r0, #0
 	movs r1, #0xc8
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003F0C
 	movs r0, #0x8b
@@ -1949,7 +1949,7 @@ _08003ED4:
 _08003EF8:
 	movs r0, #0
 	movs r1, #0xb6
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003F0C
 	ldr r0, _08003F1C
@@ -1972,7 +1972,7 @@ _08003F2C: .4byte 0x8000003C
 _08003F30:
 	movs r0, #0
 	movs r1, #0xcc
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08003F60
 	movs r0, #0x1f
@@ -1992,12 +1992,12 @@ _08003F5C: .4byte 0x8000005A
 _08003F60:
 	movs r0, #0
 	movs r1, #0xb8
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08003FA8
 	movs r0, #0
 	movs r1, #0xda
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003F84
 	movs r0, #0x94
@@ -2024,7 +2024,7 @@ _08003FA4: .4byte 0x8000005A
 _08003FA8:
 	movs r0, #0
 	movs r1, #0xb7
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08003FC0
 	movs r0, #0x8f
@@ -2051,12 +2051,12 @@ _08003FE0: .4byte 0x8000005A
 _08003FE4:
 	movs r0, #0
 	movs r1, #0xd3
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004030
 	movs r0, #0
 	movs r1, #0xd4
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _0800400C
 	ldr r0, _08004008
@@ -2068,7 +2068,7 @@ _08004008: .4byte 0x00000143
 _0800400C:
 	movs r0, #0
 	movs r1, #0xd1
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004022
 	movs r0, #0x10
@@ -2085,7 +2085,7 @@ _0800402C: .4byte gUnknown_08016A30
 _08004030:
 	movs r0, #0
 	movs r1, #0xcc
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _0800404C
 	ldr r1, _08004044
@@ -2097,7 +2097,7 @@ _08004048: .4byte gUnknown_08016A30
 _0800404C:
 	movs r0, #0
 	movs r1, #0xc5
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004064
 	movs r0, #0x9a
@@ -2108,7 +2108,7 @@ _0800404C:
 _08004064:
 	movs r0, #0
 	movs r1, #0xcb
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _0800407A
 	movs r0, #0x18
@@ -2221,7 +2221,7 @@ _08004130: @ jump table
 _08004160:
 	movs r0, #0
 	movs r1, #0xe0
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _0800417E
 	movs r2, #0xa2
@@ -2247,7 +2247,7 @@ _08004198: .4byte 0x80000032
 _0800419C:
 	movs r0, #0
 	movs r1, #0xe1
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _080041B2
 	movs r0, #0x8e
@@ -2277,12 +2277,12 @@ _080041DC: .4byte 0x80000014
 _080041E0:
 	movs r0, #2
 	movs r1, #0x77
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004214
 	movs r0, #0
 	movs r1, #0xee
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004202
 	movs r0, #0xa3
@@ -2300,7 +2300,7 @@ _08004202:
 _08004214:
 	movs r0, #0
 	movs r1, #0xe2
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _0800422A
 	movs r0, #0x98
@@ -2330,13 +2330,13 @@ _08004254: .4byte 0x80000032
 _08004258:
 	movs r0, #0
 	movs r1, #0xef
-	bl sub_8002BD0
+	bl GetFlag
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _0800427C
 	movs r0, #0
 	movs r1, #0xf0
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _080042C8
 	movs r0, #0xc6
@@ -2346,7 +2346,7 @@ _08004258:
 _0800427C:
 	movs r0, #0
 	movs r1, #0xe3
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004292
 	movs r0, #0xb4
@@ -2356,7 +2356,7 @@ _0800427C:
 _08004292:
 	movs r0, #0
 	movs r1, #0xe4
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _080042C2
 	ldr r0, _080042D8
@@ -2397,12 +2397,12 @@ _080042F0: .4byte 0x80000064
 _080042F4:
 	movs r0, #0
 	movs r1, #0xef
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004334
 	movs r0, #0
 	movs r1, #0xf1
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004314
 	movs r0, #0xdf
@@ -2424,12 +2424,12 @@ _08004330: .4byte 0x80000046
 _08004334:
 	movs r0, #0
 	movs r1, #0xe9
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004384
 	movs r0, #0
 	movs r1, #0xea
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004356
 	movs r0, #0xca
@@ -2459,7 +2459,7 @@ _08004380: .4byte 0x80000046
 _08004384:
 	movs r0, #0
 	movs r1, #0xe5
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004398
 	movs r0, #0xc7
@@ -2481,7 +2481,7 @@ _080043B4: .4byte 0x80000046
 _080043B8:
 	movs r0, #0
 	movs r1, #0xe6
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _080043CE
 	movs r0, #0xe0
@@ -2507,7 +2507,7 @@ _080043F0: .4byte 0x8000003C
 _080043F4:
 	movs r0, #0
 	movs r1, #0xe7
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _0800440A
 	movs r0, #0xe7
@@ -2517,7 +2517,7 @@ _080043F4:
 _0800440A:
 	movs r0, #0
 	movs r1, #0xf2
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004420
 	movs r0, #0x18
@@ -2537,7 +2537,7 @@ _08004430: .4byte gUnknown_08017028
 _08004434:
 	movs r0, #0
 	movs r1, #0xf2
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _0800444A
 	movs r0, #0xff
@@ -2547,7 +2547,7 @@ _08004434:
 _0800444A:
 	movs r0, #0
 	movs r1, #0xe8
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _0800445E
 	movs r0, #0xf7
@@ -2584,28 +2584,28 @@ sub_8004488: @ 0x08004488
 	bne _080044CC
 	movs r0, #0
 	movs r1, #0xe9
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _080044CC
 	movs r0, #2
 	movs r1, #0x6d
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _080044CC
 	movs r0, #2
 	movs r1, #0x6e
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _080044CC
 	movs r0, #2
 	movs r1, #0x6f
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _080044CC
 	movs r0, #0
 	movs r1, #0xe9
 	movs r2, #1
-	bl sub_8002B94
+	bl SetFlag
 _080044CC:
 	pop {r0}
 	bx r0
@@ -2696,12 +2696,12 @@ _0800455C: @ jump table
 _080045A4:
 	movs r0, #0
 	movs r1, #0xa2
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _080045DA
 	movs r0, #0
 	movs r1, #0xa7
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _080045C6
 	movs r0, #0x8b
@@ -2720,7 +2720,7 @@ _080045C6:
 _080045DA:
 	movs r0, #0
 	movs r1, #0x9f
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _080045F8
 	movs r2, #0xa2
@@ -2740,12 +2740,12 @@ _08004604: .4byte gUnknown_08017638
 _08004608:
 	movs r0, #0
 	movs r1, #0xb1
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _0800464C
 	movs r0, #0
 	movs r1, #0xb2
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _0800462A
 	movs r0, #0x99
@@ -2755,7 +2755,7 @@ _08004608:
 _0800462A:
 	movs r0, #0
 	movs r1, #0xb9
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004640
 	ldr r2, _08004648
@@ -2771,7 +2771,7 @@ _08004648: .4byte 0x000055D0
 _0800464C:
 	movs r0, #0
 	movs r1, #0x90
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004662
 	movs r0, #0x91
@@ -2781,7 +2781,7 @@ _0800464C:
 _08004662:
 	movs r0, #2
 	movs r1, #0x85
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004678
 	ldr r2, _0800468C
@@ -2808,7 +2808,7 @@ _0800469C: .4byte 0x80000014
 _080046A0:
 	movs r0, #0
 	movs r1, #0x94
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _080046B6
 	movs r0, #0xa7
@@ -2818,7 +2818,7 @@ _080046A0:
 _080046B6:
 	movs r0, #0
 	movs r1, #0x98
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004718
 	movs r0, #0x14
@@ -2827,27 +2827,27 @@ _080046B6:
 	bl sub_8002C98
 	movs r0, #2
 	movs r1, #0x8b
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004710
 	movs r0, #2
 	movs r1, #0x8c
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004710
 	movs r0, #2
 	movs r1, #0x8d
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004710
 	movs r0, #2
 	movs r1, #0x8e
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004710
 	movs r0, #0
 	movs r1, #0x91
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004710
 	movs r0, #0xa8
@@ -2876,12 +2876,12 @@ _08004738: .4byte 0x80000028
 _0800473C:
 	movs r0, #0
 	movs r1, #0xa8
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004790
 	movs r0, #0
 	movs r1, #0xa9
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _0800475E
 	movs r0, #0xb7
@@ -2912,7 +2912,7 @@ _0800478C: .4byte 0x8000003C
 _08004790:
 	movs r0, #0
 	movs r1, #0x99
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _080047A6
 	movs r0, #0xb3
@@ -2925,7 +2925,7 @@ _080047A6:
 _080047AC:
 	movs r0, #0
 	movs r1, #0xa0
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _080047BE
 	movs r0, #0x10
@@ -2946,12 +2946,12 @@ _080047D8: .4byte 0x80000046
 _080047DC:
 	movs r0, #0
 	movs r1, #0xa2
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004806
 	movs r0, #0
 	movs r1, #0xa8
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _080047FE
 	movs r0, #0xd1
@@ -2965,7 +2965,7 @@ _080047FE:
 _08004806:
 	movs r0, #0
 	movs r1, #0x9a
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _0800481C
 	movs r0, #0xc3
@@ -2975,17 +2975,17 @@ _08004806:
 _0800481C:
 	movs r0, #0
 	movs r1, #0xa1
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004864
 	movs r0, #0
 	movs r1, #0x9e
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004864
 	movs r0, #0
 	movs r1, #0x9c
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _0800484C
 	movs r0, #0x1f
@@ -3023,7 +3023,7 @@ _08004884: .4byte 0x80000046
 _08004888:
 	movs r0, #0
 	movs r1, #0xa4
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _0800489E
 	movs r0, #0xc2
@@ -3049,12 +3049,12 @@ _080048C0: .4byte 0x8000001E
 _080048C4:
 	movs r0, #0
 	movs r1, #0xb1
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _080048E6
 	movs r0, #0
 	movs r1, #0xb7
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _0800492A
 	movs r0, #0xdf
@@ -3064,12 +3064,12 @@ _080048C4:
 _080048E6:
 	movs r0, #0
 	movs r1, #0xa8
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004908
 	movs r0, #0
 	movs r1, #0xae
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004934
 	movs r0, #0xde
@@ -3079,12 +3079,12 @@ _080048E6:
 _08004908:
 	movs r0, #0
 	movs r1, #0x9e
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _0800493C
 	movs r0, #0
 	movs r1, #0xa6
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _0800492A
 	movs r0, #0xd6
@@ -3103,7 +3103,7 @@ _08004934:
 _0800493C:
 	movs r0, #0
 	movs r1, #0xa5
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004952
 	movs r0, #0xd5
@@ -3129,17 +3129,17 @@ _08004974: .4byte 0x8000003C
 _08004978:
 	movs r0, #2
 	movs r1, #0x91
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _080049B8
 	movs r0, #0
 	movs r1, #0xad
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _080049B8
 	movs r0, #0
 	movs r1, #0xaf
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _080049A6
 	movs r0, #0xeb
@@ -3157,7 +3157,7 @@ _080049A6:
 _080049B8:
 	movs r0, #0
 	movs r1, #0xac
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _080049CC
 	movs r0, #0xe5
@@ -3276,12 +3276,12 @@ _08004A84: @ jump table
 _08004AD0:
 	movs r0, #0
 	movs r1, #0xc3
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004B06
 	movs r0, #0
 	movs r1, #0xc1
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004AF2
 	movs r0, #0x86
@@ -3300,7 +3300,7 @@ _08004AF2:
 _08004B06:
 	movs r0, #0
 	movs r1, #0xc0
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004B1A
 	movs r0, #0x80
@@ -3316,12 +3316,12 @@ _08004B24: .4byte gUnknown_08017D34
 _08004B28:
 	movs r0, #0
 	movs r1, #0xc3
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004B4A
 	movs r0, #0
 	movs r1, #0xc4
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004B86
 	movs r0, #0x99
@@ -3331,7 +3331,7 @@ _08004B28:
 _08004B4A:
 	movs r0, #0
 	movs r1, #0xc5
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004B60
 	movs r0, #0x96
@@ -3341,7 +3341,7 @@ _08004B4A:
 _08004B60:
 	movs r0, #0
 	movs r1, #0xc2
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004B76
 	movs r0, #0x8a
@@ -3372,12 +3372,12 @@ _08004BA4: .4byte 0x80000014
 _08004BA8:
 	movs r0, #0
 	movs r1, #0xc3
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004BF0
 	movs r0, #0
 	movs r1, #0xc7
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004BCA
 	movs r0, #0x9b
@@ -3387,7 +3387,7 @@ _08004BA8:
 _08004BCA:
 	movs r0, #0
 	movs r1, #0xc8
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004BE8
 	movs r0, #0x1f
@@ -3404,7 +3404,7 @@ _08004BE8:
 _08004BF0:
 	movs r0, #0
 	movs r1, #0xc6
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004C06
 	movs r0, #0x9a
@@ -3430,12 +3430,12 @@ _08004C28: .4byte 0x80000028
 _08004C2C:
 	movs r0, #0
 	movs r1, #0xc3
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004CA4
 	movs r0, #0
 	movs r1, #0xca
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004C4E
 	movs r0, #0xa6
@@ -3445,12 +3445,12 @@ _08004C2C:
 _08004C4E:
 	movs r0, #0
 	movs r1, #0xcb
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004C70
 	movs r0, #0
 	movs r1, #0xd0
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004C70
 	movs r0, #0xa7
@@ -3482,7 +3482,7 @@ _08004CA0: .4byte 0x8000006E
 _08004CA4:
 	movs r0, #0
 	movs r1, #0xc9
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004CBA
 	movs r0, #0xa5
@@ -3508,17 +3508,17 @@ _08004CDC: .4byte 0x8000003C
 _08004CE0:
 	movs r0, #0
 	movs r1, #0xc8
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004D50
 	movs r0, #0
 	movs r1, #0xf1
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004D10
 	movs r0, #0
 	movs r1, #0xcf
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004D10
 	movs r0, #0x9c
@@ -3529,7 +3529,7 @@ _08004CE0:
 _08004D10:
 	movs r0, #0
 	movs r1, #0xd3
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004D26
 	movs r0, #0xc9
@@ -3539,7 +3539,7 @@ _08004D10:
 _08004D26:
 	movs r0, #0
 	movs r1, #0xd7
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004D48
 	ldr r0, _08004D44
@@ -3558,7 +3558,7 @@ _08004D48:
 _08004D50:
 	movs r0, #0
 	movs r1, #0xd2
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004D66
 	movs r0, #0xbc
@@ -3568,7 +3568,7 @@ _08004D50:
 _08004D66:
 	movs r0, #0
 	movs r1, #0xc5
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004D88
 	ldr r0, _08004D84
@@ -3599,12 +3599,12 @@ _08004DA8: .4byte 0x80000046
 _08004DAC:
 	movs r0, #0
 	movs r1, #0xdd
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004DCE
 	movs r0, #0
 	movs r1, #0xdb
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004E34
 	movs r0, #0xbb
@@ -3614,12 +3614,12 @@ _08004DAC:
 _08004DCE:
 	movs r0, #0
 	movs r1, #0xd7
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004DF0
 	movs r0, #0
 	movs r1, #0xda
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004E34
 	movs r0, #0xba
@@ -3629,12 +3629,12 @@ _08004DCE:
 _08004DF0:
 	movs r0, #0
 	movs r1, #0xc8
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004E3C
 	movs r0, #0
 	movs r1, #0xd9
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004E12
 	movs r0, #0xb8
@@ -3644,12 +3644,12 @@ _08004DF0:
 _08004E12:
 	movs r0, #0
 	movs r1, #0xdc
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004E34
 	movs r0, #0
 	movs r1, #0xd1
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004E34
 	movs r0, #0xb9
@@ -3663,7 +3663,7 @@ _08004E34:
 _08004E3C:
 	movs r0, #0
 	movs r1, #0xd8
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004E52
 	movs r0, #0xb7
@@ -3689,7 +3689,7 @@ _08004E74: .4byte 0x8000001E
 _08004E78:
 	movs r0, #0
 	movs r1, #0xe6
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004E8E
 	movs r0, #0xf5
@@ -3699,7 +3699,7 @@ _08004E78:
 _08004E8E:
 	movs r0, #0
 	movs r1, #0xe7
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004EA6
 	movs r0, #0x20
@@ -3732,12 +3732,12 @@ _08004ED4: .4byte 0x80000046
 _08004ED8:
 	movs r0, #0
 	movs r1, #0xdd
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004F06
 	movs r0, #0
 	movs r1, #0xe1
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004EFA
 	movs r0, #0xe9
@@ -3753,12 +3753,12 @@ _08004EFA:
 _08004F06:
 	movs r0, #0
 	movs r1, #0xdc
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004F28
 	movs r0, #0
 	movs r1, #0xe0
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004F8E
 	movs r0, #0xe8
@@ -3768,12 +3768,12 @@ _08004F06:
 _08004F28:
 	movs r0, #0
 	movs r1, #0xc8
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004F7A
 	movs r0, #0
 	movs r1, #0xdf
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004F4A
 	movs r0, #0xdd
@@ -3788,10 +3788,10 @@ _08004F4A:
 	movs r0, #2
 	movs r1, #0xbb
 	movs r2, #0
-	bl sub_8002B94
+	bl SetFlag
 	movs r0, #0
 	movs r1, #0xf2
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08004F72
 	movs r0, #0xc
@@ -3804,7 +3804,7 @@ _08004F72:
 _08004F7A:
 	movs r0, #0
 	movs r1, #0xde
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004F8E
 	movs r0, #0xdc
@@ -3826,7 +3826,7 @@ _08004FA8: .4byte 0x8000003C
 _08004FAC:
 	movs r0, #0
 	movs r1, #0xec
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08004FC4
 	movs r0, #0x84
@@ -3858,7 +3858,7 @@ _08004FF0: .4byte 0x80000028
 _08004FF4:
 	movs r0, #0
 	movs r1, #0xe5
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08005008
 	movs r0, #0xef
@@ -3977,17 +3977,17 @@ _080050C0: @ jump table
 _0800510C:
 	movs r0, #0
 	movs r1, #0xa2
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _0800514E
 	movs r0, #0
 	movs r1, #0x93
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _0800514E
 	movs r0, #0
 	movs r1, #0x91
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _0800513A
 	movs r0, #0x8d
@@ -4006,7 +4006,7 @@ _0800513A:
 _0800514E:
 	movs r0, #0
 	movs r1, #0x90
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08005164
 	movs r0, #0x80
@@ -4031,12 +4031,12 @@ _08005184: .4byte gUnknown_080183E4
 _08005188:
 	movs r0, #0
 	movs r1, #0x93
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _080051C0
 	movs r0, #0
 	movs r1, #0x95
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _080051AA
 	movs r0, #0x93
@@ -4056,7 +4056,7 @@ _080051BC: .4byte 0x000055D0
 _080051C0:
 	movs r0, #0
 	movs r1, #0x94
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _080051D4
 	movs r0, #0x90
@@ -4078,7 +4078,7 @@ _080051F0: .4byte 0x80000014
 _080051F4:
 	movs r0, #0
 	movs r1, #0x98
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _0800520A
 	movs r0, #0x9e
@@ -4104,7 +4104,7 @@ _0800522C: .4byte 0x80000028
 _08005230:
 	movs r0, #0
 	movs r1, #0x99
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08005246
 	movs r0, #0x9f
@@ -4130,7 +4130,7 @@ _08005268: .4byte 0x8000003C
 _0800526C:
 	movs r0, #0
 	movs r1, #0x9a
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08005282
 	movs r0, #0xa0
@@ -4156,7 +4156,7 @@ _080052A4: .4byte 0x8000001E
 _080052A8:
 	movs r0, #0
 	movs r1, #0xa1
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _080052BE
 	movs r0, #0xba
@@ -4182,12 +4182,12 @@ _080052E0: .4byte 0x80000046
 _080052E4:
 	movs r0, #0
 	movs r1, #0xa0
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _0800530E
 	movs r0, #0
 	movs r1, #0x9c
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08005306
 	movs r0, #0xa2
@@ -4201,7 +4201,7 @@ _08005306:
 _0800530E:
 	movs r0, #0
 	movs r1, #0x9b
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _08005324
 	movs r0, #0xa1
@@ -4227,7 +4227,7 @@ _08005344: .4byte 0x8000003C
 _08005348:
 	movs r0, #0
 	movs r1, #0xa3
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _0800535E
 	movs r0, #0xbe
@@ -4237,7 +4237,7 @@ _08005348:
 _0800535E:
 	movs r0, #0
 	movs r1, #0xa4
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _08005374
 	ldr r2, _08005388
@@ -4260,12 +4260,12 @@ _08005390: .4byte gUnknown_08018678
 _08005394:
 	movs r0, #0
 	movs r1, #0x97
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _080053C8
 	movs r0, #0
 	movs r1, #0x9e
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _080053B6
 	movs r0, #0xa9
@@ -4283,7 +4283,7 @@ _080053B6:
 _080053C8:
 	movs r0, #0
 	movs r1, #0x9d
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _080053DC
 	movs r0, #0xa3

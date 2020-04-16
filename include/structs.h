@@ -29,143 +29,21 @@ struct Struct3000800 // unknown size
     } unk40;
 };
 
-struct Joypad
-{
-    u16 heldKeysRaw;
-    u16 newKeysRaw;
-    u16 heldKeys;
-    u16 newKeys;
-    u16 unk8;
-    u16 unkA;
-    u16 unkC;
-    u16 unkE;
-};
-
-union Union3003734
-{   
-    struct {
-        u8 b1;
-        u8 b2;
-        u8 b3;
-        u8 b4;
-    } asBytes;
-    struct {
-        u16 s1;
-        u16 s2;
-    } asShorts;
-    u32 w1;
-};
-
-
-struct Main
-{
-    u32 unk0; // System_timer? unused in unity
-    union Union3003734 unk4;
-    union Union3003734 unk8;
-    u8 frameCounter; /* + 0xC */
-    u8 unkD;
-    s8 shakeAmountX; /* + 0xE */ // Quake_x 
-    s8 shakeAmountY; /* + 0xF */ // Quake_y
-    u16 shakeTimer; /* + 0x10 */ // Quake_timer
-    u8 shakeIntensity; /* + 0x12 */
-    u8 unk13;
-    u8 unk14;
-    u8 unk15;
-    u8 filler16[0x4];
-    s16 unk1A;
-    u8 unk1C; // sound_status
-    u8 unk1D;
-    u8 filler1E[0x1];
-    u8 unk1F;
-    s16 unk20; // fade vol adittion? // bgm_fade_time 
-    s16 unk22; // bgm volume // bgm_vol
-    u16 rngSeed; /* + 0x24 */ // Random_seed
-    u8 unk26;
-    u8 unk27;
-    u16 currentBG; /* + 0x28 */ // probably wrong 
-    s16 previousBG; /* + 0x2A */ // probably wrong
-    s8 unk2C;
-    u8 unk2D;
-    u8 unk2E;
-    u8 filler2F[0xD];
-    s8 unk3C;
-    s8 unk3D;
-    u8 filler3E[0x36];
-    u16 unk74;
-    u16 unk76;
-    u16 unk78;
-    u8 unk7A;
-    u8 unk7B;
-    u8 unk7C;
-    u8 unk7D;
-    u8 unk7E;
-    u8 filler7F[0xD];
-    u8 unk8C;
-    u8 unk8D; // scenario num? 
-    u8 unk8E;
-    s8 unk8F; // rest
-    u16 unk90;
-    u16 unk92;
-    u32 unk94[8]; // sce_flag
-    u32 unkB4; // status_flag
-    u8 fillerB8[0x20]; // talk_end_flag?
-    u32 unkD8;
-    u8 fillerDC[0xBC];
-    u32 unk198;
-    u8 filler19C[0x4];
-};
-
-struct LCDIORegisters
-{
-    u16 lcd_bg0cnt;   /* + 0 */
-    u16 lcd_bg1cnt;   /* + 2 */
-    u16 lcd_bg2cnt;   /* + 4 */
-    u16 lcd_bg3cnt;   /* + 6 */
-    u16 lcd_bg0hofs;  /* + 8 */
-    u16 lcd_bg0vofs;  /* + A */
-    u16 lcd_bg1hofs;  /* + C */
-    u16 lcd_bg1vofs;  /* + E */
-    u16 lcd_bg2hofs;  /* +10 */
-    u16 lcd_bg2vofs;  /* +12 */
-    u16 lcd_bg3hofs;  /* +14 */
-    u16 lcd_bg3vofs;  /* +16 */
-    u16 lcd_bg2pa;    /* +18 */
-    u16 lcd_bg2pb;    /* +1A */
-    u16 lcd_bg2pc;    /* +1C */
-    u16 lcd_bg2pd;    /* +1E */
-    u32 lcd_bg2x;     /* +20 */
-    u32 lcd_bg2y;     /* +24 */
-    u16 lcd_bg3pa;    /* +28 */
-    u16 lcd_bg3pb;    /* +2A */
-    u16 lcd_bg3pc;    /* +2C */
-    u16 lcd_bg3pd;    /* +2E */
-    u32 lcd_bg3x;     /* +30 */
-    u32 lcd_bg3y;     /* +34 */
-    u16 lcd_win0h;    /* +38 */
-    u16 lcd_win1h;    /* +3A */
-    u16 lcd_win0v;    /* +3C */
-    u16 lcd_win1v;    /* +3E */
-    u16 lcd_winin;    /* +40 */
-    u16 lcd_winout;   /* +42 */
-    u16 lcd_mosaic;   /* +44 */
-    u8 filler46[2];   /* +46 */ 
-    u16 lcd_bldcnt;   /* +48 */
-    u16 lcd_dispcnt;  /* +4A */
-    u16 lcd_bldalpha; /* +4C */
-    u16 lcd_bldy;     /* +4E */
-    u16 iwp_ie;       /* +50 */
-    u16 lcd_dispstat; /* +52 */
-};
-
-struct Struct3003930 
+struct Struct3003930 // ExplCharData
 { 
-    u8 unk0; 
+    u8 id; 
     u8 unk1;
-    u8 filler2[0x3];
-    u8 unk5;
-    u8 filler6[0x2];
-    u16 unk8;
-    u8 fillerA[0xA]; 
+    u8 unk2;
+    u8 unk3;
+    u8 unk4;
+    u8 unk5; // status
+    u8 unk6;
+    u8 unk7;
+    u16 attr0; /* +0x8 */
+    u16 attr1; /* +0xA */
+    u16 attr2; /* +0xC */
+    u16 oamIdx; /* +0xE */
+    u8 *volatile vramPtr; /* +0x10 */
 };
 
 struct ScriptContext
@@ -173,7 +51,7 @@ struct ScriptContext
     u16 unk0; // message status
     u16 waitTimer; // wait timer
     u16 * scriptPtr; /* +4 */
-    u16 * scriptPtr2;
+    u16 * scriptPtr2; /* +8 */
     u16 unkC;
     u8 unkE;
     u8 unkF;
@@ -188,9 +66,9 @@ struct ScriptContext
     u16 unk18;
     u16 unk1A;
     u16 unk1C;
-    u16 unk1E;
-    u16 unk20;
-    u16 unk22;
+    u16 currentSection; /* +0x1E */
+    u16 nextSection; /* +0x20 */
+    u16 previousSection; /* +0x22 */
     u8 textColor; /* +0x24 */
     u8 textSpeed; /* +0x25 */
     u8 unk26;
@@ -209,7 +87,7 @@ struct ScriptContext
     u8 unk38;
     u8 unk39;
     u8 filler3A[0x2];
-    u32 unk3C;
+    u8 * unk3C;
 };
 
 struct SaveData
@@ -230,28 +108,63 @@ struct Struct3002840
     u8 unk38[0x20];
 };
 
+struct TalkData
+{
+    /* // ?? TODO: is this all just u8s in GS1?
+    public uint room;
+
+    public uint pl_id;
+
+    public uint dm;
+
+    public uint sw;
+
+    public uint[] tag = new uint[4];
+
+    public uint[] flag = new uint[4];
+
+    public uint[] mess = new uint[4];
+    */
+    u8 unk0;
+    u8 unk1;
+    u8 unk2;
+    u8 unk3;
+    u8 filler4[0x10];
+};
+
 struct Struct30028A0
 {
-    u8 filler0[0x280];
+    struct TalkData talkData[32];
 };
 
 struct Struct3003A50
 {
-    u8 filler0[0x5];
+    u16 unk0;
+    u16 unk2;
+    u8 unk4;
     u8 unk5;
     u8 unk6;
-    u8 filler7[0x3];
+    u8 unk7;
+    u8 unk8;
+    u8 unk9;
     u8 unkA;
     u8 unkB;
     u8 unkC;
     u8 unkD;
     u8 unkE;
-    u8 fillerF[0x9];
+    u8 fillerF[0x7];
+    u8 unk16;
+    u8 unk17;
 };
 
 struct Struct3003AB0
 {
-    u8 filler0[0x8];
+    u8 unk0;
+    u8 unk1;
+    u8 unk2;
+    u8 unk3;
+    u16 unk4;
+    u8 filler6[0x2];
 };
 
 struct Struct3003C00
@@ -272,7 +185,7 @@ struct Struct3004000
     s16 unkE;
 };
 
-struct GSPoint4 // shamelessly stolen from unity
+struct Point4 // shamelessly stolen from unity
 {
     u16 x0;
     u16 y0;
@@ -284,11 +197,19 @@ struct GSPoint4 // shamelessly stolen from unity
     u16 y3;
 };
 
-struct GSPoint // shamelessly stolen from unity
+struct Point // shamelessly stolen from unity
 {
     u16 x;
     u16 y;
 };
 
+struct Struct80187C8
+{
+    u8 * tiles;
+    u16 size;
+    u16 attr0;
+    u16 attr1;
+    u16 attr2;
+};
 
 #endif//GUARD_STRUCTS_H

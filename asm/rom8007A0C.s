@@ -667,7 +667,7 @@ _08007F6C: .4byte 0x80000800
 _08007F70: .4byte gUnknown_08194560
 _08007F74: .4byte 0x050002A0
 _08007F78: .4byte 0x000003FF
-_08007F7C: .4byte gUnknown_03000000
+_08007F7C: .4byte gBG2MapBuffer
 _08007F80:
 	ldrh r1, [r3, #2]
 	ldr r0, _08008050
@@ -781,7 +781,7 @@ _0800804A:
 	b _0800809E
 	.align 2, 0
 _08008050: .4byte 0x000001FF
-_08008054: .4byte gUnknown_03000000
+_08008054: .4byte gBG2MapBuffer
 _08008058: .4byte gUnknown_080189A4
 _0800805C:
 	ldrb r0, [r6, #6]
@@ -1128,7 +1128,7 @@ _08008310: .4byte gLCDIORegisters
 _08008314: .4byte 0x00003D01
 _08008318: .4byte 0x00003FC7
 _0800831C: .4byte 0x000003FF
-_08008320: .4byte gUnknown_03000000
+_08008320: .4byte gBG2MapBuffer
 _08008324: .4byte 0x00003E01
 _08008328:
 	adds r0, r6, #0
@@ -1434,10 +1434,10 @@ _08008562:
 	bx r0
 	.align 2, 0
 _08008594: .4byte 0x040000D4
-_08008598: .4byte gUnknown_03002000
+_08008598: .4byte gBG1MapBuffer
 _0800859C: .4byte gSaveDataBuffer+0x1650
 _080085A0: .4byte 0x80000400
-_080085A4: .4byte gUnknown_03000000
+_080085A4: .4byte gBG2MapBuffer
 _080085A8: .4byte gUnknown_03003C00
 _080085AC: .4byte 0xFFFFF500
 _080085B0: .4byte 0x8000017A
@@ -1609,7 +1609,7 @@ _08008706:
 	bx r0
 	.align 2, 0
 _0800870C: .4byte 0x040000D4
-_08008710: .4byte gUnknown_03002F20
+_08008710: .4byte gBG0MapBuffer
 _08008714: .4byte gSaveDataBuffer+0xE50
 _08008718: .4byte 0x80000400
 _0800871C: .4byte gUnknown_03002840
@@ -1639,7 +1639,7 @@ _08008778: .4byte 0x05000320
 _0800877C: .4byte 0x80000020
 _08008780: .4byte gOamObjects
 _08008784: .4byte 0x000003FF
-_08008788: .4byte gUnknown_03000000
+_08008788: .4byte gBG2MapBuffer
 _0800878C: .4byte gLCDIORegisters
 _08008790: .4byte 0x00003E01
 
@@ -2170,7 +2170,7 @@ _08008AD4:
 _08008BC4: .4byte gSaveDataBuffer
 _08008BC8: .4byte 0x040000D4
 _08008BCC: .4byte gSaveDataBuffer+0x1E50
-_08008BD0: .4byte gUnknown_03000000
+_08008BD0: .4byte gBG2MapBuffer
 _08008BD4: .4byte 0x80000400
 _08008BD8: .4byte 0xFFFFED00
 _08008BDC: .4byte gUnknown_03003C00
@@ -3260,7 +3260,7 @@ _08009488:
 	ands r0, r1
 	cmp r0, #0
 	beq _080094C6
-	bl sub_800F454
+	bl PauseBGM
 	movs r0, #0x2b
 	bl PlaySE
 	ldr r0, _080094DC
@@ -4170,7 +4170,7 @@ _08009B8C: .4byte 0x05000320
 _08009B90: .4byte 0x80000020
 _08009B94: .4byte gOamObjects
 _08009B98: .4byte 0x000003FF
-_08009B9C: .4byte gUnknown_03000000
+_08009B9C: .4byte gBG2MapBuffer
 _08009BA0: .4byte gLCDIORegisters
 _08009BA4: .4byte 0x00003E01
 _08009BA8:
@@ -4858,9 +4858,9 @@ _0800A18C: .4byte 0x800000A0
 _0800A190: .4byte 0xFFFFFB60
 _0800A194: .4byte gUnknown_03003930
 _0800A198: .4byte 0x80000050
-_0800A19C: .4byte gUnknown_03002000
+_0800A19C: .4byte gBG1MapBuffer
 _0800A1A0: .4byte 0x80000400
-_0800A1A4: .4byte gUnknown_03002F20
+_0800A1A4: .4byte gBG0MapBuffer
 _0800A1A8: .4byte gCharSet+0x7100
 _0800A1AC: .4byte 0x06011F80
 _0800A1B0: .4byte 0x80000040
@@ -5261,7 +5261,7 @@ sub_800A3EC: @ 0x0800A3EC
 	movs r0, #0
 	movs r1, #0x41
 	movs r2, #1
-	bl sub_8002B94
+	bl SetFlag
 _0800A4E0:
 	adds r0, r6, #0
 	adds r0, #0xb4
@@ -5365,7 +5365,7 @@ sub_800A5B0: @ 0x0800A5B0
 	ands r0, r1
 	cmp r0, #0
 	beq _0800A64C
-	bl sub_800F454
+	bl PauseBGM
 	ldr r1, _0800A630
 	ldr r0, _0800A634
 	str r0, [r1]
@@ -5518,7 +5518,7 @@ _0800A728:
 _0800A72A:
 	bx lr
 	.align 2, 0
-_0800A72C: .4byte gUnknown_03000000+0xB
+_0800A72C: .4byte gBG2MapBuffer+0xB
 
 	THUMB_FUNC_START sub_800A730
 sub_800A730: @ 0x0800A730
@@ -5751,7 +5751,7 @@ _0800A8EE:
 	ands r0, r1
 	cmp r0, #0
 	beq _0800A978
-	bl sub_800F454
+	bl PauseBGM
 	ldr r1, _0800A95C
 	ldr r0, _0800A960
 	str r0, [r1]
@@ -6143,7 +6143,7 @@ _0800AC48:
 	bne _0800AC56
 	b _0800ADB4
 _0800AC56:
-	bl sub_800F454
+	bl PauseBGM
 	ldr r1, _0800AC9C
 	ldr r0, _0800ACA0
 	str r0, [r1]
@@ -7779,7 +7779,7 @@ _0800B8FA:
 	movs r0, #0
 	movs r1, #0x41
 	movs r2, #1
-	bl sub_8002B94
+	bl SetFlag
 _0800B9A6:
 	adds r0, r6, #0
 	adds r0, #0xb4
@@ -7972,7 +7972,7 @@ _0800BB54:
 	cmp r1, #0
 	bne _0800BBD8
 _0800BB78:
-	bl sub_800F454
+	bl PauseBGM
 	ldr r1, _0800BBBC
 	ldr r0, _0800BBC0
 	str r0, [r1]
@@ -8285,7 +8285,7 @@ _0800BDF0:
 _0800BDF2:
 	bx lr
 	.align 2, 0
-_0800BDF4: .4byte gUnknown_03000000+0xB
+_0800BDF4: .4byte gBG2MapBuffer+0xB
 
 	THUMB_FUNC_START sub_800BDF8
 sub_800BDF8: @ 0x0800BDF8
@@ -8629,7 +8629,7 @@ _0800C06C:
 	cmp r1, #0
 	bne _0800C0E4
 _0800C08A:
-	bl sub_800F454
+	bl PauseBGM
 	ldr r1, _0800C0C8
 	ldr r0, _0800C0CC
 	str r0, [r1]
@@ -9206,7 +9206,7 @@ _0800C4E8:
 	beq _0800C504
 	b _0800C84A
 _0800C504:
-	bl sub_800F454
+	bl PauseBGM
 	ldr r1, _0800C548
 	ldr r0, _0800C54C
 	str r0, [r1]
@@ -9377,7 +9377,7 @@ _0800C62E:
 	ldrb r0, [r0]
 	strb r0, [r2]
 	movs r0, #0x14
-	bl sub_800F514
+	bl FadeOutBGM
 	movs r0, #2
 	movs r1, #1
 	movs r2, #1
@@ -10030,7 +10030,7 @@ _0800CB44:
 	b _0800CD42
 _0800CB60:
 	str r3, [sp, #0xc]
-	bl sub_800F454
+	bl PauseBGM
 	ldr r1, _0800CBA4
 	ldr r0, _0800CBCC
 	str r0, [r1]
@@ -10203,7 +10203,7 @@ _0800CC9C:
 	adds r0, r5, r4
 	ldrb r1, [r0]
 	movs r0, #2
-	bl sub_8002BD0
+	bl GetFlag
 	adds r1, r0, #0
 	adds r2, r4, #0
 	cmp r1, #0
@@ -10223,7 +10223,7 @@ _0800CCF0:
 	ldrb r1, [r0]
 	movs r0, #2
 	movs r2, #1
-	bl sub_8002B94
+	bl SetFlag
 _0800CD04:
 	ldr r0, [sp]
 	movs r1, #4
@@ -10277,7 +10277,7 @@ _0800CD60:
 	ldrb r1, [r0]
 	movs r0, #2
 	str r2, [sp, #8]
-	bl sub_8002BD0
+	bl GetFlag
 	ldr r2, [sp, #8]
 	cmp r0, #0
 	beq _0800CD8C
@@ -10478,7 +10478,7 @@ _0800CEB8:
 	ands r0, r6
 	cmp r0, #0
 	beq _0800CF48
-	bl sub_800F454
+	bl PauseBGM
 	ldr r1, _0800CF2C
 	ldr r0, _0800CF30
 	str r0, [r1]
@@ -11418,7 +11418,7 @@ _0800D5D0:
 	str r0, [sp, #4]
 	movs r0, #0
 	movs r1, #0x41
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	bne _0800D624
 	movs r0, #0x19
@@ -11719,7 +11719,7 @@ sub_800D824: @ 0x0800D824
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800D84C: .4byte gUnknown_03002000
+_0800D84C: .4byte gBG1MapBuffer
 _0800D850: .4byte 0x000004DC
 _0800D854: .4byte 0x000004DE
 _0800D858: .4byte gUnknown_0811DFA4
@@ -11837,7 +11837,7 @@ _0800D926:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800D934: .4byte gUnknown_03000000
+_0800D934: .4byte gBG2MapBuffer
 _0800D938: .4byte 0x000003FF
 _0800D93C: .4byte gLCDIORegisters
 _0800D940: .4byte gOamObjects+0x188
@@ -11869,7 +11869,7 @@ sub_800D94C: @ 0x0800D94C
 	ldrh r0, [r0, #6]
 	cmp r0, #0
 	beq _0800D9A4
-	bl sub_800F454
+	bl PauseBGM
 	movs r0, #0x2b
 	bl PlaySE
 	movs r1, #0
@@ -12078,7 +12078,7 @@ _0800DAE4:
 	adds r4, r0, #0
 	cmp r4, #0
 	beq _0800DB68
-	bl sub_800F4AC
+	bl StopBGM
 	adds r0, r4, #0
 	bl sub_800549C
 	ldr r0, _0800DB64
@@ -12418,7 +12418,7 @@ _0800DE04:
 _0800DE0C: .4byte gOamObjects+0x1A0
 _0800DE10: .4byte 0x000001FF
 _0800DE14: .4byte gScriptContext
-_0800DE18: .4byte gUnknown_03002000
+_0800DE18: .4byte gBG1MapBuffer
 _0800DE1C: .4byte 0x000004DC
 _0800DE20: .4byte 0x000004DE
 _0800DE24: .4byte gMain+0x4
@@ -13112,7 +13112,7 @@ _0800E3CC:
 	ldrh r4, [r0]
 	cmp r4, #0
 	bne _0800E3E0
-	bl sub_800F4D8
+	bl UnpauseBGM
 	movs r0, #1
 	strb r0, [r5, #5]
 	strb r4, [r5, #6]
@@ -13604,7 +13604,7 @@ _0800E76A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800E7B4: .4byte gUnknown_03000000
+_0800E7B4: .4byte gBG2MapBuffer
 _0800E7B8: .4byte 0x000003FF
 _0800E7BC: .4byte gLCDIORegisters
 
@@ -14434,7 +14434,7 @@ _0800EE44:
 	beq _0800EE56
 	adds r1, r0, #0
 	movs r0, #0
-	bl sub_8002BD0
+	bl GetFlag
 	cmp r0, #0
 	beq _0800EE84
 _0800EE56:
@@ -14627,7 +14627,7 @@ _0800EF94:
 	strb r2, [r0]
 	b _0800F0DA
 	.align 2, 0
-_0800EFC4: .4byte gUnknown_03002F20
+_0800EFC4: .4byte gBG0MapBuffer
 _0800EFC8:
 	adds r0, r4, #0
 	bl sub_800F0E0
@@ -14849,7 +14849,7 @@ _0800F170:
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-_0800F17C: .4byte gUnknown_03002F20+0x40
+_0800F17C: .4byte gBG0MapBuffer+0x40
 _0800F180: .4byte 0x0000013F
 _0800F184: .4byte _0800F188
 _0800F188: @ jump table
@@ -14984,7 +14984,7 @@ _0800F26A:
 	blo _0800F26A
 	b _0800F360
 	.align 2, 0
-_0800F284: .4byte gUnknown_03002F20+0x42
+_0800F284: .4byte gBG0MapBuffer+0x42
 _0800F288:
 	ldr r3, _0800F390
 	subs r3, #2
@@ -15130,7 +15130,7 @@ _0800F37E:
 	subs r0, r2, #1
 	b _0800F3B0
 	.align 2, 0
-_0800F390: .4byte gUnknown_03002F20+0x78
+_0800F390: .4byte gBG0MapBuffer+0x78
 _0800F394:
 	movs r0, #2
 	strb r0, [r3]

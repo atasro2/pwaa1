@@ -2567,7 +2567,7 @@ _08010B3E:
 	adds r1, r3, #0
 	b _08010BA0
 	.align 2, 0
-_08010B70: .4byte gUnknown_03002F20
+_08010B70: .4byte gBG0MapBuffer
 _08010B74: .4byte gUnknown_03000800
 _08010B78: .4byte gMain
 _08010B7C: .4byte 0x00000FFF
