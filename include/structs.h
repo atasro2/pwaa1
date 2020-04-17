@@ -155,7 +155,8 @@ struct Struct3003A50
     u8 unkC;
     u8 unkD;
     u8 unkE;
-    u8 fillerF[0x7];
+    u8 unkF;
+    u8 filler10[0x6];
     u8 unk16;
     u8 unk17;
 };

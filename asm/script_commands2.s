@@ -1,57 +1,6 @@
 	.include "asm/macros.inc"
 	.syntax unified
 
-	THUMB_FUNC_START Command41
-Command41: @ 0x0800759C
-	push {r4, r5, r6, r7, lr}
-	ldr r1, [r0, #4]
-	adds r1, #2
-	str r1, [r0, #4]
-	ldr r1, _080075F4
-	movs r4, #0
-	ldr r5, _080075F8
-	ldr r7, _080075FC
-	movs r3, #0
-	movs r0, #0xc0
-	lsls r0, r0, #8
-	adds r6, r0, #0
-	movs r2, #0xa2
-	lsls r2, r2, #7
-_080075B8:
-	strh r7, [r1]
-	adds r0, r3, r6
-	strh r0, [r1, #2]
-	strh r2, [r1, #4]
-	adds r1, #8
-	adds r3, #0x3c
-	adds r2, #0x20
-	adds r4, #1
-	cmp r4, #3
-	bls _080075B8
-	movs r4, #0
-	adds r0, r5, #0
-	movs r1, #0xf
-	bl sub_800B7A8
-	movs r0, #0xe0
-	strb r0, [r5, #0xd]
-	strb r4, [r5, #0xe]
-	movs r0, #8
-	strb r0, [r5, #0xf]
-	strb r4, [r5, #0xa]
-	strb r4, [r5, #0xb]
-	ldr r1, _08007600
-	adds r0, #0xfc
-	str r0, [r1]
-	movs r0, #0
-	pop {r4, r5, r6, r7}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_080075F4: .4byte gOamObjects+0x188
-_080075F8: .4byte gUnknown_03003A50
-_080075FC: .4byte 0x000040E0
-_08007600: .4byte gMain+0x4
-
 	THUMB_FUNC_START Command42
 Command42: @ 0x08007604
 	adds r3, r0, #0

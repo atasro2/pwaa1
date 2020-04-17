@@ -27,6 +27,12 @@
 
 //#define SPRITE_ATTR1()
 //TODO: make different macros for affine and non affine sprites, aka Pidgey is lazy
+#define SPRITE_ATTR1_AFFINE(x, rotscale, size) \
+	((x) + ((rotscale) << 9) + ((size) << 14)) \
+
+#define SPRITE_ATTR1_NONAFFINE(x, hflip, vflip, size) \
+	((x) + ((hflip) << 12) + ((vflip) << 13) + ((size) << 14)) \
+
 #define SPRITE_ATTR2(tileNum, priority, paletteNum) \
 	((tileNum) + ((priority) << 10) + ((paletteNum) << 12)) \
 
