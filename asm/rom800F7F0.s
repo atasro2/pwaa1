@@ -1,67 +1,6 @@
 	.include "asm/macros.inc"
 	.syntax unified
 
-	THUMB_FUNC_START sub_800F84C
-sub_800F84C: @ 0x0800F84C
-	push {r4, r5, r6, r7, lr}
-	mov r7, r8
-	push {r7}
-	ldr r4, _0800F8B4
-	movs r1, #0xf8
-	lsls r1, r1, #3
-	adds r0, r4, r1
-	cmp r4, r0
-	bhs _0800F8A8
-	ldr r7, _0800F8B8
-	mov ip, r7
-	mov r8, r0
-_0800F864:
-	ldr r1, [r4]
-	movs r0, #0x80
-	lsls r0, r0, #0x15
-	ands r1, r0
-	adds r5, r4, #0
-	adds r5, #0x40
-	mov r6, r8
-	cmp r1, #0
-	beq _0800F8A2
-	adds r0, r4, #0
-	adds r0, #0x3a
-	ldrb r0, [r0]
-	lsls r0, r0, #3
-	mov r3, ip
-	adds r2, r0, r3
-	adds r1, r4, #0
-	adds r1, #0x3b
-	ldrb r4, [r1]
-	lsls r0, r4, #3
-	adds r0, r0, r3
-	cmp r2, r0
-	bhs _0800F8A2
-	movs r4, #0x80
-	lsls r4, r4, #2
-_0800F894:
-	strh r4, [r2]
-	adds r2, #8
-	ldrb r7, [r1]
-	lsls r0, r7, #3
-	adds r0, r0, r3
-	cmp r2, r0
-	blo _0800F894
-_0800F8A2:
-	adds r4, r5, #0
-	cmp r4, r6
-	blo _0800F864
-_0800F8A8:
-	pop {r3}
-	mov r8, r3
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800F8B4: .4byte gUnknown_03000800+0x40
-_0800F8B8: .4byte gOamObjects
-
 	THUMB_FUNC_START sub_800F8BC
 sub_800F8BC: @ 0x0800F8BC
 	push {r4, r5, lr}
