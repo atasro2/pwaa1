@@ -10,7 +10,7 @@ struct OamAttrs // why tho capcom there is already a struct called OamData that 
     u16 attr3;
 };
 
-struct Struct3000800
+struct Struct3000800 // unknown size
 {
     u32 unk0;
     u32 unk4;
@@ -23,11 +23,13 @@ struct Struct3000800
         u32 unk8;
         u16 unkC;
         u8 unkE;
-        u8 fillerF[0x2B];
+        u8 fillerF[0x19];
+        u16 unk28;
+        u8 filler2A[0x10];
         u8 unk3A;
         u8 unk3B;
         u8 filler3C[4];
-    } unk40[0x1F];
+    } unk40[0x1f];
 };
 
 struct Struct3003930 // ExplCharData
