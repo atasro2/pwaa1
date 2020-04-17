@@ -34,3 +34,18 @@ bool32 Command41(struct ScriptContext * scriptCtx)
     SET_UNK4(0,0,1,4);
     return 0;
 }
+
+bool32 Command42(struct ScriptContext * scriptCtx)
+{
+    scriptCtx->scriptPtr++;
+    if(*scriptCtx->scriptPtr)
+    {
+        gMain.unk198 &= ~4;
+    }
+    else
+    {
+        gMain.unk198 |= 4;
+    }
+    scriptCtx->scriptPtr++;
+    return 0;
+}

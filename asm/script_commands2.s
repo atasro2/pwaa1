@@ -1,44 +1,6 @@
 	.include "asm/macros.inc"
 	.syntax unified
 
-	THUMB_FUNC_START Command42
-Command42: @ 0x08007604
-	adds r3, r0, #0
-	ldr r0, [r3, #4]
-	adds r1, r0, #2
-	str r1, [r3, #4]
-	ldrh r0, [r0, #2]
-	cmp r0, #0
-	beq _08007628
-	ldr r0, _08007624
-	movs r1, #0xcc
-	lsls r1, r1, #1
-	adds r0, r0, r1
-	ldr r1, [r0]
-	movs r2, #5
-	rsbs r2, r2, #0
-	ands r1, r2
-	b _08007636
-	.align 2, 0
-_08007624: .4byte gMain
-_08007628:
-	ldr r0, _08007644
-	movs r1, #0xcc
-	lsls r1, r1, #1
-	adds r0, r0, r1
-	ldr r1, [r0]
-	movs r2, #4
-	orrs r1, r2
-_08007636:
-	str r1, [r0]
-	ldr r0, [r3, #4]
-	adds r0, #2
-	str r0, [r3, #4]
-	movs r0, #0
-	bx lr
-	.align 2, 0
-_08007644: .4byte gMain
-
 	THUMB_FUNC_START Command43
 Command43: @ 0x08007648
 	adds r3, r0, #0
