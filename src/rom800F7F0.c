@@ -11,7 +11,7 @@ void sub_800F804()
 {
     struct Struct3000800 * iwstruct800p = &gUnknown_03000800;
     struct Struct3000840 * iwstruct840p;
-    DmaFill16(3, 0, iwstruct800p, 0x800);
+    DmaFill16(3, 0, &gUnknown_03000800, sizeof(gUnknown_03000800));
     gMain.unk1F |= 3;
     iwstruct840p = iwstruct800p->unk40;
     iwstruct840p->unkC = 0xFF;
