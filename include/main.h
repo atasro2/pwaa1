@@ -55,7 +55,9 @@ struct Main
     u8 unk7C;
     u8 unk7D;
     u8 unk7E;
-    u8 filler7F[0x9];
+    u8 filler7F[0x5];
+    u16 unk84;
+    u8 filler86[0x2];
     u8 unk88;
     u8 unk89;
     u8 unk8A; // rest_old

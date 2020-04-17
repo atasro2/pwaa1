@@ -20,7 +20,12 @@ extern u8 * gUnknown_080187B4[3];
 extern struct Struct80187C8 gUnknown_080187C8[16];
 extern u8 gUnknown_0824696C[32]; // palette
 extern u8 gUnknown_08190AC0[]; // some tiles
+extern u8 gUnknown_081914A0[];
+extern u8 gUnknown_081924A0[];
+extern u8 gUnknown_08191CA0[];
 extern u8 gUnknown_081942C0[]; // probably 8bpp palette
+extern u8 gUnknown_08194520[]; // 4bpp palette
+extern u8 gUnknown_08194540[]; // 4bpp palette
 //FUNCTIONS // these should be moved soon
 void sub_80007A0(struct Struct3004000 *);
 u8 Random();
