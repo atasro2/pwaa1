@@ -23,10 +23,13 @@ struct Struct3000800 // unknown size
         u32 unk8;
         u16 unkC;
         u8 unkE;
-        u8 fillerF[0x2B];
+        u8 fillerF[0x19];
+        u16 unk28;
+        u8 filler2A[0x10];
         u8 unk3A;
         u8 unk3B;
-    } unk40;
+        u8 filler3C[4];
+    } unk40[0x1f];
 };
 
 struct Struct3003930 // ExplCharData
