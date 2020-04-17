@@ -21,15 +21,15 @@ void sub_800F804()
 
 void sub_800F84C() 
 {
-    struct Struct3000840* r4;
-    for (r4 = gUnknown_03000800.unk40; r4 < &gUnknown_03000800.unk40[0x1f]; r4++)
+    struct Struct3000840* struct840p;
+    for (struct840p = gUnknown_03000800.unk40; struct840p < &gUnknown_03000800.unk40[0x1f]; struct840p++)
     {
-        if (r4->unk0 & 0x10000000) 
+        if (struct840p->unk0 & 0x10000000) 
         {
-            if (&gOamObjects[r4->unk3A] < &gOamObjects[r4->unk3B]) 
+            if (&gOamObjects[struct840p->unk3A] < &gOamObjects[struct840p->unk3B]) 
             {
                 struct OamAttrs* r2;
-                for (r2 = &gOamObjects[r4->unk3A]; r2 < &gOamObjects[r4->unk3B]; r2++)
+                for (r2 = &gOamObjects[struct840p->unk3A]; r2 < &gOamObjects[struct840p->unk3B]; r2++)
                 {
                     r2->attr0 = 0x200;
                 }
@@ -38,63 +38,63 @@ void sub_800F84C()
     }
 }
 
-struct Struct3000840* sub_800F8BC(u32 r0)
+struct Struct3000840* sub_800F8BC(u32 arg1)
 {
-    struct Struct3000840* r1 = &gUnknown_03000800.unk40[0x1E];
-    s32 r2 = 0x1f;
+    struct Struct3000840* struct840p = &gUnknown_03000800.unk40[0x1E];
+    s32 i = 0x1f;
     do
     {
-        if (r1->unkC == r0 && r1->unk0 & 0x10000000)
+        if (struct840p->unkC == arg1 && struct840p->unk0 & 0x10000000)
         {
-            return r1;
+            return struct840p;
         }
-        r1--;
-    } while (--r2 != -1);
+        struct840p--;
+    } while (--i != -1);
     return NULL;
 }
 
-struct Struct3000840* sub_800F8F4(u32 r0)
+struct Struct3000840* sub_800F8F4(u32 arg1)
 {
-    u32 r0_2, r5;
+    u32 i, flags;
     s32 r1;
-    struct Struct3000840* r4 = sub_800F8BC(r0);
-    if(r4 != NULL) 
+    struct Struct3000840* struct840p = sub_800F8BC(arg1);
+    if(struct840p != NULL) 
     {
-        r1 = -(r4->unk0 & 0x02000000);
-        r5 = r1 >> 0x1f;
-        r5 = r5 & 0x02000000;
-        if(r4->unk0 & 0x08000000)
+        r1 = -(struct840p->unk0 & 0x02000000);
+        flags = r1 >> 0x1f;
+        flags = flags & 0x02000000;
+        if(struct840p->unk0 & 0x08000000)
         {
-            r5 = 0x08000000;
+            flags = 0x08000000;
         }
-        sub_8010960(r4);
-        DmaFill16(3, 0, r4, 0x40)
-        r4->unk0 = 0xF1000000 | r5;
-        r4->unk28 = 0xffff;
-        if(r5 & 0x08000000)
+        sub_8010960(struct840p);
+        DmaFill16(3, 0, struct840p, 0x40)
+        struct840p->unk0 = 0xF1000000 | flags;
+        struct840p->unk28 = 0xffff;
+        if(flags & 0x08000000)
         {
-            r4->unk0 &= 0xdfffffff;
+            struct840p->unk0 &= 0xdfffffff;
         }
-        r4->unkC = r0;
-        return r4;
+        struct840p->unkC = arg1;
+        return struct840p;
     }
     else 
     {
-        r4 = &gUnknown_03000800.unk40[0x1e];
-        for(r0_2 = 0x1f; r0_2 != -1; r0_2--)
+        struct840p = &gUnknown_03000800.unk40[0x1e];
+        for(i = 0x1f; i != -1; i--)
         {
-            r1 = r4->unk0 & 0x10000000;
+            r1 = struct840p->unk0 & 0x10000000;
             if(r1 == 0)
             {
-                if(r4 != &gUnknown_03000800.unk40[0])
+                if(struct840p != &gUnknown_03000800.unk40[0])
                 {
-                    DmaFill16(3, r1, r4, 0x40)
-                    r4->unk0 = 0xf1 << 0x18;
-                    r4->unkC = r0;
-                    return r4;
+                    DmaFill16(3, r1, struct840p, 0x40)
+                    struct840p->unk0 = 0xf1000000;
+                    struct840p->unkC = arg1;
+                    return struct840p;
                 }
             }
-            r4--;
+            struct840p--;
         }
         return 0;
     }
