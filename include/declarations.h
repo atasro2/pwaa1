@@ -41,6 +41,10 @@ void SetFlag(u32, u32, bool32);
 void sub_80007D8(u32 arg0, u32 arg1, u32 arg2, u32 arg3);
 void sub_800077C(u8 *, u32, u32, u32);
 bool32 GetFlag(u32 arg0, u32 arg1);
+void sub_800F9C4(struct Struct3000840* arg0, u32 arg1, u32 arg2);
+void sub_800F9D0(struct Struct3000840* arg1, u32 arg2);
+void sub_800FA50(struct Struct3000840* arg0, u32 arg1, u32 arg2);
+void sub_800FA60(struct Struct3000840* arg0);
 //ASMFUNCTIONS
 extern void sub_8001744(u16);
 extern void sub_8010E14(s16);

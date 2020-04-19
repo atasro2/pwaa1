@@ -109,13 +109,16 @@ void sub_800F9C4(struct Struct3000840* arg0, u32 arg1, u32 arg2)
     }
 }
 
-void sub_800F9D0(struct Struct3000840* arg1, u32 arg2){
+void sub_800F9D0(struct Struct3000840* arg1, u32 arg2)
+{
     s32 r0; 
     s32 r4;
     u32 r5;
     r5 = arg2 << 2;
-    if(arg1 != NULL){
-        if(arg2 > 0x1f){
+    if(arg1 != NULL)
+    {
+        if(arg2 > 0x1f)
+        {
             arg2 = 0x1f;
         }
         arg1->unk0 = (arg1->unk0 & -2) | 0x100000;
