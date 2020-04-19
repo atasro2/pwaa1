@@ -99,3 +99,51 @@ struct Struct3000840* sub_800F8F4(u32 arg1)
         return 0;
     }
 }
+
+void sub_800F9C4(struct Struct3000840* arg0, u32 arg1, u32 arg2)
+{
+    if(arg0 != NULL)
+    {
+        arg0->unk10 = arg1;
+        arg0->unk12 = arg2;
+    }
+}
+
+void sub_800F9D0(struct Struct3000840* arg1, u32 arg2){
+    s32 r0; 
+    s32 r4;
+    u32 r5;
+    r5 = arg2 << 2;
+    if(arg1 != NULL){
+        if(arg2 > 0x1f){
+            arg2 = 0x1f;
+        }
+        arg1->unk0 = (arg1->unk0 & -2) | 0x100000;
+        arg1->unk3C &= 0xff;
+        arg1->unk3E &= 0xff00; 
+        arg1->unk3E |= arg2;
+        r4 = _Cos(arg1->unk3C);
+        r0 = -_Sin(arg1->unk3C);
+        gOamObjects[r5++].attr3 = r4;
+        gOamObjects[r5++].attr3 = -r0;
+        gOamObjects[r5++].attr3 = r0;
+        gOamObjects[r5++].attr3 = r4;
+    }
+}
+
+void sub_800FA50(struct Struct3000840* arg0, u32 arg1, u32 arg2)
+{
+    if(arg0 != NULL)
+    {
+        arg0->unk3C = arg2;
+        sub_800F9D0(arg0, arg1);
+    }
+}
+
+void sub_800FA60(struct Struct3000840* arg0)
+{
+    if(arg0 != NULL)
+    {
+        arg0->unk0 &= 0xFFEFFFFF;
+    }
+}
