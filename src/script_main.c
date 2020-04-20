@@ -41,10 +41,10 @@ void sub_800549C(u32 newSection)
     gScriptContext.scriptPtr++;
 }
 
-#ifdef NONMATCHING // i think this is functionally equivalent
 void sub_80054BC(struct ScriptContext *scriptCtx)
 {
     u32 i;
+    struct Struct3003930 * structPtr;
     for (i = 0; i < ARRAY_COUNT(gUnknown_03003C00); i++)
     {
         gUnknown_03003C00[i].unk0 &= ~0x8000;
@@ -78,154 +78,31 @@ void sub_80054BC(struct ScriptContext *scriptCtx)
         u32 *r0;
         if (scriptCtx->currentSection > 0x7F)
         {
-            r1 = gScriptHeap;
-            r0 = &gScriptHeap[scriptCtx->currentSection-0x80];
-            scriptCtx->scriptPtr2 = scriptCtx->scriptPtr = r1 + r0[1];
-            scriptCtx->unk1C = *(u16*)gScriptHeap;
+            r1 = (u32 *)(EWRAM_START+0x11FC0);
+            r0 = (scriptCtx->currentSection-0x80)+ (u32 *)(EWRAM_START+0x11FC0);
+            scriptCtx->scriptPtr = r1 + r0[1];
+            scriptCtx->scriptPtr2 = scriptCtx->scriptPtr;
+            scriptCtx->unk1C = *(u16*)r1;
         }
         else
         {
             r1 = common_scripts;
             r0 = &common_scripts[scriptCtx->currentSection];
-            scriptCtx->scriptPtr2 = scriptCtx->scriptPtr = r1 + r0[1];
-            scriptCtx->unk1C = *(u16*)common_scripts;
+            scriptCtx->scriptPtr = r1 + r0[1];
+            scriptCtx->scriptPtr2 = scriptCtx->scriptPtr;
+            scriptCtx->unk1C = *(u16*)r1;
         }
     }
     scriptCtx->unk3C = (void*)(VRAM + 0x11800);
     for (i = 0; i < ARRAY_COUNT(gUnknown_03003930); i++)
     {
-        struct Struct3003930 * structPtr = &gUnknown_03003930[i];
+        structPtr = &gUnknown_03003930[i];
         structPtr->id |= 0xFF;
         structPtr->unk1 = 0;
         structPtr->unk5 = 0;
         structPtr->attr0 = 0x200;
     }
 }
-#else
-NAKED
-void sub_80054BC(struct ScriptContext *scriptCtx)
-{
-    asm_unified("sub_80054BC: @ 0x080054BC\n\
-	push {r4, r5, r6, lr}\n\
-	adds r2, r0, #0\n\
-	movs r3, #0\n\
-	ldr r5, _0800554C\n\
-	ldr r4, _08005550\n\
-	ldr r1, _08005554\n\
-_080054C8:\n\
-	adds r0, r4, #0\n\
-	ldrh r6, [r1]\n\
-	ands r0, r6\n\
-	strh r0, [r1]\n\
-	adds r1, #0xc\n\
-	adds r3, #1\n\
-	cmp r3, #0x3e\n\
-	bls _080054C8\n\
-	movs r3, #0\n\
-	strb r3, [r2, #0xe]\n\
-	strb r3, [r2, #0xf]\n\
-	ldr r0, _08005558\n\
-	ldrh r5, [r5, #4]\n\
-	cmp r5, r0\n\
-	beq _080054E8\n\
-	strb r3, [r2, #0x13]\n\
-_080054E8:\n\
-	strb r3, [r2, #0x15]\n\
-	movs r0, #8\n\
-	strb r0, [r2, #0x14]\n\
-	movs r0, #1\n\
-	strb r0, [r2, #0x16]\n\
-	strb r3, [r2, #0x17]\n\
-	movs r1, #0\n\
-	movs r0, #9\n\
-	strh r0, [r2, #0x18]\n\
-	movs r0, #0x74\n\
-	strh r0, [r2, #0x1a]\n\
-	ldrh r0, [r2, #0x1e]\n\
-	adds r0, #1\n\
-	strh r0, [r2, #0x20]\n\
-	strh r3, [r2, #0x2c]\n\
-	adds r0, r2, #0\n\
-	adds r0, #0x2e\n\
-	strb r1, [r0]\n\
-	adds r0, #6\n\
-	strb r1, [r0]\n\
-	adds r0, #2\n\
-	strb r1, [r0]\n\
-	adds r0, #1\n\
-	strb r1, [r0]\n\
-	strh r3, [r2]\n\
-	strh r3, [r2, #2]\n\
-	subs r0, #0x13\n\
-	strb r1, [r0]\n\
-	adds r3, r2, #0\n\
-	adds r3, #0x25\n\
-	movs r0, #3\n\
-	strb r0, [r3]\n\
-	adds r3, #1\n\
-	strb r0, [r3]\n\
-	adds r0, r2, #0\n\
-	adds r0, #0x27\n\
-	strb r1, [r0]\n\
-	movs r0, #0x18\n\
-	strh r0, [r2, #0x28]\n\
-	movs r0, #0x56\n\
-	strh r0, [r2, #0x2a]\n\
-	ldrh r0, [r2, #0x1e]\n\
-	cmp r0, #0x7f\n\
-	bls _08005564\n\
-	ldr r1, _0800555C\n\
-	lsls r0, r0, #2\n\
-	ldr r3, _08005560\n\
-	adds r0, r0, r3\n\
-	b _0800556C\n\
-	.align 2, 0\n\
-_0800554C: .4byte gMain\n\
-_08005550: .4byte 0x00007FFF\n\
-_08005554: .4byte gUnknown_03003C00\n\
-_08005558: .4byte 0x00000804\n\
-_0800555C: .4byte gScriptHeap\n\
-_08005560: .4byte gScriptHeap-0x200\n\
-_08005564:\n\
-	ldr r1, _080055A4\n\
-	ldrh r6, [r2, #0x1e]\n\
-	lsls r0, r6, #2\n\
-	adds r0, r0, r1\n\
-_0800556C:\n\
-	ldr r0, [r0, #4]\n\
-	adds r0, r0, r1\n\
-	str r0, [r2, #4]\n\
-	str r0, [r2, #8]\n\
-	ldrh r0, [r1]\n\
-	strh r0, [r2, #0x1c]\n\
-	ldr r0, _080055A8\n\
-	str r0, [r2, #0x3c]\n\
-	movs r3, #0\n\
-	movs r5, #0xff\n\
-	movs r2, #0\n\
-	movs r4, #0x80\n\
-	lsls r4, r4, #2\n\
-	ldr r1, _080055AC\n\
-_08005588:\n\
-	ldrb r0, [r1]\n\
-	orrs r0, r5\n\
-	strb r0, [r1]\n\
-	strb r2, [r1, #1]\n\
-	strb r2, [r1, #5]\n\
-	strh r4, [r1, #8]\n\
-	adds r1, #0x14\n\
-	adds r3, #1\n\
-	cmp r3, #7\n\
-	bls _08005588\n\
-	pop {r4, r5, r6}\n\
-	pop {r0}\n\
-	bx r0\n\
-	.align 2, 0\n\
-_080055A4: .4byte common_scripts\n\
-_080055A8: .4byte 0x06011800\n\
-_080055AC: .4byte gUnknown_03003930\n");
-}
-#endif
 
 void sub_80055B0(struct ScriptContext * scriptCxt)
 {
