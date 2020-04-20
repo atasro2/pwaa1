@@ -45,6 +45,9 @@ void sub_800F9C4(struct Struct3000840* arg0, u32 arg1, u32 arg2);
 void sub_800F9D0(struct Struct3000840* arg1, u32 arg2);
 void sub_800FA50(struct Struct3000840* arg0, u32 arg1, u32 arg2);
 void sub_800FA60(struct Struct3000840* arg0);
+void sub_800FA74(struct Struct3000840* arg0, bool32 arg1);
+void sub_800FB64(struct Struct3000840* arg0, bool32 arg1);
+void sub_800FB84(struct Struct3000840* arg0, u32 arg1);
 //ASMFUNCTIONS
 extern void sub_8001744(u16);
 extern void sub_8010E14(s16);
