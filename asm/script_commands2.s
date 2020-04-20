@@ -1,26 +1,6 @@
 	.include "asm/macros.inc"
 	.syntax unified
 
-	THUMB_FUNC_START Command47
-Command47: @ 0x08007868
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r0, [r4, #4]
-	adds r2, r0, #2
-	ldrh r0, [r0, #2]
-	adds r1, r2, #2
-	str r1, [r4, #4]
-	ldrh r1, [r2, #2]
-	bl sub_800F71C
-	ldr r0, [r4, #4]
-	adds r0, #2
-	str r0, [r4, #4]
-	movs r0, #0
-	pop {r4}
-	pop {r1}
-	bx r1
-	.align 2, 0
-
 	THUMB_FUNC_START Command48
 Command48: @ 0x0800788C
 	push {r4, r5, lr}

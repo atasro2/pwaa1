@@ -1,5 +1,6 @@
 #include "global.h"
 #include "script.h"
+#include "sound_control.h"
 
 bool32 Command40(struct ScriptContext * scriptCtx)
 {
@@ -131,5 +132,19 @@ bool32 Command46(struct ScriptContext * scriptCtx)
     gLCDIORegisters.lcd_bg2cnt = 0x3E0A;
     scriptCtx->unk0 |= 0x40;
     scriptCtx->scriptPtr++;
+    return 0;
+}
+
+bool32 Command47(struct ScriptContext *scriptCtx)
+{
+    u16 temp, temp2;
+    scriptCtx->scriptPtr++;
+    temp = *scriptCtx->scriptPtr;
+    scriptCtx->scriptPtr++;
+    temp2 = *scriptCtx->scriptPtr;
+    sub_800F71C(temp, temp2);
+
+    scriptCtx->scriptPtr++;
+
     return 0;
 }
