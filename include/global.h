@@ -25,8 +25,6 @@
 #define SPRITE_ATTR0(y, affineMode, objMode, mosaic, bpp, shape) \
 	((y) + ((affineMode) << 8) + ((objMode) << 10) + ((mosaic) << 12) + ((bpp) << 13) + ((shape) << 14)) \
 
-//#define SPRITE_ATTR1()
-//TODO: make different macros for affine and non affine sprites, aka Pidgey is lazy
 #define SPRITE_ATTR1_AFFINE(x, rotscale, size) \
 	((x) + ((rotscale) << 9) + ((size) << 14)) \
 

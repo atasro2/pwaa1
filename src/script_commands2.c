@@ -95,7 +95,6 @@ bool32 Command44(struct ScriptContext * scriptCtx)
         SET_UNK4(1,0,0,9);
     }
     scriptCtx->scriptPtr++;
-    // SPRITE_ATTR2(416, 0, 5);
     oam->attr0 = SPRITE_ATTR0(239, 3, 0, 0, 0, 0);
     oam->attr1 = SPRITE_ATTR1_AFFINE(495, 0, 3);
     oam->attr2 = SPRITE_ATTR2(416, 0, 5);
