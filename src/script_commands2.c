@@ -200,12 +200,10 @@ bool32 Command4A(struct ScriptContext *scriptCtx)
 
 bool32 Command4B(struct ScriptContext *scriptCtx)
 {
-    u32 temp;
     u32 res;
     u32 r2;
     scriptCtx->scriptPtr++;
-    temp = *scriptCtx->scriptPtr >> 8;
-    res = sub_8007554(temp);
+    res = sub_8007554(*scriptCtx->scriptPtr >> 8);
     if(res != 0xFF) {
         r2 = (*scriptCtx->scriptPtr & 3) << 12;
         // this clears existing hflip/vflip and sets r2 as new flips
