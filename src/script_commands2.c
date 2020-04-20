@@ -215,3 +215,12 @@ bool32 Command4B(struct ScriptContext *scriptCtx)
 
     return 0;
 }
+
+bool32 Command4C(struct ScriptContext *scriptCtx)
+{
+    if(gMain.unk2E) {
+        return 1;
+    }
+    scriptCtx->scriptPtr++;
+    return 0;
+}
