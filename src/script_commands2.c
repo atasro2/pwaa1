@@ -102,3 +102,34 @@ bool32 Command44(struct ScriptContext * scriptCtx)
     oam->attr0 = SPRITE_ATTR0(0, 2, 0, 0, 0, 0);
     return 0;
 }
+
+bool32 Command46(struct ScriptContext * scriptCtx)
+{
+    u32 i, j;
+    u8 *r6;
+    u16 *r3;
+    scriptCtx->scriptPtr++;
+    if(*scriptCtx->scriptPtr) {
+        gMain.unk3C = 0xF2;
+        r6 = gUnknown_08362524;
+        r3 = gUnknown_08362544;
+    }
+    else {
+        gMain.unk3C = 0xE;
+        r6 = gUnknown_08360834;
+        r3 = gUnknown_08360854;
+    }
+    for(i = 0; i < 20; i++) {
+        for(j = 0; j < 30; j++, r3++) {
+            gBG2MapBuffer[GET_MAP_TILE_INDEX(i, j, 0, 1)] = *r3 + 0x80;
+        }
+    }
+    r6 += 0x4D0;
+    // directly using gUnknown_02031FC0 as target will NOT match, it makes the compiler use r8
+    DmaCopy16(3, r6, EWRAM_START+0x31FC0, sizeof(gUnknown_02031FC0));
+    gLCDIORegisters.lcd_dispcnt |= 0x400;
+    gLCDIORegisters.lcd_bg2cnt = 0x3E0A;
+    scriptCtx->unk0 |= 0x40;
+    scriptCtx->scriptPtr++;
+    return 0;
+}

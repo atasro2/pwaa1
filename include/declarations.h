@@ -26,6 +26,11 @@ extern u8 gUnknown_08191CA0[];
 extern u8 gUnknown_081942C0[]; // probably 8bpp palette
 extern u8 gUnknown_08194520[]; // 4bpp palette
 extern u8 gUnknown_08194540[]; // 4bpp palette
+
+extern u8 gUnknown_08360834[]; // 4bpp palette
+extern u16 gUnknown_08360854[]; // palette?
+extern u8 gUnknown_08362524[]; // 4bpp palette
+extern u16 gUnknown_08362544[]; // palette?
 //FUNCTIONS // these should be moved soon
 void sub_80007A0(struct Struct3004000 *);
 u8 Random();
@@ -76,7 +81,8 @@ extern u32 sub_8007554(u32);
 //EWRAM
 extern EWRAM_DATA u32 gScriptHeap[0x1B000/4];
 extern EWRAM_DATA struct SaveData gSaveDataBuffer;
-extern EWRAM_DATA u8 gUnknown_0202CFC0[0x9B00]; // got no idea how big this actually is
+extern EWRAM_DATA u8 gUnknown_0202CFC0[0x5000];
+extern EWRAM_DATA u8 gUnknown_02031FC0[0x4B00];
 //IWRAM
 extern u16 gBG2MapBuffer[0x400]; // BG 2 Map buffer
 extern struct Struct3000800 gUnknown_03000800; // size unknown

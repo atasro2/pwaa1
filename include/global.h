@@ -33,6 +33,8 @@
 
 #define SPRITE_ATTR2(tileNum, priority, paletteNum) \
 	((tileNum) + ((priority) << 10) + ((paletteNum) << 12)) \
+	
+#define GET_MAP_TILE_INDEX(tiley, tilex, yoff, xoff) ((tiley) * 32 + ((yoff) * 32) + ((tilex) + (xoff)))
 
 
 #define KEY_NEW() ({ (*(u16 *)REG_ADDR_KEYINPUT) ^ KEYS_MASK; })
