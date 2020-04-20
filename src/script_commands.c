@@ -1090,7 +1090,7 @@ u32 Command1F(struct ScriptContext * scriptCtx)
     u32 i;
     u16 * tilemapBuffer;
     scriptCtx->scriptPtr++;
-    gLCDIORegisters.lcd_dispcnt &= ~0x400;
+    gLCDIORegisters.lcd_dispcnt &= ~DISPCNT_BG2_ON;
     tilemapBuffer = gBG2MapBuffer;
     for(i = 0; i < 0x2A0; i++, tilemapBuffer++)
     {

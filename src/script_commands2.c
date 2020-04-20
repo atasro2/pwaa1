@@ -5,13 +5,12 @@
 u32 sub_8007554(u32 a0) // GetExplCharWorkIndexById
 {
     u32 i = 0;
-    struct Struct3003930 *ecd = gUnknown_03003930;
-    while(1) {
-        if(ecd->id == a0) return i;
-        ecd++;
+    do {
+        if (gUnknown_03003930[i].id == a0)
+            return i;
         i++;
-        if(i > 7) return 0xFF;
-    }
+    } while (i < ARRAY_COUNT(gUnknown_03003930));
+    return 0xFF;
 }
 
 bool32 Command40(struct ScriptContext * scriptCtx)
@@ -140,8 +139,8 @@ bool32 Command46(struct ScriptContext * scriptCtx)
     r6 += 0x4D0;
     // directly using gUnknown_02031FC0 as target will NOT match, it makes the compiler use r8
     DmaCopy16(3, r6, EWRAM_START+0x31FC0, sizeof(gUnknown_02031FC0));
-    gLCDIORegisters.lcd_dispcnt |= 0x400;
-    gLCDIORegisters.lcd_bg2cnt = 0x3E0A;
+    gLCDIORegisters.lcd_dispcnt |= DISPCNT_BG2_ON;
+    gLCDIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(2) | BGCNT_CHARBASE(2) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP;
     scriptCtx->unk0 |= 0x40;
     scriptCtx->scriptPtr++;
     return 0;
@@ -165,13 +164,13 @@ bool32 Command48(struct ScriptContext *scriptCtx)
 {
     scriptCtx->scriptPtr++;
     if(*scriptCtx->scriptPtr == 0xFFFF) {
-        gLCDIORegisters.lcd_dispcnt |= 0x200;
+        gLCDIORegisters.lcd_dispcnt |= DISPCNT_BG1_ON;
         scriptCtx->unk18 = 9;
         scriptCtx->unk1A = 0x74;
         scriptCtx->scriptPtr+=2;
     }
     else {
-        gLCDIORegisters.lcd_dispcnt &= ~0x200;
+        gLCDIORegisters.lcd_dispcnt &= ~DISPCNT_BG1_ON;
         scriptCtx->unk18 = *scriptCtx->scriptPtr;
         scriptCtx->scriptPtr++;
         scriptCtx->unk1A = *scriptCtx->scriptPtr;
