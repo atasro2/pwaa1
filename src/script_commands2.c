@@ -2,6 +2,18 @@
 #include "script.h"
 #include "sound_control.h"
 
+u32 sub_8007554(u32 a0) // GetExplCharWorkIndexById
+{
+    u32 i = 0;
+    struct Struct3003930 *ecd = gUnknown_03003930;
+    while(1) {
+        if(ecd->id == a0) return i;
+        ecd++;
+        i++;
+        if(i > 7) return 0xFF;
+    }
+}
+
 bool32 Command40(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;

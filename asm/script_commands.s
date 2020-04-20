@@ -386,25 +386,3 @@ _08007544: .4byte 0x040000D4
 _08007548: .4byte gUnknown_080187C8
 _0800754C: .4byte gUnknown_03003930
 _08007550: .4byte gOamObjects
-
-	THUMB_FUNC_START sub_8007554 @ GetExplCharWorkIndexById
-sub_8007554: @ 0x08007554
-	adds r3, r0, #0
-	movs r1, #0
-	ldr r2, _0800756C
-_0800755A:
-	ldrb r0, [r2]
-	cmp r0, r3
-	beq _08007570
-	adds r2, #0x14
-	adds r1, #1
-	cmp r1, #7
-	bls _0800755A
-	movs r0, #0xff
-	b _08007572
-	.align 2, 0
-_0800756C: .4byte gUnknown_03003930
-_08007570:
-	adds r0, r1, #0
-_08007572:
-	bx lr
