@@ -197,3 +197,23 @@ bool32 Command4A(struct ScriptContext *scriptCtx)
     scriptCtx->scriptPtr--;
     return 1;
 }
+
+bool32 Command4B(struct ScriptContext *scriptCtx)
+{
+    u32 temp;
+    u32 res;
+    u32 r2;
+    scriptCtx->scriptPtr++;
+    temp = *scriptCtx->scriptPtr >> 8;
+    res = sub_8007554(temp);
+    if(res != 0xFF) {
+        r2 = (*scriptCtx->scriptPtr & 3) << 12;
+        // this clears existing hflip/vflip and sets r2 as new flips
+        // the current macros dont allow easily setting this
+        gUnknown_03003930[res].attr1 = (gUnknown_03003930[res].attr1 & 0xCFFF) + r2;
+    }
+    gUnknown_03003930[res].unk2 = 0;
+    scriptCtx->scriptPtr++;
+
+    return 0;
+}

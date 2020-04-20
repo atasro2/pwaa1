@@ -1,53 +1,6 @@
 	.include "asm/macros.inc"
 	.syntax unified
 
-	THUMB_FUNC_START Command4B
-Command4B: @ 0x08007944
-	push {r4, r5, lr}
-	adds r4, r0, #0
-	ldr r0, [r4, #4]
-	adds r1, r0, #2
-	str r1, [r4, #4]
-	ldrh r0, [r0, #2]
-	lsrs r0, r0, #8
-	bl sub_8007554
-	adds r3, r0, #0
-	cmp r3, #0xff
-	beq _0800797A
-	ldr r0, [r4, #4]
-	movs r2, #3
-	ldrh r0, [r0]
-	ands r2, r0
-	lsls r2, r2, #0xc
-	ldr r0, _08007998
-	lsls r1, r3, #2
-	adds r1, r1, r3
-	lsls r1, r1, #2
-	adds r1, r1, r0
-	ldr r0, _0800799C
-	ldrh r5, [r1, #0xa]
-	ands r0, r5
-	adds r0, r0, r2
-	strh r0, [r1, #0xa]
-_0800797A:
-	ldr r1, _08007998
-	lsls r0, r3, #2
-	adds r0, r0, r3
-	lsls r0, r0, #2
-	adds r0, r0, r1
-	movs r1, #0
-	strb r1, [r0, #2]
-	ldr r0, [r4, #4]
-	adds r0, #2
-	str r0, [r4, #4]
-	movs r0, #0
-	pop {r4, r5}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_08007998: .4byte gUnknown_03003930
-_0800799C: .4byte 0x0000CFFF
-
 	THUMB_FUNC_START Command4C
 Command4C: @ 0x080079A0
 	adds r1, r0, #0
