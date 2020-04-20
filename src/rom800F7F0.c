@@ -73,7 +73,7 @@ struct Struct3000840* sub_800F8F4(u32 arg1)
         struct840p->unk28 = 0xffff;
         if (flags & 0x08000000)
         {
-            struct840p->unk0 &= 0xdfffffff;
+            struct840p->unk0 &= ~0x20000000;
         }
         struct840p->unkC = arg1;
         return struct840p;
@@ -147,7 +147,7 @@ void sub_800FA60(struct Struct3000840* arg0)
 {
     if (arg0 != NULL)
     {
-        arg0->unk0 &= 0xFFEFFFFF;
+        arg0->unk0 &= ~0x100000;
     }
 }
 
