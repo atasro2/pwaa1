@@ -168,3 +168,13 @@ bool32 Command48(struct ScriptContext *scriptCtx)
 
     return 0;
 }
+
+bool32 Command49(struct ScriptContext *scriptCtx)
+{
+    scriptCtx->scriptPtr++;
+    gMain.unk14 = 0;
+    gMain.unk15 = 0;
+    SET_UNK4(0, 0, 0, 1);
+
+    return 0;
+}

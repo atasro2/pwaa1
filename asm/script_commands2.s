@@ -1,22 +1,6 @@
 	.include "asm/macros.inc"
 	.syntax unified
 
-	THUMB_FUNC_START Command49
-Command49: @ 0x080078EC
-	ldr r1, [r0, #4]
-	adds r1, #2
-	str r1, [r0, #4]
-	ldr r1, _08007904
-	movs r0, #0
-	strb r0, [r1, #0x14]
-	strb r0, [r1, #0x15]
-	movs r0, #1
-	str r0, [r1, #4]
-	movs r0, #0
-	bx lr
-	.align 2, 0
-_08007904: .4byte gMain
-
 	THUMB_FUNC_START Command4A
 Command4A: @ 0x08007908
 	adds r1, r0, #0
