@@ -178,3 +178,22 @@ bool32 Command49(struct ScriptContext *scriptCtx)
 
     return 0;
 }
+
+bool32 Command4A(struct ScriptContext *scriptCtx)
+{
+    scriptCtx->scriptPtr++;
+    if(*scriptCtx->scriptPtr) {
+        if(gMain.unk4[1] == 8) {
+            scriptCtx->scriptPtr++;
+            return 0;
+        }
+    }
+    else {
+        if(gMain.unk4[1] == 6) {
+            scriptCtx->scriptPtr++;
+            return 0;
+        }
+    }
+    scriptCtx->scriptPtr--;
+    return 1;
+}

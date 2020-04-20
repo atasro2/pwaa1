@@ -1,43 +1,6 @@
 	.include "asm/macros.inc"
 	.syntax unified
 
-	THUMB_FUNC_START Command4A
-Command4A: @ 0x08007908
-	adds r1, r0, #0
-	ldr r0, [r1, #4]
-	adds r2, r0, #2
-	str r2, [r1, #4]
-	ldrh r0, [r0, #2]
-	cmp r0, #0
-	beq _08007924
-	ldr r0, _08007920
-	ldrb r0, [r0, #5]
-	cmp r0, #8
-	bne _08007938
-	b _0800792C
-	.align 2, 0
-_08007920: .4byte gMain
-_08007924:
-	ldr r0, _08007934
-	ldrb r0, [r0, #5]
-	cmp r0, #6
-	bne _08007938
-_0800792C:
-	adds r0, r2, #2
-	str r0, [r1, #4]
-	movs r0, #0
-	b _08007940
-	.align 2, 0
-_08007934: .4byte gMain
-_08007938:
-	ldr r0, [r1, #4]
-	subs r0, #2
-	str r0, [r1, #4]
-	movs r0, #1
-_08007940:
-	bx lr
-	.align 2, 0
-
 	THUMB_FUNC_START Command4B
 Command4B: @ 0x08007944
 	push {r4, r5, lr}
