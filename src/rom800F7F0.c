@@ -176,12 +176,12 @@ void sub_800FA74(struct Struct3000840* arg0, bool32 arg1)
             {
                 if (arg1 != 0)
                 {
-                    arg0->unk0 &= 0xF7FFFFFF;
+                    arg0->unk0 &= ~0x8000000;
                     arg0->unk0 |= 0x20000000;
                 }
                 else
                 {
-                    arg0->unk0 &= 0xDFFFFFFF;
+                    arg0->unk0 &= ~0x20000000;
                     arg0->unk0 |= 0x08000000;
                     for(i = arg0->unk3A; i < arg0->unk3B; i++)
                     {
