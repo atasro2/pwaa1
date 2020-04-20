@@ -250,25 +250,25 @@ gScriptCmdFuncs:
     .4byte Command4A
     .4byte Command4B
     .4byte Command4C
-    .4byte nullsub_13
-    .4byte nullsub_14
-    .4byte nullsub_15
-    .4byte nullsub_38
-    .4byte nullsub_17
-    .4byte nullsub_18
-    .4byte nullsub_19
-    .4byte nullsub_20
-    .4byte nullsub_21
-    .4byte nullsub_39
-    .4byte nullsub_23
-    .4byte nullsub_24
-    .4byte nullsub_25
-    .4byte nullsub_26
-    .4byte nullsub_27
-    .4byte nullsub_28
-    .4byte nullsub_29
-    .4byte nullsub_30
-    .4byte nullsub_31
+    .4byte Command4D
+    .4byte Command4E
+    .4byte Command4F
+    .4byte Command50
+    .4byte Command51
+    .4byte Command52
+    .4byte Command53
+    .4byte Command54
+    .4byte Command55
+    .4byte Command56
+    .4byte Command57
+    .4byte Command58
+    .4byte Command59
+    .4byte Command5A
+    .4byte Command5B
+    .4byte Command5C
+    .4byte Command5D
+    .4byte Command5E
+    .4byte Command5F
 
     .global gUnknown_0811DF28
 gUnknown_0811DF28:

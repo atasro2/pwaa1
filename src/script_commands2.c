@@ -224,3 +224,98 @@ bool32 Command4C(struct ScriptContext *scriptCtx)
     scriptCtx->scriptPtr++;
     return 0;
 }
+
+bool32 Command4D(struct ScriptContext *scriptCtx)
+{
+    return 0;
+}
+
+bool32 Command4E(struct ScriptContext *scriptCtx)
+{
+    return 0;
+}
+
+bool32 Command4F(struct ScriptContext *scriptCtx)
+{
+    return 0;
+}
+
+bool32 Command50(struct ScriptContext *scriptCtx)
+{
+    return 0;
+}
+
+bool32 Command51(struct ScriptContext *scriptCtx)
+{
+    return 0;
+}
+
+bool32 Command52(struct ScriptContext *scriptCtx)
+{
+    return 0;
+}
+
+bool32 Command53(struct ScriptContext *scriptCtx)
+{
+    return 0;
+}
+
+bool32 Command54(struct ScriptContext *scriptCtx)
+{
+    return 0;
+}
+
+bool32 Command55(struct ScriptContext *scriptCtx)
+{
+    return 0;
+}
+
+bool32 Command56(struct ScriptContext *scriptCtx)
+{
+    return 0;
+}
+
+bool32 Command57(struct ScriptContext *scriptCtx)
+{
+    return 0;
+}
+
+bool32 Command58(struct ScriptContext *scriptCtx)
+{
+    return 0;
+}
+
+bool32 Command59(struct ScriptContext *scriptCtx)
+{
+    return 0;
+}
+
+bool32 Command5A(struct ScriptContext *scriptCtx)
+{
+    return 0;
+}
+
+bool32 Command5B(struct ScriptContext *scriptCtx)
+{
+    return 0;
+}
+
+bool32 Command5C(struct ScriptContext *scriptCtx)
+{
+    return 0;
+}
+
+bool32 Command5D(struct ScriptContext *scriptCtx)
+{
+    return 0;
+}
+
+bool32 Command5E(struct ScriptContext *scriptCtx)
+{
+    return 0;
+}
+
+bool32 Command5F(struct ScriptContext *scriptCtx)
+{
+    return 0;
+}
