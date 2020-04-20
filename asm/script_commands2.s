@@ -1,56 +1,6 @@
 	.include "asm/macros.inc"
 	.syntax unified
 
-	THUMB_FUNC_START Command48
-Command48: @ 0x0800788C
-	push {r4, r5, lr}
-	adds r2, r0, #0
-	ldr r4, [r2, #4]
-	adds r3, r4, #2
-	str r3, [r2, #4]
-	ldr r0, _080078BC
-	ldrh r1, [r4, #2]
-	cmp r1, r0
-	bne _080078C4
-	ldr r0, _080078C0
-	adds r0, #0x4a
-	movs r3, #0x80
-	lsls r3, r3, #2
-	adds r1, r3, #0
-	ldrh r5, [r0]
-	orrs r1, r5
-	strh r1, [r0]
-	movs r0, #9
-	strh r0, [r2, #0x18]
-	movs r0, #0x74
-	strh r0, [r2, #0x1a]
-	adds r0, r4, #6
-	b _080078DA
-	.align 2, 0
-_080078BC: .4byte 0x0000FFFF
-_080078C0: .4byte gLCDIORegisters
-_080078C4:
-	ldr r1, _080078E4
-	adds r1, #0x4a
-	ldr r0, _080078E8
-	ldrh r5, [r1]
-	ands r0, r5
-	strh r0, [r1]
-	ldrh r0, [r4, #2]
-	strh r0, [r2, #0x18]
-	ldrh r0, [r3, #2]
-	strh r0, [r2, #0x1a]
-	adds r0, r3, #4
-_080078DA:
-	str r0, [r2, #4]
-	movs r0, #0
-	pop {r4, r5}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_080078E4: .4byte gLCDIORegisters
-_080078E8: .4byte 0x0000FDFF
-
 	THUMB_FUNC_START Command49
 Command49: @ 0x080078EC
 	ldr r1, [r0, #4]

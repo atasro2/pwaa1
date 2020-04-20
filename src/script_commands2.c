@@ -148,3 +148,23 @@ bool32 Command47(struct ScriptContext *scriptCtx)
 
     return 0;
 }
+
+bool32 Command48(struct ScriptContext *scriptCtx)
+{
+    scriptCtx->scriptPtr++;
+    if(*scriptCtx->scriptPtr == 0xFFFF) {
+        gLCDIORegisters.lcd_dispcnt |= 0x200;
+        scriptCtx->unk18 = 9;
+        scriptCtx->unk1A = 0x74;
+        scriptCtx->scriptPtr+=2;
+    }
+    else {
+        gLCDIORegisters.lcd_dispcnt &= ~0x200;
+        scriptCtx->unk18 = *scriptCtx->scriptPtr;
+        scriptCtx->scriptPtr++;
+        scriptCtx->unk1A = *scriptCtx->scriptPtr;
+        scriptCtx->scriptPtr++;
+    }
+
+    return 0;
+}
