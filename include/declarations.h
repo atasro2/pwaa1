@@ -80,6 +80,7 @@ extern u32 sub_8002224(u32);
 extern u32 sub_8007554(u32);
 //EWRAM
 extern EWRAM_DATA u32 gScriptHeap[0x1B000/4];
+#define eScriptHeap ((void*) (EWRAM_START + 0x11FC0))
 extern EWRAM_DATA struct SaveData gSaveDataBuffer;
 extern EWRAM_DATA u8 gUnknown_0202CFC0[0x5000];
 extern EWRAM_DATA u8 gUnknown_02031FC0[0x4B00];

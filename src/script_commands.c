@@ -1510,52 +1510,24 @@ _08006E96:\n\
 }
 #endif
 
-#ifdef NONMATCHING
+// this might need a rework once EWRAM is understood
 bool32 Command36(struct ScriptContext * scriptCtx)
 {
     u32 idx;
     u32 offset;
+    u32 * heapPtr;
     u16 * ptr;
     scriptCtx->scriptPtr++;
     idx = *scriptCtx->scriptPtr;
-    ptr = (u16*)(gScriptHeap+1+idx);
+    heapPtr = eScriptHeap;
+    ptr = (u16*)(heapPtr+idx+1);
     offset = ptr[0] / 2;
     idx = ptr[1];
     scriptCtx->currentSection = idx + 0x80;
-    scriptCtx->scriptPtr2 = (gScriptHeap+1)[idx] + (void *)gScriptHeap;
+    scriptCtx->scriptPtr2 = eScriptHeap + ((u32*)eScriptHeap)[idx+1];
     scriptCtx->scriptPtr = scriptCtx->scriptPtr2 + offset;
     return 0;
 }
-#else
-NAKED bool32 Command36(struct ScriptContext * scriptCtx)
-{
-    asm_unified("ldr r1, [r0, #4]\n\
-	ldrh r1, [r1, #2]\n\
-	lsls r1, r1, #2\n\
-	ldr r2, _08006ED0\n\
-	adds r1, r1, r2\n\
-	ldrh r2, [r1]\n\
-	lsrs r3, r2, #1\n\
-	ldrh r1, [r1, #2]\n\
-	adds r2, r1, #0\n\
-	adds r2, #0x80\n\
-	strh r2, [r0, #0x1e]\n\
-	lsls r1, r1, #2\n\
-	ldr r2, _08006ED0\n\
-	adds r1, r1, r2\n\
-	ldr r1, [r1]\n\
-	subs r2, #4\n\
-	adds r1, r1, r2\n\
-	str r1, [r0, #8]\n\
-	lsls r3, r3, #1\n\
-	adds r1, r1, r3\n\
-	str r1, [r0, #4]\n\
-	movs r0, #0\n\
-	bx lr\n\
-	.align 2, 0\n\
-_08006ED0: .4byte gScriptHeap+4\n");
-}
-#endif
 
 bool32 Command37(struct ScriptContext * scriptCtx)
 {
