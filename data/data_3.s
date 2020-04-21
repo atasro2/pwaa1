@@ -1338,7 +1338,6 @@ gUnknown_08364794:
 gUnknown_08365640:
     .incbin "baserom.gba", 0x00365640, 0x3584
 
-
     .global gUnknown_08368BC4
 gUnknown_08368BC4:
     .incbin "baserom.gba", 0x00368BC4, 0xCCC

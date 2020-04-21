@@ -17,8 +17,8 @@ SECTIONS {
     {
         asm/crt0.o(.text);
         src/main.o(.text);
-        src/cmd_bg.o(.text);
-        asm/cmd_bg.o(.text);
+        src/bg_control.o(.text);
+        asm/bg_control.o(.text);
         src/utils.o(.text);
         asm/utils.o(.text);
         src/script_main.o(.text);
@@ -43,6 +43,7 @@ SECTIONS {
     ALIGN(4)
     {
         src/main.o(.data);
+        src/bg_control.o(.data);
         data/data.o(.data);
         data/sound_data.o(.rodata);
         data/m4a_rodata.o(.rodata);
