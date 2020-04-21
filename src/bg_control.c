@@ -1,4 +1,10 @@
 #include "global.h"
+#include "constants/background.h"
+#include "background.h"
+
+#include "data/background.h"
+
+#define GET_MAP_TILE_INDEX(tiley, tilex, yoff, xoff) ((tiley) * 32 + ((yoff) * 32) + ((tilex) + (xoff)))
 
 void sub_8000930()
 {
@@ -15,8 +21,6 @@ void sub_8000930()
     gLCDIORegisters.lcd_bg2hofs = 8;
     sub_80009AC();
 }
-
-#define GET_MAP_TILE_INDEX(tiley, tilex, yoff, xoff) ((tiley) * 32 + ((yoff) * 32) + ((tilex) + (xoff)))
 
 void sub_80009AC()
 {

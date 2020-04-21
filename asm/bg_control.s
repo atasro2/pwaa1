@@ -1371,7 +1371,7 @@ _0800149C: .4byte 0x05000040
 _080014A0: .4byte 0x80000010
 _080014A4: .4byte 0x06004000
 _080014A8: .4byte 0x80002580
-_080014AC: .4byte gUnknown_080137D8
+_080014AC: .4byte gBackgroundTable
 _080014B0: .4byte 0x000001FF
 _080014B4:
 	movs r3, #0x80
@@ -1815,7 +1815,7 @@ _080017E6:
 	adds r4, #0x20
 	b _08001806
 	.align 2, 0
-_080017F8: .4byte gUnknown_080137D8
+_080017F8: .4byte gBackgroundTable
 _080017FC: .4byte gMain
 _08001800:
 	movs r0, #0x80
@@ -1900,7 +1900,7 @@ _08001886:
 	.align 2, 0
 _08001890: .4byte gMain
 _08001894: .4byte 0xFFFF7FFF
-_08001898: .4byte gUnknown_080137D8
+_08001898: .4byte gBackgroundTable
 _0800189C:
 	movs r3, #0x80
 	lsls r3, r3, #2
@@ -1945,7 +1945,7 @@ _080018E0:
 	.align 2, 0
 _080018EC: .4byte gMain
 _080018F0: .4byte gUnknown_0202CFC0
-_080018F4: .4byte gUnknown_080137D8
+_080018F4: .4byte gBackgroundTable
 
 	THUMB_FUNC_START sub_80018F8
 sub_80018F8: @ 0x080018F8
@@ -2314,7 +2314,7 @@ _08001BD0:
 	orrs r5, r0
 	b _08001C56
 	.align 2, 0
-_08001BF8: .4byte gUnknown_080137D8
+_08001BF8: .4byte gBackgroundTable
 _08001BFC: .4byte gUnknown_08014570
 _08001C00: .4byte gBG3MapBuffer
 _08001C04: .4byte 0x040000D4
@@ -2993,7 +2993,7 @@ sub_80020B0: @ 0x080020B0
 	.align 2, 0
 _08002150: .4byte gMain
 _08002154: .4byte gMain+0x2E
-_08002158: .4byte gUnknown_080137D8
+_08002158: .4byte gBackgroundTable
 _0800215C:
 	movs r0, #0xb4
 	lsls r0, r0, #1
@@ -3112,7 +3112,7 @@ sub_8002224: @ 0x08002224
 	ldr r0, [r0]
 	bx lr
 	.align 2, 0
-_08002230: .4byte gUnknown_080137D8
+_08002230: .4byte gBackgroundTable
 
 	THUMB_FUNC_START sub_8002234
 sub_8002234: @ 0x08002234
@@ -3123,7 +3123,7 @@ sub_8002234: @ 0x08002234
 	adds r0, #0x28
 	bx lr
 	.align 2, 0
-_08002240: .4byte gUnknown_080137D8
+_08002240: .4byte gBackgroundTable
 
 	THUMB_FUNC_START sub_8002244
 sub_8002244: @ 0x08002244
