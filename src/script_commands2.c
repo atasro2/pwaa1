@@ -32,7 +32,7 @@ bool32 Command41(struct ScriptContext * scriptCtx)
     {
         oam->attr0 = SPRITE_ATTR0((-32 & 255), ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
 	// 64x32 sprite size
-        oam->attr1 = SPRITE_ATTR1_AFFINE(60*i, 0, 3);
+        oam->attr1 = SPRITE_ATTR1_NONAFFINE(60*i, 0, 0, 3);
         oam->attr2 = SPRITE_ATTR2(0x100+0x20*i, 0, 5);
         oam++;
     }
