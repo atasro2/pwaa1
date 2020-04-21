@@ -8,4 +8,5 @@ void FadeOutBGM(u32 fadeInSpeed);
 void sub_800F614();
 void PlaySE(u32 songnum);
 void PlayBGM(u32 speed, u32 songNum);
+void sub_800F71C(u32 volume, s32 arg1);
 #endif//GUARD_CMD_MUS_H
