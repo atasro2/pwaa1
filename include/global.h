@@ -23,16 +23,16 @@
     *((u32 *) localBgStruct + (offsetof(struct LCDIORegisters, field) / 4)) \
 
 #define SPRITE_ATTR0(y, affineMode, objMode, mosaic, bpp, shape) \
-	((y) + ((affineMode) << 8) + ((objMode) << 10) + ((mosaic) << 12) + ((bpp) << 13) + ((shape) << 14)) \
+	((y) + ((affineMode) << 8) + ((objMode) << 10) + ((mosaic) << 12) + ((bpp) << 13) + ((shape) << 14))
 
 #define SPRITE_ATTR1_AFFINE(x, rotscale, size) \
-	((x) + ((rotscale) << 9) + ((size) << 14)) \
+	((x) + ((rotscale) << 9) + ((size) << 14))
 
 #define SPRITE_ATTR1_NONAFFINE(x, hflip, vflip, size) \
-	((x) + ((hflip) << 12) + ((vflip) << 13) + ((size) << 14)) \
+	((x) + ((hflip) << 12) + ((vflip) << 13) + ((size) << 14))
 
 #define SPRITE_ATTR2(tileNum, priority, paletteNum) \
-	((tileNum) + ((priority) << 10) + ((paletteNum) << 12)) \
+	((tileNum) + ((priority) << 10) + ((paletteNum) << 12))
 	
 #define GET_MAP_TILE_INDEX(tiley, tilex, yoff, xoff) ((tiley) * 32 + ((yoff) * 32) + ((tilex) + (xoff)))
 

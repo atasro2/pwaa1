@@ -30,9 +30,9 @@ bool32 Command41(struct ScriptContext * scriptCtx)
     oam = &gOamObjects[49];
     for(i = 0; i < 4; i++)
     {
-        oam->attr0 = SPRITE_ATTR0(224, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
-        // double check this, the value doesnt show if affine or not
-        oam->attr1 = SPRITE_ATTR1_NONAFFINE(60*i, 0, 0, 3);
+        oam->attr0 = SPRITE_ATTR0((-32 & 255), ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
+	// 64x32 sprite size
+        oam->attr1 = SPRITE_ATTR1_AFFINE(60*i, 0, 3);
         oam->attr2 = SPRITE_ATTR2(0x100+0x20*i, 0, 5);
         oam++;
     }
@@ -107,9 +107,9 @@ bool32 Command44(struct ScriptContext * scriptCtx)
         SET_UNK4(1,0,0,9);
     }
     scriptCtx->scriptPtr++;
-    oam->attr0 = SPRITE_ATTR0(239, ST_OAM_AFFINE_DOUBLE, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
+    oam->attr0 = SPRITE_ATTR0((-17 & 255), ST_OAM_AFFINE_DOUBLE, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
     oam->attr1 = SPRITE_ATTR1_AFFINE(495, 0, 3);
-    oam->attr2 = SPRITE_ATTR2(416, 0, 5);
+    oam->attr2 = SPRITE_ATTR2(0x1A0, 0, 5);
     oam++;
     oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
     return 0;
