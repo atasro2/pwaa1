@@ -6409,7 +6409,7 @@ _0800AE68:
 	movs r1, #0x1e
 	movs r2, #0x1f
 	movs r3, #1
-	bl sub_800077C
+	bl InitCourtScroll
 	movs r0, #0
 	bl sub_800244C
 	ldrb r0, [r4, #6]
@@ -6536,7 +6536,7 @@ _0800AF6E:
 	movs r1, #0x1e
 	movs r2, #0x1f
 	movs r3, #1
-	bl sub_800077C
+	bl InitCourtScroll
 	movs r0, #0
 	bl sub_800244C
 	b _0800AFB2

@@ -184,7 +184,7 @@ struct Struct3003C00
     u16 unk8;
 };
 
-struct Struct3004000
+struct CourtScroll
 {
     u8 * unk0;
     u16 unk4;

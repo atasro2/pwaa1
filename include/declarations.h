@@ -32,7 +32,7 @@ extern u16 gUnknown_08360854[]; // palette?
 extern u8 gUnknown_08362524[]; // 4bpp palette
 extern u16 gUnknown_08362544[]; // palette?
 //FUNCTIONS // these should be moved soon
-void sub_80007A0(struct Struct3004000 *);
+void UpdateCourtScroll(struct CourtScroll *);
 u8 Random();
 void sub_800549C(u32);
 void sub_8005408();
@@ -43,13 +43,12 @@ void HideAllSprites();
 void SetLCDIORegs();
 void sub_8000738(u16, u16);
 u32 sub_8000744();
-void sub_8000804();
 void sub_8000930();
 void sub_80009AC();
 void MoveSpritesToOAM();
 void SetFlag(u32, u32, bool32);
 void sub_80007D8(u32 arg0, u32 arg1, u32 arg2, u32 arg3);
-void sub_800077C(u8 *, u32, u32, u32);
+void InitCourtScroll(u8 *, u32, u32, u32);
 bool32 GetFlag(u32 arg0, u32 arg1);
 void sub_800F9C4(struct Struct3000840* arg0, u32 arg1, u32 arg2);
 void sub_800F9D0(struct Struct3000840* arg1, u32 arg2);
@@ -108,7 +107,7 @@ extern struct Struct3003A50 gUnknown_03003A50;
 extern struct ScriptContext gScriptContext;
 extern struct Struct3003AB0 gUnknown_03003AB0; 
 extern struct Struct3003C00 gUnknown_03003C00[0x3F];
-extern struct Struct3004000 gUnknown_03004000;
+extern struct CourtScroll gUnknown_03004000;
 extern struct MusicPlayerInfo gMPlayInfo_BGM;
 extern struct MusicPlayerInfo gMPlayInfo_SE1;
 extern struct MusicPlayerInfo gMPlayInfo_SE2;

@@ -26,7 +26,7 @@ void sub_8005408(void)
 
 void sub_8005470(void)
 {
-    if (gMain.unk14 && !gMain.unk76)
+    if (gMain.unk14 && gMain.blendMode == 0)
     {
         sub_80055B0(&gScriptContext);
     }

@@ -675,7 +675,7 @@ bool32 Command0B(struct ScriptContext * scriptCtx)
 
 bool32 Command0C(struct ScriptContext * scriptCtx)
 {
-    if(!gMain.unk76 != 0 && scriptCtx->unk13 > 1)
+    if(!gMain.blendMode != 0 && scriptCtx->unk13 > 1)
     {
         scriptCtx->scriptPtr++;
         scriptCtx->waitTimer = *scriptCtx->scriptPtr;
@@ -939,7 +939,7 @@ u32 Command1A(struct ScriptContext * scriptCtx)
     sub_8011108(var0, var1, var2, *scriptCtx->scriptPtr);
     var0 = (u32)gUnknown_080187B4[var0];
     var2 = var1 & 1 ? 30: 0;
-    sub_800077C((u8 *)var0, var2, 31, var1);
+    InitCourtScroll((u8 *)var0, var2, 31, var1);
     scriptCtx->scriptPtr++;
     return 0;
 }

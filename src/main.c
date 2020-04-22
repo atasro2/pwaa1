@@ -7,7 +7,7 @@ static void sub_80002E4();
 static void VBlankIntr();
 static void HBlankIntr();
 static void IntrDummy();
-
+static void UpdateHardwareBlend();
 static void (*IntrTableFunctionPtrs[])() =
 {
     VBlankIntr,
@@ -80,7 +80,7 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
                 sub_800EEFC(&gMain);
                 sub_80002E4();
                 sub_8010E14(gMain.previousBG);
-                sub_8000804();
+                UpdateHardwareBlend();
             }
             else
             {
@@ -97,7 +97,7 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
         sub_800EEFC(&gMain);
         sub_80002E4();
         sub_8010E14(gMain.previousBG);
-        sub_8000804();
+        UpdateHardwareBlend();
     }
     else
     {
@@ -110,7 +110,7 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
 
 void sub_80002E4() // Proc?
 {
-    struct Struct3004000 *iwstruct4000p = &gUnknown_03004000;
+    struct CourtScroll *iwstruct4000p = &gUnknown_03004000;
     struct Main *main = &gMain;
 
     u8 amplitude;
@@ -186,7 +186,7 @@ void sub_80002E4() // Proc?
 
     if (iwstruct4000p->unk4)
     {
-        sub_80007A0(iwstruct4000p);
+        UpdateCourtScroll(iwstruct4000p);
     }
 }
 
@@ -345,7 +345,7 @@ u32 sub_8000744()
     return 0;
 }
 
-void sub_800077C(u8 * arg0, u32 arg1, u32 arg2, u32 arg3)
+void InitCourtScroll(u8 * arg0, u32 arg1, u32 arg2, u32 arg3) // init court scroll
 {
     gUnknown_03004000.unk0 = arg0;
     gUnknown_03004000.unk4 = arg3;
@@ -354,7 +354,7 @@ void sub_800077C(u8 * arg0, u32 arg1, u32 arg2, u32 arg3)
     gMain.unk2E = 0;
 }
 
-void sub_80007A0(struct Struct3004000 *arg0)
+void UpdateCourtScroll(struct CourtScroll * arg0) // update court scroll
 {
     if (arg0->unk4 & 1)
     {
@@ -376,83 +376,82 @@ void sub_80007A0(struct Struct3004000 *arg0)
 
 void sub_80007D8(u32 arg0, u32 arg1, u32 arg2, u32 arg3)
 {
-    gMain.unk74 = arg3;
-    gMain.unk76 = arg0;
-    gMain.unk7A = arg1;
-    gMain.unk7B = arg2;
-    gMain.unk78 = 0;
+    gMain.blendTargets = arg3;
+    gMain.blendMode = arg0;
+    gMain.blendDelay = arg1;
+    gMain.blendY = arg2;
+    gMain.blendCounter = 0;
 }
 
-void sub_8000804() // update hardware blend
+static void UpdateHardwareBlend()
 {
     struct Main *main = &gMain;
     struct LCDIORegisters *lcdIoRegsp = &gLCDIORegisters;
-    u16 temp;
-    switch (main->unk76)
+    switch (main->blendMode)
     {
     case 0:
     default:
         break;
     case 1:
-        lcdIoRegsp->lcd_bldcnt = main->unk74 | BLDCNT_EFFECT_DARKEN;
-        main->unk78++;
-        if (main->unk78 >= main->unk7A)
+        lcdIoRegsp->lcd_bldcnt = main->blendTargets | BLDCNT_EFFECT_DARKEN;
+        main->blendCounter++;
+        if (main->blendCounter >= main->blendDelay)
         {
-            main->unk78 = 0;
-            lcdIoRegsp->lcd_bldy -= main->unk7B;
+            main->blendCounter = 0;
+            lcdIoRegsp->lcd_bldy -= main->blendY;
         }
-        temp = lcdIoRegsp->lcd_bldy &= 0x1F;
-        if (temp == 0)
+        lcdIoRegsp->lcd_bldy &= 0x1F;
+        if (lcdIoRegsp->lcd_bldy == 0) // ! will break with odd numbers
         {
-            lcdIoRegsp->lcd_bldy = temp;
+            lcdIoRegsp->lcd_bldy = 0;
             lcdIoRegsp->lcd_bldcnt = BLDCNT_TGT1_BG1 | BLDCNT_TGT2_BG2 | BLDCNT_TGT2_BG3 | BLDCNT_TGT2_OBJ | BLDCNT_EFFECT_BLEND;
             lcdIoRegsp->lcd_bldalpha = BLDALPHA_BLEND(0x1F, 0x7);
-            main->unk76 = temp;
+            main->blendMode = 0;
         }
         break;
     case 2:
-        lcdIoRegsp->lcd_bldcnt = main->unk74 | BLDCNT_EFFECT_DARKEN;
-        main->unk78++;
-        if (main->unk78 >= main->unk7A)
+        lcdIoRegsp->lcd_bldcnt = main->blendTargets | BLDCNT_EFFECT_DARKEN;
+        main->blendCounter++;
+        if (main->blendCounter >= main->blendDelay)
         {
-            main->unk78 = 0;
-            lcdIoRegsp->lcd_bldy += main->unk7B;
+            main->blendCounter = 0;
+            lcdIoRegsp->lcd_bldy += main->blendY;
         }
-        temp = lcdIoRegsp->lcd_bldy &= 0x1F;
-        if (temp == 0x10)
+        lcdIoRegsp->lcd_bldy &= 0x1F;
+        if (lcdIoRegsp->lcd_bldy == 0x10) // ! will break with odd numbers
         {
-            main->unk76 = 0;
+            main->blendMode = 0;
         }
         break;
     case 3:
-        lcdIoRegsp->lcd_bldcnt = main->unk74 | BLDCNT_EFFECT_LIGHTEN;
-        main->unk78++;
-        if (main->unk78 >= main->unk7A)
+        lcdIoRegsp->lcd_bldcnt = main->blendTargets | BLDCNT_EFFECT_LIGHTEN;
+        main->blendCounter++;
+        if (main->blendCounter >= main->blendDelay)
         {
-            main->unk78 = 0;
-            lcdIoRegsp->lcd_bldy -= main->unk7B;
+            main->blendCounter = 0;
+            lcdIoRegsp->lcd_bldy -= main->blendY;
         }
-        temp = lcdIoRegsp->lcd_bldy &= 0x1F;
-        if (temp == 0)
+        lcdIoRegsp->lcd_bldy &= 0x1F;
+        if (lcdIoRegsp->lcd_bldy == 0) // ! will break with odd numbers
         {
-            lcdIoRegsp->lcd_bldy = temp;
+            lcdIoRegsp->lcd_bldy = 0;
             lcdIoRegsp->lcd_bldcnt = BLDCNT_TGT1_BG1 | BLDCNT_TGT2_BG2 | BLDCNT_TGT2_BG3 | BLDCNT_TGT2_OBJ | BLDCNT_EFFECT_BLEND;
             lcdIoRegsp->lcd_bldalpha = BLDALPHA_BLEND(0x1F, 0x7);
-            main->unk76 = temp;
+            main->blendMode = 0;
         }
         break;
     case 4:
-        lcdIoRegsp->lcd_bldcnt = main->unk74 | BLDCNT_EFFECT_LIGHTEN;
-        main->unk78++;
-        if (main->unk78 >= main->unk7A)
+        lcdIoRegsp->lcd_bldcnt = main->blendTargets | BLDCNT_EFFECT_LIGHTEN;
+        main->blendCounter++;
+        if (main->blendCounter >= main->blendDelay)
         {
-            main->unk78 = 0;
-            lcdIoRegsp->lcd_bldy += main->unk7B;
+            main->blendCounter = 0;
+            lcdIoRegsp->lcd_bldy += main->blendY;
         }
-        temp = lcdIoRegsp->lcd_bldy &= 0x1F;
-        if (temp == 0x10)
+        lcdIoRegsp->lcd_bldy &= 0x1F;
+        if (lcdIoRegsp->lcd_bldy == 0x10) // ! will break with odd numbers
         {
-            main->unk76 = 0;
+            main->blendMode = 0;
         }
         break;
     }

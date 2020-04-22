@@ -47,11 +47,11 @@ struct Main
     s8 unk3C;
     s8 unk3D;
     u8 filler3E[0x36];
-    u16 unk74;
-    u16 unk76;
-    u16 unk78;
-    u8 unk7A;
-    u8 unk7B;
+    u16 blendTargets;
+    u16 blendMode;
+    u16 blendCounter;
+    u8 blendDelay;
+    u8 blendY;
     u8 unk7C;
     u8 unk7D;
     u8 unk7E;

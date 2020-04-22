@@ -4,8 +4,6 @@
 
 #include "data/background.h"
 
-#define GET_MAP_TILE_INDEX(tiley, tilex, yoff, xoff) ((tiley) * 32 + ((yoff) * 32) + ((tilex) + (xoff)))
-
 void sub_8000930()
 {
     u32 i;
