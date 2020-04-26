@@ -183,15 +183,3 @@ void sub_8002CF0(u32 section, u32 flagId) // unused?
     sub_800B7A8(&gUnknown_03003A50, 0xF);
     gUnknown_03003A50.unkE = 0x40;
 }
-
-void nullsub_4(u32 arg0)
-{
-
-}
-
-void sub_8002D70(struct Main * main)
-{
-    DmaCopy16(3, gUnknown_080150D0, &gMain.mapData, sizeof(gUnknown_080150D0));
-    DmaCopy16(3, gUnknown_08014FB8, &gUnknown_030028A0, sizeof(gUnknown_08014FB8));
-    main->unk8C = 0;
-}

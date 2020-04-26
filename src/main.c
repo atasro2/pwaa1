@@ -41,7 +41,7 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
 
     LOOP1:
     {
-        sub_80003E0();
+        ClearRamAndInitGame();
         CheckAButtonAndGoToClearSaveScreen();
         LOOP2:
         {
@@ -191,7 +191,7 @@ void DoGameProcess()
     }
 }
 
-void sub_80003E0()
+void ClearRamAndInitGame()
 {
     struct Main *main = &gMain;
     struct LCDIORegisters *lcdIoRegsp = &gLCDIORegisters;

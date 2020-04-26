@@ -38,7 +38,7 @@ void ChangeScriptSection(u32);
 void sub_8005408();
 void sub_800F804();
 void sub_8005470();
-void sub_80003E0();
+void ClearRamAndInitGame();
 void HideAllSprites();
 void SetLCDIORegs();
 void sub_8000738(u16, u16);
