@@ -4,6 +4,7 @@
 #include "sound_control.h"
 #include "m4a.h"
 #include "constants/background.h"
+#include "ewram.h"
 
 bool32 CommandDummy(struct ScriptContext * scriptCtx)
 {
@@ -13,7 +14,7 @@ bool32 CommandDummy(struct ScriptContext * scriptCtx)
 
 bool32 Command00(struct ScriptContext * scriptCtx)
 {
-    sub_80054BC(scriptCtx);
+    InitScriptSection(scriptCtx);
     sub_80028B4(0, 0);
     scriptCtx->scriptPtr++;
     return 0;
@@ -64,15 +65,14 @@ bool32 Command02(struct ScriptContext * scriptCtx)
     if(gMain.unk4[0] >= 3 && gMain.unk4[0] <= 6)
     {
         if(scriptCtx->unk0 & 1)
-            if(gJoypad.newKeysRaw & A_BUTTON)
+            if(gJoypad.pressedKeysRaw & A_BUTTON)
                 scriptCtx->unk0 |= 2;
         if(scriptCtx->unk14 != 0)
             scriptCtx->unk14--;
         if(gJoypad.heldKeysRaw & B_BUTTON && scriptCtx->unk13 != 0 && scriptCtx->unk14 == 0)
             scriptCtx->unk0 |= 2;
     }
-    temp = scriptCtx->unk0 & 2;
-    if(temp != 0)
+    if(scriptCtx->unk0 & 2)
     {
         PlaySE(47);
         gBG1MapBuffer[622] = 9;
@@ -143,7 +143,7 @@ bool32 Command02(struct ScriptContext * scriptCtx)
             scriptCtx->unk37++;
             if(scriptCtx->unk37 > 1)
             {
-                scriptCtx->unk37 = temp;
+                scriptCtx->unk37 = 0;
                 if(scriptCtx->unk36 == 0 && temp2 == 7)
                 {
                     scriptCtx->unk36 = scriptCtx->unk37;
@@ -157,12 +157,12 @@ bool32 Command02(struct ScriptContext * scriptCtx)
                     }
                 }
             }
-            gBG1MapBuffer[622] = gUnknown_080187C0[scriptCtx->unk36];
-            gBG1MapBuffer[623] = gUnknown_080187C0[scriptCtx->unk36]+1;
+            gBG1MapBuffer[622] = gTextboxDownArrowTileIndexes[scriptCtx->unk36];
+            gBG1MapBuffer[623] = gTextboxDownArrowTileIndexes[scriptCtx->unk36]+1;
             return 1;
         }
-        scriptCtx->unk36 = temp;
-        scriptCtx->unk37 = temp;
+        scriptCtx->unk36 = 0;
+        scriptCtx->unk37 = 0;
         gBG1MapBuffer[622] = temp2;
         gBG1MapBuffer[623] = temp2;
     }
@@ -180,7 +180,7 @@ bool32 Command03(struct ScriptContext * scriptCtx)
 bool32 Command04(struct ScriptContext * scriptCtx)
 {
 
-    if(gJoypad.newKeysRaw & scriptCtx->scriptPtr[1]) 
+    if(gJoypad.pressedKeysRaw & scriptCtx->scriptPtr[1]) 
         scriptCtx->scriptPtr+=2;
     return 1;
 }
@@ -711,7 +711,7 @@ bool32 Command0E(struct ScriptContext * scriptCtx)
     scriptCtx->unk34 = (*scriptCtx->scriptPtr >> 8);
     scriptCtx->unk34 &= ~0x80;
     sub_80028B4(scriptCtx->unk34, *scriptCtx->scriptPtr & 0xFF);
-    temp = gUnknown_08018784[scriptCtx->unk34];
+    temp = gSoundCueTable[scriptCtx->unk34];
     scriptCtx->unk17 = temp;
     if(temp == 2)
         scriptCtx->unk16 = 0;
@@ -748,7 +748,7 @@ bool32 Command10(struct ScriptContext * scriptCtx)
     num2 = (num2 & 0x7F00) >> 8;
     num &= 0xFF;
     message >>= 15;
-    SetFlag(num2, num, message);
+    ChangeFlag(num2, num, message);
     return 0;
 }
 
@@ -773,7 +773,7 @@ bool32 Command12(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     var1 = *scriptCtx->scriptPtr;
     scriptCtx->scriptPtr++;
-    sub_80007D8(var0 >> 8, var0 & 0xFF, var1, *scriptCtx->scriptPtr);
+    StartHardwareBlend(var0 >> 8, var0 & 0xFF, var1, *scriptCtx->scriptPtr);
     scriptCtx->scriptPtr++;
     return 0;
 }
@@ -821,7 +821,7 @@ bool32 Command16(struct ScriptContext * scriptCtx)
     gUnknown_03003A50.unkA = 0;
     gUnknown_03003A50.unkB = 0;
     main->unk8D++;
-    sub_800F408(16);
+    ChangeBGM(16);
     return 1;
 }
 
@@ -937,7 +937,7 @@ u32 Command1A(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     
     sub_8011108(var0, var1, var2, *scriptCtx->scriptPtr);
-    var0 = (u32)gUnknown_080187B4[var0];
+    var0 = (u32)gCourtScrollGfxPointers[var0];
     var2 = var1 & 1 ? 30: 0;
     InitCourtScroll((u8 *)var0, var2, 31, var1);
     scriptCtx->scriptPtr++;
@@ -1381,13 +1381,12 @@ bool32 Command34(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     gMain.unk8C = *scriptCtx->scriptPtr;
     scriptCtx->scriptPtr++;
-    sub_80007D8(2, 0, 2, 0x1F);
+    StartHardwareBlend(2, 0, 2, 0x1F);
     SET_UNK4(0, 0, 5, 4);
     return 0;
 }
 
-//fuck gScriptHeap
-
+//fuck ewram
 #ifdef NONMATCHING
 bool32 Command35(struct ScriptContext *scriptCtx)
 {
@@ -1419,11 +1418,11 @@ bool32 Command35(struct ScriptContext *scriptCtx)
     if(*(scriptCtx->scriptPtr) & 0x80) 
     {
         scriptCtx->scriptPtr++;
-        jmpArgs = (u16*)(gScriptHeap+1+*scriptCtx->scriptPtr);
+        jmpArgs = (u16*)(((u32 *)eScriptHeap)+1+*scriptCtx->scriptPtr);
         offset = jmpArgs[0] / 2;
         sectionNumber = jmpArgs[1];
         scriptCtx->currentSection = sectionNumber + 0x80;
-        scriptCtx->scriptPtr2 = (void *)gScriptHeap + (gScriptHeap+1)[sectionNumber];
+        scriptCtx->scriptPtr2 = eScriptHeap + (((u32 *)eScriptHeap)+1)[sectionNumber];
         scriptCtx->scriptPtr = scriptCtx->scriptPtr2 + offset;
     }
     else 
@@ -1587,7 +1586,7 @@ bool32 Command39(struct ScriptContext * scriptCtx)
 
             oamIdx = ((u32)iwstruct3930p->vramPtr - 0x6011800);
             oamIdx /= 32;
-            oamObject->attr2 = 0x68C0 + oamIdx;
+            oamObject->attr2 = SPRITE_ATTR2(oamIdx + 0xC0, 2, 6);
             iwstruct3930p->attr2 = oamObject->attr2;
 
             scriptCtx->unk3C += size;
@@ -1605,7 +1604,7 @@ bool32 Command39(struct ScriptContext * scriptCtx)
     else
     {   
         // TODO: BUGFIX
-        // ! Capcom forgot to check for 0xFF here..this will corrupt the sound buffer in gSoundInfo
+        // ! Capcom forgot to check for 0xFF here..this will slightly corrupt the sound buffer in gSoundInfo
         oamIdx = sub_8007554(id); 
         gUnknown_03003930[oamIdx].unk5 |= 4;
     }

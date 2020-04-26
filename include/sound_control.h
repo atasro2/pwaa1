@@ -1,6 +1,6 @@
 #ifndef GUARD_CMD_MUS_H
 #define GUARD_CMD_MUS_H
-void sub_800F408(u32);
+void ChangeBGM(u32);
 void PauseBGM(void);
 void StopBGM(void);
 void UnpauseBGM(void);

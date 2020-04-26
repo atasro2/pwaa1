@@ -1363,7 +1363,7 @@ _08001452:
 	.align 2, 0
 _08001484: .4byte gMain
 _08001488: .4byte gLCDIORegisters
-_0800148C: .4byte gUnknown_03004000
+_0800148C: .4byte gCourtScroll
 _08001490: .4byte 0x0000FF7F
 _08001494: .4byte 0x00004B20
 _08001498: .4byte 0x040000D4

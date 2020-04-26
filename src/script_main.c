@@ -2,26 +2,24 @@
 #include "main.h"
 #include "script.h"
 #include "sound_control.h"
+#include "ewram.h"
 
 static void sub_80055B0(struct ScriptContext *scriptCtx);
 extern void sub_8005890(struct ScriptContext *scriptCtx);
-static void CopyCharGlyphToWindow(u32, u32, u32);
+static void PutCharInTextbox(u32, u32, u32);
 extern bool32 (*gScriptCmdFuncs[0x5F])(struct ScriptContext *);
 
 void sub_8005408(void)
 {
     u32 i;
-    u32 *src;
     DmaCopy16(3, gTextPal, PALETTE + 0x200, sizeof(gTextPal));
 
     for (i = 0; i < ARRAY_COUNT(gUnknown_03003C00); i++)
     {
         gUnknown_03003C00[i].unk0 &= ~0x8000;
     }
-    src = gScriptTable[gMain.unk8D];
 
-    if (!(i < ARRAY_COUNT(gUnknown_03003C00))) // this is a fucking fakematch!
-        LZ77UnCompWram(src, gScriptHeap);
+    LZ77UnCompWram(gScriptTable[gMain.unk8D], eScriptHeap);
 }
 
 void sub_8005470(void)
@@ -32,16 +30,16 @@ void sub_8005470(void)
     }
     sub_8005890(&gScriptContext);
 }
-// arg may be a u16
-void sub_800549C(u32 newSection)
+
+void ChangeScriptSection(u32 newSection)
 {
     gScriptContext.previousSection = gScriptContext.currentSection;
     gScriptContext.currentSection = newSection;
-    sub_80054BC(&gScriptContext);
+    InitScriptSection(&gScriptContext);
     gScriptContext.scriptPtr++;
 }
 
-void sub_80054BC(struct ScriptContext *scriptCtx)
+void InitScriptSection(struct ScriptContext *scriptCtx)
 {
     u32 i;
     struct Struct3003930 * structPtr;
@@ -78,8 +76,8 @@ void sub_80054BC(struct ScriptContext *scriptCtx)
         u32 *r0;
         if (scriptCtx->currentSection > 0x7F)
         {
-            r1 = (u32 *)(EWRAM_START+0x11FC0);
-            r0 = (scriptCtx->currentSection-0x80)+ (u32 *)(EWRAM_START+0x11FC0);
+            r1 = eScriptHeap;
+            r0 = (scriptCtx->currentSection-0x80) + (u32 *)eScriptHeap;
             scriptCtx->scriptPtr = r1 + r0[1];
             scriptCtx->scriptPtr2 = scriptCtx->scriptPtr;
             scriptCtx->unk1C = *(u16*)r1;
@@ -100,13 +98,13 @@ void sub_80054BC(struct ScriptContext *scriptCtx)
         structPtr->id |= 0xFF;
         structPtr->unk1 = 0;
         structPtr->unk5 = 0;
-        structPtr->attr0 = 0x200;
+        structPtr->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_DOUBLE_MASK, 0, 0, 0, 0);
     }
 }
 
 void sub_80055B0(struct ScriptContext * scriptCxt)
 {
-    if(scriptCxt->unk13 && (gJoypad.newKeysRaw & A_BUTTON || gJoypad.heldKeysRaw & B_BUTTON)) // text skip
+    if(scriptCxt->unk13 && (gJoypad.pressedKeysRaw & A_BUTTON || gJoypad.heldKeysRaw & B_BUTTON)) // text skip
         scriptCxt->unk13 = 2;
     
     loop:
@@ -129,13 +127,13 @@ void sub_80055B0(struct ScriptContext * scriptCxt)
         scriptCxt->unkC -= 0x80;
         if (scriptCxt->unk0 & 4)
         {
-            CopyCharGlyphToWindow(scriptCxt->unkC, scriptCxt->unk11, scriptCxt->unk10);
+            PutCharInTextbox(scriptCxt->unkC, scriptCxt->unk11, scriptCxt->unk10);
             scriptCxt->unk10++;
             scriptCxt->unk12++;
         }
         else
         {
-            CopyCharGlyphToWindow(scriptCxt->unkC, scriptCxt->unkF, scriptCxt->unkE);
+            PutCharInTextbox(scriptCxt->unkC, scriptCxt->unkF, scriptCxt->unkE);
             scriptCxt->unkE++;
         }
 
@@ -185,7 +183,7 @@ void sub_80055B0(struct ScriptContext * scriptCxt)
 }
 
 #ifdef NONMATCHING
-void CopyCharGlyphToWindow(u32 arg0, u32 y, u32 x)
+void PutCharInTextbox(u32 arg0, u32 y, u32 x)
 {
     u8 * charTiles = gCharSet[arg0];
     u32 i;
@@ -270,9 +268,9 @@ void CopyCharGlyphToWindow(u32 arg0, u32 y, u32 x)
 }
 #else
 NAKED
-void CopyCharGlyphToWindow(u32 arg0, u32 y, u32 x)
+void PutCharInTextbox(u32 arg0, u32 y, u32 x)
 {
-    asm_unified("CopyCharGlyphToWindow:\n\
+    asm_unified("PutCharInTextbox:\n\
 	push {r4, r5, r6, r7, lr}\n\
 	mov r7, sl\n\
 	mov r6, sb\n\

@@ -11,7 +11,7 @@ void PlaySE(u32 songNum)
     }
 }
 
-void sub_800F408(u32 songNum)
+void ChangeBGM(u32 songNum)
 {
     struct Main * main = &gMain;
     if((main->unk198 & 2) == 0)
@@ -61,7 +61,7 @@ void StopBGM(void)
     }
 }
 
-void UnpauseBGM(void) // UnpauseBGM?
+void UnpauseBGM(void)
 {
     struct Main * main = &gMain;
     if(main->unk1C & 2)
@@ -138,7 +138,7 @@ void PlayBGM(u32 fadeInSpeed, u32 songNum) // named according to phoenix unity
             }
             else
             {
-                sub_800F408(songNum);
+                ChangeBGM(songNum);
                 m4aMPlayImmInit(&gMPlayInfo_BGM);
             }
         }

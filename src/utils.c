@@ -8,7 +8,7 @@ void MoveSpritesToOAM()
 }
 
 
-bool32 sub_8002A68(struct Point * p, struct Point4 * cp)
+bool32 sub_8002A68(struct Point * p, struct Point4 * cp) // some collision check
 {
     s32 num;
     s32 num2;
@@ -105,30 +105,30 @@ u8 Random()
     return unk0.w;
 }
 
-void SetFlag(u32 arg0, u32 arg1, bool32 arg2)
+void ChangeFlag(u32 flagType, u32 id, bool32 set)
 {
-    u32 * unk0 = gUnknown_0811DC04[arg0];
-    unk0 += (arg1 >> 5);
-    if(arg2)
+    u32 * flagPtr = gFlagPtrs[flagType];
+    flagPtr += id / 32;
+    if(set)
     {
-        u32 unk1 = 1 << (arg1 & 0x1F);
-        *unk0 |= unk1;
+        u32 flag = 1 << (id & 0x1F);
+        *flagPtr |= flag;
     }
     else
     {
-        u32 unk1 = 1 << (arg1 & 0x1F);
-        *unk0 &= ~unk1;
+        u32 flag = 1 << (id & 0x1F);
+        *flagPtr &= ~flag;
     }
 }
 
-bool32 GetFlag(u32 arg0, u32 arg1)
+bool32 GetFlag(u32 flagType, u32 id)
 {
-    u32 * unk0 = gUnknown_0811DC04[arg0];
-    u32 unk1;
-    unk0 += (arg1 / 32);
-    unk1 = 1 << (arg1 & 0x1F);
+    u32 * flagPtr = gFlagPtrs[flagType];
+    u32 flag;
+    flagPtr += id / 32;
+    flag = 1 << (id & 0x1F);
 
-    return (*unk0 & unk1) ? TRUE : FALSE;
+    return (*flagPtr & flag) ? TRUE : FALSE;
 }
 
 // unreferenced // bm_rotate ?
@@ -156,28 +156,29 @@ void sub_8002C98(u32 arg0, u32 arg1, u32 arg2)
     sub_800B7A8(&gUnknown_03003A50, 0xF);
 }
 
-void sub_8002CCC(u32 arg0, u32 arg1)
+void sub_8002CCC(u32 section, u32 flagId)
 {
-    SetFlag(0, arg1, TRUE);
-    sub_800549C(arg0);
+    ChangeFlag(0, flagId, TRUE);
+    ChangeScriptSection(section);
     sub_800244C(1);
     PauseBGM();
 }
 
-void sub_8002CF0(u32 arg0, u32 arg1) // init investigation buttons? // unused?
+void sub_8002CF0(u32 section, u32 flagId) // unused?
 {
     struct OamAttrs * sprite = &gOamObjects[49];
     u32 i = 0;
 
     for(i = 0; i < 4; sprite++, i++)
     {
-        sprite->attr0 = SPRITE_ATTR0(192, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
-        sprite->attr1 = 60 * i + (3 << 14); // TODO: NON AFFINE attr1 macro
-        sprite->attr2 = SPRITE_ATTR2((256 + i * 32), 0, 5);
+        sprite->attr0 = SPRITE_ATTR0((-64 & 255), ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
+        //64x32 sprite
+        sprite->attr1 = SPRITE_ATTR1_NONAFFINE(60 * i, 0, 0, 3);
+        sprite->attr2 = SPRITE_ATTR2((0x100 + i * 0x20), 0, 5);
     }
     SET_UNK4(0, 0, 1, 4);
-    SetFlag(0, arg1, TRUE);
-    sub_800549C(arg0);
+    ChangeFlag(0, flagId, TRUE);
+    ChangeScriptSection(section);
     sub_800244C(1);
     sub_800B7A8(&gUnknown_03003A50, 0xF);
     gUnknown_03003A50.unkE = 0x40;

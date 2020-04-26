@@ -19,7 +19,7 @@
 . = 0x00003AC0; gUnknown_03003AC0 = .;
 . = 0x00003C00; gUnknown_03003C00 = .;
 . = 0x00003F00; gUnknown_03003F00 = .;
-. = 0x00004000; gUnknown_03004000 = .;
+. = 0x00004000; gCourtScroll = .;
 . = 0x00004010; SoundMainRAM_Buffer = .;
 . = 0x00004410; gSoundInfo = .;
 . = 0x000053C0; gMPlayJumpTable = .;

@@ -631,7 +631,7 @@ _08010028:
 	movs r1, #1
 	movs r2, #8
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 _0801003E:
 	pop {r4}
 	pop {r0}
@@ -2498,7 +2498,7 @@ _08010E32:
 	.align 2, 0
 _08010E68: .4byte gMain
 _08010E6C: .4byte gUnknown_03000800
-_08010E70: .4byte gUnknown_03004000
+_08010E70: .4byte gCourtScroll
 _08010E74:
 	ldr r0, [r4]
 	movs r1, #0x80
@@ -2840,7 +2840,7 @@ sub_80110E4: @ 0x080110E4
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080110FC: .4byte gUnknown_03004000
+_080110FC: .4byte gCourtScroll
 _08011100: .4byte gUnknown_0811DFFC
 _08011104: .4byte gUnknown_03000800+0x40
 
@@ -2865,7 +2865,7 @@ _08011120:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801112C: .4byte gUnknown_03004000
+_0801112C: .4byte gCourtScroll
 
 	THUMB_FUNC_START sub_8011130
 sub_8011130: @ 0x08011130

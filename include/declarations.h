@@ -6,17 +6,17 @@
 //DATA
 extern const u16 gUnknown_08014D82[]; // GS1_gameover_message_data_table
 extern const u8 gUnknown_08013B70[0x400];
-extern void (*gUnknown_0811DBB4[15])(struct Main *);
-extern u32 * gUnknown_0811DC04[3]; 
+extern void (*gGameProcesses[15])(struct Main *);
+extern u32 * gFlagPtrs[3]; 
 extern s16 gSineTable[256+64];
 extern u32 gUnknown_080150D0[12];
 extern u16 gUnknown_08014FB8[0x8C];
 extern u8 gTextPal[0x20];
 extern u32 common_scripts[0xDEC/4];
 extern u32 * gScriptTable[17];
-extern u8 gUnknown_08018784[0x30];
-extern u8 gUnknown_080187C0[8];
-extern u8 * gUnknown_080187B4[3];
+extern u8 gSoundCueTable[0x30];
+extern u8 gTextboxDownArrowTileIndexes[8];
+extern u8 * gCourtScrollGfxPointers[3];
 extern struct Struct80187C8 gUnknown_080187C8[16];
 extern u8 gUnknown_0824696C[32]; // palette
 extern u8 gUnknown_08190AC0[]; // some tiles
@@ -34,7 +34,7 @@ extern u16 gUnknown_08362544[]; // palette?
 //FUNCTIONS // these should be moved soon
 void UpdateCourtScroll(struct CourtScroll *);
 u8 Random();
-void sub_800549C(u32);
+void ChangeScriptSection(u32);
 void sub_8005408();
 void sub_800F804();
 void sub_8005470();
@@ -43,11 +43,11 @@ void HideAllSprites();
 void SetLCDIORegs();
 void sub_8000738(u16, u16);
 u32 sub_8000744();
-void sub_8000930();
-void sub_80009AC();
+void InitBGs();
+void InitBG3();
 void MoveSpritesToOAM();
-void SetFlag(u32, u32, bool32);
-void sub_80007D8(u32 arg0, u32 arg1, u32 arg2, u32 arg3);
+void ChangeFlag(u32, u32, bool32);
+void StartHardwareBlend(u32 arg0, u32 arg1, u32 arg2, u32 arg3);
 void InitCourtScroll(u8 *, u32, u32, u32);
 bool32 GetFlag(u32 arg0, u32 arg1);
 void sub_800F9C4(struct Struct3000840* arg0, u32 arg1, u32 arg2);
@@ -85,11 +85,7 @@ extern struct Struct3000840 * sub_800F8BC(u32);
 extern u32 sub_8002224(u32);
 extern u32 sub_8007554(u32);
 //EWRAM
-extern EWRAM_DATA u32 gScriptHeap[0x1B000/4];
-#define eScriptHeap ((void*) (EWRAM_START + 0x11FC0))
-extern EWRAM_DATA struct SaveData gSaveDataBuffer;
-extern EWRAM_DATA u8 gUnknown_0202CFC0[0x5000];
-extern EWRAM_DATA u8 gUnknown_02031FC0[0x4B00];
+// fuck capcom
 //IWRAM
 extern u16 gBG2MapBuffer[0x400]; // BG 2 Map buffer
 extern struct Struct3000800 gUnknown_03000800; // size unknown
@@ -107,7 +103,7 @@ extern struct Struct3003A50 gUnknown_03003A50;
 extern struct ScriptContext gScriptContext;
 extern struct Struct3003AB0 gUnknown_03003AB0; 
 extern struct Struct3003C00 gUnknown_03003C00[0x3F];
-extern struct CourtScroll gUnknown_03004000;
+extern struct CourtScroll gCourtScroll;
 extern struct MusicPlayerInfo gMPlayInfo_BGM;
 extern struct MusicPlayerInfo gMPlayInfo_SE1;
 extern struct MusicPlayerInfo gMPlayInfo_SE2;

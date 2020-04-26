@@ -4,9 +4,9 @@
 struct Joypad
 {
     u16 heldKeysRaw;
-    u16 newKeysRaw;
-    u16 heldKeys;
-    u16 newKeys;
+    u16 pressedKeysRaw;
+    u16 previousHeldKeys;
+    u16 previousPressedKeys;
     u16 unk8;
     u16 unkA;
     u16 unkC;
@@ -18,7 +18,7 @@ struct Main
     u32 unk0; // System_timer? unused in unity
     u8 unk4[4];
     u8 unk8[4];
-    u8 frameCounter; /* + 0xC */
+    u8 vblankWaitCounter; /* + 0xC */
     u8 unkD;
     s8 shakeAmountX; /* + 0xE */ // Quake_x 
     s8 shakeAmountY; /* + 0xF */ // Quake_y
@@ -63,7 +63,7 @@ struct Main
     u8 unk8A; // rest_old
     u8 ukn8B;
     u8 unk8C; // current room id
-    u8 unk8D; // scenario num? 
+    u8 unk8D; // scenario num 
     u8 unk8E;
     s8 unk8F; // rest
     u16 talkingAnimationOffset; /* + 0x90 */

@@ -13,7 +13,7 @@ void sub_800F804()
     struct Struct3000840 * iwstruct840p;
     DmaFill16(3, 0, &gUnknown_03000800, sizeof(gUnknown_03000800));
     gMain.unk1F |= 3;
-    iwstruct840p = iwstruct800p->unk40;
+    iwstruct840p = &iwstruct800p->unk40[0];
     iwstruct840p->unkC = 0xFF;
     iwstruct840p->unkE = 0;
     sub_800F7F0();
@@ -28,10 +28,10 @@ void sub_800F84C()
         {
             if (&gOamObjects[struct840p->unk3A] < &gOamObjects[struct840p->unk3B]) 
             {
-                struct OamAttrs* r2;
-                for (r2 = &gOamObjects[struct840p->unk3A]; r2 < &gOamObjects[struct840p->unk3B]; r2++)
+                struct OamAttrs* oam;
+                for (oam = &gOamObjects[struct840p->unk3A]; oam < &gOamObjects[struct840p->unk3B]; oam++)
                 {
-                    r2->attr0 = 0x200;
+                    oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_DOUBLE_MASK, 0, 0, 0, 0);
                 }
             }
         }
@@ -55,8 +55,8 @@ struct Struct3000840* sub_800F8BC(u32 arg1)
 
 struct Struct3000840* sub_800F8F4(u32 arg1)
 {
-    u32 i, flags;
-    s32 r1;
+    u32 flags;
+    s32 r1, i;
     struct Struct3000840* struct840p = sub_800F8BC(arg1);
     if (struct840p != NULL) 
     {
@@ -167,7 +167,7 @@ void sub_800FA74(struct Struct3000840* arg0, bool32 arg1)
             arg0->unk0 |= 0x08000000;
             for(i = arg0->unk3A; i < arg0->unk3B; i++)
             {
-                gOamObjects[i].attr0 = 0x200;
+                gOamObjects[i].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_DOUBLE_MASK, 0, 0, 0, 0);
             }
         }
         if (arg0->unkC == 0xff && arg0->unkE == 0x16)
@@ -185,7 +185,7 @@ void sub_800FA74(struct Struct3000840* arg0, bool32 arg1)
                     arg0->unk0 |= 0x08000000;
                     for(i = arg0->unk3A; i < arg0->unk3B; i++)
                     {
-                        gOamObjects[i].attr0 = 0x200;
+                        gOamObjects[i].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_DOUBLE_MASK, 0, 0, 0, 0);
                     }
                 }
             }

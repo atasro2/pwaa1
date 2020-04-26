@@ -1,6 +1,7 @@
 #include "global.h"
 #include "script.h"
 #include "sound_control.h"
+#include "ewram.h"
 
 u32 sub_8007554(u32 a0) // GetExplCharWorkIndexById
 {
@@ -17,7 +18,7 @@ bool32 Command40(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
     scriptCtx->unk0 &= ~0x400;
-    gOamObjects[88].attr0 = 0x200;
+    gOamObjects[88].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_DOUBLE_MASK, 0, 0, 0, 0);
     return 0;
 }
 
@@ -78,7 +79,7 @@ bool32 Command43(struct ScriptContext * scriptCtx)
         gMain.unkB4 &= ~0x400;
         oam = &gOamObjects[35];
         for(i = 0; i < 5; i++)
-	{
+	    {
             oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
             oam++;
         }
@@ -107,8 +108,8 @@ bool32 Command44(struct ScriptContext * scriptCtx)
         SET_UNK4(1,0,0,9);
     }
     scriptCtx->scriptPtr++;
-    oam->attr0 = SPRITE_ATTR0((-17 & 255), ST_OAM_AFFINE_DOUBLE, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
-    oam->attr1 = SPRITE_ATTR1_AFFINE(495, 0, 3);
+    oam->attr0 = SPRITE_ATTR0((~16 & 255), ST_OAM_AFFINE_DOUBLE, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
+    oam->attr1 = SPRITE_ATTR1_AFFINE((~16 & 511), 0, 3);
     oam->attr2 = SPRITE_ATTR2(0x1A0, 0, 5);
     oam++;
     oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
@@ -137,8 +138,7 @@ bool32 Command46(struct ScriptContext * scriptCtx)
         }
     }
     r6 += 0x4D0;
-    // directly using gUnknown_02031FC0 as target will NOT match, it makes the compiler use r8
-    DmaCopy16(3, r6, EWRAM_START+0x31FC0, sizeof(gUnknown_02031FC0));
+    DmaCopy16(3, r6, eUnknown_02031FC0, 0x4B00);
     gLCDIORegisters.lcd_dispcnt |= DISPCNT_BG2_ON;
     gLCDIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(2) | BGCNT_CHARBASE(2) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP;
     scriptCtx->unk0 |= 0x40;

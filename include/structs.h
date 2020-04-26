@@ -100,8 +100,8 @@ struct ScriptContext
 struct SaveData
 {
     char saveDataVer[0x30];
-    u32 magic;
-    u8 fill38[0x2998]; /*  other structs maybe? */
+    u32 magic;         /* + 0x30 */
+    u8 fill34[0x299B]; /*  other structs maybe? */
     u8 unk29D0;       /**/
 };
 
@@ -187,7 +187,7 @@ struct Struct3003C00
 struct CourtScroll
 {
     u8 * unk0;
-    u16 unk4;
+    u16 state;
     u8 filler6[0x6];
     s16 unkC;
     s16 unkE;

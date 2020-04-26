@@ -19,23 +19,23 @@ gUnknown_0811DAA4:
 gUnknown_0811DAB4:
     .space 0x100, 0xFF
 
-    .global gUnknown_0811DBB4
-gUnknown_0811DBB4:
-    .4byte sub_8007A0C
-    .4byte sub_8007AC4
-    .4byte sub_8007E78
-    .4byte sub_800A3D4
-    .4byte sub_800B7BC
-    .4byte sub_800A87C
-    .4byte sub_800AB40
-    .4byte sub_800D824
-    .4byte sub_800D860
-    .4byte sub_800B038
-    .4byte sub_80084D4
-    .4byte sub_80090E8
-    .4byte sub_80094E4
-    .4byte sub_8009A64
-    .4byte sub_80081EC
+    .global gGameProcesses
+gGameProcesses: @ there was a debug menu in here at one point
+    .4byte CapcomLogoProcess
+    .4byte TitleScreenProcess
+    .4byte GameProcess02 @ according to unity it's GameOver
+    .4byte GameProcess03 @ trial
+    .4byte GameProcess04 @ investigation
+    .4byte GameProcess05 @ testimony
+    .4byte GameProcess06 @ cross exam
+    .4byte GameProcess07 @ court record
+    .4byte GameProcess08 @ for displaying stuff that gets added to court record
+    .4byte GameProcess09 @ deliver judgement or some bs
+    .4byte SaveGameProcess
+    .4byte EpisodeClearedProcess
+    .4byte SelectEpisodeProcess
+    .4byte ContinueSaveProcess
+    .4byte ClearSaveProcess
 
     .global gUnknown_0811DBF0
 gUnknown_0811DBF0:
@@ -45,8 +45,8 @@ gUnknown_0811DBF0:
 	.4byte sub_8002734
 	.4byte sub_8002734
 
-    .global gUnknown_0811DC04
-gUnknown_0811DC04:
+    .global gFlagPtrs
+gFlagPtrs:
     .4byte gMain+0x94
 	.4byte gMain+0xB4
 	.4byte gMain+0xB8

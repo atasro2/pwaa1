@@ -1,8 +1,8 @@
 	.include "asm/macros.inc"
 	.syntax unified
 
-	THUMB_FUNC_START sub_8007A0C
-sub_8007A0C: @ 0x08007A0C
+	THUMB_FUNC_START CapcomLogoProcess
+CapcomLogoProcess: @ 0x08007A0C
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r5, _08007A24
@@ -46,7 +46,7 @@ _08007A2E:
 	movs r1, #1
 	movs r2, #1
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	movs r0, #8
 	strb r0, [r4, #0x16]
 	ldrb r0, [r4, #5]
@@ -76,7 +76,7 @@ _08007A98:
 	movs r1, #1
 	movs r2, #1
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	strb r5, [r4, #0x16]
 	ldrb r0, [r4, #5]
 	adds r0, #1
@@ -96,8 +96,8 @@ _08007ABC:
 	bx r0
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8007AC4
-sub_8007AC4: @ 0x08007AC4
+	THUMB_FUNC_START TitleScreenProcess
+TitleScreenProcess: @ 0x08007AC4
 	push {r4, r5, r6, r7, lr}
 	adds r6, r0, #0
 	ldr r7, _08007ADC
@@ -224,7 +224,7 @@ _08007B8E:
 	movs r1, #1
 	movs r2, #1
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	ldr r0, _08007C2C
 	str r0, [r6, #4]
 	b _08007E66
@@ -548,8 +548,8 @@ _08007E6C: .4byte 0x00004084
 _08007E70: .4byte 0x00002030
 _08007E74: .4byte 0x00002038
 
-	THUMB_FUNC_START sub_8007E78
-sub_8007E78: @ 0x08007E78
+	THUMB_FUNC_START GameProcess02
+GameProcess02: @ 0x08007E78
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -791,7 +791,7 @@ _0800805C:
 	movs r1, #3
 	movs r2, #1
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	ldrb r0, [r6, #5]
 	adds r0, #1
 	strb r0, [r6, #5]
@@ -990,8 +990,8 @@ _080081E6:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_START sub_80081EC
-sub_80081EC: @ 0x080081EC
+	THUMB_FUNC_START ClearSaveProcess
+ClearSaveProcess: @ 0x080081EC
 	push {r4, r5, r6, r7, lr}
 	sub sp, #4
 	adds r6, r0, #0
@@ -1106,7 +1106,7 @@ _08008296:
 	movs r1, #1
 	movs r2, #1
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	b _0800839C
 	.align 2, 0
 _080082D4: .4byte 0x040000D4
@@ -1153,7 +1153,7 @@ _08008346:
 	ldr r0, _080083AC
 	strh r0, [r4, #0x1e]
 	movs r0, #4
-	bl sub_800549C
+	bl ChangeScriptSection
 	movs r0, #9
 	strh r0, [r4, #0x18]
 	movs r0, #0x34
@@ -1238,7 +1238,7 @@ _080083F8:
 	movs r1, #1
 	movs r2, #1
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	strb r4, [r6, #0x16]
 	ldrb r0, [r6, #5]
 	adds r0, #1
@@ -1336,8 +1336,8 @@ _080084C8: .4byte gSaveDataBuffer
 _080084CC: .4byte 0x85000A74
 _080084D0: .4byte 0x000029D0
 
-	THUMB_FUNC_START sub_80084D4
-sub_80084D4: @ 0x080084D4
+	THUMB_FUNC_START SaveGameProcess
+SaveGameProcess: @ 0x080084D4
 	push {lr}
 	ldr r2, _080084EC
 	ldr r0, _080084F0
@@ -1425,7 +1425,7 @@ _08008562:
 	movs r1, #0
 	movs r2, #1
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	ldrb r0, [r5, #5]
 	adds r0, #1
 	strb r0, [r5, #5]
@@ -1599,7 +1599,7 @@ _080086BA:
 	movs r1, #0
 	movs r2, #1
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	ldrb r0, [r4, #5]
 	adds r0, #1
 	strb r0, [r4, #5]
@@ -1619,7 +1619,7 @@ _08008728: .4byte gUnknown_03003A50
 _0800872C: .4byte 0x8000000C
 _08008730: .4byte gUnknown_03003AB0
 _08008734: .4byte 0x80000004
-_08008738: .4byte gUnknown_03004000
+_08008738: .4byte gCourtScroll
 _0800873C: .4byte 0x80000008
 _08008740: .4byte gUnknown_03003AC0
 _08008744: .4byte 0x800000A0
@@ -1664,7 +1664,7 @@ sub_8008794: @ 0x08008794
 	cmp r0, #0
 	beq _080087D0
 	movs r0, #0
-	bl sub_800549C
+	bl ChangeScriptSection
 	b _080087D6
 	.align 2, 0
 _080087C4: .4byte gUnknown_03002840
@@ -1672,7 +1672,7 @@ _080087C8: .4byte gScriptContext
 _080087CC: .4byte 0x0000FFFF
 _080087D0:
 	movs r0, #1
-	bl sub_800549C
+	bl ChangeScriptSection
 _080087D6:
 	ldr r1, _08008830
 	movs r3, #0
@@ -1803,7 +1803,7 @@ _080088CC:
 	ldr r0, _080088F8
 	strh r0, [r4, #0x1e]
 	movs r0, #3
-	bl sub_800549C
+	bl ChangeScriptSection
 	movs r0, #9
 	strh r0, [r4, #0x18]
 	movs r0, #0x34
@@ -1823,7 +1823,7 @@ _080088FC:
 	ldr r0, _0800893C
 	strh r0, [r4, #0x1e]
 	movs r0, #6
-	bl sub_800549C
+	bl ChangeScriptSection
 	movs r1, #0
 	movs r0, #9
 	strh r0, [r4, #0x18]
@@ -1864,7 +1864,7 @@ _08008940:
 	movs r1, #0
 	movs r2, #1
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	movs r0, #4
 	strb r0, [r5, #5]
 	b _080089FC
@@ -2210,7 +2210,7 @@ _08008C48:
 	movs r1, #0
 	movs r2, #1
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 _08008C5C:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -2294,7 +2294,7 @@ sub_8008CC0: @ 0x08008CC0
 	cmp r0, #0
 	beq _08008D00
 	movs r0, #0
-	bl sub_800549C
+	bl ChangeScriptSection
 	b _08008D06
 	.align 2, 0
 _08008CF4: .4byte gScriptContext
@@ -2302,7 +2302,7 @@ _08008CF8: .4byte gJoypad
 _08008CFC: .4byte 0x0000FFFF
 _08008D00:
 	movs r0, #1
-	bl sub_800549C
+	bl ChangeScriptSection
 _08008D06:
 	ldr r1, _08008D44
 	movs r2, #0
@@ -2371,7 +2371,7 @@ sub_8008D68: @ 0x08008D68
 	movs r1, #1
 	movs r2, #1
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	ldrb r0, [r4, #7]
 	cmp r0, #0
 	beq _08008D90
@@ -2442,7 +2442,7 @@ sub_8008DF4: @ 0x08008DF4
 	movs r1, #0
 	movs r2, #1
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	ldrb r0, [r4, #5]
 	adds r0, #1
 	strb r0, [r4, #5]
@@ -2592,7 +2592,7 @@ _08008F26:
 	movs r1, #0
 	movs r2, #1
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	mov r2, sl
 	ldrb r0, [r2, #5]
 	adds r0, #1
@@ -2810,8 +2810,8 @@ _080090DC: .4byte 0x000001FF
 _080090E0: .4byte gOamObjects+0x150
 _080090E4: .4byte 0x0000C048
 
-	THUMB_FUNC_START sub_80090E8
-sub_80090E8: @ 0x080090E8
+	THUMB_FUNC_START EpisodeClearedProcess
+EpisodeClearedProcess: @ 0x080090E8
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -3128,7 +3128,7 @@ _0800935C:
 	ldr r0, _080093B4
 	strh r0, [r1, #0x1e]
 	movs r0, #5
-	bl sub_800549C
+	bl ChangeScriptSection
 	movs r4, #0
 	movs r3, #0x80
 	lsls r3, r3, #7
@@ -3291,8 +3291,8 @@ _080094D8: .4byte gJoypad
 _080094DC: .4byte gSaveDataBuffer
 _080094E0: .4byte 0x0100000A
 
-	THUMB_FUNC_START sub_80094E4
-sub_80094E4: @ 0x080094E4
+	THUMB_FUNC_START SelectEpisodeProcess
+SelectEpisodeProcess: @ 0x080094E4
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -3478,7 +3478,7 @@ _08009648:
 	ldr r0, _08009684
 	strh r0, [r1, #0x1e]
 	movs r0, #2
-	bl sub_800549C
+	bl ChangeScriptSection
 	movs r0, #0xc0
 	movs r1, #0x14
 	bl sub_8000738
@@ -3612,7 +3612,7 @@ _0800975C:
 	movs r1, #0
 	movs r2, #1
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	movs r0, #0xc
 	strb r0, [r5, #5]
 _0800977A:
@@ -3902,7 +3902,7 @@ _08009966:
 	movs r1, #4
 	movs r2, #1
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	ldrb r0, [r5, #5]
 	adds r0, #1
 	strb r0, [r5, #5]
@@ -4033,8 +4033,8 @@ _08009A52:
 	bx r0
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8009A64
-sub_8009A64: @ 0x08009A64
+	THUMB_FUNC_START ContinueSaveProcess
+ContinueSaveProcess: @ 0x08009A64
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -4156,7 +4156,7 @@ _08009B32:
 	movs r1, #0
 	movs r2, #1
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	b _08009BFC
 	.align 2, 0
 _08009B70: .4byte gSaveDataBuffer
@@ -4193,7 +4193,7 @@ _08009BBA:
 	adds r0, #0x8d
 	ldrb r0, [r0]
 	adds r0, #7
-	bl sub_800549C
+	bl ChangeScriptSection
 	movs r0, #9
 	strh r0, [r4, #0x18]
 	movs r0, #0x34
@@ -4275,7 +4275,7 @@ _08009C50:
 	movs r1, #0
 	movs r2, #1
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	movs r0, #5
 	b _08009CBA
 _08009C84:
@@ -4302,7 +4302,7 @@ _08009C9C:
 	movs r1, #0
 	movs r2, #1
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	ldrb r0, [r7, #5]
 	adds r0, #3
 _08009CBA:
@@ -4424,7 +4424,7 @@ _08009D8C:
 	b _0800A322
 _08009D98:
 	bl HideAllSprites
-	bl sub_8000930
+	bl InitBGs
 	bl sub_800F804
 	bl sub_800F3C4
 	bl sub_8005408
@@ -4851,7 +4851,7 @@ _0800A170: .4byte gUnknown_03003A50
 _0800A174: .4byte 0x8000000C
 _0800A178: .4byte gUnknown_03003AB0
 _0800A17C: .4byte 0x80000004
-_0800A180: .4byte gUnknown_03004000
+_0800A180: .4byte gCourtScroll
 _0800A184: .4byte 0x80000008
 _0800A188: .4byte gUnknown_03003AC0
 _0800A18C: .4byte 0x800000A0
@@ -4937,7 +4937,7 @@ _0800A228:
 _0800A236:
 	movs r2, #1
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	b _0800A322
 	.align 2, 0
 _0800A240: .4byte gOamObjects+0x130
@@ -5133,8 +5133,8 @@ _0800A3CA:
 	bx lr
 	.align 2, 0
 
-	THUMB_FUNC_START sub_800A3D4
-sub_800A3D4: @ 0x0800A3D4
+	THUMB_FUNC_START GameProcess03
+GameProcess03: @ 0x0800A3D4
 	push {lr}
 	ldr r2, _0800A3E8
 	ldrb r3, [r0, #5]
@@ -5174,7 +5174,7 @@ sub_800A3EC: @ 0x0800A3EC
 	str r0, [r4, #8]
 	ldr r0, [r4, #8]
 	bl HideAllSprites
-	bl sub_8000930
+	bl InitBGs
 	bl sub_800F804
 	bl sub_8005408
 	adds r5, r7, #0
@@ -5261,7 +5261,7 @@ sub_800A3EC: @ 0x0800A3EC
 	movs r0, #0
 	movs r1, #0x41
 	movs r2, #1
-	bl SetFlag
+	bl ChangeFlag
 _0800A4E0:
 	adds r0, r6, #0
 	adds r0, #0xb4
@@ -5276,7 +5276,7 @@ _0800A4E0:
 	ldr r0, _0800A5A8
 	strh r0, [r1, #0x1e]
 	movs r0, #0x80
-	bl sub_800549C
+	bl ChangeScriptSection
 	adds r1, r6, #0
 	adds r1, #0x8f
 	movs r0, #5
@@ -5292,7 +5292,7 @@ _0800A4E0:
 	movs r1, #1
 	movs r2, #1
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	adds r1, r7, #0
 	adds r1, #0x4e
 	movs r0, #0x10
@@ -5584,7 +5584,7 @@ _0800A780:
 	movs r1, #1
 	movs r2, #8
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	adds r0, r4, #0
 	bl sub_8010960
 	adds r0, r5, #0
@@ -5674,8 +5674,8 @@ _0800A870:
 	.align 2, 0
 _0800A878: .4byte gUnknown_03003AB0
 
-	THUMB_FUNC_START sub_800A87C
-sub_800A87C: @ 0x0800A87C
+	THUMB_FUNC_START GameProcess05
+GameProcess05: @ 0x0800A87C
 	push {lr}
 	ldr r2, _0800A890
 	ldrb r3, [r0, #5]
@@ -5930,7 +5930,7 @@ _0800AA58:
 	movs r1, #1
 	movs r2, #8
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	adds r0, r4, #0
 	bl sub_8010960
 	adds r0, r5, #0
@@ -6010,8 +6010,8 @@ _0800AB3A:
 	pop {r0}
 	bx r0
 
-	THUMB_FUNC_START sub_800AB40
-sub_800AB40: @ 0x0800AB40
+	THUMB_FUNC_START GameProcess06
+GameProcess06: @ 0x0800AB40
 	push {lr}
 	ldr r2, _0800AB54
 	ldrb r3, [r0, #5]
@@ -6211,7 +6211,7 @@ _0800ACE8:
 	movs r0, #0x2b
 	bl PlaySE
 	adds r0, r4, #0
-	bl sub_800549C
+	bl ChangeScriptSection
 	bl sub_8005470
 	b _0800ADB4
 _0800ACFA:
@@ -6231,7 +6231,7 @@ _0800ACFA:
 	movs r1, #1
 	movs r2, #4
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	ldr r1, _0800AD54
 	movs r0, #0x40
 	strb r0, [r1, #1]
@@ -6445,7 +6445,7 @@ _0800AEA6:
 	strb r1, [r0]
 	b _0800AEE6
 	.align 2, 0
-_0800AED0: .4byte gUnknown_03004000
+_0800AED0: .4byte gCourtScroll
 _0800AED4: .4byte gScriptContext
 _0800AED8: .4byte gMain
 _0800AEDC: .4byte gLCDIORegisters
@@ -6455,7 +6455,7 @@ _0800AEE0:
 _0800AEE6:
 	ldr r0, _0800AF20
 	ldrh r0, [r0, #0x2c]
-	bl sub_800549C
+	bl ChangeScriptSection
 	ldr r1, _0800AF24
 	movs r2, #0
 	movs r0, #0xf0
@@ -6512,7 +6512,7 @@ _0800AF4A:
 	movs r1, #1
 	movs r2, #4
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	movs r0, #0x40
 	strb r0, [r4, #1]
 	b _0800AFB2
@@ -6558,7 +6558,7 @@ _0800AFB2:
 	strb r0, [r5, #6]
 	b _0800B024
 	.align 2, 0
-_0800AFBC: .4byte gUnknown_03004000
+_0800AFBC: .4byte gCourtScroll
 _0800AFC0: .4byte gUnknown_03003AB0
 _0800AFC4:
 	ldr r1, _0800AFFC
@@ -6618,8 +6618,8 @@ _0800B024:
 	.align 2, 0
 _0800B034: .4byte gUnknown_03003AB0
 
-	THUMB_FUNC_START sub_800B038
-sub_800B038: @ 0x0800B038
+	THUMB_FUNC_START GameProcess09
+GameProcess09: @ 0x0800B038
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -6698,7 +6698,7 @@ _0800B088:
 	movs r1, #1
 	movs r2, #4
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	movs r0, #0x56
 	bl PlaySE
 	b _0800B320
@@ -6864,7 +6864,7 @@ _0800B1FC:
 	movs r1, #1
 	movs r2, #4
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	movs r0, #0x56
 	bl PlaySE
 	mov r1, sb
@@ -7545,8 +7545,8 @@ _0800B7B8:
 	bx lr
 	.align 2, 0
 
-	THUMB_FUNC_START sub_800B7BC
-sub_800B7BC: @ 0x0800B7BC
+	THUMB_FUNC_START GameProcess04
+GameProcess04: @ 0x0800B7BC
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldrb r0, [r5, #5]
@@ -7611,7 +7611,7 @@ sub_800B808: @ 0x0800B808
 	str r0, [r4, #8]
 	ldr r0, [r4, #8]
 	bl HideAllSprites
-	bl sub_8000930
+	bl InitBGs
 	bl sub_800F804
 	bl sub_8005408
 	adds r1, r7, #0
@@ -7779,7 +7779,7 @@ _0800B8FA:
 	movs r0, #0
 	movs r1, #0x41
 	movs r2, #1
-	bl SetFlag
+	bl ChangeFlag
 _0800B9A6:
 	adds r0, r6, #0
 	adds r0, #0xb4
@@ -7794,7 +7794,7 @@ _0800B9A6:
 	ldr r0, _0800BACC
 	strh r0, [r1, #0x1e]
 	movs r0, #0x80
-	bl sub_800549C
+	bl ChangeScriptSection
 	movs r0, #1
 	bl sub_800244C
 	ldr r1, _0800BAD0
@@ -7815,7 +7815,7 @@ _0800B9A6:
 	movs r1, #1
 	movs r2, #1
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	adds r1, r7, #0
 	adds r1, #0x4e
 	movs r0, #0x10
@@ -8474,7 +8474,7 @@ _0800BEFE:
 	movs r1, #1
 	movs r2, #1
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	movs r0, #0x82
 	lsls r0, r0, #1
 	str r0, [r6, #4]
@@ -8714,7 +8714,7 @@ _0800C120:
 	adds r0, r5, #0
 	bl sub_800D5B0
 	adds r3, r0, #0
-	bl sub_800549C
+	bl ChangeScriptSection
 	movs r0, #1
 	bl sub_800244C
 	strb r7, [r5, #6]
@@ -9382,7 +9382,7 @@ _0800C62E:
 	movs r1, #1
 	movs r2, #1
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	ldr r0, _0800C670
 	mov r1, r8
 	str r0, [r1, #4]
@@ -10193,7 +10193,7 @@ _0800CC9C:
 	adds r0, r0, r1
 	ldrh r5, [r0]
 	adds r0, r5, #0
-	bl sub_800549C
+	bl ChangeScriptSection
 	movs r0, #1
 	bl sub_800244C
 	mov r4, r8
@@ -10223,7 +10223,7 @@ _0800CCF0:
 	ldrb r1, [r0]
 	movs r0, #2
 	movs r2, #1
-	bl SetFlag
+	bl ChangeFlag
 _0800CD04:
 	ldr r0, [sp]
 	movs r1, #4
@@ -11698,8 +11698,8 @@ _0800D816:
 	.align 2, 0
 _0800D820: .4byte gUnknown_0811DC10
 
-	THUMB_FUNC_START sub_800D824
-sub_800D824: @ 0x0800D824
+	THUMB_FUNC_START GameProcess07
+GameProcess07: @ 0x0800D824
 	push {lr}
 	ldr r1, _0800D84C
 	ldr r3, _0800D850
@@ -11725,8 +11725,8 @@ _0800D854: .4byte 0x000004DE
 _0800D858: .4byte gUnknown_0811DFA4
 _0800D85C: .4byte gUnknown_03002840
 
-	THUMB_FUNC_START sub_800D860
-sub_800D860: @ 0x0800D860
+	THUMB_FUNC_START GameProcess08
+GameProcess08: @ 0x0800D860
 	push {lr}
 	ldr r1, _0800D878
 	ldrb r3, [r0, #5]
@@ -11880,7 +11880,7 @@ sub_800D94C: @ 0x0800D94C
 	movs r1, #1
 	movs r2, #1
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	b _0800DD78
 	.align 2, 0
 _0800D99C: .4byte gJoypad
@@ -12039,7 +12039,7 @@ _0800DAE4:
 	movs r1, #1
 	movs r2, #4
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	ldr r1, _0800DB50
 	movs r0, #0xa
 	strb r0, [r1, #1]
@@ -12080,7 +12080,7 @@ _0800DAE4:
 	beq _0800DB68
 	bl StopBGM
 	adds r0, r4, #0
-	bl sub_800549C
+	bl ChangeScriptSection
 	ldr r0, _0800DB64
 	b _0800DBD6
 	.align 2, 0
@@ -12099,7 +12099,7 @@ _0800DB68:
 	beq _0800DB7E
 	adds r5, #1
 	adds r0, r5, #0
-	bl sub_800549C
+	bl ChangeScriptSection
 	b _0800DBC8
 _0800DB7E:
 	bl Random
@@ -12116,7 +12116,7 @@ _0800DB7E:
 	b _0800DBC4
 _0800DB98:
 	movs r0, #0x1a
-	bl sub_800549C
+	bl ChangeScriptSection
 	adds r0, r7, #0
 	adds r0, #0x33
 	mov r2, r8
@@ -12124,18 +12124,18 @@ _0800DB98:
 	b _0800DBC4
 _0800DBA8:
 	movs r0, #0x1b
-	bl sub_800549C
+	bl ChangeScriptSection
 	adds r0, r7, #0
 	adds r0, #0x33
 	strb r4, [r0]
 	b _0800DBC4
 _0800DBB6:
 	movs r0, #0x1c
-	bl sub_800549C
+	bl ChangeScriptSection
 	b _0800DBC4
 _0800DBBE:
 	movs r0, #0x1d
-	bl sub_800549C
+	bl ChangeScriptSection
 _0800DBC4:
 	ldr r0, _0800DBF4
 	strh r5, [r0, #0x20]
@@ -12249,7 +12249,7 @@ _0800DC8E:
 	adds r0, r6, #0
 	bl sub_800EEA4
 	adds r4, r0, #0
-	bl sub_800549C
+	bl ChangeScriptSection
 	movs r0, #1
 	bl sub_800244C
 	adds r0, r5, #0
@@ -12860,7 +12860,7 @@ _0800E1BC:
 	movs r1, #1
 	movs r2, #2
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	ldrb r0, [r5, #6]
 	adds r0, #1
 	b _0800E476
@@ -12884,7 +12884,7 @@ _0800E1E0:
 	movs r1, #1
 	movs r2, #1
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	ldrb r0, [r5, #6]
 	adds r0, #1
 	b _0800E476
@@ -12927,7 +12927,7 @@ _0800E246:
 	movs r1, #1
 	movs r2, #2
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	movs r0, #6
 	b _0800E476
 	.align 2, 0
@@ -13102,7 +13102,7 @@ _0800E3B4:
 	movs r1, #1
 	movs r2, #2
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	ldrb r0, [r5, #6]
 	adds r0, #1
 	b _0800E476
@@ -13196,7 +13196,7 @@ _0800E45C:
 	movs r1, #1
 	movs r2, #2
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	movs r0, #1
 _0800E476:
 	strb r0, [r5, #6]
@@ -13355,7 +13355,7 @@ _0800E5A4:
 	movs r1, #1
 	movs r2, #6
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 	ldrb r0, [r5, #6]
 	adds r0, #1
 	movs r1, #0
@@ -13399,7 +13399,7 @@ _0800E5CC:
 	bl sub_800EE20
 	cmp r0, #0
 	beq _0800E61C
-	bl sub_800549C
+	bl ChangeScriptSection
 	b _0800E676
 	.align 2, 0
 _0800E610: .4byte gUnknown_03003A50
@@ -13414,7 +13414,7 @@ _0800E61C:
 	beq _0800E632
 	adds r4, #1
 	adds r0, r4, #0
-	bl sub_800549C
+	bl ChangeScriptSection
 	b _0800E66C
 _0800E632:
 	bl Random
@@ -13430,19 +13430,19 @@ _0800E632:
 	b _0800E668
 _0800E64A:
 	movs r0, #0x1a
-	bl sub_800549C
+	bl ChangeScriptSection
 	b _0800E668
 _0800E652:
 	movs r0, #0x1b
-	bl sub_800549C
+	bl ChangeScriptSection
 	b _0800E668
 _0800E65A:
 	movs r0, #0x1c
-	bl sub_800549C
+	bl ChangeScriptSection
 	b _0800E668
 _0800E662:
 	movs r0, #0x1d
-	bl sub_800549C
+	bl ChangeScriptSection
 _0800E668:
 	ldr r0, _0800E680
 	strh r4, [r0, #0x20]

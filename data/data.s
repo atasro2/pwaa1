@@ -592,18 +592,18 @@ gScriptTable:
     .4byte scenario_3_4_script
     .4byte scenario_3_5_script
 
-    .global gUnknown_08018784
-gUnknown_08018784:
+    .global gSoundCueTable
+gSoundCueTable:
     .incbin "baserom.gba", 0x00018784, 0x30
 
-    .global gUnknown_080187B4
-gUnknown_080187B4:
+    .global gCourtScrollGfxPointers
+gCourtScrollGfxPointers:
     .4byte gUnknown_08427D88
     .4byte gUnknown_08472F88
     .4byte gUnknown_084BE188
 
-    .global gUnknown_080187C0
-gUnknown_080187C0:
+    .global gTextboxDownArrowTileIndexes
+gTextboxDownArrowTileIndexes:
     .incbin "baserom.gba", 0x000187C0, 0x8
 
     .global gUnknown_080187C8

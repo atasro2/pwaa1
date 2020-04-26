@@ -2,8 +2,9 @@
 #include "main.h"
 #include "sound_control.h"
 #include "m4a.h"
+#include "ewram.h"
 
-static void sub_80002E4();
+static void DoGameProcess();
 static void VBlankIntr();
 static void HBlankIntr();
 static void IntrDummy();
@@ -49,11 +50,11 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
             if (reset != 0)
                 goto LOOP1;
 
-            gMain.frameCounter = reset;
+            gMain.vblankWaitCounter = 0;
 
             LOOP3:
             {
-                if (gMain.frameCounter != gMain.unkD)
+                if (gMain.vblankWaitCounter != gMain.unkD)
                 {
                     goto LOOP3;
                 }
@@ -78,7 +79,7 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
             {
                 sub_800232C(gMain.unk2C);
                 sub_800EEFC(&gMain);
-                sub_80002E4();
+                DoGameProcess();
                 sub_8010E14(gMain.previousBG);
                 UpdateHardwareBlend();
             }
@@ -95,7 +96,7 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
     {
         sub_800232C(gMain.unk2C);
         sub_800EEFC(&gMain);
-        sub_80002E4();
+        DoGameProcess();
         sub_8010E14(gMain.previousBG);
         UpdateHardwareBlend();
     }
@@ -108,9 +109,9 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
     goto LOOP2;
 }
 
-void sub_80002E4() // Proc?
+void DoGameProcess()
 {
-    struct CourtScroll *iwstruct4000p = &gUnknown_03004000;
+    struct CourtScroll *courtScroll = &gCourtScroll;
     struct Main *main = &gMain;
 
     u8 amplitude;
@@ -182,11 +183,11 @@ void sub_80002E4() // Proc?
         main->shakeAmountY = 0;
     }
 
-    gUnknown_0811DBB4[gMain.unk4[0]](&gMain);
+    gGameProcesses[gMain.unk4[0]](&gMain);
 
-    if (iwstruct4000p->unk4)
+    if (courtScroll->state != 0)
     {
-        UpdateCourtScroll(iwstruct4000p);
+        UpdateCourtScroll(courtScroll);
     }
 }
 
@@ -220,7 +221,7 @@ void sub_80003E0()
     REG_IME = TRUE;
 }
 
-void sub_80004B0() // reset a bunch of shit
+void sub_80004B0() // Possibly for initating scripts
 {
     struct LCDIORegisters *lcdIoRegsp = &gLCDIORegisters;
     struct Main *main = &gMain;
@@ -229,7 +230,7 @@ void sub_80004B0() // reset a bunch of shit
     DmaFill16(3, 0, PLTT, PLTT_SIZE);
     DmaFill16(3, 0, &gMain, sizeof(gMain));
     DmaFill16(3, 0, &gScriptContext, sizeof(gScriptContext));
-    DmaFill16(3, 0, &gUnknown_03004000, sizeof(gUnknown_03004000));
+    DmaFill16(3, 0, &gCourtScroll, sizeof(gCourtScroll));
     DmaFill16(3, 0, &gUnknown_03003AB0, sizeof(gUnknown_03003AB0));
     DmaFill16(3, 0, &gUnknown_03003A50, sizeof(gUnknown_03003A50));
     DmaFill16(3, 0, &gUnknown_03002840, sizeof(gUnknown_03002840));
@@ -244,8 +245,8 @@ void sub_80004B0() // reset a bunch of shit
     lcdIoRegsp->lcd_bldcnt = BLDCNT_TGT1_BG0 | BLDCNT_TGT1_BG1 | BLDCNT_TGT1_BG2 | BLDCNT_TGT1_BG3 | BLDCNT_TGT1_OBJ | BLDCNT_EFFECT_DARKEN;
     lcdIoRegsp->lcd_bldy = 0x10;
     HideAllSprites();
-    sub_8000930();
-    sub_800F804();
+    InitBGs();
+    sub_800F804(); //init animation system?
     sub_800F3C4();
     sub_8005408();
     sub_8000738(0x30, 0xF);
@@ -257,7 +258,7 @@ void HideAllSprites()
     u32 i;
     for (i = 0; i < MAX_OAM_OBJ_COUNT; i++)
     {
-        gOamObjects[i].attr0 = ST_OAM_AFFINE_ERASE << 8;
+        gOamObjects[i].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
     }
 }
 
@@ -297,10 +298,10 @@ void ReadKeys()
     struct Joypad *joypadCtrl = &gJoypad;
     u16 keyInput = KEY_NEW();
 
-    joypadCtrl->heldKeys = joypadCtrl->heldKeysRaw;
-    joypadCtrl->newKeys = joypadCtrl->newKeysRaw;
+    joypadCtrl->previousHeldKeys = joypadCtrl->heldKeysRaw;
+    joypadCtrl->previousPressedKeys = joypadCtrl->pressedKeysRaw;
     joypadCtrl->heldKeysRaw = KEY_NEW();
-    joypadCtrl->newKeysRaw = keyInput & ~joypadCtrl->heldKeys;
+    joypadCtrl->pressedKeysRaw = keyInput & ~joypadCtrl->previousHeldKeys;
     
     joypadCtrl->unk8 = 0;
 
@@ -347,34 +348,34 @@ u32 sub_8000744()
 
 void InitCourtScroll(u8 * arg0, u32 arg1, u32 arg2, u32 arg3) // init court scroll
 {
-    gUnknown_03004000.unk0 = arg0;
-    gUnknown_03004000.unk4 = arg3;
-    gUnknown_03004000.unkC = arg1;
-    gUnknown_03004000.unkE = arg2;
+    gCourtScroll.unk0 = arg0;
+    gCourtScroll.state = arg3;
+    gCourtScroll.unkC = arg1;
+    gCourtScroll.unkE = arg2;
     gMain.unk2E = 0;
 }
 
-void UpdateCourtScroll(struct CourtScroll * arg0) // update court scroll
+void UpdateCourtScroll(struct CourtScroll * courtScroll) // update court scroll
 {
-    if (arg0->unk4 & 1)
+    if (courtScroll->state & 1)
     {
-        arg0->unkC--;
-        if (arg0->unkC < 0)
+        courtScroll->unkC--;
+        if (courtScroll->unkC < 0)
         {
-            arg0->unk4 = 0;
+            courtScroll->state = 0;
         }
     }
     else
     {
-        arg0->unkC++;
-        if (arg0->unkC >= arg0->unkE)
+        courtScroll->unkC++;
+        if (courtScroll->unkC >= courtScroll->unkE)
         {
-            arg0->unk4 &= 1;
+            courtScroll->state &= 1;
         }
     }
 }
 
-void sub_80007D8(u32 arg0, u32 arg1, u32 arg2, u32 arg3)
+void StartHardwareBlend(u32 arg0, u32 arg1, u32 arg2, u32 arg3)
 {
     gMain.blendTargets = arg3;
     gMain.blendMode = arg0;
@@ -460,7 +461,7 @@ static void UpdateHardwareBlend()
 void VBlankIntr()
 {
     m4aSoundVSync();
-    gMain.frameCounter++;
+    gMain.vblankWaitCounter++;
 }
 
 void HBlankIntr()

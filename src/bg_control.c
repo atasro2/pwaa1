@@ -4,7 +4,7 @@
 
 #include "data/background.h"
 
-void sub_8000930()
+void InitBGs()
 {
     u32 i;
     u16 *temp;
@@ -17,10 +17,10 @@ void sub_8000930()
     DmaFill16(3, 0, &gBG2MapBuffer, sizeof(gBG2MapBuffer));
     gLCDIORegisters.lcd_bg2vofs = 0;
     gLCDIORegisters.lcd_bg2hofs = 8;
-    sub_80009AC();
+    InitBG3();
 }
 
-void sub_80009AC()
+void InitBG3()
 {
     u32 i = 0;
     u32 j = 0;
