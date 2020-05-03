@@ -5,6 +5,7 @@
 #include "m4a.h"
 #include "constants/background.h"
 #include "ewram.h"
+#include "background.h"
 
 bool32 CommandDummy(struct ScriptContext * scriptCtx)
 {
@@ -62,7 +63,7 @@ bool32 Command02(struct ScriptContext * scriptCtx)
             return 1;
         }
     }
-    if(gMain.unk4[0] >= 3 && gMain.unk4[0] <= 6)
+    if(gMain.process[0] >= 3 && gMain.process[0] <= 6)
     {
         if(scriptCtx->unk0 & 1)
             if(gJoypad.pressedKeysRaw & A_BUTTON)
@@ -137,7 +138,7 @@ bool32 Command02(struct ScriptContext * scriptCtx)
             sub_800FBA0(gUnknown_03000800.unk40, gMain.idleAnimationOffset);
             scriptCtx->unk0 |= 1;
         }
-        temp2 = gMain.unk4[0];
+        temp2 = gMain.process[0];
         if(temp2 != 9)
         {
             scriptCtx->unk37++;
@@ -758,8 +759,8 @@ bool32 Command11(struct ScriptContext * scriptCtx)
     PlaySE(49);
     scriptCtx->unk0 |= 0x10;
     gMain.unkB4 |= 0x100;
-    SET_UNK8_AS_UNK4();
-    SET_UNK4(1, 0, 0, 7);
+    BACKUP_PROCESS();
+    SET_PROCESS(7, 0, 0, 1);
     return 0;
 }
 
@@ -817,7 +818,7 @@ bool32 Command16(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     main->unk14 = 0;
     main->unk15 = 0;
-    SET_UNK4(0, 0, 2, 3);
+    SET_PROCESS(3, 2, 0, 0);
     gUnknown_03003A50.unkA = 0;
     gUnknown_03003A50.unkB = 0;
     main->unk8D++;
@@ -853,8 +854,8 @@ bool32 Command17(struct ScriptContext * scriptCtx)
             {
                 gMain.unk26 = var2;
                 gMain.unk27 = var1;
-                SET_UNK8_AS_UNK4();
-                SET_UNK4(0, 0, 0, 8);
+                BACKUP_PROCESS();
+                SET_PROCESS(8, 0, 0, 0);
             }
         }
     }
@@ -913,8 +914,8 @@ bool32 Command19(struct ScriptContext * scriptCtx)
         {
             gMain.unk26 = var2;
             gMain.unk27 = var1;
-            SET_UNK8_AS_UNK4();
-            SET_UNK4(0, 0, 0, 8);
+            BACKUP_PROCESS();
+            SET_PROCESS(8, 0, 0, 0);
         }
     }
     scriptCtx->scriptPtr++;
@@ -983,7 +984,7 @@ u32 Command1C(struct ScriptContext * scriptCtx)
             gLCDIORegisters.lcd_bg1vofs = 0;
             break;
         case 2:
-            if(gMain.unk4[0] == 3)
+            if(gMain.process[0] == 3)
             {
                 sub_8010960(gUnknown_03000800.unk40);
                 gUnknown_03003A50.unk5 = 0;
@@ -992,27 +993,27 @@ u32 Command1C(struct ScriptContext * scriptCtx)
             sub_800244C(1);
             break;
         case 3:
-            if(gMain.unk4[0] == 3)
+            if(gMain.process[0] == 3)
             {
                 sub_8010960(gUnknown_03000800.unk40);
                 gUnknown_03003A50.unk5 = 0;
                 sub_800B7A8(&gUnknown_03003A50, 15);
             }
             sub_800244C(0);
-            if(gMain.unk4[0] == 4)
+            if(gMain.process[0] == 4)
             {
                 gUnknown_03003A50.unkE = 0;
-                if(gMain.unk4[1] == 6)
+                if(gMain.process[1] == 6)
                 {
                     sub_800B7A8(&gUnknown_03003A50, 1);
                 }
-                if(gMain.unk4[1] == 8)
+                if(gMain.process[1] == 8)
                 {
                     sub_800B7A8(&gUnknown_03003A50, 4);
                     gUnknown_03003A50.unkC = 4;
                     gUnknown_03003A50.unkD = 0xE0;
                 }
-                if(gMain.unk4[1] == 9)
+                if(gMain.process[1] == 9)
                 {
                     sub_800B7A8(&gUnknown_03003A50, 8);
                 }
@@ -1031,7 +1032,7 @@ u32 Command1D(struct ScriptContext * scriptCtx)
     u32 var0;
     u32 var1;
     scriptCtx->scriptPtr++;
-    var0 = sub_8002224(gMain.currentBG);
+    var0 = GetBGControlBits(gMain.currentBG);
     if(var0 & 0xF)
         gMain.unk2E = 1;
     else
@@ -1115,8 +1116,8 @@ bool32 Command21(struct ScriptContext * scriptCtx)
     PlaySE(0x31);
     scriptCtx->unk0 |= 0x10;
     gMain.unkB4 |= 0x300;
-    SET_UNK8_AS_UNK4();
-    SET_UNK4(1, 0, 0, 7);
+    BACKUP_PROCESS();
+    SET_PROCESS(7, 0, 0, 1);
     return 0;
 }
 
@@ -1151,7 +1152,7 @@ bool32 Command24(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     gMain.unk14 = 0;
     gMain.unk15 = 0;
-    SET_UNK4(0, 0, 0, 2);
+    SET_PROCESS(2, 0, 0, 0);
     return 1;
 }
 
@@ -1190,12 +1191,12 @@ bool32 Command28(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     if(*scriptCtx->scriptPtr != 0)
     {
-        SET_UNK8_AS_UNK4();
-        SET_UNK4(0, 0, 0, 5);
+        BACKUP_PROCESS();
+        SET_PROCESS(5, 0, 0, 0);
     }
     else
     {
-        gMain.unk4[1]++;
+        gMain.process[1]++;
     }
     scriptCtx->scriptPtr++;
     return 0;
@@ -1229,12 +1230,12 @@ bool32 Command29(struct ScriptContext * scriptCtx)
     }
     else if(*scriptCtx->scriptPtr != 0)
     {
-        SET_UNK8_AS_UNK4();
-        SET_UNK4(0, 0, 0, 6);
+        BACKUP_PROCESS();
+        SET_PROCESS(6, 0, 0, 0);
     }
     else
     {
-        SET_UNK4(0, 0, 1, 3);
+        SET_PROCESS(3, 1, 0, 0);
     }
     scriptCtx->scriptPtr++;
     return 0;
@@ -1382,7 +1383,7 @@ bool32 Command34(struct ScriptContext * scriptCtx)
     gMain.unk8C = *scriptCtx->scriptPtr;
     scriptCtx->scriptPtr++;
     StartHardwareBlend(2, 0, 2, 0x1F);
-    SET_UNK4(0, 0, 5, 4);
+    SET_PROCESS(4, 5, 0, 0);
     return 0;
 }
 
@@ -1574,7 +1575,7 @@ bool32 Command39(struct ScriptContext * scriptCtx)
             iwstruct3930p->id = id;
             iwstruct3930p->vramPtr = scriptCtx->unk3C;
             DmaCopy16(3, gUnknown_080187C8[id].tiles, iwstruct3930p->vramPtr, size = gUnknown_080187C8[id].size); // weird shit going on here
-            DmaCopy16(3, gUnknown_0824696C, PALETTE + 0x2C0, 32);
+            DmaCopy16(3, gUnknown_0824696C, PLTT + 0x2C0, 32);
             iwstruct3930p->oamIdx = oamIdx;
             oamObject = &gOamObjects[oamIdx];
             
@@ -1696,7 +1697,7 @@ bool32 Command3E(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
     DmaCopy16(3, gUnknown_08190AC0, VRAM + 0x11F80, 0x80);
-    DmaCopy16(3, gUnknown_081942C0, PALETTE + 0x300, 0x20);
+    DmaCopy16(3, gUnknown_081942C0, PLTT + 0x300, 0x20);
     gUnknown_03003A50.unk0 = 0xF0;
     gUnknown_03003A50.unk2 = 0x30;
     gUnknown_03003A50.unk17 = 0;

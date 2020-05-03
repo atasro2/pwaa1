@@ -23,12 +23,19 @@ struct Struct3000800 // unknown size
         u32 unk8;
         u16 unkC;
         u8 unkE;
-        u8 fillerF[0x1];
+        u8 fillerF[0x1]; // padding?
         u16 unk10;
         u16 unk12;
-        u8 filler14[0x14];
+        u8* unk14;
+        u8* unk18;
+        u8 filler1C[4];
+        u8* unk20;
+        u8 filler24[4];
         u16 unk28;
-        u8 filler2A[0x10];
+        u8 filler2A[0x6];
+        u8* unk30;
+        u8* unk34;
+        u8 filler38[2];
         u8 unk3A;
         u8 unk3B;
         s16 unk3C;
@@ -160,7 +167,10 @@ struct Struct3003A50
     u8 unkD;
     u8 unkE;
     u8 unkF;
-    u8 filler10[0x6];
+    u8 filler10[0x3];
+    u8 unk13;
+    u8 unk14;
+    u8 unk15;
     u8 unk16;
     u8 unk17;
 };
@@ -220,4 +230,11 @@ struct Struct80187C8
     u16 attr2;
 };
 
+struct Struct8018DD4
+{
+    u8* unk0;
+    u8* unk4;
+    u16 unk6;
+    u16 unk8;
+};
 #endif//GUARD_STRUCTS_H

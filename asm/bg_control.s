@@ -3103,8 +3103,8 @@ _08002212:
 	bx r0
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8002224
-sub_8002224: @ 0x08002224
+	THUMB_FUNC_START GetBGControlBits
+GetBGControlBits: @ 0x08002224
 	ldr r1, _08002230
 	lsls r0, r0, #3
 	adds r1, #4
@@ -3114,8 +3114,8 @@ sub_8002224: @ 0x08002224
 	.align 2, 0
 _08002230: .4byte gBackgroundTable
 
-	THUMB_FUNC_START sub_8002234
-sub_8002234: @ 0x08002234
+	THUMB_FUNC_START GetBGPalettePtr
+GetBGPalettePtr: @ 0x08002234
 	ldr r1, _08002240
 	lsls r0, r0, #3
 	adds r0, r0, r1

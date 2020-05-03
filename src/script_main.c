@@ -12,7 +12,7 @@ extern bool32 (*gScriptCmdFuncs[0x5F])(struct ScriptContext *);
 void sub_8005408(void)
 {
     u32 i;
-    DmaCopy16(3, gTextPal, PALETTE + 0x200, sizeof(gTextPal));
+    DmaCopy16(3, gTextPal, PLTT + 0x200, sizeof(gTextPal));
 
     for (i = 0; i < ARRAY_COUNT(gUnknown_03003C00); i++)
     {
@@ -49,7 +49,7 @@ void InitScriptSection(struct ScriptContext *scriptCtx)
     }
     scriptCtx->unkE = 0;
     scriptCtx->unkF = 0;
-    if (gMain.unk4[0] != 4 || gMain.unk4[1] != 8)
+    if (gMain.process[0] != 4 || gMain.process[1] != 8)
         scriptCtx->unk13 = 0;
     scriptCtx->unk15 = 0;
     scriptCtx->unk14 = 8;

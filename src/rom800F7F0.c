@@ -220,3 +220,52 @@ void sub_800FB84(struct Struct3000840* arg0, u32 arg1)
         arg0->unk3E |= arg1 << 8;
     }
 }
+
+void sub_800FBA0(struct Struct3000840 * arg0, u32 arg1)
+{
+    if(arg0 != NULL)
+    {
+        if(arg0->unkC == 0xFF)
+        {
+        u8 * ptr1;
+            ptr1 = gUnknown_08018DD4[arg0->unkE].unk4 + arg1;
+            if(arg0->unk14 == ptr1)
+            {
+                return;
+            }
+            arg0->unk14 = ptr1;
+            arg0->unk20 = gUnknown_08018DD4[arg0->unkE].unk0;
+        }
+        else
+        {
+            if(arg0->unkC > 0xb)
+            {
+                if(arg0->unkC <= 0x10)
+                {
+                    arg0->unk14 = (u8 *)0x871FCF4 + arg1; // ! FOR THE LOVE OF GOD CAPCOM
+                    arg0->unk20 = (u8 *)0x871EBBC;
+                }
+                else
+                {
+                    if(arg0->unkC > 0x18)
+                    {
+                        return;
+                    }
+                    arg0->unk14 = (u8 *)0x8748218 + arg1;
+                    arg0->unk20 = (u8 *)0x871FDF8;
+                }
+            }
+            else
+            {
+                arg0->unk14 = (u8 *)0x8748218 + arg1;
+                arg0->unk20 = (u8 *)0x871FDF8;
+            }
+        }
+        arg0->unk0 |= 0xC0000000; 
+        arg0->unk28 = 0xFFFF;
+        arg0->unk20 += 1[(u32 *)arg0->unk14];
+        arg0->unk18 = arg0->unk20 + 4 + (*(u32 *)arg0->unk20) * 0x20;
+        arg0->unk34 = arg0->unk14+8;
+        arg0->unk30 = arg0->unk14 + *(u16 *)arg0->unk34; 
+    }
+}

@@ -1,12 +1,12 @@
 #include "global.h"
 #include "main.h"
 #include "sound_control.h"
+#include "background.h"
 
 void MoveSpritesToOAM()
 {
     DmaCopy16(3, gOamObjects, OAM, sizeof(gOamObjects));
 }
-
 
 bool32 sub_8002A68(struct Point * p, struct Point4 * cp) // some collision check
 {
@@ -176,7 +176,7 @@ void sub_8002CF0(u32 section, u32 flagId) // unused?
         sprite->attr1 = SPRITE_ATTR1_NONAFFINE(60 * i, 0, 0, 3);
         sprite->attr2 = SPRITE_ATTR2((0x100 + i * 0x20), 0, 5);
     }
-    SET_UNK4(0, 0, 1, 4);
+    SET_PROCESS(4, 1, 0, 0);
     ChangeFlag(0, flagId, TRUE);
     ChangeScriptSection(section);
     sub_800244C(1);

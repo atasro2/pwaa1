@@ -3,6 +3,7 @@
 #include "sound_control.h"
 #include "m4a.h"
 #include "ewram.h"
+#include "background.h"
 
 static void DoGameProcess();
 static void VBlankIntr();
@@ -29,10 +30,12 @@ static void (*IntrTableFunctionPtrs[])() =
     IntrDummy
 };
 
+extern void (*gIntrTable[0x10]);
+
 void CheckAButtonAndGoToClearSaveScreen()
 {
-    if ((gMain.unk4[0] == 0) && (A_BUTTON & KEY_NEW()))
-        gMain.unk4[0] = 0xE;
+    if ((gMain.process[0] == 0) && (A_BUTTON & KEY_NEW()))
+        gMain.process[0] = 0xE;
 }
 
 void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
@@ -183,7 +186,7 @@ void DoGameProcess()
         main->shakeAmountY = 0;
     }
 
-    gGameProcesses[gMain.unk4[0]](&gMain);
+    gGameProcesses[gMain.process[0]](&gMain);
 
     if (courtScroll->state != 0)
     {
@@ -195,13 +198,13 @@ void ClearRamAndInitGame()
 {
     struct Main *main = &gMain;
     struct LCDIORegisters *lcdIoRegsp = &gLCDIORegisters;
-    u32 temp = main->unk4[0] ? 1 : 0;
+    u32 temp = main->process[0] ? 1 : 0;
 
     RegisterRamReset(RESET_SIO_REGS | RESET_SOUND_REGS | RESET_REGS);
     DmaFill32(3, 0, IWRAM_START, 0x7E00);  // Clear IWRAM
     DmaFill32(3, 0, EWRAM_START, 0x40000); // Clear EWRAM
 
-    SET_UNK4(0, 0, 0, temp);
+    SET_PROCESS(temp, 0, 0, 0);
 
     RegisterRamReset(RESET_OAM | RESET_VRAM | RESET_PALETTE);
 
@@ -221,7 +224,7 @@ void ClearRamAndInitGame()
     REG_IME = TRUE;
 }
 
-void sub_80004B0() // Possibly for initating scripts
+void ResetGameState()
 {
     struct LCDIORegisters *lcdIoRegsp = &gLCDIORegisters;
     struct Main *main = &gMain;
@@ -375,12 +378,12 @@ void UpdateCourtScroll(struct CourtScroll * courtScroll) // update court scroll
     }
 }
 
-void StartHardwareBlend(u32 arg0, u32 arg1, u32 arg2, u32 arg3)
+void StartHardwareBlend(u32 mode, u32 delay, u32 bldy, u32 target)
 {
-    gMain.blendTargets = arg3;
-    gMain.blendMode = arg0;
-    gMain.blendDelay = arg1;
-    gMain.blendY = arg2;
+    gMain.blendTargets = target;
+    gMain.blendMode = mode;
+    gMain.blendDelay = delay;
+    gMain.blendY = bldy;
     gMain.blendCounter = 0;
 }
 

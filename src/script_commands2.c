@@ -44,7 +44,7 @@ bool32 Command41(struct ScriptContext * scriptCtx)
     gUnknown_03003A50.unkA = 0;
     gUnknown_03003A50.unkB = 0;
     
-    SET_UNK4(0,0,1,4);
+    SET_PROCESS(4,1,0,0);
     return 0;
 }
 
@@ -95,17 +95,17 @@ bool32 Command44(struct ScriptContext * scriptCtx)
     oam = &gOamObjects[49];
     scriptCtx->scriptPtr++;
     gMain.unk84 = 0x280;
-    SET_UNK8_AS_UNK4();
+    BACKUP_PROCESS();
     if(*scriptCtx->scriptPtr) {
         DmaCopy16(3, gUnknown_08191CA0, VRAM+0x13400, 0x1000);
         DmaCopy16(3, gUnknown_08194520, OBJ_PLTT+0xA0, 0x20);
-        SET_UNK4(0,0,0,9);
+        SET_PROCESS(9,0,0,0);
     }
     else {
         DmaCopy16(3, gUnknown_081914A0, VRAM+0x13400, 0x800);
         DmaCopy16(3, gUnknown_081924A0, VRAM+0x13C00, 0x800);
         DmaCopy16(3, gUnknown_08194540, OBJ_PLTT+0xA0, 0x20);
-        SET_UNK4(1,0,0,9);
+        SET_PROCESS(9,0,0,1);
     }
     scriptCtx->scriptPtr++;
     oam->attr0 = SPRITE_ATTR0((~16 & 255), ST_OAM_AFFINE_DOUBLE, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
@@ -185,7 +185,7 @@ bool32 Command49(struct ScriptContext *scriptCtx)
     scriptCtx->scriptPtr++;
     gMain.unk14 = 0;
     gMain.unk15 = 0;
-    SET_UNK4(0, 0, 0, 1);
+    SET_PROCESS(1, 0, 0, 0);
 
     return 0;
 }
@@ -194,13 +194,13 @@ bool32 Command4A(struct ScriptContext *scriptCtx)
 {
     scriptCtx->scriptPtr++;
     if(*scriptCtx->scriptPtr) {
-        if(gMain.unk4[1] == 8) {
+        if(gMain.process[1] == 8) {
             scriptCtx->scriptPtr++;
             return 0;
         }
     }
     else {
-        if(gMain.unk4[1] == 6) {
+        if(gMain.process[1] == 6) {
             scriptCtx->scriptPtr++;
             return 0;
         }
