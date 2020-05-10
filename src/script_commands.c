@@ -63,7 +63,7 @@ bool32 Command02(struct ScriptContext * scriptCtx)
             return 1;
         }
     }
-    if(gMain.process[0] >= 3 && gMain.process[0] <= 6)
+    if(gMain.process[GAME_PROCESS] >= 3 && gMain.process[GAME_PROCESS] <= 6)
     {
         if(scriptCtx->unk0 & 1)
             if(gJoypad.pressedKeysRaw & A_BUTTON)
@@ -138,7 +138,7 @@ bool32 Command02(struct ScriptContext * scriptCtx)
             sub_800FBA0(gUnknown_03000800.unk40, gMain.idleAnimationOffset);
             scriptCtx->unk0 |= 1;
         }
-        temp2 = gMain.process[0];
+        temp2 = gMain.process[GAME_PROCESS];
         if(temp2 != 9)
         {
             scriptCtx->unk37++;
@@ -984,7 +984,7 @@ u32 Command1C(struct ScriptContext * scriptCtx)
             gLCDIORegisters.lcd_bg1vofs = 0;
             break;
         case 2:
-            if(gMain.process[0] == 3)
+            if(gMain.process[GAME_PROCESS] == 3)
             {
                 sub_8010960(gUnknown_03000800.unk40);
                 gUnknown_03003A50.unk5 = 0;
@@ -993,27 +993,27 @@ u32 Command1C(struct ScriptContext * scriptCtx)
             sub_800244C(1);
             break;
         case 3:
-            if(gMain.process[0] == 3)
+            if(gMain.process[GAME_PROCESS] == 3)
             {
                 sub_8010960(gUnknown_03000800.unk40);
                 gUnknown_03003A50.unk5 = 0;
                 sub_800B7A8(&gUnknown_03003A50, 15);
             }
             sub_800244C(0);
-            if(gMain.process[0] == 4)
+            if(gMain.process[GAME_PROCESS] == 4)
             {
                 gUnknown_03003A50.unkE = 0;
-                if(gMain.process[1] == 6)
+                if(gMain.process[GAME_SUBPROCESS] == 6)
                 {
                     sub_800B7A8(&gUnknown_03003A50, 1);
                 }
-                if(gMain.process[1] == 8)
+                if(gMain.process[GAME_SUBPROCESS] == 8)
                 {
                     sub_800B7A8(&gUnknown_03003A50, 4);
                     gUnknown_03003A50.unkC = 4;
                     gUnknown_03003A50.unkD = 0xE0;
                 }
-                if(gMain.process[1] == 9)
+                if(gMain.process[GAME_SUBPROCESS] == 9)
                 {
                     sub_800B7A8(&gUnknown_03003A50, 8);
                 }
@@ -1196,7 +1196,7 @@ bool32 Command28(struct ScriptContext * scriptCtx)
     }
     else
     {
-        gMain.process[1]++;
+        gMain.process[GAME_SUBPROCESS]++;
     }
     scriptCtx->scriptPtr++;
     return 0;
@@ -1535,7 +1535,7 @@ bool32 Command37(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     temp = *scriptCtx->scriptPtr;
     scriptCtx->scriptPtr++;
-    gUnknown_030028A0.talkData[temp].unk3 = *scriptCtx->scriptPtr;
+    gTalkData[temp].unk3 = *scriptCtx->scriptPtr;
     scriptCtx->scriptPtr++;
     return 0;
 }

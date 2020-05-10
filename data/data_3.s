@@ -23,7 +23,7 @@ gUnknown_0811DAB4:
 gGameProcesses: @ there was a debug menu in here at one point
     .4byte CapcomLogoProcess
     .4byte TitleScreenProcess
-    .4byte GameProcess02 @ according to unity it's GameOver
+    .4byte GameOverScreenProcess
     .4byte GameProcess03 @ trial
     .4byte GameProcess04 @ investigation
     .4byte GameProcess05 @ testimony
@@ -357,7 +357,7 @@ gUnknown_0811DFFC:
     .4byte sub_801102C
 
     .global gUnknown_0811E014
-gUnknown_0811E014:
+gUnknown_0811E014: @ padding 
     .space 0x61FEC, 0xFF
 
     .global gUnknown_08180000

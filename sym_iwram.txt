@@ -5,7 +5,7 @@
 . = 0x00002000; gBG1MapBuffer = .;
 . = 0x00002800; gIntrTable = .;
 . = 0x00002840; gUnknown_03002840 = .;
-. = 0x000028A0; gUnknown_030028A0 = .;
+. = 0x000028A0; gTalkData = .;
 . = 0x00002B20; gOamObjects = .;
 . = 0x00002F20; gBG0MapBuffer = .;
 . = 0x00003720; gJoypad = .;

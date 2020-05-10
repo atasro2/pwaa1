@@ -34,8 +34,8 @@ extern void (*gIntrTable[0x10]);
 
 void CheckAButtonAndGoToClearSaveScreen()
 {
-    if ((gMain.process[0] == 0) && (A_BUTTON & KEY_NEW()))
-        gMain.process[0] = 0xE;
+    if ((gMain.process[GAME_PROCESS] == 0) && (A_BUTTON & KEY_NEW()))
+        gMain.process[GAME_PROCESS] = 0xE;
 }
 
 void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
@@ -186,7 +186,7 @@ void DoGameProcess()
         main->shakeAmountY = 0;
     }
 
-    gGameProcesses[gMain.process[0]](&gMain);
+    gGameProcesses[gMain.process[GAME_PROCESS]](&gMain);
 
     if (courtScroll->state != 0)
     {
@@ -198,7 +198,7 @@ void ClearRamAndInitGame()
 {
     struct Main *main = &gMain;
     struct LCDIORegisters *lcdIoRegsp = &gLCDIORegisters;
-    u32 temp = main->process[0] ? 1 : 0;
+    u32 temp = main->process[GAME_PROCESS] ? 1 : 0;
 
     RegisterRamReset(RESET_SIO_REGS | RESET_SOUND_REGS | RESET_REGS);
     DmaFill32(3, 0, IWRAM_START, 0x7E00);  // Clear IWRAM
@@ -250,7 +250,7 @@ void ResetGameState()
     HideAllSprites();
     InitBGs();
     sub_800F804(); //init animation system?
-    sub_800F3C4();
+    ResetSoundControl();
     sub_8005408();
     sub_8000738(0x30, 0xF);
     m4aMPlayAllStop();

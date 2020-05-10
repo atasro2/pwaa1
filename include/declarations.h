@@ -6,6 +6,8 @@
 //DATA
 extern const u16 gUnknown_08014D82[]; // GS1_gameover_message_data_table
 extern const u8 gUnknown_08013B70[0x400];
+extern u8 gUnknown_080189A4[];
+extern u8 gSaveVersion[0x30];
 extern void (*gGameProcesses[15])(struct Main *);
 extern u32 * gFlagPtrs[3]; 
 extern s16 gSineTable[256+64];
@@ -22,25 +24,30 @@ extern struct Struct8018DD4 gUnknown_08018DD4[];
 
 // 0x180000 onwards because capcom // GFX basically
 // maybe change to defines
+// keep both actually it won't matter a whole lot
 extern u8 gUnknown_08180000[0x200]; // palette 
 extern u8 gUnknown_08180200[]; // compressed tile data goes with previous palette probably
 extern u8 gUnknown_08185D20[];
 
 extern u8 gUnknown_08190AC0[]; // some tiles
+extern u8 gUnknown_081911C0[];
 extern u8 gUnknown_081914A0[];
 extern u8 gUnknown_08191CA0[];
 extern u8 gUnknown_081924A0[];
+extern u8 gUnknown_08192CA0[];
 extern u8 gUnknown_08193CA0[];
 extern u8 gUnknown_081942C0[]; // probably 8bpp palette
-extern u8 gUnknown_08194520[]; // 4bpp palette
-extern u8 gUnknown_08194540[]; // 4bpp palette
+extern u8 gUnknown_08194500[0x20]; // 4bpp palette
+extern u8 gUnknown_08194520[0x20]; // 4bpp palette
+extern u8 gUnknown_08194540[0x20]; // 4bpp palette
+extern u8 gUnknown_08194560[0x20]; // 4bpp palette
 extern u8 gUnknown_08194580[]; // sprite palette
 
 extern u8 gUnknown_0824696C[0x20]; // palette
 
-extern u8 gUnknown_08360834[]; // 4bpp palette
+extern u8 gUnknown_08360834[0x20]; // 4bpp palette
 extern u16 gUnknown_08360854[]; // palette?
-extern u8 gUnknown_08362524[]; // 4bpp palette
+extern u8 gUnknown_08362524[0x20]; // 4bpp palette
 extern u16 gUnknown_08362544[]; // palette?
 
 extern u8 gUnknown_0871FCF4[];
@@ -64,14 +71,18 @@ void sub_800FA60(struct Struct3000840* arg0);
 void sub_800FA74(struct Struct3000840* arg0, bool32 arg1);
 void sub_800FB64(struct Struct3000840* arg0, bool32 arg1);
 void sub_800FB84(struct Struct3000840* arg0, u32 arg1);
-//ASMFUNCTIONS
 // rom8007A0C
-extern u32 sub_8008100(); // save function
+u32 LoadSaveData();
+void CalculateSaveChecksum();
+u32 CheckSaveChecksum();
+
+//ASMFUNCTIONS
+
 // UNSORTED
 extern void sub_8010E14(s16);
 extern void sub_800EEFC(struct Main *);
 extern void sub_8010C4C(u8);
-extern void sub_800F3C4();
+extern void ResetSoundControl();
 extern void sub_8010048(u32, u32, u32, u32);
 extern void sub_800B7A8(struct Struct3003A50 *, u32);
 extern void sub_800FA74(struct Struct3000840 *, u32);
@@ -94,7 +105,7 @@ extern u16 gBG3MapBuffer[0x400]; // BG 3 Map buffer
 extern u16 gBG3MapBufferCopy[0x400]; // BG 3 Map buffer copy TODO: this 1 array is keeping me away from naming the other ones..  BG Pan related?
 extern u16 gBG1MapBuffer[0x400]; // BG 1 Map buffer
 extern struct Struct3002840 gUnknown_03002840;
-extern struct Struct30028A0 gUnknown_030028A0;
+extern struct TalkData gTalkData[32];
 extern struct OamAttrs gOamObjects[128];
 extern u16 gBG0MapBuffer[0x400]; // BG 0 Map buffer
 extern struct Struct3003930 gUnknown_03003930[8];

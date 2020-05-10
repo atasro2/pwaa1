@@ -17,7 +17,7 @@ struct Main
 {
     u32 unk0; // System_timer? unused in unity
     u8 process[4];
-    u8 unk8[4];
+    u8 processCopy[4];
     u8 vblankWaitCounter; /* + 0xC */
     u8 unkD;
     s8 shakeAmountX; /* + 0xE */ // Quake_x 
@@ -35,9 +35,9 @@ struct Main
     u8 unk1D;
     u8 filler1E[0x1];
     u8 unk1F;
-    s16 unk20; // fade vol adittion? // bgm_fade_time 
-    s16 unk22; // bgm volume // bgm_vol
-    u16 rngSeed; /* + 0x24 */ // Random_seed
+    s16 bgmFadeAmount; /* + 0x20 */
+    s16 bgmVolume; /* + 0x22 */
+    u16 rngSeed; /* + 0x24 */
     u8 unk26;
     u8 unk27;
     u16 currentBG; /* + 0x28 */ // kinda wrong but not wrong??
@@ -70,9 +70,9 @@ struct Main
     s8 unk8F; // rest
     u16 talkingAnimationOffset; /* + 0x90 */
     u16 idleAnimationOffset; /* + 0x92 */
-    u32 unk94[8]; // sce_flag
-    u32 unkB4; // status_flag
-    u8 fillerB8[0x20]; // talk_end_flag?
+    u32 unk94[8]; // sce_flag matches debug menu
+    u32 unkB4; // status_flag matches debug menu
+    u8 fillerB8[0x20];
     u8 mapData[24][8]; /* + 0xD8 */ // Map_data //TODO: first size might be wrong
     u32 unk198;
     u32 unk19C;
@@ -131,7 +131,7 @@ extern struct LCDIORegisters gLCDIORegisters;
 
 #define SET_PROCESS_PTR(no_0, no_1, no_2, no_3, main) (*(u32*)main->process = ((no_0) | ((no_1) << 8) | ((no_2) << 16) | ((no_3) << 24)))
 #define SET_PROCESS(no_0, no_1, no_2, no_3) (*(u32*)gMain.process = ((no_0) | ((no_1) << 8) | ((no_2) << 16) | ((no_3) << 24)))
-#define BACKUP_PROCESS() (*(u32*)gMain.unk8 = *(u32*)gMain.process)
+#define BACKUP_PROCESS() (*(u32*)gMain.processCopy = *(u32*)gMain.process)
 
 void ClearRamAndInitGame();
 void HideAllSprites();

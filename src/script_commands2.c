@@ -194,13 +194,13 @@ bool32 Command4A(struct ScriptContext *scriptCtx)
 {
     scriptCtx->scriptPtr++;
     if(*scriptCtx->scriptPtr) {
-        if(gMain.process[1] == 8) {
+        if(gMain.process[GAME_SUBPROCESS] == 8) {
             scriptCtx->scriptPtr++;
             return 0;
         }
     }
     else {
-        if(gMain.process[1] == 6) {
+        if(gMain.process[GAME_SUBPROCESS] == 6) {
             scriptCtx->scriptPtr++;
             return 0;
         }

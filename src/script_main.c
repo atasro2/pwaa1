@@ -49,7 +49,7 @@ void InitScriptSection(struct ScriptContext *scriptCtx)
     }
     scriptCtx->unkE = 0;
     scriptCtx->unkF = 0;
-    if (gMain.process[0] != 4 || gMain.process[1] != 8)
+    if (gMain.process[GAME_PROCESS] != 4 || gMain.process[GAME_SUBPROCESS] != 8)
         scriptCtx->unk13 = 0;
     scriptCtx->unk15 = 0;
     scriptCtx->unk14 = 8;
@@ -107,14 +107,14 @@ void sub_80055B0(struct ScriptContext * scriptCxt)
     if(scriptCxt->unk13 && (gJoypad.pressedKeysRaw & A_BUTTON || gJoypad.heldKeysRaw & B_BUTTON)) // text skip
         scriptCxt->unk13 = 2;
     
-    loop:
+    continueScript:
     scriptCxt->unkC = *scriptCxt->scriptPtr;
     if(scriptCxt->unkC < 0x80)
     {
         if(gScriptCmdFuncs[scriptCxt->unkC](scriptCxt))
             return;
         else
-            goto loop;
+            goto continueScript;
     }
     if(scriptCxt->unk13 > 1)
     {
@@ -173,7 +173,7 @@ void sub_80055B0(struct ScriptContext * scriptCxt)
         }
         if(scriptCxt->textSpeed == 0)
         {
-            goto loop;
+            goto continueScript;
         }
         else
         {
@@ -185,34 +185,37 @@ void sub_80055B0(struct ScriptContext * scriptCxt)
 #ifdef NONMATCHING
 void PutCharInTextbox(u32 arg0, u32 y, u32 x)
 {
-    u8 * charTiles = gCharSet[arg0];
+    u8 * charTiles;
+    u8 * ptr;
+    u32 half1;
+    u32 half2; 
     u32 i;
-    u32 colorT4;
+    u32 colorIdx;
+    u32 temp;
+    u32 temp2;
     u32 idx;
+    u32 val;
+    charTiles = gCharSet[arg0];
     // gUnknown_030039D0 == text color tile buffer 
     if (gScriptContext.textColor != 0) // if colored 
     {
-        u8 * ptr;
-        u32 temp;
-        u32 color1;
         DmaCopy16(3, charTiles, gUnknown_030039D0, sizeof(gUnknown_030039D0))
         ptr = gUnknown_030039D0;
-        color1 = (gScriptContext.textColor * 3); // does some palette stuff probably
-
+        colorIdx = (gScriptContext.textColor * 3); // does some palette stuff probably
         for(i = 0; i < ARRAY_COUNT(gUnknown_030039D0); i++) // add color to all tiles
         {
-            u32 val = *ptr;
-            u32 half1 = val & 0xF;
-            u32 half2 = val & 0xF0;
+            val = *ptr;
+            half1 = (u8)val & 0xF;
+            half2 = (u8)val & 0xF0;
             if(half1)
             {
-                half1 += color1;
+                half1 += colorIdx;
             }
             if(half2)
             {
-                half2 += color1 << 4;
+                half2 += colorIdx << 4;
             }
-            *ptr++ = half1 | half2;
+            *ptr++ = (u8)half1 | (u8)half2;
         }
 
         temp = x;
@@ -228,11 +231,10 @@ void PutCharInTextbox(u32 arg0, u32 y, u32 x)
             temp += 0x80 * (y * 16);
         }
         DmaCopy16(3, gUnknown_030039D0, temp, 0x80);
-        colorT4 = x * 4;
     }
     else 
     {
-        u32 temp = x;
+        temp = x;
         temp *= 0x80; 
         temp += (VRAM + 0x10000);
         // fuck this
@@ -245,7 +247,6 @@ void PutCharInTextbox(u32 arg0, u32 y, u32 x)
             temp += 0x80 * (y * 16);
         }
         DmaCopy16(3, charTiles, temp, 0x80);
-        colorT4 = x * 4;
     }
     // matches completely after this other than small regalloc stuff
     if(gScriptContext.unk0 & 4)
@@ -253,14 +254,14 @@ void PutCharInTextbox(u32 arg0, u32 y, u32 x)
         idx = x + 2 * 0x10;
         gUnknown_03003C00[idx].unk4 = gScriptContext.unk12 * 14; 
         gUnknown_03003C00[idx].unk6 = (y - 2) * 20;
-        gUnknown_03003C00[idx].unk2 = 2 * 0x40 + colorT4;
+        gUnknown_03003C00[idx].unk2 = 2 * 0x40 + x * 4;
     }
     else
     {
         idx = x + y * 0x10;
         gUnknown_03003C00[idx].unk4 = x * 14; 
         gUnknown_03003C00[idx].unk6 = y * 18;
-        gUnknown_03003C00[idx].unk2 = y * 0x40 + colorT4;
+        gUnknown_03003C00[idx].unk2 = y * 0x40 + x * 4;
     }
     gUnknown_03003C00[idx].unk2 += 0x400;
     gUnknown_03003C00[idx].unk0 = arg0 | 0x8000;

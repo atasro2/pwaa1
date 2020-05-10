@@ -687,8 +687,8 @@ gUnknown_08018870:
 gUnknown_080189A4:
     .incbin "baserom.gba", 0x000189A4, 0x98
 
-    .global gUnknown_08018A3C
-gUnknown_08018A3C:
+    .global gSaveVersion
+gSaveVersion:
     .ascii "2001 CAPCOM GBA GYAKUTEN-SAIBAN 06/15 Ver 1.000-"
 
     .global gUnknown_08018A6C

@@ -104,14 +104,6 @@ struct ScriptContext
     u8 * unk3C;
 };
 
-struct SaveData
-{
-    char saveDataVer[0x30];
-    u32 magic;         /* + 0x30 */
-    u8 fill34[0x299B]; /*  other structs maybe? */
-    u8 unk29D0;       /**/
-};
-
 struct Struct3002840
 {
     u8 filler0[0x10];
@@ -144,11 +136,6 @@ struct TalkData
     u8 unk2;
     u8 unk3;
     u8 filler4[0x10];
-};
-
-struct Struct30028A0
-{
-    struct TalkData talkData[32];
 };
 
 struct Struct3003A50
@@ -185,13 +172,18 @@ struct Struct3003AB0
     u8 filler6[0x2];
 };
 
+struct Struct3003AC0
+{
+    u8 filler0[0x140];
+};
+
 struct Struct3003C00
 {
     u16 unk0;
     u16 unk2;
     u16 unk4;
     u16 unk6;
-    u16 unk8;
+    u8 characterColor;
 };
 
 struct CourtScroll
@@ -201,6 +193,37 @@ struct CourtScroll
     u8 filler6[0x6];
     s16 unkC;
     s16 unkE;
+};
+
+struct Struct2002650
+{
+    u8 filler0[0x8];
+    u8 * unk8;
+    u8 fillerC[0x8];
+    u32 unk14;
+    u8 * unk18;
+};
+
+struct SaveData
+{
+    char saveDataVer[0x30]; /* + 0x0 */
+    u32 magic;         /* + 0x30 */
+    struct Main main; /* + 0x34 */
+    struct LCDIORegisters ioRegs; /* + 0x1D4 */
+    struct ScriptContext scriptCtx; /* + 0x228 */
+    struct Struct3002840 iwramStruct2840; /* + 0x268 */
+    struct CourtScroll courtScroll;  /* + 0x2C0 */
+    struct Struct3003AB0 iwramStruct3AB0; /* + 0x2D0 */
+    struct Struct3003A50 iwramStruct3A50; /* + 0x2D8 */
+    struct Struct3003AC0 iwramStruct3AC0; /* + 0x2F0 */
+    struct TalkData talkData[32]; /* + 0x430 */
+    struct Struct3003930 iwramStruct3930[8]; /* + 0x6B0 */
+    struct OamAttrs oam[128]; /* + 0x750 */
+    struct Struct3003C00 iwramStruct3C00[0x40]; /* + 0xB50 */
+    u16 bg0Map[0x400]; /* + 0xE50 */
+    u16 bg1Map[0x400]; /* + 0x1650 */
+    u16 bg2Map[0x400]; /* + 0x1E50 */
+    struct Struct2002650 ewramStruct2650[0x20];
 };
 
 struct Point4 // shamelessly stolen from unity
@@ -237,4 +260,5 @@ struct Struct8018DD4
     u16 unk6;
     u16 unk8;
 };
+
 #endif//GUARD_STRUCTS_H
