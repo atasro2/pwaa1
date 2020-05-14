@@ -89,7 +89,7 @@ void TitleScreenProcess(struct Main *main)
         lcdIoRegsp->lcd_dispcnt = DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG0_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON;
         gUnknown_03003A50.unk15 = 0;
         gUnknown_03003A50.unk14 = 2;
-        main->unk13 = 0;
+        main->selectedButton = 0;
         main->unk19C |= 4;
         main->unk16 = 9;
         StartHardwareBlend(1, 1, 1, 0x1F);
@@ -106,7 +106,7 @@ void TitleScreenProcess(struct Main *main)
         {
             gUnknown_03003A50.unk15 = 0;
             gUnknown_03003A50.unk14 = 2;
-            main->unk13 ^= 1; // selected button on title screen
+            main->selectedButton ^= 1; // selected button on title screen
             PlaySE(0x2A);
         }
         gUnknown_03003A50.unk15++;
@@ -119,7 +119,7 @@ void TitleScreenProcess(struct Main *main)
         {
             gUnknown_03003A50.unk14 = 2;
         }
-        if(main->unk13 == 0)
+        if(main->selectedButton == 0)
         {
             oam = &gOamObjects[49];
             oam->attr2 = SPRITE_ATTR2(0x20, 1, gUnknown_03003A50.unk14);
@@ -152,7 +152,7 @@ void TitleScreenProcess(struct Main *main)
         main->process[GAME_PROCESSUNK3]++;
         if(main->process[GAME_PROCESSUNK3] >= 40)
         {
-            if(main->unk13 == 0)
+            if(main->selectedButton == 0)
             {
                 SET_PROCESS_PTR(12, 0, 0, 0, main);
             }
@@ -161,7 +161,7 @@ void TitleScreenProcess(struct Main *main)
                 SET_PROCESS_PTR(13, 0, 0, 0, main);
             }
         }
-        if(main->unk13 == 0)
+        if(main->selectedButton == 0)
         {
             main->process[GAME_PROCESSUNK2]++;
             if(main->process[GAME_PROCESSUNK2] > 4)
@@ -681,4 +681,127 @@ bool32 CheckSaveChecksum()
         return TRUE;
     }
     return FALSE;
+}
+
+void ClearSaveProcess(struct Main *main)
+{
+    struct OamAttrs * oam;
+    u32 i;
+    switch (main->process[GAME_SUBPROCESS])
+    {
+    case 0:
+        DmaCopy16(3, gUnknown_08185D20, VRAM + 0x3800, 0x800);
+        DmaCopy16(3, GetBGPalettePtr(0), PLTT, 0x200);
+        DmaCopy16(3, gUnknown_08186540, VRAM, 0x1000);
+        DmaCopy16(3, gUnknown_081964A8, VRAM + 0x13C00, 0x800);
+        DmaCopy16(3, gUnknown_081FD92C, PLTT + 0x320, 0x40);
+        DmaCopy16(3, gTextPal, PLTT + 0x200, 0x20);
+        gLCDIORegisters.lcd_bg0cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(28) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
+        gLCDIORegisters.lcd_bg1cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(29) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
+        gLCDIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
+        i = BGCNT_PRIORITY(3) | BGCNT_CHARBASE(1) | BGCNT_SCREENBASE(31) | BGCNT_MOSAIC | BGCNT_256COLOR | BGCNT_WRAP | BGCNT_TXT256x256; // scrub scrub CC!!11
+        gLCDIORegisters.lcd_bg3cnt = i;
+        sub_8001830(0x43);
+        sub_8001A9C(0x43);
+        for(i = 0; i < 0x400; i++)
+        {
+            gBG2MapBuffer[i] = 0;
+        }
+        sub_80024C8(6, 8);
+        gLCDIORegisters.lcd_dispcnt = DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON;
+        main->unk16 = 0xC;
+        gLCDIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
+        gLCDIORegisters.lcd_bldy = 0x10;
+        main->selectedButton = 1;
+        StartHardwareBlend(1, 1, 1, 0x1F);
+        main->process[GAME_SUBPROCESS]++;
+        break;
+    case 1:
+        if(main->blendMode != 0)
+        {
+            break;
+        }
+        sub_8002878(&gUnknown_03002840);
+        if(gUnknown_03002840.unk1 != 0)
+        {
+            break;
+        }
+        main->unk14 = 1;
+        main->unk15 = 1;
+        gScriptContext.currentSection = 0xFFFF;
+        ChangeScriptSection(4);
+        gScriptContext.textXOffset = 9;
+        gScriptContext.textYOffset = 52;
+        oam = &gOamObjects[40];
+        oam->attr0 = SPRITE_ATTR0(96, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_BLEND, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
+        oam->attr1 = SPRITE_ATTR1_NONAFFINE(48, FALSE, FALSE, 3);
+        oam->attr2 = SPRITE_ATTR2(0x1E0, 0, 10);
+        oam++;
+        oam->attr0 = SPRITE_ATTR0(96, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_BLEND, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
+        oam->attr1 = SPRITE_ATTR1_NONAFFINE(128, FALSE, FALSE, 3);
+        oam->attr2 = SPRITE_ATTR2(0x200, 0, 10); 
+        main->blendCounter = 0;
+        main->blendDelay = 1;
+        main->blendY = 0x10;
+        gLCDIORegisters.lcd_bldcnt = BLDCNT_TGT2_BG3 | BLDCNT_EFFECT_BLEND;
+        gLCDIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0, main->blendY);
+        main->process[GAME_SUBPROCESS]++;
+        break;
+    case 2:
+        if(gScriptContext.unk0 & 0x8)
+        {
+            if(gJoypad.pressedKeysRaw & (DPAD_RIGHT|DPAD_LEFT))
+            {
+                PlaySE(0x2A);
+                main->selectedButton ^= 1;
+            }
+            else if(gJoypad.pressedKeysRaw & A_BUTTON)
+            {
+                PlaySE(0x2B);
+                StartHardwareBlend(2, 1, 1, 0x1F);
+                main->unk16 = 0;
+                main->process[GAME_SUBPROCESS]++;
+            }
+        }
+        oam = &gOamObjects[40];
+        if(main->selectedButton == 0)
+        {
+            oam->attr2 = SPRITE_ATTR2(0x1E0, 0, 9);
+            oam++;
+            oam->attr2 = SPRITE_ATTR2(0x200, 0, 10);
+        }
+        else
+        {
+            oam->attr2 = SPRITE_ATTR2(0x1E0, 0, 10);
+            oam++;
+            oam->attr2 = SPRITE_ATTR2(0x200, 0, 9);
+        }
+        if(main->process[GAME_SUBPROCESS] == 2)
+        {
+            if(main->blendY > 0)
+            {
+                main->blendCounter++;
+                if(main->blendCounter >= main->blendDelay)
+                {
+                    main->blendCounter = 0;
+                    main->blendY--;
+                }
+                gLCDIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0x10-main->blendY, main->blendY);
+            }
+        }
+        break;
+    case 3:
+        if(main->blendMode == 0)
+        {
+            if(main->selectedButton == 0)
+            {
+                DmaFill32(3, 0, &gSaveDataBuffer, sizeof(gSaveDataBuffer));
+                WriteSramEx((void*)&gSaveDataBuffer, SRAM_START, sizeof(gSaveDataBuffer));
+            }
+            SET_PROCESS_PTR(0, 0, 0, 0, main);
+        }
+        break;
+    default:
+        break;
+    }
 }

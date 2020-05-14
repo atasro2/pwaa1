@@ -1,4 +1,4 @@
-	.section .data
+	.section .rodata
     .include "asm/macros.inc"
 
     .global gUnknown_08013B58
@@ -1641,5 +1641,3 @@ gUnknown_080194CA:
     @ SOUND_DATA.s 
 
     @ SOUND_DATA2.s
-
-

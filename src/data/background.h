@@ -112,7 +112,7 @@ extern u8 gUnknown_0841B0F4[];
 extern u8 gUnknown_0841BD7C[];
 extern u8 gUnknown_0841EFC4[];
 
-struct Background gBackgroundTable[] =
+const struct Background gBackgroundTable[] =
 {
 	{
 		.bgData = gUnknown_08248C4C,

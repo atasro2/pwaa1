@@ -1,6 +1,7 @@
 #ifndef GUARD_AGB_SRAM_H
 #define GUARD_AGB_SRAM_H
 
+#define SRAM_RETRY_MAX 3
 #define SRAM_START ( ( (void*)0x0E000000 ) )
 
 void ReadSram(const u8 *src, u8 *dst, u32 size);

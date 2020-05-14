@@ -64,37 +64,37 @@ struct ScriptContext
 {
     u16 unk0; // message status
     u16 waitTimer; // wait timer
-    u16 * scriptPtr; /* +4 */
-    u16 * scriptPtr2; /* +8 */
-    u16 unkC;
-    u8 unkE;
-    u8 unkF;
-    u8 unk10;
-    u8 unk11;
-    u8 unk12;
+    u16 * scriptPtr; /* +0x4 */
+    u16 * scriptPtr2; /* +0x8 */
+    u16 currentToken; /* +0xC */
+    u8 textX; /* +0xE */
+    u8 textY; /* +0xF */
+    u8 fullscreenCharCount; /* +0x10 */
+    u8 fullscreenTextY; /* +0x11 */
+    u8 fullscreenTextX; /* +0x12 */
     u8 unk13;
     u8 unk14;
     u8 unk15;
-    u8 unk16;
-    u8 unk17;
-    u16 unk18;
-    u16 unk1A;
-    u16 unk1C;
+    u8 soundCueSkip; /* +0x16 */
+    u8 currentSoundCue; /* +0x17 */
+    u16 textXOffset; /* +0x18 */
+    u16 textYOffset; /* +0x1A */
+    u16 scriptHeaderSize; /* +0x1C */
     u16 currentSection; /* +0x1E */
     u16 nextSection; /* +0x20 */
     u16 previousSection; /* +0x22 */
     u8 textColor; /* +0x24 */
     u8 textSpeed; /* +0x25 */
     u8 unk26;
-    u8 unk27;
+    u8 textDelayTimer; /* +0x27 */
     u16 unk28;
     u16 unk2A;
-    u16 unk2C;
-    u8 unk2E;
+    u16 holdItSection; /* +0x2C */
+    u8 holdItFlag; /* +0x2E */
     u8 filler2F[0x3];
     u8 unk32;
     u8 unk33;
-    u8 unk34;
+    u8 textboxNameId;
     u8 unk35;
     u8 unk36;
     u8 unk37;
@@ -106,7 +106,9 @@ struct ScriptContext
 
 struct Struct3002840
 {
-    u8 filler0[0x10];
+    u8 unk0;
+    s8 unk1;
+    u8 filler2[0xE];
     u8 unk10;
     u8 unk11;
     u8 filler12[0x6];
@@ -177,13 +179,13 @@ struct Struct3003AC0
     u8 filler0[0x140];
 };
 
-struct Struct3003C00
+struct TextBoxCharacter
 {
-    u16 unk0;
-    u16 unk2;
-    u16 unk4;
-    u16 unk6;
-    u8 characterColor;
+    u16 state;
+    u16 objVramOffset;
+    u16 x;
+    u16 y;
+    u8 color;
 };
 
 struct CourtScroll
@@ -219,7 +221,7 @@ struct SaveData
     struct TalkData talkData[32]; /* + 0x430 */
     struct Struct3003930 iwramStruct3930[8]; /* + 0x6B0 */
     struct OamAttrs oam[128]; /* + 0x750 */
-    struct Struct3003C00 iwramStruct3C00[0x40]; /* + 0xB50 */
+    struct TextBoxCharacter iwramStruct3C00[0x40]; /* + 0xB50 */
     u16 bg0Map[0x400]; /* + 0xE50 */
     u16 bg1Map[0x400]; /* + 0x1650 */
     u16 bg2Map[0x400]; /* + 0x1E50 */

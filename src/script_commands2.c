@@ -6,7 +6,8 @@
 u32 sub_8007554(u32 a0) // GetExplCharWorkIndexById
 {
     u32 i = 0;
-    do {
+    do 
+    {
         if (gUnknown_03003930[i].id == a0)
             return i;
         i++;
@@ -53,11 +54,11 @@ bool32 Command42(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     if(*scriptCtx->scriptPtr)
     {
-        gMain.unk198 &= ~4;
+        gMain.soundFlags &= ~SOUND_FLAG_DISABLE_CUE;
     }
     else
     {
-        gMain.unk198 |= 4;
+        gMain.soundFlags |= SOUND_FLAG_DISABLE_CUE;
     }
     scriptCtx->scriptPtr++;
     return 0;
@@ -71,12 +72,12 @@ bool32 Command43(struct ScriptContext * scriptCtx)
     if(*scriptCtx->scriptPtr)
     {
         gUnknown_03003AB0.unk4 = 0xF0;
-        gMain.unkB4 |= 0x400;
+        gMain.gameStateFlags |= 0x400;
     }
     else
     {
         gUnknown_03003AB0.unk4 = 0xF0;
-        gMain.unkB4 &= ~0x400;
+        gMain.gameStateFlags &= ~0x400;
         oam = &gOamObjects[35];
         for(i = 0; i < 5; i++)
 	    {
@@ -96,12 +97,14 @@ bool32 Command44(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     gMain.unk84 = 0x280;
     BACKUP_PROCESS();
-    if(*scriptCtx->scriptPtr) {
+    if(*scriptCtx->scriptPtr) 
+    {
         DmaCopy16(3, gUnknown_08191CA0, VRAM+0x13400, 0x1000);
         DmaCopy16(3, gUnknown_08194520, OBJ_PLTT+0xA0, 0x20);
         SET_PROCESS(9,0,0,0);
     }
-    else {
+    else 
+    {
         DmaCopy16(3, gUnknown_081914A0, VRAM+0x13400, 0x800);
         DmaCopy16(3, gUnknown_081924A0, VRAM+0x13C00, 0x800);
         DmaCopy16(3, gUnknown_08194540, OBJ_PLTT+0xA0, 0x20);
@@ -122,18 +125,22 @@ bool32 Command46(struct ScriptContext * scriptCtx)
     u8 *r6;
     u16 *r3;
     scriptCtx->scriptPtr++;
-    if(*scriptCtx->scriptPtr) {
-        gMain.unk3C = -0xE;
+    if(*scriptCtx->scriptPtr) 
+    {
+        gMain.horizontolBGScrollSpeed = -0xE;
         r6 = gUnknown_08362524;
         r3 = gUnknown_08362544;
     }
-    else {
-        gMain.unk3C = 0xE;
+    else 
+    {
+        gMain.horizontolBGScrollSpeed = 0xE;
         r6 = gUnknown_08360834;
         r3 = gUnknown_08360854;
     }
-    for(i = 0; i < 20; i++) {
-        for(j = 0; j < 30; j++, r3++) {
+    for(i = 0; i < 20; i++) 
+    {
+        for(j = 0; j < 30; j++, r3++) 
+        {
             gBG2MapBuffer[GET_MAP_TILE_INDEX(i, j, 0, 1)] = *r3 + 0x80;
         }
     }
@@ -148,12 +155,12 @@ bool32 Command46(struct ScriptContext * scriptCtx)
 
 bool32 Command47(struct ScriptContext *scriptCtx)
 {
-    u16 temp, temp2;
+    u16 volume, fadeTime;
     scriptCtx->scriptPtr++;
-    temp = *scriptCtx->scriptPtr;
+    volume = *scriptCtx->scriptPtr;
     scriptCtx->scriptPtr++;
-    temp2 = *scriptCtx->scriptPtr;
-    sub_800F71C(temp, temp2);
+    fadeTime = *scriptCtx->scriptPtr;
+    ChangeBGMVolume(volume, fadeTime);
 
     scriptCtx->scriptPtr++;
 
@@ -163,17 +170,19 @@ bool32 Command47(struct ScriptContext *scriptCtx)
 bool32 Command48(struct ScriptContext *scriptCtx)
 {
     scriptCtx->scriptPtr++;
-    if(*scriptCtx->scriptPtr == 0xFFFF) {
+    if(*scriptCtx->scriptPtr == 0xFFFF) 
+    {
         gLCDIORegisters.lcd_dispcnt |= DISPCNT_BG1_ON;
-        scriptCtx->unk18 = 9;
-        scriptCtx->unk1A = 0x74;
+        scriptCtx->textXOffset = 9;
+        scriptCtx->textYOffset = DISPLAY_HEIGHT-44;
         scriptCtx->scriptPtr+=2;
     }
-    else {
+    else 
+    {
         gLCDIORegisters.lcd_dispcnt &= ~DISPCNT_BG1_ON;
-        scriptCtx->unk18 = *scriptCtx->scriptPtr;
+        scriptCtx->textXOffset = *scriptCtx->scriptPtr;
         scriptCtx->scriptPtr++;
-        scriptCtx->unk1A = *scriptCtx->scriptPtr;
+        scriptCtx->textYOffset = *scriptCtx->scriptPtr;
         scriptCtx->scriptPtr++;
     }
 
@@ -193,14 +202,18 @@ bool32 Command49(struct ScriptContext *scriptCtx)
 bool32 Command4A(struct ScriptContext *scriptCtx)
 {
     scriptCtx->scriptPtr++;
-    if(*scriptCtx->scriptPtr) {
-        if(gMain.process[GAME_SUBPROCESS] == 8) {
+    if(*scriptCtx->scriptPtr) 
+    {
+        if(gMain.process[GAME_SUBPROCESS] == 8) 
+        {
             scriptCtx->scriptPtr++;
             return 0;
         }
     }
-    else {
-        if(gMain.process[GAME_SUBPROCESS] == 6) {
+    else 
+    {
+        if(gMain.process[GAME_SUBPROCESS] == 6) 
+        {
             scriptCtx->scriptPtr++;
             return 0;
         }
@@ -215,7 +228,8 @@ bool32 Command4B(struct ScriptContext *scriptCtx)
     u32 r2;
     scriptCtx->scriptPtr++;
     res = sub_8007554(*scriptCtx->scriptPtr >> 8);
-    if(res != 0xFF) {
+    if(res != 0xFF) 
+    {
         r2 = (*scriptCtx->scriptPtr & 3) << 12;
         // this clears existing hflip/vflip and sets r2 as new flips
         // the current macros dont allow easily setting this
@@ -229,7 +243,8 @@ bool32 Command4B(struct ScriptContext *scriptCtx)
 
 bool32 Command4C(struct ScriptContext *scriptCtx)
 {
-    if(gMain.unk2E) {
+    if(gMain.isBGScrolling) 
+    {
         return 1;
     }
     scriptCtx->scriptPtr++;

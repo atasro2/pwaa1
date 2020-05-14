@@ -5,17 +5,17 @@
 void ResetSoundControl()
 {
     gMain.unk1C = 1;
-    gMain.unk1A = 0x100 * 10;
+    gMain.bgmFadeVolume = 0x100 * 10;
     gMain.bgmVolume = 0x100 * 10;
     gMain.bgmFadeAmount = 0;
-    gMain.unk1D = ~1;
+    gMain.currentPlayingBgm = 0xFF-1;
 
 }
 
 void PlaySE(u32 songNum)
 {
     struct Main * main = &gMain;
-    if((main->unk198 & 1) == 0)
+    if(!(main->soundFlags & SOUND_FLAG_DISABLE_SE))
     {
         m4aSongNumStart(songNum);
     }
@@ -24,7 +24,7 @@ void PlaySE(u32 songNum)
 void ChangeBGM(u32 songNum)
 {
     struct Main * main = &gMain;
-    if((main->unk198 & 2) == 0)
+    if(!(main->soundFlags & SOUND_FLAG_DISABLE_BGM))
     {
         if((main->unk1C & 0x10))
         {
@@ -34,7 +34,7 @@ void ChangeBGM(u32 songNum)
         {
             m4aSongNumStartOrChange(songNum);
         }
-        main->unk1D = songNum;
+        main->currentPlayingBgm = songNum;
         main->bgmVolume = 0x100 * 10;
         main->unk1C = 4;
     }
@@ -67,7 +67,7 @@ void StopBGM(void)
     {
         m4aMPlayStop(&gMPlayInfo_BGM);
         main->unk1C = 1;
-        main->unk1D = 0xFF;
+        main->currentPlayingBgm = 0xFF;
     }
 }
 
@@ -102,9 +102,9 @@ void FadeOutBGM(u32 fadeOutSpeed)
 void PlayBGM(u32 fadeInSpeed, u32 songNum) // named according to phoenix unity
 {
     struct Main * main = &gMain;
-    if(!(main->unk198 & 2))
+    if(!(main->soundFlags & SOUND_FLAG_DISABLE_BGM))
     {
-        if(main->unk1D == songNum && (main->unk1C & 1))
+        if(main->currentPlayingBgm == songNum && (main->unk1C & 1))
         {
             if(main->unk1C & 2)
             {
@@ -156,35 +156,35 @@ void PlayBGM(u32 fadeInSpeed, u32 songNum) // named according to phoenix unity
         {
             return;
         }
-        main->bgmFadeAmount = (main->unk1A / fadeInSpeed) + 1;
+        main->bgmFadeAmount = (main->bgmFadeVolume / fadeInSpeed) + 1;
         main->unk1C = 0x8 | 0x4;
         main->bgmVolume = 4 * 10;
     }
 }
 
-void sub_800F614()
+void UpdateBGMFade()
 {
     struct Main * main = &gMain;
-    if((main->unk1C & 3) == 0)
+    if((main->unk1C & (1 | 2)) == 0)
     {
         if(main->bgmFadeAmount != 0)
         {
             main->bgmVolume += main->bgmFadeAmount;
             if(main->bgmFadeAmount > 0)
             {
-                if(main->bgmVolume > main->unk1A)
+                if(main->bgmVolume > main->bgmFadeVolume)
                 {
-                    main->bgmVolume = main->unk1A;
-                    main->bgmFadeAmount = main->unk1C & 3;
+                    main->bgmVolume = main->bgmFadeVolume;
+                    main->bgmFadeAmount = 0;
                     main->unk1C = 4;
                 }
             }
             else
             {
-                if(main->bgmVolume < main->unk1A)
+                if(main->bgmVolume < main->bgmFadeVolume)
                 {
-                    main->bgmVolume = main->unk1A;
-                    main->bgmFadeAmount = main->unk1C & 3;
+                    main->bgmVolume = main->bgmFadeVolume;
+                    main->bgmFadeAmount = 0;
                     main->unk1C = 4;
                 }
             }
@@ -202,7 +202,7 @@ void sub_800F614()
 }
 
 // used in debug menu
-void sub_800F69C(u32 track, u32 volume) // unused
+void ChangeTrackVolume(u32 track, u32 volume) // unused
 {
     if (volume < 4) 
         volume = 4;
@@ -218,7 +218,7 @@ void sub_800F69C(u32 track, u32 volume) // unused
         m4aMPlayVolumeControl(&gMPlayInfo_SE2, 0xFFFF, volume & 0x1FC);
 }
 
-void sub_800F71C(u32 volume, s32 arg1)
+void ChangeBGMVolume(u32 volume, s32 fadeTime)
 {
     struct Main * main = &gMain;
     if((main->unk1C & 3) == 0)
@@ -231,10 +231,10 @@ void sub_800F71C(u32 volume, s32 arg1)
         {
             volume = 4;
         }
-        if(arg1 != 0)
+        if(fadeTime != 0)
         {
-            main->unk1A = volume * 10;
-            main->bgmFadeAmount = ((main->unk1A - main->bgmVolume) / arg1);
+            main->bgmFadeVolume = volume * 10;
+            main->bgmFadeAmount = ((main->bgmFadeVolume - main->bgmVolume) / fadeTime);
             main->unk1C |= 8;
         }
         else
@@ -246,7 +246,7 @@ void sub_800F71C(u32 volume, s32 arg1)
 }
 
 // used in debug menu
-void sub_800F798(u32 track, u32 pan) // unused
+void ChangeTrackPanning(u32 track, u32 pan) // unused
 {
     if(track & 1)
     {

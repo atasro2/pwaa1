@@ -10,7 +10,7 @@ static void VBlankIntr();
 static void HBlankIntr();
 static void IntrDummy();
 static void UpdateHardwareBlend();
-static void (*IntrTableFunctionPtrs[])() =
+static void (* const IntrTableFunctionPtrs[])() =
 {
     VBlankIntr,
     HBlankIntr,
@@ -49,7 +49,7 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
         LOOP2:
         {
 			u32 reset;
-            reset = sub_8000744();
+            reset = ReadKeysAndTestResetCombo();
             if (reset != 0)
                 goto LOOP1;
 
@@ -57,7 +57,7 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
 
             LOOP3:
             {
-                if (gMain.vblankWaitCounter != gMain.unkD)
+                if (gMain.vblankWaitCounter != gMain.vblankWaitAmount)
                 {
                     goto LOOP3;
                 }
@@ -90,7 +90,7 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
             {
                 sub_8001744(gMain.currentBG);
             }
-            sub_800F614();
+            UpdateBGMFade();
             m4aSoundMain();
             goto LOOP2;
         }
@@ -107,7 +107,7 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
     {
         sub_8001744(gMain.currentBG);
     }
-    sub_800F614();
+    UpdateBGMFade();
     m4aSoundMain();
     goto LOOP2;
 }
@@ -120,7 +120,7 @@ void DoGameProcess()
     u8 amplitude;
     u8 rand;
 
-    if (main->unkB4 & 1)
+    if (main->gameStateFlags & 1)
     {
         switch (main->shakeIntensity)
         {
@@ -172,7 +172,7 @@ void DoGameProcess()
             main->shakeTimer--;
             if (main->shakeTimer == 0)
             {
-                main->unkB4 &= ~1;
+                main->gameStateFlags &= ~1; // disable shakes
                 gLCDIORegisters.lcd_bg3vofs = 8;
                 gLCDIORegisters.lcd_bg3hofs = 8;
                 gLCDIORegisters.lcd_bg1vofs = 0;
@@ -239,7 +239,7 @@ void ResetGameState()
     DmaFill16(3, 0, &gUnknown_03002840, sizeof(gUnknown_03002840));
     DmaFill16(3, 0, &gSaveDataBuffer, sizeof(gSaveDataBuffer));
     main->rngSeed = 0xD37;
-    main->unk8D = 0;
+    main->scenarioIdx = 0;
     main->unk8E = 1;
     lcdIoRegsp->lcd_bg0cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(28) | BGCNT_16COLOR | BGCNT_WRAP;                 // TODO: add TXT/AFF macro once known which one is used
     lcdIoRegsp->lcd_bg1cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(29) | BGCNT_16COLOR | BGCNT_WRAP;                 // TODO: add TXT/AFF macro once known which one is used
@@ -281,16 +281,16 @@ void SetLCDIORegs()
     (*(vu32 *)REG_ADDR_BG3HOFS) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg3hofs);
     (*(vu32 *)REG_ADDR_BG2PA) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg2pa);
     (*(vu32 *)REG_ADDR_BG2PC) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg2pc);
-    REG_BG2X = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg2x);
-    REG_BG2Y = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg2y);
+    REG_BG2X = lcdIoRegsp->lcd_bg2x;
+    REG_BG2Y = lcdIoRegsp->lcd_bg2y;
     (*(vu32 *)REG_ADDR_BG3PA) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg3pa);
     (*(vu32 *)REG_ADDR_BG3PC) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg3pc);
-    REG_BG3X = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg3x);
-    REG_BG3Y = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg3y);
+    REG_BG3X = lcdIoRegsp->lcd_bg3x;
+    REG_BG3Y = lcdIoRegsp->lcd_bg3y;
     (*(vu32 *)REG_ADDR_WIN0H) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_win0h);
     (*(vu32 *)REG_ADDR_WIN0V) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_win0v);
     (*(vu32 *)REG_ADDR_WININ) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_winin);
-    (*(vu32 *)REG_ADDR_MOSAIC) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_mosaic);
+    (*(vu32 *)REG_ADDR_MOSAIC) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_mosaic); // this writes to REG_BLDCNT when it shouldn't should theoretically just write 0
     REG_BLDCNT = lcdIoRegsp->lcd_bldcnt;
     REG_BLDALPHA = lcdIoRegsp->lcd_bldalpha;
     REG_BLDY = lcdIoRegsp->lcd_bldy;
@@ -332,7 +332,7 @@ void sub_8000738(u16 arg0, u16 arg1)
     gJoypad.unkC = arg1;
 }
 
-u32 sub_8000744()
+u32 ReadKeysAndTestResetCombo()
 {
     struct Joypad *joypadCtrl = &gJoypad;
     if (gMain.unk2C == 0)
@@ -340,7 +340,7 @@ u32 sub_8000744()
         ReadKeys();
     }
 
-    gMain.unkD = 1;
+    gMain.vblankWaitAmount = 1;
 
     if (joypadCtrl->heldKeysRaw == (A_BUTTON|B_BUTTON|START_BUTTON|SELECT_BUTTON))
     {
@@ -355,7 +355,7 @@ void InitCourtScroll(u8 * arg0, u32 arg1, u32 arg2, u32 arg3) // init court scro
     gCourtScroll.state = arg3;
     gCourtScroll.unkC = arg1;
     gCourtScroll.unkE = arg2;
-    gMain.unk2E = 0;
+    gMain.isBGScrolling = 0;
 }
 
 void UpdateCourtScroll(struct CourtScroll * courtScroll) // update court scroll

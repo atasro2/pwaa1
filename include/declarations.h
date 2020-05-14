@@ -27,7 +27,9 @@ extern struct Struct8018DD4 gUnknown_08018DD4[];
 // keep both actually it won't matter a whole lot
 extern u8 gUnknown_08180000[0x200]; // palette 
 extern u8 gUnknown_08180200[]; // compressed tile data goes with previous palette probably
-extern u8 gUnknown_08185D20[];
+extern u8 gUnknown_08185D20[]; // first 60 characters of ascii
+extern u8 gUnknown_081964A8[];
+extern u8 gUnknown_08186540[];
 
 extern u8 gUnknown_08190AC0[]; // some tiles
 extern u8 gUnknown_081911C0[];
@@ -42,6 +44,8 @@ extern u8 gUnknown_08194520[0x20]; // 4bpp palette
 extern u8 gUnknown_08194540[0x20]; // 4bpp palette
 extern u8 gUnknown_08194560[0x20]; // 4bpp palette
 extern u8 gUnknown_08194580[]; // sprite palette
+
+extern u8 gUnknown_081FD92C[]; // sprite palette
 
 extern u8 gUnknown_0824696C[0x20]; // palette
 
@@ -79,6 +83,7 @@ u32 CheckSaveChecksum();
 //ASMFUNCTIONS
 
 // UNSORTED
+extern void sub_8002878(struct Struct3002840 *);
 extern void sub_8010E14(s16);
 extern void sub_800EEFC(struct Main *);
 extern void sub_8010C4C(u8);
@@ -109,11 +114,11 @@ extern struct TalkData gTalkData[32];
 extern struct OamAttrs gOamObjects[128];
 extern u16 gBG0MapBuffer[0x400]; // BG 0 Map buffer
 extern struct Struct3003930 gUnknown_03003930[8];
-extern u8 gUnknown_030039D0[0x80];
+extern u8 gTextColorTileBuffer[0x80];
 extern struct Struct3003A50 gUnknown_03003A50;
 extern struct ScriptContext gScriptContext;
 extern struct Struct3003AB0 gUnknown_03003AB0; 
-extern struct Struct3003C00 gUnknown_03003C00[0x3F];
+extern struct TextBoxCharacter gTextBoxCharacters[0x3F];
 extern struct CourtScroll gCourtScroll;
 extern struct MusicPlayerInfo gMPlayInfo_BGM;
 extern struct MusicPlayerInfo gMPlayInfo_SE1;

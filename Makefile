@@ -100,7 +100,7 @@ clean:
 $(C_BUILDDIR)/agb_sram.o: CFLAGS := -O -mthumb-interwork
 
 $(ROM): $(ELF)
-	$(OBJCOPY) -O binary $< $@
+	$(OBJCOPY) -O binary --gap-fill 0xff $< $@
 	$(GBAFIX) --silent -p $@
 
 $(ELF): %.elf: $(OBJS) ld_script.txt

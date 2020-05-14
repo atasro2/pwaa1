@@ -1,12 +1,24 @@
 #include "gba/gba.h"
+#include "agb_sram.h"
 
-/*
-    AgbBackup Sram library version 1.1.2
-*/
+static void ReadSram_Core(const u8 *src, u8 *dest, u32 size);
+static u32 VerifySram_Core(const u8 *src, u8 *dest, u32 size);
 
-#define SRAM_RETRY_MAX 3
+char sSramVersionString[] = "SRAM_V112";
 
-void ReadSram_Core(const u8 *src, u8 *dest, u32 size)
+void (* sSramReadFunctions[])(const u8 *src, u8 *dest, u32 size) =
+{
+    ReadSram_Core,
+    ReadSram
+};
+
+u32 (* sSramVerifyFunctions[])(const u8 *src, u8 *dest, u32 size) =
+{
+    VerifySram_Core,
+    VerifySram
+};
+
+static void ReadSram_Core(const u8 *src, u8 *dest, u32 size)
 {
     while (--size != -1)
         *dest++ = *src++;
@@ -47,7 +59,7 @@ void WriteSram(const u8 *src, u8 *dest, u32 size)
         *dest++ = *src++;
 }
 
-u32 VerifySram_Core(const u8 *src, u8 *dest, u32 size)
+static u32 VerifySram_Core(const u8 *src, u8 *dest, u32 size)
 {
     while (--size != -1)
     {
