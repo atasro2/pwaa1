@@ -649,21 +649,21 @@ u32 LoadSaveData()
 
 void CalculateSaveChecksum()
 {
-    u8 * saveData; 
-    #ifndef NONMATCHING
-    register u32 magic asm("r2");
-    #else
+    u8 *saveData;
     u32 magic;
-    #endif
+    u32 idx;
     gSaveDataBuffer.magic = 0;
+    idx = 0;
     magic = 0;
-    saveData = (void *)&gSaveDataBuffer.main;
-    while(saveData < (u8 *)&gSaveDataBuffer + sizeof(gSaveDataBuffer))
+    saveData = (void *) (&gSaveDataBuffer.main);
+    while (saveData < (((u8 *) (&gSaveDataBuffer)) + (sizeof(gSaveDataBuffer))))
     {
-        magic += saveData[0];
+        magic += saveData[idx];
         saveData += 4;
     }
-    gSaveDataBuffer.magic = magic + 2343; 
+
+    magic += 2343;
+    gSaveDataBuffer.magic = magic;
 }
 
 bool32 CheckSaveChecksum()
