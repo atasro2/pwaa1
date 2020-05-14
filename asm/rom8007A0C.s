@@ -1,7 +1,6 @@
 	.include "asm/macros.inc"
 	.syntax unified
 
-
 	THUMB_FUNC_START SaveGameProcess
 SaveGameProcess: @ 0x080084D4
 	push {lr}
