@@ -1,88 +1,6 @@
 	.include "asm/macros.inc"
 	.syntax unified
 
-	THUMB_FUNC_START sub_800FBA0
-sub_800FBA0: @ 0x0800FBA0
-	push {r4, lr}
-	adds r3, r0, #0
-	cmp r3, #0
-	beq _0800FC2C
-	ldrh r0, [r3, #0xc]
-	cmp r0, #0xff
-	bne _0800FBD4
-	ldr r4, _0800FBD0
-	ldrb r2, [r3, #0xe]
-	lsls r0, r2, #1
-	adds r0, r0, r2
-	lsls r2, r0, #2
-	adds r0, r4, #4
-	adds r0, r2, r0
-	ldr r0, [r0]
-	adds r1, r0, r1
-	ldr r0, [r3, #0x14]
-	cmp r0, r1
-	beq _0800FC2C
-	str r1, [r3, #0x14]
-	adds r0, r2, r4
-	ldr r0, [r0]
-	b _0800FBFC
-	.align 2, 0
-_0800FBD0: .4byte gUnknown_08018DD4
-_0800FBD4:
-	cmp r0, #0xb
-	bls _0800FBF4
-	cmp r0, #0x10
-	bhi _0800FBF0
-	ldr r2, _0800FBE8
-	adds r0, r1, r2
-	str r0, [r3, #0x14]
-	ldr r0, _0800FBEC
-	b _0800FBFC
-	.align 2, 0
-_0800FBE8: .4byte gUnknown_0871FCF4
-_0800FBEC: .4byte gUnknown_0871EBBC
-_0800FBF0:
-	cmp r0, #0x18
-	bhi _0800FC2C
-_0800FBF4:
-	ldr r2, _0800FC34
-	adds r0, r1, r2
-	str r0, [r3, #0x14]
-	ldr r0, _0800FC38
-_0800FBFC:
-	str r0, [r3, #0x20]
-	ldr r0, [r3]
-	movs r1, #0xc0
-	lsls r1, r1, #0x18
-	orrs r0, r1
-	str r0, [r3]
-	ldr r0, _0800FC3C
-	strh r0, [r3, #0x28]
-	ldr r2, [r3, #0x14]
-	ldr r1, [r3, #0x20]
-	ldr r0, [r2, #4]
-	adds r1, r1, r0
-	str r1, [r3, #0x20]
-	ldr r0, [r1]
-	lsls r0, r0, #5
-	adds r0, #4
-	adds r1, r1, r0
-	str r1, [r3, #0x18]
-	adds r0, r2, #0
-	adds r0, #8
-	str r0, [r3, #0x34]
-	ldrh r0, [r2, #8]
-	adds r2, r0, r2
-	str r2, [r3, #0x30]
-_0800FC2C:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0800FC34: .4byte gUnknown_08748218
-_0800FC38: .4byte gUnknown_0871FDF8
-_0800FC3C: .4byte 0x0000FFFF
-
 	THUMB_FUNC_START sub_800FC40
 sub_800FC40: @ 0x0800FC40
 	push {r4, r5, r6, r7, lr}
@@ -631,7 +549,7 @@ _08010028:
 	movs r1, #1
 	movs r2, #8
 	movs r3, #0x1f
-	bl sub_80007D8
+	bl StartHardwareBlend
 _0801003E:
 	pop {r4}
 	pop {r0}
@@ -1565,7 +1483,7 @@ _0801073E:
 	b _080107A0
 	.align 2, 0
 _0801074C: .4byte gUnknown_03000800+0x40
-_08010750: .4byte gSaveDataBuffer+0x4
+_08010750: .4byte 0x02000004
 _08010754: .4byte 0xF3FFFFFB
 _08010758:
 	movs r3, #4
@@ -1652,7 +1570,7 @@ _080107E8:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080107F8: .4byte gSaveDataBuffer+0x4
+_080107F8: .4byte 0x02000004
 _080107FC: .4byte 0x04000050
 
 	THUMB_FUNC_START sub_8010800
@@ -2498,7 +2416,7 @@ _08010E32:
 	.align 2, 0
 _08010E68: .4byte gMain
 _08010E6C: .4byte gUnknown_03000800
-_08010E70: .4byte gUnknown_03004000
+_08010E70: .4byte gCourtScroll
 _08010E74:
 	ldr r0, [r4]
 	movs r1, #0x80
@@ -2840,7 +2758,7 @@ sub_80110E4: @ 0x080110E4
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080110FC: .4byte gUnknown_03004000
+_080110FC: .4byte gCourtScroll
 _08011100: .4byte gUnknown_0811DFFC
 _08011104: .4byte gUnknown_03000800+0x40
 
@@ -2865,7 +2783,7 @@ _08011120:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801112C: .4byte gUnknown_03004000
+_0801112C: .4byte gCourtScroll
 
 	THUMB_FUNC_START sub_8011130
 sub_8011130: @ 0x08011130

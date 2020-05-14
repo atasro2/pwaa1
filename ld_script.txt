@@ -20,12 +20,14 @@ SECTIONS {
         src/bg_control.o(.text);
         asm/bg_control.o(.text);
         src/utils.o(.text);
-        asm/utils.o(.text);
+        src/rom8002D6C.o(.text);
+        asm/rom8002D6C.o(.text);
         src/script_main.o(.text);
         asm/script_main.o(.text);
         src/script_commands.o(.text);
         asm/script_commands.o(.text);
         src/script_commands2.o(.text);
+        src/rom8007A0C.o(.text);
         asm/rom8007A0C.o(.text);
         src/sound_control.o(.text);
         src/rom800F7F0.o(.text);
@@ -39,16 +41,35 @@ SECTIONS {
         *libgcc.a:*_udivsi3*.o(.text*);
         *libgcc.a:*_umodsi3*.o(.text*);
     } =0
-    .data :
+    .rodata :
     ALIGN(4)
     {
-        src/main.o(.data);
-        src/bg_control.o(.data);
-        data/data.o(.data);
+        src/main.o(.rodata);
+        src/bg_control.o(.rodata);
+        data/data.o(.rodata);
         data/sound_data.o(.rodata);
         data/m4a_rodata.o(.rodata);
         data/sound_data2.o(.rodata);
-        data/data_3.o(.data);
+        src/agb_sram.o(.data); 
+    } =0
+    . += 0x100;
+    .data :
+    ALIGN(4)
+    {
+        data/data_3.o(.data); /* these are all function pointers */
+    } =0
+    /* capcom :^)) */
+    . = 0x8180000;
+    gfx_data :
+    ALIGN(4)
+    {
+        data/graphics.o(.data);
+    } =0
+
+    script_data :
+    ALIGN(4)
+    {
+        data/scripts.o(.data);
     } =0
 
     /* DWARF debug sections.

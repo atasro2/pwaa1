@@ -13,7 +13,7 @@ void sub_800F804()
     struct Struct3000840 * iwstruct840p;
     DmaFill16(3, 0, &gUnknown_03000800, sizeof(gUnknown_03000800));
     gMain.unk1F |= 3;
-    iwstruct840p = iwstruct800p->unk40;
+    iwstruct840p = &iwstruct800p->unk40[0];
     iwstruct840p->unkC = 0xFF;
     iwstruct840p->unkE = 0;
     sub_800F7F0();
@@ -28,10 +28,10 @@ void sub_800F84C()
         {
             if (&gOamObjects[struct840p->unk3A] < &gOamObjects[struct840p->unk3B]) 
             {
-                struct OamAttrs* r2;
-                for (r2 = &gOamObjects[struct840p->unk3A]; r2 < &gOamObjects[struct840p->unk3B]; r2++)
+                struct OamAttrs* oam;
+                for (oam = &gOamObjects[struct840p->unk3A]; oam < &gOamObjects[struct840p->unk3B]; oam++)
                 {
-                    r2->attr0 = 0x200;
+                    oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_DOUBLE_MASK, 0, 0, 0, 0);
                 }
             }
         }
@@ -55,8 +55,8 @@ struct Struct3000840* sub_800F8BC(u32 arg1)
 
 struct Struct3000840* sub_800F8F4(u32 arg1)
 {
-    u32 i, flags;
-    s32 r1;
+    u32 flags;
+    s32 r1, i;
     struct Struct3000840* struct840p = sub_800F8BC(arg1);
     if (struct840p != NULL) 
     {
@@ -167,7 +167,7 @@ void sub_800FA74(struct Struct3000840* arg0, bool32 arg1)
             arg0->unk0 |= 0x08000000;
             for(i = arg0->unk3A; i < arg0->unk3B; i++)
             {
-                gOamObjects[i].attr0 = 0x200;
+                gOamObjects[i].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_DOUBLE_MASK, 0, 0, 0, 0);
             }
         }
         if (arg0->unkC == 0xff && arg0->unkE == 0x16)
@@ -185,7 +185,7 @@ void sub_800FA74(struct Struct3000840* arg0, bool32 arg1)
                     arg0->unk0 |= 0x08000000;
                     for(i = arg0->unk3A; i < arg0->unk3B; i++)
                     {
-                        gOamObjects[i].attr0 = 0x200;
+                        gOamObjects[i].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_DOUBLE_MASK, 0, 0, 0, 0);
                     }
                 }
             }
@@ -218,5 +218,54 @@ void sub_800FB84(struct Struct3000840* arg0, u32 arg1)
         }
         arg0->unk3E &= 0xff;
         arg0->unk3E |= arg1 << 8;
+    }
+}
+
+void sub_800FBA0(struct Struct3000840 * arg0, u32 arg1)
+{
+    if(arg0 != NULL)
+    {
+        if(arg0->unkC == 0xFF)
+        {
+        u8 * ptr1;
+            ptr1 = gUnknown_08018DD4[arg0->unkE].unk4 + arg1;
+            if(arg0->unk14 == ptr1)
+            {
+                return;
+            }
+            arg0->unk14 = ptr1;
+            arg0->unk20 = gUnknown_08018DD4[arg0->unkE].unk0;
+        }
+        else
+        {
+            if(arg0->unkC > 0xb)
+            {
+                if(arg0->unkC <= 0x10)
+                {
+                    arg0->unk14 = (u8 *)0x871FCF4 + arg1; // ! FOR THE LOVE OF GOD CAPCOM
+                    arg0->unk20 = (u8 *)0x871EBBC;
+                }
+                else
+                {
+                    if(arg0->unkC > 0x18)
+                    {
+                        return;
+                    }
+                    arg0->unk14 = (u8 *)0x8748218 + arg1;
+                    arg0->unk20 = (u8 *)0x871FDF8;
+                }
+            }
+            else
+            {
+                arg0->unk14 = (u8 *)0x8748218 + arg1;
+                arg0->unk20 = (u8 *)0x871FDF8;
+            }
+        }
+        arg0->unk0 |= 0xC0000000; 
+        arg0->unk28 = 0xFFFF;
+        arg0->unk20 += 1[(u32 *)arg0->unk14];
+        arg0->unk18 = arg0->unk20 + 4 + (*(u32 *)arg0->unk20) * 0x20;
+        arg0->unk34 = arg0->unk14+8;
+        arg0->unk30 = arg0->unk14 + *(u16 *)arg0->unk34; 
     }
 }

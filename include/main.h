@@ -1,12 +1,16 @@
 #ifndef GUARD_MAIN_H
 #define GUARD_MAIN_H
 
+#define SOUND_FLAG_DISABLE_SE (1 << 0)
+#define SOUND_FLAG_DISABLE_BGM (1 << 1)
+#define SOUND_FLAG_DISABLE_CUE (1 << 2)
+
 struct Joypad
 {
     u16 heldKeysRaw;
-    u16 newKeysRaw;
-    u16 heldKeys;
-    u16 newKeys;
+    u16 pressedKeysRaw;
+    u16 previousHeldKeys;
+    u16 previousPressedKeys;
     u16 unk8;
     u16 unkA;
     u16 unkC;
@@ -16,42 +20,44 @@ struct Joypad
 struct Main
 {
     u32 unk0; // System_timer? unused in unity
-    u8 unk4[4];
-    u8 unk8[4];
-    u8 frameCounter; /* + 0xC */
-    u8 unkD;
+    u8 process[4];
+    u8 processCopy[4];
+    u8 vblankWaitCounter; /* + 0xC */
+    u8 vblankWaitAmount; /* + 0xD */
     s8 shakeAmountX; /* + 0xE */ // Quake_x 
     s8 shakeAmountY; /* + 0xF */ // Quake_y
     u16 shakeTimer; /* + 0x10 */ // Quake_timer
     u8 shakeIntensity; /* + 0x12 */
-    u8 unk13;
+    u8 selectedButton; /* + 0x13 */
     u8 unk14;
     u8 unk15;
-    u8 filler16[0x4];
-    s16 unk1A;
+    u8 unk16;
+    u8 unk17;
+    u8 filler18[0x2];
+    s16 bgmFadeVolume; /* + 0x1A */
     u8 unk1C; // sound_status
-    u8 unk1D;
+    u8 currentPlayingBgm; /* + 0x1D */
     u8 filler1E[0x1];
     u8 unk1F;
-    s16 unk20; // fade vol adittion? // bgm_fade_time 
-    s16 unk22; // bgm volume // bgm_vol
-    u16 rngSeed; /* + 0x24 */ // Random_seed
+    s16 bgmFadeAmount; /* + 0x20 */
+    s16 bgmVolume; /* + 0x22 */
+    u16 rngSeed; /* + 0x24 */
     u8 unk26;
     u8 unk27;
-    u16 currentBG; /* + 0x28 */ // probably wrong 
+    u16 currentBG; /* + 0x28 */ // kinda wrong but not wrong??
     s16 previousBG; /* + 0x2A */ // probably wrong
     s8 unk2C;
     u8 unk2D;
-    u8 unk2E;
+    bool8 isBGScrolling;
     u8 filler2F[0xD];
-    s8 unk3C;
-    s8 unk3D;
+    s8 horizontolBGScrollSpeed;
+    s8 verticalBGScrollSpeed;
     u8 filler3E[0x36];
-    u16 unk74;
-    u16 unk76;
-    u16 unk78;
-    u8 unk7A;
-    u8 unk7B;
+    u16 blendTargets; /* + 0x74 */
+    u16 blendMode; /* + 0x76 */
+    u16 blendCounter; /* + 0x78 */
+    u8 blendDelay; /* + 0x7A */
+    u8 blendY; /* + 0x7B */
     u8 unk7C;
     u8 unk7D;
     u8 unk7E;
@@ -60,20 +66,20 @@ struct Main
     u8 filler86[0x2];
     u8 unk88;
     u8 unk89;
-    u8 unk8A; // rest_old
-    u8 ukn8B;
-    u8 unk8C; // current room id
-    u8 unk8D; // scenario num? 
+    u8 previousHealth; /* + 0x8A */
+    u8 unk8B;
+    u8 currentRoomId; /* + 0x8C */
+    u8 scenarioIdx; /* + 0x8D */ // scenario num 
     u8 unk8E;
-    s8 unk8F; // rest
+    s8 health; /* + 0x8F */
     u16 talkingAnimationOffset; /* + 0x90 */
     u16 idleAnimationOffset; /* + 0x92 */
-    u32 unk94[8]; // sce_flag
-    u32 unkB4; // status_flag
-    u8 fillerB8[0x20]; // talk_end_flag?
-    u8 mapData[24][8]; /* + 0xD8 */ // Map_data //TODO: first size might be wrong
-    u32 unk198;
-    u8 filler19C[0x4];
+    u32 unk94[8]; // sce_flag matches debug menu
+    u32 gameStateFlags; // status_flag matches debug menu
+    u32 unkB8[8]; // talk_end_flag
+    u8 roomData[24][8]; /* + 0xD8 */ // Map_data //TODO: first size might be wrong
+    u32 soundFlags; /* + 0x198 */
+    u32 unk19C;
 };
 
 struct LCDIORegisters
@@ -122,7 +128,21 @@ extern struct Joypad gJoypad;
 extern struct Main gMain;
 extern struct LCDIORegisters gLCDIORegisters;
 
-#define SET_UNK4(no_0, no_1, no_2, no_3) (*(u32*)gMain.unk4 = ((no_3) | ((no_2) << 8) | ((no_1) << 16) | ((no_0) << 24)))
-#define SET_UNK8_AS_UNK4() (*(u32*)gMain.unk8 = *(u32*)gMain.unk4)
+#define GAME_PROCESS 0
+#define GAME_SUBPROCESS 1
+#define GAME_PROCESSUNK2 2
+#define GAME_PROCESSUNK3 3
 
+#define SET_PROCESS_PTR(no_0, no_1, no_2, no_3, main) (*(u32*)main->process = ((no_0) | ((no_1) << 8) | ((no_2) << 16) | ((no_3) << 24)))
+#define SET_PROCESS(no_0, no_1, no_2, no_3) (*(u32*)gMain.process = ((no_0) | ((no_1) << 8) | ((no_2) << 16) | ((no_3) << 24)))
+#define BACKUP_PROCESS() (*(u32*)gMain.processCopy = *(u32*)gMain.process)
+
+void ClearRamAndInitGame();
+void HideAllSprites();
+void SetLCDIORegs();
+void sub_8000738(u16, u16);
+u32 ReadKeysAndTestResetCombo();
+void StartHardwareBlend(u32 arg0, u32 arg1, u32 arg2, u32 arg3);
+void InitCourtScroll(u8 *, u32, u32, u32);
+void ResetGameState();
 #endif//GUARD_MAIN_H

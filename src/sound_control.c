@@ -2,19 +2,29 @@
 #include "sound_control.h"
 #include "m4a.h"
 
+void ResetSoundControl()
+{
+    gMain.unk1C = 1;
+    gMain.bgmFadeVolume = 0x100 * 10;
+    gMain.bgmVolume = 0x100 * 10;
+    gMain.bgmFadeAmount = 0;
+    gMain.currentPlayingBgm = 0xFF-1;
+
+}
+
 void PlaySE(u32 songNum)
 {
     struct Main * main = &gMain;
-    if((main->unk198 & 1) == 0)
+    if(!(main->soundFlags & SOUND_FLAG_DISABLE_SE))
     {
         m4aSongNumStart(songNum);
     }
 }
 
-void sub_800F408(u32 songNum)
+void ChangeBGM(u32 songNum)
 {
     struct Main * main = &gMain;
-    if((main->unk198 & 2) == 0)
+    if(!(main->soundFlags & SOUND_FLAG_DISABLE_BGM))
     {
         if((main->unk1C & 0x10))
         {
@@ -24,8 +34,8 @@ void sub_800F408(u32 songNum)
         {
             m4aSongNumStartOrChange(songNum);
         }
-        main->unk1D = songNum;
-        main->unk22 = 256 * 10;
+        main->currentPlayingBgm = songNum;
+        main->bgmVolume = 0x100 * 10;
         main->unk1C = 4;
     }
 }
@@ -57,11 +67,11 @@ void StopBGM(void)
     {
         m4aMPlayStop(&gMPlayInfo_BGM);
         main->unk1C = 1;
-        main->unk1D = 0xFF;
+        main->currentPlayingBgm = 0xFF;
     }
 }
 
-void UnpauseBGM(void) // UnpauseBGM?
+void UnpauseBGM(void)
 {
     struct Main * main = &gMain;
     if(main->unk1C & 2)
@@ -92,9 +102,9 @@ void FadeOutBGM(u32 fadeOutSpeed)
 void PlayBGM(u32 fadeInSpeed, u32 songNum) // named according to phoenix unity
 {
     struct Main * main = &gMain;
-    if(!(main->unk198 & 2))
+    if(!(main->soundFlags & SOUND_FLAG_DISABLE_BGM))
     {
-        if(main->unk1D == songNum && (main->unk1C & 1))
+        if(main->currentPlayingBgm == songNum && (main->unk1C & 1))
         {
             if(main->unk1C & 2)
             {
@@ -138,7 +148,7 @@ void PlayBGM(u32 fadeInSpeed, u32 songNum) // named according to phoenix unity
             }
             else
             {
-                sub_800F408(songNum);
+                ChangeBGM(songNum);
                 m4aMPlayImmInit(&gMPlayInfo_BGM);
             }
         }
@@ -146,39 +156,39 @@ void PlayBGM(u32 fadeInSpeed, u32 songNum) // named according to phoenix unity
         {
             return;
         }
-        main->unk20 = (main->unk1A / fadeInSpeed) + 1;
+        main->bgmFadeAmount = (main->bgmFadeVolume / fadeInSpeed) + 1;
         main->unk1C = 0x8 | 0x4;
-        main->unk22 = 4 * 10;
+        main->bgmVolume = 4 * 10;
     }
 }
 
-void sub_800F614()
+void UpdateBGMFade()
 {
     struct Main * main = &gMain;
-    if((main->unk1C & 3) == 0)
+    if((main->unk1C & (1 | 2)) == 0)
     {
-        if(main->unk20 != 0)
+        if(main->bgmFadeAmount != 0)
         {
-            main->unk22 += main->unk20;
-            if(main->unk20 > 0)
+            main->bgmVolume += main->bgmFadeAmount;
+            if(main->bgmFadeAmount > 0)
             {
-                if(main->unk22 > main->unk1A)
+                if(main->bgmVolume > main->bgmFadeVolume)
                 {
-                    main->unk22 = main->unk1A;
-                    main->unk20 = main->unk1C & 3;
+                    main->bgmVolume = main->bgmFadeVolume;
+                    main->bgmFadeAmount = 0;
                     main->unk1C = 4;
                 }
             }
             else
             {
-                if(main->unk22 < main->unk1A)
+                if(main->bgmVolume < main->bgmFadeVolume)
                 {
-                    main->unk22 = main->unk1A;
-                    main->unk20 = main->unk1C & 3;
+                    main->bgmVolume = main->bgmFadeVolume;
+                    main->bgmFadeAmount = 0;
                     main->unk1C = 4;
                 }
             }
-            m4aMPlayVolumeControl(&gMPlayInfo_BGM, 0xFFFF, (main->unk22 / 10) & 0x1FC);
+            m4aMPlayVolumeControl(&gMPlayInfo_BGM, 0xFFFF, (main->bgmVolume / 10) & 0x1FC);
             return;
         }
         else
@@ -191,7 +201,8 @@ void sub_800F614()
     }
 }
 
-void sub_800F69C(u32 track, u32 volume) // unused
+// used in debug menu
+void ChangeTrackVolume(u32 track, u32 volume) // unused
 {
     if (volume < 4) 
         volume = 4;
@@ -199,7 +210,7 @@ void sub_800F69C(u32 track, u32 volume) // unused
     if(track & 1)
     {
         m4aMPlayVolumeControl(&gMPlayInfo_BGM, 0xFFFF, volume & 0x1FC);
-        gMain.unk22 = volume * 10;
+        gMain.bgmVolume = volume * 10;
     }
     if(track & 2)
         m4aMPlayVolumeControl(&gMPlayInfo_SE1, 0xFFFF, volume & 0x1FC);
@@ -207,7 +218,7 @@ void sub_800F69C(u32 track, u32 volume) // unused
         m4aMPlayVolumeControl(&gMPlayInfo_SE2, 0xFFFF, volume & 0x1FC);
 }
 
-void sub_800F71C(u32 volume, s32 arg1)
+void ChangeBGMVolume(u32 volume, s32 fadeTime)
 {
     struct Main * main = &gMain;
     if((main->unk1C & 3) == 0)
@@ -220,21 +231,22 @@ void sub_800F71C(u32 volume, s32 arg1)
         {
             volume = 4;
         }
-        if(arg1 != 0)
+        if(fadeTime != 0)
         {
-            main->unk1A = volume * 10;
-            main->unk20 = ((main->unk1A - main->unk22) / arg1);
+            main->bgmFadeVolume = volume * 10;
+            main->bgmFadeAmount = ((main->bgmFadeVolume - main->bgmVolume) / fadeTime);
             main->unk1C |= 8;
         }
         else
         {
             m4aMPlayVolumeControl(&gMPlayInfo_BGM, 0xFFFF, volume & 0x1FC);
-            main->unk22 = volume * 10;        
+            main->bgmVolume = volume * 10;        
         }
     }
 }
 
-void sub_800F798(u32 track, u32 pan) // unused
+// used in debug menu
+void ChangeTrackPanning(u32 track, u32 pan) // unused
 {
     if(track & 1)
     {

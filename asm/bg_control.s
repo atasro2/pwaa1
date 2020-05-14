@@ -1363,7 +1363,7 @@ _08001452:
 	.align 2, 0
 _08001484: .4byte gMain
 _08001488: .4byte gLCDIORegisters
-_0800148C: .4byte gUnknown_03004000
+_0800148C: .4byte gCourtScroll
 _08001490: .4byte 0x0000FF7F
 _08001494: .4byte 0x00004B20
 _08001498: .4byte 0x040000D4
@@ -3103,8 +3103,8 @@ _08002212:
 	bx r0
 	.align 2, 0
 
-	THUMB_FUNC_START sub_8002224
-sub_8002224: @ 0x08002224
+	THUMB_FUNC_START GetBGControlBits
+GetBGControlBits: @ 0x08002224
 	ldr r1, _08002230
 	lsls r0, r0, #3
 	adds r1, #4
@@ -3114,8 +3114,8 @@ sub_8002224: @ 0x08002224
 	.align 2, 0
 _08002230: .4byte gBackgroundTable
 
-	THUMB_FUNC_START sub_8002234
-sub_8002234: @ 0x08002234
+	THUMB_FUNC_START GetBGPalettePtr
+GetBGPalettePtr: @ 0x08002234
 	ldr r1, _08002240
 	lsls r0, r0, #3
 	adds r0, r0, r1

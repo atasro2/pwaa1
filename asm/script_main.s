@@ -197,7 +197,7 @@ _080059CE:
 	.align 2, 0
 _080059F4: .4byte gMain
 _080059F8: .4byte gOamObjects+0x10
-_080059FC: .4byte gUnknown_03003C00
+_080059FC: .4byte gTextBoxCharacters
 _08005A00:
 	movs r0, #0x80
 	lsls r0, r0, #2
@@ -246,7 +246,7 @@ _08005A30:
 	b _08005A66
 	.align 2, 0
 _08005A58: .4byte gOamObjects+0x10
-_08005A5C: .4byte gUnknown_03003C00
+_08005A5C: .4byte gTextBoxCharacters
 _08005A60:
 	movs r0, #0x80
 	lsls r0, r0, #2
@@ -382,10 +382,10 @@ _08005B32:
 	.align 2, 0
 _08005B50: .4byte 0x040000D4
 _08005B54: .4byte 0x80000040
-_08005B58: .4byte gUnknown_03003C00
+_08005B58: .4byte gTextBoxCharacters
 _08005B5C: .4byte 0x00007FFF
 _08005B60: .4byte gCharSet
-_08005B64: .4byte gUnknown_030039D0
+_08005B64: .4byte gTextColorTileBuffer
 _08005B68: .4byte 0x06010000
 _08005B6C:
 	lsls r0, r6, #7

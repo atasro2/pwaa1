@@ -23,12 +23,19 @@ struct Struct3000800 // unknown size
         u32 unk8;
         u16 unkC;
         u8 unkE;
-        u8 fillerF[0x1];
+        u8 fillerF[0x1]; // padding?
         u16 unk10;
         u16 unk12;
-        u8 filler14[0x14];
+        u8* unk14;
+        u8* unk18;
+        u8 filler1C[4];
+        u8* unk20;
+        u8 filler24[4];
         u16 unk28;
-        u8 filler2A[0x10];
+        u8 filler2A[0x6];
+        u8* unk30;
+        u8* unk34;
+        u8 filler38[2];
         u8 unk3A;
         u8 unk3B;
         s16 unk3C;
@@ -57,37 +64,37 @@ struct ScriptContext
 {
     u16 unk0; // message status
     u16 waitTimer; // wait timer
-    u16 * scriptPtr; /* +4 */
-    u16 * scriptPtr2; /* +8 */
-    u16 unkC;
-    u8 unkE;
-    u8 unkF;
-    u8 unk10;
-    u8 unk11;
-    u8 unk12;
+    u16 * scriptPtr; /* +0x4 */
+    u16 * scriptPtr2; /* +0x8 */
+    u16 currentToken; /* +0xC */
+    u8 textX; /* +0xE */
+    u8 textY; /* +0xF */
+    u8 fullscreenCharCount; /* +0x10 */
+    u8 fullscreenTextY; /* +0x11 */
+    u8 fullscreenTextX; /* +0x12 */
     u8 unk13;
     u8 unk14;
     u8 unk15;
-    u8 unk16;
-    u8 unk17;
-    u16 unk18;
-    u16 unk1A;
-    u16 unk1C;
+    u8 soundCueSkip; /* +0x16 */
+    u8 currentSoundCue; /* +0x17 */
+    u16 textXOffset; /* +0x18 */
+    u16 textYOffset; /* +0x1A */
+    u16 scriptHeaderSize; /* +0x1C */
     u16 currentSection; /* +0x1E */
     u16 nextSection; /* +0x20 */
     u16 previousSection; /* +0x22 */
     u8 textColor; /* +0x24 */
     u8 textSpeed; /* +0x25 */
     u8 unk26;
-    u8 unk27;
+    u8 textDelayTimer; /* +0x27 */
     u16 unk28;
     u16 unk2A;
-    u16 unk2C;
-    u8 unk2E;
+    u16 holdItSection; /* +0x2C */
+    u8 holdItFlag; /* +0x2E */
     u8 filler2F[0x3];
     u8 unk32;
     u8 unk33;
-    u8 unk34;
+    u8 textboxNameId;
     u8 unk35;
     u8 unk36;
     u8 unk37;
@@ -97,17 +104,11 @@ struct ScriptContext
     u8 * unk3C;
 };
 
-struct SaveData
-{
-    char saveDataVer[0x30];
-    u32 magic;
-    u8 fill38[0x2998]; /*  other structs maybe? */
-    u8 unk29D0;       /**/
-};
-
 struct Struct3002840
 {
-    u8 filler0[0x10];
+    u8 unk0;
+    s8 unk1;
+    u8 filler2[0xE];
     u8 unk10;
     u8 unk11;
     u8 filler12[0x6];
@@ -139,11 +140,6 @@ struct TalkData
     u8 filler4[0x10];
 };
 
-struct Struct30028A0
-{
-    struct TalkData talkData[32];
-};
-
 struct Struct3003A50
 {
     u16 unk0;
@@ -160,7 +156,10 @@ struct Struct3003A50
     u8 unkD;
     u8 unkE;
     u8 unkF;
-    u8 filler10[0x6];
+    u8 filler10[0x3];
+    u8 unk13;
+    u8 unk14;
+    u8 unk15;
     u8 unk16;
     u8 unk17;
 };
@@ -175,22 +174,58 @@ struct Struct3003AB0
     u8 filler6[0x2];
 };
 
-struct Struct3003C00
+struct Struct3003AC0
 {
-    u16 unk0;
-    u16 unk2;
-    u16 unk4;
-    u16 unk6;
-    u16 unk8;
+    u8 filler0[0x140];
 };
 
-struct Struct3004000
+struct TextBoxCharacter
+{
+    u16 state;
+    u16 objVramOffset;
+    u16 x;
+    u16 y;
+    u8 color;
+};
+
+struct CourtScroll
 {
     u8 * unk0;
-    u16 unk4;
+    u16 state;
     u8 filler6[0x6];
     s16 unkC;
     s16 unkE;
+};
+
+struct Struct2002650
+{
+    u8 filler0[0x8];
+    u8 * unk8;
+    u8 fillerC[0x8];
+    u32 unk14;
+    u8 * unk18;
+};
+
+struct SaveData
+{
+    char saveDataVer[0x30]; /* + 0x0 */
+    u32 magic;         /* + 0x30 */
+    struct Main main; /* + 0x34 */
+    struct LCDIORegisters ioRegs; /* + 0x1D4 */
+    struct ScriptContext scriptCtx; /* + 0x228 */
+    struct Struct3002840 iwramStruct2840; /* + 0x268 */
+    struct CourtScroll courtScroll;  /* + 0x2C0 */
+    struct Struct3003AB0 iwramStruct3AB0; /* + 0x2D0 */
+    struct Struct3003A50 iwramStruct3A50; /* + 0x2D8 */
+    struct Struct3003AC0 iwramStruct3AC0; /* + 0x2F0 */
+    struct TalkData talkData[32]; /* + 0x430 */
+    struct Struct3003930 iwramStruct3930[8]; /* + 0x6B0 */
+    struct OamAttrs oam[128]; /* + 0x750 */
+    struct TextBoxCharacter iwramStruct3C00[0x40]; /* + 0xB50 */
+    u16 bg0Map[0x400]; /* + 0xE50 */
+    u16 bg1Map[0x400]; /* + 0x1650 */
+    u16 bg2Map[0x400]; /* + 0x1E50 */
+    struct Struct2002650 ewramStruct2650[0x20];
 };
 
 struct Point4 // shamelessly stolen from unity
@@ -218,6 +253,14 @@ struct Struct80187C8
     u16 attr0;
     u16 attr1;
     u16 attr2;
+};
+
+struct Struct8018DD4
+{
+    u8* unk0;
+    u8* unk4;
+    u16 unk6;
+    u16 unk8;
 };
 
 #endif//GUARD_STRUCTS_H

@@ -2,13 +2,15 @@
 #include "main.h"
 #include "sound_control.h"
 #include "m4a.h"
+#include "ewram.h"
+#include "background.h"
 
-static void sub_80002E4();
+static void DoGameProcess();
 static void VBlankIntr();
 static void HBlankIntr();
 static void IntrDummy();
-
-static void (*IntrTableFunctionPtrs[])() =
+static void UpdateHardwareBlend();
+static void (* const IntrTableFunctionPtrs[])() =
 {
     VBlankIntr,
     HBlankIntr,
@@ -28,10 +30,12 @@ static void (*IntrTableFunctionPtrs[])() =
     IntrDummy
 };
 
+extern void (*gIntrTable[0x10]);
+
 void CheckAButtonAndGoToClearSaveScreen()
 {
-    if ((gMain.unk4[0] == 0) && (A_BUTTON & KEY_NEW()))
-        gMain.unk4[0] = 0xE;
+    if ((gMain.process[GAME_PROCESS] == 0) && (A_BUTTON & KEY_NEW()))
+        gMain.process[GAME_PROCESS] = 0xE;
 }
 
 void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
@@ -40,20 +44,20 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
 
     LOOP1:
     {
-        sub_80003E0();
+        ClearRamAndInitGame();
         CheckAButtonAndGoToClearSaveScreen();
         LOOP2:
         {
 			u32 reset;
-            reset = sub_8000744();
+            reset = ReadKeysAndTestResetCombo();
             if (reset != 0)
                 goto LOOP1;
 
-            gMain.frameCounter = reset;
+            gMain.vblankWaitCounter = 0;
 
             LOOP3:
             {
-                if (gMain.frameCounter != gMain.unkD)
+                if (gMain.vblankWaitCounter != gMain.vblankWaitAmount)
                 {
                     goto LOOP3;
                 }
@@ -78,15 +82,15 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
             {
                 sub_800232C(gMain.unk2C);
                 sub_800EEFC(&gMain);
-                sub_80002E4();
+                DoGameProcess();
                 sub_8010E14(gMain.previousBG);
-                sub_8000804();
+                UpdateHardwareBlend();
             }
             else
             {
                 sub_8001744(gMain.currentBG);
             }
-            sub_800F614();
+            UpdateBGMFade();
             m4aSoundMain();
             goto LOOP2;
         }
@@ -95,28 +99,28 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
     {
         sub_800232C(gMain.unk2C);
         sub_800EEFC(&gMain);
-        sub_80002E4();
+        DoGameProcess();
         sub_8010E14(gMain.previousBG);
-        sub_8000804();
+        UpdateHardwareBlend();
     }
     else
     {
         sub_8001744(gMain.currentBG);
     }
-    sub_800F614();
+    UpdateBGMFade();
     m4aSoundMain();
     goto LOOP2;
 }
 
-void sub_80002E4() // Proc?
+void DoGameProcess()
 {
-    struct Struct3004000 *iwstruct4000p = &gUnknown_03004000;
+    struct CourtScroll *courtScroll = &gCourtScroll;
     struct Main *main = &gMain;
 
     u8 amplitude;
     u8 rand;
 
-    if (main->unkB4 & 1)
+    if (main->gameStateFlags & 1)
     {
         switch (main->shakeIntensity)
         {
@@ -168,7 +172,7 @@ void sub_80002E4() // Proc?
             main->shakeTimer--;
             if (main->shakeTimer == 0)
             {
-                main->unkB4 &= ~1;
+                main->gameStateFlags &= ~1; // disable shakes
                 gLCDIORegisters.lcd_bg3vofs = 8;
                 gLCDIORegisters.lcd_bg3hofs = 8;
                 gLCDIORegisters.lcd_bg1vofs = 0;
@@ -182,25 +186,25 @@ void sub_80002E4() // Proc?
         main->shakeAmountY = 0;
     }
 
-    gUnknown_0811DBB4[gMain.unk4[0]](&gMain);
+    gGameProcesses[gMain.process[GAME_PROCESS]](&gMain);
 
-    if (iwstruct4000p->unk4)
+    if (courtScroll->state != 0)
     {
-        sub_80007A0(iwstruct4000p);
+        UpdateCourtScroll(courtScroll);
     }
 }
 
-void sub_80003E0()
+void ClearRamAndInitGame()
 {
     struct Main *main = &gMain;
     struct LCDIORegisters *lcdIoRegsp = &gLCDIORegisters;
-    u32 temp = main->unk4[0] ? 1 : 0;
+    u32 temp = main->process[GAME_PROCESS] ? 1 : 0;
 
     RegisterRamReset(RESET_SIO_REGS | RESET_SOUND_REGS | RESET_REGS);
     DmaFill32(3, 0, IWRAM_START, 0x7E00);  // Clear IWRAM
     DmaFill32(3, 0, EWRAM_START, 0x40000); // Clear EWRAM
 
-    SET_UNK4(0, 0, 0, temp);
+    SET_PROCESS(temp, 0, 0, 0);
 
     RegisterRamReset(RESET_OAM | RESET_VRAM | RESET_PALETTE);
 
@@ -220,7 +224,7 @@ void sub_80003E0()
     REG_IME = TRUE;
 }
 
-void sub_80004B0() // reset a bunch of shit
+void ResetGameState()
 {
     struct LCDIORegisters *lcdIoRegsp = &gLCDIORegisters;
     struct Main *main = &gMain;
@@ -229,13 +233,13 @@ void sub_80004B0() // reset a bunch of shit
     DmaFill16(3, 0, PLTT, PLTT_SIZE);
     DmaFill16(3, 0, &gMain, sizeof(gMain));
     DmaFill16(3, 0, &gScriptContext, sizeof(gScriptContext));
-    DmaFill16(3, 0, &gUnknown_03004000, sizeof(gUnknown_03004000));
+    DmaFill16(3, 0, &gCourtScroll, sizeof(gCourtScroll));
     DmaFill16(3, 0, &gUnknown_03003AB0, sizeof(gUnknown_03003AB0));
     DmaFill16(3, 0, &gUnknown_03003A50, sizeof(gUnknown_03003A50));
     DmaFill16(3, 0, &gUnknown_03002840, sizeof(gUnknown_03002840));
     DmaFill16(3, 0, &gSaveDataBuffer, sizeof(gSaveDataBuffer));
     main->rngSeed = 0xD37;
-    main->unk8D = 0;
+    main->scenarioIdx = 0;
     main->unk8E = 1;
     lcdIoRegsp->lcd_bg0cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(28) | BGCNT_16COLOR | BGCNT_WRAP;                 // TODO: add TXT/AFF macro once known which one is used
     lcdIoRegsp->lcd_bg1cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(29) | BGCNT_16COLOR | BGCNT_WRAP;                 // TODO: add TXT/AFF macro once known which one is used
@@ -244,9 +248,9 @@ void sub_80004B0() // reset a bunch of shit
     lcdIoRegsp->lcd_bldcnt = BLDCNT_TGT1_BG0 | BLDCNT_TGT1_BG1 | BLDCNT_TGT1_BG2 | BLDCNT_TGT1_BG3 | BLDCNT_TGT1_OBJ | BLDCNT_EFFECT_DARKEN;
     lcdIoRegsp->lcd_bldy = 0x10;
     HideAllSprites();
-    sub_8000930();
-    sub_800F804();
-    sub_800F3C4();
+    InitBGs();
+    sub_800F804(); //init animation system?
+    ResetSoundControl();
     sub_8005408();
     sub_8000738(0x30, 0xF);
     m4aMPlayAllStop();
@@ -257,7 +261,7 @@ void HideAllSprites()
     u32 i;
     for (i = 0; i < MAX_OAM_OBJ_COUNT; i++)
     {
-        gOamObjects[i].attr0 = ST_OAM_AFFINE_ERASE << 8;
+        gOamObjects[i].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
     }
 }
 
@@ -277,16 +281,16 @@ void SetLCDIORegs()
     (*(vu32 *)REG_ADDR_BG3HOFS) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg3hofs);
     (*(vu32 *)REG_ADDR_BG2PA) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg2pa);
     (*(vu32 *)REG_ADDR_BG2PC) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg2pc);
-    REG_BG2X = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg2x);
-    REG_BG2Y = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg2y);
+    REG_BG2X = lcdIoRegsp->lcd_bg2x;
+    REG_BG2Y = lcdIoRegsp->lcd_bg2y;
     (*(vu32 *)REG_ADDR_BG3PA) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg3pa);
     (*(vu32 *)REG_ADDR_BG3PC) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg3pc);
-    REG_BG3X = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg3x);
-    REG_BG3Y = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg3y);
+    REG_BG3X = lcdIoRegsp->lcd_bg3x;
+    REG_BG3Y = lcdIoRegsp->lcd_bg3y;
     (*(vu32 *)REG_ADDR_WIN0H) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_win0h);
     (*(vu32 *)REG_ADDR_WIN0V) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_win0v);
     (*(vu32 *)REG_ADDR_WININ) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_winin);
-    (*(vu32 *)REG_ADDR_MOSAIC) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_mosaic);
+    (*(vu32 *)REG_ADDR_MOSAIC) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_mosaic); // this writes to REG_BLDCNT when it shouldn't should theoretically just write 0
     REG_BLDCNT = lcdIoRegsp->lcd_bldcnt;
     REG_BLDALPHA = lcdIoRegsp->lcd_bldalpha;
     REG_BLDY = lcdIoRegsp->lcd_bldy;
@@ -297,10 +301,10 @@ void ReadKeys()
     struct Joypad *joypadCtrl = &gJoypad;
     u16 keyInput = KEY_NEW();
 
-    joypadCtrl->heldKeys = joypadCtrl->heldKeysRaw;
-    joypadCtrl->newKeys = joypadCtrl->newKeysRaw;
+    joypadCtrl->previousHeldKeys = joypadCtrl->heldKeysRaw;
+    joypadCtrl->previousPressedKeys = joypadCtrl->pressedKeysRaw;
     joypadCtrl->heldKeysRaw = KEY_NEW();
-    joypadCtrl->newKeysRaw = keyInput & ~joypadCtrl->heldKeys;
+    joypadCtrl->pressedKeysRaw = keyInput & ~joypadCtrl->previousHeldKeys;
     
     joypadCtrl->unk8 = 0;
 
@@ -328,7 +332,7 @@ void sub_8000738(u16 arg0, u16 arg1)
     gJoypad.unkC = arg1;
 }
 
-u32 sub_8000744()
+u32 ReadKeysAndTestResetCombo()
 {
     struct Joypad *joypadCtrl = &gJoypad;
     if (gMain.unk2C == 0)
@@ -336,7 +340,7 @@ u32 sub_8000744()
         ReadKeys();
     }
 
-    gMain.unkD = 1;
+    gMain.vblankWaitAmount = 1;
 
     if (joypadCtrl->heldKeysRaw == (A_BUTTON|B_BUTTON|START_BUTTON|SELECT_BUTTON))
     {
@@ -345,114 +349,113 @@ u32 sub_8000744()
     return 0;
 }
 
-void sub_800077C(u8 * arg0, u32 arg1, u32 arg2, u32 arg3)
+void InitCourtScroll(u8 * arg0, u32 arg1, u32 arg2, u32 arg3) // init court scroll
 {
-    gUnknown_03004000.unk0 = arg0;
-    gUnknown_03004000.unk4 = arg3;
-    gUnknown_03004000.unkC = arg1;
-    gUnknown_03004000.unkE = arg2;
-    gMain.unk2E = 0;
+    gCourtScroll.unk0 = arg0;
+    gCourtScroll.state = arg3;
+    gCourtScroll.unkC = arg1;
+    gCourtScroll.unkE = arg2;
+    gMain.isBGScrolling = 0;
 }
 
-void sub_80007A0(struct Struct3004000 *arg0)
+void UpdateCourtScroll(struct CourtScroll * courtScroll) // update court scroll
 {
-    if (arg0->unk4 & 1)
+    if (courtScroll->state & 1)
     {
-        arg0->unkC--;
-        if (arg0->unkC < 0)
+        courtScroll->unkC--;
+        if (courtScroll->unkC < 0)
         {
-            arg0->unk4 = 0;
+            courtScroll->state = 0;
         }
     }
     else
     {
-        arg0->unkC++;
-        if (arg0->unkC >= arg0->unkE)
+        courtScroll->unkC++;
+        if (courtScroll->unkC >= courtScroll->unkE)
         {
-            arg0->unk4 &= 1;
+            courtScroll->state &= 1;
         }
     }
 }
 
-void sub_80007D8(u32 arg0, u32 arg1, u32 arg2, u32 arg3)
+void StartHardwareBlend(u32 mode, u32 delay, u32 bldy, u32 target)
 {
-    gMain.unk74 = arg3;
-    gMain.unk76 = arg0;
-    gMain.unk7A = arg1;
-    gMain.unk7B = arg2;
-    gMain.unk78 = 0;
+    gMain.blendTargets = target;
+    gMain.blendMode = mode;
+    gMain.blendDelay = delay;
+    gMain.blendY = bldy;
+    gMain.blendCounter = 0;
 }
 
-void sub_8000804() // update hardware blend
+static void UpdateHardwareBlend()
 {
     struct Main *main = &gMain;
     struct LCDIORegisters *lcdIoRegsp = &gLCDIORegisters;
-    u16 temp;
-    switch (main->unk76)
+    switch (main->blendMode)
     {
     case 0:
     default:
         break;
     case 1:
-        lcdIoRegsp->lcd_bldcnt = main->unk74 | BLDCNT_EFFECT_DARKEN;
-        main->unk78++;
-        if (main->unk78 >= main->unk7A)
+        lcdIoRegsp->lcd_bldcnt = main->blendTargets | BLDCNT_EFFECT_DARKEN;
+        main->blendCounter++;
+        if (main->blendCounter >= main->blendDelay)
         {
-            main->unk78 = 0;
-            lcdIoRegsp->lcd_bldy -= main->unk7B;
+            main->blendCounter = 0;
+            lcdIoRegsp->lcd_bldy -= main->blendY;
         }
-        temp = lcdIoRegsp->lcd_bldy &= 0x1F;
-        if (temp == 0)
+        lcdIoRegsp->lcd_bldy &= 0x1F;
+        if (lcdIoRegsp->lcd_bldy == 0) // ! will break with odd numbers
         {
-            lcdIoRegsp->lcd_bldy = temp;
+            lcdIoRegsp->lcd_bldy = 0;
             lcdIoRegsp->lcd_bldcnt = BLDCNT_TGT1_BG1 | BLDCNT_TGT2_BG2 | BLDCNT_TGT2_BG3 | BLDCNT_TGT2_OBJ | BLDCNT_EFFECT_BLEND;
             lcdIoRegsp->lcd_bldalpha = BLDALPHA_BLEND(0x1F, 0x7);
-            main->unk76 = temp;
+            main->blendMode = 0;
         }
         break;
     case 2:
-        lcdIoRegsp->lcd_bldcnt = main->unk74 | BLDCNT_EFFECT_DARKEN;
-        main->unk78++;
-        if (main->unk78 >= main->unk7A)
+        lcdIoRegsp->lcd_bldcnt = main->blendTargets | BLDCNT_EFFECT_DARKEN;
+        main->blendCounter++;
+        if (main->blendCounter >= main->blendDelay)
         {
-            main->unk78 = 0;
-            lcdIoRegsp->lcd_bldy += main->unk7B;
+            main->blendCounter = 0;
+            lcdIoRegsp->lcd_bldy += main->blendY;
         }
-        temp = lcdIoRegsp->lcd_bldy &= 0x1F;
-        if (temp == 0x10)
+        lcdIoRegsp->lcd_bldy &= 0x1F;
+        if (lcdIoRegsp->lcd_bldy == 0x10) // ! will break with odd numbers
         {
-            main->unk76 = 0;
+            main->blendMode = 0;
         }
         break;
     case 3:
-        lcdIoRegsp->lcd_bldcnt = main->unk74 | BLDCNT_EFFECT_LIGHTEN;
-        main->unk78++;
-        if (main->unk78 >= main->unk7A)
+        lcdIoRegsp->lcd_bldcnt = main->blendTargets | BLDCNT_EFFECT_LIGHTEN;
+        main->blendCounter++;
+        if (main->blendCounter >= main->blendDelay)
         {
-            main->unk78 = 0;
-            lcdIoRegsp->lcd_bldy -= main->unk7B;
+            main->blendCounter = 0;
+            lcdIoRegsp->lcd_bldy -= main->blendY;
         }
-        temp = lcdIoRegsp->lcd_bldy &= 0x1F;
-        if (temp == 0)
+        lcdIoRegsp->lcd_bldy &= 0x1F;
+        if (lcdIoRegsp->lcd_bldy == 0) // ! will break with odd numbers
         {
-            lcdIoRegsp->lcd_bldy = temp;
+            lcdIoRegsp->lcd_bldy = 0;
             lcdIoRegsp->lcd_bldcnt = BLDCNT_TGT1_BG1 | BLDCNT_TGT2_BG2 | BLDCNT_TGT2_BG3 | BLDCNT_TGT2_OBJ | BLDCNT_EFFECT_BLEND;
             lcdIoRegsp->lcd_bldalpha = BLDALPHA_BLEND(0x1F, 0x7);
-            main->unk76 = temp;
+            main->blendMode = 0;
         }
         break;
     case 4:
-        lcdIoRegsp->lcd_bldcnt = main->unk74 | BLDCNT_EFFECT_LIGHTEN;
-        main->unk78++;
-        if (main->unk78 >= main->unk7A)
+        lcdIoRegsp->lcd_bldcnt = main->blendTargets | BLDCNT_EFFECT_LIGHTEN;
+        main->blendCounter++;
+        if (main->blendCounter >= main->blendDelay)
         {
-            main->unk78 = 0;
-            lcdIoRegsp->lcd_bldy += main->unk7B;
+            main->blendCounter = 0;
+            lcdIoRegsp->lcd_bldy += main->blendY;
         }
-        temp = lcdIoRegsp->lcd_bldy &= 0x1F;
-        if (temp == 0x10)
+        lcdIoRegsp->lcd_bldy &= 0x1F;
+        if (lcdIoRegsp->lcd_bldy == 0x10) // ! will break with odd numbers
         {
-            main->unk76 = 0;
+            main->blendMode = 0;
         }
         break;
     }
@@ -461,7 +464,7 @@ void sub_8000804() // update hardware blend
 void VBlankIntr()
 {
     m4aSoundVSync();
-    gMain.frameCounter++;
+    gMain.vblankWaitCounter++;
 }
 
 void HBlankIntr()

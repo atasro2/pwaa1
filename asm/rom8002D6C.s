@@ -89,7 +89,7 @@ _08002E72:
 	movs r2, #0
 	bl sub_8002C98
 	movs r0, #0x19
-	bl sub_800F408
+	bl ChangeBGM
 _08002E82:
 	ldr r1, _08002E90
 	ldr r0, _08002E94
@@ -149,7 +149,7 @@ _08002EC2:
 	b _08002F0C
 _08002F06:
 	movs r0, #0xc
-	bl sub_800F408
+	bl ChangeBGM
 _08002F0C:
 	ldr r1, _08002F14
 	ldr r0, _08002F18
@@ -183,7 +183,7 @@ _08002F34:
 	b _08002F56
 _08002F50:
 	movs r0, #0xc
-	bl sub_800F408
+	bl ChangeBGM
 _08002F56:
 	movs r0, #0
 	movs r1, #0x49
@@ -241,13 +241,13 @@ _08002FC2:
 	cmp r0, #0
 	beq _08002FE4
 	movs r0, #0xc
-	bl sub_800F408
+	bl ChangeBGM
 	b _0800306E
 	.align 2, 0
 _08002FE0: .4byte 0x00001FB0
 _08002FE4:
 	movs r0, #0x1c
-	bl sub_800F408
+	bl ChangeBGM
 	b _0800306E
 _08002FEC:
 	movs r0, #0
@@ -285,7 +285,7 @@ _08003030:
 	adds r1, r2, #0
 	bl sub_8002C98
 	movs r0, #0
-	bl sub_800F408
+	bl ChangeBGM
 	b _0800306E
 	.align 2, 0
 _08003044: .4byte 0x00001FB0
@@ -305,7 +305,7 @@ _0800305E:
 	adds r1, r2, #0
 	bl sub_8002C98
 	movs r0, #0
-	bl sub_800F408
+	bl ChangeBGM
 _0800306E:
 	ldr r1, _08003080
 	ldr r0, _08003084
@@ -347,7 +347,7 @@ _080030B2:
 	bl sub_8002C98
 _080030C8:
 	movs r0, #0x1a
-	bl sub_800F408
+	bl ChangeBGM
 	b _080030E4
 _080030D0:
 	movs r0, #0
@@ -388,7 +388,7 @@ _08003104:
 	b _08003160
 _08003126:
 	movs r0, #0xc
-	bl sub_800F408
+	bl ChangeBGM
 	b _08003160
 _0800312E:
 	movs r0, #0
@@ -412,7 +412,7 @@ _08003144:
 	bl sub_8002C98
 _0800315A:
 	movs r0, #0x16
-	bl sub_800F408
+	bl ChangeBGM
 _08003160:
 	ldr r1, _08003178
 	ldr r0, _0800317C
@@ -466,7 +466,7 @@ _080031B8: .4byte gUnknown_08015520
 _080031BC: .4byte gMain+0xD8
 _080031C0: .4byte 0x80000018
 _080031C4: .4byte gUnknown_0801541C
-_080031C8: .4byte gUnknown_030028A0
+_080031C8: .4byte gTalkData
 _080031CC: .4byte 0x80000082
 
 	THUMB_FUNC_START sub_80031D0
@@ -553,11 +553,11 @@ _08003282:
 	cmp r0, #0
 	beq _08003296
 	movs r0, #0xc
-	bl sub_800F408
+	bl ChangeBGM
 	b _0800329C
 _08003296:
 	movs r0, #0x19
-	bl sub_800F408
+	bl ChangeBGM
 _0800329C:
 	ldr r1, _080032AC
 	ldr r0, _080032B0
@@ -618,7 +618,7 @@ _0800331A:
 	adds r1, r2, #0
 	bl sub_8002C98
 	movs r0, #0x16
-	bl sub_800F408
+	bl ChangeBGM
 	b _0800352E
 	.align 2, 0
 _0800332C: .4byte 0x00001D0C
@@ -724,11 +724,11 @@ _080033F6:
 	cmp r0, #0
 	beq _08003416
 	movs r0, #0xc
-	bl sub_800F408
+	bl ChangeBGM
 	b _0800352E
 _08003416:
 	movs r0, #0x1a
-	bl sub_800F408
+	bl ChangeBGM
 	b _0800352E
 _0800341E:
 	movs r0, #0
@@ -752,7 +752,7 @@ _08003442:
 	adds r1, r2, #0
 	bl sub_8002C98
 	movs r0, #0xc
-	bl sub_800F408
+	bl ChangeBGM
 _08003452:
 	ldr r1, _08003464
 	ldr r0, _08003468
@@ -784,7 +784,7 @@ _0800348C:
 	adds r1, r2, #0
 	bl sub_8002C98
 	movs r0, #0xc
-	bl sub_800F408
+	bl ChangeBGM
 _0800349C:
 	ldr r1, _080034B0
 	ldr r0, _080034B4
@@ -821,7 +821,7 @@ _080034E4:
 	adds r1, r2, #0
 	bl sub_8002C98
 	movs r0, #0x19
-	bl sub_800F408
+	bl ChangeBGM
 _080034F4:
 	ldr r1, _08003500
 	ldr r0, _08003504
@@ -889,7 +889,7 @@ sub_8003544: @ 0x08003544
 	movs r0, #0
 	movs r1, #0x71
 	movs r2, #1
-	bl SetFlag
+	bl ChangeFlag
 _08003580:
 	pop {r0}
 	bx r0
@@ -926,7 +926,7 @@ _080035C0: .4byte gUnknown_08015B70
 _080035C4: .4byte gMain+0xD8
 _080035C8: .4byte 0x80000030
 _080035CC: .4byte gUnknown_08015A1C
-_080035D0: .4byte gUnknown_030028A0
+_080035D0: .4byte gTalkData
 _080035D4: .4byte 0x800000AA
 
 	THUMB_FUNC_START sub_80035D8
@@ -996,7 +996,7 @@ _0800366A:
 	adds r1, r2, #0
 	bl sub_8002C98
 	movs r0, #6
-	bl sub_800F408
+	bl ChangeBGM
 	b _0800369C
 _0800367E:
 	movs r0, #0
@@ -1010,7 +1010,7 @@ _0800367E:
 	adds r1, r2, #0
 	bl sub_8002C98
 	movs r0, #6
-	bl sub_800F408
+	bl ChangeBGM
 _0800369C:
 	ldr r1, _080036AC
 	ldr r0, _080036B0
@@ -1060,7 +1060,7 @@ _08003700:
 	movs r2, #0
 	bl sub_8002C98
 	movs r0, #0
-	bl sub_800F408
+	bl ChangeBGM
 	b _08003738
 _08003712:
 	movs r0, #0
@@ -1078,7 +1078,7 @@ _08003728:
 	movs r2, #0
 	bl sub_8002C98
 	movs r0, #0
-	bl sub_800F408
+	bl ChangeBGM
 _08003738:
 	ldr r1, _08003748
 	ldr r0, _0800374C
@@ -1114,7 +1114,7 @@ _0800377A:
 	cmp r0, #0
 	beq _080037B0
 	movs r0, #0x1f
-	bl sub_800F408
+	bl ChangeBGM
 	b _080037E8
 _0800378E:
 	movs r0, #0
@@ -1137,7 +1137,7 @@ _080037B0:
 	movs r2, #0
 	bl sub_8002C98
 	movs r0, #0x19
-	bl sub_800F408
+	bl ChangeBGM
 	b _080037E8
 _080037C2:
 	movs r0, #0
@@ -1155,7 +1155,7 @@ _080037D8:
 	movs r2, #0
 	bl sub_8002C98
 	movs r0, #0x19
-	bl sub_800F408
+	bl ChangeBGM
 _080037E8:
 	ldr r1, _080037F8
 	ldr r0, _080037FC
@@ -1229,7 +1229,7 @@ _08003886:
 	movs r2, #0
 	bl sub_8002C98
 	movs r0, #1
-	bl sub_800F408
+	bl ChangeBGM
 _08003896:
 	ldr r1, _0800389C
 	ldr r0, _080038A0
@@ -1274,7 +1274,7 @@ _080038DC:
 	bl sub_8002C98
 _080038F2:
 	movs r0, #0x19
-	bl sub_800F408
+	bl ChangeBGM
 _080038F8:
 	ldr r1, _08003910
 	ldr r0, _08003914
@@ -1328,7 +1328,7 @@ _08003950: .4byte gUnknown_0801618C
 _08003954: .4byte gMain+0xD8
 _08003958: .4byte 0x80000038
 _0800395C: .4byte gUnknown_08016024
-_08003960: .4byte gUnknown_030028A0
+_08003960: .4byte gTalkData
 _08003964: .4byte 0x800000B4
 
 	THUMB_FUNC_START sub_8003968
@@ -1399,7 +1399,7 @@ _08003A02:
 	movs r2, #0
 	bl sub_8002C98
 	movs r0, #0xc
-	bl sub_800F408
+	bl ChangeBGM
 _08003A12:
 	ldr r1, _08003A20
 	ldr r0, _08003A24
@@ -1425,7 +1425,7 @@ _08003A30:
 	adds r1, r2, #0
 	bl sub_8002C98
 	movs r0, #6
-	bl sub_800F408
+	bl ChangeBGM
 _08003A4E:
 	ldr r1, _08003A5C
 	ldr r0, _08003A60
@@ -1470,7 +1470,7 @@ _08003AA4:
 	movs r2, #0
 	bl sub_8002C98
 	movs r0, #0
-	bl sub_800F408
+	bl ChangeBGM
 _08003AB4:
 	ldr r1, _08003AC4
 	ldr r0, _08003AC8
@@ -1511,11 +1511,11 @@ _08003AF6:
 	adds r1, r2, #0
 	bl sub_8002C98
 	movs r0, #0xc
-	bl sub_800F408
+	bl ChangeBGM
 	b _08003B1C
 _08003B16:
 	movs r0, #0x1f
-	bl sub_800F408
+	bl ChangeBGM
 _08003B1C:
 	ldr r1, _08003B2C
 	ldr r0, _08003B30
@@ -1546,7 +1546,7 @@ _08003B3C:
 	b _08003B64
 _08003B5E:
 	movs r0, #0x1f
-	bl sub_800F408
+	bl ChangeBGM
 _08003B64:
 	ldr r1, _08003B74
 	ldr r0, _08003B78
@@ -1586,7 +1586,7 @@ _08003BB2:
 	movs r2, #0
 	bl sub_8002C98
 	movs r0, #0x19
-	bl sub_800F408
+	bl ChangeBGM
 _08003BC2:
 	ldr r1, _08003BD0
 	ldr r0, _08003BD4
@@ -1621,7 +1621,7 @@ _08003C02:
 	movs r2, #0
 	bl sub_8002C98
 	movs r0, #0x19
-	bl sub_800F408
+	bl ChangeBGM
 _08003C12:
 	ldr r1, _08003C20
 	ldr r0, _08003C24
@@ -1647,7 +1647,7 @@ _08003C30:
 	b _08003C4C
 _08003C46:
 	movs r0, #0x1f
-	bl sub_800F408
+	bl ChangeBGM
 _08003C4C:
 	ldr r1, _08003C5C
 	ldr r0, _08003C60
@@ -1727,7 +1727,7 @@ _08003CCE:
 	movs r1, #0xf
 	bl sub_800B7A8
 	movs r0, #0x15
-	bl sub_800F408
+	bl ChangeBGM
 _08003D06:
 	ldr r1, _08003D20
 	ldr r0, _08003D24
@@ -1795,7 +1795,7 @@ _08003D96:
 	movs r2, #0
 	bl sub_8002C98
 	movs r0, #0x15
-	bl sub_800F408
+	bl ChangeBGM
 _08003DA6:
 	ldr r1, _08003DAC
 	ldr r0, _08003DB0
@@ -1824,7 +1824,7 @@ _08003DD6:
 	movs r2, #0
 	bl sub_8002C98
 	movs r0, #0x15
-	bl sub_800F408
+	bl ChangeBGM
 _08003DE6:
 	ldr r1, _08003DEC
 	ldr r0, _08003DF0
@@ -1844,7 +1844,7 @@ _08003DF4:
 	b _08003E10
 _08003E0A:
 	movs r0, #0x19
-	bl sub_800F408
+	bl ChangeBGM
 _08003E10:
 	ldr r1, _08003E18
 	ldr r0, _08003E1C
@@ -1870,7 +1870,7 @@ _08003E20:
 	b _08003E4A
 _08003E44:
 	movs r0, #0x1f
-	bl sub_800F408
+	bl ChangeBGM
 _08003E4A:
 	ldr r1, _08003E58
 	ldr r0, _08003E5C
@@ -1898,7 +1898,7 @@ _08003E68:
 _08003E80: .4byte 0x00000103
 _08003E84:
 	movs r0, #0x1f
-	bl sub_800F408
+	bl ChangeBGM
 _08003E8A:
 	ldr r1, _08003E98
 	ldr r0, _08003E9C
@@ -1976,7 +1976,7 @@ _08003F30:
 	cmp r0, #0
 	beq _08003F60
 	movs r0, #0x1f
-	bl sub_800F408
+	bl ChangeBGM
 	ldr r1, _08003F50
 	ldr r0, _08003F54
 	str r0, [r1]
@@ -2007,7 +2007,7 @@ _08003F60:
 	b _08003F8A
 _08003F84:
 	movs r0, #0x1f
-	bl sub_800F408
+	bl ChangeBGM
 _08003F8A:
 	ldr r1, _08003F98
 	ldr r0, _08003F9C
@@ -2034,7 +2034,7 @@ _08003FA8:
 	b _08003FC6
 _08003FC0:
 	movs r0, #0x1f
-	bl sub_800F408
+	bl ChangeBGM
 _08003FC6:
 	ldr r1, _08003FD4
 	ldr r0, _08003FD8
@@ -2168,7 +2168,7 @@ _080040D0: .4byte gUnknown_08016C70
 _080040D4: .4byte gMain+0xD8
 _080040D8: .4byte 0x80000038
 _080040DC: .4byte gUnknown_08016B6C
-_080040E0: .4byte gUnknown_030028A0
+_080040E0: .4byte gTalkData
 _080040E4: .4byte 0x80000082
 
 	THUMB_FUNC_START sub_80040E8
@@ -2230,7 +2230,7 @@ _08004160:
 	adds r1, r2, #0
 	bl sub_8002C98
 	movs r0, #6
-	bl sub_800F408
+	bl ChangeBGM
 _0800417E:
 	ldr r1, _0800418C
 	ldr r0, _08004190
@@ -2260,7 +2260,7 @@ _080041B2:
 	movs r2, #0
 	bl sub_8002C98
 	movs r0, #0
-	bl sub_800F408
+	bl ChangeBGM
 _080041C2:
 	ldr r1, _080041D0
 	ldr r0, _080041D4
@@ -2295,7 +2295,7 @@ _08004202:
 	movs r2, #0
 	bl sub_8002C98
 	movs r0, #0xc
-	bl sub_800F408
+	bl ChangeBGM
 	b _0800423A
 _08004214:
 	movs r0, #0
@@ -2313,7 +2313,7 @@ _0800422A:
 	movs r2, #0
 	bl sub_8002C98
 	movs r0, #0x19
-	bl sub_800F408
+	bl ChangeBGM
 _0800423A:
 	ldr r1, _08004248
 	ldr r0, _0800424C
@@ -2377,7 +2377,7 @@ _08004292:
 	bl sub_800B7A8
 _080042C2:
 	movs r0, #1
-	bl sub_800F408
+	bl ChangeBGM
 _080042C8:
 	ldr r1, _080042E4
 	ldr r0, _080042E8
@@ -2442,7 +2442,7 @@ _08004356:
 	movs r2, #0
 	bl sub_8002C98
 	movs r0, #0x19
-	bl sub_800F408
+	bl ChangeBGM
 _08004366:
 	ldr r1, _08004374
 	ldr r0, _08004378
@@ -2490,7 +2490,7 @@ _080043B8:
 	b _080043D4
 _080043CE:
 	movs r0, #0x1f
-	bl sub_800F408
+	bl ChangeBGM
 _080043D4:
 	ldr r1, _080043E4
 	ldr r0, _080043E8
@@ -2526,7 +2526,7 @@ _0800440A:
 	bl sub_8002C98
 _08004420:
 	movs r0, #0x1f
-	bl sub_800F408
+	bl ChangeBGM
 _08004426:
 	ldr r1, _0800442C
 	ldr r0, _08004430
@@ -2605,7 +2605,7 @@ sub_8004488: @ 0x08004488
 	movs r0, #0
 	movs r1, #0xe9
 	movs r2, #1
-	bl SetFlag
+	bl ChangeFlag
 _080044CC:
 	pop {r0}
 	bx r0
@@ -2637,7 +2637,7 @@ _080044FC: .4byte gUnknown_08017590
 _08004500: .4byte gMain+0xD8
 _08004504: .4byte 0x80000054
 _08004508: .4byte gUnknown_080173B0
-_0800450C: .4byte gUnknown_030028A0
+_0800450C: .4byte gTalkData
 _08004510: .4byte 0x800000F0
 
 	THUMB_FUNC_START sub_8004514
@@ -2715,7 +2715,7 @@ _080045C6:
 	adds r1, r2, #0
 	bl sub_8002C98
 	movs r0, #6
-	bl sub_800F408
+	bl ChangeBGM
 	b _080045F8
 _080045DA:
 	movs r0, #0
@@ -2729,7 +2729,7 @@ _080045DA:
 	adds r1, r2, #0
 	bl sub_8002C98
 	movs r0, #6
-	bl sub_800F408
+	bl ChangeBGM
 _080045F8:
 	ldr r1, _08004600
 	ldr r0, _08004604
@@ -2764,7 +2764,7 @@ _0800462A:
 	bl sub_8002C98
 _08004640:
 	movs r0, #0
-	bl sub_800F408
+	bl ChangeBGM
 	b _0800467E
 	.align 2, 0
 _08004648: .4byte 0x000055D0
@@ -2790,7 +2790,7 @@ _08004662:
 	bl sub_8002C98
 _08004678:
 	movs r0, #0
-	bl sub_800F408
+	bl ChangeBGM
 _0800467E:
 	ldr r1, _08004690
 	ldr r0, _08004694
@@ -2855,11 +2855,11 @@ _080046B6:
 	bl sub_8002CCC
 _08004710:
 	movs r0, #1
-	bl sub_800F408
+	bl ChangeBGM
 	b _0800471E
 _08004718:
 	movs r0, #0x1f
-	bl sub_800F408
+	bl ChangeBGM
 _0800471E:
 	ldr r1, _0800472C
 	ldr r0, _08004730
@@ -2894,7 +2894,7 @@ _0800475E:
 	adds r1, r2, #0
 	bl sub_8002C98
 	movs r0, #0x16
-	bl sub_800F408
+	bl ChangeBGM
 _0800476E:
 	ldr r1, _08004780
 	ldr r0, _08004784
@@ -2921,7 +2921,7 @@ _08004790:
 	b _080047AC
 _080047A6:
 	movs r0, #0x1f
-	bl sub_800F408
+	bl ChangeBGM
 _080047AC:
 	movs r0, #0
 	movs r1, #0xa0
@@ -2960,7 +2960,7 @@ _080047DC:
 	b _0800486A
 _080047FE:
 	movs r0, #0x1f
-	bl sub_800F408
+	bl ChangeBGM
 	b _0800486A
 _08004806:
 	movs r0, #0
@@ -3000,13 +3000,13 @@ _0800484C:
 	bl sub_8002C98
 _08004856:
 	movs r0, #0x16
-	bl sub_800F408
+	bl ChangeBGM
 	b _0800486A
 	.align 2, 0
 _08004860: .4byte 0x00000B94
 _08004864:
 	movs r0, #0x1f
-	bl sub_800F408
+	bl ChangeBGM
 _0800486A:
 	ldr r1, _08004878
 	ldr r0, _0800487C
@@ -3032,7 +3032,7 @@ _08004888:
 	b _080048A4
 _0800489E:
 	movs r0, #0x1f
-	bl sub_800F408
+	bl ChangeBGM
 _080048A4:
 	ldr r1, _080048B4
 	ldr r0, _080048B8
@@ -3098,7 +3098,7 @@ _0800492A:
 	bl sub_8002C98
 _08004934:
 	movs r0, #1
-	bl sub_800F408
+	bl ChangeBGM
 	b _08004958
 _0800493C:
 	movs r0, #0
@@ -3112,7 +3112,7 @@ _0800493C:
 	b _08004958
 _08004952:
 	movs r0, #1
-	bl sub_800F408
+	bl ChangeBGM
 _08004958:
 	ldr r1, _08004968
 	ldr r0, _0800496C
@@ -3152,7 +3152,7 @@ _080049A6:
 	movs r2, #0
 	bl sub_8002C98
 	movs r0, #0x1a
-	bl sub_800F408
+	bl ChangeBGM
 	b _080049CC
 _080049B8:
 	movs r0, #0
@@ -3216,7 +3216,7 @@ _08004A24: .4byte gUnknown_08017C8C
 _08004A28: .4byte gMain+0xD8
 _08004A2C: .4byte 0x80000054
 _08004A30: .4byte gUnknown_08017B24
-_08004A34: .4byte gUnknown_030028A0
+_08004A34: .4byte gTalkData
 _08004A38: .4byte 0x800000B4
 
 	THUMB_FUNC_START sub_8004A3C
@@ -3295,7 +3295,7 @@ _08004AF2:
 	adds r1, r2, #0
 	bl sub_8002C98
 	movs r0, #6
-	bl sub_800F408
+	bl ChangeBGM
 	b _08004B1A
 _08004B06:
 	movs r0, #0
@@ -3354,7 +3354,7 @@ _08004B76:
 	adds r1, r2, #0
 	bl sub_8002C98
 	movs r0, #6
-	bl sub_800F408
+	bl ChangeBGM
 _08004B86:
 	ldr r1, _08004B98
 	ldr r0, _08004B9C
@@ -3395,11 +3395,11 @@ _08004BCA:
 	movs r2, #0
 	bl sub_8002C98
 	movs r0, #0x16
-	bl sub_800F408
+	bl ChangeBGM
 	b _08004C0C
 _08004BE8:
 	movs r0, #0x1f
-	bl sub_800F408
+	bl ChangeBGM
 	b _08004C0C
 _08004BF0:
 	movs r0, #0
@@ -3413,7 +3413,7 @@ _08004BF0:
 	b _08004C0C
 _08004C06:
 	movs r0, #0x1f
-	bl sub_800F408
+	bl ChangeBGM
 _08004C0C:
 	ldr r1, _08004C1C
 	ldr r0, _08004C20
@@ -3464,7 +3464,7 @@ _08004C70:
 	bl sub_8002C98
 _08004C7A:
 	movs r0, #0x15
-	bl sub_800F408
+	bl ChangeBGM
 _08004C80:
 	ldr r1, _08004C94
 	ldr r0, _08004C98
@@ -3491,7 +3491,7 @@ _08004CA4:
 	b _08004CC0
 _08004CBA:
 	movs r0, #0x1f
-	bl sub_800F408
+	bl ChangeBGM
 _08004CC0:
 	ldr r1, _08004CD0
 	ldr r0, _08004CD4
@@ -3547,13 +3547,13 @@ _08004D26:
 	movs r2, #0
 	bl sub_8002C98
 	movs r0, #0x16
-	bl sub_800F408
+	bl ChangeBGM
 	b _08004D8E
 	.align 2, 0
 _08004D44: .4byte 0x0000401F
 _08004D48:
 	movs r0, #0x1f
-	bl sub_800F408
+	bl ChangeBGM
 	b _08004D8E
 _08004D50:
 	movs r0, #0
@@ -3576,13 +3576,13 @@ _08004D66:
 	movs r2, #0
 	bl sub_8002C98
 	movs r0, #1
-	bl sub_800F408
+	bl ChangeBGM
 	b _08004D8E
 	.align 2, 0
 _08004D84: .4byte 0x00004014
 _08004D88:
 	movs r0, #0x1f
-	bl sub_800F408
+	bl ChangeBGM
 _08004D8E:
 	ldr r1, _08004D9C
 	ldr r0, _08004DA0
@@ -3658,7 +3658,7 @@ _08004E12:
 	b _08004E58
 _08004E34:
 	movs r0, #0x1f
-	bl sub_800F408
+	bl ChangeBGM
 	b _08004E58
 _08004E3C:
 	movs r0, #0
@@ -3672,7 +3672,7 @@ _08004E3C:
 	b _08004E58
 _08004E52:
 	movs r0, #0x1f
-	bl sub_800F408
+	bl ChangeBGM
 _08004E58:
 	ldr r1, _08004E68
 	ldr r0, _08004E6C
@@ -3715,7 +3715,7 @@ _08004EA6:
 	bl sub_8002C98
 _08004EB2:
 	movs r0, #0x1a
-	bl sub_800F408
+	bl ChangeBGM
 _08004EB8:
 	ldr r1, _08004EC8
 	ldr r0, _08004ECC
@@ -3788,18 +3788,18 @@ _08004F4A:
 	movs r0, #2
 	movs r1, #0xbb
 	movs r2, #0
-	bl SetFlag
+	bl ChangeFlag
 	movs r0, #0
 	movs r1, #0xf2
 	bl GetFlag
 	cmp r0, #0
 	beq _08004F72
 	movs r0, #0xc
-	bl sub_800F408
+	bl ChangeBGM
 	b _08004F8E
 _08004F72:
 	movs r0, #1
-	bl sub_800F408
+	bl ChangeBGM
 	b _08004F8E
 _08004F7A:
 	movs r0, #0
@@ -3841,7 +3841,7 @@ _08004FC4:
 	adds r1, r2, #0
 	bl sub_8002C98
 	movs r0, #0xc
-	bl sub_800F408
+	bl ChangeBGM
 _08004FD6:
 	ldr r1, _08004FE4
 	ldr r0, _08004FE8
@@ -3917,7 +3917,7 @@ _08005060: .4byte gUnknown_0801833C
 _08005064: .4byte gMain+0xD8
 _08005068: .4byte 0x80000054
 _0800506C: .4byte gUnknown_0801824C
-_08005070: .4byte gUnknown_030028A0
+_08005070: .4byte gTalkData
 _08005074: .4byte 0x80000078
 
 	THUMB_FUNC_START sub_8005078
@@ -4001,7 +4001,7 @@ _0800513A:
 	adds r1, r2, #0
 	bl sub_8002C98
 	movs r0, #6
-	bl sub_800F408
+	bl ChangeBGM
 	b _08005174
 _0800514E:
 	movs r0, #0
@@ -4019,7 +4019,7 @@ _08005164:
 	adds r1, r2, #0
 	bl sub_8002C98
 	movs r0, #0x16
-	bl sub_800F408
+	bl ChangeBGM
 _08005174:
 	ldr r1, _08005180
 	ldr r0, _08005184
@@ -4049,7 +4049,7 @@ _080051AA:
 	adds r1, r2, #0
 	bl sub_8002C98
 	movs r0, #0
-	bl sub_800F408
+	bl ChangeBGM
 	b _080051D4
 	.align 2, 0
 _080051BC: .4byte 0x000055D0
@@ -4087,7 +4087,7 @@ _080051F4:
 	b _08005210
 _0800520A:
 	movs r0, #0x1f
-	bl sub_800F408
+	bl ChangeBGM
 _08005210:
 	ldr r1, _08005220
 	ldr r0, _08005224
@@ -4113,7 +4113,7 @@ _08005230:
 	b _0800524C
 _08005246:
 	movs r0, #0x1f
-	bl sub_800F408
+	bl ChangeBGM
 _0800524C:
 	ldr r1, _0800525C
 	ldr r0, _08005260
@@ -4139,7 +4139,7 @@ _0800526C:
 	b _08005288
 _08005282:
 	movs r0, #0x1f
-	bl sub_800F408
+	bl ChangeBGM
 _08005288:
 	ldr r1, _08005298
 	ldr r0, _0800529C
@@ -4165,7 +4165,7 @@ _080052A8:
 	b _080052C4
 _080052BE:
 	movs r0, #0xc
-	bl sub_800F408
+	bl ChangeBGM
 _080052C4:
 	ldr r1, _080052D4
 	ldr r0, _080052D8
@@ -4196,7 +4196,7 @@ _080052E4:
 	b _0800532A
 _08005306:
 	movs r0, #1
-	bl sub_800F408
+	bl ChangeBGM
 	b _0800532A
 _0800530E:
 	movs r0, #0
@@ -4210,7 +4210,7 @@ _0800530E:
 	b _0800532A
 _08005324:
 	movs r0, #1
-	bl sub_800F408
+	bl ChangeBGM
 _0800532A:
 	ldr r1, _08005338
 	ldr r0, _0800533C
@@ -4246,7 +4246,7 @@ _0800535E:
 	bl sub_8002C98
 _08005374:
 	movs r0, #0xc
-	bl sub_800F408
+	bl ChangeBGM
 _0800537A:
 	movs r0, #0xf
 	bl sub_8010204
@@ -4278,7 +4278,7 @@ _080053B6:
 	movs r2, #0
 	bl sub_8002C98
 	movs r0, #0xc
-	bl sub_800F408
+	bl ChangeBGM
 	b _080053DC
 _080053C8:
 	movs r0, #0

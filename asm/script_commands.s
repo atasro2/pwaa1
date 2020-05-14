@@ -199,7 +199,7 @@ _08007376:
 	cmp r0, #0
 	beq _080073E4
 	ldrh r0, [r4, #0x20]
-	bl sub_800549C
+	bl ChangeScriptSection
 	b _08007400
 	.align 2, 0
 _080073CC: .4byte gUnknown_08018870
@@ -216,11 +216,11 @@ _080073E4:
 	cmp r0, #0
 	beq _080073FA
 	ldrh r0, [r4, #0x22]
-	bl sub_800549C
+	bl ChangeScriptSection
 	b _08007400
 _080073FA:
 	ldrh r0, [r4, #0x24]
-	bl sub_800549C
+	bl ChangeScriptSection
 _08007400:
 	movs r0, #0x80
 	lsls r0, r0, #3

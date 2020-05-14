@@ -1,4 +1,4 @@
-	.section .data
+	.section .rodata
     .include "asm/macros.inc"
 
     .global gUnknown_08013B58
@@ -592,18 +592,18 @@ gScriptTable:
     .4byte scenario_3_4_script
     .4byte scenario_3_5_script
 
-    .global gUnknown_08018784
-gUnknown_08018784:
+    .global gSoundCueTable
+gSoundCueTable:
     .incbin "baserom.gba", 0x00018784, 0x30
 
-    .global gUnknown_080187B4
-gUnknown_080187B4:
+    .global gCourtScrollGfxPointers
+gCourtScrollGfxPointers:
     .4byte gUnknown_08427D88
     .4byte gUnknown_08472F88
     .4byte gUnknown_084BE188
 
-    .global gUnknown_080187C0
-gUnknown_080187C0:
+    .global gTextboxDownArrowTileIndexes
+gTextboxDownArrowTileIndexes:
     .incbin "baserom.gba", 0x000187C0, 0x8
 
     .global gUnknown_080187C8
@@ -687,8 +687,8 @@ gUnknown_08018870:
 gUnknown_080189A4:
     .incbin "baserom.gba", 0x000189A4, 0x98
 
-    .global gUnknown_08018A3C
-gUnknown_08018A3C:
+    .global gSaveVersion
+gSaveVersion:
     .ascii "2001 CAPCOM GBA GYAKUTEN-SAIBAN 06/15 Ver 1.000-"
 
     .global gUnknown_08018A6C
@@ -1641,5 +1641,3 @@ gUnknown_080194CA:
     @ SOUND_DATA.s 
 
     @ SOUND_DATA2.s
-
-
