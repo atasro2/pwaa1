@@ -651,17 +651,16 @@ void CalculateSaveChecksum()
 {
     u8 *saveData;
     u32 magic;
-    u32 idx;
+    u32 size;
     gSaveDataBuffer.magic = 0;
-    idx = 0;
     magic = 0;
+    size = sizeof(gSaveDataBuffer);
     saveData = (void *) (&gSaveDataBuffer.main);
-    while (saveData < (((u8 *) (&gSaveDataBuffer)) + (sizeof(gSaveDataBuffer))))
+    while (saveData < (((u8 *) (&gSaveDataBuffer)) + size))
     {
-        magic += saveData[idx];
+        magic += saveData[0];
         saveData += 4;
     }
-
     magic += 2343;
     gSaveDataBuffer.magic = magic;
 }
