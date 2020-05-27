@@ -4,7 +4,7 @@
 . = 0x00001800; gBG3MapBufferCopy = .;
 . = 0x00002000; gBG1MapBuffer = .;
 . = 0x00002800; gIntrTable = .;
-. = 0x00002840; gUnknown_03002840 = .;
+. = 0x00002840; gCourtRecord = .;
 . = 0x000028A0; gTalkData = .;
 . = 0x00002B20; gOamObjects = .;
 . = 0x00002F20; gBG0MapBuffer = .;
@@ -16,7 +16,7 @@
 . = 0x00003A50; gUnknown_03003A50 = .;
 . = 0x00003A70; gScriptContext = .;
 . = 0x00003AB0; gUnknown_03003AB0 = .;
-. = 0x00003AC0; gUnknown_03003AC0 = .;
+. = 0x00003AC0; gExaminationData = .;
 . = 0x00003C00; gTextBoxCharacters = .;
 . = 0x00003F00; gUnknown_03003F00 = .;
 . = 0x00004000; gCourtScroll = .;

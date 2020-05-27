@@ -54,11 +54,8 @@ bool32 Command02(struct ScriptContext * scriptCtx)
         {
             scriptCtx->unk0 &= ~0x20;
             scriptCtx->scriptPtr++; 
-            if(scriptCtx->currentToken != 0xA) // if script cmd is not 0xA ?
-            {
-                return 1;
-            }
-            scriptCtx->scriptPtr++;
+            if(scriptCtx->currentToken == 0xA) // if script cmd is 0xA
+                scriptCtx->scriptPtr++;
             return 1;
         }
     }
@@ -112,9 +109,7 @@ bool32 Command02(struct ScriptContext * scriptCtx)
         if(scriptCtx->currentToken == 0xA) // if script cmd is 0xA ?
         {
             if(gMain.health > 0)
-            {
                 scriptCtx->nextSection = *(scriptCtx->scriptPtr+1);
-            }
         }
         else
         {
@@ -826,35 +821,37 @@ bool32 Command16(struct ScriptContext * scriptCtx)
 
 bool32 Command17(struct ScriptContext * scriptCtx)
 {
-    u16 var1;
-    u16 var2;
-    s32 temp;
+    u16 evidenceId;
+    u16 isProfile;
+    s32 evidenceSlot;
     scriptCtx->scriptPtr++;
-    var1 = *scriptCtx->scriptPtr & 0x3FFF;
-    var2 = *scriptCtx->scriptPtr & 0x8000;
-    temp = sub_800ECF8(var2, var1);
-    if(temp < 0)
+    evidenceId = *scriptCtx->scriptPtr & 0x3FFF;
+    isProfile = *scriptCtx->scriptPtr & 0x8000;
+    evidenceSlot = FindEvidenceInCourtRecord(isProfile, evidenceId);
+    if(evidenceSlot < 0)
     {
-        temp = sub_800ED40(var2);
-        if(temp >= 0)
+        evidenceSlot = FindFirstEmptySlotInCourtRecord(isProfile);
+        if(evidenceSlot >= 0)
         {
-            if(var2 != 0)
+            if(isProfile)
             {
-                gUnknown_03002840.unk38[temp] = var1;
-                gUnknown_03002840.unk11++;
+                gCourtRecord.profileList[evidenceSlot] = evidenceId;
+                gCourtRecord.unk11++;
             }
             else
             {
-                gUnknown_03002840.unk18[temp] = var1;
-                gUnknown_03002840.unk10++;
+                gCourtRecord.evidenceList[evidenceSlot] = evidenceId;
+                gCourtRecord.unk10++;
             }
-            if(*scriptCtx->scriptPtr & 0x4000)
+            
+            if(*scriptCtx->scriptPtr & 0x4000) // should play animation for getting evidence
             {
-                gMain.unk26 = var2;
-                gMain.unk27 = var1;
+                gMain.unk26 = isProfile;
+                gMain.unk27 = evidenceId;
                 BACKUP_PROCESS();
                 SET_PROCESS(8, 0, 0, 0);
             }
+            
         }
     }
     scriptCtx->scriptPtr++;
@@ -863,24 +860,24 @@ bool32 Command17(struct ScriptContext * scriptCtx)
 
 bool32 Command18(struct ScriptContext * scriptCtx)
 {
-    u16 var1;
-    u16 var2;
-    s32 temp;
+    u16 evidenceId;
+    u16 isProfile;
+    s32 evidenceSlot;
     scriptCtx->scriptPtr++;
-    var1 = *scriptCtx->scriptPtr & 0x3FFF;
-    var2 = *scriptCtx->scriptPtr & 0x8000;
-    temp = sub_800ECF8(var2, var1);
-    if(temp >= 0)
+    evidenceId = *scriptCtx->scriptPtr & 0x3FFF;
+    isProfile = *scriptCtx->scriptPtr & 0x8000;
+    evidenceSlot = FindEvidenceInCourtRecord(isProfile, evidenceId);
+    if(evidenceSlot >= 0)
     {
-        if(var2 != 0)
+        if(isProfile)
         {
-            gUnknown_03002840.unk38[temp] = 0xFF;
+            gCourtRecord.profileList[evidenceSlot] = 0xFF;
         }
         else
         {
-            gUnknown_03002840.unk18[temp] = 0xFF;
+            gCourtRecord.evidenceList[evidenceSlot] = 0xFF;
         }
-        sub_800ED68(&gUnknown_03002840);
+        sub_800ED68(&gCourtRecord);
     }
     scriptCtx->scriptPtr++;
     return 0;
@@ -888,30 +885,29 @@ bool32 Command18(struct ScriptContext * scriptCtx)
 
 bool32 Command19(struct ScriptContext * scriptCtx)
 {
-    u16 var1;
-    u16 var2;
-    u16 var3;
-    s32 temp;
+    u16 evidenceId;
+    u16 isProfile;
+    s32 evidenceSlot;
     scriptCtx->scriptPtr++;
-    var1 = *scriptCtx->scriptPtr & 0x3FFF;
-    var2 = *scriptCtx->scriptPtr & 0x8000;
+    evidenceId = *scriptCtx->scriptPtr & 0x3FFF;
+    isProfile = *scriptCtx->scriptPtr & 0x8000;
     scriptCtx->scriptPtr++;
-    temp = sub_800ECF8(var2, var1);
-    if(temp >= 0)
+    evidenceSlot = FindEvidenceInCourtRecord(isProfile, evidenceId);
+    if(evidenceSlot >= 0)
     {
-        var1 = *scriptCtx->scriptPtr & 0x3FFF;
-        if(var2)
+        evidenceId = *scriptCtx->scriptPtr & 0x3FFF;
+        if(isProfile)
         {
-            gUnknown_03002840.unk38[temp] = var1;
+            gCourtRecord.profileList[evidenceSlot] = evidenceId;
         }
         else
         {
-            gUnknown_03002840.unk18[temp] = var1;
+            gCourtRecord.evidenceList[evidenceSlot] = evidenceId;
         }
-        if(*scriptCtx->scriptPtr & 0x4000)
+        if(*scriptCtx->scriptPtr & 0x4000) // should play animation for getting evidence
         {
-            gMain.unk26 = var2;
-            gMain.unk27 = var1;
+            gMain.unk26 = isProfile;
+            gMain.unk27 = evidenceId;
             BACKUP_PROCESS();
             SET_PROCESS(8, 0, 0, 0);
         }
@@ -937,13 +933,13 @@ u32 Command1A(struct ScriptContext * scriptCtx)
     
     sub_8011108(var0, var1, var2, *scriptCtx->scriptPtr);
     var0 = (u32)gCourtScrollGfxPointers[var0];
-    var2 = var1 & 1 ? 30: 0;
+    var2 = var1 & 1 ? 30 : 0;
     InitCourtScroll((u8 *)var0, var2, 31, var1);
     scriptCtx->scriptPtr++;
     return 0;
 }
 
-u32 Command1B(struct ScriptContext * scriptCtx)
+u32 Command1B(struct ScriptContext * scriptCtx) // probably fakematch
 {
     scriptCtx->scriptPtr++;
     if(gMain.currentBG != *scriptCtx->scriptPtr)
@@ -1421,14 +1417,14 @@ bool32 Command35(struct ScriptContext *scriptCtx)
         offset = jmpArgs[0] / 2;
         sectionNumber = jmpArgs[1];
         scriptCtx->currentSection = sectionNumber + 0x80;
-        scriptCtx->scriptPtr2 = eScriptHeap + (((u32 *)eScriptHeap)+1)[sectionNumber];
-        scriptCtx->scriptPtr = scriptCtx->scriptPtr2 + offset;
+        scriptCtx->scriptSectionPtr = eScriptHeap + (((u32 *)eScriptHeap)+1)[sectionNumber];
+        scriptCtx->scriptPtr = scriptCtx->scriptSectionPtr + offset;
     }
     else 
     {
         scriptCtx->scriptPtr++;
         offset = *scriptCtx->scriptPtr / 2;
-        scriptCtx->scriptPtr = scriptCtx->scriptPtr2 + offset;
+        scriptCtx->scriptPtr = scriptCtx->scriptSectionPtr + offset;
     }
     return 0;
 }
@@ -1508,7 +1504,6 @@ _08006E96:\n\
 }
 #endif
 
-// this might need a rework once EWRAM is understood
 bool32 Command36(struct ScriptContext * scriptCtx)
 {
     u32 idx;
@@ -1522,8 +1517,8 @@ bool32 Command36(struct ScriptContext * scriptCtx)
     offset = ptr[0] / 2;
     idx = ptr[1];
     scriptCtx->currentSection = idx + 0x80;
-    scriptCtx->scriptPtr2 = eScriptHeap + ((u32*)eScriptHeap)[idx+1];
-    scriptCtx->scriptPtr = scriptCtx->scriptPtr2 + offset;
+    scriptCtx->scriptSectionPtr = eScriptHeap + ((u32*)eScriptHeap)[idx+1];
+    scriptCtx->scriptPtr = scriptCtx->scriptSectionPtr + offset;
     return 0;
 }
 
