@@ -31,7 +31,7 @@ _08002DDA:
 	.align 2, 0
 _08002DE4: .4byte 0x0000FFFF
 _08002DE8: .4byte 0x040000D4
-_08002DEC: .4byte gUnknown_03003AC0
+_08002DEC: .4byte gExaminationData
 _08002DF0: .4byte 0x810000A0
 _08002DF4: .4byte _08002DF8
 _08002DF8: @ jump table
@@ -66,7 +66,7 @@ _08002E30:
 	.align 2, 0
 _08002E40: .4byte 0x040000D4
 _08002E44: .4byte gUnknown_08015178
-_08002E48: .4byte gUnknown_03003AC0
+_08002E48: .4byte gExaminationData
 _08002E4C: .4byte 0x80000032
 _08002E50:
 	movs r0, #0
@@ -101,7 +101,7 @@ _08002E82:
 	.align 2, 0
 _08002E90: .4byte 0x040000D4
 _08002E94: .4byte gUnknown_08015178
-_08002E98: .4byte gUnknown_03003AC0
+_08002E98: .4byte gExaminationData
 _08002E9C: .4byte 0x80000032
 _08002EA0:
 	movs r0, #0
@@ -203,7 +203,7 @@ _08002F68:
 	.align 2, 0
 _08002F78: .4byte 0x040000D4
 _08002F7C: .4byte gUnknown_080151DC
-_08002F80: .4byte gUnknown_03003AC0
+_08002F80: .4byte gExaminationData
 _08002F84: .4byte 0x8000006E
 _08002F88:
 	movs r0, #0
@@ -318,7 +318,7 @@ _0800306E:
 _0800307C: .4byte 0x00001FB0
 _08003080: .4byte 0x040000D4
 _08003084: .4byte gUnknown_080152B8
-_08003088: .4byte gUnknown_03003AC0
+_08003088: .4byte gExaminationData
 _0800308C: .4byte 0x80000014
 _08003090:
 	movs r0, #0
@@ -369,7 +369,7 @@ _080030E4:
 	.align 2, 0
 _080030F4: .4byte 0x040000D4
 _080030F8: .4byte gUnknown_080152E0
-_080030FC: .4byte gUnknown_03003AC0
+_080030FC: .4byte gExaminationData
 _08003100: .4byte 0x80000032
 _08003104:
 	movs r0, #0
@@ -431,7 +431,7 @@ _08003170:
 	.align 2, 0
 _08003178: .4byte 0x040000D4
 _0800317C: .4byte gUnknown_08015344
-_08003180: .4byte gUnknown_03003AC0
+_08003180: .4byte gExaminationData
 _08003184: .4byte 0x8000003C
 
 	THUMB_FUNC_START nullsub_7
@@ -499,7 +499,7 @@ _080031F6:
 	.align 2, 0
 _08003200: .4byte 0x0000FFFF
 _08003204: .4byte 0x040000D4
-_08003208: .4byte gUnknown_03003AC0
+_08003208: .4byte gExaminationData
 _0800320C: .4byte 0x810000A0
 _08003210: .4byte _08003214
 _08003214: @ jump table
@@ -534,7 +534,7 @@ _0800324C:
 	.align 2, 0
 _0800325C: .4byte 0x040000D4
 _08003260: .4byte gUnknown_08015550
-_08003264: .4byte gUnknown_03003AC0
+_08003264: .4byte gExaminationData
 _08003268: .4byte 0x80000032
 _0800326C:
 	movs r0, #0
@@ -569,7 +569,7 @@ _0800329C:
 	.align 2, 0
 _080032AC: .4byte 0x040000D4
 _080032B0: .4byte gUnknown_080155B4
-_080032B4: .4byte gUnknown_03003AC0
+_080032B4: .4byte gExaminationData
 _080032B8: .4byte 0x80000032
 _080032BC:
 	ldr r1, _080032EC
@@ -765,7 +765,7 @@ _08003452:
 _08003460: .4byte 0x00002564
 _08003464: .4byte 0x040000D4
 _08003468: .4byte gUnknown_080156B8
-_0800346C: .4byte gUnknown_03003AC0
+_0800346C: .4byte gExaminationData
 _08003470: .4byte 0x80000032
 _08003474:
 	movs r0, #0
@@ -797,7 +797,7 @@ _0800349C:
 _080034AC: .4byte 0x00002564
 _080034B0: .4byte 0x040000D4
 _080034B4: .4byte gUnknown_0801571C
-_080034B8: .4byte gUnknown_03003AC0
+_080034B8: .4byte gExaminationData
 _080034BC: .4byte 0x80000032
 _080034C0:
 	movs r0, #0
@@ -858,7 +858,7 @@ _0800352E:
 	.align 2, 0
 _08003534: .4byte 0x040000D4
 _08003538: .4byte gUnknown_080157F8
-_0800353C: .4byte gUnknown_03003AC0
+_0800353C: .4byte gExaminationData
 _08003540: .4byte 0x8000003C
 
 	THUMB_FUNC_START sub_8003544
@@ -896,7 +896,7 @@ _08003580:
 	.align 2, 0
 _08003584: .4byte 0x040000D4
 _08003588: .4byte gUnknown_0801571C
-_0800358C: .4byte gUnknown_03003AC0
+_0800358C: .4byte gExaminationData
 _08003590: .4byte 0x80000032
 
 	THUMB_FUNC_START sub_8003594
@@ -960,7 +960,7 @@ _08003600:
 	.align 2, 0
 _0800360C: .4byte 0x0000FFFF
 _08003610: .4byte 0x040000D4
-_08003614: .4byte gUnknown_03003AC0
+_08003614: .4byte gExaminationData
 _08003618: .4byte 0x810000A0
 _0800361C: .4byte _08003620
 _08003620: @ jump table
@@ -1022,7 +1022,7 @@ _0800369C:
 	.align 2, 0
 _080036AC: .4byte 0x040000D4
 _080036B0: .4byte gUnknown_08015BD0
-_080036B4: .4byte gUnknown_03003AC0
+_080036B4: .4byte gExaminationData
 _080036B8: .4byte 0x80000032
 _080036BC:
 	movs r0, #0
@@ -1090,7 +1090,7 @@ _08003738:
 	.align 2, 0
 _08003748: .4byte 0x040000D4
 _0800374C: .4byte gUnknown_08015C34
-_08003750: .4byte gUnknown_03003AC0
+_08003750: .4byte gExaminationData
 _08003754: .4byte 0x80000014
 _08003758:
 	movs r0, #0
@@ -1167,7 +1167,7 @@ _080037E8:
 	.align 2, 0
 _080037F8: .4byte 0x040000D4
 _080037FC: .4byte gUnknown_08015C5C
-_08003800: .4byte gUnknown_03003AC0
+_08003800: .4byte gExaminationData
 _08003804: .4byte 0x80000032
 _08003808:
 	movs r0, #0
@@ -1189,7 +1189,7 @@ _0800381C:
 	.align 2, 0
 _0800382C: .4byte 0x040000D4
 _08003830: .4byte gUnknown_08015CC0
-_08003834: .4byte gUnknown_03003AC0
+_08003834: .4byte gExaminationData
 _08003838: .4byte 0x80000064
 _0800383C:
 	movs r0, #0
@@ -1211,7 +1211,7 @@ _08003850:
 	.align 2, 0
 _08003860: .4byte 0x040000D4
 _08003864: .4byte gUnknown_08015D88
-_08003868: .4byte gUnknown_03003AC0
+_08003868: .4byte gExaminationData
 _0800386C: .4byte 0x80000046
 _08003870:
 	movs r0, #0
@@ -1293,7 +1293,7 @@ _08003908:
 	.align 2, 0
 _08003910: .4byte 0x040000D4
 _08003914: .4byte gUnknown_08015E8C
-_08003918: .4byte gUnknown_03003AC0
+_08003918: .4byte gExaminationData
 _0800391C: .4byte 0x8000003C
 
 	THUMB_FUNC_START nullsub_8
@@ -1362,7 +1362,7 @@ _08003990:
 	.align 2, 0
 _0800399C: .4byte 0x0000FFFF
 _080039A0: .4byte 0x040000D4
-_080039A4: .4byte gUnknown_03003AC0
+_080039A4: .4byte gExaminationData
 _080039A8: .4byte 0x810000A0
 _080039AC: .4byte _080039B0
 _080039B0: @ jump table
@@ -1411,7 +1411,7 @@ _08003A12:
 	.align 2, 0
 _08003A20: .4byte 0x040000D4
 _08003A24: .4byte gUnknown_08016260
-_08003A28: .4byte gUnknown_03003AC0
+_08003A28: .4byte gExaminationData
 _08003A2C: .4byte 0x80000032
 _08003A30:
 	movs r0, #0
@@ -1437,7 +1437,7 @@ _08003A4E:
 	.align 2, 0
 _08003A5C: .4byte 0x040000D4
 _08003A60: .4byte gUnknown_080161FC
-_08003A64: .4byte gUnknown_03003AC0
+_08003A64: .4byte gExaminationData
 _08003A68: .4byte 0x80000032
 _08003A6C:
 	movs r0, #0
@@ -1482,7 +1482,7 @@ _08003AB4:
 	.align 2, 0
 _08003AC4: .4byte 0x040000D4
 _08003AC8: .4byte gUnknown_080162C4
-_08003ACC: .4byte gUnknown_03003AC0
+_08003ACC: .4byte gExaminationData
 _08003AD0: .4byte 0x80000014
 _08003AD4:
 	movs r0, #0
@@ -1527,7 +1527,7 @@ _08003B1C:
 	.align 2, 0
 _08003B2C: .4byte 0x040000D4
 _08003B30: .4byte gUnknown_080162EC
-_08003B34: .4byte gUnknown_03003AC0
+_08003B34: .4byte gExaminationData
 _08003B38: .4byte 0x80000032
 _08003B3C:
 	movs r0, #0
@@ -1558,7 +1558,7 @@ _08003B64:
 	.align 2, 0
 _08003B74: .4byte 0x040000D4
 _08003B78: .4byte gUnknown_08016350
-_08003B7C: .4byte gUnknown_03003AC0
+_08003B7C: .4byte gExaminationData
 _08003B80: .4byte 0x80000032
 _08003B84:
 	movs r0, #0
@@ -1598,7 +1598,7 @@ _08003BC2:
 	.align 2, 0
 _08003BD0: .4byte 0x040000D4
 _08003BD4: .4byte gUnknown_080162EC
-_08003BD8: .4byte gUnknown_03003AC0
+_08003BD8: .4byte gExaminationData
 _08003BDC: .4byte 0x80000032
 _08003BE0:
 	movs r0, #0
@@ -1633,7 +1633,7 @@ _08003C12:
 	.align 2, 0
 _08003C20: .4byte 0x040000D4
 _08003C24: .4byte gUnknown_080162EC
-_08003C28: .4byte gUnknown_03003AC0
+_08003C28: .4byte gExaminationData
 _08003C2C: .4byte 0x80000032
 _08003C30:
 	movs r0, #0
@@ -1659,7 +1659,7 @@ _08003C4C:
 	.align 2, 0
 _08003C5C: .4byte 0x040000D4
 _08003C60: .4byte gUnknown_080162EC
-_08003C64: .4byte gUnknown_03003AC0
+_08003C64: .4byte gExaminationData
 _08003C68: .4byte 0x80000032
 _08003C6C:
 	movs r0, #0
@@ -1686,7 +1686,7 @@ _08003C8C:
 	.align 2, 0
 _08003C9C: .4byte 0x040000D4
 _08003CA0: .4byte gUnknown_0801647C
-_08003CA4: .4byte gUnknown_03003AC0
+_08003CA4: .4byte gExaminationData
 _08003CA8: .4byte 0x80000064
 _08003CAC:
 	movs r0, #0
@@ -1742,7 +1742,7 @@ _08003D18: .4byte 0x0000801C
 _08003D1C: .4byte gUnknown_03003A50
 _08003D20: .4byte 0x040000D4
 _08003D24: .4byte gUnknown_080163B4
-_08003D28: .4byte gUnknown_03003AC0
+_08003D28: .4byte gExaminationData
 _08003D2C: .4byte 0x80000064
 _08003D30:
 	movs r0, #0
@@ -1772,7 +1772,7 @@ _08003D56:
 	.align 2, 0
 _08003D64: .4byte 0x040000D4
 _08003D68: .4byte gUnknown_080163B4
-_08003D6C: .4byte gUnknown_03003AC0
+_08003D6C: .4byte gExaminationData
 _08003D70: .4byte 0x80000064
 _08003D74:
 	movs r0, #0
@@ -1882,7 +1882,7 @@ _08003E4A:
 	.align 2, 0
 _08003E58: .4byte 0x040000D4
 _08003E5C: .4byte gUnknown_080166D4
-_08003E60: .4byte gUnknown_03003AC0
+_08003E60: .4byte gExaminationData
 _08003E64: .4byte 0x8000003C
 _08003E68:
 	movs r0, #0
@@ -1910,7 +1910,7 @@ _08003E8A:
 	.align 2, 0
 _08003E98: .4byte 0x040000D4
 _08003E9C: .4byte gUnknown_0801665C
-_08003EA0: .4byte gUnknown_03003AC0
+_08003EA0: .4byte gExaminationData
 _08003EA4: .4byte 0x8000003C
 _08003EA8:
 	movs r0, #0
@@ -1928,7 +1928,7 @@ _08003EA8:
 	.align 2, 0
 _08003EC4: .4byte 0x040000D4
 _08003EC8: .4byte gUnknown_080167C4
-_08003ECC: .4byte gUnknown_03003AC0
+_08003ECC: .4byte gExaminationData
 _08003ED0: .4byte 0x8000003C
 _08003ED4:
 	movs r0, #0
@@ -1967,7 +1967,7 @@ _08003F0C:
 _08003F1C: .4byte 0x0000010F
 _08003F20: .4byte 0x040000D4
 _08003F24: .4byte gUnknown_0801674C
-_08003F28: .4byte gUnknown_03003AC0
+_08003F28: .4byte gExaminationData
 _08003F2C: .4byte 0x8000003C
 _08003F30:
 	movs r0, #0
@@ -1987,7 +1987,7 @@ _08003F30:
 	.align 2, 0
 _08003F50: .4byte 0x040000D4
 _08003F54: .4byte gUnknown_080168F0
-_08003F58: .4byte gUnknown_03003AC0
+_08003F58: .4byte gExaminationData
 _08003F5C: .4byte 0x8000005A
 _08003F60:
 	movs r0, #0
@@ -2019,7 +2019,7 @@ _08003F8A:
 	.align 2, 0
 _08003F98: .4byte 0x040000D4
 _08003F9C: .4byte gUnknown_0801683C
-_08003FA0: .4byte gUnknown_03003AC0
+_08003FA0: .4byte gExaminationData
 _08003FA4: .4byte 0x8000005A
 _08003FA8:
 	movs r0, #0
@@ -2046,7 +2046,7 @@ _08003FC6:
 	.align 2, 0
 _08003FD4: .4byte 0x040000D4
 _08003FD8: .4byte gUnknown_0801683C
-_08003FDC: .4byte gUnknown_03003AC0
+_08003FDC: .4byte gExaminationData
 _08003FE0: .4byte 0x8000005A
 _08003FE4:
 	movs r0, #0
@@ -2133,7 +2133,7 @@ _0800408A:
 	.align 2, 0
 _08004090: .4byte 0x040000D4
 _08004094: .4byte gUnknown_080169A4
-_08004098: .4byte gUnknown_03003AC0
+_08004098: .4byte gExaminationData
 _0800409C: .4byte 0x80000046
 
 	THUMB_FUNC_START nullsub_9
@@ -2202,7 +2202,7 @@ _08004110:
 	.align 2, 0
 _0800411C: .4byte 0x0000FFFF
 _08004120: .4byte 0x040000D4
-_08004124: .4byte gUnknown_03003AC0
+_08004124: .4byte gExaminationData
 _08004128: .4byte 0x810000A0
 _0800412C: .4byte _08004130
 _08004130: @ jump table
@@ -2242,7 +2242,7 @@ _0800417E:
 	.align 2, 0
 _0800418C: .4byte 0x040000D4
 _08004190: .4byte gUnknown_08016CE0
-_08004194: .4byte gUnknown_03003AC0
+_08004194: .4byte gExaminationData
 _08004198: .4byte 0x80000032
 _0800419C:
 	movs r0, #0
@@ -2272,7 +2272,7 @@ _080041C2:
 	.align 2, 0
 _080041D0: .4byte 0x040000D4
 _080041D4: .4byte gUnknown_08016D44
-_080041D8: .4byte gUnknown_03003AC0
+_080041D8: .4byte gExaminationData
 _080041DC: .4byte 0x80000014
 _080041E0:
 	movs r0, #2
@@ -2325,7 +2325,7 @@ _0800423A:
 	.align 2, 0
 _08004248: .4byte 0x040000D4
 _0800424C: .4byte gUnknown_08016D6C
-_08004250: .4byte gUnknown_03003AC0
+_08004250: .4byte gExaminationData
 _08004254: .4byte 0x80000032
 _08004258:
 	movs r0, #0
@@ -2392,7 +2392,7 @@ _080042DC: .4byte 0x00008014
 _080042E0: .4byte gUnknown_03003A50
 _080042E4: .4byte 0x040000D4
 _080042E8: .4byte gUnknown_08016DD0
-_080042EC: .4byte gUnknown_03003AC0
+_080042EC: .4byte gExaminationData
 _080042F0: .4byte 0x80000064
 _080042F4:
 	movs r0, #0
@@ -2419,7 +2419,7 @@ _08004314:
 	.align 2, 0
 _08004324: .4byte 0x040000D4
 _08004328: .4byte gUnknown_08016E98
-_0800432C: .4byte gUnknown_03003AC0
+_0800432C: .4byte gExaminationData
 _08004330: .4byte 0x80000046
 _08004334:
 	movs r0, #0
@@ -2454,7 +2454,7 @@ _08004366:
 	.align 2, 0
 _08004374: .4byte 0x040000D4
 _08004378: .4byte gUnknown_08016F24
-_0800437C: .4byte gUnknown_03003AC0
+_0800437C: .4byte gExaminationData
 _08004380: .4byte 0x80000046
 _08004384:
 	movs r0, #0
@@ -2476,7 +2476,7 @@ _08004398:
 	.align 2, 0
 _080043A8: .4byte 0x040000D4
 _080043AC: .4byte gUnknown_08016E98
-_080043B0: .4byte gUnknown_03003AC0
+_080043B0: .4byte gExaminationData
 _080043B4: .4byte 0x80000046
 _080043B8:
 	movs r0, #0
@@ -2502,7 +2502,7 @@ _080043D4:
 	.align 2, 0
 _080043E4: .4byte 0x040000D4
 _080043E8: .4byte gUnknown_08016FB0
-_080043EC: .4byte gUnknown_03003AC0
+_080043EC: .4byte gExaminationData
 _080043F0: .4byte 0x8000003C
 _080043F4:
 	movs r0, #0
@@ -2572,7 +2572,7 @@ _0800446E:
 	.align 2, 0
 _08004478: .4byte 0x040000D4
 _0800447C: .4byte gUnknown_080170DC
-_08004480: .4byte gUnknown_03003AC0
+_08004480: .4byte gExaminationData
 _08004484: .4byte 0x8000005A
 
 	THUMB_FUNC_START sub_8004488
@@ -2671,7 +2671,7 @@ _0800453C:
 	.align 2, 0
 _08004548: .4byte 0x0000FFFF
 _0800454C: .4byte 0x040000D4
-_08004550: .4byte gUnknown_03003AC0
+_08004550: .4byte gExaminationData
 _08004554: .4byte 0x810000A0
 _08004558: .4byte _0800455C
 _0800455C: @ jump table
@@ -2803,7 +2803,7 @@ _0800467E:
 _0800468C: .4byte 0x000055D0
 _08004690: .4byte 0x040000D4
 _08004694: .4byte gUnknown_0801769C
-_08004698: .4byte gUnknown_03003AC0
+_08004698: .4byte gExaminationData
 _0800469C: .4byte 0x80000014
 _080046A0:
 	movs r0, #0
@@ -2871,7 +2871,7 @@ _0800471E:
 	.align 2, 0
 _0800472C: .4byte 0x040000D4
 _08004730: .4byte gUnknown_080176C4
-_08004734: .4byte gUnknown_03003AC0
+_08004734: .4byte gExaminationData
 _08004738: .4byte 0x80000028
 _0800473C:
 	movs r0, #0
@@ -2907,7 +2907,7 @@ _0800476E:
 _0800477C: .4byte 0x00003F70
 _08004780: .4byte 0x040000D4
 _08004784: .4byte gUnknown_080177A0
-_08004788: .4byte gUnknown_03003AC0
+_08004788: .4byte gExaminationData
 _0800478C: .4byte 0x8000003C
 _08004790:
 	movs r0, #0
@@ -2941,7 +2941,7 @@ _080047BE:
 	.align 2, 0
 _080047CC: .4byte 0x040000D4
 _080047D0: .4byte gUnknown_08017714
-_080047D4: .4byte gUnknown_03003AC0
+_080047D4: .4byte gExaminationData
 _080047D8: .4byte 0x80000046
 _080047DC:
 	movs r0, #0
@@ -3018,7 +3018,7 @@ _0800486A:
 	.align 2, 0
 _08004878: .4byte 0x040000D4
 _0800487C: .4byte gUnknown_08017818
-_08004880: .4byte gUnknown_03003AC0
+_08004880: .4byte gExaminationData
 _08004884: .4byte 0x80000046
 _08004888:
 	movs r0, #0
@@ -3044,7 +3044,7 @@ _080048A4:
 	.align 2, 0
 _080048B4: .4byte 0x040000D4
 _080048B8: .4byte gUnknown_080178A4
-_080048BC: .4byte gUnknown_03003AC0
+_080048BC: .4byte gExaminationData
 _080048C0: .4byte 0x8000001E
 _080048C4:
 	movs r0, #0
@@ -3124,7 +3124,7 @@ _08004958:
 	.align 2, 0
 _08004968: .4byte 0x040000D4
 _0800496C: .4byte gUnknown_080178E0
-_08004970: .4byte gUnknown_03003AC0
+_08004970: .4byte gExaminationData
 _08004974: .4byte 0x8000003C
 _08004978:
 	movs r0, #2
@@ -3181,7 +3181,7 @@ _080049DC:
 	.align 2, 0
 _080049E4: .4byte 0x040000D4
 _080049E8: .4byte gUnknown_08017958
-_080049EC: .4byte gUnknown_03003AC0
+_080049EC: .4byte gExaminationData
 _080049F0: .4byte 0x80000032
 
 	THUMB_FUNC_START nullsub_10
@@ -3250,7 +3250,7 @@ _08004A64:
 	.align 2, 0
 _08004A70: .4byte 0x0000FFFF
 _08004A74: .4byte 0x040000D4
-_08004A78: .4byte gUnknown_03003AC0
+_08004A78: .4byte gExaminationData
 _08004A7C: .4byte 0x810000A0
 _08004A80: .4byte _08004A84
 _08004A84: @ jump table
@@ -3367,7 +3367,7 @@ _08004B86:
 _08004B94: .4byte 0x000017B8
 _08004B98: .4byte 0x040000D4
 _08004B9C: .4byte gUnknown_08017D98
-_08004BA0: .4byte gUnknown_03003AC0
+_08004BA0: .4byte gExaminationData
 _08004BA4: .4byte 0x80000014
 _08004BA8:
 	movs r0, #0
@@ -3425,7 +3425,7 @@ _08004C0C:
 	.align 2, 0
 _08004C1C: .4byte 0x040000D4
 _08004C20: .4byte gUnknown_08017DC0
-_08004C24: .4byte gUnknown_03003AC0
+_08004C24: .4byte gExaminationData
 _08004C28: .4byte 0x80000028
 _08004C2C:
 	movs r0, #0
@@ -3477,7 +3477,7 @@ _08004C80:
 _08004C90: .4byte 0x000013B0
 _08004C94: .4byte 0x040000D4
 _08004C98: .4byte gUnknown_08017E88
-_08004C9C: .4byte gUnknown_03003AC0
+_08004C9C: .4byte gExaminationData
 _08004CA0: .4byte 0x8000006E
 _08004CA4:
 	movs r0, #0
@@ -3503,7 +3503,7 @@ _08004CC0:
 	.align 2, 0
 _08004CD0: .4byte 0x040000D4
 _08004CD4: .4byte gUnknown_08017E10
-_08004CD8: .4byte gUnknown_03003AC0
+_08004CD8: .4byte gExaminationData
 _08004CDC: .4byte 0x8000003C
 _08004CE0:
 	movs r0, #0
@@ -3594,7 +3594,7 @@ _08004D8E:
 	.align 2, 0
 _08004D9C: .4byte 0x040000D4
 _08004DA0: .4byte gUnknown_08017F64
-_08004DA4: .4byte gUnknown_03003AC0
+_08004DA4: .4byte gExaminationData
 _08004DA8: .4byte 0x80000046
 _08004DAC:
 	movs r0, #0
@@ -3684,7 +3684,7 @@ _08004E58:
 	.align 2, 0
 _08004E68: .4byte 0x040000D4
 _08004E6C: .4byte gUnknown_08017FF0
-_08004E70: .4byte gUnknown_03003AC0
+_08004E70: .4byte gExaminationData
 _08004E74: .4byte 0x8000001E
 _08004E78:
 	movs r0, #0
@@ -3727,7 +3727,7 @@ _08004EB8:
 	.align 2, 0
 _08004EC8: .4byte 0x040000D4
 _08004ECC: .4byte gUnknown_0801802C
-_08004ED0: .4byte gUnknown_03003AC0
+_08004ED0: .4byte gExaminationData
 _08004ED4: .4byte 0x80000046
 _08004ED8:
 	movs r0, #0
@@ -3821,7 +3821,7 @@ _08004F8E:
 	.align 2, 0
 _08004F9C: .4byte 0x040000D4
 _08004FA0: .4byte gUnknown_080180B8
-_08004FA4: .4byte gUnknown_03003AC0
+_08004FA4: .4byte gExaminationData
 _08004FA8: .4byte 0x8000003C
 _08004FAC:
 	movs r0, #0
@@ -3853,7 +3853,7 @@ _08004FD6:
 	.align 2, 0
 _08004FE4: .4byte 0x040000D4
 _08004FE8: .4byte gUnknown_08018130
-_08004FEC: .4byte gUnknown_03003AC0
+_08004FEC: .4byte gExaminationData
 _08004FF0: .4byte 0x80000028
 _08004FF4:
 	movs r0, #0
@@ -3882,7 +3882,7 @@ _08005018:
 	.align 2, 0
 _08005020: .4byte 0x040000D4
 _08005024: .4byte gUnknown_08018180
-_08005028: .4byte gUnknown_03003AC0
+_08005028: .4byte gExaminationData
 _0800502C: .4byte 0x80000032
 
 	THUMB_FUNC_START nullsub_11
@@ -3951,7 +3951,7 @@ _080050A0:
 	.align 2, 0
 _080050AC: .4byte 0x0000FFFF
 _080050B0: .4byte 0x040000D4
-_080050B4: .4byte gUnknown_03003AC0
+_080050B4: .4byte gExaminationData
 _080050B8: .4byte 0x810000A0
 _080050BC: .4byte _080050C0
 _080050C0: @ jump table
@@ -4073,7 +4073,7 @@ _080051D4:
 	.align 2, 0
 _080051E4: .4byte 0x040000D4
 _080051E8: .4byte gUnknown_08018448
-_080051EC: .4byte gUnknown_03003AC0
+_080051EC: .4byte gExaminationData
 _080051F0: .4byte 0x80000014
 _080051F4:
 	movs r0, #0
@@ -4099,7 +4099,7 @@ _08005210:
 	.align 2, 0
 _08005220: .4byte 0x040000D4
 _08005224: .4byte gUnknown_08018470
-_08005228: .4byte gUnknown_03003AC0
+_08005228: .4byte gExaminationData
 _0800522C: .4byte 0x80000028
 _08005230:
 	movs r0, #0
@@ -4125,7 +4125,7 @@ _0800524C:
 	.align 2, 0
 _0800525C: .4byte 0x040000D4
 _08005260: .4byte gUnknown_080184C0
-_08005264: .4byte gUnknown_03003AC0
+_08005264: .4byte gExaminationData
 _08005268: .4byte 0x8000003C
 _0800526C:
 	movs r0, #0
@@ -4151,7 +4151,7 @@ _08005288:
 	.align 2, 0
 _08005298: .4byte 0x040000D4
 _0800529C: .4byte gUnknown_08018538
-_080052A0: .4byte gUnknown_03003AC0
+_080052A0: .4byte gExaminationData
 _080052A4: .4byte 0x8000001E
 _080052A8:
 	movs r0, #0
@@ -4177,7 +4177,7 @@ _080052C4:
 	.align 2, 0
 _080052D4: .4byte 0x040000D4
 _080052D8: .4byte gUnknown_08018574
-_080052DC: .4byte gUnknown_03003AC0
+_080052DC: .4byte gExaminationData
 _080052E0: .4byte 0x80000046
 _080052E4:
 	movs r0, #0
@@ -4222,7 +4222,7 @@ _0800532A:
 	.align 2, 0
 _08005338: .4byte 0x040000D4
 _0800533C: .4byte gUnknown_08018600
-_08005340: .4byte gUnknown_03003AC0
+_08005340: .4byte gExaminationData
 _08005344: .4byte 0x8000003C
 _08005348:
 	movs r0, #0
@@ -4307,7 +4307,7 @@ _080053EC:
 	.align 2, 0
 _080053F4: .4byte 0x040000D4
 _080053F8: .4byte gUnknown_080186DC
-_080053FC: .4byte gUnknown_03003AC0
+_080053FC: .4byte gExaminationData
 _08005400: .4byte 0x80000032
 
 	THUMB_FUNC_START nullsub_37

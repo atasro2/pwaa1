@@ -79,7 +79,7 @@ void InitScriptSection(struct ScriptContext *scriptCtx)
             r1 = eScriptHeap;
             r0 = (u32 *)eScriptHeap + (scriptCtx->currentSection-0x80);
             scriptCtx->scriptPtr = r1 + r0[1];
-            scriptCtx->scriptPtr2 = scriptCtx->scriptPtr;
+            scriptCtx->scriptSectionPtr = scriptCtx->scriptPtr;
             scriptCtx->scriptHeaderSize = *(u16*)r1;
         }
         else
@@ -87,7 +87,7 @@ void InitScriptSection(struct ScriptContext *scriptCtx)
             r1 = common_scripts;
             r0 = &common_scripts[scriptCtx->currentSection];
             scriptCtx->scriptPtr = r1 + r0[1];
-            scriptCtx->scriptPtr2 = scriptCtx->scriptPtr;
+            scriptCtx->scriptSectionPtr = scriptCtx->scriptPtr;
             scriptCtx->scriptHeaderSize = *(u16*)r1;
         }
     }

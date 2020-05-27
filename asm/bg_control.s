@@ -3455,7 +3455,7 @@ sub_80024C8: @ 0x080024C8
 	subs r3, #4
 	b _080024E4
 	.align 2, 0
-_080024DC: .4byte gUnknown_03002840
+_080024DC: .4byte gCourtRecord
 _080024E0:
 	movs r0, #0
 	strb r0, [r2, #0xa]
