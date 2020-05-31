@@ -737,35 +737,33 @@ void ClearSaveProcess(struct Main *main)
         main->process[GAME_SUBPROCESS]++;
         break;
     case 1:
-        if(main->blendMode != 0)
+        if(main->blendMode == 0)
         {
-            break;
+            sub_8002878(&gCourtRecord);
+            if(gCourtRecord.unk1 == 0)
+            {
+                main->unk14 = 1;
+                main->unk15 = 1;
+                gScriptContext.currentSection = 0xFFFF;
+                ChangeScriptSection(4);
+                gScriptContext.textXOffset = 9;
+                gScriptContext.textYOffset = 52;
+                oam = &gOamObjects[40];
+                oam->attr0 = SPRITE_ATTR0(96, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_BLEND, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
+                oam->attr1 = SPRITE_ATTR1_NONAFFINE(48, FALSE, FALSE, 3);
+                oam->attr2 = SPRITE_ATTR2(0x1E0, 0, 10);
+                oam++;
+                oam->attr0 = SPRITE_ATTR0(96, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_BLEND, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
+                oam->attr1 = SPRITE_ATTR1_NONAFFINE(128, FALSE, FALSE, 3);
+                oam->attr2 = SPRITE_ATTR2(0x200, 0, 10); 
+                main->blendCounter = 0;
+                main->blendDelay = 1;
+                main->blendDeltaY = 0x10;
+                gLCDIORegisters.lcd_bldcnt = BLDCNT_TGT2_BG3 | BLDCNT_EFFECT_BLEND;
+                gLCDIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0, main->blendDeltaY);
+                main->process[GAME_SUBPROCESS]++;
+            }
         }
-        sub_8002878(&gCourtRecord);
-        if(gCourtRecord.unk1 != 0)
-        {
-            break;
-        }
-        main->unk14 = 1;
-        main->unk15 = 1;
-        gScriptContext.currentSection = 0xFFFF;
-        ChangeScriptSection(4);
-        gScriptContext.textXOffset = 9;
-        gScriptContext.textYOffset = 52;
-        oam = &gOamObjects[40];
-        oam->attr0 = SPRITE_ATTR0(96, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_BLEND, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
-        oam->attr1 = SPRITE_ATTR1_NONAFFINE(48, FALSE, FALSE, 3);
-        oam->attr2 = SPRITE_ATTR2(0x1E0, 0, 10);
-        oam++;
-        oam->attr0 = SPRITE_ATTR0(96, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_BLEND, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
-        oam->attr1 = SPRITE_ATTR1_NONAFFINE(128, FALSE, FALSE, 3);
-        oam->attr2 = SPRITE_ATTR2(0x200, 0, 10); 
-        main->blendCounter = 0;
-        main->blendDelay = 1;
-        main->blendDeltaY = 0x10;
-        gLCDIORegisters.lcd_bldcnt = BLDCNT_TGT2_BG3 | BLDCNT_EFFECT_BLEND;
-        gLCDIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0, main->blendDeltaY);
-        main->process[GAME_SUBPROCESS]++;
         break;
     case 2:
         if(gScriptContext.unk0 & 0x8)
@@ -893,14 +891,39 @@ void SaveGameInit2SubProcess(struct Main *main)
     StartHardwareBlend(1, 0, 1, 0x1F);
     main->process[GAME_SUBPROCESS]++;
 }
-/*
-void sub_8008794(struct Main *main)
+
+void SaveGameInitButtonsSubProcess(struct Main *main)
 {
+    struct OamAttrs * oam;
     sub_8002878(&gCourtRecord);
-    if(gCourtRecord.unk1 == 0)
+    if(gCourtRecord.unk1 == 0) // ?
     {
         main->unk14 = 1;
         main->unk15 = 1;
+        gScriptContext.currentSection = 0xFFFF;
+        if(main->process[GAME_PROCESSUNK3] != 0)
+            ChangeScriptSection(0);
+        else
+            ChangeScriptSection(1);
+        gScriptContext.textXOffset = 9;
+        gScriptContext.textYOffset = 52;
+        oam = &gOamObjects[40];
+        oam->attr0 = SPRITE_ATTR0(96, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_BLEND, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
+        oam->attr1 = SPRITE_ATTR1_NONAFFINE(48, FALSE, FALSE, 3);
+        oam->attr2 = SPRITE_ATTR2(0x1E0, 0, 10);
+        oam++;
+        oam->attr0 = SPRITE_ATTR0(96, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_BLEND, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
+        oam->attr1 = SPRITE_ATTR1_NONAFFINE(128, FALSE, FALSE, 3);
+        oam->attr2 = SPRITE_ATTR2(0x200, 0, 10);
+        main->blendCounter = 0;
+        main->blendDelay = 1;
+        main->blendDeltaY = 0x10;
+        gLCDIORegisters.lcd_bldcnt = BLDCNT_EFFECT_BLEND | BLDCNT_TGT2_BG3;
+        gLCDIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0, main->blendDeltaY);
+        if(main->process[GAME_PROCESSUNK3] != 0)
+            main->selectedButton = 0;
+        else
+            main->selectedButton = 1;
+        main->process[GAME_SUBPROCESS]++;
     }
 }
-*/
