@@ -22,7 +22,7 @@ extern u8 * gCourtScrollGfxPointers[3];
 extern struct Struct80187C8 gUnknown_080187C8[16];
 extern struct Struct8018DD4 gUnknown_08018DD4[];
 
-// 0x180000 onwards because capcom // GFX basically
+// 0x180000 onwards // GFX basically
 // maybe change to defines
 // keep both actually it won't matter a whole lot
 extern u8 gUnknown_08180000[0x200]; // palette 

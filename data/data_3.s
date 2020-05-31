@@ -256,7 +256,7 @@ gScriptCmdFuncs:
 gSaveGameSubProcesses:
     .4byte SaveGameInit1SubProcess
 	.4byte SaveGameInit2SubProcess
-	.4byte sub_8008794
+	.4byte SaveGameInitButtonsSubProcess
 	.4byte sub_800885C
 	.4byte sub_8008A18
 	.4byte sub_8008C64

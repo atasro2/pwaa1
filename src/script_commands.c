@@ -1120,7 +1120,7 @@ bool32 Command22(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     // skips a token
     scriptCtx->scriptPtr++;
-    if(*scriptCtx->scriptPtr != 0)
+    if(*scriptCtx->scriptPtr)
         FadeOutBGM(*scriptCtx->scriptPtr);
     else
         StopBGM();
@@ -1133,7 +1133,7 @@ bool32 Command23(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     // skips a token
     scriptCtx->scriptPtr++;
-    if(*scriptCtx->scriptPtr != 0)
+    if(*scriptCtx->scriptPtr)
         UnpauseBGM();
     else
         PauseBGM();
@@ -1237,17 +1237,17 @@ bool32 Command29(struct ScriptContext * scriptCtx)
 
 bool32 Command2A(struct ScriptContext * scriptCtx)
 {
-    u32 temp;
+    u32 nextSection;
     scriptCtx->scriptPtr++;
     if(GetFlag(0, *scriptCtx->scriptPtr))
     {
-        temp = *(scriptCtx->scriptPtr+1);
+        nextSection = *(scriptCtx->scriptPtr+1);
     }
     else
     {
-        temp = *(scriptCtx->scriptPtr+2);
+        nextSection = *(scriptCtx->scriptPtr+2);
     }
-    scriptCtx->nextSection = temp;
+    scriptCtx->nextSection = nextSection;
     scriptCtx->scriptPtr+=3;
     return 0;
 }
