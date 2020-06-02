@@ -66,8 +66,8 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
             if (gMain.unk2C == 0)
             {
                 gMain.unk0++;
-                sub_80013EC();
-                sub_80029B0();
+                //sub_80013EC();
+                UpdateBGTilemaps();
                 sub_8010C4C(0);
                 MoveSpritesToOAM();
                 SetLCDIORegs();

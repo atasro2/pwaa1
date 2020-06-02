@@ -87,6 +87,10 @@ clean:
 %.pal: ;
 %.aif: ;
 
+# dummy rule for now
+%.phscr: ; 
+%.phscr.lz: %.phscr ; $(GBAGFX) $< $@ -search 1
+
 %.1bpp: %.png  ; $(GBAGFX) $< $@
 %.4bpp: %.png  ; $(GBAGFX) $< $@
 %.8bpp: %.png  ; $(GBAGFX) $< $@
@@ -122,7 +126,13 @@ endif
 $(DATA_ASM_BUILDDIR)/%.o: $(DATA_ASM_SUBDIR)/%.s $$(data_dep)
 	$(AS) $(ASFLAGS) -o $@ $< 
 	
-$(C_BUILDDIR)/%.o: $(C_SUBDIR)/%.c
+ifeq ($(NODEP),1)
+$(C_BUILDDIR)/%.o: c_dep :=
+else
+$(C_BUILDDIR)/%.o: c_dep = $(shell $(SCANINC) -I include $(C_SUBDIR)/$*.c)
+endif
+
+$(C_BUILDDIR)/%.o: $(C_SUBDIR)/%.c $$(c_dep)
 	$(CPP) $(CPPFLAGS) $< | $(CC1) $(CFLAGS) -o $(C_BUILDDIR)/$*.s
 	@echo | sed "i.text\n\t.align\t2, 0" >> $(C_BUILDDIR)/$*.s
 	$(AS) $(ASFLAGS) -o $@ $(C_BUILDDIR)/$*.s

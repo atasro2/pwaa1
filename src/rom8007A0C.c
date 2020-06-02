@@ -20,7 +20,7 @@ void CapcomLogoProcess(struct Main *main)
         lcdIoRegsp->lcd_dispcnt = DISPCNT_MODE_0 | DISPCNT_BG3_ON;
         lcdIoRegsp->lcd_bldy = 0x10;
         StartHardwareBlend(1, 1, 1, 0x1F);
-        main->unk16 = 8;
+        main->tilemapUpdateBits = 8;
         main->process[GAME_SUBPROCESS]++;
         main->process[GAME_PROCESSUNK3] = 0x78; // Timer for showing Capcom logo
         break;
@@ -33,7 +33,7 @@ void CapcomLogoProcess(struct Main *main)
                 break;
             }
             StartHardwareBlend(2, 1, 1, 0x1F);
-            main->unk16 = 0;
+            main->tilemapUpdateBits = 0;
             main->process[GAME_SUBPROCESS]++;
         }
         break;
@@ -63,8 +63,8 @@ void TitleScreenProcess(struct Main *main)
     case 1:
         DmaCopy16(3, gUnknown_08185D20, VRAM + 0x3800, 0x800);
         DmaCopy16(3, gUnknown_08180000, PLTT, sizeof(gUnknown_08180000));
-        LZ77UnCompWram(gUnknown_08180200, eUnknown_0202CFC0);
-        DmaCopy16(3, eUnknown_0202CFC0, BG_CHAR_ADDR(1), 0x9600);
+        LZ77UnCompWram(gUnknown_08180200, eBGDecompBuffer);
+        DmaCopy16(3, eBGDecompBuffer, BG_CHAR_ADDR(1), 0x9600);
         DmaCopy16(3, gUnknown_08194580, PLTT + 0x240, 0xC0);
         DmaCopy16(3, gUnknown_08193CA0, OBJ_VRAM0 + 0x400, 0x400);
         oam = &gOamObjects[49];
@@ -91,7 +91,7 @@ void TitleScreenProcess(struct Main *main)
         gUnknown_03003A50.unk14 = 2;
         main->selectedButton = 0;
         main->unk19C |= 4;
-        main->unk16 = 9;
+        main->tilemapUpdateBits = 9;
         StartHardwareBlend(1, 1, 1, 0x1F);
         SET_PROCESS_PTR(1, 2, 0, 0, main); // ? main->process[GAME_SUBPROCESS]++; hello?
         break;
@@ -278,7 +278,7 @@ void GameOverScreenProcess(struct Main *main)
         lcdIoRegsp->lcd_bg2hofs = 8;
         lcdIoRegsp->lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
         lcdIoRegsp->lcd_dispcnt = DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG0_ON | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON;
-        main->unk16 = 13;
+        main->tilemapUpdateBits = 13;
         main->process[GAME_SUBPROCESS]++;
         main->process[GAME_PROCESSUNK2] = 0;
         break;
@@ -729,7 +729,7 @@ void ClearSaveProcess(struct Main *main)
         }
         sub_80024C8(6, 8);
         gLCDIORegisters.lcd_dispcnt = DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON;
-        main->unk16 = 0xC;
+        main->tilemapUpdateBits = 0xC;
         gLCDIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
         gLCDIORegisters.lcd_bldy = 0x10;
         main->selectedButton = 1;
@@ -777,7 +777,7 @@ void ClearSaveProcess(struct Main *main)
             {
                 PlaySE(0x2B);
                 StartHardwareBlend(2, 1, 1, 0x1F);
-                main->unk16 = 0;
+                main->tilemapUpdateBits = 0;
                 main->process[GAME_SUBPROCESS]++;
             }
         }
@@ -881,7 +881,7 @@ void SaveGameInit2SubProcess(struct Main *main)
     }
     sub_80024C8(6, 8);
     gLCDIORegisters.lcd_dispcnt = DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON;
-    main->unk16 = 0xC;
+    main->tilemapUpdateBits = 0xC;
     gLCDIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
     gLCDIORegisters.lcd_bg3vofs = 8;
     gLCDIORegisters.lcd_bg3hofs = 8;

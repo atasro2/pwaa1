@@ -84,8 +84,8 @@ void InitScriptSection(struct ScriptContext *scriptCtx)
         }
         else
         {
-            r1 = common_scripts;
-            r0 = &common_scripts[scriptCtx->currentSection];
+            r1 = std_scripts;
+            r0 = &std_scripts[scriptCtx->currentSection];
             scriptCtx->scriptPtr = r1 + r0[1];
             scriptCtx->scriptSectionPtr = scriptCtx->scriptPtr;
             scriptCtx->scriptHeaderSize = *(u16*)r1;

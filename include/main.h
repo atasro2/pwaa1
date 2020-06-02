@@ -31,7 +31,7 @@ struct Main
     u8 selectedButton; /* + 0x13 */
     u8 unk14;
     u8 unk15;
-    u8 unk16;
+    u8 tilemapUpdateBits; /* + 0x16 */
     u8 unk17;
     u8 filler18[0x2];
     s16 bgmFadeVolume; /* + 0x1A */

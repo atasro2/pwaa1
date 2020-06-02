@@ -818,7 +818,7 @@ _08008ECE:
 	b _08008F26
 	.align 2, 0
 _08008EE4: .4byte gUnknown_081946C0
-_08008EE8: .4byte gUnknown_0202CFC0
+_08008EE8: .4byte gBGDecompBuffer
 _08008EEC: .4byte 0x040000D4
 _08008EF0: .4byte 0x06013400
 _08008EF4: .4byte 0x80001400

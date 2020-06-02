@@ -20,5 +20,5 @@ extern void sub_800232C();
 extern void sub_800244C(u32);
 extern void sub_80024C8(u32, u32);
 extern void sub_80028B4(u32, u32);
-extern void sub_80029B0();
+extern void UpdateBGTilemaps();
 #endif//GUARD_BACKGROUNDS_H

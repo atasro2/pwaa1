@@ -17,7 +17,8 @@ SECTIONS {
     {
         asm/crt0.o(.text);
         src/main.o(.text);
-        src/bg_control.o(.text);
+        src/bg3_control.o(.text);
+        asm/bg3_control.o(.text);
         asm/bg_control.o(.text);
         src/utils.o(.text);
         src/rom8002D6C.o(.text);
@@ -45,7 +46,7 @@ SECTIONS {
     ALIGN(4)
     {
         src/main.o(.rodata);
-        src/bg_control.o(.rodata);
+        src/bg3_control.o(.rodata);
         data/data.o(.rodata);
         data/sound_data.o(.rodata);
         data/m4a_rodata.o(.rodata);
@@ -56,7 +57,7 @@ SECTIONS {
     .data :
     ALIGN(4)
     {
-        data/data_3.o(.data); /* these are all function pointers */
+        data/data_3.o(.data); /* these are all pointers */
     } =0
     /* capcom :^)) */
     . = 0x8180000;
