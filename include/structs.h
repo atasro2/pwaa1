@@ -65,7 +65,7 @@ struct ScriptContext
     u16 unk0; // message status
     u16 waitTimer; // wait timer
     u16 * scriptPtr; /* +0x4 */
-    u16 * scriptPtr2; /* +0x8 */
+    u16 * scriptSectionPtr; /* +0x8 */
     u16 currentToken; /* +0xC */
     u8 textX; /* +0xE */
     u8 textY; /* +0xF */
@@ -104,7 +104,7 @@ struct ScriptContext
     u8 * unk3C;
 };
 
-struct Struct3002840
+struct CourtRecord
 {
     u8 unk0;
     s8 unk1;
@@ -112,8 +112,8 @@ struct Struct3002840
     u8 unk10;
     u8 unk11;
     u8 filler12[0x6];
-    u8 unk18[0x20];
-    u8 unk38[0x20];
+    u8 evidenceList[0x20];
+    u8 profileList[0x20];
 };
 
 struct TalkData
@@ -174,11 +174,6 @@ struct Struct3003AB0
     u8 filler6[0x2];
 };
 
-struct Struct3003AC0
-{
-    u8 filler0[0x140];
-};
-
 struct TextBoxCharacter
 {
     u16 state;
@@ -206,27 +201,6 @@ struct Struct2002650
     u8 * unk18;
 };
 
-struct SaveData
-{
-    char saveDataVer[0x30]; /* + 0x0 */
-    u32 magic;         /* + 0x30 */
-    struct Main main; /* + 0x34 */
-    struct LCDIORegisters ioRegs; /* + 0x1D4 */
-    struct ScriptContext scriptCtx; /* + 0x228 */
-    struct Struct3002840 iwramStruct2840; /* + 0x268 */
-    struct CourtScroll courtScroll;  /* + 0x2C0 */
-    struct Struct3003AB0 iwramStruct3AB0; /* + 0x2D0 */
-    struct Struct3003A50 iwramStruct3A50; /* + 0x2D8 */
-    struct Struct3003AC0 iwramStruct3AC0; /* + 0x2F0 */
-    struct TalkData talkData[32]; /* + 0x430 */
-    struct Struct3003930 iwramStruct3930[8]; /* + 0x6B0 */
-    struct OamAttrs oam[128]; /* + 0x750 */
-    struct TextBoxCharacter iwramStruct3C00[0x40]; /* + 0xB50 */
-    u16 bg0Map[0x400]; /* + 0xE50 */
-    u16 bg1Map[0x400]; /* + 0x1650 */
-    u16 bg2Map[0x400]; /* + 0x1E50 */
-    struct Struct2002650 ewramStruct2650[0x20];
-};
 
 struct Point4 // shamelessly stolen from unity
 {
@@ -261,6 +235,36 @@ struct Struct8018DD4
     u8* unk4;
     u16 unk6;
     u16 unk8;
+};
+
+struct ExaminationData
+{
+    u16 examinationSection;
+    u8 unk2;
+    u8 unk3;
+    struct Point4 area;
+};
+
+struct SaveData
+{
+    char saveDataVer[0x30]; /* + 0x0 */
+    u32 magic;         /* + 0x30 */
+    struct Main main; /* + 0x34 */
+    struct LCDIORegisters ioRegs; /* + 0x1D4 */
+    struct ScriptContext scriptCtx; /* + 0x228 */
+    struct CourtRecord courtRecord; /* + 0x268 */
+    struct CourtScroll courtScroll;  /* + 0x2C0 */
+    struct Struct3003AB0 iwramStruct3AB0; /* + 0x2D0 */
+    struct Struct3003A50 iwramStruct3A50; /* + 0x2D8 */
+    struct ExaminationData examinationData[16]; /* + 0x2F0 */
+    struct TalkData talkData[32]; /* + 0x430 */
+    struct Struct3003930 iwramStruct3930[8]; /* + 0x6B0 */
+    struct OamAttrs oam[128]; /* + 0x750 */
+    struct TextBoxCharacter textBoxCharacters[0x40]; /* + 0xB50 */
+    u16 bg0Map[0x400]; /* + 0xE50 */
+    u16 bg1Map[0x400]; /* + 0x1650 */
+    u16 bg2Map[0x400]; /* + 0x1E50 */
+    struct Struct2002650 ewramStruct2650[0x20]; /* + 0x2650 */
 };
 
 #endif//GUARD_STRUCTS_H

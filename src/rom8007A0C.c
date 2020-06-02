@@ -20,7 +20,7 @@ void CapcomLogoProcess(struct Main *main)
         lcdIoRegsp->lcd_dispcnt = DISPCNT_MODE_0 | DISPCNT_BG3_ON;
         lcdIoRegsp->lcd_bldy = 0x10;
         StartHardwareBlend(1, 1, 1, 0x1F);
-        main->unk16 = 8;
+        main->tilemapUpdateBits = 8;
         main->process[GAME_SUBPROCESS]++;
         main->process[GAME_PROCESSUNK3] = 0x78; // Timer for showing Capcom logo
         break;
@@ -33,7 +33,7 @@ void CapcomLogoProcess(struct Main *main)
                 break;
             }
             StartHardwareBlend(2, 1, 1, 0x1F);
-            main->unk16 = 0;
+            main->tilemapUpdateBits = 0;
             main->process[GAME_SUBPROCESS]++;
         }
         break;
@@ -63,8 +63,8 @@ void TitleScreenProcess(struct Main *main)
     case 1:
         DmaCopy16(3, gUnknown_08185D20, VRAM + 0x3800, 0x800);
         DmaCopy16(3, gUnknown_08180000, PLTT, sizeof(gUnknown_08180000));
-        LZ77UnCompWram(gUnknown_08180200, eUnknown_0202CFC0);
-        DmaCopy16(3, eUnknown_0202CFC0, BG_CHAR_ADDR(1), 0x9600);
+        LZ77UnCompWram(gUnknown_08180200, eBGDecompBuffer);
+        DmaCopy16(3, eBGDecompBuffer, BG_CHAR_ADDR(1), 0x9600);
         DmaCopy16(3, gUnknown_08194580, PLTT + 0x240, 0xC0);
         DmaCopy16(3, gUnknown_08193CA0, OBJ_VRAM0 + 0x400, 0x400);
         oam = &gOamObjects[49];
@@ -91,7 +91,7 @@ void TitleScreenProcess(struct Main *main)
         gUnknown_03003A50.unk14 = 2;
         main->selectedButton = 0;
         main->unk19C |= 4;
-        main->unk16 = 9;
+        main->tilemapUpdateBits = 9;
         StartHardwareBlend(1, 1, 1, 0x1F);
         SET_PROCESS_PTR(1, 2, 0, 0, main); // ? main->process[GAME_SUBPROCESS]++; hello?
         break;
@@ -248,13 +248,14 @@ void TitleScreenProcess(struct Main *main)
     }
 }
 
-//TODO: this is the most important TODO here plase finish the decomp for this function
 #ifdef NONMATCHING
 void GameOverScreenProcess(struct Main *main)
 {
     struct LCDIORegisters *lcdIoRegsp = &gLCDIORegisters; // r4
     struct OamAttrs * oam = &gOamObjects[49]; // r3 
-    u32 i;
+    u32 i, j;
+    u8 * ptr;
+    u16 * ptr2;
     switch (main->process[GAME_SUBPROCESS])
     {
     case 0:
@@ -277,7 +278,7 @@ void GameOverScreenProcess(struct Main *main)
         lcdIoRegsp->lcd_bg2hofs = 8;
         lcdIoRegsp->lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
         lcdIoRegsp->lcd_dispcnt = DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG0_ON | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON;
-        main->unk16 = 13;
+        main->tilemapUpdateBits = 13;
         main->process[GAME_SUBPROCESS]++;
         main->process[GAME_PROCESSUNK2] = 0;
         break;
@@ -285,23 +286,43 @@ void GameOverScreenProcess(struct Main *main)
         oam->attr1 = (((oam->attr1 & 0x1FF) + 8) & 0x1FF) + (oam->attr1 & ~0x1FF); // shitty way to add 8 to the X coordinate but ok
         oam++;
         oam->attr1 -= 8;
+        ptr = &gUnknown_080189A4[0xE]; //matches better with pure pointer i think
         for(i = 0; i < 10; i++)
         {
-            // i will leave this for someone else 
+            u8 * ptr3 = &ptr[i * 0xF];
+            ptr2 = &gBG2MapBuffer[i*32+main->process[GAME_PROCESSUNK2]];
+            for(j = 0; j < main->process[GAME_PROCESSUNK2]; j++)
+            {
+                u32 tile = 0x10A0 + *ptr3;
+                *ptr2 = tile;
+                *(ptr2+0x140) = tile; 
+                ptr2--;
+                ptr3--;
+            }
         }
+        ptr = &gUnknown_080189A4[0xE];
         for(i = 0; i < 10; i++)
         {
-            // i will leave this for someone else 
+            u8 * ptr3 = &ptr[i * 0xF];
+            ptr2 = &gBG2MapBuffer[(i*32)+0x1F-main->process[GAME_PROCESSUNK2]];
+            for(j = 0; j < main->process[GAME_PROCESSUNK2]; j++)
+            {
+                u32 tile = 0x14A0 + *ptr3;
+                *ptr2 = tile;
+                *(ptr2+0x140) = tile; 
+                ptr2++;
+                ptr3--;
+            }
         }
-        if(main->process[GAME_PROCESSUNK2] > 16)
+        if(main->process[GAME_PROCESSUNK2] < 0xF)
+        {
+            main->process[GAME_PROCESSUNK2]++;
+        }
+        else
         {
             PlaySE(0x56);
             main->process[GAME_SUBPROCESS]++;
             main->process[GAME_PROCESSUNK2] = 0;
-        }
-        else
-        {
-            main->process[GAME_PROCESSUNK2]++;
         }
         break;
     case 2:
@@ -692,7 +713,7 @@ void ClearSaveProcess(struct Main *main)
         DmaCopy16(3, gUnknown_08185D20, VRAM + 0x3800, 0x800);
         DmaCopy16(3, GetBGPalettePtr(0), PLTT, 0x200);
         DmaCopy16(3, gUnknown_08186540, VRAM, 0x1000);
-        DmaCopy16(3, gUnknown_081964A8, VRAM + 0x13C00, 0x800);
+        DmaCopy16(3, gUnknown_081964A8, OBJ_VRAM0 + 0x3C00, 0x800);
         DmaCopy16(3, gUnknown_081FD92C, PLTT + 0x320, 0x40);
         DmaCopy16(3, gTextPal, PLTT + 0x200, 0x20);
         gLCDIORegisters.lcd_bg0cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(28) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
@@ -708,7 +729,7 @@ void ClearSaveProcess(struct Main *main)
         }
         sub_80024C8(6, 8);
         gLCDIORegisters.lcd_dispcnt = DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON;
-        main->unk16 = 0xC;
+        main->tilemapUpdateBits = 0xC;
         gLCDIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
         gLCDIORegisters.lcd_bldy = 0x10;
         main->selectedButton = 1;
@@ -716,35 +737,33 @@ void ClearSaveProcess(struct Main *main)
         main->process[GAME_SUBPROCESS]++;
         break;
     case 1:
-        if(main->blendMode != 0)
+        if(main->blendMode == 0)
         {
-            break;
+            sub_8002878(&gCourtRecord);
+            if(gCourtRecord.unk1 == 0)
+            {
+                main->unk14 = 1;
+                main->unk15 = 1;
+                gScriptContext.currentSection = 0xFFFF;
+                ChangeScriptSection(4);
+                gScriptContext.textXOffset = 9;
+                gScriptContext.textYOffset = 52;
+                oam = &gOamObjects[40];
+                oam->attr0 = SPRITE_ATTR0(96, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_BLEND, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
+                oam->attr1 = SPRITE_ATTR1_NONAFFINE(48, FALSE, FALSE, 3);
+                oam->attr2 = SPRITE_ATTR2(0x1E0, 0, 10);
+                oam++;
+                oam->attr0 = SPRITE_ATTR0(96, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_BLEND, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
+                oam->attr1 = SPRITE_ATTR1_NONAFFINE(128, FALSE, FALSE, 3);
+                oam->attr2 = SPRITE_ATTR2(0x200, 0, 10); 
+                main->blendCounter = 0;
+                main->blendDelay = 1;
+                main->blendDeltaY = 0x10;
+                gLCDIORegisters.lcd_bldcnt = BLDCNT_TGT2_BG3 | BLDCNT_EFFECT_BLEND;
+                gLCDIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0, main->blendDeltaY);
+                main->process[GAME_SUBPROCESS]++;
+            }
         }
-        sub_8002878(&gUnknown_03002840);
-        if(gUnknown_03002840.unk1 != 0)
-        {
-            break;
-        }
-        main->unk14 = 1;
-        main->unk15 = 1;
-        gScriptContext.currentSection = 0xFFFF;
-        ChangeScriptSection(4);
-        gScriptContext.textXOffset = 9;
-        gScriptContext.textYOffset = 52;
-        oam = &gOamObjects[40];
-        oam->attr0 = SPRITE_ATTR0(96, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_BLEND, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
-        oam->attr1 = SPRITE_ATTR1_NONAFFINE(48, FALSE, FALSE, 3);
-        oam->attr2 = SPRITE_ATTR2(0x1E0, 0, 10);
-        oam++;
-        oam->attr0 = SPRITE_ATTR0(96, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_BLEND, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
-        oam->attr1 = SPRITE_ATTR1_NONAFFINE(128, FALSE, FALSE, 3);
-        oam->attr2 = SPRITE_ATTR2(0x200, 0, 10); 
-        main->blendCounter = 0;
-        main->blendDelay = 1;
-        main->blendY = 0x10;
-        gLCDIORegisters.lcd_bldcnt = BLDCNT_TGT2_BG3 | BLDCNT_EFFECT_BLEND;
-        gLCDIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0, main->blendY);
-        main->process[GAME_SUBPROCESS]++;
         break;
     case 2:
         if(gScriptContext.unk0 & 0x8)
@@ -758,7 +777,7 @@ void ClearSaveProcess(struct Main *main)
             {
                 PlaySE(0x2B);
                 StartHardwareBlend(2, 1, 1, 0x1F);
-                main->unk16 = 0;
+                main->tilemapUpdateBits = 0;
                 main->process[GAME_SUBPROCESS]++;
             }
         }
@@ -777,15 +796,15 @@ void ClearSaveProcess(struct Main *main)
         }
         if(main->process[GAME_SUBPROCESS] == 2)
         {
-            if(main->blendY > 0)
+            if(main->blendDeltaY > 0)
             {
                 main->blendCounter++;
                 if(main->blendCounter >= main->blendDelay)
                 {
                     main->blendCounter = 0;
-                    main->blendY--;
+                    main->blendDeltaY--;
                 }
-                gLCDIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0x10-main->blendY, main->blendY);
+                gLCDIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0x10-main->blendDeltaY, main->blendDeltaY);
             }
         }
         break;
@@ -802,5 +821,109 @@ void ClearSaveProcess(struct Main *main)
         break;
     default:
         break;
+    }
+}
+
+extern void (*gSaveGameSubProcesses[])(struct Main *);
+
+void SaveGameProcess(struct Main *main)
+{
+    gSaveGameSubProcesses[gMain.process[GAME_SUBPROCESS]](&gMain);
+}
+
+void SaveGameInit1SubProcess(struct Main *main)
+{
+    u32 i;
+    DmaCopy16(3, gBG1MapBuffer, gSaveDataBuffer.bg1Map, sizeof(gBG1MapBuffer));
+    DmaCopy16(3, gBG2MapBuffer, gSaveDataBuffer.bg2Map, sizeof(gBG2MapBuffer));
+    DmaCopy16(3, gTextBoxCharacters, gSaveDataBuffer.textBoxCharacters, sizeof(gTextBoxCharacters));
+    DmaCopy16(3, &gScriptContext, &gSaveDataBuffer.scriptCtx, sizeof(gScriptContext));
+    DmaCopy16(3, &gLCDIORegisters, &gSaveDataBuffer.ioRegs, sizeof(gLCDIORegisters));
+    DmaCopy16(3, gUnknown_03003930, gSaveDataBuffer.iwramStruct3930, sizeof(gUnknown_03003930));
+    for(i = 0; i < ARRAY_COUNT(gUnknown_03003930); i++)
+    {
+        gUnknown_03003930[i].id |= 0xFF;
+    }
+    sub_801042C(gSaveDataBuffer.ewramStruct2650);
+    main->unk14 = 0;
+    StartHardwareBlend(2, 0, 1, 0x1F);
+    main->process[GAME_SUBPROCESS]++;
+}
+
+void SaveGameInit2SubProcess(struct Main *main)
+{
+    struct OamAttrs * oam;
+    u32 i;
+    if(main->blendMode != 0)
+        return;
+    DmaCopy16(3, gBG0MapBuffer, gSaveDataBuffer.bg0Map, sizeof(gBG0MapBuffer));
+    DmaCopy16(3, &gCourtRecord, &gSaveDataBuffer.courtRecord, sizeof(gCourtRecord));
+    DmaCopy16(3, &gUnknown_03003A50, &gSaveDataBuffer.iwramStruct3A50, sizeof(gUnknown_03003A50));
+    DmaCopy16(3, &gUnknown_03003AB0, &gSaveDataBuffer.iwramStruct3AB0, sizeof(gUnknown_03003AB0));
+    DmaCopy16(3, &gCourtScroll, &gSaveDataBuffer.courtScroll, sizeof(gCourtScroll))
+    DmaCopy16(3, gExaminationData, gSaveDataBuffer.examinationData, sizeof(gExaminationData));
+    DmaCopy16(3, gTalkData, gSaveDataBuffer.talkData, sizeof(gTalkData));
+    DmaCopy16(3, gUnknown_08193CA0, OBJ_VRAM0 + 0x3800, 0x400);
+    DmaCopy16(3, gUnknown_08194580, PLTT + 0x300, 0xC0);
+    DmaCopy16(3, gUnknown_081964A8, OBJ_VRAM0 + 0x3C00, 0x800);
+    DmaCopy16(3, gUnknown_081FD92C, PLTT + 0x320, 0x40);
+    sub_8001830(0x43);
+    sub_8001A9C(0x43);
+    main->unk1F &= ~3;
+    oam = gOamObjects;
+    for(i = 0; i < MAX_OAM_OBJ_COUNT; i++)
+    {
+        oam++->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+    }
+    for(i = 0; i < ARRAY_COUNT(gBG2MapBuffer); i++)
+    {
+        gBG2MapBuffer[i] = 0;
+    }
+    sub_80024C8(6, 8);
+    gLCDIORegisters.lcd_dispcnt = DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON;
+    main->tilemapUpdateBits = 0xC;
+    gLCDIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
+    gLCDIORegisters.lcd_bg3vofs = 8;
+    gLCDIORegisters.lcd_bg3hofs = 8;
+    gLCDIORegisters.lcd_bg1vofs = 0;
+    gLCDIORegisters.lcd_bg1hofs = 0;
+    main->unk15 = 0;
+    StartHardwareBlend(1, 0, 1, 0x1F);
+    main->process[GAME_SUBPROCESS]++;
+}
+
+void SaveGameInitButtonsSubProcess(struct Main *main)
+{
+    struct OamAttrs * oam;
+    sub_8002878(&gCourtRecord);
+    if(gCourtRecord.unk1 == 0) // ?
+    {
+        main->unk14 = 1;
+        main->unk15 = 1;
+        gScriptContext.currentSection = 0xFFFF;
+        if(main->process[GAME_PROCESSUNK3] != 0)
+            ChangeScriptSection(0);
+        else
+            ChangeScriptSection(1);
+        gScriptContext.textXOffset = 9;
+        gScriptContext.textYOffset = 52;
+        oam = &gOamObjects[40];
+        oam->attr0 = SPRITE_ATTR0(96, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_BLEND, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
+        oam->attr1 = SPRITE_ATTR1_NONAFFINE(48, FALSE, FALSE, 3);
+        oam->attr2 = SPRITE_ATTR2(0x1E0, 0, 10);
+        oam++;
+        oam->attr0 = SPRITE_ATTR0(96, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_BLEND, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
+        oam->attr1 = SPRITE_ATTR1_NONAFFINE(128, FALSE, FALSE, 3);
+        oam->attr2 = SPRITE_ATTR2(0x200, 0, 10);
+        main->blendCounter = 0;
+        main->blendDelay = 1;
+        main->blendDeltaY = 0x10;
+        gLCDIORegisters.lcd_bldcnt = BLDCNT_EFFECT_BLEND | BLDCNT_TGT2_BG3;
+        gLCDIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0, main->blendDeltaY);
+        if(main->process[GAME_PROCESSUNK3] != 0)
+            main->selectedButton = 0;
+        else
+            main->selectedButton = 1;
+        main->process[GAME_SUBPROCESS]++;
     }
 }

@@ -31,7 +31,7 @@ struct Main
     u8 selectedButton; /* + 0x13 */
     u8 unk14;
     u8 unk15;
-    u8 unk16;
+    u8 tilemapUpdateBits; /* + 0x16 */
     u8 unk17;
     u8 filler18[0x2];
     s16 bgmFadeVolume; /* + 0x1A */
@@ -53,11 +53,11 @@ struct Main
     s8 horizontolBGScrollSpeed;
     s8 verticalBGScrollSpeed;
     u8 filler3E[0x36];
-    u16 blendTargets; /* + 0x74 */
+    u16 blendTarget; /* + 0x74 */
     u16 blendMode; /* + 0x76 */
     u16 blendCounter; /* + 0x78 */
     u8 blendDelay; /* + 0x7A */
-    u8 blendY; /* + 0x7B */
+    u8 blendDeltaY; /* + 0x7B */
     u8 unk7C;
     u8 unk7D;
     u8 unk7E;
@@ -142,7 +142,7 @@ void HideAllSprites();
 void SetLCDIORegs();
 void sub_8000738(u16, u16);
 u32 ReadKeysAndTestResetCombo();
-void StartHardwareBlend(u32 arg0, u32 arg1, u32 arg2, u32 arg3);
+void StartHardwareBlend(u32 mode, u32 delay, u32 deltaY, u32 target);
 void InitCourtScroll(u8 *, u32, u32, u32);
 void ResetGameState();
 #endif//GUARD_MAIN_H

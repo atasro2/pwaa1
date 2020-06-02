@@ -252,11 +252,11 @@ gScriptCmdFuncs:
     .4byte Command5E
     .4byte Command5F
 
-    .global gUnknown_0811DF28
-gUnknown_0811DF28:
-    .4byte sub_80084F4
-	.4byte sub_80085D8
-	.4byte sub_8008794
+    .global gSaveGameSubProcesses
+gSaveGameSubProcesses:
+    .4byte SaveGameInit1SubProcess
+	.4byte SaveGameInit2SubProcess
+	.4byte SaveGameInitButtonsSubProcess
 	.4byte sub_800885C
 	.4byte sub_8008A18
 	.4byte sub_8008C64

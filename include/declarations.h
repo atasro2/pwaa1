@@ -14,7 +14,7 @@ extern s16 gSineTable[256+64];
 extern u32 gUnknown_080150D0[12];
 extern u16 gUnknown_08014FB8[0x8C];
 extern u8 gTextPal[0x20];
-extern u32 common_scripts[0xDEC/4];
+extern u32 std_scripts[0xDEC/4];
 extern u32 * gScriptTable[17];
 extern u8 gSoundCueTable[0x30];
 extern u8 gTextboxDownArrowTileIndexes[8];
@@ -22,7 +22,7 @@ extern u8 * gCourtScrollGfxPointers[3];
 extern struct Struct80187C8 gUnknown_080187C8[16];
 extern struct Struct8018DD4 gUnknown_08018DD4[];
 
-// 0x180000 onwards because capcom // GFX basically
+// 0x180000 onwards // GFX basically
 // maybe change to defines
 // keep both actually it won't matter a whole lot
 extern u8 gUnknown_08180000[0x200]; // palette 
@@ -83,7 +83,7 @@ u32 CheckSaveChecksum();
 //ASMFUNCTIONS
 
 // UNSORTED
-extern void sub_8002878(struct Struct3002840 *);
+extern void sub_8002878(struct CourtRecord *);
 extern void sub_8010E14(s16);
 extern void sub_800EEFC(struct Main *);
 extern void sub_8010C4C(u8);
@@ -92,10 +92,11 @@ extern void sub_8010048(u32, u32, u32, u32);
 extern void sub_800B7A8(struct Struct3003A50 *, u32);
 extern void sub_800FA74(struct Struct3000840 *, u32);
 extern void sub_800FBA0(struct Struct3000840 *, u32);
-extern s32 sub_800ECF8(u16, u32);
-extern s32 sub_800ED40(u16);
-extern void sub_800ED68(struct Struct3002840 *);
+extern s32 FindEvidenceInCourtRecord(u16, u32);
+extern s32 FindFirstEmptySlotInCourtRecord(u16);
+extern void sub_800ED68(struct CourtRecord *);
 extern void sub_8011108(u32, u32, u32, u32);
+extern void sub_801042C(struct Struct2002650 *);
 extern void sub_8010960(struct Struct3000840 *);
 extern struct Struct3000840 * sub_8010204(u32);
 extern void sub_80106A4(u32, u32);
@@ -109,7 +110,7 @@ extern struct Struct3000800 gUnknown_03000800; // size unknown
 extern u16 gBG3MapBuffer[0x400]; // BG 3 Map buffer
 extern u16 gBG3MapBufferCopy[0x400]; // BG 3 Map buffer copy TODO: this 1 array is keeping me away from naming the other ones..  BG Pan related?
 extern u16 gBG1MapBuffer[0x400]; // BG 1 Map buffer
-extern struct Struct3002840 gUnknown_03002840;
+extern struct CourtRecord gCourtRecord;
 extern struct TalkData gTalkData[32];
 extern struct OamAttrs gOamObjects[128];
 extern u16 gBG0MapBuffer[0x400]; // BG 0 Map buffer
@@ -118,6 +119,7 @@ extern u8 gTextColorTileBuffer[0x80];
 extern struct Struct3003A50 gUnknown_03003A50;
 extern struct ScriptContext gScriptContext;
 extern struct Struct3003AB0 gUnknown_03003AB0; 
+extern struct ExaminationData gExaminationData[16];
 extern struct TextBoxCharacter gTextBoxCharacters[0x3F];
 extern struct CourtScroll gCourtScroll;
 extern struct MusicPlayerInfo gMPlayInfo_BGM;

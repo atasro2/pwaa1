@@ -66,8 +66,8 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
             if (gMain.unk2C == 0)
             {
                 gMain.unk0++;
-                sub_80013EC();
-                sub_80029B0();
+                sub_80013EC(); // seems to be for updating background scroll
+                UpdateBGTilemaps();
                 sub_8010C4C(0);
                 MoveSpritesToOAM();
                 SetLCDIORegs();
@@ -80,7 +80,7 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
 			// fakematch? scrub C? the fuck am i supposed to look at anyways?
             if (gMain.unk2C == 0 && (sub_8005470(), gMain.unk2C == 0))
             {
-                sub_800232C(gMain.unk2C);
+                sub_800232C();
                 sub_800EEFC(&gMain);
                 DoGameProcess();
                 sub_8010E14(gMain.previousBG);
@@ -97,7 +97,7 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
     }
     if (gMain.unk2C == 0 && (sub_8005470(), gMain.unk2C == 0))
     {
-        sub_800232C(gMain.unk2C);
+        sub_800232C();
         sub_800EEFC(&gMain);
         DoGameProcess();
         sub_8010E14(gMain.previousBG);
@@ -236,7 +236,7 @@ void ResetGameState()
     DmaFill16(3, 0, &gCourtScroll, sizeof(gCourtScroll));
     DmaFill16(3, 0, &gUnknown_03003AB0, sizeof(gUnknown_03003AB0));
     DmaFill16(3, 0, &gUnknown_03003A50, sizeof(gUnknown_03003A50));
-    DmaFill16(3, 0, &gUnknown_03002840, sizeof(gUnknown_03002840));
+    DmaFill16(3, 0, &gCourtRecord, sizeof(gCourtRecord));
     DmaFill16(3, 0, &gSaveDataBuffer, sizeof(gSaveDataBuffer));
     main->rngSeed = 0xD37;
     main->scenarioIdx = 0;
@@ -378,12 +378,12 @@ void UpdateCourtScroll(struct CourtScroll * courtScroll) // update court scroll
     }
 }
 
-void StartHardwareBlend(u32 mode, u32 delay, u32 bldy, u32 target)
+void StartHardwareBlend(u32 mode, u32 delay, u32 deltaY, u32 target)
 {
-    gMain.blendTargets = target;
+    gMain.blendTarget = target;
     gMain.blendMode = mode;
     gMain.blendDelay = delay;
-    gMain.blendY = bldy;
+    gMain.blendDeltaY = deltaY;
     gMain.blendCounter = 0;
 }
 
@@ -397,12 +397,12 @@ static void UpdateHardwareBlend()
     default:
         break;
     case 1:
-        lcdIoRegsp->lcd_bldcnt = main->blendTargets | BLDCNT_EFFECT_DARKEN;
+        lcdIoRegsp->lcd_bldcnt = main->blendTarget | BLDCNT_EFFECT_DARKEN;
         main->blendCounter++;
         if (main->blendCounter >= main->blendDelay)
         {
             main->blendCounter = 0;
-            lcdIoRegsp->lcd_bldy -= main->blendY;
+            lcdIoRegsp->lcd_bldy -= main->blendDeltaY;
         }
         lcdIoRegsp->lcd_bldy &= 0x1F;
         if (lcdIoRegsp->lcd_bldy == 0) // ! will break with odd numbers
@@ -414,12 +414,12 @@ static void UpdateHardwareBlend()
         }
         break;
     case 2:
-        lcdIoRegsp->lcd_bldcnt = main->blendTargets | BLDCNT_EFFECT_DARKEN;
+        lcdIoRegsp->lcd_bldcnt = main->blendTarget | BLDCNT_EFFECT_DARKEN;
         main->blendCounter++;
         if (main->blendCounter >= main->blendDelay)
         {
             main->blendCounter = 0;
-            lcdIoRegsp->lcd_bldy += main->blendY;
+            lcdIoRegsp->lcd_bldy += main->blendDeltaY;
         }
         lcdIoRegsp->lcd_bldy &= 0x1F;
         if (lcdIoRegsp->lcd_bldy == 0x10) // ! will break with odd numbers
@@ -428,12 +428,12 @@ static void UpdateHardwareBlend()
         }
         break;
     case 3:
-        lcdIoRegsp->lcd_bldcnt = main->blendTargets | BLDCNT_EFFECT_LIGHTEN;
+        lcdIoRegsp->lcd_bldcnt = main->blendTarget | BLDCNT_EFFECT_LIGHTEN;
         main->blendCounter++;
         if (main->blendCounter >= main->blendDelay)
         {
             main->blendCounter = 0;
-            lcdIoRegsp->lcd_bldy -= main->blendY;
+            lcdIoRegsp->lcd_bldy -= main->blendDeltaY;
         }
         lcdIoRegsp->lcd_bldy &= 0x1F;
         if (lcdIoRegsp->lcd_bldy == 0) // ! will break with odd numbers
@@ -445,12 +445,12 @@ static void UpdateHardwareBlend()
         }
         break;
     case 4:
-        lcdIoRegsp->lcd_bldcnt = main->blendTargets | BLDCNT_EFFECT_LIGHTEN;
+        lcdIoRegsp->lcd_bldcnt = main->blendTarget | BLDCNT_EFFECT_LIGHTEN;
         main->blendCounter++;
         if (main->blendCounter >= main->blendDelay)
         {
             main->blendCounter = 0;
-            lcdIoRegsp->lcd_bldy += main->blendY;
+            lcdIoRegsp->lcd_bldy += main->blendDeltaY;
         }
         lcdIoRegsp->lcd_bldy &= 0x1F;
         if (lcdIoRegsp->lcd_bldy == 0x10) // ! will break with odd numbers

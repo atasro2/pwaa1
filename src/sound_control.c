@@ -89,17 +89,17 @@ void UnpauseBGM(void)
     }
 }
 
-void FadeOutBGM(u32 fadeOutSpeed)
+void FadeOutBGM(u32 fadeTime)
 {
     struct Main * main = &gMain;
     if(main->unk1C & 4)
     {
-        m4aMPlayFadeOutTemporarily(&gMPlayInfo_BGM, fadeOutSpeed/16);
+        m4aMPlayFadeOutTemporarily(&gMPlayInfo_BGM, fadeTime/16);
         main->unk1C = 0x10 | 0x4;
     }
 }
 
-void PlayBGM(u32 fadeInSpeed, u32 songNum) // named according to phoenix unity
+void PlayBGM(u32 fadeTime, u32 songNum) // named according to phoenix unity
 {
     struct Main * main = &gMain;
     if(!(main->soundFlags & SOUND_FLAG_DISABLE_BGM))
@@ -136,7 +136,7 @@ void PlayBGM(u32 fadeInSpeed, u32 songNum) // named according to phoenix unity
                 {
                     if(main->unk1C & 0x10)
                     {
-                        m4aMPlayFadeIn(&gMPlayInfo_BGM, fadeInSpeed/16);
+                        m4aMPlayFadeIn(&gMPlayInfo_BGM, fadeTime/16);
                         main->unk1C = 4;
                         return;
                     }
@@ -152,11 +152,11 @@ void PlayBGM(u32 fadeInSpeed, u32 songNum) // named according to phoenix unity
                 m4aMPlayImmInit(&gMPlayInfo_BGM);
             }
         }
-        if(fadeInSpeed == 0)
+        if(fadeTime == 0)
         {
             return;
         }
-        main->bgmFadeAmount = (main->bgmFadeVolume / fadeInSpeed) + 1;
+        main->bgmFadeAmount = (main->bgmFadeVolume / fadeTime) + 1;
         main->unk1C = 0x8 | 0x4;
         main->bgmVolume = 4 * 10;
     }
