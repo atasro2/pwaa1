@@ -66,7 +66,7 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
             if (gMain.unk2C == 0)
             {
                 gMain.unk0++;
-                //sub_80013EC();
+                sub_80013EC(); // seems to be for updating background scroll
                 UpdateBGTilemaps();
                 sub_8010C4C(0);
                 MoveSpritesToOAM();
@@ -80,7 +80,7 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
 			// fakematch? scrub C? the fuck am i supposed to look at anyways?
             if (gMain.unk2C == 0 && (sub_8005470(), gMain.unk2C == 0))
             {
-                sub_800232C(gMain.unk2C);
+                sub_800232C();
                 sub_800EEFC(&gMain);
                 DoGameProcess();
                 sub_8010E14(gMain.previousBG);
@@ -97,7 +97,7 @@ void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
     }
     if (gMain.unk2C == 0 && (sub_8005470(), gMain.unk2C == 0))
     {
-        sub_800232C(gMain.unk2C);
+        sub_800232C();
         sub_800EEFC(&gMain);
         DoGameProcess();
         sub_8010E14(gMain.previousBG);
