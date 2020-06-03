@@ -201,7 +201,7 @@ void UpdateBGMFade()
     }
 }
 
-// used in debug menu
+// was used in debug menu
 void ChangeTrackVolume(u32 track, u32 volume) // unused
 {
     if (volume < 4) 
@@ -245,7 +245,7 @@ void ChangeBGMVolume(u32 volume, s32 fadeTime)
     }
 }
 
-// used in debug menu
+// was used in debug menu
 void ChangeTrackPanning(u32 track, u32 pan) // unused
 {
     if(track & 1)

@@ -2690,7 +2690,7 @@ _08009D98:
 	bl InitBGs
 	bl sub_800F804
 	bl ResetSoundControl
-	bl sub_8005408
+	bl LoadCurrentScriptIntoRam
 	ldr r5, _08009E90
 	ldr r0, _08009E94
 	str r0, [r5]
@@ -2727,7 +2727,7 @@ _08009D98:
 	ldr r0, _08009EB4
 	str r0, [r5, #8]
 	ldr r0, [r5, #8]
-	bl sub_8005408
+	bl LoadCurrentScriptIntoRam
 	ldr r0, _08009EB8
 	str r0, [r5]
 	ldr r0, _08009EBC
@@ -3439,7 +3439,7 @@ sub_800A3EC: @ 0x0800A3EC
 	bl HideAllSprites
 	bl InitBGs
 	bl sub_800F804
-	bl sub_8005408
+	bl LoadCurrentScriptIntoRam
 	adds r5, r7, #0
 	adds r5, #0x4a
 	movs r0, #0
@@ -4475,7 +4475,7 @@ _0800ACE8:
 	bl PlaySE
 	adds r0, r4, #0
 	bl ChangeScriptSection
-	bl sub_8005470
+	bl RunScriptContext
 	b _0800ADB4
 _0800ACFA:
 	movs r0, #0x80
@@ -5876,7 +5876,7 @@ sub_800B808: @ 0x0800B808
 	bl HideAllSprites
 	bl InitBGs
 	bl sub_800F804
-	bl sub_8005408
+	bl LoadCurrentScriptIntoRam
 	adds r1, r7, #0
 	adds r1, #0x4a
 	movs r0, #0xfa

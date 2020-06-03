@@ -192,8 +192,8 @@ bool32 Command48(struct ScriptContext *scriptCtx)
 bool32 Command49(struct ScriptContext *scriptCtx)
 {
     scriptCtx->scriptPtr++;
-    gMain.unk14 = 0;
-    gMain.unk15 = 0;
+    gMain.advanceScriptContext = FALSE;
+    gMain.showTextboxCharacters = FALSE;
     SET_PROCESS(1, 0, 0, 0);
 
     return 0;

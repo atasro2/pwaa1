@@ -29,8 +29,8 @@ struct Main
     u16 shakeTimer; /* + 0x10 */ // Quake_timer
     u8 shakeIntensity; /* + 0x12 */
     u8 selectedButton; /* + 0x13 */
-    u8 unk14;
-    u8 unk15;
+    bool8 advanceScriptContext; /* + 0x14 */
+    bool8 showTextboxCharacters; /* + 0x15 */
     u8 tilemapUpdateBits; /* + 0x16 */
     u8 unk17;
     u8 filler18[0x2];
@@ -44,7 +44,7 @@ struct Main
     u16 rngSeed; /* + 0x24 */
     u8 unk26;
     u8 unk27;
-    u16 currentBG; /* + 0x28 */ // kinda wrong but not wrong??
+    u16 currentBG; /* + 0x28 */
     s16 previousBG; /* + 0x2A */ // probably wrong
     s8 unk2C;
     u8 unk2D;

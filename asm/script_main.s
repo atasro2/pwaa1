@@ -1,7 +1,7 @@
 	.include "asm/macros.inc"
 	.syntax unified
 
-	THUMB_FUNC_START sub_8005890
+	THUMB_FUNC_START sub_8005890 @ moves shit into OAM according to unity it should be textbox characters and the blips that appear on the screen
 sub_8005890: @ 0x08005890
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
