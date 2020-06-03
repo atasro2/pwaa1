@@ -4,12 +4,12 @@
 #include "sound_control.h"
 #include "ewram.h"
 
-static void sub_80055B0(struct ScriptContext *scriptCtx);
+static void AdvanceScriptContext(struct ScriptContext *scriptCtx);
 extern void sub_8005890(struct ScriptContext *scriptCtx);
 static void PutCharInTextbox(u32, u32, u32);
 extern bool32 (*gScriptCmdFuncs[0x5F])(struct ScriptContext *);
 
-void sub_8005408(void)
+void LoadCurrentScriptIntoRam(void)
 {
     u32 i;
     DmaCopy16(3, gTextPal, PLTT + 0x200, sizeof(gTextPal));
@@ -22,13 +22,13 @@ void sub_8005408(void)
     LZ77UnCompWram(gScriptTable[gMain.scenarioIdx], eScriptHeap);
 }
 
-void sub_8005470(void)
+void RunScriptContext(void)
 {
-    if (gMain.unk14 > 0 && gMain.blendMode == 0)
+    if (gMain.advanceScriptContext && gMain.blendMode == 0)
     {
-        sub_80055B0(&gScriptContext);
+        AdvanceScriptContext(&gScriptContext);
     }
-    sub_8005890(&gScriptContext);
+    sub_8005890(&gScriptContext); // move some stuff into OAM check .s file for more info
 }
 
 void ChangeScriptSection(u32 newSection)
@@ -102,7 +102,7 @@ void InitScriptSection(struct ScriptContext *scriptCtx)
     }
 }
 
-void sub_80055B0(struct ScriptContext * scriptCxt)
+void AdvanceScriptContext(struct ScriptContext * scriptCxt)
 {
     if(scriptCxt->unk13 > 0 && (gJoypad.pressedKeysRaw & A_BUTTON || gJoypad.heldKeysRaw & B_BUTTON)) // text skip
         scriptCxt->unk13 = 2;

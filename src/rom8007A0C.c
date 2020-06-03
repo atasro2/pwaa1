@@ -742,8 +742,8 @@ void ClearSaveProcess(struct Main *main)
             sub_8002878(&gCourtRecord);
             if(gCourtRecord.unk1 == 0)
             {
-                main->unk14 = 1;
-                main->unk15 = 1;
+                main->advanceScriptContext = TRUE;
+                main->showTextboxCharacters = TRUE;
                 gScriptContext.currentSection = 0xFFFF;
                 ChangeScriptSection(4);
                 gScriptContext.textXOffset = 9;
@@ -845,7 +845,7 @@ void SaveGameInit1SubProcess(struct Main *main)
         gUnknown_03003930[i].id |= 0xFF;
     }
     sub_801042C(gSaveDataBuffer.ewramStruct2650);
-    main->unk14 = 0;
+    main->advanceScriptContext = FALSE;
     StartHardwareBlend(2, 0, 1, 0x1F);
     main->process[GAME_SUBPROCESS]++;
 }
@@ -887,7 +887,7 @@ void SaveGameInit2SubProcess(struct Main *main)
     gLCDIORegisters.lcd_bg3hofs = 8;
     gLCDIORegisters.lcd_bg1vofs = 0;
     gLCDIORegisters.lcd_bg1hofs = 0;
-    main->unk15 = 0;
+    main->showTextboxCharacters = FALSE;
     StartHardwareBlend(1, 0, 1, 0x1F);
     main->process[GAME_SUBPROCESS]++;
 }
@@ -898,8 +898,8 @@ void SaveGameInitButtonsSubProcess(struct Main *main)
     sub_8002878(&gCourtRecord);
     if(gCourtRecord.unk1 == 0) // ?
     {
-        main->unk14 = 1;
-        main->unk15 = 1;
+        main->advanceScriptContext = TRUE;
+        main->showTextboxCharacters = TRUE;
         gScriptContext.currentSection = 0xFFFF;
         if(main->process[GAME_PROCESSUNK3] != 0)
             ChangeScriptSection(0);

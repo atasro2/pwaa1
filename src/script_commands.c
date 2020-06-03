@@ -96,7 +96,7 @@ bool32 Command02(struct ScriptContext * scriptCtx)
             scriptCtx->fullscreenCharCount = 0;
             scriptCtx->fullscreenTextY = 2;
             scriptCtx->fullscreenTextX = 0;
-            gMain.unk15 = 0;
+            gMain.showTextboxCharacters = FALSE;
             sub_8002244(1);
             for (i = 0; i < ARRAY_COUNT(gUnknown_03003930); i++)
             {
@@ -809,8 +809,8 @@ bool32 Command16(struct ScriptContext * scriptCtx)
 {
     struct Main *main = &gMain;
     scriptCtx->scriptPtr++;
-    main->unk14 = 0;
-    main->unk15 = 0;
+    main->advanceScriptContext = FALSE;
+    main->showTextboxCharacters = FALSE;
     SET_PROCESS(3, 2, 0, 0);
     gUnknown_03003A50.unkA = 0;
     gUnknown_03003A50.unkB = 0;
@@ -968,12 +968,12 @@ u32 Command1C(struct ScriptContext * scriptCtx)
     switch(*scriptCtx->scriptPtr)
     {
         case 0: // enable textbox
-            gMain.unk15 = 1; // show characters??
+            gMain.showTextboxCharacters = TRUE;
             gLCDIORegisters.lcd_dispcnt |= DISPCNT_BG1_ON;
             gLCDIORegisters.lcd_bg1vofs = 0;
             break;
         case 1: // disable textbox
-            gMain.unk15 = 0;
+            gMain.showTextboxCharacters = FALSE;
             gLCDIORegisters.lcd_dispcnt &= ~DISPCNT_BG1_ON;
             gLCDIORegisters.lcd_bg1vofs = 0;
             break;
@@ -1144,8 +1144,8 @@ bool32 Command23(struct ScriptContext * scriptCtx)
 bool32 Command24(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
-    gMain.unk14 = 0;
-    gMain.unk15 = 0;
+    gMain.advanceScriptContext = FALSE;
+    gMain.showTextboxCharacters = FALSE;
     SET_PROCESS(2, 0, 0, 0);
     return 1;
 }

@@ -38,78 +38,52 @@ void CheckAButtonAndGoToClearSaveScreen()
         gMain.process[GAME_PROCESS] = 0xE;
 }
 
-void AgbMain() // TODO: either get rid of GOTOs or clean it up a bit
+void AgbMain()
 {
     DmaFill32(3, 0, IWRAM_START, 0x7E00); // clear IWRAM
 
-    LOOP1:
+    reset:
+    ClearRamAndInitGame();
+    CheckAButtonAndGoToClearSaveScreen();
+    for(;;)
     {
-        ClearRamAndInitGame();
-        CheckAButtonAndGoToClearSaveScreen();
-        LOOP2:
+        if (ReadKeysAndTestResetCombo())
+            goto reset; // tfw no SoftReset
+
+        gMain.vblankWaitCounter = 0;
+
+        waitForVblank:
+        if(gMain.vblankWaitCounter != gMain.vblankWaitAmount) goto waitForVblank;
+
+        if (gMain.unk2C == 0)
         {
-			u32 reset;
-            reset = ReadKeysAndTestResetCombo();
-            if (reset != 0)
-                goto LOOP1;
-
-            gMain.vblankWaitCounter = 0;
-
-            LOOP3:
-            {
-                if (gMain.vblankWaitCounter != gMain.vblankWaitAmount)
-                {
-                    goto LOOP3;
-                }
-            }
-
-            if (gMain.unk2C == 0)
-            {
-                gMain.unk0++;
-                sub_80013EC(); // seems to be for updating background scroll
-                UpdateBGTilemaps();
-                sub_8010C4C(0);
-                MoveSpritesToOAM();
-                SetLCDIORegs();
-            }
-            if (gMain.unk2C > 10)
-            {
-                gMain.unk2C = 0;
-                sub_8001A9C(gMain.currentBG);
-            }
-			// fakematch? scrub C? the fuck am i supposed to look at anyways?
-            if (gMain.unk2C == 0 && (sub_8005470(), gMain.unk2C == 0))
-            {
-                sub_800232C();
-                sub_800EEFC(&gMain);
-                DoGameProcess();
-                sub_8010E14(gMain.previousBG);
-                UpdateHardwareBlend();
-            }
-            else
-            {
-                sub_8001744(gMain.currentBG);
-            }
-            UpdateBGMFade();
-            m4aSoundMain();
-            goto LOOP2;
+            gMain.unk0++;
+            sub_80013EC();
+            UpdateBGTilemaps();
+            sub_8010C4C(0);
+            MoveSpritesToOAM();
+            SetLCDIORegs();
         }
+        if (gMain.unk2C > 10)
+        {
+            gMain.unk2C = 0;
+            sub_8001A9C(gMain.currentBG);
+        }
+        if (gMain.unk2C == 0 && (RunScriptContext(), gMain.unk2C == 0))
+        {
+            sub_800232C();
+            sub_800EEFC(&gMain);
+            DoGameProcess();
+            sub_8010E14(gMain.previousBG);
+            UpdateHardwareBlend();
+        }
+        else
+        {
+            sub_8001744(gMain.currentBG);
+        }
+        UpdateBGMFade();
+        m4aSoundMain();
     }
-    if (gMain.unk2C == 0 && (sub_8005470(), gMain.unk2C == 0))
-    {
-        sub_800232C();
-        sub_800EEFC(&gMain);
-        DoGameProcess();
-        sub_8010E14(gMain.previousBG);
-        UpdateHardwareBlend();
-    }
-    else
-    {
-        sub_8001744(gMain.currentBG);
-    }
-    UpdateBGMFade();
-    m4aSoundMain();
-    goto LOOP2;
 }
 
 void DoGameProcess()
@@ -251,7 +225,7 @@ void ResetGameState()
     InitBGs();
     sub_800F804(); //init animation system?
     ResetSoundControl();
-    sub_8005408();
+    LoadCurrentScriptIntoRam();
     sub_8000738(0x30, 0xF);
     m4aMPlayAllStop();
 }
