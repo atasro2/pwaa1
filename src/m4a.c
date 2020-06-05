@@ -1,11 +1,9 @@
-#include "gba/gba.h"
-#include "gba/m4a_internal.h"
 #include "global.h"
+#include "gba/m4a_internal.h"
 
 extern const u8 gCgb3Vol[];
 
 extern ALIGNED(4) char SoundMainRAM_Buffer[0x400];
-
 extern struct SoundInfo gSoundInfo;
 
 u32 MidiKeyToFreq(struct WaveData *wav, u8 key, u8 fineAdjust)
