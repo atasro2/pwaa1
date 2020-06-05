@@ -16,7 +16,7 @@ bool32 CommandDummy(struct ScriptContext * scriptCtx)
 bool32 Command00(struct ScriptContext * scriptCtx)
 {
     InitScriptSection(scriptCtx);
-    sub_80028B4(0, 0);
+    sub_80028B4(0, FALSE);
     scriptCtx->scriptPtr++;
     return 0;
 }

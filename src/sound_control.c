@@ -45,7 +45,7 @@ void PauseBGM()
     struct Main * main = &gMain;
     if(main->unk1C & 4)
     {
-        m4aMPlayStop(&gMPlayInfo_BGM);
+        MPlayStop(&gMPlayInfo_BGM);
         main->unk1C &= ~4;
         main->unk1C |= 2;
         if(main->unk1C & 0x10)
@@ -65,7 +65,7 @@ void StopBGM(void)
     struct Main * main = &gMain;
     if((main->unk1C & 1) == 0)
     {
-        m4aMPlayStop(&gMPlayInfo_BGM);
+        MPlayStop(&gMPlayInfo_BGM);
         main->unk1C = 1;
         main->currentPlayingBgm = 0xFF;
     }
@@ -111,7 +111,7 @@ void PlayBGM(u32 fadeTime, u32 songNum) // named according to phoenix unity
                 main->unk1C &= ~(0x10 | 0x1);
                 m4aSongNumStart(songNum);
                 m4aMPlayImmInit(&gMPlayInfo_BGM);
-                m4aMPlayStop(&gMPlayInfo_BGM);
+                MPlayStop(&gMPlayInfo_BGM);
                 return;
             }
             return;

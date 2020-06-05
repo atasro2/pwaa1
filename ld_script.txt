@@ -1,3 +1,5 @@
+gNumMusicPlayers = 4;
+gMaxLines = 80;
 SECTIONS {
     . = 0x2000000;
     ewram (NOLOAD) :
@@ -19,6 +21,7 @@ SECTIONS {
         src/main.o(.text);
         src/bg3_control.o(.text);
         asm/bg3_control.o(.text);
+        src/bg_control.o(.text);
         asm/bg_control.o(.text);
         src/utils.o(.text);
         src/rom8002D6C.o(.text);
@@ -33,7 +36,8 @@ SECTIONS {
         src/sound_control.o(.text);
         src/rom800F7F0.o(.text);
         asm/rom800F7F0.o(.text);
-        asm/m4a.o(.text);
+        asm/m4a_1.o(.text);
+        src/m4a.o(.text);
         asm/libagbsyscall.o(.text);
         src/agb_sram.o(.text);
         *libgcc.a:*_call_via_rX*.o(.text*);
@@ -49,7 +53,7 @@ SECTIONS {
         src/bg3_control.o(.rodata);
         data/data.o(.rodata);
         data/sound_data.o(.rodata);
-        data/m4a_rodata.o(.rodata);
+        src/m4a_tables.o(.rodata);
         data/sound_data2.o(.rodata);
         src/agb_sram.o(.data); 
     } =0

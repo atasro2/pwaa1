@@ -100,7 +100,8 @@ struct ScriptContext
     u8 unk37;
     u8 unk38;
     u8 unk39;
-    u8 filler3A[0x2];
+    u8 unk3A;
+    u8 unk3B;
     u8 * unk3C;
 };
 
