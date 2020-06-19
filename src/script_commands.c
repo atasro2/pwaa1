@@ -123,13 +123,13 @@ bool32 Command02(struct ScriptContext * scriptCtx)
             gTextBoxCharacters[i].state &= ~0x8000;
         }
         if(scriptCtx->currentToken == 0x2)
-            sub_800FBA0(gUnknown_03000800.unk40, gMain.talkingAnimationOffset);
+            sub_800FBA0(&gUnknown_03000800[1], gMain.talkingAnimationOffset);
     }
     else
     {
         if((scriptCtx->unk0 & 1) == 0)
         {
-            sub_800FBA0(gUnknown_03000800.unk40, gMain.idleAnimationOffset);
+            sub_800FBA0(&gUnknown_03000800[1], gMain.idleAnimationOffset);
             scriptCtx->unk0 |= 1;
         }
         if(gMain.process[GAME_PROCESS] != 9)
@@ -799,7 +799,7 @@ bool32 Command15(struct ScriptContext * scriptCtx)
     }
     if(*scriptCtx->scriptPtr == 0x15)
     {
-        sub_800FBA0(gUnknown_03000800.unk40, gMain.idleAnimationOffset);
+        sub_800FBA0(&gUnknown_03000800[1], gMain.idleAnimationOffset);
     }
     scriptCtx->unk0 |= 8;
     return 1;
@@ -980,7 +980,7 @@ u32 Command1C(struct ScriptContext * scriptCtx)
         case 2:
             if(gMain.process[GAME_PROCESS] == 3)
             {
-                sub_8010960(gUnknown_03000800.unk40);
+                sub_8010960(&gUnknown_03000800[1]);
                 gUnknown_03003A50.unk5 = 0;
                 sub_800B7A8(&gUnknown_03003A50, 15);
             }
@@ -989,7 +989,7 @@ u32 Command1C(struct ScriptContext * scriptCtx)
         case 3:
             if(gMain.process[GAME_PROCESS] == 3)
             {
-                sub_8010960(gUnknown_03000800.unk40);
+                sub_8010960(&gUnknown_03000800[1]);
                 gUnknown_03003A50.unk5 = 0;
                 sub_800B7A8(&gUnknown_03003A50, 15);
             }
@@ -1073,7 +1073,7 @@ u32 Command1E(struct ScriptContext * scriptCtx)
     }
     else
     {
-        sub_8010960(gUnknown_03000800.unk40);
+        sub_8010960(&gUnknown_03000800[1]);
         gUnknown_03003A50.unk5 = 0;
         sub_800B7A8(&gUnknown_03003A50, 15);
     }
@@ -1281,7 +1281,7 @@ bool32 Command2C(struct ScriptContext * scriptCtx)
     }
     gBG1MapBuffer[622] = 9; // clear downward arrow in text box
     gBG1MapBuffer[623] = 9; // clear downward arrow in text box
-    sub_800FBA0(gUnknown_03000800.unk40, gMain.idleAnimationOffset); 
+    sub_800FBA0(&gUnknown_03000800[1], gMain.idleAnimationOffset); 
     return 0;
 }
 
@@ -1538,11 +1538,11 @@ bool32 Command38(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     if(*scriptCtx->scriptPtr)
     {
-        sub_800FA74(gUnknown_03000800.unk40, 1);
+        sub_800FA74(&gUnknown_03000800[1], 1);
     }
     else
     {
-        sub_800FA74(gUnknown_03000800.unk40, 0);
+        sub_800FA74(&gUnknown_03000800[1], 0);
     }
     scriptCtx->scriptPtr++;
     return 0;

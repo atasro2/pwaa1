@@ -48,10 +48,11 @@ struct Main
     s16 previousBG; /* + 0x2A */ // probably wrong
     s8 unk2C;
     u8 unk2D;
-    bool8 isBGScrolling;
-    u8 filler2F[0xD];
-    s8 horizontolBGScrollSpeed;
-    s8 verticalBGScrollSpeed;
+    bool8 isBGScrolling; /* + 0x2E */
+    u8 filler2F[0xB];
+    u16 unk3A; 
+    s8 horizontolBGScrollSpeed; /* + 0x3C */
+    s8 verticalBGScrollSpeed; /* + 0x3D */
     u8 filler3E[0x36];
     u16 blendTarget; /* + 0x74 */
     u16 blendMode; /* + 0x76 */

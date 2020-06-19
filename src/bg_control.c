@@ -121,3 +121,44 @@ void sub_800244C(u32 unk0)
         gUnknown_03003A50.unkC = 1;
     }
 }
+
+void sub_80024C8(u32 mode, u32 speed)
+{
+    struct CourtRecord * courtRecord = &gCourtRecord;
+    if(mode > 4) // is for save screens
+    {
+        courtRecord->isSaveScreen = TRUE;
+        mode -= 4;
+    }
+    else
+    {
+        courtRecord->isSaveScreen = FALSE;
+    }
+    courtRecord->unk3 = mode;
+    courtRecord->unk0 = 0;
+    courtRecord->unk6 = courtRecord->unk4;
+    courtRecord->unkC &= ~0x4;
+    switch(mode)
+    {
+    case 0:
+        break;
+    case 1:
+        courtRecord->unk1 = speed;
+        courtRecord->unk2 = 0;
+        courtRecord->unk4 = 0x100;
+        break;
+    case 2:
+        courtRecord->unk1 = -speed;
+        courtRecord->unk2 = 31;
+        courtRecord->unk4 = 0x110;
+        break;
+    case 3:
+        courtRecord->unk1 = speed;
+        break;
+    case 4:
+        courtRecord->unk1 = -speed;
+        break;
+    default:
+        break;
+    }
+}

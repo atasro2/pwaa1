@@ -139,45 +139,40 @@ void AdvanceScriptContext(struct ScriptContext * scriptCxt)
 
         scriptCxt->scriptPtr++;
         
-        if ((scriptCxt->currentSection != 0x80 || gMain.scenarioIdx != 0) && scriptCxt->currentToken != 0xFF)
+        if (!(scriptCxt->currentSection == 0x80 && gMain.scenarioIdx == 0) && scriptCxt->currentToken != 0xFF)
         {
-                if ( scriptCxt->textSpeed != 0)
+            if ( scriptCxt->textSpeed > 0)
+            {
+                if ( scriptCxt->soundCueSkip == 0 || scriptCxt->textSpeed > 4 )
                 {
-                    if ( scriptCxt->soundCueSkip == 0 || scriptCxt->textSpeed > 4 )
-                    {
-                        if ( scriptCxt->currentSoundCue != 2 )
-                            scriptCxt->soundCueSkip = 1;
+                    if ( scriptCxt->currentSoundCue != 2 )
+                        scriptCxt->soundCueSkip = 1;
 
-                        if (!(gMain.soundFlags & SOUND_FLAG_DISABLE_CUE))
+                    if (!(gMain.soundFlags & SOUND_FLAG_DISABLE_CUE))
+                    {
+                        if (scriptCxt->currentSoundCue == 2)
                         {
-                            if ( scriptCxt->currentSoundCue == 2 )
-                            {
-                                PlaySE(68);
-                            }
-                            else if ( scriptCxt->currentSoundCue == 1 )
-                            {
-                                PlaySE(46);
-                            }
-                            else
-                            {
-                                PlaySE(45);
-                            }
+                            PlaySE(68);
+                        }
+                        else if (scriptCxt->currentSoundCue == 1)
+                        {
+                            PlaySE(46);
+                        }
+                        else
+                        {
+                            PlaySE(45);
                         }
                     }
-                    else
-                    {
-                        scriptCxt->soundCueSkip--;
-                    }
                 }
-            
+                else
+                {
+                    scriptCxt->soundCueSkip--;
+                }
+            }
         }
         if(scriptCxt->textSpeed == 0)
         {
             goto continueScript;
-        }
-        else
-        {
-            return;
         }
     }
 }

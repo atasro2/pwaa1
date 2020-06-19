@@ -144,7 +144,7 @@ bool32 Command46(struct ScriptContext * scriptCtx)
             gBG2MapBuffer[GET_MAP_TILE_INDEX(i, j, 0, 1)] = *r3 + 0x80;
         }
     }
-    r6 += 0x4D0;
+    r6 += 32 + 20*30*2;
     DmaCopy16(3, r6, eUnknown_02031FC0, 0x4B00);
     gLCDIORegisters.lcd_dispcnt |= DISPCNT_BG2_ON;
     gLCDIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(2) | BGCNT_CHARBASE(2) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP;

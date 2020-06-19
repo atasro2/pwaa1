@@ -9723,7 +9723,7 @@ _0800D650:
 	beq _0800D660
 	adds r1, r4, #4
 	mov r0, sp
-	bl sub_800FEC8
+	bl CheckRectCollisionWithArea
 	cmp r0, #0
 	bne _0800D620
 _0800D660:

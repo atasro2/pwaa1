@@ -59,6 +59,7 @@ extern u8 gUnknown_08748218[];
 extern u8 gUnknown_0871EBBC[];
 extern u8 gUnknown_0871FDF8[];
 //FUNCTIONS // these should be moved soon
+
 void UpdateCourtScroll(struct CourtScroll *);
 u8 Random();
 void ChangeScriptSection(u32);
@@ -66,15 +67,20 @@ void LoadCurrentScriptIntoRam();
 void sub_800F804();
 void RunScriptContext();
 void MoveSpritesToOAM();
+bool32 CheckPointInArea(struct Point * point, struct Point4 * area);
 void ChangeFlag(u32, u32, bool32);
 bool32 GetFlag(u32 arg0, u32 arg1);
-void sub_800F9C4(struct Struct3000840* arg0, u32 arg1, u32 arg2);
-void sub_800F9D0(struct Struct3000840* arg1, u32 arg2);
-void sub_800FA50(struct Struct3000840* arg0, u32 arg1, u32 arg2);
-void sub_800FA60(struct Struct3000840* arg0);
-void sub_800FA74(struct Struct3000840* arg0, bool32 arg1);
-void sub_800FB64(struct Struct3000840* arg0, bool32 arg1);
-void sub_800FB84(struct Struct3000840* arg0, u32 arg1);
+struct Struct3000800 * sub_800F8BC(u32);
+void sub_800F9C4(struct Struct3000800* arg0, u32 arg1, u32 arg2);
+void sub_800F9D0(struct Struct3000800* arg1, u32 arg2);
+void sub_800FA50(struct Struct3000800* arg0, u32 arg1, u32 arg2);
+void sub_800FA60(struct Struct3000800* arg0);
+void sub_800FA74(struct Struct3000800* arg0, bool32 arg1);
+void sub_800FB64(struct Struct3000800* arg0, bool32 arg1);
+void sub_800FB84(struct Struct3000800* arg0, u32 arg1);
+void sub_800FBA0(struct Struct3000800 *, u32);
+struct Struct3000800 * sub_8010048(u32, u32, u32, u32);
+struct Struct3000800 * sub_80100A8(u32, u32, u32, u32, u32);
 // rom8007A0C
 u32 LoadSaveData();
 void CalculateSaveChecksum();
@@ -88,25 +94,22 @@ extern void sub_8010E14(s16);
 extern void sub_800EEFC(struct Main *);
 extern void sub_8010C4C(u8);
 extern void ResetSoundControl();
-extern void sub_8010048(u32, u32, u32, u32);
 extern void sub_800B7A8(struct Struct3003A50 *, u32);
-extern void sub_800FA74(struct Struct3000840 *, u32);
-extern void sub_800FBA0(struct Struct3000840 *, u32);
 extern s32 FindEvidenceInCourtRecord(u16, u32);
 extern s32 FindFirstEmptySlotInCourtRecord(u16);
 extern void sub_800ED68(struct CourtRecord *);
 extern void sub_8011108(u32, u32, u32, u32);
 extern void sub_801042C(struct Struct2002650 *);
-extern void sub_8010960(struct Struct3000840 *);
-extern struct Struct3000840 * sub_8010204(u32);
+struct Struct3000800 * sub_8010468(struct Struct300080C *, u32, u32);
+extern void sub_8010960(struct Struct3000800 *);
+extern struct Struct3000800 * sub_8010204(u32);
 extern void sub_80106A4(u32, u32);
-extern struct Struct3000840 * sub_800F8BC(u32);
 extern u32 sub_8007554(u32);
 //EWRAM
 // fuck capcom
 //IWRAM
 extern u16 gBG2MapBuffer[0x400]; // BG 2 Map buffer
-extern struct Struct3000800 gUnknown_03000800; // size unknown
+extern struct Struct3000800 gUnknown_03000800[0x20]; // size unknown
 extern u16 gBG3MapBuffer[0x400]; // BG 3 Map buffer
 extern u16 gBG3MapBufferCopy[0x400]; // BG 3 Map buffer copy TODO: this 1 array is keeping me away from naming the other ones..  BG Pan related?
 extern u16 gBG1MapBuffer[0x400]; // BG 1 Map buffer

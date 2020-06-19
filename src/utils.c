@@ -8,7 +8,7 @@ void MoveSpritesToOAM()
     DmaCopy16(3, gOamObjects, OAM, sizeof(gOamObjects));
 }
 
-bool32 sub_8002A68(struct Point * p, struct Point4 * cp) // some collision check
+bool32 CheckPointInArea(struct Point * point, struct Point4 * area)
 {
     s32 num;
     s32 num2;
@@ -19,25 +19,25 @@ bool32 sub_8002A68(struct Point * p, struct Point4 * cp) // some collision check
     s32 x;
     s32 y;
 
-    x = cp->x0;
-    y = cp->y0;
-    num = p->x - x;
-    num2 = p->y - y;
-    num3 = cp->x1 - x;
-    num4 = cp->y1 - y;
-    num5 = cp->x3 - x;
-    num6 = cp->y3 - y;
+    x = area->points[0].x;
+    y = area->points[0].y;
+    num = point->x - x;
+    num2 = point->y - y;
+    num3 = area->points[1].x - x;
+    num4 = area->points[1].y - y;
+    num5 = area->points[3].x - x;
+    num6 = area->points[3].y - y;
     if (num3 * num2 < num4 * num || num5 * num2 > num6 * num)
     {
         return FALSE;
     }
 
-    num -= cp->x2 - x;
-    num2 -= cp->y2 - y;
-    num3 -= cp->x2 - x;
-    num4 -= cp->y2 - y;
-    num5 -= cp->x2 - x;
-    num6 -= cp->y2 - y;
+    num -= area->points[2].x - x;
+    num2 -= area->points[2].y - y;
+    num3 -= area->points[2].x - x;
+    num4 -= area->points[2].y - y;
+    num5 -= area->points[2].x - x;
+    num6 -= area->points[2].y - y;
     
     if (num3 * num2 > num4 * num || num5 * num2 < num6 * num)
     {
@@ -72,7 +72,7 @@ s16 fix_inverse(s16 b)
     return tmp;
 }
 
-union u32asBitfields
+union s32asBitfields
 {
     struct
     {
@@ -90,8 +90,8 @@ union u32asBitfields
 u8 Random()
 {
     struct Main * main = &gMain;
-    union u32asBitfields unk0;
-    union u32asBitfields unk1;
+    union s32asBitfields unk0;
+    union s32asBitfields unk1;
 
     unk0.shorts.low = (s16)main->rngSeed;
 

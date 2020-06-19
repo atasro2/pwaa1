@@ -195,7 +195,7 @@ _08007376:
 	str r0, [sp, #4]
 	mov r0, sp
 	adds r1, r4, #0
-	bl sub_800FEC8
+	bl CheckRectCollisionWithArea
 	cmp r0, #0
 	beq _080073E4
 	ldrh r0, [r4, #0x20]
@@ -212,7 +212,7 @@ _080073E4:
 	adds r1, r4, #0
 	adds r1, #0x10
 	mov r0, sp
-	bl sub_800FEC8
+	bl CheckRectCollisionWithArea
 	cmp r0, #0
 	beq _080073FA
 	ldrh r0, [r4, #0x22]
