@@ -98,7 +98,7 @@ void InitScriptSection(struct ScriptContext *scriptCtx)
         structPtr->id |= 0xFF;
         structPtr->unk1 = 0;
         structPtr->unk5 = 0;
-        structPtr->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_DOUBLE_MASK, 0, 0, 0, 0);
+        structPtr->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
     }
 }
 

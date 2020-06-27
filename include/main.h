@@ -47,13 +47,21 @@ struct Main
     u16 currentBG; /* + 0x28 */
     s16 previousBG; /* + 0x2A */ // probably wrong
     s8 unk2C;
-    u8 unk2D;
+    u8 unk2D; // unused field
     bool8 isBGScrolling; /* + 0x2E */
-    u8 filler2F[0xB];
+    u8 unk2F;
+    u16 unk30;
+    u16 unk32;
+    u16 unk34;
+    u16 unk36;
+    u16 unk38;
     u16 unk3A; 
     s8 horizontolBGScrollSpeed; /* + 0x3C */
     s8 verticalBGScrollSpeed; /* + 0x3D */
-    u8 filler3E[0x36];
+    u8 unk3E;
+    u8 unk3F;
+    u32 unk40;
+    u32 unk44[12];
     u16 blendTarget; /* + 0x74 */
     u16 blendMode; /* + 0x76 */
     u16 blendCounter; /* + 0x78 */
@@ -137,6 +145,7 @@ extern struct LCDIORegisters gLCDIORegisters;
 #define SET_PROCESS_PTR(no_0, no_1, no_2, no_3, main) (*(u32*)main->process = ((no_0) | ((no_1) << 8) | ((no_2) << 16) | ((no_3) << 24)))
 #define SET_PROCESS(no_0, no_1, no_2, no_3) (*(u32*)gMain.process = ((no_0) | ((no_1) << 8) | ((no_2) << 16) | ((no_3) << 24)))
 #define BACKUP_PROCESS() (*(u32*)gMain.processCopy = *(u32*)gMain.process)
+#define RESTORE_PROCESS_PTR(main) (*(u32*)gMain.process = *(u32*)main->processCopy)
 
 void ClearRamAndInitGame();
 void HideAllSprites();

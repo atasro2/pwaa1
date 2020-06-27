@@ -32,13 +32,13 @@ struct Struct3000800
     struct Struct3000800 * unk4;
     struct Struct3000800 * unk8;
     u16 unkC;
-    u8 unkE; // was this originally a u16?
+    u8 personId; /* + 0xE */ // was this originally a u16?
     u16 xOrigin; /* + 0x10 */
     u16 yOrigin; /* + 0x12 */
-    u8 * unk14;
+    u8 * animFrameDataStartPtr;
     u8 * unk18;
     u8 * unk1C; // vram tile address
-    u8 * unk20;
+    u8 * animGfxDataStartPtr;
     u8 filler24[2];
     u8 unk26;
     u8 filler27[1];

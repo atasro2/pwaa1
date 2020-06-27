@@ -1,0 +1,540 @@
+#include "global.h"
+#include "ewram.h"
+#include "script.h"
+#include "background.h"
+#include "sound_control.h"
+#include "agb_sram.h"
+
+u32 SaveGameData()
+{
+    gSaveDataBuffer.main.unk17 |= 0x10;
+    DmaCopy16(3, gSaveVersion, gSaveDataBuffer.saveDataVer, 0x30);
+    CalculateSaveChecksum();
+    return WriteSramEx((void*)&gSaveDataBuffer, SRAM_START, sizeof(gSaveDataBuffer));
+}
+
+u32 LoadSaveData()
+{
+    u32 i;
+    char * sramVer;
+    ReadSram(SRAM_START, (void*)&gSaveDataBuffer, 0x29D0);
+    sramVer = gSaveDataBuffer.saveDataVer;
+    for(i = 0; i < 0x30; i++)
+    {
+        if(gSaveVersion[i] != *sramVer)
+        {
+            gMain.unk17 = 0;
+            return 2;
+        }
+        sramVer++;
+    }
+    gMain.unk8E = gSaveDataBuffer.main.unk8E;
+    if(CheckSaveChecksum() == FALSE)
+    {
+        gMain.unk17 = 0;
+        return 1;
+    }
+    gMain.unk17 = 0x10;
+    return 0;
+}
+
+void CalculateSaveChecksum()
+{
+    u8 *saveData;
+    u32 magic;
+    u32 size;
+    gSaveDataBuffer.magic = 0;
+    magic = 0;
+    size = sizeof(gSaveDataBuffer);
+    saveData = (void *) (&gSaveDataBuffer.main);
+    while (saveData < (((u8 *) (&gSaveDataBuffer)) + size))
+    {
+        magic += saveData[0];
+        saveData += 4;
+    }
+    magic += 2343;
+    gSaveDataBuffer.magic = magic;
+}
+
+bool32 CheckSaveChecksum()
+{
+    u32 magic = 0;
+    u8 * saveData = (u8 *)&gSaveDataBuffer.main;
+    while(saveData < (u8 *)&gSaveDataBuffer+sizeof(gSaveDataBuffer))
+    {
+        magic += *saveData;
+        saveData += 4;
+    }
+    magic += 2343;
+    if(magic == gSaveDataBuffer.magic)
+    {
+        return TRUE;
+    }
+    return FALSE;
+}
+
+void ClearSaveProcess(struct Main *main)
+{
+    struct OamAttrs * oam;
+    u32 i;
+    switch (main->process[GAME_SUBPROCESS])
+    {
+    case 0:
+        DmaCopy16(3, gUnknown_08185D20, VRAM + 0x3800, 0x800);
+        DmaCopy16(3, GetBGPalettePtr(0), PLTT, 0x200);
+        DmaCopy16(3, gUnknown_08186540, VRAM, 0x1000);
+        DmaCopy16(3, gUnknown_081964A8, OBJ_VRAM0 + 0x3C00, 0x800);
+        DmaCopy16(3, gUnknown_081FD92C, PLTT + 0x320, 0x40);
+        DmaCopy16(3, gTextPal, PLTT + 0x200, 0x20);
+        gLCDIORegisters.lcd_bg0cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(28) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
+        gLCDIORegisters.lcd_bg1cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(29) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
+        gLCDIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
+        i = BGCNT_PRIORITY(3) | BGCNT_CHARBASE(1) | BGCNT_SCREENBASE(31) | BGCNT_MOSAIC | BGCNT_256COLOR | BGCNT_WRAP | BGCNT_TXT256x256; // scrub scrub CC!!11
+        gLCDIORegisters.lcd_bg3cnt = i;
+        sub_8001830(0x43);
+        sub_8001A9C(0x43);
+        for(i = 0; i < 0x400; i++)
+        {
+            gBG2MapBuffer[i] = 0;
+        }
+        sub_80024C8(6, 8);
+        gLCDIORegisters.lcd_dispcnt = DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON;
+        main->tilemapUpdateBits = 0xC;
+        gLCDIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
+        gLCDIORegisters.lcd_bldy = 0x10;
+        main->selectedButton = 1;
+        StartHardwareBlend(1, 1, 1, 0x1F);
+        main->process[GAME_SUBPROCESS]++;
+        break;
+    case 1:
+        if(main->blendMode == 0)
+        {
+            sub_8002878(&gCourtRecord);
+            if(gCourtRecord.unk1 == 0)
+            {
+                main->advanceScriptContext = TRUE;
+                main->showTextboxCharacters = TRUE;
+                gScriptContext.currentSection = 0xFFFF;
+                ChangeScriptSection(4);
+                gScriptContext.textXOffset = 9;
+                gScriptContext.textYOffset = 52;
+                oam = &gOamObjects[40];
+                oam->attr0 = SPRITE_ATTR0(96, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_BLEND, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
+                oam->attr1 = SPRITE_ATTR1_NONAFFINE(48, FALSE, FALSE, 3);
+                oam->attr2 = SPRITE_ATTR2(0x1E0, 0, 10);
+                oam++;
+                oam->attr0 = SPRITE_ATTR0(96, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_BLEND, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
+                oam->attr1 = SPRITE_ATTR1_NONAFFINE(128, FALSE, FALSE, 3);
+                oam->attr2 = SPRITE_ATTR2(0x200, 0, 10); 
+                main->blendCounter = 0;
+                main->blendDelay = 1;
+                main->blendDeltaY = 0x10;
+                gLCDIORegisters.lcd_bldcnt = BLDCNT_TGT2_BG3 | BLDCNT_EFFECT_BLEND;
+                gLCDIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0, main->blendDeltaY);
+                main->process[GAME_SUBPROCESS]++;
+            }
+        }
+        break;
+    case 2:
+        if(gScriptContext.unk0 & 0x8)
+        {
+            if(gJoypad.pressedKeysRaw & (DPAD_RIGHT|DPAD_LEFT))
+            {
+                PlaySE(0x2A);
+                main->selectedButton ^= 1;
+            }
+            else if(gJoypad.pressedKeysRaw & A_BUTTON)
+            {
+                PlaySE(0x2B);
+                StartHardwareBlend(2, 1, 1, 0x1F);
+                main->tilemapUpdateBits = 0;
+                main->process[GAME_SUBPROCESS]++;
+            }
+        }
+        oam = &gOamObjects[40];
+        if(main->selectedButton == 0)
+        {
+            oam->attr2 = SPRITE_ATTR2(0x1E0, 0, 9);
+            oam++;
+            oam->attr2 = SPRITE_ATTR2(0x200, 0, 10);
+        }
+        else
+        {
+            oam->attr2 = SPRITE_ATTR2(0x1E0, 0, 10);
+            oam++;
+            oam->attr2 = SPRITE_ATTR2(0x200, 0, 9);
+        }
+        if(main->process[GAME_SUBPROCESS] == 2)
+        {
+            if(main->blendDeltaY > 0)
+            {
+                main->blendCounter++;
+                if(main->blendCounter >= main->blendDelay)
+                {
+                    main->blendCounter = 0;
+                    main->blendDeltaY--;
+                }
+                gLCDIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0x10-main->blendDeltaY, main->blendDeltaY);
+            }
+        }
+        break;
+    case 3:
+        if(main->blendMode == 0)
+        {
+            if(main->selectedButton == 0)
+            {
+                DmaFill32(3, 0, &gSaveDataBuffer, sizeof(gSaveDataBuffer));
+                WriteSramEx((void*)&gSaveDataBuffer, SRAM_START, sizeof(gSaveDataBuffer));
+            }
+            SET_PROCESS_PTR(0, 0, 0, 0, main);
+        }
+        break;
+    default:
+        break;
+    }
+}
+
+extern void (*gSaveGameSubProcesses[])(struct Main *);
+
+void SaveGameProcess(struct Main *main)
+{
+    gSaveGameSubProcesses[gMain.process[GAME_SUBPROCESS]](&gMain);
+}
+
+#define sIsEpisodePartOver process[3]
+
+void SaveGameInit1SubProcess(struct Main *main)
+{
+    u32 i;
+    DmaCopy16(3, gBG1MapBuffer, gSaveDataBuffer.bg1Map, sizeof(gBG1MapBuffer));
+    DmaCopy16(3, gBG2MapBuffer, gSaveDataBuffer.bg2Map, sizeof(gBG2MapBuffer));
+    DmaCopy16(3, gTextBoxCharacters, gSaveDataBuffer.textBoxCharacters, sizeof(gTextBoxCharacters));
+    DmaCopy16(3, &gScriptContext, &gSaveDataBuffer.scriptCtx, sizeof(gScriptContext));
+    DmaCopy16(3, &gLCDIORegisters, &gSaveDataBuffer.ioRegs, sizeof(gLCDIORegisters));
+    DmaCopy16(3, gUnknown_03003930, gSaveDataBuffer.iwramStruct3930, sizeof(gUnknown_03003930));
+    for(i = 0; i < ARRAY_COUNT(gUnknown_03003930); i++)
+    {
+        gUnknown_03003930[i].id |= 0xFF;
+    }
+    sub_801042C(gSaveDataBuffer.ewramStruct2650);
+    main->advanceScriptContext = FALSE;
+    StartHardwareBlend(2, 0, 1, 0x1F);
+    main->process[GAME_SUBPROCESS]++;
+}
+
+void SaveGameInit2SubProcess(struct Main *main)
+{
+    struct OamAttrs * oam;
+    u32 i;
+    if(main->blendMode != 0)
+        return;
+    DmaCopy16(3, gBG0MapBuffer, gSaveDataBuffer.bg0Map, sizeof(gBG0MapBuffer));
+    DmaCopy16(3, &gCourtRecord, &gSaveDataBuffer.courtRecord, sizeof(gCourtRecord));
+    DmaCopy16(3, &gUnknown_03003A50, &gSaveDataBuffer.iwramStruct3A50, sizeof(gUnknown_03003A50));
+    DmaCopy16(3, &gUnknown_03003AB0, &gSaveDataBuffer.iwramStruct3AB0, sizeof(gUnknown_03003AB0));
+    DmaCopy16(3, &gCourtScroll, &gSaveDataBuffer.courtScroll, sizeof(gCourtScroll))
+    DmaCopy16(3, gExaminationData, gSaveDataBuffer.examinationData, sizeof(gExaminationData));
+    DmaCopy16(3, gTalkData, gSaveDataBuffer.talkData, sizeof(gTalkData));
+    DmaCopy16(3, gUnknown_08193CA0, OBJ_VRAM0 + 0x3800, 0x400);
+    DmaCopy16(3, gUnknown_08194580, PLTT + 0x300, 0xC0);
+    DmaCopy16(3, gUnknown_081964A8, OBJ_VRAM0 + 0x3C00, 0x800);
+    DmaCopy16(3, gUnknown_081FD92C, PLTT + 0x320, 0x40);
+    sub_8001830(0x43);
+    sub_8001A9C(0x43);
+    main->unk1F &= ~3;
+    oam = gOamObjects;
+    for(i = 0; i < MAX_OAM_OBJ_COUNT; i++)
+    {
+        oam++->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+    }
+    for(i = 0; i < ARRAY_COUNT(gBG2MapBuffer); i++)
+    {
+        gBG2MapBuffer[i] = 0;
+    }
+    sub_80024C8(6, 8);
+    gLCDIORegisters.lcd_dispcnt = DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON;
+    main->tilemapUpdateBits = 0xC;
+    gLCDIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
+    gLCDIORegisters.lcd_bg3vofs = 8;
+    gLCDIORegisters.lcd_bg3hofs = 8;
+    gLCDIORegisters.lcd_bg1vofs = 0;
+    gLCDIORegisters.lcd_bg1hofs = 0;
+    main->showTextboxCharacters = FALSE;
+    StartHardwareBlend(1, 0, 1, 0x1F);
+    main->process[GAME_SUBPROCESS]++;
+}
+
+void SaveGameInitButtonsSubProcess(struct Main *main)
+{
+    struct OamAttrs * oam;
+    sub_8002878(&gCourtRecord);
+    if(gCourtRecord.unk1 == 0) // ?
+    {
+        main->advanceScriptContext = TRUE;
+        main->showTextboxCharacters = TRUE;
+        gScriptContext.currentSection = 0xFFFF;
+        if(main->sIsEpisodePartOver)
+            ChangeScriptSection(0);
+        else
+            ChangeScriptSection(1);
+        gScriptContext.textXOffset = 9;
+        gScriptContext.textYOffset = 52;
+        oam = &gOamObjects[40];
+        oam->attr0 = SPRITE_ATTR0(96, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_BLEND, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
+        oam->attr1 = SPRITE_ATTR1_NONAFFINE(48, FALSE, FALSE, 3);
+        oam->attr2 = SPRITE_ATTR2(0x1E0, 0, 10);
+        oam++;
+        oam->attr0 = SPRITE_ATTR0(96, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_BLEND, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
+        oam->attr1 = SPRITE_ATTR1_NONAFFINE(128, FALSE, FALSE, 3);
+        oam->attr2 = SPRITE_ATTR2(0x200, 0, 10);
+        main->blendCounter = 0;
+        main->blendDelay = 1;
+        main->blendDeltaY = 0x10;
+        gLCDIORegisters.lcd_bldcnt = BLDCNT_EFFECT_BLEND | BLDCNT_TGT2_BG3;
+        gLCDIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0, main->blendDeltaY);
+        if(main->sIsEpisodePartOver)
+            main->selectedButton = 0;
+        else
+            main->selectedButton = 1;
+        main->process[GAME_SUBPROCESS]++;
+    }
+}
+
+void SaveGameWaitForInputSubProcess(struct Main *main)
+{
+    struct OamAttrs * oam;
+    if(gScriptContext.unk0 & 0x8)
+    {
+        if(gJoypad.pressedKeysRaw & (DPAD_RIGHT | DPAD_LEFT))
+        {
+            main->selectedButton ^= 1;
+            PlaySE(0x2A);
+        }
+        else if(gJoypad.pressedKeysRaw & A_BUTTON)
+        {
+            PlaySE(0x40);
+            if(main->selectedButton == 0)
+            {
+                if(main->sIsEpisodePartOver)
+                    gSaveDataBuffer.main.unk17 &= 0xF0;
+                else
+                    gSaveDataBuffer.main.unk17 |= 0x1;
+                if(SaveGameData())
+                {
+                    gScriptContext.currentSection = 0xFFFF;
+                    ChangeScriptSection(3);
+                    gScriptContext.textXOffset = 9;
+                    gScriptContext.textYOffset = 52;
+                    main->process[GAME_SUBPROCESS] = 6;
+                    return;
+                }
+                if(main->sIsEpisodePartOver == FALSE)
+                {
+                    gScriptContext.currentSection = 0xFFFF;
+                    ChangeScriptSection(6);
+                    gScriptContext.textXOffset = 9;
+                    gScriptContext.textYOffset = 52;
+                    main->blendCounter = 0;
+                    main->blendDelay = 1;
+                    main->blendDeltaY = 0;
+                }
+            }
+            main->process[GAME_SUBPROCESS] = 7;
+            main->process[GAME_PROCESSUNK2] = 0;
+        }
+        else if(main->sIsEpisodePartOver == 0 && gJoypad.pressedKeysRaw & B_BUTTON)
+        {
+            PlaySE(0x2C);
+            main->selectedButton = 1;
+            StartHardwareBlend(2, 0, 1, 0x1F);
+            main->process[GAME_SUBPROCESS] = 4;
+            return;
+        }
+    }
+    oam = &gOamObjects[40];
+    if(main->selectedButton == 0)
+    {
+        oam->attr0 = SPRITE_ATTR0(96, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_BLEND, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
+        oam->attr1 = SPRITE_ATTR1_NONAFFINE(48, FALSE, FALSE, 3);
+        oam->attr2 = SPRITE_ATTR2(0x1E0, 0, 9);
+        oam++;
+        oam->attr0 = SPRITE_ATTR0(96, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_BLEND, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
+        oam->attr1 = SPRITE_ATTR1_NONAFFINE(128, FALSE, FALSE, 3);
+        oam->attr2 = SPRITE_ATTR2(0x200, 0, 10);
+    }
+    else
+    {
+        oam->attr0 = SPRITE_ATTR0(96, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_BLEND, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
+        oam->attr1 = SPRITE_ATTR1_NONAFFINE(48, FALSE, FALSE, 3);
+        oam->attr2 = SPRITE_ATTR2(0x1E0, 0, 10);
+        oam++;
+        oam->attr0 = SPRITE_ATTR0(96, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_BLEND, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
+        oam->attr1 = SPRITE_ATTR1_NONAFFINE(128, FALSE, FALSE, 3);
+        oam->attr2 = SPRITE_ATTR2(0x200, 0, 9);
+    }
+    if(main->process[GAME_SUBPROCESS] == 3)
+    {
+        if(main->blendDeltaY > 0)
+        {
+            main->blendCounter++;
+            if(main->blendCounter >= main->blendDelay)
+            {
+                main->blendCounter = 0;
+                main->blendDeltaY--;
+            }
+            gLCDIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0x10 - main->blendDeltaY, main->blendDeltaY);
+        }
+    }
+}
+
+void SaveGameExitSaveScreenSubProcess(struct Main *main)
+{
+    u32 i;
+    if(main->blendMode != 0)
+        return;
+    if(main->selectedButton == 0)
+    {
+        SET_PROCESS_PTR(1, 0, 0, 0, main);
+        return;
+    }
+    main->currentBG = gSaveDataBuffer.main.currentBG;
+    main->previousBG = gSaveDataBuffer.main.previousBG;
+    main->unk2C = gSaveDataBuffer.main.unk2C;
+    main->isBGScrolling = gSaveDataBuffer.main.isBGScrolling;
+    main->unk2F = gSaveDataBuffer.main.unk2F;
+    main->unk30 = gSaveDataBuffer.main.unk30;
+    main->unk32 = gSaveDataBuffer.main.unk32;
+    main->unk34 = gSaveDataBuffer.main.unk34;
+    main->unk36 = gSaveDataBuffer.main.unk36;
+    main->unk38 = gSaveDataBuffer.main.unk38;
+    main->unk3A = gSaveDataBuffer.main.unk3A;
+    main->horizontolBGScrollSpeed = gSaveDataBuffer.main.horizontolBGScrollSpeed;
+    main->verticalBGScrollSpeed = gSaveDataBuffer.main.verticalBGScrollSpeed;
+    main->unk3E = gSaveDataBuffer.main.unk3E;
+    main->unk3F = gSaveDataBuffer.main.unk3F;
+    main->unk40 = gSaveDataBuffer.main.unk40;
+    for(i = 0; i < 12; i++)
+    {
+        main->unk44[i] = gSaveDataBuffer.main.unk44[i];
+    }
+    sub_8001830(main->currentBG);
+    sub_80020B0(main->currentBG);
+    DmaCopy16(3, gSaveDataBuffer.bg2Map, gBG2MapBuffer, sizeof(gBG2MapBuffer));
+    DmaCopy16(3, gSaveDataBuffer.textBoxCharacters, gTextBoxCharacters, sizeof(gTextBoxCharacters));
+    RedrawTextboxCharacters();
+    DmaCopy16(3, &gSaveDataBuffer.scriptCtx, &gScriptContext, sizeof(gScriptContext));
+    DmaCopy16(3, &gSaveDataBuffer.ioRegs, &gLCDIORegisters, sizeof(gLCDIORegisters));
+    DmaCopy16(3, gSaveDataBuffer.iwramStruct3930, gUnknown_03003930, sizeof(gUnknown_03003930));
+    DmaCopy16(3, gSaveDataBuffer.talkData, gTalkData, sizeof(gTalkData));
+    main->advanceScriptContext = gSaveDataBuffer.main.advanceScriptContext;
+    main->showTextboxCharacters = gSaveDataBuffer.main.showTextboxCharacters;
+    main->gameStateFlags = gSaveDataBuffer.main.gameStateFlags;
+    main->shakeTimer = gSaveDataBuffer.main.shakeTimer;
+    main->tilemapUpdateBits = gSaveDataBuffer.main.tilemapUpdateBits;
+    sub_8010304(gSaveDataBuffer.ewramStruct2650);
+    gMain.unk1F |= 3;
+    DmaCopy16(3, gSaveDataBuffer.oam, gOamObjects, sizeof(gOamObjects));
+    DmaCopy16(3, gUnknown_081942C0, OBJ_PLTT+0x100, 0x20);
+    RESTORE_PROCESS_PTR(main);
+    if(main->process[GAME_PROCESS] == 4 && main->process[GAME_PROCESSUNK2] == 3)
+    {
+        if(main->process[GAME_SUBPROCESS] == 7)
+            sub_800D674();
+        else if(main->process[GAME_SUBPROCESS] == 8)
+            sub_800D6C8();
+    }
+    PlayBGM(0x1E, 0xFF); // unpause BGM
+    StartHardwareBlend(1, 0, 1, 0x1F);
+}
+
+void SaveGameSubProcess5(struct Main *main) // ! WHAT THE FUCK
+{
+    u32 var0;
+    if(main->blendMode != 0)
+        return;
+
+    if(main->scenarioIdx == 1)
+    {
+        var0 = 1;
+        goto smth;
+    }
+    if(main->scenarioIdx == 5)
+    {
+        var0 = 2;
+        goto smth;
+    }   
+    if(main->scenarioIdx == 11)
+    {
+        var0 = 3;
+        smth:
+        main->advanceScriptContext = 0;
+        main->showTextboxCharacters = 0;
+        SET_PROCESS_PTR(12, 1, 0, var0, main);
+        return;
+    }
+    gLCDIORegisters.lcd_dispcnt = 0;
+    gScriptContext.currentSection = 0x80;
+    SET_PROCESS_PTR(gUnknown_08014D70[main->scenarioIdx], 0, 0, 0, main);
+}
+
+void sub_8008CC0(struct Main * main)
+{
+    if(gScriptContext.unk0 & 0x8 && gJoypad.pressedKeysRaw & A_BUTTON)
+    {
+        main->advanceScriptContext = 1;
+        main->showTextboxCharacters = 1;
+        gScriptContext.currentSection = 0xFFFF;
+        if(main->sIsEpisodePartOver)
+            ChangeScriptSection(0);
+        else
+            ChangeScriptSection(1);
+        gScriptContext.textXOffset = 9;
+        gScriptContext.textYOffset = 52;
+        main->blendCounter = 0;
+        main->blendDelay = 1;
+        main->blendDeltaY = 0x10;
+        gLCDIORegisters.lcd_bldcnt = BLDCNT_EFFECT_BLEND | BLDCNT_TGT2_BG3;
+        gLCDIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0, main->blendDeltaY);
+        if(main->sIsEpisodePartOver)
+            main->selectedButton = 0;
+        else
+            main->selectedButton = 1;
+        main->process[GAME_SUBPROCESS] = 3;
+    }
+    else
+    {
+        struct OamAttrs * oam = &gOamObjects[40];
+        oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+        oam++;
+        oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+    }
+}
+
+void sub_8008D68(struct Main * main)
+{
+    struct OamAttrs * oam;
+    main->process[GAME_PROCESSUNK2]++;
+    if(main->process[GAME_PROCESSUNK2] >= 60) // 1 second delay
+    {
+        StartHardwareBlend(2, 1, 1, 0x1F);
+        if(main->sIsEpisodePartOver)
+            main->process[GAME_SUBPROCESS] = 5;
+        else
+            main->process[GAME_SUBPROCESS] = 4;
+        main->process[GAME_PROCESSUNK2] = 0;
+        oam = &gOamObjects[40];
+        oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+        oam++;
+        oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+    }
+    if(main->process[GAME_SUBPROCESS] == 7 && main->blendDeltaY <= 0xF)
+    {
+        main->blendCounter++;
+        if(main->blendCounter >= main->blendDelay)
+        {
+            main->blendCounter = 0;
+            main->blendDeltaY++;
+        }
+        gLCDIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0x10 - main->blendDeltaY, main->blendDeltaY);
+    }
+}

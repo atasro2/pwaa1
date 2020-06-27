@@ -297,8 +297,8 @@ _08005AA4:
 	.align 2, 0
 _08005AB4: .4byte gOamObjects+0x10
 
-	THUMB_FUNC_START sub_8005AB8
-sub_8005AB8: @ 0x08005AB8
+	THUMB_FUNC_START RedrawTextboxCharacters
+RedrawTextboxCharacters: @ 0x08005AB8
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb

@@ -14,7 +14,7 @@ void sub_800F804()
     gMain.unk1F |= 3;
     iwstruct800p = &gUnknown_03000800[1];
     iwstruct800p->unkC = 0xFF;
-    iwstruct800p->unkE = 0;
+    iwstruct800p->personId = 0;
     sub_800F7F0();
 }
 
@@ -30,7 +30,7 @@ void sub_800F84C()
                 struct OamAttrs* oam;
                 for (oam = &gOamObjects[iwstruct800p->unk3A]; oam < &gOamObjects[iwstruct800p->unk3B]; oam++)
                 {
-                    oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_DOUBLE_MASK, 0, 0, 0, 0);
+                    oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
                 }
             }
         }
@@ -167,10 +167,10 @@ void sub_800FA74(struct Struct3000800 * iwstruct800p, bool32 arg1)
             iwstruct800p->unk0 |= 0x08000000;
             for(i = iwstruct800p->unk3A; i < iwstruct800p->unk3B; i++)
             {
-                gOamObjects[i].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_DOUBLE_MASK, 0, 0, 0, 0);
+                gOamObjects[i].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
             }
         }
-        if (iwstruct800p->unkC == 0xff && iwstruct800p->unkE == 0x16)
+        if (iwstruct800p->unkC == 0xff && iwstruct800p->personId == 0x16)
         {
             if ((iwstruct800p = sub_800F8BC(0x17)) != NULL || (iwstruct800p = sub_800F8BC(0x18)) != NULL)
             {
@@ -185,7 +185,7 @@ void sub_800FA74(struct Struct3000800 * iwstruct800p, bool32 arg1)
                     iwstruct800p->unk0 |= 0x08000000;
                     for(i = iwstruct800p->unk3A; i < iwstruct800p->unk3B; i++)
                     {
-                        gOamObjects[i].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_DOUBLE_MASK, 0, 0, 0, 0);
+                        gOamObjects[i].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
                     }
                 }
             }
@@ -228,13 +228,13 @@ void sub_800FBA0(struct Struct3000800 * iwstruct800p, u32 arg1)
         if(iwstruct800p->unkC == 0xFF)
         {
             u8 * ptr1;
-            ptr1 = gUnknown_08018DD4[iwstruct800p->unkE].unk4 + arg1;
-            if(iwstruct800p->unk14 == ptr1)
+            ptr1 = gUnknown_08018DD4[iwstruct800p->personId].unk4 + arg1;
+            if(iwstruct800p->animFrameDataStartPtr == ptr1)
             {
                 return;
             }
-            iwstruct800p->unk14 = ptr1;
-            iwstruct800p->unk20 = gUnknown_08018DD4[iwstruct800p->unkE].unk0;
+            iwstruct800p->animFrameDataStartPtr = ptr1;
+            iwstruct800p->animGfxDataStartPtr = gUnknown_08018DD4[iwstruct800p->personId].unk0;
         }
         else
         {
@@ -242,8 +242,8 @@ void sub_800FBA0(struct Struct3000800 * iwstruct800p, u32 arg1)
             {
                 if(iwstruct800p->unkC <= 0x10)
                 {
-                    iwstruct800p->unk14 = (u8 *)0x871FCF4 + arg1; // ! FOR THE LOVE OF GOD CAPCOM
-                    iwstruct800p->unk20 = (u8 *)0x871EBBC;
+                    iwstruct800p->animFrameDataStartPtr = (u8 *)0x871FCF4 + arg1; // ! FOR THE LOVE OF GOD CAPCOM
+                    iwstruct800p->animGfxDataStartPtr = (u8 *)0x871EBBC;
                 }
                 else
                 {
@@ -251,25 +251,24 @@ void sub_800FBA0(struct Struct3000800 * iwstruct800p, u32 arg1)
                     {
                         return;
                     }
-                    iwstruct800p->unk14 = (u8 *)0x8748218 + arg1;
-                    iwstruct800p->unk20 = (u8 *)0x871FDF8;
+                    iwstruct800p->animFrameDataStartPtr = (u8 *)0x8748218 + arg1;
+                    iwstruct800p->animGfxDataStartPtr = (u8 *)0x871FDF8;
                 }
             }
             else
             {
-                iwstruct800p->unk14 = (u8 *)0x8748218 + arg1;
-                iwstruct800p->unk20 = (u8 *)0x871FDF8;
+                iwstruct800p->animFrameDataStartPtr = (u8 *)0x8748218 + arg1;
+                iwstruct800p->animGfxDataStartPtr = (u8 *)0x871FDF8;
             }
         }
         iwstruct800p->unk0 |= 0xC0000000; 
         iwstruct800p->unk28 = 0xFFFF;
         // comments mostly based on h3rmit docs
-        // iwstruct800p->unk14 animation block beginning 
-        // iwstruct800p->unk20 animation gfx data beginning 
-        iwstruct800p->unk20 += 1[(u32 *)iwstruct800p->unk14]; // offsets the graphics pointer
-        iwstruct800p->unk18 = iwstruct800p->unk20 + 4 + (*(u32 *)iwstruct800p->unk20) * 0x20; // skip first u32 (number of palettes) and the palettes, pointer to tiles
-        iwstruct800p->unk34 = iwstruct800p->unk14+8; // skips animation block header, pointer to frame data
-        iwstruct800p->unk30 = iwstruct800p->unk14 + *(u16 *)iwstruct800p->unk34; // Frame tilemap pointer
+        // iwstruct800p->animFrameDataStartPtr animation block beginning 
+        iwstruct800p->animGfxDataStartPtr += 1[(u32 *)iwstruct800p->animFrameDataStartPtr]; // offsets the graphics pointer
+        iwstruct800p->unk18 = iwstruct800p->animGfxDataStartPtr + 4 + (*(u32 *)iwstruct800p->animGfxDataStartPtr) * 0x20; // skip first u32 (number of palettes) and the palettes, pointer to tiles
+        iwstruct800p->unk34 = iwstruct800p->animFrameDataStartPtr+8; // skips animation block header, pointer to frame data
+        iwstruct800p->unk30 = iwstruct800p->animFrameDataStartPtr + *(u16 *)iwstruct800p->unk34; // Frame tilemap pointer
     }
 }
 
@@ -738,7 +737,7 @@ struct Struct3000800 * sub_80100A8(u32 arg0, u32 talkingAnimOff, u32 xOrigin, u3
     iwstruct800p->unk2C |= 0;
     sub_8010468(&struct80C, 0xFF, arg4);
     iwstruct800p->unk2C = main->currentBG;
-    if(iwstruct800p->unkE == 0x16 && main->process[GAME_PROCESS] == 4) // person id 0x16 investigation
+    if(iwstruct800p->personId == 0x16 && main->process[GAME_PROCESS] == 4) // person id 0x16 investigation
     {
         struct Struct3000800 * ptr;
         u32 var0 = iwstruct800p->unk0 & 0x02000000;

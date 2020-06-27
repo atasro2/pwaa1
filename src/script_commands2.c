@@ -19,7 +19,7 @@ bool32 Command40(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
     scriptCtx->unk0 &= ~0x400;
-    gOamObjects[88].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_DOUBLE_MASK, 0, 0, 0, 0);
+    gOamObjects[88].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
     return 0;
 }
 

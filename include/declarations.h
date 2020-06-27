@@ -4,6 +4,7 @@
 #include "structs.h"
 
 //DATA
+extern const u8 gUnknown_08014D70[];
 extern const u16 gUnknown_08014D82[]; // GS1_gameover_message_data_table
 extern const u8 gUnknown_08013B70[0x400];
 extern u8 gUnknown_080189A4[];
@@ -89,6 +90,10 @@ u32 CheckSaveChecksum();
 //ASMFUNCTIONS
 
 // UNSORTED
+extern void sub_800D6C8(void);
+extern void sub_800D674(void);
+extern void sub_80020B0(u32);
+extern void sub_8010304(struct Struct2002650 *);
 extern void sub_8002878(struct CourtRecord *);
 extern void sub_8010E14(s16);
 extern void sub_800EEFC(struct Main *);
@@ -109,7 +114,7 @@ extern u32 sub_8007554(u32);
 // fuck capcom
 //IWRAM
 extern u16 gBG2MapBuffer[0x400]; // BG 2 Map buffer
-extern struct Struct3000800 gUnknown_03000800[0x20]; // size unknown
+extern struct Struct3000800 gUnknown_03000800[0x20];
 extern u16 gBG3MapBuffer[0x400]; // BG 3 Map buffer
 extern u16 gBG3MapBufferCopy[0x400]; // BG 3 Map buffer copy TODO: this 1 array is keeping me away from naming the other ones..  BG Pan related?
 extern u16 gBG1MapBuffer[0x400]; // BG 1 Map buffer
