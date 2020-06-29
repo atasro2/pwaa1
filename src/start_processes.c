@@ -21,7 +21,7 @@ void CapcomLogoProcess(struct Main *main)
         StartHardwareBlend(1, 1, 1, 0x1F);
         main->tilemapUpdateBits = 8;
         main->process[GAME_SUBPROCESS]++;
-        main->process[GAME_PROCESSUNK3] = 0x78; // Timer for showing Capcom logo
+        main->process[GAME_PROCESSUNK3] = 120; // 2 second timer for showing Capcom logo
         break;
     case 1:
         if (main->blendMode == 0)
@@ -60,12 +60,12 @@ void TitleScreenProcess(struct Main *main)
         SET_PROCESS_PTR(1, 1, 0, 0, main); // ? main->process[GAME_SUBPROCESS]++; hello?
         break;
     case 1:
-        DmaCopy16(3, gUnknown_08185D20, VRAM + 0x3800, 0x800);
+        DmaCopy16(3, gUnusedAsciiCharSet, VRAM + 0x3800, sizeof(gUnusedAsciiCharSet));
         DmaCopy16(3, gUnknown_08180000, PLTT, sizeof(gUnknown_08180000));
         LZ77UnCompWram(gUnknown_08180200, eBGDecompBuffer);
-        DmaCopy16(3, eBGDecompBuffer, BG_CHAR_ADDR(1), 0x9600);
-        DmaCopy16(3, gUnknown_08194580, PLTT + 0x240, 0xC0);
-        DmaCopy16(3, gUnknown_08193CA0, OBJ_VRAM0 + 0x400, 0x400);
+        DmaCopy16(3, eBGDecompBuffer, BG_CHAR_ADDR(1), 30*20*TILE_SIZE_8BPP);
+        DmaCopy16(3, gUnknown_08194580, OBJ_PLTT + 0x40, sizeof(gUnknown_08194580));
+        DmaCopy16(3, gUnknown_08193CA0, OBJ_VRAM0 + 0x400, sizeof(gUnknown_08193CA0));
         oam = &gOamObjects[49];
         oam->attr0 = SPRITE_ATTR0(112, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
         oam->attr1 = SPRITE_ATTR1_NONAFFINE(88, FALSE, FALSE, 2);

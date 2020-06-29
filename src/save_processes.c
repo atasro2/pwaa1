@@ -8,7 +8,7 @@
 u32 SaveGameData()
 {
     gSaveDataBuffer.main.unk17 |= 0x10;
-    DmaCopy16(3, gSaveVersion, gSaveDataBuffer.saveDataVer, 0x30);
+    DmaCopy16(3, gSaveVersion, gSaveDataBuffer.saveDataVer, sizeof(gSaveVersion));
     CalculateSaveChecksum();
     return WriteSramEx((void*)&gSaveDataBuffer, SRAM_START, sizeof(gSaveDataBuffer));
 }
@@ -80,12 +80,12 @@ void ClearSaveProcess(struct Main *main)
     switch (main->process[GAME_SUBPROCESS])
     {
     case 0:
-        DmaCopy16(3, gUnknown_08185D20, VRAM + 0x3800, 0x800);
-        DmaCopy16(3, GetBGPalettePtr(0), PLTT, 0x200);
-        DmaCopy16(3, gUnknown_08186540, VRAM, 0x1000);
-        DmaCopy16(3, gUnknown_081964A8, OBJ_VRAM0 + 0x3C00, 0x800);
-        DmaCopy16(3, gUnknown_081FD92C, PLTT + 0x320, 0x40);
-        DmaCopy16(3, gTextPal, PLTT + 0x200, 0x20);
+        DmaCopy16(3, gUnusedAsciiCharSet, VRAM + 0x3800, sizeof(gUnusedAsciiCharSet));
+        DmaCopy16(3, GetBGPalettePtr(0), PLTT, BG_PLTT_SIZE);
+        DmaCopy16(3, gUnknown_08186540, VRAM, sizeof(gUnknown_08186540));
+        DmaCopy16(3, gUnknown_081964A8, OBJ_VRAM0 + 0x3C00, sizeof(gUnknown_081964A8));
+        DmaCopy16(3, gUnknown_081FD92C, OBJ_PLTT + 0x120, sizeof(gUnknown_081FD92C));
+        DmaCopy16(3, gTextPal, OBJ_PLTT, sizeof(gTextPal));
         gLCDIORegisters.lcd_bg0cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(28) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
         gLCDIORegisters.lcd_bg1cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(29) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
         gLCDIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
@@ -196,12 +196,13 @@ void ClearSaveProcess(struct Main *main)
 
 extern void (*gSaveGameSubProcesses[])(struct Main *);
 
+#define sIsEpisodePartOver process[3]
+
 void SaveGameProcess(struct Main *main)
 {
     gSaveGameSubProcesses[gMain.process[GAME_SUBPROCESS]](&gMain);
 }
 
-#define sIsEpisodePartOver process[3]
 
 void SaveGameInit1SubProcess(struct Main *main)
 {
@@ -235,10 +236,10 @@ void SaveGameInit2SubProcess(struct Main *main)
     DmaCopy16(3, &gCourtScroll, &gSaveDataBuffer.courtScroll, sizeof(gCourtScroll))
     DmaCopy16(3, gExaminationData, gSaveDataBuffer.examinationData, sizeof(gExaminationData));
     DmaCopy16(3, gTalkData, gSaveDataBuffer.talkData, sizeof(gTalkData));
-    DmaCopy16(3, gUnknown_08193CA0, OBJ_VRAM0 + 0x3800, 0x400);
-    DmaCopy16(3, gUnknown_08194580, PLTT + 0x300, 0xC0);
-    DmaCopy16(3, gUnknown_081964A8, OBJ_VRAM0 + 0x3C00, 0x800);
-    DmaCopy16(3, gUnknown_081FD92C, PLTT + 0x320, 0x40);
+    DmaCopy16(3, gUnknown_08193CA0, OBJ_VRAM0 + 0x3800, sizeof(gUnknown_08193CA0));
+    DmaCopy16(3, gUnknown_08194580, OBJ_PLTT + 0x100, sizeof(gUnknown_08194580));
+    DmaCopy16(3, gUnknown_081964A8, OBJ_VRAM0 + 0x3C00, sizeof(gUnknown_081964A8));
+    DmaCopy16(3, gUnknown_081FD92C, OBJ_PLTT + 0x120, sizeof(gUnknown_081FD92C));
     sub_8001830(0x43);
     sub_8001A9C(0x43);
     main->unk1F &= ~3;
@@ -328,7 +329,7 @@ void SaveGameWaitForInputSubProcess(struct Main *main)
                     main->process[GAME_SUBPROCESS] = 6;
                     return;
                 }
-                if(main->sIsEpisodePartOver == FALSE)
+                if(!main->sIsEpisodePartOver)
                 {
                     gScriptContext.currentSection = 0xFFFF;
                     ChangeScriptSection(6);
@@ -342,7 +343,7 @@ void SaveGameWaitForInputSubProcess(struct Main *main)
             main->process[GAME_SUBPROCESS] = 7;
             main->process[GAME_PROCESSUNK2] = 0;
         }
-        else if(main->sIsEpisodePartOver == 0 && gJoypad.pressedKeysRaw & B_BUTTON)
+        else if(!main->sIsEpisodePartOver && gJoypad.pressedKeysRaw & B_BUTTON)
         {
             PlaySE(0x2C);
             main->selectedButton = 1;
@@ -434,7 +435,7 @@ void SaveGameExitSaveScreenSubProcess(struct Main *main)
     sub_8010304(gSaveDataBuffer.ewramStruct2650);
     gMain.unk1F |= 3;
     DmaCopy16(3, gSaveDataBuffer.oam, gOamObjects, sizeof(gOamObjects));
-    DmaCopy16(3, gUnknown_081942C0, OBJ_PLTT+0x100, 0x20);
+    DmaCopy16(3, gUnknown_081942C0[0], OBJ_PLTT+0x100, sizeof(gUnknown_081942C0[0]));
     RESTORE_PROCESS_PTR(main);
     if(main->process[GAME_PROCESS] == 4 && main->process[GAME_PROCESSUNK2] == 3)
     {
@@ -538,3 +539,5 @@ void sub_8008D68(struct Main * main)
         gLCDIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0x10 - main->blendDeltaY, main->blendDeltaY);
     }
 }
+
+#undef sIsEpisodePartOver

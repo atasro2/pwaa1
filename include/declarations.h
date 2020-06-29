@@ -28,25 +28,25 @@ extern struct Struct8018DD4 gUnknown_08018DD4[];
 // keep both actually it won't matter a whole lot
 extern u8 gUnknown_08180000[0x200]; // palette 
 extern u8 gUnknown_08180200[]; // compressed tile data goes with previous palette probably
-extern u8 gUnknown_08185D20[]; // first 60 characters of ascii
-extern u8 gUnknown_081964A8[];
-extern u8 gUnknown_08186540[];
+extern u8 gUnusedAsciiCharSet[0x800]; // first 60 characters of ascii
+extern u8 gUnknown_08186540[0x1000];
 
 extern u8 gUnknown_08190AC0[]; // some tiles
 extern u8 gUnknown_081911C0[];
-extern u8 gUnknown_081914A0[];
-extern u8 gUnknown_08191CA0[];
-extern u8 gUnknown_081924A0[];
+extern u8 gUnknown_081914A0[0x800];
+extern u8 gUnknown_08191CA0[0x800];
+extern u8 gUnknown_081924A0[0x800];
 extern u8 gUnknown_08192CA0[];
-extern u8 gUnknown_08193CA0[];
-extern u8 gUnknown_081942C0[]; // probably 8bpp palette
+extern u8 gUnknown_08193CA0[0x400];
+extern u8 gUnknown_081942C0[0x11][0x20]; 
 extern u8 gUnknown_08194500[0x20]; // 4bpp palette
 extern u8 gUnknown_08194520[0x20]; // 4bpp palette
 extern u8 gUnknown_08194540[0x20]; // 4bpp palette
 extern u8 gUnknown_08194560[0x20]; // 4bpp palette
-extern u8 gUnknown_08194580[]; // sprite palette
+extern u8 gUnknown_08194580[0xC0]; // sprite palettes
+extern u8 gUnknown_081964A8[0x800];
 
-extern u8 gUnknown_081FD92C[]; // sprite palette
+extern u8 gUnknown_081FD92C[0x40]; // sprite palette
 
 extern u8 gUnknown_0824696C[0x20]; // palette
 

@@ -81,10 +81,10 @@ bool32 Command02(struct ScriptContext * scriptCtx)
             scriptCtx->unk13 = 1;
         }
         scriptCtx->unk14 = 8;
-        if(scriptCtx->currentToken == 7) // if script cmd is 0x7 ?
+        if(scriptCtx->currentToken == 7)
         {
             scriptCtx->scriptPtr++;
-            DmaCopy16(3, gCharSet[226], VRAM + 0x11F80, sizeof(gCharSet[226]));
+            DmaCopy16(3, gCharSet[226], OBJ_VRAM0 + 0x1F80, sizeof(gCharSet[0]));
             scriptCtx->unk39 = 0;
             scriptCtx->unk0 |= 4;
             scriptCtx->unk26 = scriptCtx->textSpeed;
@@ -1568,7 +1568,7 @@ bool32 Command39(struct ScriptContext * scriptCtx)
             iwstruct3930p->id = id;
             iwstruct3930p->vramPtr = scriptCtx->unk3C;
             DmaCopy16(3, gUnknown_080187C8[id].tiles, iwstruct3930p->vramPtr, size = gUnknown_080187C8[id].size); // weird shit going on here
-            DmaCopy16(3, gUnknown_0824696C, PLTT + 0x2C0, 32);
+            DmaCopy16(3, gUnknown_0824696C, OBJ_PLTT + 0xC0, sizeof(gUnknown_0824696C));
             iwstruct3930p->oamIdx = oamIdx;
             oamObject = &gOamObjects[oamIdx];
             
@@ -1689,8 +1689,8 @@ bool32 Command3D(struct ScriptContext * scriptCtx)
 bool32 Command3E(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
-    DmaCopy16(3, gUnknown_08190AC0, VRAM + 0x11F80, 0x80);
-    DmaCopy16(3, gUnknown_081942C0, PLTT + 0x300, 0x20);
+    DmaCopy16(3, gUnknown_08190AC0, OBJ_VRAM0 + 0x1F80, 0x80);
+    DmaCopy16(3, gUnknown_081942C0[0], OBJ_PLTT + 0x100, sizeof(gUnknown_081942C0[0]));
     gUnknown_03003A50.unk0 = 0xF0;
     gUnknown_03003A50.unk2 = 0x30;
     gUnknown_03003A50.unk17 = 0;

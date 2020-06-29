@@ -12,7 +12,7 @@ extern bool32 (*gScriptCmdFuncs[0x5F])(struct ScriptContext *);
 void LoadCurrentScriptIntoRam(void)
 {
     u32 i;
-    DmaCopy16(3, gTextPal, PLTT + 0x200, sizeof(gTextPal));
+    DmaCopy16(3, gTextPal, OBJ_PLTT, sizeof(gTextPal));
 
     for (i = 0; i < ARRAY_COUNT(gTextBoxCharacters); i++)
     {
