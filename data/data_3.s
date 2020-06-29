@@ -257,9 +257,9 @@ gSaveGameSubProcesses:
     .4byte SaveGameInit1SubProcess
 	.4byte SaveGameInit2SubProcess
 	.4byte SaveGameInitButtonsSubProcess
-	.4byte sub_800885C
-	.4byte sub_8008A18
-	.4byte sub_8008C64
+	.4byte SaveGameWaitForInputSubProcess
+	.4byte SaveGameExitSaveScreenSubProcess
+	.4byte SaveGameSubProcess5
 	.4byte sub_8008CC0
 	.4byte sub_8008D68
 

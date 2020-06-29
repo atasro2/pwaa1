@@ -9,8 +9,8 @@ gUnknown_08180000:
 gUnknown_08180200:
     .incbin "baserom.gba", 0x00180200, 0x5B20
 
-    .global gUnknown_08185D20
-gUnknown_08185D20:
+    .global gUnusedAsciiCharSet
+gUnusedAsciiCharSet:
     .incbin "baserom.gba", 0x00185D20, 0x800
 
     .global gUnknown_08186520

@@ -12,7 +12,7 @@ extern bool32 (*gScriptCmdFuncs[0x5F])(struct ScriptContext *);
 void LoadCurrentScriptIntoRam(void)
 {
     u32 i;
-    DmaCopy16(3, gTextPal, PLTT + 0x200, sizeof(gTextPal));
+    DmaCopy16(3, gTextPal, OBJ_PLTT, sizeof(gTextPal));
 
     for (i = 0; i < ARRAY_COUNT(gTextBoxCharacters); i++)
     {
@@ -98,7 +98,7 @@ void InitScriptSection(struct ScriptContext *scriptCtx)
         structPtr->id |= 0xFF;
         structPtr->unk1 = 0;
         structPtr->unk5 = 0;
-        structPtr->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_DOUBLE_MASK, 0, 0, 0, 0);
+        structPtr->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
     }
 }
 
@@ -139,45 +139,40 @@ void AdvanceScriptContext(struct ScriptContext * scriptCxt)
 
         scriptCxt->scriptPtr++;
         
-        if ((scriptCxt->currentSection != 0x80 || gMain.scenarioIdx != 0) && scriptCxt->currentToken != 0xFF)
+        if (!(scriptCxt->currentSection == 0x80 && gMain.scenarioIdx == 0) && scriptCxt->currentToken != 0xFF)
         {
-                if ( scriptCxt->textSpeed != 0)
+            if ( scriptCxt->textSpeed > 0)
+            {
+                if ( scriptCxt->soundCueSkip == 0 || scriptCxt->textSpeed > 4 )
                 {
-                    if ( scriptCxt->soundCueSkip == 0 || scriptCxt->textSpeed > 4 )
-                    {
-                        if ( scriptCxt->currentSoundCue != 2 )
-                            scriptCxt->soundCueSkip = 1;
+                    if ( scriptCxt->currentSoundCue != 2 )
+                        scriptCxt->soundCueSkip = 1;
 
-                        if (!(gMain.soundFlags & SOUND_FLAG_DISABLE_CUE))
+                    if (!(gMain.soundFlags & SOUND_FLAG_DISABLE_CUE))
+                    {
+                        if (scriptCxt->currentSoundCue == 2)
                         {
-                            if ( scriptCxt->currentSoundCue == 2 )
-                            {
-                                PlaySE(68);
-                            }
-                            else if ( scriptCxt->currentSoundCue == 1 )
-                            {
-                                PlaySE(46);
-                            }
-                            else
-                            {
-                                PlaySE(45);
-                            }
+                            PlaySE(68);
+                        }
+                        else if (scriptCxt->currentSoundCue == 1)
+                        {
+                            PlaySE(46);
+                        }
+                        else
+                        {
+                            PlaySE(45);
                         }
                     }
-                    else
-                    {
-                        scriptCxt->soundCueSkip--;
-                    }
                 }
-            
+                else
+                {
+                    scriptCxt->soundCueSkip--;
+                }
+            }
         }
         if(scriptCxt->textSpeed == 0)
         {
             goto continueScript;
-        }
-        else
-        {
-            return;
         }
     }
 }

@@ -1,0 +1,61 @@
+Decompilation notes:
+
+1. this game uses old_agbcc
+only god knows when they started writing the code for this game
+
+2. EWRAM and some parts of ROM are accessed via pure pointers
+
+in theory anything past offset 0x180000 in ROM should have been accessed via pure pointers
+so if you can't match a function that's using those addresses try using pure pointer 
+
+EWRAM is the same deal but the save data buffer in EWRAM is actually not accessed using pure pointers 
+it was properly defined as a struct in EWRAM
+
+Bugs and oversights:
+
+1. Missing if statement sets a bit in the m4a PCM buffer
+
+function Command39 in script_commands.c is missing an if statement at the end
+
+```
+else
+{   
+    // TODO: BUGFIX
+    // ! Capcom forgot to check for 0xFF here..this will slightly corrupt the sound buffer in gSoundInfo
+    oamIdx = sub_8007554(id); 
+    gUnknown_03003930[oamIdx].unk5 |= 4;
+}
+```
+
+2. displaying the close ups for phoenix and edgeworth copy too many bytes to a buffer
+
+while this is not a big problem it's something to note about 
+
+Weird things:
+
+1. EWRAM address 0x0200AFC0 is used for some examination data
+
+specifically it's used for some coordinates and stuff related to the hand pointer
+idk why capcom would do this since they have enough space in IWRAM to do this
+
+2. gBGDecompBuffer is sometimes used for copying background graphics to VRAM
+
+it's a decompression buffer for god's sake
+curse you shared memory accesses
+
+3. script commands can go up to 0x7F but the amount of script commands is actually 0x4D 
+alongside some other commands which were just stubbed for some reason
+
+4. sub_8010C4C is the function that updates animations and it takes a single value
+
+if the value is not 0 then the game will update the animation tiles to an address in EWRAM
+instead of a field in the animation struct for some reason
+
+debug code in pc port also doesn't use this feature
+but it has a print function that is called when the argument passed to the function is 0
+the debug message is related to REG_VCOUNT and possibly for running out of time for copying the tiles
+
+
+Person data:
+
+Still being analyzed might get dumped soon

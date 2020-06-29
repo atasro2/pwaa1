@@ -19,7 +19,7 @@ bool32 Command40(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
     scriptCtx->unk0 &= ~0x400;
-    gOamObjects[88].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_DOUBLE_MASK, 0, 0, 0, 0);
+    gOamObjects[88].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
     return 0;
 }
 
@@ -99,15 +99,15 @@ bool32 Command44(struct ScriptContext * scriptCtx)
     BACKUP_PROCESS();
     if(*scriptCtx->scriptPtr) 
     {
-        DmaCopy16(3, gUnknown_08191CA0, VRAM+0x13400, 0x1000);
-        DmaCopy16(3, gUnknown_08194520, OBJ_PLTT+0xA0, 0x20);
+        DmaCopy16(3, gUnknown_08191CA0, OBJ_VRAM0+0x3400, 0x1000);
+        DmaCopy16(3, gUnknown_08194520, OBJ_PLTT+0xA0, sizeof(gUnknown_08194520));
         SET_PROCESS(9,0,0,0);
     }
     else 
     {
-        DmaCopy16(3, gUnknown_081914A0, VRAM+0x13400, 0x800);
-        DmaCopy16(3, gUnknown_081924A0, VRAM+0x13C00, 0x800);
-        DmaCopy16(3, gUnknown_08194540, OBJ_PLTT+0xA0, 0x20);
+        DmaCopy16(3, gUnknown_081914A0, OBJ_VRAM0+0x3400, sizeof(gUnknown_081914A0));
+        DmaCopy16(3, gUnknown_081924A0, OBJ_VRAM0+0x3C00, sizeof(gUnknown_081924A0));
+        DmaCopy16(3, gUnknown_08194540, OBJ_PLTT+0xA0, sizeof(gUnknown_08194540));
         SET_PROCESS(9,0,0,1);
     }
     scriptCtx->scriptPtr++;
@@ -144,8 +144,8 @@ bool32 Command46(struct ScriptContext * scriptCtx)
             gBG2MapBuffer[GET_MAP_TILE_INDEX(i, j, 0, 1)] = *r3 + 0x80;
         }
     }
-    r6 += 0x4D0;
-    DmaCopy16(3, r6, eUnknown_02031FC0, 0x4B00);
+    r6 += 32 + 20*30*2;
+    DmaCopy16(3, r6, eUnknown_02031FC0, 30*20*TILE_SIZE_4BPP);
     gLCDIORegisters.lcd_dispcnt |= DISPCNT_BG2_ON;
     gLCDIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(2) | BGCNT_CHARBASE(2) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP;
     scriptCtx->unk0 |= 0x40;

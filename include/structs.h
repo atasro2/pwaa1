@@ -10,37 +10,49 @@ struct OamAttrs // why tho capcom there is already a struct called OamData that 
     u16 attr3;
 };
 
-struct Struct3000800 // unknown size
+struct Struct300080C
+{
+    u16 unk0;
+    u16 unk2;
+    u16 xOrigin; /* + 0x4 */
+    u16 yOrigin; /* + 0x6 */
+    u8 * unk8; 
+    u8 * unkC;
+    u8 * unk10; // vram tile address
+    u8 * unk14;
+    u8 unk18;
+    u8 unk19;
+    u8 unk1A;
+    u8 filler1B[1];
+};
+
+struct Struct3000800
 {
     u32 unk0;
-    u32 unk4;
-    u32 unk8;
-    u8 fillerC[0x34];
-    struct Struct3000840
-    {
-        u32 unk0;
-        u32 unk4;
-        u32 unk8;
-        u16 unkC;
-        u8 unkE;
-        u8 fillerF[0x1]; // padding?
-        u16 unk10;
-        u16 unk12;
-        u8* unk14;
-        u8* unk18;
-        u8 filler1C[4];
-        u8* unk20;
-        u8 filler24[4];
-        u16 unk28;
-        u8 filler2A[0x6];
-        u8* unk30;
-        u8* unk34;
-        u8 filler38[2];
-        u8 unk3A;
-        u8 unk3B;
-        s16 unk3C;
-        u16 unk3E;
-    } unk40[0x1f];
+    struct Struct3000800 * unk4;
+    struct Struct3000800 * unk8;
+    u16 unkC;
+    u8 personId; /* + 0xE */ // was this originally a u16?
+    u16 xOrigin; /* + 0x10 */
+    u16 yOrigin; /* + 0x12 */
+    u8 * animFrameDataStartPtr;
+    u8 * unk18;
+    u8 * unk1C; // vram tile address
+    u8 * animGfxDataStartPtr;
+    u8 filler24[2];
+    u8 unk26;
+    u8 filler27[1];
+    u16 unk28;
+    u8 filler2A[0x2];
+    u8 unk2C;
+    u8 filler2D[0x3];
+    u8 * unk30;
+    u8 * unk34;
+    u8 filler38[2];
+    u8 unk3A;
+    u8 unk3B;
+    s16 unk3C;
+    u16 unk3E;
 };
 
 struct Struct3003930 // ExplCharData
@@ -109,7 +121,15 @@ struct CourtRecord
 {
     u8 unk0;
     s8 unk1;
-    u8 filler2[0xE];
+    u8 unk2;
+    u8 unk3;
+    u16 unk4;
+    u16 unk6;
+    u8 filler8[0x2];
+    bool8 isSaveScreen;
+    u8 unkB;
+    u8 unkC;
+    u8 fillerD[0x3];
     u8 unk10;
     u8 unk11;
     u8 filler12[0x6];
@@ -178,7 +198,7 @@ struct Struct3003AB0
 struct TextBoxCharacter
 {
     u16 state;
-    u16 objVramOffset;
+    u16 objAttr2;
     u16 x;
     u16 y;
     u8 color;
@@ -202,23 +222,22 @@ struct Struct2002650
     u8 * unk18;
 };
 
-
-struct Point4 // shamelessly stolen from unity
-{
-    u16 x0;
-    u16 y0;
-    u16 x1;
-    u16 y1;
-    u16 x2;
-    u16 y2;
-    u16 x3;
-    u16 y3;
-};
-
-struct Point // shamelessly stolen from unity
+struct Point 
 {
     u16 x;
     u16 y;
+};
+
+struct Point4 // shamelessly stolen from unity
+{
+    struct Point points[4];
+};
+
+struct Rect
+{
+    struct Point origin; 
+    u16 w;
+    u16 h;
 };
 
 struct Struct80187C8
@@ -234,8 +253,8 @@ struct Struct8018DD4
 {
     u8* unk0;
     u8* unk4;
-    u16 unk6;
     u16 unk8;
+    u16 unkA;
 };
 
 struct ExaminationData
