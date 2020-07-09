@@ -109,7 +109,7 @@ struct Struct3000800 * sub_8010468(struct Struct300080C *, u32, u32);
 extern void sub_8010960(struct Struct3000800 *);
 extern struct Struct3000800 * sub_8010204(u32);
 extern void sub_80106A4(u32, u32);
-extern u32 sub_8007554(u32);
+extern u32 GetMapMarkerIndexFromId(u32);
 //EWRAM
 // fuck capcom
 //IWRAM
