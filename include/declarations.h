@@ -122,7 +122,7 @@ extern struct CourtRecord gCourtRecord;
 extern struct TalkData gTalkData[32];
 extern struct OamAttrs gOamObjects[128];
 extern u16 gBG0MapBuffer[0x400]; // BG 0 Map buffer
-extern struct Struct3003930 gUnknown_03003930[8];
+extern struct MapMarker gMapMarker[8];
 extern u8 gTextColorTileBuffer[0x80];
 extern struct Struct3003A50 gUnknown_03003A50;
 extern struct ScriptContext gScriptContext;

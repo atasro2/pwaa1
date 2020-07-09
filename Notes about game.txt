@@ -23,7 +23,7 @@ else
     // TODO: BUGFIX
     // ! Capcom forgot to check for 0xFF here..this will slightly corrupt the sound buffer in gSoundInfo
     oamIdx = sub_8007554(id); 
-    gUnknown_03003930[oamIdx].unk5 |= 4;
+    gMapMarker[oamIdx].unk5 |= 4;
 }
 ```
 

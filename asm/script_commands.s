@@ -384,5 +384,5 @@ _08007536:
 	.align 2, 0
 _08007544: .4byte 0x040000D4
 _08007548: .4byte gUnknown_080187C8
-_0800754C: .4byte gUnknown_03003930
+_0800754C: .4byte gMapMarker
 _08007550: .4byte gOamObjects

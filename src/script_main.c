@@ -5,7 +5,7 @@
 #include "ewram.h"
 
 static void AdvanceScriptContext(struct ScriptContext *scriptCtx);
-extern void sub_8005890(struct ScriptContext *scriptCtx);
+extern void DrawTextAndMapMarkers(struct ScriptContext *scriptCtx);
 static void PutCharInTextbox(u32, u32, u32);
 extern bool32 (*gScriptCmdFuncs[0x5F])(struct ScriptContext *);
 
@@ -28,7 +28,7 @@ void RunScriptContext(void)
     {
         AdvanceScriptContext(&gScriptContext);
     }
-    sub_8005890(&gScriptContext); // move some stuff into OAM check .s file for more info
+    DrawTextAndMapMarkers(&gScriptContext);
 }
 
 void ChangeScriptSection(u32 newSection)
@@ -42,7 +42,6 @@ void ChangeScriptSection(u32 newSection)
 void InitScriptSection(struct ScriptContext *scriptCtx)
 {
     u32 i;
-    struct Struct3003930 * structPtr;
     for (i = 0; i < ARRAY_COUNT(gTextBoxCharacters); i++)
     {
         gTextBoxCharacters[i].state &= ~0x8000;
@@ -92,13 +91,12 @@ void InitScriptSection(struct ScriptContext *scriptCtx)
         }
     }
     scriptCtx->unk3C = (void*)(VRAM + 0x11800);
-    for (i = 0; i < ARRAY_COUNT(gUnknown_03003930); i++)
+    for (i = 0; i < ARRAY_COUNT(gMapMarker); i++)
     {
-        structPtr = &gUnknown_03003930[i];
-        structPtr->id |= 0xFF;
-        structPtr->unk1 = 0;
-        structPtr->unk5 = 0;
-        structPtr->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+        gMapMarker[i].id |= 0xFF;
+        gMapMarker[i].isBlinking = 0;
+        gMapMarker[i].unk5 = 0;
+        gMapMarker[i].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
     }
 }
 
@@ -473,3 +471,136 @@ _08005888: .4byte gTextBoxCharacters\n\
 _0800588C: .4byte gScriptContext\n");
 }
 #endif
+
+void DrawTextAndMapMarkers(struct ScriptContext * scriptCtx)
+{
+    struct OamAttrs * oam;
+    u32 i;
+    u32 y, x;
+    if(!(scriptCtx->unk0 & 0x4))
+    {
+        oam = &gOamObjects[57];
+        for(i = 0; i < ARRAY_COUNT(gMapMarker); i++) 
+        {
+            if(gMapMarker[i].id != 0xFF)
+            {    
+                oam->attr0 = gMapMarker[i].attr0;
+                oam->attr1 = gMapMarker[i].attr1;
+                if(gMapMarker[i].isBlinking)
+                {
+                    gMapMarker[i].blinkTimer++;
+                    gMapMarker[i].blinkTimer &= 0x1F;
+                    if (gMapMarker[i].blinkTimer < 16)
+                        oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+                }
+                if(gMapMarker[i].unk5 & 0x2)
+                {
+                    gMapMarker[i].distanceMoved += gMapMarker[i].speed;
+                    if (gMapMarker[i].distanceMoved >= gMapMarker[i].distanceToMove)
+                    {
+                        gMapMarker[i].speed -= gMapMarker[i].distanceMoved - gMapMarker[i].distanceToMove;
+                        gMapMarker[i].unk5 &= ~2;
+                    }
+                    switch(gMapMarker[i].direction)
+                    {
+                        case 0:
+                            y = gMapMarker[i].attr0 & 0xFF;
+                            gMapMarker[i].attr0 &= ~0xFF;
+                            y -= gMapMarker[i].speed;
+                            y &= 0xFF;
+                            gMapMarker[i].attr0 += y;
+                            oam->attr0 = gMapMarker[i].attr0;
+                            break;
+                        case 1:
+                            y = gMapMarker[i].attr0 & 0xFF;
+                            gMapMarker[i].attr0 &= ~0xFF;
+                            y += gMapMarker[i].speed;
+                            y &= 0xFF;
+                            gMapMarker[i].attr0 += y;
+                            oam->attr0 = gMapMarker[i].attr0;
+                            break;
+                        case 2:
+                            x = gMapMarker[i].attr1 & 0x1FF;
+                            gMapMarker[i].attr1 &= ~0x1FF;
+                            x -= gMapMarker[i].speed;
+                            x &= 0x1FF;
+                            gMapMarker[i].attr1 += x;
+                            oam->attr1 = gMapMarker[i].attr1;
+                            break;
+                        case 3:
+                            x = gMapMarker[i].attr1 & 0x1FF;
+                            gMapMarker[i].attr1 &= ~0x1FF;
+                            x += gMapMarker[i].speed;
+                            x &= 0x1FF;
+                            gMapMarker[i].attr1 += x;
+                            oam->attr1 = gMapMarker[i].attr1;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                if(gMapMarker[i].unk5 & 0x4)
+                    oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+                oam++;
+            }
+            else
+            {
+                oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+                oam++;
+            }
+        }
+        
+    }
+
+    if(gMain.showTextboxCharacters)
+    {
+        oam = &gOamObjects[0x2];
+        for(i = 0; i < 32; i++)
+        {
+            
+            if(gTextBoxCharacters[i].state & 0x8000)
+            {
+                oam->attr0 = SPRITE_ATTR0(gTextBoxCharacters[i].y + scriptCtx->textYOffset, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
+                oam->attr1 = SPRITE_ATTR1_NONAFFINE(gTextBoxCharacters[i].x + scriptCtx->textXOffset, FALSE, FALSE, 1);
+                oam->attr2 = gTextBoxCharacters[i].objAttr2;
+            }
+            else
+                oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+            oam++;
+        }   
+        if(scriptCtx->unk0 & 0x4)
+        {
+            oam = &gOamObjects[57];
+            for(i = 32; i < ARRAY_COUNT(gTextBoxCharacters); i++)
+            {
+                if(gTextBoxCharacters[i].state & 0x8000)
+                {
+                    oam->attr0 = SPRITE_ATTR0(gTextBoxCharacters[i].y + scriptCtx->unk2A, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
+                    oam->attr1 = SPRITE_ATTR1_NONAFFINE(gTextBoxCharacters[i].x + scriptCtx->unk28, FALSE, FALSE, 1);
+                    oam->attr2 = gTextBoxCharacters[i].objAttr2;
+                }
+                else
+                    oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+                oam++;
+            }
+        }
+    }
+    else
+    {
+        oam = &gOamObjects[0x2];
+        for(i = 0; i < 32; i++)
+        {
+            oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+            oam++;
+        }
+        if(scriptCtx->unk0 & 0x4)
+        {
+            oam = &gOamObjects[57];
+            for(i = 32; i < ARRAY_COUNT(gTextBoxCharacters); i++)
+            {
+                oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+                oam++;
+            }
+        }
+    }
+}

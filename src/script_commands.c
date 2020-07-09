@@ -98,9 +98,9 @@ bool32 Command02(struct ScriptContext * scriptCtx)
             scriptCtx->fullscreenTextX = 0;
             gMain.showTextboxCharacters = FALSE;
             sub_8002244(1);
-            for (i = 0; i < ARRAY_COUNT(gUnknown_03003930); i++)
+            for (i = 0; i < ARRAY_COUNT(gMapMarker); i++)
             {
-                gUnknown_03003930[i].id |= 0xFF;
+                gMapMarker[i].id |= 0xFF;
             }
             return 0;
         }
@@ -1552,7 +1552,7 @@ bool32 Command39(struct ScriptContext * scriptCtx)
 {
     u32 id;
     u32 oamIdx;
-    struct Struct3003930 * iwstruct3930p;
+    struct MapMarker * mapMarker;
     struct OamAttrs * oamObject;
     scriptCtx->scriptPtr++;
     id = *scriptCtx->scriptPtr >> 8;
@@ -1563,36 +1563,36 @@ bool32 Command39(struct ScriptContext * scriptCtx)
         {
             u32 size;
             oamIdx = sub_8007554(0xFF);
-            iwstruct3930p = &gUnknown_03003930[oamIdx];
+            mapMarker = &gMapMarker[oamIdx];
             oamIdx += 0x39;
-            iwstruct3930p->id = id;
-            iwstruct3930p->vramPtr = scriptCtx->unk3C;
-            DmaCopy16(3, gUnknown_080187C8[id].tiles, iwstruct3930p->vramPtr, size = gUnknown_080187C8[id].size); // weird shit going on here
+            mapMarker->id = id;
+            mapMarker->vramPtr = scriptCtx->unk3C;
+            DmaCopy16(3, gUnknown_080187C8[id].tiles, mapMarker->vramPtr, size = gUnknown_080187C8[id].size); // weird shit going on here
             DmaCopy16(3, gUnknown_0824696C, OBJ_PLTT + 0xC0, sizeof(gUnknown_0824696C));
-            iwstruct3930p->oamIdx = oamIdx;
+            mapMarker->oamIdx = oamIdx;
             oamObject = &gOamObjects[oamIdx];
             
             oamObject->attr0 = gUnknown_080187C8[id].attr0;
-            iwstruct3930p->attr0 = oamObject->attr0;
+            mapMarker->attr0 = oamObject->attr0;
             
             oamObject->attr1 = gUnknown_080187C8[id].attr1;
-            iwstruct3930p->attr1 = oamObject->attr1;
+            mapMarker->attr1 = oamObject->attr1;
 
-            oamIdx = ((u32)iwstruct3930p->vramPtr - 0x6011800);
+            oamIdx = ((u32)mapMarker->vramPtr - 0x6011800);
             oamIdx /= 32;
             oamObject->attr2 = SPRITE_ATTR2(oamIdx + 0xC0, 2, 6);
-            iwstruct3930p->attr2 = oamObject->attr2;
+            mapMarker->attr2 = oamObject->attr2;
 
             scriptCtx->unk3C += size;
         }
         else
         {
-            iwstruct3930p = &gUnknown_03003930[oamIdx];
-            oamObject = &gOamObjects[iwstruct3930p->oamIdx];
-            oamObject->attr0 = iwstruct3930p->attr0;
-            oamObject->attr1 = iwstruct3930p->attr1;
-            oamObject->attr2 = iwstruct3930p->attr2;
-            iwstruct3930p->unk5 &= ~0x4;
+            mapMarker = &gMapMarker[oamIdx];
+            oamObject = &gOamObjects[mapMarker->oamIdx];
+            oamObject->attr0 = mapMarker->attr0;
+            oamObject->attr1 = mapMarker->attr1;
+            oamObject->attr2 = mapMarker->attr2;
+            mapMarker->unk5 &= ~0x4;
         }
     }
     else
@@ -1600,7 +1600,7 @@ bool32 Command39(struct ScriptContext * scriptCtx)
         // TODO: BUGFIX
         // ! Capcom forgot to check for 0xFF here..this will slightly corrupt the sound buffer in gSoundInfo
         oamIdx = sub_8007554(id); 
-        gUnknown_03003930[oamIdx].unk5 |= 4;
+        gMapMarker[oamIdx].unk5 |= 4;
     }
     scriptCtx->scriptPtr++;
     return 0;
@@ -1614,10 +1614,10 @@ bool32 Command3A(struct ScriptContext * scriptCtx)
     if(oamIdx != 0xFF)
     {
         scriptCtx->scriptPtr++;
-        gUnknown_03003930[oamIdx].attr0 &= ~0xFF;
-        gUnknown_03003930[oamIdx].attr0 |= (u8)*scriptCtx->scriptPtr;
-        gUnknown_03003930[oamIdx].attr1 &= ~0x1FF;
-        gUnknown_03003930[oamIdx].attr1 |= (u8)(*scriptCtx->scriptPtr >> 8);
+        gMapMarker[oamIdx].attr0 &= ~0xFF;
+        gMapMarker[oamIdx].attr0 |= (u8)*scriptCtx->scriptPtr;
+        gMapMarker[oamIdx].attr1 &= ~0x1FF;
+        gMapMarker[oamIdx].attr1 |= (u8)(*scriptCtx->scriptPtr >> 8);
         scriptCtx->scriptPtr++;
     }
     else
@@ -1635,13 +1635,13 @@ bool32 Command3B(struct ScriptContext * scriptCtx)
     oamIdx = sub_8007554(*scriptCtx->scriptPtr >> 8);
     if(oamIdx != 0xFF)
     {
-        gUnknown_03003930[oamIdx].unk4 = (u8)*scriptCtx->scriptPtr & 3;
+        gMapMarker[oamIdx].direction = (u8)*scriptCtx->scriptPtr & 3;
         scriptCtx->scriptPtr++;
-        gUnknown_03003930[oamIdx].unk3 = (u8)(*scriptCtx->scriptPtr >> 8);
-        gUnknown_03003930[oamIdx].unk6 = (u8)*scriptCtx->scriptPtr;
+        gMapMarker[oamIdx].speed = (u8)(*scriptCtx->scriptPtr >> 8);
+        gMapMarker[oamIdx].distanceToMove = (u8)*scriptCtx->scriptPtr;
         scriptCtx->scriptPtr++;
-        gUnknown_03003930[oamIdx].unk5 |= 2;
-        gUnknown_03003930[oamIdx].unk7 = 0;
+        gMapMarker[oamIdx].unk5 |= 2;
+        gMapMarker[oamIdx].distanceMoved = 0;
     }
     else
     {
@@ -1658,13 +1658,13 @@ bool32 Command3C(struct ScriptContext * scriptCtx)
     oamIdx = sub_8007554(*scriptCtx->scriptPtr >> 8);
     if(oamIdx != 0xFF)
     {
-        gUnknown_03003930[oamIdx].unk1 = *scriptCtx->scriptPtr;
+        gMapMarker[oamIdx].isBlinking = *scriptCtx->scriptPtr;
         if(!(*scriptCtx->scriptPtr & 1))
         {
-            gOamObjects[oamIdx+0x39].attr1 = gUnknown_03003930[oamIdx].attr1;
+            gOamObjects[oamIdx+0x39].attr1 = gMapMarker[oamIdx].attr1;
         }
     }
-    gUnknown_03003930[oamIdx].unk2 = 0;
+    gMapMarker[oamIdx].blinkTimer = 0;
     scriptCtx->scriptPtr++;
     return 0;
 }
@@ -1676,7 +1676,7 @@ bool32 Command3D(struct ScriptContext * scriptCtx)
     oamIdx = sub_8007554(*scriptCtx->scriptPtr >> 8);
     if(oamIdx != 0xFF)
     {
-        if(gUnknown_03003930[oamIdx].unk5 & 2)
+        if(gMapMarker[oamIdx].unk5 & 2)
         {
             scriptCtx->scriptPtr--;
             return 1;
