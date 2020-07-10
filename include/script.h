@@ -107,6 +107,8 @@ void RunScriptContext();
 void InitScriptSection(struct ScriptContext *scriptCtx);
 void RedrawTextboxCharacters();
 
+void PutVwfCharInTextbox();
+
 void MakeMapMarkerSprites();
 u32 GetMapMarkerIndexFromId(u32);
 
