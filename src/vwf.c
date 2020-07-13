@@ -245,6 +245,8 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
             r0 = (renderer->yRow - 2) * 20;
 		}
 
+        r0 += 2; // fix spacing
+
 		oamProxy->y = r0;
 		
 		// The assembly also zeroes out the struct's padding
