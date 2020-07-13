@@ -242,7 +242,7 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 		// r2 = renderer->yRow;
 		r0 = renderer->yRow * 18;
 		if (renderer->yRow >= 2) {
-			r0 -= 36;
+            r0 = (renderer->yRow - 2) * 20;
 		}
 
 		oamProxy->y = r0;
