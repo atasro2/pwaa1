@@ -1,5 +1,6 @@
 #include "global.h"
 #include "script.h"
+#include "ewram.h"
 
 #define VWF_RENDERER (struct FontRenderData *)(EWRAM_START+0x5000)
 #define VWF_CHARDATA (struct NewTextBoxCharacter *)(EWRAM_START+0x5080)
@@ -13,8 +14,7 @@ struct FontRenderData {
 
 	u16 characterCode;
 	u16 xCol;
-	u8 yRow;
-	u8 color;
+	u16 yRow;
 
 	u32 x;
 	u32 y;
@@ -40,20 +40,49 @@ struct FontRenderData {
 };
 
 struct NewTextBoxCharacter {
-	u16 charCode;
-	u16 xPos;
+    u16 charCode:12;
+    u16 color:4;
+	u8 xPos;
 	u8 yPos;
-	u8 color;
 };
 
 extern Glyph const gArialGlyphs[0xE0];
 extern u32 const gArialGlyphWidths[0xE0];
 
+void SaveVWFCharacters(void)
+{
+    struct NewTextBoxCharacter * charBuffer = (struct NewTextBoxCharacter *)&gSaveDataBuffer.textBoxCharacters;
+    struct NewTextBoxCharacter * nCharacters = VWF_CHARDATA;
+    DmaFill16(3, 0, gTextBoxCharacters, sizeof(gTextBoxCharacters));
+    nCharacters--;
+    do
+    {
+        nCharacters++;
+        DmaCopy16(3, nCharacters, charBuffer, sizeof(struct NewTextBoxCharacter));
+        charBuffer++;
+    }
+    while(nCharacters->charCode != 0xFFF);
+}
+
 void RedrawVWFCharacters(void)
 {
     u32 oldColor = gScriptContext.textColor;
     struct NewTextBoxCharacter * nCharacters = VWF_CHARDATA;
-    while(nCharacters->charCode != 0xFFFF)
+    while(nCharacters->charCode != 0xFFF)
+    {
+        gScriptContext.textColor = nCharacters->color;
+        PutVwfCharInTextbox(nCharacters->charCode, nCharacters->yPos, nCharacters->xPos);
+        nCharacters++;
+    }
+    gScriptContext.textColor = oldColor;
+}
+
+void RedrawVWFCharactersFromSave(void)
+{
+    u32 oldColor = gScriptContext.textColor;
+    struct NewTextBoxCharacter * nCharacters = (struct NewTextBoxCharacter *)&gSaveDataBuffer.textBoxCharacters;
+    DmaFill16(3, 0, gTextBoxCharacters, sizeof(gTextBoxCharacters));
+    while(nCharacters->charCode != 0xFFF)
     {
         gScriptContext.textColor = nCharacters->color;
         PutVwfCharInTextbox(nCharacters->charCode, nCharacters->yPos, nCharacters->xPos);
@@ -71,18 +100,35 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
     u32 processedCharCode;
     u32 characterWidth;
 
-    if (charCode < 0x600) {
-		PutCharInTextbox(charCode, y, x);
-		return;
-	}
 	
 	renderer->characterCode = charCode;
 	renderer->xCol = x;
 	renderer->yRow = y;
 	
-	renderer->color = ctx->textColor;
-	
     renderer->saveCharUse = !(gMain.process[GAME_PROCESS] == 0xA);
+    
+    if (charCode < 0x600) {
+        if (renderer->xCol == 0 || lineHasChanged) {
+		    if (renderer->yRow == 0) {
+                if (renderer->saveCharUse) {
+                    renderer->saveCharCounter = newTBC;
+                }
+		    }
+        }
+		PutCharInTextbox(charCode, y, x);
+        if (renderer->saveCharUse) {
+            renderer->saveCharCounter->charCode = renderer->characterCode;
+            renderer->saveCharCounter->xPos = renderer->xCol;
+            renderer->saveCharCounter->yPos = renderer->yRow;
+            renderer->saveCharCounter->color = ctx->textColor;
+            renderer->saveCharCounter++;
+            renderer->saveCharCounter->charCode = 0xFFF;
+            renderer->saveCharCounter->xPos = 0;
+            renderer->saveCharCounter->yPos = 0;
+            renderer->saveCharCounter->color = 0;
+	    }
+        return;
+	}
 	
 	processedCharCode = renderer->characterCode - 0x6A0;
 	
@@ -116,9 +162,9 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 		renderer->saveCharCounter->charCode = renderer->characterCode;
 		renderer->saveCharCounter->xPos = renderer->xCol;
 		renderer->saveCharCounter->yPos = renderer->yRow;
-		renderer->saveCharCounter->color = renderer->color;
+		renderer->saveCharCounter->color = ctx->textColor;
 		renderer->saveCharCounter++;
-		renderer->saveCharCounter->charCode = 0xFFFF;
+		renderer->saveCharCounter->charCode = 0xFFF;
 		renderer->saveCharCounter->xPos = 0;
 		renderer->saveCharCounter->yPos = 0;
 		renderer->saveCharCounter->color = 0;
@@ -172,7 +218,7 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 			// Clear the existing pixel
 			*vram &= ~(0xF << numBitsIntoTile);
 			if (pixel != 0) {
-				*vram |= ((renderer->color & 0xF) * 3 + 3) << numBitsIntoTile;
+				*vram |= ((ctx->textColor & 0xF) * 3 + 3) << numBitsIntoTile;
 			}
 		}
 	}
@@ -208,7 +254,7 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 	renderer->permanentXPos += characterWidth;
 	
 	// If it's in typewriter mode, make the sound only play every other non-space character
-	if (ctx->currentSoundCue == 2 && renderer->color == 3) {
+	if (ctx->currentSoundCue == 2 && ctx->textColor == 3) {
 		if ((renderer->characterCode == (0x720 - 0x80)) || ((renderer->soundCueCounter ^= 1) == 1)) {
 			ctx->currentToken = 0xFF; // old space - 0x80	
 		}

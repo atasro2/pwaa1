@@ -2241,7 +2241,7 @@ _08009FD0:
 	ldr r0, _0800A148
 	str r0, [r4, #8]
 	ldr r0, [r4, #8]
-	bl RedrawTextboxCharacters
+	bl RedrawVWFCharactersFromSave
 	ldr r1, _0800A14C
 	adds r0, r5, r1
 	str r0, [r4]
