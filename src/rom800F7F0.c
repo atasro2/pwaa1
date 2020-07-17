@@ -2,17 +2,17 @@
 
 void sub_800F7F0()
 {
-    gUnknown_03000800[0].unk0 = 1;
-    gUnknown_03000800[0].unk8 = NULL;
-    gUnknown_03000800[0].unk4 = 0;
+    gAnimation[0].unk0 = 1;
+    gAnimation[0].unk8 = NULL;
+    gAnimation[0].unk4 = 0;
 }
 
 void sub_800F804()
 {
-    struct Struct3000800 * iwstruct800p = gUnknown_03000800;
-    DmaFill16(3, 0, &gUnknown_03000800, sizeof(gUnknown_03000800));
+    struct AnimationStruct * iwstruct800p = gAnimation;
+    DmaFill16(3, 0, &gAnimation, sizeof(gAnimation));
     gMain.unk1F |= 3;
-    iwstruct800p = &gUnknown_03000800[1];
+    iwstruct800p = &gAnimation[1];
     iwstruct800p->unkC = 0xFF;
     iwstruct800p->personId = 0;
     sub_800F7F0();
@@ -20,8 +20,8 @@ void sub_800F804()
 
 void sub_800F84C() 
 {
-    struct Struct3000800 * iwstruct800p;
-    for (iwstruct800p = &gUnknown_03000800[1]; iwstruct800p < &gUnknown_03000800[0x20]; iwstruct800p++)
+    struct AnimationStruct * iwstruct800p;
+    for (iwstruct800p = &gAnimation[1]; iwstruct800p < &gAnimation[0x20]; iwstruct800p++)
     {
         if (iwstruct800p->unk0 & 0x10000000) 
         {
@@ -37,9 +37,9 @@ void sub_800F84C()
     }
 }
 
-struct Struct3000800 * sub_800F8BC(u32 arg0)
+struct AnimationStruct * sub_800F8BC(u32 arg0)
 {
-    struct Struct3000800 * iwstruct800p = &gUnknown_03000800[0x1F];
+    struct AnimationStruct * iwstruct800p = &gAnimation[0x1F];
     s32 i = 0x1f;
     do
     {
@@ -53,11 +53,11 @@ struct Struct3000800 * sub_800F8BC(u32 arg0)
     return NULL;
 }
 
-struct Struct3000800 * sub_800F8F4(u32 arg0)
+struct AnimationStruct * sub_800F8F4(u32 arg0)
 {
     u32 flags;
     s32 r1, i;
-    struct Struct3000800 * iwstruct800p = sub_800F8BC(arg0);
+    struct AnimationStruct * iwstruct800p = sub_800F8BC(arg0);
     if (iwstruct800p != NULL) 
     {
         r1 = -(iwstruct800p->unk0 & 0x02000000);
@@ -80,13 +80,13 @@ struct Struct3000800 * sub_800F8F4(u32 arg0)
     }
     else 
     {
-        iwstruct800p = &gUnknown_03000800[0x1F];
+        iwstruct800p = &gAnimation[0x1F];
         for (i = 0x1f; i != -1; i--)
         {
             r1 = iwstruct800p->unk0 & 0x10000000;
             if (r1 == 0)
             {
-                if (iwstruct800p != &gUnknown_03000800[1])
+                if (iwstruct800p != &gAnimation[1])
                 {
                     DmaFill16(3, r1, iwstruct800p, 0x40)
                     iwstruct800p->unk0 = 0xf1000000;
@@ -100,7 +100,7 @@ struct Struct3000800 * sub_800F8F4(u32 arg0)
     }
 }
 
-void sub_800F9C4(struct Struct3000800 * iwstruct800p, u32 x, u32 y)
+void sub_800F9C4(struct AnimationStruct * iwstruct800p, u32 x, u32 y)
 {
     if (iwstruct800p != NULL)
     {
@@ -109,7 +109,7 @@ void sub_800F9C4(struct Struct3000800 * iwstruct800p, u32 x, u32 y)
     }
 }
 
-void sub_800F9D0(struct Struct3000800 * iwstruct800p, u32 arg1)
+void sub_800F9D0(struct AnimationStruct * iwstruct800p, u32 arg1)
 {
     s32 r0; 
     s32 r4;
@@ -134,7 +134,7 @@ void sub_800F9D0(struct Struct3000800 * iwstruct800p, u32 arg1)
     }
 }
 
-void sub_800FA50(struct Struct3000800 * iwstruct800p, u32 arg1, u32 arg2)
+void sub_800FA50(struct AnimationStruct * iwstruct800p, u32 arg1, u32 arg2)
 {
     if (iwstruct800p != NULL)
     {
@@ -143,7 +143,7 @@ void sub_800FA50(struct Struct3000800 * iwstruct800p, u32 arg1, u32 arg2)
     }
 }
 
-void sub_800FA60(struct Struct3000800 * iwstruct800p)
+void sub_800FA60(struct AnimationStruct * iwstruct800p)
 {
     if (iwstruct800p != NULL)
     {
@@ -151,7 +151,7 @@ void sub_800FA60(struct Struct3000800 * iwstruct800p)
     }
 }
 
-void sub_800FA74(struct Struct3000800 * iwstruct800p, bool32 arg1)
+void sub_800FA74(struct AnimationStruct * iwstruct800p, bool32 arg1)
 {
     u32 i;
     if (iwstruct800p != 0 && (iwstruct800p->unk0 & 0x10000000))
@@ -193,7 +193,7 @@ void sub_800FA74(struct Struct3000800 * iwstruct800p, bool32 arg1)
     }
 }
 
-void sub_800FB64(struct Struct3000800 * iwstruct800p, bool32 arg1)
+void sub_800FB64(struct AnimationStruct * iwstruct800p, bool32 arg1)
 {
     if (iwstruct800p != NULL)
     {
@@ -208,7 +208,7 @@ void sub_800FB64(struct Struct3000800 * iwstruct800p, bool32 arg1)
     }
 }
 
-void sub_800FB84(struct Struct3000800 * iwstruct800p, u32 arg1)
+void sub_800FB84(struct AnimationStruct * iwstruct800p, u32 arg1)
 {
     if (iwstruct800p != NULL)
     {
@@ -221,7 +221,7 @@ void sub_800FB84(struct Struct3000800 * iwstruct800p, u32 arg1)
     }
 }
 
-void sub_800FBA0(struct Struct3000800 * iwstruct800p, u32 arg1)
+void sub_800FBA0(struct AnimationStruct * iwstruct800p, u32 arg1)
 {
     if(iwstruct800p != NULL)
     {
@@ -279,8 +279,8 @@ u32 sub_800FC40(struct Rect * p) // NOPE
     u32 unk0 = 0; // sp
     u32 unk1;
     void * unk2, * unk3;
-    struct Struct3000800 * iwstruct800p;
-    for(iwstruct800p = gUnknown_03000800.unk8; iwstruct800p != NULL; iwstruct800p = iwstruct800p->unk8)
+    struct AnimationStruct * iwstruct800p;
+    for(iwstruct800p = gAnimation.unk8; iwstruct800p != NULL; iwstruct800p = iwstruct800p->unk8)
     {
         u32 i;
         *(struct Point2 *)0x200AFC0 = *p;
@@ -470,7 +470,7 @@ _0800FD6C:\n\
 	ldrsh r2, [r5, r3]\n\
 	b _0800FDF0\n\
 	.align 2, 0\n\
-_0800FD80: .4byte gUnknown_03000800\n\
+_0800FD80: .4byte gAnimation\n\
 _0800FD84: .4byte gUnknown_0200AFC0+0x8\n\
 _0800FD88: .4byte gUnknown_0200AFC0+0x10\n\
 _0800FD8C: .4byte gUnknown_0200AFC0\n\
@@ -635,9 +635,9 @@ bool32 CheckRectCollisionWithArea(struct Rect * rect, struct Point4 * area)
     return FALSE;
 }
 
-void sub_800FFB0(struct Struct3000800 * iwstruct800p)
+void sub_800FFB0(struct AnimationStruct * iwstruct800p)
 {
-    struct Struct3000800 * variwstruct800p = gUnknown_03000800;
+    struct AnimationStruct * variwstruct800p = gAnimation;
     u32 i;
     for(i = 0; ; i++)
     {
@@ -683,7 +683,7 @@ void sub_800FFF8(u32 arg0)
     }
 }
 
-struct Struct3000800 * sub_8010048(u32 arg0, u32 arg1, u32 talkingAnimOff, u32 arg3)
+struct AnimationStruct * sub_8010048(u32 arg0, u32 arg1, u32 talkingAnimOff, u32 arg3)
 {
     u32 xOrigin = 120;
     struct Main * main = &gMain;
@@ -702,10 +702,10 @@ struct Struct3000800 * sub_8010048(u32 arg0, u32 arg1, u32 talkingAnimOff, u32 a
     return sub_80100A8(arg0, talkingAnimOff, xOrigin, 0x50, arg1);
 }
 
-struct Struct3000800 * sub_80100A8(u32 arg0, u32 talkingAnimOff, u32 xOrigin, u32 yOrigin, u32 arg4)
+struct AnimationStruct * sub_80100A8(u32 arg0, u32 talkingAnimOff, u32 xOrigin, u32 yOrigin, u32 arg4)
 {
     struct Main * main = &gMain;
-    struct Struct3000800 * iwstruct800p = &gUnknown_03000800[1];
+    struct AnimationStruct * iwstruct800p = &gAnimation[1];
     struct Struct300080C struct80C;
     u32 personId = arg0 & 0xFF;
     if(personId == 0)
@@ -729,7 +729,7 @@ struct Struct3000800 * sub_80100A8(u32 arg0, u32 talkingAnimOff, u32 xOrigin, u3
     struct80C.yOrigin = yOrigin;
     if((iwstruct800p->unk0 & 0x10000000) == 0)
     {
-        DmaFill16(3, 0, iwstruct800p, sizeof(gUnknown_03000800[1]));
+        DmaFill16(3, 0, iwstruct800p, sizeof(gAnimation[1]));
         iwstruct800p->unk0 |= 0x10000000;
         iwstruct800p->unkC = 0xFF;
         sub_800FFB0(iwstruct800p);
@@ -739,7 +739,7 @@ struct Struct3000800 * sub_80100A8(u32 arg0, u32 talkingAnimOff, u32 xOrigin, u3
     iwstruct800p->unk2C = main->currentBG;
     if(iwstruct800p->personId == 0x16 && main->process[GAME_PROCESS] == 4) // person id 0x16 investigation
     {
-        struct Struct3000800 * ptr;
+        struct AnimationStruct * ptr;
         u32 var0 = iwstruct800p->unk0 & 0x02000000;
         switch(talkingAnimOff)
         {

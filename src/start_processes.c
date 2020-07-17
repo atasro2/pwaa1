@@ -86,8 +86,8 @@ void TitleScreenProcess(struct Main *main)
             oam->attr2 = SPRITE_ATTR2(0x38, 0, 2);
         }
         lcdIoRegsp->lcd_dispcnt = DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG0_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON;
-        gUnknown_03003A50.unk15 = 0;
-        gUnknown_03003A50.unk14 = 2;
+        gInvestigation.unk15 = 0;
+        gInvestigation.unk14 = 2;
         main->selectedButton = 0;
         main->unk19C |= 4;
         main->tilemapUpdateBits = 9;
@@ -103,27 +103,27 @@ void TitleScreenProcess(struct Main *main)
         }
         else if(main->unk17 & 0xF0 && gJoypad.pressedKeysRaw & (DPAD_DOWN | DPAD_UP))
         {
-            gUnknown_03003A50.unk15 = 0;
-            gUnknown_03003A50.unk14 = 2;
+            gInvestigation.unk15 = 0;
+            gInvestigation.unk14 = 2;
             main->selectedButton ^= 1; // selected button on title screen
             PlaySE(0x2A);
         }
-        gUnknown_03003A50.unk15++;
-        if(gUnknown_03003A50.unk15 > 7)
+        gInvestigation.unk15++;
+        if(gInvestigation.unk15 > 7)
         {
-            gUnknown_03003A50.unk15 = 0;
-            gUnknown_03003A50.unk14++;
+            gInvestigation.unk15 = 0;
+            gInvestigation.unk14++;
         }
-        if(gUnknown_03003A50.unk14 > 6)
+        if(gInvestigation.unk14 > 6)
         {
-            gUnknown_03003A50.unk14 = 2;
+            gInvestigation.unk14 = 2;
         }
         if(main->selectedButton == 0)
         {
             oam = &gOamObjects[49];
-            oam->attr2 = SPRITE_ATTR2(0x20, 1, gUnknown_03003A50.unk14);
+            oam->attr2 = SPRITE_ATTR2(0x20, 1, gInvestigation.unk14);
             oam++;
-            oam->attr2 = SPRITE_ATTR2(0x28, 1, gUnknown_03003A50.unk14);
+            oam->attr2 = SPRITE_ATTR2(0x28, 1, gInvestigation.unk14);
             oam++;
             if(main->unk17 & 0xF0)
             {
@@ -141,9 +141,9 @@ void TitleScreenProcess(struct Main *main)
             oam++;
             if(main->unk17 & 0xF0)
             {
-                oam->attr2 = SPRITE_ATTR2(0x30, 0, gUnknown_03003A50.unk14);
+                oam->attr2 = SPRITE_ATTR2(0x30, 0, gInvestigation.unk14);
                 oam++;
-                oam->attr2 = SPRITE_ATTR2(0x38, 0, gUnknown_03003A50.unk14);
+                oam->attr2 = SPRITE_ATTR2(0x38, 0, gInvestigation.unk14);
             }
         }
         break;

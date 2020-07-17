@@ -38,12 +38,12 @@ bool32 Command41(struct ScriptContext * scriptCtx)
         oam->attr2 = SPRITE_ATTR2(0x100+0x20*i, 0, 5);
         oam++;
     }
-    sub_800B7A8(&gUnknown_03003A50, 0xF);
-    gUnknown_03003A50.unkD = 0xE0;
-    gUnknown_03003A50.unkE = 0;
-    gUnknown_03003A50.unkF = 8;
-    gUnknown_03003A50.unkA = 0;
-    gUnknown_03003A50.unkB = 0;
+    sub_800B7A8(&gInvestigation, 0xF);
+    gInvestigation.unkD = 0xE0;
+    gInvestigation.unkE = 0;
+    gInvestigation.unkF = 8;
+    gInvestigation.unkA = 0;
+    gInvestigation.unkB = 0;
     
     SET_PROCESS(4,1,0,0);
     return 0;
@@ -71,12 +71,12 @@ bool32 Command43(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     if(*scriptCtx->scriptPtr)
     {
-        gUnknown_03003AB0.unk4 = 0xF0;
+        gTestimony.unk4 = 0xF0;
         gMain.gameStateFlags |= 0x400;
     }
     else
     {
-        gUnknown_03003AB0.unk4 = 0xF0;
+        gTestimony.unk4 = 0xF0;
         gMain.gameStateFlags &= ~0x400;
         oam = &gOamObjects[35];
         for(i = 0; i < 5; i++)

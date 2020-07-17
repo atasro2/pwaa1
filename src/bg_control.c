@@ -110,7 +110,7 @@ void sub_800244C(u32 unk0)
     if(unk0)
     {
         gScriptContext.unk38 = 3;
-        gUnknown_03003A50.unkC = 3;
+        gInvestigation.unkC = 3;
         gLCDIORegisters.lcd_dispcnt |= DISPCNT_BG1_ON;
         gBG1MapBuffer[622] = 9;
         gBG1MapBuffer[623] = 9;
@@ -118,7 +118,7 @@ void sub_800244C(u32 unk0)
     else
     {
         gScriptContext.unk38 = 4;
-        gUnknown_03003A50.unkC = 1;
+        gInvestigation.unkC = 1;
     }
 }
 

@@ -26,11 +26,11 @@ struct Struct300080C
     u8 filler1B[1];
 };
 
-struct Struct3000800
+struct AnimationStruct
 {
     u32 unk0;
-    struct Struct3000800 * unk4;
-    struct Struct3000800 * unk8;
+    struct AnimationStruct * unk4;
+    struct AnimationStruct * unk8;
     u16 unkC;
     u8 personId; /* + 0xE */ // was this originally a u16?
     u16 xOrigin; /* + 0x10 */
@@ -161,7 +161,7 @@ struct TalkData
     u8 filler4[0x10];
 };
 
-struct Struct3003A50
+struct InvestigationStruct
 {
     u16 unk0;
     u16 unk2;
@@ -185,7 +185,7 @@ struct Struct3003A50
     u8 unk17;
 };
 
-struct Struct3003AB0
+struct TestimonyStruct
 {
     u8 unk0;
     u8 unk1;
@@ -274,8 +274,8 @@ struct SaveData
     struct ScriptContext scriptCtx; /* + 0x228 */
     struct CourtRecord courtRecord; /* + 0x268 */
     struct CourtScroll courtScroll;  /* + 0x2C0 */
-    struct Struct3003AB0 iwramStruct3AB0; /* + 0x2D0 */
-    struct Struct3003A50 iwramStruct3A50; /* + 0x2D8 */
+    struct TestimonyStruct iwramStruct3AB0; /* + 0x2D0 */
+    struct InvestigationStruct iwramStruct3A50; /* + 0x2D8 */
     struct ExaminationData examinationData[16]; /* + 0x2F0 */
     struct TalkData talkData[32]; /* + 0x430 */
     struct MapMarker mapMarker[8]; /* + 0x6B0 */

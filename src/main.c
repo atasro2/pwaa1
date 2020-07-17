@@ -208,8 +208,8 @@ void ResetGameState()
     DmaFill16(3, 0, &gMain, sizeof(gMain));
     DmaFill16(3, 0, &gScriptContext, sizeof(gScriptContext));
     DmaFill16(3, 0, &gCourtScroll, sizeof(gCourtScroll));
-    DmaFill16(3, 0, &gUnknown_03003AB0, sizeof(gUnknown_03003AB0));
-    DmaFill16(3, 0, &gUnknown_03003A50, sizeof(gUnknown_03003A50));
+    DmaFill16(3, 0, &gTestimony, sizeof(gTestimony));
+    DmaFill16(3, 0, &gInvestigation, sizeof(gInvestigation));
     DmaFill16(3, 0, &gCourtRecord, sizeof(gCourtRecord));
     DmaFill16(3, 0, &gSaveDataBuffer, sizeof(gSaveDataBuffer));
     main->rngSeed = 0xD37;

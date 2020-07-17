@@ -123,13 +123,13 @@ bool32 Command02(struct ScriptContext * scriptCtx)
             gTextBoxCharacters[i].state &= ~0x8000;
         }
         if(scriptCtx->currentToken == 0x2)
-            sub_800FBA0(&gUnknown_03000800[1], gMain.talkingAnimationOffset);
+            sub_800FBA0(&gAnimation[1], gMain.talkingAnimationOffset);
     }
     else
     {
         if((scriptCtx->unk0 & 1) == 0)
         {
-            sub_800FBA0(&gUnknown_03000800[1], gMain.idleAnimationOffset);
+            sub_800FBA0(&gAnimation[1], gMain.idleAnimationOffset);
             scriptCtx->unk0 |= 1;
         }
         if(gMain.process[GAME_PROCESS] != 9)
@@ -212,6 +212,7 @@ bool32 Command06(struct ScriptContext * scriptCtx)
 bool32 Command08(struct ScriptContext * scriptCtx)
 {
     u32 i;
+    u8 process;
     if(scriptCtx->unk0 & 0x20)
     {
         if(scriptCtx->unk32 > 0)
@@ -233,46 +234,52 @@ bool32 Command08(struct ScriptContext * scriptCtx)
         scriptCtx->unk35--;
         return TRUE;
     }
-    if(gJoypad.pressedKeysRaw & DPAD_UP)
+
+#if REVISION == 1
+    if(gMain.process[GAME_PROCESS] > 2 && gMain.process[GAME_PROCESS] < 7)
+#endif
     {
-        PlaySE(0x2A);
-        scriptCtx->unk39--;
-        if(scriptCtx->unk39 > 1)
+        if(gJoypad.pressedKeysRaw & DPAD_UP)
         {
-            scriptCtx->unk39 = 1;
+            PlaySE(0x2A);
+            scriptCtx->unk39--;
+            if(scriptCtx->unk39 > 1)
+            {
+                scriptCtx->unk39 = 1;
+            }
         }
-    }
-    else if(gJoypad.pressedKeysRaw & DPAD_DOWN)
-    {
-        PlaySE(0x2A);
-        scriptCtx->unk39++;
-        if(scriptCtx->unk39 > 1)
+        else if(gJoypad.pressedKeysRaw & DPAD_DOWN)
         {
-            scriptCtx->unk39 = 0;
+            PlaySE(0x2A);
+            scriptCtx->unk39++;
+            if(scriptCtx->unk39 > 1)
+            {
+                scriptCtx->unk39 = 0;
+            }
         }
-    }
-    else if(gJoypad.pressedKeysRaw & A_BUTTON)
-    {
-        PlaySE(0x2B);
-        scriptCtx->unk32 = 10;
-        scriptCtx->unk0 |= 0x20;
-        if(scriptCtx->unk39 == 0)
-            scriptCtx->nextSection = *(scriptCtx->scriptPtr+1);
-        else
-            scriptCtx->nextSection = *(scriptCtx->scriptPtr+2);
-        scriptCtx->textX = 0;
-        scriptCtx->textY = 0;
-        scriptCtx->unk0 &= ~0x4;
-        scriptCtx->textYOffset = 0x74;
-        scriptCtx->textSpeed = scriptCtx->unk26;
-        scriptCtx->textboxNameId = 0;
-        sub_8002244(0);
-        for(i = 0; i < 32; i++)
-            gTextBoxCharacters[i].state &= ~0x8000;
-        for(i = 57; i < 88; i++)
-            gOamObjects[i].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
-        gOamObjects[88].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
-        return FALSE;
+        else if(gJoypad.pressedKeysRaw & A_BUTTON)
+        {
+            PlaySE(0x2B);
+            scriptCtx->unk32 = 10;
+            scriptCtx->unk0 |= 0x20;
+            if(scriptCtx->unk39 == 0)
+                scriptCtx->nextSection = *(scriptCtx->scriptPtr+1);
+            else
+                scriptCtx->nextSection = *(scriptCtx->scriptPtr+2);
+            scriptCtx->textX = 0;
+            scriptCtx->textY = 0;
+            scriptCtx->unk0 &= ~0x4;
+            scriptCtx->textYOffset = 0x74;
+            scriptCtx->textSpeed = scriptCtx->unk26;
+            scriptCtx->textboxNameId = 0;
+            sub_8002244(0);
+            for(i = 0; i < 32; i++)
+                gTextBoxCharacters[i].state &= ~0x8000;
+            for(i = 57; i < 88; i++)
+                gOamObjects[i].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+            gOamObjects[88].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+            return FALSE;
+        }
     }
     gOamObjects[88].attr0 = SPRITE_ATTR0(scriptCtx->unk39*20 + scriptCtx->unk2A, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
     gOamObjects[88].attr1 = SPRITE_ATTR1_NONAFFINE(scriptCtx->unk28-13, FALSE, FALSE, 1);
@@ -283,6 +290,7 @@ bool32 Command08(struct ScriptContext * scriptCtx)
 bool32 Command09(struct ScriptContext * scriptCtx)
 {
     u32 i;
+    u8 process;
     if(scriptCtx->unk0 & 0x20)
     {
         if(scriptCtx->unk32 > 0)
@@ -304,48 +312,54 @@ bool32 Command09(struct ScriptContext * scriptCtx)
         scriptCtx->unk35--;
         return TRUE;
     }
-    if(gJoypad.pressedKeysRaw & DPAD_UP)
+    
+#if REVISION == 1
+    if(gMain.process[GAME_PROCESS] > 2 && gMain.process[GAME_PROCESS] < 7)
+#endif
     {
-        PlaySE(0x2A);
-        scriptCtx->unk39--;
-        if(scriptCtx->unk39 > 2)
+        if(gJoypad.pressedKeysRaw & DPAD_UP)
         {
-            scriptCtx->unk39 = 2;
+            PlaySE(0x2A);
+            scriptCtx->unk39--;
+            if(scriptCtx->unk39 > 2)
+            {
+                scriptCtx->unk39 = 2;
+            }
         }
-    }
-    else if(gJoypad.pressedKeysRaw & DPAD_DOWN)
-    {
-        PlaySE(0x2A);
-        scriptCtx->unk39++;
-        if(scriptCtx->unk39 > 2)
+        else if(gJoypad.pressedKeysRaw & DPAD_DOWN)
         {
-            scriptCtx->unk39 = 0;
+            PlaySE(0x2A);
+            scriptCtx->unk39++;
+            if(scriptCtx->unk39 > 2)
+            {
+                scriptCtx->unk39 = 0;
+            }
         }
-    }
-    else if(gJoypad.pressedKeysRaw & A_BUTTON)
-    {
-        PlaySE(0x2B);
-        scriptCtx->unk32 = 10;
-        scriptCtx->unk0 |= 0x20;
-        if(scriptCtx->unk39 == 0)
-            scriptCtx->nextSection = *(scriptCtx->scriptPtr+1);
-        else if (scriptCtx->unk39 == 1)
-            scriptCtx->nextSection = *(scriptCtx->scriptPtr+2);
-        else
-            scriptCtx->nextSection = *(scriptCtx->scriptPtr+3);
-        scriptCtx->textX = 0;
-        scriptCtx->textY = 0;
-        scriptCtx->unk0 &= ~0x4;
-        scriptCtx->textYOffset = 0x74;
-        scriptCtx->textSpeed = scriptCtx->unk26;
-        scriptCtx->textboxNameId = 0;
-        sub_8002244(0);
-        for(i = 0; i < 32; i++)
-            gTextBoxCharacters[i].state &= ~0x8000;
-        for(i = 57; i < 88; i++)
-            gOamObjects[i].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
-        gOamObjects[88].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
-        return FALSE;
+        else if(gJoypad.pressedKeysRaw & A_BUTTON)
+        {
+            PlaySE(0x2B);
+            scriptCtx->unk32 = 10;
+            scriptCtx->unk0 |= 0x20;
+            if(scriptCtx->unk39 == 0)
+                scriptCtx->nextSection = *(scriptCtx->scriptPtr+1);
+            else if (scriptCtx->unk39 == 1)
+                scriptCtx->nextSection = *(scriptCtx->scriptPtr+2);
+            else
+                scriptCtx->nextSection = *(scriptCtx->scriptPtr+3);
+            scriptCtx->textX = 0;
+            scriptCtx->textY = 0;
+            scriptCtx->unk0 &= ~0x4;
+            scriptCtx->textYOffset = 0x74;
+            scriptCtx->textSpeed = scriptCtx->unk26;
+            scriptCtx->textboxNameId = 0;
+            sub_8002244(0);
+            for(i = 0; i < 32; i++)
+                gTextBoxCharacters[i].state &= ~0x8000;
+            for(i = 57; i < 88; i++)
+                gOamObjects[i].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+            gOamObjects[88].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+            return FALSE;
+        }
     }
     gOamObjects[88].attr0 = SPRITE_ATTR0(scriptCtx->unk39*20 + scriptCtx->unk2A, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
     gOamObjects[88].attr1 = SPRITE_ATTR1_NONAFFINE(scriptCtx->unk28-13, FALSE, FALSE, 1);
@@ -501,7 +515,7 @@ bool32 Command15(struct ScriptContext * scriptCtx)
     }
     if(*scriptCtx->scriptPtr == 0x15)
     {
-        sub_800FBA0(&gUnknown_03000800[1], gMain.idleAnimationOffset);
+        sub_800FBA0(&gAnimation[1], gMain.idleAnimationOffset);
     }
     scriptCtx->unk0 |= 8;
     return 1;
@@ -514,8 +528,8 @@ bool32 Command16(struct ScriptContext * scriptCtx)
     main->advanceScriptContext = FALSE;
     main->showTextboxCharacters = FALSE;
     SET_PROCESS(3, 2, 0, 0);
-    gUnknown_03003A50.unkA = 0;
-    gUnknown_03003A50.unkB = 0;
+    gInvestigation.unkA = 0;
+    gInvestigation.unkB = 0;
     main->scenarioIdx++;
     ChangeBGM(16);
     return 1;
@@ -682,36 +696,36 @@ u32 Command1C(struct ScriptContext * scriptCtx)
         case 2:
             if(gMain.process[GAME_PROCESS] == 3)
             {
-                sub_8010960(&gUnknown_03000800[1]);
-                gUnknown_03003A50.unk5 = 0;
-                sub_800B7A8(&gUnknown_03003A50, 15);
+                sub_8010960(&gAnimation[1]);
+                gInvestigation.unk5 = 0;
+                sub_800B7A8(&gInvestigation, 15);
             }
             sub_800244C(1);
             break;
         case 3:
             if(gMain.process[GAME_PROCESS] == 3)
             {
-                sub_8010960(&gUnknown_03000800[1]);
-                gUnknown_03003A50.unk5 = 0;
-                sub_800B7A8(&gUnknown_03003A50, 15);
+                sub_8010960(&gAnimation[1]);
+                gInvestigation.unk5 = 0;
+                sub_800B7A8(&gInvestigation, 15);
             }
             sub_800244C(0);
             if(gMain.process[GAME_PROCESS] == 4)
             {
-                gUnknown_03003A50.unkE = 0;
+                gInvestigation.unkE = 0;
                 if(gMain.process[GAME_SUBPROCESS] == 6)
                 {
-                    sub_800B7A8(&gUnknown_03003A50, 1);
+                    sub_800B7A8(&gInvestigation, 1);
                 }
                 if(gMain.process[GAME_SUBPROCESS] == 8)
                 {
-                    sub_800B7A8(&gUnknown_03003A50, 4);
-                    gUnknown_03003A50.unkC = 4;
-                    gUnknown_03003A50.unkD = 0xE0;
+                    sub_800B7A8(&gInvestigation, 4);
+                    gInvestigation.unkC = 4;
+                    gInvestigation.unkD = 0xE0;
                 }
                 if(gMain.process[GAME_SUBPROCESS] == 9)
                 {
-                    sub_800B7A8(&gUnknown_03003A50, 8);
+                    sub_800B7A8(&gInvestigation, 8);
                 }
             }
             break;
@@ -719,7 +733,7 @@ u32 Command1C(struct ScriptContext * scriptCtx)
             break;
     }
     scriptCtx->scriptPtr++;
-    gUnknown_03003A50.unk6 = 0;
+    gInvestigation.unk6 = 0;
     return 0;
 }
 
@@ -770,14 +784,14 @@ u32 Command1E(struct ScriptContext * scriptCtx)
     if(var0 != 0)
     {
         sub_8010048(var0, 0, var1, 0);
-        gUnknown_03003A50.unk5 = 1;
-        sub_800B7A8(&gUnknown_03003A50, 15);
+        gInvestigation.unk5 = 1;
+        sub_800B7A8(&gInvestigation, 15);
     }
     else
     {
-        sub_8010960(&gUnknown_03000800[1]);
-        gUnknown_03003A50.unk5 = 0;
-        sub_800B7A8(&gUnknown_03003A50, 15);
+        sub_8010960(&gAnimation[1]);
+        gInvestigation.unk5 = 0;
+        sub_800B7A8(&gInvestigation, 15);
     }
     return 0;
 }
@@ -903,20 +917,20 @@ bool32 Command29(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     if(*scriptCtx->scriptPtr == 3)
     {
-        gUnknown_03003AB0.unk4 = 0xF0;
-        gUnknown_03003AB0.unk2 = 0xE0;
-        gUnknown_03003AB0.unk3 = 0xE0;
-        gUnknown_03003AB0.unk0 = 2;
+        gTestimony.unk4 = 0xF0;
+        gTestimony.unk2 = 0xE0;
+        gTestimony.unk3 = 0xE0;
+        gTestimony.unk0 = 2;
         gLCDIORegisters.lcd_dispcnt &= ~DISPCNT_BG1_ON;
     }
     else if(*scriptCtx->scriptPtr == 2)
     {
         u32 i;
         struct OamAttrs * oam;
-        gUnknown_03003AB0.unk4 = 0xF0;
-        gUnknown_03003AB0.unk2 = 0xE0;
-        gUnknown_03003AB0.unk3 = 0xE0;
-        gUnknown_03003AB0.unk0 = 0;
+        gTestimony.unk4 = 0xF0;
+        gTestimony.unk2 = 0xE0;
+        gTestimony.unk3 = 0xE0;
+        gTestimony.unk0 = 0;
         gLCDIORegisters.lcd_dispcnt |= DISPCNT_BG1_ON;
         oam = &gOamObjects[35];
         for(i = 0; i < 5; oam++, i++)
@@ -983,7 +997,7 @@ bool32 Command2C(struct ScriptContext * scriptCtx)
     }
     gBG1MapBuffer[622] = 9; // clear downward arrow in text box
     gBG1MapBuffer[623] = 9; // clear downward arrow in text box
-    sub_800FBA0(&gUnknown_03000800[1], gMain.idleAnimationOffset); 
+    sub_800FBA0(&gAnimation[1], gMain.idleAnimationOffset); 
     return 0;
 }
 
@@ -1240,11 +1254,11 @@ bool32 Command38(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     if(*scriptCtx->scriptPtr)
     {
-        sub_800FA74(&gUnknown_03000800[1], 1);
+        sub_800FA74(&gAnimation[1], 1);
     }
     else
     {
-        sub_800FA74(&gUnknown_03000800[1], 0);
+        sub_800FA74(&gAnimation[1], 0);
     }
     scriptCtx->scriptPtr++;
     return 0;
@@ -1393,12 +1407,12 @@ bool32 Command3E(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     DmaCopy16(3, gUnknown_08190AC0, OBJ_VRAM0 + 0x1F80, 0x80);
     DmaCopy16(3, gUnknown_081942C0[0], OBJ_PLTT + 0x100, sizeof(gUnknown_081942C0[0]));
-    gUnknown_03003A50.unk0 = 0xF0;
-    gUnknown_03003A50.unk2 = 0x30;
-    gUnknown_03003A50.unk17 = 0;
-    gUnknown_03003A50.unk16 = 8;
-    gUnknown_03003A50.unk8 = 0xF;
-    gUnknown_03003A50.unk9 = *scriptCtx->scriptPtr;
+    gInvestigation.unk0 = 0xF0;
+    gInvestigation.unk2 = 0x30;
+    gInvestigation.unk17 = 0;
+    gInvestigation.unk16 = 8;
+    gInvestigation.unk8 = 0xF;
+    gInvestigation.unk9 = *scriptCtx->scriptPtr;
     scriptCtx->unk0 |= 0x280;
     scriptCtx->scriptPtr++;
     return 0; 
