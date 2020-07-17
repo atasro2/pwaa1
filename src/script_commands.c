@@ -98,9 +98,9 @@ bool32 Command02(struct ScriptContext * scriptCtx)
             scriptCtx->fullscreenTextX = 0;
             gMain.showTextboxCharacters = FALSE;
             sub_8002244(1);
-            for (i = 0; i < ARRAY_COUNT(gUnknown_03003930); i++)
+            for (i = 0; i < ARRAY_COUNT(gMapMarker); i++)
             {
-                gUnknown_03003930[i].id |= 0xFF;
+                gMapMarker[i].id |= 0xFF;
             }
             return 0;
         }
@@ -209,446 +209,148 @@ bool32 Command06(struct ScriptContext * scriptCtx)
     return 0;
 }
 
-NAKED
 bool32 Command08(struct ScriptContext * scriptCtx)
 {
-    asm_unified("push {r4, r5, r6, lr}\n\
-	adds r5, r0, #0\n\
-	ldrh r2, [r5]\n\
-	movs r0, #0x20\n\
-	ands r0, r2\n\
-	cmp r0, #0\n\
-	beq _08005F5C\n\
-	adds r1, r5, #0\n\
-	adds r1, #0x32\n\
-	ldrb r0, [r1]\n\
-	cmp r0, #0\n\
-	beq _08005F4A\n\
-	subs r0, #1\n\
-	strb r0, [r1]\n\
-	b _080060BE\n\
-_08005F4A:\n\
-	ldr r0, _08005F58\n\
-	ands r0, r2\n\
-	strh r0, [r5]\n\
-	ldr r0, [r5, #4]\n\
-	adds r0, #6\n\
-	str r0, [r5, #4]\n\
-	b _080060BE\n\
-	.align 2, 0\n\
-_08005F58: .4byte 0x0000FFDF\n\
-_08005F5C:\n\
-	ldr r0, _08005F74\n\
-	ldrb r0, [r0, #4]\n\
-	cmp r0, #7\n\
-	bne _08005F7C\n\
-	ldr r0, _08005F78\n\
-	movs r1, #0xb0\n\
-	lsls r1, r1, #2\n\
-	adds r0, r0, r1\n\
-	subs r1, #0xc0\n\
-	strh r1, [r0]\n\
-	b _080060BE\n\
-	.align 2, 0\n\
-_08005F74: .4byte gMain\n\
-_08005F78: .4byte gOamObjects\n\
-_08005F7C:\n\
-	adds r1, r5, #0\n\
-	adds r1, #0x35\n\
-	ldrb r0, [r1]\n\
-	cmp r0, #0\n\
-	beq _08005F8C\n\
-	subs r0, #1\n\
-	strb r0, [r1]\n\
-	b _080060BE\n\
-_08005F8C:\n\
-	ldr r0, _08005FBC\n\
-	ldrh r1, [r0, #2]\n\
-	movs r0, #0x40\n\
-	ands r0, r1\n\
-	lsls r0, r0, #0x10\n\
-	lsrs r6, r0, #0x10\n\
-	cmp r6, #0\n\
-	beq _08005FC0\n\
-	movs r0, #0x2a\n\
-	bl PlaySE\n\
-	adds r1, r5, #0\n\
-	adds r1, #0x39\n\
-	ldrb r0, [r1]\n\
-	subs r0, #1\n\
-	strb r0, [r1]\n\
-	lsls r0, r0, #0x18\n\
-	lsrs r0, r0, #0x18\n\
-	adds r4, r1, #0\n\
-	cmp r0, #1\n\
-	bls _08006094\n\
-	movs r0, #1\n\
-	strb r0, [r4]\n\
-	b _08006094\n\
-	.align 2, 0\n\
-_08005FBC: .4byte gJoypad\n\
-_08005FC0:\n\
-	movs r0, #0x80\n\
-	ands r0, r1\n\
-	cmp r0, #0\n\
-	beq _08005FE6\n\
-	movs r0, #0x2a\n\
-	bl PlaySE\n\
-	adds r1, r5, #0\n\
-	adds r1, #0x39\n\
-	ldrb r0, [r1]\n\
-	adds r0, #1\n\
-	strb r0, [r1]\n\
-	lsls r0, r0, #0x18\n\
-	lsrs r0, r0, #0x18\n\
-	adds r4, r1, #0\n\
-	cmp r0, #1\n\
-	bls _08006094\n\
-	strb r6, [r4]\n\
-	b _08006094\n\
-_08005FE6:\n\
-	movs r0, #1\n\
-	ands r0, r1\n\
-	adds r4, r5, #0\n\
-	adds r4, #0x39\n\
-	cmp r0, #0\n\
-	beq _08006094\n\
-	movs r0, #0x2b\n\
-	bl PlaySE\n\
-	adds r1, r5, #0\n\
-	adds r1, #0x32\n\
-	movs r0, #0xa\n\
-	strb r0, [r1]\n\
-	movs r0, #0x20\n\
-	ldrh r3, [r5]\n\
-	orrs r0, r3\n\
-	strh r0, [r5]\n\
-	ldrb r0, [r4]\n\
-	cmp r0, #0\n\
-	bne _08006014\n\
-	ldr r0, [r5, #4]\n\
-	ldrh r0, [r0, #2]\n\
-	b _08006018\n\
-_08006014:\n\
-	ldr r0, [r5, #4]\n\
-	ldrh r0, [r0, #4]\n\
-_08006018:\n\
-	strh r0, [r5, #0x20]\n\
-	movs r0, #0\n\
-	strb r0, [r5, #0xe]\n\
-	strb r0, [r5, #0xf]\n\
-	ldr r0, _08006084\n\
-	ldrh r4, [r5]\n\
-	ands r0, r4\n\
-	movs r1, #0\n\
-	strh r0, [r5]\n\
-	movs r0, #0x74\n\
-	strh r0, [r5, #0x1a]\n\
-	adds r0, r5, #0\n\
-	adds r0, #0x26\n\
-	ldrb r0, [r0]\n\
-	adds r2, r5, #0\n\
-	adds r2, #0x25\n\
-	strb r0, [r2]\n\
-	adds r0, r5, #0\n\
-	adds r0, #0x34\n\
-	strb r1, [r0]\n\
-	movs r0, #0\n\
-	bl sub_8002244\n\
-	movs r2, #0\n\
-	ldr r3, _08006088\n\
-	ldr r1, _0800608C\n\
-_0800604C:\n\
-	adds r0, r3, #0\n\
-	ldrh r4, [r1]\n\
-	ands r0, r4\n\
-	strh r0, [r1]\n\
-	adds r1, #0xc\n\
-	adds r2, #1\n\
-	cmp r2, #0x1f\n\
-	bls _0800604C\n\
-	movs r2, #0x39\n\
-	ldr r1, _08006090\n\
-	movs r3, #0x80\n\
-	lsls r3, r3, #2\n\
-	movs r4, #0xe4\n\
-	lsls r4, r4, #1\n\
-	adds r0, r1, r4\n\
-_0800606A:\n\
-	strh r3, [r0]\n\
-	adds r0, #8\n\
-	adds r2, #1\n\
-	cmp r2, #0x57\n\
-	bls _0800606A\n\
-	movs r0, #0xb0\n\
-	lsls r0, r0, #2\n\
-	adds r1, r1, r0\n\
-	subs r0, #0xc0\n\
-	strh r0, [r1]\n\
-	movs r0, #0\n\
-	b _080060C0\n\
-	.align 2, 0\n\
-_08006084: .4byte 0x0000FFFB\n\
-_08006088: .4byte 0x00007FFF\n\
-_0800608C: .4byte gTextBoxCharacters\n\
-_08006090: .4byte gOamObjects\n\
-_08006094:\n\
-	ldr r2, _080060C8\n\
-	ldrb r1, [r4]\n\
-	lsls r0, r1, #2\n\
-	adds r0, r0, r1\n\
-	lsls r0, r0, #2\n\
-	ldrh r3, [r5, #0x2a]\n\
-	adds r0, r3, r0\n\
-	movs r4, #0xb0\n\
-	lsls r4, r4, #2\n\
-	adds r1, r2, r4\n\
-	strh r0, [r1]\n\
-	ldrh r5, [r5, #0x28]\n\
-	ldr r0, _080060CC\n\
-	adds r1, r5, r0\n\
-	ldr r3, _080060D0\n\
-	adds r0, r2, r3\n\
-	strh r1, [r0]\n\
-	adds r4, #4\n\
-	adds r2, r2, r4\n\
-	ldr r0, _080060D4\n\
-	strh r0, [r2]\n\
-_080060BE:\n\
-	movs r0, #1\n\
-_080060C0:\n\
-	pop {r4, r5, r6}\n\
-	pop {r1}\n\
-	bx r1\n\
-	.align 2, 0\n\
-_080060C8: .4byte gOamObjects\n\
-_080060CC: .4byte 0x00003FF3\n\
-_080060D0: .4byte 0x000002C2\n\
-_080060D4: .4byte 0x000004FC\n");
+    u32 i;
+    if(scriptCtx->unk0 & 0x20)
+    {
+        if(scriptCtx->unk32 > 0)
+        {
+            scriptCtx->unk32--;
+            return TRUE;
+        }
+        scriptCtx->unk0 &= ~0x20;
+        scriptCtx->scriptPtr += 3;
+        return TRUE;
+    }
+    if(gMain.process[GAME_PROCESS] == 7)
+    {
+        gOamObjects[88].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+        return TRUE;
+    }
+    if(scriptCtx->unk35 > 0)
+    {
+        scriptCtx->unk35--;
+        return TRUE;
+    }
+    if(gJoypad.pressedKeysRaw & DPAD_UP)
+    {
+        PlaySE(0x2A);
+        scriptCtx->unk39--;
+        if(scriptCtx->unk39 > 1)
+        {
+            scriptCtx->unk39 = 1;
+        }
+    }
+    else if(gJoypad.pressedKeysRaw & DPAD_DOWN)
+    {
+        PlaySE(0x2A);
+        scriptCtx->unk39++;
+        if(scriptCtx->unk39 > 1)
+        {
+            scriptCtx->unk39 = 0;
+        }
+    }
+    else if(gJoypad.pressedKeysRaw & A_BUTTON)
+    {
+        PlaySE(0x2B);
+        scriptCtx->unk32 = 10;
+        scriptCtx->unk0 |= 0x20;
+        if(scriptCtx->unk39 == 0)
+            scriptCtx->nextSection = *(scriptCtx->scriptPtr+1);
+        else
+            scriptCtx->nextSection = *(scriptCtx->scriptPtr+2);
+        scriptCtx->textX = 0;
+        scriptCtx->textY = 0;
+        scriptCtx->unk0 &= ~0x4;
+        scriptCtx->textYOffset = 0x74;
+        scriptCtx->textSpeed = scriptCtx->unk26;
+        scriptCtx->textboxNameId = 0;
+        sub_8002244(0);
+        for(i = 0; i < 32; i++)
+            gTextBoxCharacters[i].state &= ~0x8000;
+        for(i = 57; i < 88; i++)
+            gOamObjects[i].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+        gOamObjects[88].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+        return FALSE;
+    }
+    gOamObjects[88].attr0 = SPRITE_ATTR0(scriptCtx->unk39*20 + scriptCtx->unk2A, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
+    gOamObjects[88].attr1 = SPRITE_ATTR1_NONAFFINE(scriptCtx->unk28-13, FALSE, FALSE, 1);
+    gOamObjects[88].attr2 = SPRITE_ATTR2(0xFC, 1, 0);
+    return TRUE;
 }
 
-NAKED
 bool32 Command09(struct ScriptContext * scriptCtx)
 {
-    asm_unified("push {r4, r5, r6, lr}\n\
-	adds r5, r0, #0\n\
-	ldrh r2, [r5]\n\
-	movs r0, #0x20\n\
-	ands r0, r2\n\
-	cmp r0, #0\n\
-	beq _08006108\n\
-	adds r1, r5, #0\n\
-	adds r1, #0x32\n\
-	ldrb r0, [r1]\n\
-	cmp r0, #0\n\
-	beq _080060F6\n\
-	subs r0, #1\n\
-	strb r0, [r1]\n\
-	b _08006272\n\
-_080060F6:\n\
-	ldr r0, _08006104\n\
-	ands r0, r2\n\
-	strh r0, [r5]\n\
-	ldr r0, [r5, #4]\n\
-	adds r0, #8\n\
-	str r0, [r5, #4]\n\
-	b _08006272\n\
-	.align 2, 0\n\
-_08006104: .4byte 0x0000FFDF\n\
-_08006108:\n\
-	ldr r0, _08006120\n\
-	ldrb r0, [r0, #4]\n\
-	cmp r0, #7\n\
-	bne _08006128\n\
-	ldr r0, _08006124\n\
-	movs r1, #0xb0\n\
-	lsls r1, r1, #2\n\
-	adds r0, r0, r1\n\
-	subs r1, #0xc0\n\
-	strh r1, [r0]\n\
-	b _08006272\n\
-	.align 2, 0\n\
-_08006120: .4byte gMain\n\
-_08006124: .4byte gOamObjects\n\
-_08006128:\n\
-	adds r1, r5, #0\n\
-	adds r1, #0x35\n\
-	ldrb r0, [r1]\n\
-	cmp r0, #0\n\
-	beq _08006138\n\
-	subs r0, #1\n\
-	strb r0, [r1]\n\
-	b _08006272\n\
-_08006138:\n\
-	ldr r0, _08006168\n\
-	ldrh r1, [r0, #2]\n\
-	movs r0, #0x40\n\
-	ands r0, r1\n\
-	lsls r0, r0, #0x10\n\
-	lsrs r6, r0, #0x10\n\
-	cmp r6, #0\n\
-	beq _0800616C\n\
-	movs r0, #0x2a\n\
-	bl PlaySE\n\
-	adds r1, r5, #0\n\
-	adds r1, #0x39\n\
-	ldrb r0, [r1]\n\
-	subs r0, #1\n\
-	strb r0, [r1]\n\
-	lsls r0, r0, #0x18\n\
-	lsrs r0, r0, #0x18\n\
-	adds r4, r1, #0\n\
-	cmp r0, #2\n\
-	bls _08006248\n\
-	movs r0, #2\n\
-	strb r0, [r4]\n\
-	b _08006248\n\
-	.align 2, 0\n\
-_08006168: .4byte gJoypad\n\
-_0800616C:\n\
-	movs r0, #0x80\n\
-	ands r0, r1\n\
-	cmp r0, #0\n\
-	beq _08006192\n\
-	movs r0, #0x2a\n\
-	bl PlaySE\n\
-	adds r1, r5, #0\n\
-	adds r1, #0x39\n\
-	ldrb r0, [r1]\n\
-	adds r0, #1\n\
-	strb r0, [r1]\n\
-	lsls r0, r0, #0x18\n\
-	lsrs r0, r0, #0x18\n\
-	adds r4, r1, #0\n\
-	cmp r0, #2\n\
-	bls _08006248\n\
-	strb r6, [r4]\n\
-	b _08006248\n\
-_08006192:\n\
-	movs r0, #1\n\
-	ands r0, r1\n\
-	adds r4, r5, #0\n\
-	adds r4, #0x39\n\
-	cmp r0, #0\n\
-	beq _08006248\n\
-	movs r0, #0x2b\n\
-	bl PlaySE\n\
-	adds r1, r5, #0\n\
-	adds r1, #0x32\n\
-	movs r0, #0xa\n\
-	strb r0, [r1]\n\
-	movs r0, #0x20\n\
-	ldrh r3, [r5]\n\
-	orrs r0, r3\n\
-	strh r0, [r5]\n\
-	ldrb r1, [r4]\n\
-	cmp r1, #0\n\
-	bne _080061C0\n\
-	ldr r0, [r5, #4]\n\
-	ldrh r0, [r0, #2]\n\
-	b _080061CE\n\
-_080061C0:\n\
-	cmp r1, #1\n\
-	bne _080061CA\n\
-	ldr r0, [r5, #4]\n\
-	ldrh r0, [r0, #4]\n\
-	b _080061CE\n\
-_080061CA:\n\
-	ldr r0, [r5, #4]\n\
-	ldrh r0, [r0, #6]\n\
-_080061CE:\n\
-	strh r0, [r5, #0x20]\n\
-	movs r0, #0\n\
-	strb r0, [r5, #0xe]\n\
-	strb r0, [r5, #0xf]\n\
-	ldr r0, _08006238\n\
-	ldrh r4, [r5]\n\
-	ands r0, r4\n\
-	movs r1, #0\n\
-	strh r0, [r5]\n\
-	movs r0, #0x74\n\
-	strh r0, [r5, #0x1a]\n\
-	adds r0, r5, #0\n\
-	adds r0, #0x26\n\
-	ldrb r0, [r0]\n\
-	adds r2, r5, #0\n\
-	adds r2, #0x25\n\
-	strb r0, [r2]\n\
-	adds r0, r5, #0\n\
-	adds r0, #0x34\n\
-	strb r1, [r0]\n\
-	movs r0, #0\n\
-	bl sub_8002244\n\
-	movs r2, #0\n\
-	ldr r3, _0800623C\n\
-	ldr r1, _08006240\n\
-_08006202:\n\
-	adds r0, r3, #0\n\
-	ldrh r4, [r1]\n\
-	ands r0, r4\n\
-	strh r0, [r1]\n\
-	adds r1, #0xc\n\
-	adds r2, #1\n\
-	cmp r2, #0x1f\n\
-	bls _08006202\n\
-	movs r2, #0x39\n\
-	ldr r1, _08006244\n\
-	movs r3, #0x80\n\
-	lsls r3, r3, #2\n\
-	movs r4, #0xe4\n\
-	lsls r4, r4, #1\n\
-	adds r0, r1, r4\n\
-_08006220:\n\
-	strh r3, [r0]\n\
-	adds r0, #8\n\
-	adds r2, #1\n\
-	cmp r2, #0x57\n\
-	bls _08006220\n\
-	movs r0, #0xb0\n\
-	lsls r0, r0, #2\n\
-	adds r1, r1, r0\n\
-	subs r0, #0xc0\n\
-	strh r0, [r1]\n\
-	movs r0, #0\n\
-	b _08006274\n\
-	.align 2, 0\n\
-_08006238: .4byte 0x0000FFFB\n\
-_0800623C: .4byte 0x00007FFF\n\
-_08006240: .4byte gTextBoxCharacters\n\
-_08006244: .4byte gOamObjects\n\
-_08006248:\n\
-	ldr r2, _0800627C\n\
-	ldrb r1, [r4]\n\
-	lsls r0, r1, #2\n\
-	adds r0, r0, r1\n\
-	lsls r0, r0, #2\n\
-	ldrh r3, [r5, #0x2a]\n\
-	adds r0, r3, r0\n\
-	movs r4, #0xb0\n\
-	lsls r4, r4, #2\n\
-	adds r1, r2, r4\n\
-	strh r0, [r1]\n\
-	ldrh r5, [r5, #0x28]\n\
-	ldr r0, _08006280\n\
-	adds r1, r5, r0\n\
-	ldr r3, _08006284\n\
-	adds r0, r2, r3\n\
-	strh r1, [r0]\n\
-	adds r4, #4\n\
-	adds r2, r2, r4\n\
-	ldr r0, _08006288\n\
-	strh r0, [r2]\n\
-_08006272:\n\
-	movs r0, #1\n\
-_08006274:\n\
-	pop {r4, r5, r6}\n\
-	pop {r1}\n\
-	bx r1\n\
-	.align 2, 0\n\
-_0800627C: .4byte gOamObjects\n\
-_08006280: .4byte 0x00003FF3\n\
-_08006284: .4byte 0x000002C2\n\
-_08006288: .4byte 0x000004FC\n");
+    u32 i;
+    if(scriptCtx->unk0 & 0x20)
+    {
+        if(scriptCtx->unk32 > 0)
+        {
+            scriptCtx->unk32--;
+            return TRUE;
+        }
+        scriptCtx->unk0 &= ~0x20;
+        scriptCtx->scriptPtr += 4;
+        return TRUE;
+    }
+    if(gMain.process[GAME_PROCESS] == 7)
+    {
+        gOamObjects[88].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+        return TRUE;
+    }
+    if(scriptCtx->unk35 > 0)
+    {
+        scriptCtx->unk35--;
+        return TRUE;
+    }
+    if(gJoypad.pressedKeysRaw & DPAD_UP)
+    {
+        PlaySE(0x2A);
+        scriptCtx->unk39--;
+        if(scriptCtx->unk39 > 2)
+        {
+            scriptCtx->unk39 = 2;
+        }
+    }
+    else if(gJoypad.pressedKeysRaw & DPAD_DOWN)
+    {
+        PlaySE(0x2A);
+        scriptCtx->unk39++;
+        if(scriptCtx->unk39 > 2)
+        {
+            scriptCtx->unk39 = 0;
+        }
+    }
+    else if(gJoypad.pressedKeysRaw & A_BUTTON)
+    {
+        PlaySE(0x2B);
+        scriptCtx->unk32 = 10;
+        scriptCtx->unk0 |= 0x20;
+        if(scriptCtx->unk39 == 0)
+            scriptCtx->nextSection = *(scriptCtx->scriptPtr+1);
+        else if (scriptCtx->unk39 == 1)
+            scriptCtx->nextSection = *(scriptCtx->scriptPtr+2);
+        else
+            scriptCtx->nextSection = *(scriptCtx->scriptPtr+3);
+        scriptCtx->textX = 0;
+        scriptCtx->textY = 0;
+        scriptCtx->unk0 &= ~0x4;
+        scriptCtx->textYOffset = 0x74;
+        scriptCtx->textSpeed = scriptCtx->unk26;
+        scriptCtx->textboxNameId = 0;
+        sub_8002244(0);
+        for(i = 0; i < 32; i++)
+            gTextBoxCharacters[i].state &= ~0x8000;
+        for(i = 57; i < 88; i++)
+            gOamObjects[i].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+        gOamObjects[88].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+        return FALSE;
+    }
+    gOamObjects[88].attr0 = SPRITE_ATTR0(scriptCtx->unk39*20 + scriptCtx->unk2A, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
+    gOamObjects[88].attr1 = SPRITE_ATTR1_NONAFFINE(scriptCtx->unk28-13, FALSE, FALSE, 1);
+    gOamObjects[88].attr2 = SPRITE_ATTR2(0xFC, 1, 0);
+    return TRUE;
 }
 
 bool32 Command0B(struct ScriptContext * scriptCtx)
@@ -1552,55 +1254,55 @@ bool32 Command39(struct ScriptContext * scriptCtx)
 {
     u32 id;
     u32 oamIdx;
-    struct Struct3003930 * iwstruct3930p;
+    struct MapMarker * mapMarker;
     struct OamAttrs * oamObject;
     scriptCtx->scriptPtr++;
     id = *scriptCtx->scriptPtr >> 8;
     if(*scriptCtx->scriptPtr & 1)
     {
-        oamIdx = sub_8007554(id);
+        oamIdx = GetMapMarkerIndexFromId(id);
         if(oamIdx == 0xFF)
         {
             u32 size;
-            oamIdx = sub_8007554(0xFF);
-            iwstruct3930p = &gUnknown_03003930[oamIdx];
+            oamIdx = GetMapMarkerIndexFromId(0xFF);
+            mapMarker = &gMapMarker[oamIdx];
             oamIdx += 0x39;
-            iwstruct3930p->id = id;
-            iwstruct3930p->vramPtr = scriptCtx->unk3C;
-            DmaCopy16(3, gUnknown_080187C8[id].tiles, iwstruct3930p->vramPtr, size = gUnknown_080187C8[id].size); // weird shit going on here
+            mapMarker->id = id;
+            mapMarker->vramPtr = scriptCtx->unk3C;
+            DmaCopy16(3, gUnknown_080187C8[id].tiles, mapMarker->vramPtr, size = gUnknown_080187C8[id].size); // weird shit going on here
             DmaCopy16(3, gUnknown_0824696C, OBJ_PLTT + 0xC0, sizeof(gUnknown_0824696C));
-            iwstruct3930p->oamIdx = oamIdx;
+            mapMarker->oamIdx = oamIdx;
             oamObject = &gOamObjects[oamIdx];
             
             oamObject->attr0 = gUnknown_080187C8[id].attr0;
-            iwstruct3930p->attr0 = oamObject->attr0;
+            mapMarker->attr0 = oamObject->attr0;
             
             oamObject->attr1 = gUnknown_080187C8[id].attr1;
-            iwstruct3930p->attr1 = oamObject->attr1;
+            mapMarker->attr1 = oamObject->attr1;
 
-            oamIdx = ((u32)iwstruct3930p->vramPtr - 0x6011800);
+            oamIdx = ((u32)mapMarker->vramPtr - 0x6011800);
             oamIdx /= 32;
             oamObject->attr2 = SPRITE_ATTR2(oamIdx + 0xC0, 2, 6);
-            iwstruct3930p->attr2 = oamObject->attr2;
+            mapMarker->attr2 = oamObject->attr2;
 
             scriptCtx->unk3C += size;
         }
         else
         {
-            iwstruct3930p = &gUnknown_03003930[oamIdx];
-            oamObject = &gOamObjects[iwstruct3930p->oamIdx];
-            oamObject->attr0 = iwstruct3930p->attr0;
-            oamObject->attr1 = iwstruct3930p->attr1;
-            oamObject->attr2 = iwstruct3930p->attr2;
-            iwstruct3930p->unk5 &= ~0x4;
+            mapMarker = &gMapMarker[oamIdx];
+            oamObject = &gOamObjects[mapMarker->oamIdx];
+            oamObject->attr0 = mapMarker->attr0;
+            oamObject->attr1 = mapMarker->attr1;
+            oamObject->attr2 = mapMarker->attr2;
+            mapMarker->unk5 &= ~0x4;
         }
     }
     else
     {   
         // TODO: BUGFIX
         // ! Capcom forgot to check for 0xFF here..this will slightly corrupt the sound buffer in gSoundInfo
-        oamIdx = sub_8007554(id); 
-        gUnknown_03003930[oamIdx].unk5 |= 4;
+        oamIdx = GetMapMarkerIndexFromId(id); 
+        gMapMarker[oamIdx].unk5 |= 4;
     }
     scriptCtx->scriptPtr++;
     return 0;
@@ -1610,14 +1312,14 @@ bool32 Command3A(struct ScriptContext * scriptCtx)
 {
     u32 oamIdx;
     scriptCtx->scriptPtr++;
-    oamIdx = sub_8007554(*scriptCtx->scriptPtr >> 8);
+    oamIdx = GetMapMarkerIndexFromId(*scriptCtx->scriptPtr >> 8);
     if(oamIdx != 0xFF)
     {
         scriptCtx->scriptPtr++;
-        gUnknown_03003930[oamIdx].attr0 &= ~0xFF;
-        gUnknown_03003930[oamIdx].attr0 |= (u8)*scriptCtx->scriptPtr;
-        gUnknown_03003930[oamIdx].attr1 &= ~0x1FF;
-        gUnknown_03003930[oamIdx].attr1 |= (u8)(*scriptCtx->scriptPtr >> 8);
+        gMapMarker[oamIdx].attr0 &= ~0xFF;
+        gMapMarker[oamIdx].attr0 |= (u8)*scriptCtx->scriptPtr;
+        gMapMarker[oamIdx].attr1 &= ~0x1FF;
+        gMapMarker[oamIdx].attr1 |= (u8)(*scriptCtx->scriptPtr >> 8);
         scriptCtx->scriptPtr++;
     }
     else
@@ -1632,16 +1334,16 @@ bool32 Command3B(struct ScriptContext * scriptCtx)
 {
     u32 oamIdx;
     scriptCtx->scriptPtr++;
-    oamIdx = sub_8007554(*scriptCtx->scriptPtr >> 8);
+    oamIdx = GetMapMarkerIndexFromId(*scriptCtx->scriptPtr >> 8);
     if(oamIdx != 0xFF)
     {
-        gUnknown_03003930[oamIdx].unk4 = (u8)*scriptCtx->scriptPtr & 3;
+        gMapMarker[oamIdx].direction = (u8)*scriptCtx->scriptPtr & 3;
         scriptCtx->scriptPtr++;
-        gUnknown_03003930[oamIdx].unk3 = (u8)(*scriptCtx->scriptPtr >> 8);
-        gUnknown_03003930[oamIdx].unk6 = (u8)*scriptCtx->scriptPtr;
+        gMapMarker[oamIdx].speed = (u8)(*scriptCtx->scriptPtr >> 8);
+        gMapMarker[oamIdx].distanceToMove = (u8)*scriptCtx->scriptPtr;
         scriptCtx->scriptPtr++;
-        gUnknown_03003930[oamIdx].unk5 |= 2;
-        gUnknown_03003930[oamIdx].unk7 = 0;
+        gMapMarker[oamIdx].unk5 |= 2;
+        gMapMarker[oamIdx].distanceMoved = 0;
     }
     else
     {
@@ -1655,16 +1357,16 @@ bool32 Command3C(struct ScriptContext * scriptCtx)
 {
     u32 oamIdx;
     scriptCtx->scriptPtr++;
-    oamIdx = sub_8007554(*scriptCtx->scriptPtr >> 8);
+    oamIdx = GetMapMarkerIndexFromId(*scriptCtx->scriptPtr >> 8);
     if(oamIdx != 0xFF)
     {
-        gUnknown_03003930[oamIdx].unk1 = *scriptCtx->scriptPtr;
+        gMapMarker[oamIdx].isBlinking = *scriptCtx->scriptPtr;
         if(!(*scriptCtx->scriptPtr & 1))
         {
-            gOamObjects[oamIdx+0x39].attr1 = gUnknown_03003930[oamIdx].attr1;
+            gOamObjects[oamIdx+0x39].attr1 = gMapMarker[oamIdx].attr1;
         }
     }
-    gUnknown_03003930[oamIdx].unk2 = 0;
+    gMapMarker[oamIdx].blinkTimer = 0;
     scriptCtx->scriptPtr++;
     return 0;
 }
@@ -1673,10 +1375,10 @@ bool32 Command3D(struct ScriptContext * scriptCtx)
 {
     u32 oamIdx;
     scriptCtx->scriptPtr++;
-    oamIdx = sub_8007554(*scriptCtx->scriptPtr >> 8);
+    oamIdx = GetMapMarkerIndexFromId(*scriptCtx->scriptPtr >> 8);
     if(oamIdx != 0xFF)
     {
-        if(gUnknown_03003930[oamIdx].unk5 & 2)
+        if(gMapMarker[oamIdx].unk5 & 2)
         {
             scriptCtx->scriptPtr--;
             return 1;

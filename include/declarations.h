@@ -109,7 +109,7 @@ struct Struct3000800 * sub_8010468(struct Struct300080C *, u32, u32);
 extern void sub_8010960(struct Struct3000800 *);
 extern struct Struct3000800 * sub_8010204(u32);
 extern void sub_80106A4(u32, u32);
-extern u32 sub_8007554(u32);
+extern u32 GetMapMarkerIndexFromId(u32);
 //EWRAM
 // fuck capcom
 //IWRAM
@@ -122,7 +122,7 @@ extern struct CourtRecord gCourtRecord;
 extern struct TalkData gTalkData[32];
 extern struct OamAttrs gOamObjects[128];
 extern u16 gBG0MapBuffer[0x400]; // BG 0 Map buffer
-extern struct Struct3003930 gUnknown_03003930[8];
+extern struct MapMarker gMapMarker[8];
 extern u8 gTextColorTileBuffer[0x80];
 extern struct Struct3003A50 gUnknown_03003A50;
 extern struct ScriptContext gScriptContext;

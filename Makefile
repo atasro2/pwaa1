@@ -107,17 +107,17 @@ $(ROM): $(ELF)
 	$(OBJCOPY) -O binary --gap-fill 0xff $< $@
 	$(GBAFIX) --silent -p $@
 
-$(OBJ_DIR)/sym_iwram.txt:
-	cp sym_ewram.txt $(OBJ_DIR)
-
-$(OBJ_DIR)/sym_ewram.txt:
+$(OBJ_DIR)/sym_iwram.txt: sym_iwram.txt
 	cp sym_iwram.txt $(OBJ_DIR)
 
-$(OBJ_DIR)/ld_script.ld: $(OBJ_DIR)/sym_iwram.txt $(OBJ_DIR)/sym_ewram.txt
-	cp ld_script.txt $(OBJ_DIR)/ld_script.ld
+$(OBJ_DIR)/sym_ewram.txt: sym_ewram.txt
+	cp sym_ewram.txt $(OBJ_DIR)
+
+$(OBJ_DIR)/ld_script.ld: ld_script.txt $(OBJ_DIR)/sym_iwram.txt $(OBJ_DIR)/sym_ewram.txt
+	cd $(OBJ_DIR) && sed "s#tools/#../../tools/#g" ../../ld_script.txt > ld_script.ld
 
 $(ELF): %.elf: $(OBJS) $(OBJ_DIR)/ld_script.ld
-	cd $(OBJ_DIR) && ../../$(LD) -T ld_script.ld -Map ../../$*.map -o ../../$@ -L ../../tools/agbcc/lib -lgcc -lc
+	cd $(OBJ_DIR) && ../../$(LD) -T ld_script.ld -Map ../../$*.map -o ../../$@ $(OBJS_REL) -L ../../tools/agbcc/lib -lgcc -lc
 	$(GBAFIX) -t"$(TITLE)" -c$(GAMECODE) -m08 --silent $@
 
 $(ASM_BUILDDIR)/%.o: $(ASM_SUBDIR)/%.s

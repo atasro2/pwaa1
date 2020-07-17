@@ -3,15 +3,15 @@
 #include "sound_control.h"
 #include "ewram.h"
 
-u32 sub_8007554(u32 a0) // GetExplCharWorkIndexById
+u32 GetMapMarkerIndexFromId(u32 id) // GetExplCharWorkIndexById
 {
     u32 i = 0;
     do 
     {
-        if (gUnknown_03003930[i].id == a0)
+        if (gMapMarker[i].id == id)
             return i;
         i++;
-    } while (i < ARRAY_COUNT(gUnknown_03003930));
+    } while (i < ARRAY_COUNT(gMapMarker));
     return 0xFF;
 }
 
@@ -227,15 +227,15 @@ bool32 Command4B(struct ScriptContext *scriptCtx)
     u32 res;
     u32 r2;
     scriptCtx->scriptPtr++;
-    res = sub_8007554(*scriptCtx->scriptPtr >> 8);
+    res = GetMapMarkerIndexFromId(*scriptCtx->scriptPtr >> 8);
     if(res != 0xFF) 
     {
         r2 = (*scriptCtx->scriptPtr & 3) << 12;
         // this clears existing hflip/vflip and sets r2 as new flips
         // the current macros dont allow easily setting this
-        gUnknown_03003930[res].attr1 = (gUnknown_03003930[res].attr1 & 0xCFFF) + r2;
+        gMapMarker[res].attr1 = (gMapMarker[res].attr1 & 0xCFFF) + r2;
     }
-    gUnknown_03003930[res].unk2 = 0;
+    gMapMarker[res].blinkTimer = 0;
     scriptCtx->scriptPtr++;
 
     return 0;

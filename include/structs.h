@@ -55,16 +55,16 @@ struct Struct3000800
     u16 unk3E;
 };
 
-struct Struct3003930 // ExplCharData
+struct MapMarker
 { 
     u8 id; 
-    u8 unk1;
-    u8 unk2;
-    u8 unk3;
-    u8 unk4;
+    u8 isBlinking;
+    u8 blinkTimer;
+    u8 speed;
+    u8 direction;
     u8 unk5; // status
-    u8 unk6;
-    u8 unk7;
+    u8 distanceToMove;
+    u8 distanceMoved;
     u16 attr0; /* +0x8 */
     u16 attr1; /* +0xA */
     u16 attr2; /* +0xC */
@@ -278,7 +278,7 @@ struct SaveData
     struct Struct3003A50 iwramStruct3A50; /* + 0x2D8 */
     struct ExaminationData examinationData[16]; /* + 0x2F0 */
     struct TalkData talkData[32]; /* + 0x430 */
-    struct Struct3003930 iwramStruct3930[8]; /* + 0x6B0 */
+    struct MapMarker mapMarker[8]; /* + 0x6B0 */
     struct OamAttrs oam[128]; /* + 0x750 */
     struct TextBoxCharacter textBoxCharacters[0x40]; /* + 0xB50 */
     u16 bg0Map[0x400]; /* + 0xE50 */

@@ -212,10 +212,10 @@ void SaveGameInit1SubProcess(struct Main *main)
     DmaCopy16(3, gTextBoxCharacters, gSaveDataBuffer.textBoxCharacters, sizeof(gTextBoxCharacters));
     DmaCopy16(3, &gScriptContext, &gSaveDataBuffer.scriptCtx, sizeof(gScriptContext));
     DmaCopy16(3, &gLCDIORegisters, &gSaveDataBuffer.ioRegs, sizeof(gLCDIORegisters));
-    DmaCopy16(3, gUnknown_03003930, gSaveDataBuffer.iwramStruct3930, sizeof(gUnknown_03003930));
-    for(i = 0; i < ARRAY_COUNT(gUnknown_03003930); i++)
+    DmaCopy16(3, gMapMarker, gSaveDataBuffer.mapMarker, sizeof(gMapMarker));
+    for(i = 0; i < ARRAY_COUNT(gMapMarker); i++)
     {
-        gUnknown_03003930[i].id |= 0xFF;
+        gMapMarker[i].id |= 0xFF;
     }
     sub_801042C(gSaveDataBuffer.ewramStruct2650);
     main->advanceScriptContext = FALSE;
@@ -425,7 +425,7 @@ void SaveGameExitSaveScreenSubProcess(struct Main *main)
     RedrawTextboxCharacters();
     DmaCopy16(3, &gSaveDataBuffer.scriptCtx, &gScriptContext, sizeof(gScriptContext));
     DmaCopy16(3, &gSaveDataBuffer.ioRegs, &gLCDIORegisters, sizeof(gLCDIORegisters));
-    DmaCopy16(3, gSaveDataBuffer.iwramStruct3930, gUnknown_03003930, sizeof(gUnknown_03003930));
+    DmaCopy16(3, gSaveDataBuffer.mapMarker, gMapMarker, sizeof(gMapMarker));
     DmaCopy16(3, gSaveDataBuffer.talkData, gTalkData, sizeof(gTalkData));
     main->advanceScriptContext = gSaveDataBuffer.main.advanceScriptContext;
     main->showTextboxCharacters = gSaveDataBuffer.main.showTextboxCharacters;

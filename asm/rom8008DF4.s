@@ -2426,7 +2426,7 @@ _0800A184: .4byte 0x80000008
 _0800A188: .4byte gExaminationData
 _0800A18C: .4byte 0x800000A0
 _0800A190: .4byte 0xFFFFFB60
-_0800A194: .4byte gUnknown_03003930
+_0800A194: .4byte gMapMarker
 _0800A198: .4byte 0x80000050
 _0800A19C: .4byte gBG1MapBuffer
 _0800A1A0: .4byte 0x80000400
@@ -10321,7 +10321,7 @@ _0800E0BC: .4byte 0x040000D4
 _0800E0C0: .4byte gOamObjects
 _0800E0C4: .4byte gSaveDataBuffer+0x750
 _0800E0C8: .4byte 0x80000200
-_0800E0CC: .4byte gUnknown_03003930
+_0800E0CC: .4byte gMapMarker
 _0800E0D0: .4byte 0x80000050
 _0800E0D4: .4byte gOamObjects+0x188
 _0800E0D8: .4byte gLCDIORegisters
@@ -10661,7 +10661,7 @@ _0800E394: .4byte gLCDIORegisters
 _0800E398: .4byte 0x040000D4
 _0800E39C: .4byte gOamObjects
 _0800E3A0: .4byte 0x80000200
-_0800E3A4: .4byte gUnknown_03003930
+_0800E3A4: .4byte gMapMarker
 _0800E3A8: .4byte 0x80000050
 _0800E3AC: .4byte gUnknown_03003AB0
 _0800E3B0: .4byte gCourtRecord
