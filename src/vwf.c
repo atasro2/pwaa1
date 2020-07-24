@@ -15,7 +15,8 @@ struct FontRenderData {
 	u16 characterCode;
 	u16 xCol;
 	u16 yRow;
-
+	
+	s16 xOffset;	
 	u32 x;
 	u32 y;
 	u32 tileNum;
@@ -80,12 +81,35 @@ void RedrawVWFCharacters(void)
 void RedrawVWFCharactersFromSave(void)
 {
     u32 oldColor = gScriptContext.textColor;
+	u32 oldY = 0;
     struct NewTextBoxCharacter * nCharacters = (struct NewTextBoxCharacter *)&gSaveDataBuffer.textBoxCharacters;
-    DmaFill16(3, 0, gTextBoxCharacters, sizeof(gTextBoxCharacters));
-    while(nCharacters->charCode != 0xFFF)
+	DmaFill16(3, 0, gTextBoxCharacters, sizeof(gTextBoxCharacters));
+    if(gSaveDataBuffer.textBoxCharacters[0].state & 0x8000 || gSaveDataBuffer.textBoxCharacters[0].objAttr2 & 0x400)
+	{
+		u8 * ptr = (u8 *)&gSaveDataBuffer.textBoxCharacters;
+		if(ptr[9] == 0 && ptr[10] == 0 && ptr[11] == 0)
+			return;
+	}
+    if(gScriptContext.unk0 & 4)
+		gScriptContext.fullscreenTextX = 0;
+	while(nCharacters->charCode != 0xFFF)
     {
+		if(nCharacters->yPos < 2)
+		{
+			if(gScriptContext.unk0 & 4)
+				gScriptContext.unk0 &= ~4;
+		}
+		else
+		{
+			if(oldY != nCharacters->yPos)
+				gScriptContext.fullscreenTextX = 0;
+			if(!(gScriptContext.unk0 & 4))
+				gScriptContext.unk0 |= 4;
+		}
         gScriptContext.textColor = nCharacters->color;
         PutVwfCharInTextbox(nCharacters->charCode, nCharacters->yPos, nCharacters->xPos);
+		gScriptContext.fullscreenTextX++;
+		oldY = nCharacters->yPos;
         nCharacters++;
     }
     gScriptContext.textColor = oldColor;
@@ -100,6 +124,8 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
     u32 processedCharCode;
     u32 characterWidth;
 
+	if(renderer->saveCharCounter == NULL)
+		renderer->saveCharCounter = newTBC;
 	
 	renderer->characterCode = charCode;
 	renderer->xCol = x;
@@ -237,7 +263,7 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 			r0 += 4;
 		}
 		r0 += (r2 & 0xF) << 4;
-		oamProxy->x = r0;
+		oamProxy->x = r0 + renderer->xOffset; 
 		
 		// r2 = renderer->yRow;
 		r0 = (renderer->yRow - (renderer->yRow >= 2 ? 2 : 0)) * 18;
@@ -251,9 +277,9 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 	renderer->permanentXPos += characterWidth;
 	
 	// If it's in typewriter mode, make the sound only play every other non-space character
-	if (ctx->currentSoundCue == 2 && ctx->textColor == 3) {
-		if ((renderer->characterCode == (0x720 - 0x80)) || ((renderer->soundCueCounter ^= 1) == 1)) {
-			ctx->currentToken = 0xFF; // old space - 0x80	
-		}
-	}
+	//if (ctx->currentSoundCue == 2 && ctx->textColor == 3) {
+		//if ((renderer->characterCode == (0x720 - 0x80)) || ((renderer->soundCueCounter ^= 1) == 1)) {
+			//ctx->currentToken = 0xFF; // old space - 0x80	
+		//}
+	//}
 }

@@ -3062,10 +3062,11 @@ gGfxSeqAnimation54:
 
 @ END ANIMATION GRAPHICS PACKAGES AND SEQUENCES
 
+	.align 4
 	.global gArialGlyphs
 gArialGlyphs:
 	.incbin "data/arialglyphs.bin"
-	
+	.align 4
 	.global gArialGlyphWidths
 gArialGlyphWidths:
 	.incbin "data/arialmetrics.bin"
