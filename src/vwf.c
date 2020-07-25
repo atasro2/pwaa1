@@ -276,10 +276,19 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 	
 	renderer->permanentXPos += characterWidth;
 	
-	// If it's in typewriter mode, make the sound only play every other non-space character
-	//if (ctx->currentSoundCue == 2 && ctx->textColor == 3) {
-		//if ((renderer->characterCode == (0x720 - 0x80)) || ((renderer->soundCueCounter ^= 1) == 1)) {
-			//ctx->currentToken = 0xFF; // old space - 0x80	
-		//}
-	//}
+	if ((renderer->characterCode == (0x720 - 0x80)))
+		ctx->currentToken = 0xFF; // old space - 0x80	
+	else if(ctx->textSpeed >= 2 && renderer->soundCueCounter <= 1)
+	{
+		renderer->soundCueCounter = 2;
+		ctx->soundCueSkip = 0;
+	}
+	else
+	{
+		if(ctx->textSpeed > 4)
+			ctx->currentToken = 0xFF;
+		ctx->soundCueSkip = 0xFF;
+		renderer->soundCueCounter--;
+	}
+		
 }
