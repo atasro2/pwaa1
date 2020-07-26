@@ -6,7 +6,7 @@
 
 static void AdvanceScriptContext(struct ScriptContext *scriptCtx);
 extern void DrawTextAndMapMarkers(struct ScriptContext *scriptCtx);
-static void PutCharInTextbox(u32, u32, u32);
+void PutCharInTextbox(u32, u32, u32);
 extern bool32 (*gScriptCmdFuncs[0x5F])(struct ScriptContext *);
 
 void LoadCurrentScriptIntoRam(void)

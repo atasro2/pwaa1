@@ -32,5 +32,6 @@ matrix:
         - tools/br_ips/ips_patch tmp.bin baserom.ips baserom.gba
         - rm tmp.bin
         - make compare
+        - make compare_rev1
 after_success:
-  - bash .travis/calcrom/webhook.sh GS1
+  - bash .travis/calcrom/webhook.sh pwaa1

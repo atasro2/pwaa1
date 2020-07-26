@@ -55,6 +55,14 @@ debug code in pc port also doesn't use this feature
 but it has a print function that is called when the argument passed to the function is 0
 the debug message is related to REG_VCOUNT and possibly for running out of time for copying the tiles
 
+5. leftover revision 0 data in revision 1 ROM
+
+since revision 1 is 8 bytes smaller in code size there are some pointers 8 bytes apart in revision 1
+in 2 places that shouldn't be there and they are pointers to functions in revision 0
+
+the revision 1 pointers can be found exactly before the extra pointers from revision 0
+it is unknown why this happened and i won't have the repo build an exact rev1 dump ROM
+since it would require bad looking ifdefs in C and ASM data which i would rather avoid
 
 Person data:
 

@@ -152,8 +152,8 @@ void sub_8002C98(u32 arg0, u32 arg1, u32 arg2)
     main->talkingAnimationOffset = arg1;
     main->idleAnimationOffset = arg2;
     sub_8010048(arg0, 0, arg1, 0);
-    gUnknown_03003A50.unk5 = 1;
-    sub_800B7A8(&gUnknown_03003A50, 0xF);
+    gInvestigation.unk5 = 1;
+    sub_800B7A8(&gInvestigation, 0xF);
 }
 
 void sub_8002CCC(u32 section, u32 flagId)
@@ -180,6 +180,6 @@ void sub_8002CF0(u32 section, u32 flagId) // unused?
     ChangeFlag(0, flagId, TRUE);
     ChangeScriptSection(section);
     sub_800244C(1);
-    sub_800B7A8(&gUnknown_03003A50, 0xF);
-    gUnknown_03003A50.unkE = 0x40;
+    sub_800B7A8(&gInvestigation, 0xF);
+    gInvestigation.unkE = 0x40;
 }

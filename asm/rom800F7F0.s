@@ -126,7 +126,7 @@ _080102C8:
 _080102F0: .4byte gMain
 _080102F4: .4byte gUnknown_08018F78
 _080102F8: .4byte 0x05000200
-_080102FC: .4byte gUnknown_03003F00
+_080102FC: .4byte gObjPaletteBuffer
 _08010300: .4byte 0x040000D4
 
 	THUMB_FUNC_START sub_8010304
@@ -269,7 +269,7 @@ _08010408:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08010418: .4byte gUnknown_03000800+0x40
+_08010418: .4byte gAnimation+0x40
 _0801041C: .4byte 0x06015800
 _08010420: .4byte gUnknown_08018DD4
 _08010424: .4byte 0x040000D4
@@ -308,7 +308,7 @@ _08010460:
 	adds r0, r1, #0
 	bx lr
 	.align 2, 0
-_08010464: .4byte gUnknown_03000800+0x40
+_08010464: .4byte gAnimation+0x40
 
 	THUMB_FUNC_START sub_8010468
 sub_8010468: @ 0x08010468
@@ -605,7 +605,7 @@ _0801068A:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08010698: .4byte gUnknown_03000800
+_08010698: .4byte gAnimation
 _0801069C: .4byte gOamObjects
 _080106A0: .4byte 0x000001FF
 
@@ -697,7 +697,7 @@ _0801073E:
 	adds r2, r1, #0
 	b _080107A0
 	.align 2, 0
-_0801074C: .4byte gUnknown_03000800+0x40
+_0801074C: .4byte gAnimation+0x40
 _08010750: .4byte 0x02000004
 _08010754: .4byte 0xF3FFFFFB
 _08010758:
@@ -963,7 +963,7 @@ _08010954:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0801095C: .4byte gUnknown_03000800
+_0801095C: .4byte gAnimation
 
 	THUMB_FUNC_START sub_8010960
 sub_8010960: @ 0x08010960
@@ -1076,7 +1076,7 @@ _08010A30: .4byte gMain
 _08010A34: .4byte 0x00FFFFFF
 _08010A38: .4byte 0x001600FF
 _08010A3C: .4byte gOamObjects
-_08010A40: .4byte gUnknown_03003F00
+_08010A40: .4byte gObjPaletteBuffer
 _08010A44: .4byte 0x05000200
 _08010A48: .4byte 0x040000D4
 
@@ -1237,7 +1237,7 @@ _08010B3E:
 	b _08010BA0
 	.align 2, 0
 _08010B70: .4byte gBG0MapBuffer
-_08010B74: .4byte gUnknown_03000800
+_08010B74: .4byte gAnimation
 _08010B78: .4byte gMain
 _08010B7C: .4byte 0x00000FFF
 _08010B80: .4byte gUnknown_0200AFC0
@@ -1458,7 +1458,7 @@ _08010CE6:
 	adds r3, #4
 	b _08010D4A
 	.align 2, 0
-_08010D14: .4byte gUnknown_03000800
+_08010D14: .4byte gAnimation
 _08010D18: .4byte gUnknown_0200B1C0
 _08010D1C: .4byte gUnknown_0200AFC0
 _08010D20: .4byte 0xBFFFFFFF
@@ -1630,7 +1630,7 @@ _08010E32:
 	b _08010F3C
 	.align 2, 0
 _08010E68: .4byte gMain
-_08010E6C: .4byte gUnknown_03000800
+_08010E6C: .4byte gAnimation
 _08010E70: .4byte gCourtScroll
 _08010E74:
 	ldr r0, [r4]
@@ -1975,7 +1975,7 @@ sub_80110E4: @ 0x080110E4
 	.align 2, 0
 _080110FC: .4byte gCourtScroll
 _08011100: .4byte gUnknown_0811DFFC
-_08011104: .4byte gUnknown_03000800+0x40
+_08011104: .4byte gAnimation+0x40
 
 	THUMB_FUNC_START sub_8011108
 sub_8011108: @ 0x08011108

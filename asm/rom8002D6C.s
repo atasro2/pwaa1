@@ -1739,7 +1739,7 @@ _08003D06:
 	.align 2, 0
 _08003D14: .4byte gMain
 _08003D18: .4byte 0x0000801C
-_08003D1C: .4byte gUnknown_03003A50
+_08003D1C: .4byte gInvestigation
 _08003D20: .4byte 0x040000D4
 _08003D24: .4byte gUnknown_080163B4
 _08003D28: .4byte gExaminationData
@@ -2389,7 +2389,7 @@ _080042C8:
 	.align 2, 0
 _080042D8: .4byte gMain
 _080042DC: .4byte 0x00008014
-_080042E0: .4byte gUnknown_03003A50
+_080042E0: .4byte gInvestigation
 _080042E4: .4byte 0x040000D4
 _080042E8: .4byte gUnknown_08016DD0
 _080042EC: .4byte gExaminationData

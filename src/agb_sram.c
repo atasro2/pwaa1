@@ -1,8 +1,8 @@
 #include "gba/gba.h"
 #include "agb_sram.h"
 
-static void ReadSram_Core(const u8 *src, u8 *dest, u32 size);
-static u32 VerifySram_Core(const u8 *src, u8 *dest, u32 size);
+void ReadSram_Core(const u8 *src, u8 *dest, u32 size);
+u32 VerifySram_Core(const u8 *src, u8 *dest, u32 size);
 
 char sSramVersionString[] = "SRAM_V112";
 
@@ -18,7 +18,7 @@ u32 (* sSramVerifyFunctions[])(const u8 *src, u8 *dest, u32 size) =
     VerifySram
 };
 
-static void ReadSram_Core(const u8 *src, u8 *dest, u32 size)
+void ReadSram_Core(const u8 *src, u8 *dest, u32 size)
 {
     while (--size != -1)
         *dest++ = *src++;
@@ -59,7 +59,7 @@ void WriteSram(const u8 *src, u8 *dest, u32 size)
         *dest++ = *src++;
 }
 
-static u32 VerifySram_Core(const u8 *src, u8 *dest, u32 size)
+u32 VerifySram_Core(const u8 *src, u8 *dest, u32 size)
 {
     while (--size != -1)
     {

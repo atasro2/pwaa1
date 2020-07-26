@@ -1,5 +1,5 @@
 . = 0x00000000; gBG2MapBuffer = .;
-. = 0x00000800; gUnknown_03000800 = .;
+. = 0x00000800; gAnimation = .;
 . = 0x00001000; gBG3MapBuffer = .;
 . = 0x00001800; gBG3MapBufferCopy = .;
 . = 0x00002000; gBG1MapBuffer = .;
@@ -13,12 +13,12 @@
 . = 0x000038D0; gLCDIORegisters = .;
 . = 0x00003930; gMapMarker = .;
 . = 0x000039D0; gTextColorTileBuffer = .;
-. = 0x00003A50; gUnknown_03003A50 = .;
+. = 0x00003A50; gInvestigation = .;
 . = 0x00003A70; gScriptContext = .;
-. = 0x00003AB0; gUnknown_03003AB0 = .;
+. = 0x00003AB0; gTestimony = .;
 . = 0x00003AC0; gExaminationData = .;
 . = 0x00003C00; gTextBoxCharacters = .;
-. = 0x00003F00; gUnknown_03003F00 = .;
+. = 0x00003F00; gObjPaletteBuffer = .;
 . = 0x00004000; gCourtScroll = .;
 . = 0x00004010; SoundMainRAM_Buffer = .;
 . = 0x00004410; gSoundInfo = .;

@@ -50,7 +50,7 @@ _08007296:
 	strh r0, [r6]
 	b _08007496
 	.align 2, 0
-_080072A8: .4byte gUnknown_03003A50
+_080072A8: .4byte gInvestigation
 _080072AC: .4byte 0x0000FF7F
 _080072B0: .4byte 0x0000FDFF
 _080072B4:

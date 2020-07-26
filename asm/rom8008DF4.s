@@ -2417,9 +2417,9 @@ _0800A160: .4byte 0x8000002A
 _0800A164: .4byte 0xFFFFF718
 _0800A168: .4byte gCourtRecord
 _0800A16C: .4byte 0x8000002C
-_0800A170: .4byte gUnknown_03003A50
+_0800A170: .4byte gInvestigation
 _0800A174: .4byte 0x8000000C
-_0800A178: .4byte gUnknown_03003AB0
+_0800A178: .4byte gTestimony
 _0800A17C: .4byte 0x80000004
 _0800A180: .4byte gCourtScroll
 _0800A184: .4byte 0x80000008
@@ -2879,9 +2879,9 @@ _0800A4E0:
 	.align 2, 0
 _0800A540: .4byte gLCDIORegisters
 _0800A544: .4byte 0x040000D4
-_0800A548: .4byte gUnknown_03003AB0
+_0800A548: .4byte gTestimony
 _0800A54C: .4byte 0x81000004
-_0800A550: .4byte gUnknown_03003A50
+_0800A550: .4byte gInvestigation
 _0800A554: .4byte 0x8100000C
 _0800A558: .4byte 0x00003D01
 _0800A55C: .4byte 0x00003FC7
@@ -2964,7 +2964,7 @@ sub_800A5B0: @ 0x0800A5B0
 	movs r0, #0xa
 	b _0800A67C
 	.align 2, 0
-_0800A624: .4byte gUnknown_03003AB0
+_0800A624: .4byte gTestimony
 _0800A628: .4byte gJoypad
 _0800A62C: .4byte gScriptContext
 _0800A630: .4byte 0x040000D4
@@ -3124,7 +3124,7 @@ _0800A760:
 	strb r1, [r0, #6]
 	b _0800A808
 	.align 2, 0
-_0800A77C: .4byte gUnknown_03003AB0
+_0800A77C: .4byte gTestimony
 _0800A780:
 	movs r0, #0x13
 	bl sub_800F8BC
@@ -3242,7 +3242,7 @@ _0800A870:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800A878: .4byte gUnknown_03003AB0
+_0800A878: .4byte gTestimony
 
 	THUMB_FUNC_START GameProcess05
 GameProcess05: @ 0x0800A87C
@@ -3289,7 +3289,7 @@ _0800A8CC: .4byte 0x80000400
 _0800A8D0: .4byte gUnknown_08194280
 _0800A8D4: .4byte 0x050002A0
 _0800A8D8: .4byte 0x80000010
-_0800A8DC: .4byte gUnknown_03003AB0
+_0800A8DC: .4byte gTestimony
 
 	THUMB_FUNC_START sub_800A8E0
 sub_800A8E0: @ 0x0800A8E0
@@ -3416,7 +3416,7 @@ _0800A9C2:
 	.align 2, 0
 _0800A9E0: .4byte gScriptContext
 _0800A9E4: .4byte gMain+0x4
-_0800A9E8: .4byte gUnknown_03003AB0
+_0800A9E8: .4byte gTestimony
 _0800A9EC: .4byte gOamObjects+0x188
 _0800A9F0:
 	movs r0, #0x80
@@ -3677,7 +3677,7 @@ _0800AC08: .4byte gUnknown_0818BD40
 _0800AC0C: .4byte gUnknown_0818BEC0
 _0800AC10: .4byte gScriptContext
 _0800AC14: .4byte gCourtRecord
-_0800AC18: .4byte gUnknown_03003AB0
+_0800AC18: .4byte gTestimony
 
 	THUMB_FUNC_START sub_800AC1C
 sub_800AC1C: @ 0x0800AC1C
@@ -3827,7 +3827,7 @@ _0800ACFA:
 	strb r4, [r5, #6]
 	b _0800AE4C
 	.align 2, 0
-_0800AD54: .4byte gUnknown_03003AB0
+_0800AD54: .4byte gTestimony
 _0800AD58: .4byte gLCDIORegisters
 _0800AD5C: .4byte 0x0000FDFF
 _0800AD60:
@@ -3913,7 +3913,7 @@ _0800ADE2:
 	b _0800AE1C
 	.align 2, 0
 _0800AE04: .4byte gMain+0x4
-_0800AE08: .4byte gUnknown_03003AB0
+_0800AE08: .4byte gTestimony
 _0800AE0C: .4byte gCourtRecord
 _0800AE10: .4byte gOamObjects
 _0800AE14: .4byte gScriptContext
@@ -3987,7 +3987,7 @@ _0800AE68:
 	strb r0, [r4, #6]
 	b _0800AF04
 	.align 2, 0
-_0800AE98: .4byte gUnknown_03003AB0
+_0800AE98: .4byte gTestimony
 _0800AE9C: .4byte gUnknown_08427D88
 _0800AEA0:
 	subs r0, #1
@@ -4052,7 +4052,7 @@ _0800AF04:
 	bx r0
 	.align 2, 0
 _0800AF20: .4byte gScriptContext
-_0800AF24: .4byte gUnknown_03003AB0
+_0800AF24: .4byte gTestimony
 _0800AF28: .4byte gOamObjects
 
 	THUMB_FUNC_START sub_800AF2C
@@ -4087,7 +4087,7 @@ _0800AF4A:
 	strb r0, [r4, #1]
 	b _0800AFB2
 	.align 2, 0
-_0800AF64: .4byte gUnknown_03003AB0
+_0800AF64: .4byte gTestimony
 _0800AF68:
 	subs r0, #1
 	strb r0, [r4, #1]
@@ -4111,7 +4111,7 @@ _0800AF6E:
 	bl sub_800244C
 	b _0800AFB2
 	.align 2, 0
-_0800AF98: .4byte gUnknown_03003AB0
+_0800AF98: .4byte gTestimony
 _0800AF9C: .4byte 0x000018D0
 _0800AFA0: .4byte gUnknown_08427D88
 _0800AFA4:
@@ -4129,7 +4129,7 @@ _0800AFB2:
 	b _0800B024
 	.align 2, 0
 _0800AFBC: .4byte gCourtScroll
-_0800AFC0: .4byte gUnknown_03003AB0
+_0800AFC0: .4byte gTestimony
 _0800AFC4:
 	ldr r1, _0800AFFC
 	ldrb r0, [r1, #1]
@@ -4160,7 +4160,7 @@ _0800AFC4:
 	strb r4, [r0]
 	b _0800B012
 	.align 2, 0
-_0800AFFC: .4byte gUnknown_03003AB0
+_0800AFFC: .4byte gTestimony
 _0800B000: .4byte gScriptContext
 _0800B004: .4byte gMain
 _0800B008: .4byte gLCDIORegisters
@@ -4186,7 +4186,7 @@ _0800B024:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800B034: .4byte gUnknown_03003AB0
+_0800B034: .4byte gTestimony
 
 	THUMB_FUNC_START GameProcess09
 GameProcess09: @ 0x0800B038
@@ -5149,7 +5149,7 @@ _0800B7DA:
 	.align 2, 0
 _0800B7FC: .4byte gUnknown_0811DD64
 _0800B800: .4byte gUnknown_0811DF7C
-_0800B804: .4byte gUnknown_03003A50
+_0800B804: .4byte gInvestigation
 
 	THUMB_FUNC_START sub_800B808
 sub_800B808: @ 0x0800B808
@@ -5418,9 +5418,9 @@ _0800BA1C:
 	.align 2, 0
 _0800BA34: .4byte gLCDIORegisters
 _0800BA38: .4byte 0x040000D4
-_0800BA3C: .4byte gUnknown_03003AB0
+_0800BA3C: .4byte gTestimony
 _0800BA40: .4byte 0x81000004
-_0800BA44: .4byte gUnknown_03003A50
+_0800BA44: .4byte gInvestigation
 _0800BA48: .4byte 0x8100000C
 _0800BA4C: .4byte 0x00003D01
 _0800BA50: .4byte 0x00003FC7
@@ -6057,8 +6057,8 @@ _0800BF70:
 	.align 2, 0
 _0800BF7C: .4byte gOamObjects+0x130
 _0800BF80: .4byte 0x000040E0
-_0800BF84: .4byte gUnknown_03000800+0x40
-_0800BF88: .4byte gUnknown_03003A50
+_0800BF84: .4byte gAnimation+0x40
+_0800BF88: .4byte gInvestigation
 _0800BF8C: .4byte gUnknown_0811DD20
 
 	THUMB_FUNC_START sub_800BF90
@@ -6156,7 +6156,7 @@ _0800C028:
 	b _0800C324
 	.align 2, 0
 _0800C038: .4byte gOamObjects+0x2C0
-_0800C03C: .4byte gUnknown_03000800
+_0800C03C: .4byte gAnimation
 _0800C040: .4byte gJoypad
 _0800C044: .4byte gScriptContext
 _0800C048:
@@ -6536,7 +6536,7 @@ _0800C324:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800C330: .4byte gUnknown_03000800+0x40
+_0800C330: .4byte gAnimation+0x40
 
 	THUMB_FUNC_START sub_800C334
 sub_800C334: @ 0x0800C334
@@ -7407,7 +7407,7 @@ _0800C9BA:
 	.align 2, 0
 _0800C9D8: .4byte gTalkData
 _0800C9DC: .4byte gOamObjects+0x130
-_0800C9E0: .4byte gUnknown_03000800+0x4E
+_0800C9E0: .4byte gAnimation+0x4E
 _0800C9E4: .4byte 0x06013400
 _0800C9E8: .4byte gUnknown_0820816C
 _0800C9EC: .4byte 0x040000D4
@@ -7640,7 +7640,7 @@ _0800CBB4: .4byte gUnknown_081944E0
 _0800CBB8: .4byte 0x05000360
 _0800CBBC: .4byte 0x80000010
 _0800CBC0: .4byte gTalkData
-_0800CBC4: .4byte gUnknown_03000800+0x4E
+_0800CBC4: .4byte gAnimation+0x4E
 _0800CBC8: .4byte gJoypad
 _0800CBCC: .4byte gOamObjects
 _0800CBD0: .4byte gSaveDataBuffer+0x750
@@ -8257,7 +8257,7 @@ _0800D062:
 _0800D080: .4byte gOamObjects+0x130
 _0800D084: .4byte gOamObjects+0x198
 _0800D088: .4byte gTalkData
-_0800D08C: .4byte gUnknown_03000800+0x4E
+_0800D08C: .4byte gAnimation+0x4E
 _0800D090: .4byte 0x06013400
 _0800D094: .4byte gUnknown_0820816C
 _0800D098: .4byte 0x040000D4
@@ -8298,7 +8298,7 @@ _0800D0BA:
 	strb r0, [r3, #7]
 	b _0800D242
 	.align 2, 0
-_0800D0E8: .4byte gUnknown_03003A50
+_0800D0E8: .4byte gInvestigation
 _0800D0EC:
 	mov r5, sl
 	ldrb r5, [r5, #7]
@@ -8442,7 +8442,7 @@ _0800D1D0:
 	.align 2, 0
 _0800D1F0: .4byte gTalkData
 _0800D1F4: .4byte gOamObjects+0x130
-_0800D1F8: .4byte gUnknown_03000800+0x4E
+_0800D1F8: .4byte gAnimation+0x4E
 _0800D1FC: .4byte 0x06013400
 _0800D200: .4byte gUnknown_0820816C
 _0800D204: .4byte 0x040000D4
@@ -9163,7 +9163,7 @@ _0800D71A:
 	.align 2, 0
 _0800D748: .4byte gTalkData
 _0800D74C: .4byte gMain+0x8C
-_0800D750: .4byte gUnknown_03000800+0x4E
+_0800D750: .4byte gAnimation+0x4E
 _0800D754: .4byte gUnknown_0820816C
 _0800D758: .4byte 0x040000D4
 _0800D75C: .4byte 0x80000400
@@ -9654,7 +9654,7 @@ _0800DAE4:
 	ldr r0, _0800DB64
 	b _0800DBD6
 	.align 2, 0
-_0800DB50: .4byte gUnknown_03003AB0
+_0800DB50: .4byte gTestimony
 _0800DB54: .4byte gLCDIORegisters
 _0800DB58: .4byte 0x0000FDFF
 _0800DB5C: .4byte 0x0000FBFF
@@ -9790,7 +9790,7 @@ _0800DC3E:
 	strh r0, [r2, #4]
 	b _0800DD6A
 	.align 2, 0
-_0800DC6C: .4byte gUnknown_03003AB0
+_0800DC6C: .4byte gTestimony
 _0800DC70: .4byte gOamObjects+0x1B8
 _0800DC74: .4byte 0x000080BA
 _0800DC78: .4byte 0x00005590
@@ -9854,7 +9854,7 @@ _0800DC8E:
 _0800DCFC: .4byte gLCDIORegisters
 _0800DD00: .4byte 0x0000FBFF
 _0800DD04: .4byte gOamObjects
-_0800DD08: .4byte gUnknown_03003A50
+_0800DD08: .4byte gInvestigation
 _0800DD0C: .4byte gMain+0x4
 _0800DD10:
 	ands r2, r1
@@ -10663,7 +10663,7 @@ _0800E39C: .4byte gOamObjects
 _0800E3A0: .4byte 0x80000200
 _0800E3A4: .4byte gMapMarker
 _0800E3A8: .4byte 0x80000050
-_0800E3AC: .4byte gUnknown_03003AB0
+_0800E3AC: .4byte gTestimony
 _0800E3B0: .4byte gCourtRecord
 _0800E3B4:
 	ldrh r0, [r5, #0x28]
@@ -10905,7 +10905,7 @@ _0800E4EE:
 	strb r1, [r5, #7]
 	b _0800E6A6
 	.align 2, 0
-_0800E574: .4byte gUnknown_03003AB0
+_0800E574: .4byte gTestimony
 _0800E578: .4byte gUnknown_08018A6C
 _0800E57C: .4byte gUnknown_081B290C
 _0800E580: .4byte 0x040000D4
@@ -10972,7 +10972,7 @@ _0800E5CC:
 	bl ChangeScriptSection
 	b _0800E676
 	.align 2, 0
-_0800E610: .4byte gUnknown_03003A50
+_0800E610: .4byte gInvestigation
 _0800E614: .4byte gLCDIORegisters
 _0800E618: .4byte gScriptContext
 _0800E61C:
@@ -11257,7 +11257,7 @@ sub_800E828: @ 0x0800E828
 	b _0800E888
 	.align 2, 0
 _0800E860: .4byte gMain+0x4
-_0800E864: .4byte gUnknown_03003A50
+_0800E864: .4byte gInvestigation
 _0800E868:
 	ldrb r5, [r5, #5]
 	cmp r5, #8
@@ -11267,7 +11267,7 @@ _0800E868:
 	bl sub_800B7A8
 	b _0800E888
 	.align 2, 0
-_0800E878: .4byte gUnknown_03003A50
+_0800E878: .4byte gInvestigation
 _0800E87C:
 	cmp r1, #9
 	bne _0800E888
@@ -11285,7 +11285,7 @@ _0800E892:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800E898: .4byte gUnknown_03003A50
+_0800E898: .4byte gInvestigation
 _0800E89C: .4byte gScriptContext
 
 	THUMB_FUNC_START sub_800E8A0
@@ -12086,7 +12086,7 @@ _0800EEC4:
 	b _0800EEF6
 	.align 2, 0
 _0800EEE4: .4byte gUnknown_0811DC98
-_0800EEE8: .4byte gUnknown_03000800+0x4E
+_0800EEE8: .4byte gAnimation+0x4E
 _0800EEEC:
 	adds r1, #8
 	ldrb r0, [r1, #3]

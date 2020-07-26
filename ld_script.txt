@@ -58,13 +58,13 @@ SECTIONS {
         data/sound_data2.o(.rodata);
         src/agb_sram.o(.data); 
     } =0
+    /* capcom :^)) */
     . += 0x100;
     .data :
     ALIGN(4)
     {
         data/data_3.o(.data); /* these are all pointers */
     } =0
-    /* capcom :^)) */
     . = 0x8180000;
     gfx_data :
     ALIGN(4)
