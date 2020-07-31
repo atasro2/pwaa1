@@ -324,9 +324,48 @@ bool32 Command5C(struct ScriptContext *scriptCtx)
     return 0;
 }
 
+typedef u8 Glyph[256];
+struct FontRenderData {
+	struct NewTextBoxCharacter *saveCharCounter;
+	
+    Glyph const *arialGlyphsAddr;
+
+	u16 characterCode;
+	u16 xCol;
+	u16 yRow;
+	
+	s16 xOffset;	
+	u32 x;
+	u32 y;
+	u32 tileNum;
+	u32 tileXOfs; // Pixel offset into the current tile (0 thru 7)
+	u32 tileYOfs;
+
+	u32 oamBaseTile;
+	u32 oamNum;
+
+	u32 permanentXPos;
+
+	u32 fsBaseTile;
+	u32 fsBaseOamNum;
+	u32 fsCurLine;
+
+	bool8 oamNecessary;
+	bool8 shouldCenterText;
+	bool8 fsUsed;
+	
+	u8 soundCueCounter;
+	// ScriptContext *gameRamBase3; -- this is a pointer to gScriptContext
+};
+
+#define VWF_RENDERER ((struct FontRenderData *)(EWRAM_START+0x5000))
+
 bool32 Command5D(struct ScriptContext *scriptCtx)
 {
-    return 0;
+    scriptCtx->scriptPtr++;
+    VWF_RENDERER->shouldCenterText = *scriptCtx->scriptPtr;
+    scriptCtx->scriptPtr++;
+    return 1;
 }
 
 bool32 Command5E(struct ScriptContext *scriptCtx)
