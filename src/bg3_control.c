@@ -1,5 +1,5 @@
 #include "global.h"
-#include "constants/background.h"
+#include "constants/bg.h"
 #include "background.h"
 
 #include "data/background.h"

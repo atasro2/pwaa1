@@ -212,7 +212,7 @@ void ResetGameState()
     DmaFill16(3, 0, &gInvestigation, sizeof(gInvestigation));
     DmaFill16(3, 0, &gCourtRecord, sizeof(gCourtRecord));
     DmaFill16(3, 0, &gSaveDataBuffer, sizeof(gSaveDataBuffer));
-    main->rngSeed = 0xD37;
+    main->rngSeed = 3383;
     main->scenarioIdx = 0;
     main->unk8E = 1;
     lcdIoRegsp->lcd_bg0cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(28) | BGCNT_16COLOR | BGCNT_WRAP;                 // TODO: add TXT/AFF macro once known which one is used
@@ -242,29 +242,27 @@ void HideAllSprites()
 void SetLCDIORegs()
 {
     struct LCDIORegisters *lcdIoRegsp = &gLCDIORegisters;
-
     REG_IE = lcdIoRegsp->iwp_ie;
     REG_DISPSTAT = lcdIoRegsp->lcd_dispstat;
     REG_DISPCNT = lcdIoRegsp->lcd_dispcnt;
-    // TODO: make these better
-    (*(vu32 *)REG_ADDR_BG0CNT) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg0cnt);
-    (*(vu32 *)REG_ADDR_BG0HOFS) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg0hofs);
-    (*(vu32 *)REG_ADDR_BG1HOFS) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg1hofs);
-    (*(vu32 *)REG_ADDR_BG2CNT) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg2cnt);
-    (*(vu32 *)REG_ADDR_BG2HOFS) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg2hofs);
-    (*(vu32 *)REG_ADDR_BG3HOFS) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg3hofs);
-    (*(vu32 *)REG_ADDR_BG2PA) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg2pa);
-    (*(vu32 *)REG_ADDR_BG2PC) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg2pc);
+    DataCopy32(&REG_BG0CNT, &lcdIoRegsp->lcd_bg0cnt);
+    DataCopy32(&REG_BG0HOFS, &lcdIoRegsp->lcd_bg0hofs);
+    DataCopy32(&REG_BG1HOFS, &lcdIoRegsp->lcd_bg1hofs);
+    DataCopy32(&REG_BG2CNT, &lcdIoRegsp->lcd_bg2cnt);
+    DataCopy32(&REG_BG2HOFS, &lcdIoRegsp->lcd_bg2hofs);
+    DataCopy32(&REG_BG3HOFS, &lcdIoRegsp->lcd_bg3hofs);
+    DataCopy32(&REG_BG2PA, &lcdIoRegsp->lcd_bg2pa);
+    DataCopy32(&REG_BG2PC, &lcdIoRegsp->lcd_bg2pc);
     REG_BG2X = lcdIoRegsp->lcd_bg2x;
     REG_BG2Y = lcdIoRegsp->lcd_bg2y;
-    (*(vu32 *)REG_ADDR_BG3PA) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg3pa);
-    (*(vu32 *)REG_ADDR_BG3PC) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg3pc);
+    DataCopy32(&REG_BG3PA, &lcdIoRegsp->lcd_bg3pa);
+    DataCopy32(&REG_BG3PC, &lcdIoRegsp->lcd_bg3pc);
     REG_BG3X = lcdIoRegsp->lcd_bg3x;
     REG_BG3Y = lcdIoRegsp->lcd_bg3y;
-    (*(vu32 *)REG_ADDR_WIN0H) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_win0h);
-    (*(vu32 *)REG_ADDR_WIN0V) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_win0v);
-    (*(vu32 *)REG_ADDR_WININ) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_winin);
-    (*(vu32 *)REG_ADDR_MOSAIC) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_mosaic); // this writes to REG_BLDCNT when it shouldn't should theoretically just write 0
+    DataCopy32(&REG_WIN0H, &lcdIoRegsp->lcd_win0h);
+    DataCopy32(&REG_WIN0V, &lcdIoRegsp->lcd_win0v);
+    DataCopy32(&REG_WININ, &lcdIoRegsp->lcd_winin);
+    DataCopy32(&REG_MOSAIC, &lcdIoRegsp->lcd_mosaic); // this writes to REG_BLDCNT, it shouldn't, should theoretically just write 0.
     REG_BLDCNT = lcdIoRegsp->lcd_bldcnt;
     REG_BLDALPHA = lcdIoRegsp->lcd_bldalpha;
     REG_BLDY = lcdIoRegsp->lcd_bldy;

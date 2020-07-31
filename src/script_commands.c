@@ -3,7 +3,7 @@
 #include "script.h"
 #include "sound_control.h"
 #include "m4a.h"
-#include "constants/background.h"
+#include "constants/bg.h"
 #include "ewram.h"
 #include "background.h"
 
@@ -1052,7 +1052,7 @@ bool32 Command31(struct ScriptContext * scriptCtx)
     unk0 = *scriptCtx->scriptPtr;
     scriptCtx->scriptPtr++;
     unk1 = *scriptCtx->scriptPtr;
-    sub_80106A4(unk0, unk1);
+    //sub_80106A4(unk0, unk1);
     scriptCtx->scriptPtr++;
     return 0;
 }

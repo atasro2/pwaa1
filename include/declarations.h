@@ -22,6 +22,7 @@ extern u8 gTextboxDownArrowTileIndexes[8];
 extern u8 * gCourtScrollGfxPointers[3];
 extern struct Struct80187C8 gUnknown_080187C8[16];
 extern struct Struct8018DD4 gUnknown_08018DD4[];
+extern struct Struct8018F78 gUnknown_08018F78[];
 
 // 0x180000 onwards // GFX basically
 // maybe change to defines
@@ -71,6 +72,7 @@ void MoveSpritesToOAM();
 bool32 CheckPointInArea(struct Point * point, struct Point4 * area);
 void ChangeFlag(u32, u32, bool32);
 bool32 GetFlag(u32 arg0, u32 arg1);
+// ANIMATION SYSTEM
 struct AnimationStruct * sub_800F8BC(u32);
 void sub_800F9C4(struct AnimationStruct* arg0, u32 arg1, u32 arg2);
 void sub_800F9D0(struct AnimationStruct* arg1, u32 arg2);
@@ -82,6 +84,8 @@ void sub_800FB84(struct AnimationStruct* arg0, u32 arg1);
 void sub_800FBA0(struct AnimationStruct *, u32);
 struct AnimationStruct * sub_8010048(u32, u32, u32, u32);
 struct AnimationStruct * sub_80100A8(u32, u32, u32, u32, u32);
+struct AnimationStruct * sub_8010204(u32);
+struct AnimationStruct * sub_8010244(u32, s32, s32);
 // rom8007A0C
 u32 LoadSaveData();
 void CalculateSaveChecksum();
@@ -93,7 +97,9 @@ u32 CheckSaveChecksum();
 extern void sub_800D6C8(void);
 extern void sub_800D674(void);
 extern void sub_80020B0(u32);
-extern void sub_8010304(struct Struct2002650 *);
+struct Struct2002650 * sub_8010304(struct Struct2002650 *);
+struct Struct2002650 * sub_801042C(struct Struct2002650 *);
+struct AnimationStruct * sub_8010468(struct AnimationStructFieldC *, u32, u32);
 extern void sub_8002878(struct CourtRecord *);
 extern void sub_8010E14(s16);
 extern void sub_800EEFC(struct Main *);
@@ -104,10 +110,7 @@ extern s32 FindEvidenceInCourtRecord(u16, u32);
 extern s32 FindFirstEmptySlotInCourtRecord(u16);
 extern void sub_800ED68(struct CourtRecord *);
 extern void sub_8011108(u32, u32, u32, u32);
-extern void sub_801042C(struct Struct2002650 *);
-struct AnimationStruct * sub_8010468(struct Struct300080C *, u32, u32);
 extern void sub_8010960(struct AnimationStruct *);
-extern struct AnimationStruct * sub_8010204(u32);
 extern void sub_80106A4(u32, u32);
 extern u32 GetMapMarkerIndexFromId(u32);
 //EWRAM
@@ -129,6 +132,7 @@ extern struct ScriptContext gScriptContext;
 extern struct TestimonyStruct gTestimony; 
 extern struct ExaminationData gExaminationData[16];
 extern struct TextBoxCharacter gTextBoxCharacters[0x3F];
+extern u16 gObjPaletteBuffer[16][16];
 extern struct CourtScroll gCourtScroll;
 extern struct MusicPlayerInfo gMPlayInfo_BGM;
 extern struct MusicPlayerInfo gMPlayInfo_SE1;

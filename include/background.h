@@ -1,5 +1,5 @@
-#ifndef GUARD_BACKGROUNDS_H
-#define GUARD_BACKGROUNDS_H
+#ifndef GUARD_BACKGROUND_H
+#define GUARD_BACKGROUND_H
 
 struct Background
 {
@@ -21,4 +21,4 @@ extern void sub_800244C(u32);
 extern void sub_80024C8(u32, u32);
 extern void sub_80028B4(u32, u32);
 extern void UpdateBGTilemaps();
-#endif//GUARD_BACKGROUNDS_H
+#endif//GUARD_BACKGROUND_H

@@ -17,8 +17,15 @@
 #define ARRAY_COUNT(array) (size_t)(sizeof(array) / sizeof((array)[0]))
 #define MAX_OAM_OBJ_COUNT 128
 
-#define IO_REG_STRUCT_MEMBER(localBgStruct, field) \
-    *((u32 *) localBgStruct + (offsetof(struct LCDIORegisters, field) / 4)) \
+//#define IO_REG_STRUCT_MEMBER(localBgStruct, field) \
+//    *((vu32 *) localBgStruct + (offsetof(struct LCDIORegisters, field) / 4)) \
+
+#define DataCopy(src, dest, bit) \
+	*(vu##bit *)(src) = *(vu##bit *)(dest)
+
+#define DataCopy32(src, dest) DataCopy(src, dest, 32)
+#define DataCopy16(src, dest) DataCopy(src, dest, 16)
+#define DataCopy8(src, dest) DataCopy(src, dest, 8)
 
 #define SPRITE_ATTR0(y, affineMode, objMode, mosaic, bpp, shape) \
 	((y) + ((affineMode) << 8) + ((objMode) << 10) + ((mosaic) << 12) + ((bpp) << 13) + ((shape) << 14))

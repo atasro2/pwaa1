@@ -10,16 +10,26 @@ struct OamAttrs // why tho capcom there is already a struct called OamData that 
     u16 attr3;
 };
 
-struct Struct300080C
+struct AnimationFrame
+{
+    u16 spriteDataOffset; /* + 0x0 */
+    u8 frameDuration; /* + 0x2 */
+    u8 flags; /* + 03 */
+    u8 songId; /* + 0x4 */
+    u8 action; /* + 0x5 */
+    u8 filler6[2];
+};
+
+struct AnimationStructFieldC
 {
     u16 unk0;
-    u16 unk2;
+    u8 unk2[2];
     u16 xOrigin; /* + 0x4 */
     u16 yOrigin; /* + 0x6 */
-    u8 * unk8; 
+    u8 * animFrameDataStartPtr; /* + 0x8 */ 
     u8 * unkC;
-    u8 * unk10; // vram tile address
-    u8 * unk14;
+    u8 * vramPtr; // vram tile address
+    u8 * animGfxDataStartPtr; /* + 0x14 */
     u8 unk18;
     u8 unk19;
     u8 unk1A;
@@ -31,24 +41,13 @@ struct AnimationStruct
     u32 unk0;
     struct AnimationStruct * unk4;
     struct AnimationStruct * unk8;
-    u16 unkC;
-    u8 personId; /* + 0xE */ // was this originally a u16?
-    u16 xOrigin; /* + 0x10 */
-    u16 yOrigin; /* + 0x12 */
-    u8 * animFrameDataStartPtr;
-    u8 * unk18;
-    u8 * unk1C; // vram tile address
-    u8 * animGfxDataStartPtr;
-    u8 filler24[2];
-    u8 unk26;
-    u8 filler27[1];
-    u16 unk28;
+    struct AnimationStructFieldC unkC;
+    s16 frameDurationCounter;
     u8 filler2A[0x2];
-    u8 unk2C;
-    u8 filler2D[0x3];
+    u8 unk2C[4];
     u8 * unk30;
-    u8 * unk34;
-    u8 filler38[2];
+    struct AnimationFrame * frameData;
+    u16 tileNum; /* + 0x38 */
     u8 unk3A;
     u8 unk3B;
     s16 unk3C;
@@ -215,11 +214,17 @@ struct CourtScroll
 
 struct Struct2002650
 {
-    u8 filler0[0x8];
+    u16 unk0;
+    u8 unk2;
+    u8 unk3;
+    s16 xOrigin; /* + 0x4 */
+    s16 yOrigin; /* + 0x6 */
     u8 * unk8;
-    u8 fillerC[0x8];
+    u16 unkC;
+    u8 fillerE[0x2];
+    u8 unk10[4];
     u32 unk14;
-    u8 * unk18;
+    struct AnimationFrame * frameData;
 };
 
 struct Point 
@@ -255,6 +260,19 @@ struct Struct8018DD4
     u8* unk4;
     u16 unk8;
     u16 unkA;
+};
+
+struct Struct8018F78
+{
+    u8* unk0;
+    u8* vramPtr;
+    u8* unk8;
+    s16 xOrigin;
+    s16 yOrigin;
+    u8 unk10;
+    u8 unk11;
+    u8 unk12;
+    u8 unk13;
 };
 
 struct ExaminationData
