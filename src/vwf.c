@@ -233,6 +233,7 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 	renderer->characterCode = charCode;
 	renderer->xCol = x;
 	renderer->yRow = y;
+
 	if(renderer->xCol == 0 && renderer->shouldCenterText)
 	{
 		u32 charCode2;
@@ -251,9 +252,7 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 			{
 				charCode2 = token - 0x80;
 				if(charCode2 > 0x600)
-				{
 					stringWidth += gArialGlyphWidths[charCode2 - 0x6A0];
-				}
 			}
 			else if(token == 1 || token == 2 || token == 7 || token == 8 || token == 9 || token == 10 || token == 13 || token == 21 || token == 42 || token == 45 || token == 46 || token == 69)
 				break;
