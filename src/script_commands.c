@@ -1052,7 +1052,7 @@ bool32 Command31(struct ScriptContext * scriptCtx)
     unk0 = *scriptCtx->scriptPtr;
     scriptCtx->scriptPtr++;
     unk1 = *scriptCtx->scriptPtr;
-    //sub_80106A4(unk0, unk1);
+    sub_80106A4(unk0, unk1);
     scriptCtx->scriptPtr++;
     return 0;
 }
