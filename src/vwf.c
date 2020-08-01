@@ -2,7 +2,7 @@
 #include "script.h"
 #include "ewram.h"
 
-#define VWF_RENDERER (struct FontRenderData *)(EWRAM_START+0x5000)
+#define VWF_RENDERER ((struct FontRenderData *)(EWRAM_START+0x5000))
 #define VWF_CHARDATA (struct NewTextBoxCharacter *)(EWRAM_START+0x5080)
 
 static const u8 sCharCodeArgCount[] =
@@ -133,7 +133,7 @@ struct FontRenderData {
 	u32 fsCurLine;
 
 	bool8 oamNecessary;
-	bool8 shouldCenterText;
+	bool8 isReloading;
 	bool8 fsUsed;
 	
 	u8 soundCueCounter;
@@ -150,7 +150,7 @@ struct NewTextBoxCharacter {
 extern Glyph const gArialGlyphs[0xE0];
 extern u32 const gArialGlyphWidths[0xE0];
 
-#define DivRoundNearest(divisor, dividend) (((divisor) + ((dividend)/2)) / (dividend))
+#define DivRoundNearest(dividend, divisor) (((dividend) + ((divisor)/2)) / (divisor))
 
 void SaveVWFCharacters(void)
 {
@@ -186,7 +186,8 @@ void RedrawVWFCharactersFromSave(void)
 	u32 oldY = 0;
     struct NewTextBoxCharacter * nCharacters = (struct NewTextBoxCharacter *)&gSaveDataBuffer.textBoxCharacters;
 	DmaFill16(3, 0, gTextBoxCharacters, sizeof(gTextBoxCharacters));
-    if(gSaveDataBuffer.textBoxCharacters[0].state & 0x8000 || gSaveDataBuffer.textBoxCharacters[0].objAttr2 & 0x400)
+    VWF_RENDERER->isReloading = TRUE;
+	if(gSaveDataBuffer.textBoxCharacters[0].state & 0x8000 || gSaveDataBuffer.textBoxCharacters[0].objAttr2 & 0x400)
 	{
 		u8 * ptr = (u8 *)&gSaveDataBuffer.textBoxCharacters;
 		if(ptr[9] == 0 && ptr[10] == 0 && ptr[11] == 0)
@@ -196,6 +197,27 @@ void RedrawVWFCharactersFromSave(void)
 		gScriptContext.fullscreenTextX = 0;
 	while(nCharacters->charCode != 0xFFF)
     {
+		if(gSaveDataBuffer.scriptCtx.unk0 & 0x8000 && (nCharacters->xPos == 0 || oldY != nCharacters->yPos))
+		{
+			u32 stringWidth = 0;
+			struct NewTextBoxCharacter * oldnCharacters = nCharacters;
+			gScriptContext.unk0 |= 0x8000;
+			*(u32*)0x03007000 = 0x69696969;
+			oldY = nCharacters->yPos;
+			while(1)
+			{
+				if(nCharacters->charCode == 0xFFF || oldY != nCharacters->yPos)
+					break;
+				if(nCharacters->charCode > 0x600)
+					stringWidth += gArialGlyphWidths[nCharacters->charCode - 0x6A0];
+				oldY = nCharacters->yPos;
+				nCharacters++;
+			}
+			*(u32*)0x03007000 = stringWidth | 0x69000000;
+			VWF_RENDERER->xOffset = (DISPLAY_WIDTH/2) - DivRoundNearest(stringWidth, 2) - gSaveDataBuffer.scriptCtx.textXOffset;
+			nCharacters = oldnCharacters;
+			oldY = nCharacters->yPos;
+		}
 		if(nCharacters->yPos < 2)
 		{
 			if(gScriptContext.unk0 & 4)
@@ -215,6 +237,7 @@ void RedrawVWFCharactersFromSave(void)
         nCharacters++;
     }
     gScriptContext.textColor = oldColor;
+	VWF_RENDERER->isReloading = FALSE;
 }
 
 void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
@@ -233,40 +256,9 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 	renderer->characterCode = charCode;
 	renderer->xCol = x;
 	renderer->yRow = y;
-
-	if(renderer->xCol == 0 && renderer->shouldCenterText)
-	{
-		u32 charCode2;
-		u16 * oldScriptPtr; 
-		u32 stringWidth = 0;
-
-		renderer->xOffset = 0;
-
-		oldScriptPtr = ctx->scriptPtr;
-		while(1)
-		{
-			u32 token;
-			token = *ctx->scriptPtr;
-			ctx->scriptPtr++;
-			if(token >= 0x80)
-			{
-				charCode2 = token - 0x80;
-				if(charCode2 > 0x600)
-					stringWidth += gArialGlyphWidths[charCode2 - 0x6A0];
-			}
-			else if(token == 1 || token == 2 || token == 7 || token == 8 || token == 9 || token == 10 || token == 13 || token == 21 || token == 42 || token == 45 || token == 46 || token == 69)
-				break;
-			else
-				*ctx->scriptPtr += sCharCodeArgCount[token];
-		}
-		renderer->xOffset = (DISPLAY_WIDTH/2) - DivRoundNearest(stringWidth, 2) - ctx->textXOffset;
-		ctx->scriptPtr = oldScriptPtr;
-	}
-	else if(!renderer->shouldCenterText)
-		renderer->xOffset = 0;
 	
-    isCharSaveNeeded = !(gMain.process[GAME_PROCESS] == 0xA);
-    
+	isCharSaveNeeded = !(gMain.process[GAME_PROCESS] == 0xA);
+
     if (charCode < 0x600) {
         if (renderer->xCol == 0 || lineHasChanged) {
 		    if (renderer->yRow == 0) {
@@ -289,6 +281,37 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 	    }
         return;
 	}
+
+	if(!renderer->isReloading && renderer->xCol == 0 && ctx->unk0 & 0x8000)
+	{
+		u32 charCode2;
+		u16 * oldScriptPtr; 
+		u32 stringWidth = 0;
+
+		renderer->xOffset = 0;
+
+		oldScriptPtr = ctx->scriptPtr;
+		while(1)
+		{
+			u32 token;
+			token = *ctx->scriptPtr;
+			ctx->scriptPtr++;
+			if(token >= 0x80)
+			{
+				charCode2 = token - 0x80;
+				if(charCode2 > 0x600)
+					stringWidth += gArialGlyphWidths[charCode2 - 0x6A0];
+			}
+			else if(token == 1 || token == 2 || token == 7 || token == 8 || token == 9 || token == 10 || token == 13 || token == 21 || token == 42 || token == 45 || token == 46 || token == 69)
+				break;
+			else
+				ctx->scriptPtr += sCharCodeArgCount[token]; // skip command
+		}
+		renderer->xOffset = (DISPLAY_WIDTH/2) - DivRoundNearest(stringWidth, 2) - ctx->textXOffset;
+		ctx->scriptPtr = oldScriptPtr;
+	}
+	else if(!(ctx->unk0 & 0x8000))
+		renderer->xOffset = 0;
 	
 	processedCharCode = renderer->characterCode - 0x6A0;
 	
@@ -409,10 +432,10 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 	}
 	
 	renderer->permanentXPos += characterWidth;
-	
+
 	if ((renderer->characterCode == (0x720 - 0x80)))
 		ctx->currentToken = 0xFF; // old space - 0x80	
-	else if(ctx->textSpeed >= 2 && renderer->soundCueCounter <= 1)
+	else if(renderer->soundCueCounter == 0 || (ctx->textSpeed >= 2 && renderer->soundCueCounter <= 1))
 	{
 		renderer->soundCueCounter = 2;
 		ctx->soundCueSkip = 0;
@@ -424,5 +447,4 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 		ctx->soundCueSkip = 0xFF;
 		renderer->soundCueCounter--;
 	}
-		
 }

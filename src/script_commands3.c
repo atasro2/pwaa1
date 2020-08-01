@@ -363,9 +363,12 @@ struct FontRenderData {
 bool32 Command5D(struct ScriptContext *scriptCtx)
 {
     scriptCtx->scriptPtr++;
-    VWF_RENDERER->shouldCenterText = *scriptCtx->scriptPtr;
+    if(*scriptCtx->scriptPtr)
+        scriptCtx->unk0 |= 0x8000;
+    else
+        scriptCtx->unk0 &= ~0x8000;
     scriptCtx->scriptPtr++;
-    return 1;
+    return 0;
 }
 
 bool32 Command5E(struct ScriptContext *scriptCtx)
