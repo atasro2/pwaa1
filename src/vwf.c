@@ -221,6 +221,8 @@ void RedrawVWFCharactersFromSave(void)
 				nCharacters = oldnCharacters;
 				oldY = nCharacters->yPos;
 			}
+			else
+				gScriptContext.unk0 &= ~0x8000;
 		}
 		if(nCharacters->yPos < 2)
 		{
