@@ -210,14 +210,17 @@ void RedrawVWFCharactersFromSave(void)
 				while(1)
 				{
 					if(nCharacters->charCode == 0xFFF || oldY != nCharacters->yPos)
+					{
+						nCharacters--;
 						break;
+					}
 					if(nCharacters->charCode > 0x600)
 						stringWidth += gArialGlyphWidths[nCharacters->charCode - 0x6A0];
 					oldY = nCharacters->yPos;
 					nCharacters++;
 				}
 				*(u32*)0x03007000 = stringWidth | 0x69000000;
-				VWF_RENDERER->xOffset = (DISPLAY_WIDTH/2) - DivRoundNearest(stringWidth, 2) - gSaveDataBuffer.scriptCtx.textXOffset;
+				VWF_RENDERER->xOffset = (DISPLAY_WIDTH/2) - DivRoundNearest(stringWidth, 2) - ((nCharacters->yPos >= 2) ? (gSaveDataBuffer.scriptCtx.unk28 + 4) : gSaveDataBuffer.scriptCtx.textXOffset);
 				nCharacters = oldnCharacters;
 				oldY = nCharacters->yPos;
 			}
@@ -287,15 +290,13 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 	    }
         return;
 	}
-
-	if(!renderer->isReloading && renderer->xCol == 0 && ctx->unk0 & 0x8000)
+	if(!renderer->isReloading && (renderer->xCol == 0 || (renderer->yRow >= 2 && lineHasChanged)) && ctx->unk0 & 0x8000)
 	{
 		u32 charCode2;
 		u16 * oldScriptPtr; 
 		u32 stringWidth = 0;
-		
-		*(u16*)0x03007000 = renderer->yRow;
-		*(u16*)0x03007002 = renderer->xCol;
+		//*(u32*)0x03007000 = renderer->yRow;
+		//*(u32*)0x03007004 = renderer->xCol;
 
 		renderer->xOffset = 0;
 
@@ -316,12 +317,12 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 			else
 				ctx->scriptPtr += sCharCodeArgCount[token]; // skip command
 		}
-		renderer->xOffset = (DISPLAY_WIDTH/2) - DivRoundNearest(stringWidth, 2) - ctx->textXOffset;
+		renderer->xOffset = (DISPLAY_WIDTH/2) - DivRoundNearest(stringWidth, 2) - ((renderer->yRow >= 2) ? (ctx->unk28 + 4) : ctx->textXOffset);
 		ctx->scriptPtr = oldScriptPtr;
+		*(u32*)0x03007000 = stringWidth | 0x69000000;
 	}
 	else if(!(ctx->unk0 & 0x8000))
 		renderer->xOffset = 0;
-	
 	processedCharCode = renderer->characterCode - 0x6A0;
 	
 	if (renderer->xCol == 0 || lineHasChanged) {
