@@ -293,6 +293,9 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 		u32 charCode2;
 		u16 * oldScriptPtr; 
 		u32 stringWidth = 0;
+		
+		*(u16*)0x03007000 = renderer->yRow;
+		*(u16*)0x03007002 = renderer->xCol;
 
 		renderer->xOffset = 0;
 
