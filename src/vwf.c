@@ -141,16 +141,17 @@ struct FontRenderData {
 };
 
 struct NewTextBoxCharacter {
-    u16 charCode:12;
-    u16 color:4;
+	u16 charCode:12;
+	u16 color:4;
 	u8 xPos;
-	u8 yPos;
+	u8 yPos:7;
+	u8 shouldCenter:1;
 };
 
 extern Glyph const gArialGlyphs[0xE0];
 extern u32 const gArialGlyphWidths[0xE0];
 
-#define DivRoundNearest(dividend, divisor) (((dividend) + ((divisor)/2)) / (divisor))
+#define DivRoundNearest(divisor, dividend) (((divisor) + ((dividend)/2)) / (dividend))
 
 void SaveVWFCharacters(void)
 {
@@ -197,26 +198,29 @@ void RedrawVWFCharactersFromSave(void)
 		gScriptContext.fullscreenTextX = 0;
 	while(nCharacters->charCode != 0xFFF)
     {
-		if(gSaveDataBuffer.scriptCtx.unk0 & 0x8000 && (nCharacters->xPos == 0 || oldY != nCharacters->yPos))
+		if(nCharacters->xPos == 0 || oldY != nCharacters->yPos)
 		{
-			u32 stringWidth = 0;
-			struct NewTextBoxCharacter * oldnCharacters = nCharacters;
-			gScriptContext.unk0 |= 0x8000;
-			*(u32*)0x03007000 = 0x69696969;
-			oldY = nCharacters->yPos;
-			while(1)
+			if(gSaveDataBuffer.scriptCtx.unk0 & 0x8000 || nCharacters->shouldCenter)
 			{
-				if(nCharacters->charCode == 0xFFF || oldY != nCharacters->yPos)
-					break;
-				if(nCharacters->charCode > 0x600)
-					stringWidth += gArialGlyphWidths[nCharacters->charCode - 0x6A0];
+				u32 stringWidth = 0;
+				struct NewTextBoxCharacter * oldnCharacters = nCharacters;
+				gScriptContext.unk0 |= 0x8000;
+				*(u32*)0x03007000 = 0x69696969;
 				oldY = nCharacters->yPos;
-				nCharacters++;
+				while(1)
+				{
+					if(nCharacters->charCode == 0xFFF || oldY != nCharacters->yPos)
+						break;
+					if(nCharacters->charCode > 0x600)
+						stringWidth += gArialGlyphWidths[nCharacters->charCode - 0x6A0];
+					oldY = nCharacters->yPos;
+					nCharacters++;
+				}
+				*(u32*)0x03007000 = stringWidth | 0x69000000;
+				VWF_RENDERER->xOffset = (DISPLAY_WIDTH/2) - DivRoundNearest(stringWidth, 2) - gSaveDataBuffer.scriptCtx.textXOffset;
+				nCharacters = oldnCharacters;
+				oldY = nCharacters->yPos;
 			}
-			*(u32*)0x03007000 = stringWidth | 0x69000000;
-			VWF_RENDERER->xOffset = (DISPLAY_WIDTH/2) - DivRoundNearest(stringWidth, 2) - gSaveDataBuffer.scriptCtx.textXOffset;
-			nCharacters = oldnCharacters;
-			oldY = nCharacters->yPos;
 		}
 		if(nCharacters->yPos < 2)
 		{
@@ -318,11 +322,12 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 	if (renderer->xCol == 0 || lineHasChanged) {
 		renderer->permanentXPos = 0;
 		if (renderer->yRow == 0) {
-			renderer->soundCueCounter = 0;
+			//renderer->soundCueCounter = 0;
 			if (isCharSaveNeeded) {
 				renderer->saveCharCounter = newTBC;
 			}
 		}
+		renderer->saveCharCounter->shouldCenter = !!(ctx->unk0 & 0x8000);
 		if (renderer->yRow == 2) {
 			renderer->fsUsed = 1;
 			renderer->fsBaseTile = 128;
