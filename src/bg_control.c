@@ -82,20 +82,20 @@ void sub_800232C()
         }
         break;
     case 3:
-        gLCDIORegisters.lcd_bg1vofs += 4;
-        if(gLCDIORegisters.lcd_bg1vofs < (u16)-80u)
+        gIORegisters.lcd_bg1vofs += 4;
+        if(gIORegisters.lcd_bg1vofs < (u16)-80u)
         {
             gMain.advanceScriptContext = TRUE;
             gMain.showTextboxCharacters = TRUE;
-            gLCDIORegisters.lcd_bg1vofs = 0;
+            gIORegisters.lcd_bg1vofs = 0;
             scriptCtx->unk38 = 0;
         }
         break;
     case 4:
-        gLCDIORegisters.lcd_bg1vofs -= 4;
-        if(gLCDIORegisters.lcd_bg1vofs < (u16)-80u)
+        gIORegisters.lcd_bg1vofs -= 4;
+        if(gIORegisters.lcd_bg1vofs < (u16)-80u)
         {
-            gLCDIORegisters.lcd_dispcnt &= ~DISPCNT_BG1_ON;
+            gIORegisters.lcd_dispcnt &= ~DISPCNT_BG1_ON;
             scriptCtx->unk38 = 1;
         }
         break;
@@ -111,7 +111,7 @@ void sub_800244C(u32 unk0)
     {
         gScriptContext.unk38 = 3;
         gInvestigation.unkC = 3;
-        gLCDIORegisters.lcd_dispcnt |= DISPCNT_BG1_ON;
+        gIORegisters.lcd_dispcnt |= DISPCNT_BG1_ON;
         gBG1MapBuffer[622] = 9;
         gBG1MapBuffer[623] = 9;
     }

@@ -18,7 +18,7 @@
 #define MAX_OAM_OBJ_COUNT 128
 
 //#define IO_REG_STRUCT_MEMBER(localBgStruct, field) \
-//    *((vu32 *) localBgStruct + (offsetof(struct LCDIORegisters, field) / 4)) \
+//    *((vu32 *) localBgStruct + (offsetof(struct IORegisters, field) / 4)) \
 
 #define DataCopy(src, dest, bit) \
 	*(vu##bit *)(src) = *(vu##bit *)(dest)
@@ -39,6 +39,8 @@
 #define SPRITE_ATTR2(tileNum, priority, paletteNum) \
 	((tileNum) + ((priority) << 10) + ((paletteNum) << 12))
 	
+#define SPRITE_ATTR0_CLEAR SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE)
+
 #define GET_MAP_TILE_INDEX(tiley, tilex, yoff, xoff) ((tiley) * 32 + ((yoff) * 32) + ((tilex) + (xoff)))
 
 

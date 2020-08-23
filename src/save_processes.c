@@ -86,11 +86,11 @@ void ClearSaveProcess(struct Main *main)
         DmaCopy16(3, gUnknown_081964A8, OBJ_VRAM0 + 0x3C00, sizeof(gUnknown_081964A8));
         DmaCopy16(3, gUnknown_081FD92C, OBJ_PLTT + 0x120, sizeof(gUnknown_081FD92C));
         DmaCopy16(3, gTextPal, OBJ_PLTT, sizeof(gTextPal));
-        gLCDIORegisters.lcd_bg0cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(28) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
-        gLCDIORegisters.lcd_bg1cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(29) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
-        gLCDIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
+        gIORegisters.lcd_bg0cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(28) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
+        gIORegisters.lcd_bg1cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(29) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
+        gIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
         i = BGCNT_PRIORITY(3) | BGCNT_CHARBASE(1) | BGCNT_SCREENBASE(31) | BGCNT_MOSAIC | BGCNT_256COLOR | BGCNT_WRAP | BGCNT_TXT256x256; // scrub scrub CC!!11
-        gLCDIORegisters.lcd_bg3cnt = i;
+        gIORegisters.lcd_bg3cnt = i;
         sub_8001830(0x43);
         sub_8001A9C(0x43);
         for(i = 0; i < 0x400; i++)
@@ -98,10 +98,10 @@ void ClearSaveProcess(struct Main *main)
             gBG2MapBuffer[i] = 0;
         }
         sub_80024C8(6, 8);
-        gLCDIORegisters.lcd_dispcnt = DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON;
+        gIORegisters.lcd_dispcnt = DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON;
         main->tilemapUpdateBits = 0xC;
-        gLCDIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
-        gLCDIORegisters.lcd_bldy = 0x10;
+        gIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
+        gIORegisters.lcd_bldy = 0x10;
         main->selectedButton = 1;
         StartHardwareBlend(1, 1, 1, 0x1F);
         main->process[GAME_SUBPROCESS]++;
@@ -129,8 +129,8 @@ void ClearSaveProcess(struct Main *main)
                 main->blendCounter = 0;
                 main->blendDelay = 1;
                 main->blendDeltaY = 0x10;
-                gLCDIORegisters.lcd_bldcnt = BLDCNT_TGT2_BG3 | BLDCNT_EFFECT_BLEND;
-                gLCDIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0, main->blendDeltaY);
+                gIORegisters.lcd_bldcnt = BLDCNT_TGT2_BG3 | BLDCNT_EFFECT_BLEND;
+                gIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0, main->blendDeltaY);
                 main->process[GAME_SUBPROCESS]++;
             }
         }
@@ -174,7 +174,7 @@ void ClearSaveProcess(struct Main *main)
                     main->blendCounter = 0;
                     main->blendDeltaY--;
                 }
-                gLCDIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0x10-main->blendDeltaY, main->blendDeltaY);
+                gIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0x10-main->blendDeltaY, main->blendDeltaY);
             }
         }
         break;
@@ -211,7 +211,7 @@ void SaveGameInit1SubProcess(struct Main *main)
     DmaCopy16(3, gBG2MapBuffer, gSaveDataBuffer.bg2Map, sizeof(gBG2MapBuffer));
     DmaCopy16(3, gTextBoxCharacters, gSaveDataBuffer.textBoxCharacters, sizeof(gTextBoxCharacters));
     DmaCopy16(3, &gScriptContext, &gSaveDataBuffer.scriptCtx, sizeof(gScriptContext));
-    DmaCopy16(3, &gLCDIORegisters, &gSaveDataBuffer.ioRegs, sizeof(gLCDIORegisters));
+    DmaCopy16(3, &gIORegisters, &gSaveDataBuffer.ioRegs, sizeof(gIORegisters));
     DmaCopy16(3, gMapMarker, gSaveDataBuffer.mapMarker, sizeof(gMapMarker));
     for(i = 0; i < ARRAY_COUNT(gMapMarker); i++)
     {
@@ -246,20 +246,20 @@ void SaveGameInit2SubProcess(struct Main *main)
     oam = gOamObjects;
     for(i = 0; i < MAX_OAM_OBJ_COUNT; i++)
     {
-        oam++->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+        oam++->attr0 = SPRITE_ATTR0_CLEAR;
     }
     for(i = 0; i < ARRAY_COUNT(gBG2MapBuffer); i++)
     {
         gBG2MapBuffer[i] = 0;
     }
     sub_80024C8(6, 8);
-    gLCDIORegisters.lcd_dispcnt = DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON;
+    gIORegisters.lcd_dispcnt = DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON;
     main->tilemapUpdateBits = 0xC;
-    gLCDIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
-    gLCDIORegisters.lcd_bg3vofs = 8;
-    gLCDIORegisters.lcd_bg3hofs = 8;
-    gLCDIORegisters.lcd_bg1vofs = 0;
-    gLCDIORegisters.lcd_bg1hofs = 0;
+    gIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
+    gIORegisters.lcd_bg3vofs = 8;
+    gIORegisters.lcd_bg3hofs = 8;
+    gIORegisters.lcd_bg1vofs = 0;
+    gIORegisters.lcd_bg1hofs = 0;
     main->showTextboxCharacters = FALSE;
     StartHardwareBlend(1, 0, 1, 0x1F);
     main->process[GAME_SUBPROCESS]++;
@@ -291,8 +291,8 @@ void SaveGameInitButtonsSubProcess(struct Main *main)
         main->blendCounter = 0;
         main->blendDelay = 1;
         main->blendDeltaY = 0x10;
-        gLCDIORegisters.lcd_bldcnt = BLDCNT_EFFECT_BLEND | BLDCNT_TGT2_BG3;
-        gLCDIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0, main->blendDeltaY);
+        gIORegisters.lcd_bldcnt = BLDCNT_EFFECT_BLEND | BLDCNT_TGT2_BG3;
+        gIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0, main->blendDeltaY);
         if(main->sIsEpisodePartOver)
             main->selectedButton = 0;
         else
@@ -383,7 +383,7 @@ void SaveGameWaitForInputSubProcess(struct Main *main)
                 main->blendCounter = 0;
                 main->blendDeltaY--;
             }
-            gLCDIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0x10 - main->blendDeltaY, main->blendDeltaY);
+            gIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0x10 - main->blendDeltaY, main->blendDeltaY);
         }
     }
 }
@@ -424,7 +424,7 @@ void SaveGameExitSaveScreenSubProcess(struct Main *main)
     DmaCopy16(3, gSaveDataBuffer.textBoxCharacters, gTextBoxCharacters, sizeof(gTextBoxCharacters));
     RedrawTextboxCharacters();
     DmaCopy16(3, &gSaveDataBuffer.scriptCtx, &gScriptContext, sizeof(gScriptContext));
-    DmaCopy16(3, &gSaveDataBuffer.ioRegs, &gLCDIORegisters, sizeof(gLCDIORegisters));
+    DmaCopy16(3, &gSaveDataBuffer.ioRegs, &gIORegisters, sizeof(gIORegisters));
     DmaCopy16(3, gSaveDataBuffer.mapMarker, gMapMarker, sizeof(gMapMarker));
     DmaCopy16(3, gSaveDataBuffer.talkData, gTalkData, sizeof(gTalkData));
     main->advanceScriptContext = gSaveDataBuffer.main.advanceScriptContext;
@@ -473,7 +473,7 @@ void SaveGameSubProcess5(struct Main *main) // ! WHAT THE FUCK
         SET_PROCESS_PTR(12, 1, 0, var0, main);
         return;
     }
-    gLCDIORegisters.lcd_dispcnt = 0;
+    gIORegisters.lcd_dispcnt = 0;
     gScriptContext.currentSection = 0x80;
     SET_PROCESS_PTR(gUnknown_08014D70[main->scenarioIdx], 0, 0, 0, main);
 }
@@ -494,8 +494,8 @@ void sub_8008CC0(struct Main * main)
         main->blendCounter = 0;
         main->blendDelay = 1;
         main->blendDeltaY = 0x10;
-        gLCDIORegisters.lcd_bldcnt = BLDCNT_EFFECT_BLEND | BLDCNT_TGT2_BG3;
-        gLCDIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0, main->blendDeltaY);
+        gIORegisters.lcd_bldcnt = BLDCNT_EFFECT_BLEND | BLDCNT_TGT2_BG3;
+        gIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0, main->blendDeltaY);
         if(main->sIsEpisodePartOver)
             main->selectedButton = 0;
         else
@@ -505,9 +505,9 @@ void sub_8008CC0(struct Main * main)
     else
     {
         struct OamAttrs * oam = &gOamObjects[40];
-        oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+        oam->attr0 = SPRITE_ATTR0_CLEAR;
         oam++;
-        oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+        oam->attr0 = SPRITE_ATTR0_CLEAR;
     }
 }
 
@@ -524,9 +524,9 @@ void sub_8008D68(struct Main * main)
             main->process[GAME_SUBPROCESS] = 4;
         main->process[GAME_PROCESSUNK2] = 0;
         oam = &gOamObjects[40];
-        oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+        oam->attr0 = SPRITE_ATTR0_CLEAR;
         oam++;
-        oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+        oam->attr0 = SPRITE_ATTR0_CLEAR;
     }
     if(main->process[GAME_SUBPROCESS] == 7 && main->blendDeltaY <= 0xF)
     {
@@ -536,7 +536,7 @@ void sub_8008D68(struct Main * main)
             main->blendCounter = 0;
             main->blendDeltaY++;
         }
-        gLCDIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0x10 - main->blendDeltaY, main->blendDeltaY);
+        gIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0x10 - main->blendDeltaY, main->blendDeltaY);
     }
 }
 

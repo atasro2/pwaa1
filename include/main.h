@@ -91,7 +91,7 @@ struct Main
     u32 unk19C;
 };
 
-struct LCDIORegisters
+struct IORegisters
 {
     u16 lcd_bg0cnt;   /* + 0 */
     u16 lcd_bg1cnt;   /* + 2 */
@@ -135,7 +135,7 @@ struct LCDIORegisters
 
 extern struct Joypad gJoypad;
 extern struct Main gMain;
-extern struct LCDIORegisters gLCDIORegisters;
+extern struct IORegisters gIORegisters;
 
 #define GAME_PROCESS 0
 #define GAME_SUBPROCESS 1

@@ -32,7 +32,7 @@ void sub_800F84C()
                 struct OamAttrs* oam;
                 for (oam = &gOamObjects[animation->unk3A]; oam < &gOamObjects[animation->unk3B]; oam++)
                 {
-                    oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+                    oam->attr0 = SPRITE_ATTR0_CLEAR;
                 }
             }
         }
@@ -169,7 +169,7 @@ void sub_800FA74(struct AnimationStruct * animation, bool32 arg1)
             animation->unk0 |= 0x08000000;
             for(i = animation->unk3A; i < animation->unk3B; i++)
             {
-                gOamObjects[i].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+                gOamObjects[i].attr0 = SPRITE_ATTR0_CLEAR;
             }
         }
         if (animation->unkC.unk0 == 0xff && animation->unkC.unk2[0] == 0x16)
@@ -187,7 +187,7 @@ void sub_800FA74(struct AnimationStruct * animation, bool32 arg1)
                     animation->unk0 |= 0x08000000;
                     for(i = animation->unk3A; i < animation->unk3B; i++)
                     {
-                        gOamObjects[i].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+                        gOamObjects[i].attr0 = SPRITE_ATTR0_CLEAR;
                     }
                 }
             }
@@ -652,9 +652,8 @@ void sub_800FFB0(struct AnimationStruct * animation)
             return;
         }
         variwstruct800p = variwstruct800p->unk8;
-        if(variwstruct800p->unkC.unk1A >= animation->unkC.unk1A)
-            continue; // ! WTF? is this a do while()? couldn't match with one
-        break;
+        if(variwstruct800p->unkC.unk1A < animation->unkC.unk1A)
+            break; // ! WTF? is this a do while()? couldn't match with one
     }
     animation->unk4 = variwstruct800p->unk4;
     animation->unk8 = variwstruct800p;
@@ -996,4 +995,142 @@ void sub_80105FC(u32 xOffset, u32 yOffset)
         }
     }
     while((animation = animation->unk8) != NULL);
+}
+
+void StartAnimationBlend(u32 arg0, u32 arg1)
+{
+    struct AnimationStruct * animation = NULL;
+    struct AnimationStruct * animation2;
+    struct IORegisters * ioRegsp = &gIORegisters;
+    struct Main * main = &gMain;
+    if(arg0 & 0xFF00)
+    {
+        u32 animationId = arg0 >> 8;
+        arg0 &= 0xFF;
+        animation2 = sub_800F8BC(animationId);
+    }
+    else
+    {
+        animation2 = &gAnimation[1];
+    }
+
+    if(ioRegsp->lcd_bldy == 0x10 || (!(animation2->unk0 & 0x10000000) && !(arg0 & 2)))
+        return;
+
+    if(animation2->unkC.unk2[0] == 0x16)
+    {
+        animation = sub_800F8BC(0x17);
+        if(animation == NULL)
+            animation = sub_800F8BC(0x18);
+    }
+
+    if(arg0 & 1)
+    {
+        if((animation2->unk0 & 0x02000000) && !(animation2->unk0 & 0x4))
+            return;
+        animation2->unk0 &= ~0x0C000004;
+        if(animation != NULL)
+            animation->unk0 &= ~0x0C000004;
+        main->blendDeltaY = 0x10;
+    }
+    else if(arg0 & 4)
+    {
+        if((animation2->unk0 & 0x02000000) && (animation2->unk0 & 0x4))
+            return;       
+        animation2->unk0 |= 0x4;
+        if(animation != NULL)
+            animation->unk0 |= 0x4;
+        main->blendDeltaY = 0;
+        if(arg0 & (4 | 8))
+        {
+            animation2->unk0 |= 0x04000000;
+            if(animation != NULL)
+                animation->unk0 |= 0x04000000;
+        }
+    }
+    else
+    {
+        return;
+    }
+    animation2->unk0 |= (0x20000000 | 0x2000000);
+    if(animation != NULL)
+        animation->unk0 |= (0x20000000 | 0x2000000);
+    main->blendDelay = arg1;
+    main->blendCounter = 0;
+    ioRegsp->lcd_bldcnt =  BLDCNT_EFFECT_BLEND | BLDCNT_TGT2_BG3;
+    ioRegsp->lcd_bldalpha = BLDALPHA_BLEND(0x10 - main->blendDeltaY, main->blendDeltaY);
+    REG_BLDCNT = ioRegsp->lcd_bldcnt;
+    REG_BLDALPHA = ioRegsp->lcd_bldalpha;
+}
+
+void UpdateAnimationBlend(struct AnimationStruct * animation)
+{
+    struct Main * main = &gMain;
+    struct IORegisters * ioRegsp = &gIORegisters;
+    struct AnimationStruct * animation2 = NULL;
+    if(main->blendMode)
+    {
+        animation->unk0 &= ~0x2000000;
+        return;
+    }
+
+    if(animation->unkC.unk2[0] == 0x16)
+    {
+        animation2 = sub_800F8BC(0x17);
+        if(animation2 == NULL)
+            animation2 = sub_800F8BC(0x18);
+    }
+
+    if(++main->blendCounter >= main->blendDelay) 
+    {
+        main->blendCounter = 0;
+        if(animation->unk0 & 4)
+        {
+            main->blendDeltaY++;
+            if(main->blendDeltaY == 0x10)
+            {
+                ioRegsp->lcd_bldcnt = BLDCNT_TGT1_BG1 | BLDCNT_EFFECT_BLEND | BLDCNT_TGT2_BG3 | BLDCNT_TGT2_OBJ;
+                ioRegsp->lcd_bldalpha = BLDALPHA_BLEND(0x1F, 0x7);
+                animation->unk0 &= ~0x2000000;
+                if(animation->unk0 & 0x04000000)
+                {
+                    sub_800FA74(animation, 0);
+                    if(animation2 != NULL)
+                        sub_800FA74(animation2, 0);
+                    return;
+                }
+                sub_8010960(animation);
+                if(animation2 != NULL)
+                    sub_8010960(animation2);
+                return;
+            }
+        }
+        else
+        {
+            main->blendDeltaY--;
+            if(main->blendDeltaY == 0)
+            {
+                ioRegsp->lcd_bldcnt = BLDCNT_TGT1_BG1 | BLDCNT_EFFECT_BLEND | BLDCNT_TGT2_BG3 | BLDCNT_TGT2_OBJ;
+                ioRegsp->lcd_bldalpha = BLDALPHA_BLEND(0x1F, 0x7);
+                animation->unk0 &= ~0x2000000;
+                if(animation2 != NULL)
+                    animation2->unk0 &= ~0x2000000;
+                return;
+            }
+        }
+    }
+    ioRegsp->lcd_bldalpha = BLDALPHA_BLEND(0x10-main->blendDeltaY, main->blendDeltaY);
+}
+
+void sub_8010928()
+{
+    struct AnimationStruct * animation = gAnimation;
+
+    for(; animation < &gAnimation[ARRAY_COUNT(gAnimation)]; animation++)
+    {
+        if(animation->unk0 & 0x10000000)
+        {
+            animation->unk0 |= (0x20000000 | 0x40000000);
+        }
+    }
 }

@@ -96,7 +96,7 @@ void InitScriptSection(struct ScriptContext *scriptCtx)
         gMapMarker[i].id |= 0xFF;
         gMapMarker[i].isBlinking = 0;
         gMapMarker[i].unk5 = 0;
-        gMapMarker[i].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+        gMapMarker[i].attr0 = SPRITE_ATTR0_CLEAR;
     }
 }
 
@@ -491,7 +491,7 @@ void DrawTextAndMapMarkers(struct ScriptContext * scriptCtx)
                     gMapMarker[i].blinkTimer++;
                     gMapMarker[i].blinkTimer &= 0x1F;
                     if (gMapMarker[i].blinkTimer < 16)
-                        oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+                        oam->attr0 = SPRITE_ATTR0_CLEAR;
                 }
                 if(gMapMarker[i].unk5 & 0x2)
                 {
@@ -540,12 +540,12 @@ void DrawTextAndMapMarkers(struct ScriptContext * scriptCtx)
                     }
                 }
                 if(gMapMarker[i].unk5 & 0x4)
-                    oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+                    oam->attr0 = SPRITE_ATTR0_CLEAR;
                 oam++;
             }
             else
             {
-                oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+                oam->attr0 = SPRITE_ATTR0_CLEAR;
                 oam++;
             }
         }
@@ -565,7 +565,7 @@ void DrawTextAndMapMarkers(struct ScriptContext * scriptCtx)
                 oam->attr2 = gTextBoxCharacters[i].objAttr2;
             }
             else
-                oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+                oam->attr0 = SPRITE_ATTR0_CLEAR;
             oam++;
         }   
         if(scriptCtx->unk0 & 0x4)
@@ -580,7 +580,7 @@ void DrawTextAndMapMarkers(struct ScriptContext * scriptCtx)
                     oam->attr2 = gTextBoxCharacters[i].objAttr2;
                 }
                 else
-                    oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+                    oam->attr0 = SPRITE_ATTR0_CLEAR;
                 oam++;
             }
         }
@@ -590,7 +590,7 @@ void DrawTextAndMapMarkers(struct ScriptContext * scriptCtx)
         oam = &gOamObjects[0x2];
         for(i = 0; i < 32; i++)
         {
-            oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+            oam->attr0 = SPRITE_ATTR0_CLEAR;
             oam++;
         }
         if(scriptCtx->unk0 & 0x4)
@@ -598,7 +598,7 @@ void DrawTextAndMapMarkers(struct ScriptContext * scriptCtx)
             oam = &gOamObjects[57];
             for(i = 32; i < ARRAY_COUNT(gTextBoxCharacters); i++)
             {
-                oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+                oam->attr0 = SPRITE_ATTR0_CLEAR;
                 oam++;
             }
         }

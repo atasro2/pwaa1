@@ -42,7 +42,7 @@ struct AnimationStruct
     struct AnimationStruct * unk4;
     struct AnimationStruct * unk8;
     struct AnimationStructFieldC unkC;
-    s16 frameDurationCounter;
+    s16 frameDurationCounter; /* + 0x28 */
     u8 filler2A[0x2];
     u8 unk2C[4];
     u8 * unk30;
@@ -288,7 +288,7 @@ struct SaveData
     char saveDataVer[0x30]; /* + 0x0 */
     u32 magic;         /* + 0x30 */
     struct Main main; /* + 0x34 */
-    struct LCDIORegisters ioRegs; /* + 0x1D4 */
+    struct IORegisters ioRegs; /* + 0x1D4 */
     struct ScriptContext scriptCtx; /* + 0x228 */
     struct CourtRecord courtRecord; /* + 0x268 */
     struct CourtScroll courtScroll;  /* + 0x2C0 */

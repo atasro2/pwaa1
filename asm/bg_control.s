@@ -447,7 +447,7 @@ _080028A0:
 	.align 2, 0
 _080028A8: .4byte gMain
 _080028AC: .4byte gUnknown_0811DBF0
-_080028B0: .4byte gLCDIORegisters
+_080028B0: .4byte gIORegisters
 
 	THUMB_FUNC_START sub_80028B4
 sub_80028B4: @ 0x080028B4

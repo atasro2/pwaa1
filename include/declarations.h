@@ -111,7 +111,7 @@ extern s32 FindFirstEmptySlotInCourtRecord(u16);
 extern void sub_800ED68(struct CourtRecord *);
 extern void sub_8011108(u32, u32, u32, u32);
 extern void sub_8010960(struct AnimationStruct *);
-extern void sub_80106A4(u32, u32);
+extern void StartAnimationBlend(u32, u32);
 extern u32 GetMapMarkerIndexFromId(u32);
 //EWRAM
 // fuck capcom

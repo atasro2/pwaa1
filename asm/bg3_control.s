@@ -1362,7 +1362,7 @@ _08001452:
 	b _08001738
 	.align 2, 0
 _08001484: .4byte gMain
-_08001488: .4byte gLCDIORegisters
+_08001488: .4byte gIORegisters
 _0800148C: .4byte gCourtScroll
 _08001490: .4byte 0x0000FF7F
 _08001494: .4byte 0x00004B20
@@ -2128,7 +2128,7 @@ _08001A1A:
 	bx r0
 	.align 2, 0
 _08001A54: .4byte gMain
-_08001A58: .4byte gLCDIORegisters
+_08001A58: .4byte gIORegisters
 _08001A5C: .4byte gUnknown_083698B8
 _08001A60: .4byte 0x040000D4
 _08001A64: .4byte 0x05000040
@@ -2167,7 +2167,7 @@ sub_8001A9C: @ 0x08001A9C
 	b _08002088
 	.align 2, 0
 _08001AC0: .4byte gMain
-_08001AC4: .4byte gLCDIORegisters
+_08001AC4: .4byte gIORegisters
 _08001AC8:
 	movs r0, #0
 	bl sub_8010C4C
@@ -2529,7 +2529,7 @@ _08001D8C:
 	.align 2, 0
 _08001DBC: .4byte 0x040000D4
 _08001DC0: .4byte 0x80000100
-_08001DC4: .4byte gLCDIORegisters+0x4A
+_08001DC4: .4byte gIORegisters+0x4A
 _08001DC8: .4byte gBGDecompBuffer
 _08001DCC: .4byte gUnknown_08014570
 _08001DD0: .4byte gBG3MapBuffer

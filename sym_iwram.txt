@@ -10,7 +10,7 @@
 . = 0x00002F20; gBG0MapBuffer = .;
 . = 0x00003720; gJoypad = .;
 . = 0x00003730; gMain = .;
-. = 0x000038D0; gLCDIORegisters = .;
+. = 0x000038D0; gIORegisters = .;
 . = 0x00003930; gMapMarker = .;
 . = 0x000039D0; gTextColorTileBuffer = .;
 . = 0x00003A50; gInvestigation = .;

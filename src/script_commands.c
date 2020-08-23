@@ -226,7 +226,7 @@ bool32 Command08(struct ScriptContext * scriptCtx)
     }
     if(gMain.process[GAME_PROCESS] == 7)
     {
-        gOamObjects[88].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+        gOamObjects[88].attr0 = SPRITE_ATTR0_CLEAR;
         return TRUE;
     }
     if(scriptCtx->unk35 > 0)
@@ -276,8 +276,8 @@ bool32 Command08(struct ScriptContext * scriptCtx)
             for(i = 0; i < 32; i++)
                 gTextBoxCharacters[i].state &= ~0x8000;
             for(i = 57; i < 88; i++)
-                gOamObjects[i].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
-            gOamObjects[88].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+                gOamObjects[i].attr0 = SPRITE_ATTR0_CLEAR;
+            gOamObjects[88].attr0 = SPRITE_ATTR0_CLEAR;
             return FALSE;
         }
     }
@@ -304,7 +304,7 @@ bool32 Command09(struct ScriptContext * scriptCtx)
     }
     if(gMain.process[GAME_PROCESS] == 7)
     {
-        gOamObjects[88].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+        gOamObjects[88].attr0 = SPRITE_ATTR0_CLEAR;
         return TRUE;
     }
     if(scriptCtx->unk35 > 0)
@@ -356,8 +356,8 @@ bool32 Command09(struct ScriptContext * scriptCtx)
             for(i = 0; i < 32; i++)
                 gTextBoxCharacters[i].state &= ~0x8000;
             for(i = 57; i < 88; i++)
-                gOamObjects[i].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
-            gOamObjects[88].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+                gOamObjects[i].attr0 = SPRITE_ATTR0_CLEAR;
+            gOamObjects[88].attr0 = SPRITE_ATTR0_CLEAR;
             return FALSE;
         }
     }
@@ -685,13 +685,13 @@ u32 Command1C(struct ScriptContext * scriptCtx)
     {
         case 0: // enable textbox
             gMain.showTextboxCharacters = TRUE;
-            gLCDIORegisters.lcd_dispcnt |= DISPCNT_BG1_ON;
-            gLCDIORegisters.lcd_bg1vofs = 0;
+            gIORegisters.lcd_dispcnt |= DISPCNT_BG1_ON;
+            gIORegisters.lcd_bg1vofs = 0;
             break;
         case 1: // disable textbox
             gMain.showTextboxCharacters = FALSE;
-            gLCDIORegisters.lcd_dispcnt &= ~DISPCNT_BG1_ON;
-            gLCDIORegisters.lcd_bg1vofs = 0;
+            gIORegisters.lcd_dispcnt &= ~DISPCNT_BG1_ON;
+            gIORegisters.lcd_bg1vofs = 0;
             break;
         case 2:
             if(gMain.process[GAME_PROCESS] == 3)
@@ -801,13 +801,13 @@ u32 Command1F(struct ScriptContext * scriptCtx)
     u32 i;
     u16 * tilemapBuffer;
     scriptCtx->scriptPtr++;
-    gLCDIORegisters.lcd_dispcnt &= ~DISPCNT_BG2_ON;
+    gIORegisters.lcd_dispcnt &= ~DISPCNT_BG2_ON;
     tilemapBuffer = gBG2MapBuffer;
     for(i = 0; i < 0x2A0; i++, tilemapBuffer++)
     {
        *tilemapBuffer = 0;
     }
-    gLCDIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP; // TODO: add TXT/AFF macro once known which one is used
+    gIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP; // TODO: add TXT/AFF macro once known which one is used
     scriptCtx->unk0 &= ~0x40;
     return 0;
 }
@@ -921,7 +921,7 @@ bool32 Command29(struct ScriptContext * scriptCtx)
         gTestimony.unk2 = 0xE0;
         gTestimony.unk3 = 0xE0;
         gTestimony.unk0 = 2;
-        gLCDIORegisters.lcd_dispcnt &= ~DISPCNT_BG1_ON;
+        gIORegisters.lcd_dispcnt &= ~DISPCNT_BG1_ON;
     }
     else if(*scriptCtx->scriptPtr == 2)
     {
@@ -931,11 +931,11 @@ bool32 Command29(struct ScriptContext * scriptCtx)
         gTestimony.unk2 = 0xE0;
         gTestimony.unk3 = 0xE0;
         gTestimony.unk0 = 0;
-        gLCDIORegisters.lcd_dispcnt |= DISPCNT_BG1_ON;
+        gIORegisters.lcd_dispcnt |= DISPCNT_BG1_ON;
         oam = &gOamObjects[35];
         for(i = 0; i < 5; oam++, i++)
         {
-            oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
+            oam->attr0 = SPRITE_ATTR0_CLEAR;
         }
     }
     else if(*scriptCtx->scriptPtr != 0)
@@ -1052,7 +1052,7 @@ bool32 Command31(struct ScriptContext * scriptCtx)
     unk0 = *scriptCtx->scriptPtr;
     scriptCtx->scriptPtr++;
     unk1 = *scriptCtx->scriptPtr;
-    sub_80106A4(unk0, unk1);
+    StartAnimationBlend(unk0, unk1);
     scriptCtx->scriptPtr++;
     return 0;
 }
