@@ -105,8 +105,9 @@ static const u8 sCharCodeArgCount[] =
 	0
 };
 
-typedef u8 Glyph[256]; // The font in the translation is 8bpp
-
+// the next comment is lying the font is 4bpp
+typedef u8 Glyph[128]; // The font in the translation is 8bpp.... ~~Not anymore there is a blanket~~
+// typedef u8 Glyph[256];
 struct FontRenderData {
 	struct NewTextBoxCharacter *saveCharCounter;
 	
@@ -150,6 +151,7 @@ struct NewTextBoxCharacter {
 
 extern Glyph const gArialGlyphs[0xE0];
 extern u32 const gArialGlyphWidths[0xE0];
+extern Glyph const gArialGlyphs4bpp[0xE0];
 
 #define DivRoundNearest(divisor, dividend) (((divisor) + ((dividend)/2)) / (dividend))
 
@@ -267,7 +269,7 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 	renderer->yRow = y;
 	
 	isCharSaveNeeded = !(gMain.process[GAME_PROCESS] == 0xA);
-
+	/*
     if (charCode < 0x600) {
         if (renderer->xCol == 0 || lineHasChanged) {
 		    if (renderer->yRow == 0) {
@@ -290,6 +292,7 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 	    }
         return;
 	}
+	*/
 	if(!renderer->isReloading && (renderer->xCol == 0 || (renderer->yRow >= 2 && lineHasChanged)) && ctx->unk0 & 0x8000)
 	{
 		u32 charCode2;
@@ -311,6 +314,8 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 				charCode2 = token - 0x80;
 				if(charCode2 > 0x600)
 					stringWidth += gArialGlyphWidths[charCode2 - 0x6A0];
+				else
+					stringWidth += 14;
 			}
 			else if(token == 1 || token == 2 || token == 7 || token == 8 || token == 9 || token == 10 || token == 13 || token == 21 || token == 42 || token == 45 || token == 46 || token == 69)
 				break;
@@ -349,9 +354,16 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 	}
     
 	renderer->oamNecessary = 0;
-	renderer->arialGlyphsAddr = &(gArialGlyphs[processedCharCode]);
-	characterWidth = gArialGlyphWidths[processedCharCode];
-	
+	if (charCode >= 0x600) 
+	{
+		renderer->arialGlyphsAddr = &gArialGlyphs4bpp[processedCharCode];
+		characterWidth = gArialGlyphWidths[processedCharCode];
+	}
+	else
+	{
+		renderer->arialGlyphsAddr = (const Glyph *)&gCharSet[charCode];
+		characterWidth = 14;
+	}
 	if (isCharSaveNeeded) {
 		renderer->saveCharCounter->charCode = renderer->characterCode;
 		renderer->saveCharCounter->xPos = renderer->xCol;
@@ -375,6 +387,7 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 			u32 *vram;
 			u8 pixel;
 			u16 numBitsIntoTile;
+			u32 index;
 			
 			if (renderer->yRow >= 2) {
 				tileNum = renderer->fsBaseTile;
@@ -407,12 +420,17 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 			
 			// Write to VRAM
 			vram = (u32*)(OBJ_VRAM0 + renderer->tileNum*32 + renderer->tileYOfs*4);
-			pixel = (*renderer->arialGlyphsAddr)[y*16 + (x - renderer->permanentXPos)];
+			index = ((y&7)*8 + ((y>>3)<<7) + ((x - renderer->permanentXPos)&7) + (((x - renderer->permanentXPos)>>3)<<6));
+			index >>= 1;
+			if(((x - renderer->permanentXPos) & 1) == 0)
+				pixel = (*renderer->arialGlyphsAddr)[index] & 0xF;
+			else
+				pixel = ((*renderer->arialGlyphsAddr)[index] & 0xF0) >> 4;
 			numBitsIntoTile = renderer->tileXOfs*4;
 			// Clear the existing pixel
 			*vram &= ~(0xF << numBitsIntoTile);
 			if (pixel != 0) {
-				*vram |= ((ctx->textColor & 0xF) * 3 + 3) << numBitsIntoTile;
+				*vram |= (ctx->textColor * 3 + pixel) << numBitsIntoTile;
 			}
 		}
 	}
@@ -459,3 +477,4 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 		renderer->soundCueCounter--;
 	}
 }
+

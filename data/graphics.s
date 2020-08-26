@@ -3070,3 +3070,7 @@ gArialGlyphs:
 	.global gArialGlyphWidths
 gArialGlyphWidths:
 	.incbin "data/arialmetrics.bin"
+	.align 4
+	.global gArialGlyphs4bpp
+gArialGlyphs4bpp:
+	.incbin "data/arialglyphs.4bpp"
