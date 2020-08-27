@@ -52,7 +52,7 @@ struct Main
     u8 unk2F;
     u16 unk30;
     u16 unk32;
-    u16 frameData;
+    u16 unk34;
     u16 unk36;
     u16 unk38;
     u16 unk3A; 

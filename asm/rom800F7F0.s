@@ -1,121 +1,6 @@
 	.include "asm/macros.inc"
 	.syntax unified
 
-	THUMB_FUNC_START sub_8010960
-sub_8010960: @ 0x08010960
-	push {r4, r5, r6, r7, lr}
-	adds r4, r0, #0
-	ldr r6, _08010A30
-	cmp r4, #0
-	beq _08010A28
-	ldr r0, [r4, #0xc]
-	ldr r1, _08010A34
-	ands r0, r1
-	ldr r1, _08010A38
-	cmp r0, r1
-	bne _08010992
-	movs r0, #0x17
-	bl sub_800F8BC
-	cmp r0, #0
-	beq _08010984
-	bl sub_8010960
-_08010984:
-	movs r0, #0x18
-	bl sub_800F8BC
-	cmp r0, #0
-	beq _08010992
-	bl sub_8010960
-_08010992:
-	ldr r0, [r4]
-	movs r1, #0x80
-	lsls r1, r1, #0x15
-	ands r0, r1
-	cmp r0, #0
-	beq _08010A28
-	adds r0, r4, #0
-	adds r0, #0x3a
-	ldrb r0, [r0]
-	lsls r0, r0, #3
-	ldr r3, _08010A3C
-	adds r1, r0, r3
-	adds r2, r4, #0
-	adds r2, #0x3b
-	ldrb r5, [r2]
-	lsls r0, r5, #3
-	adds r0, r0, r3
-	cmp r1, r0
-	bhs _080109CA
-	movs r5, #0x80
-	lsls r5, r5, #2
-_080109BC:
-	strh r5, [r1]
-	adds r1, #8
-	ldrb r7, [r2]
-	lsls r0, r7, #3
-	adds r0, r0, r3
-	cmp r1, r0
-	blo _080109BC
-_080109CA:
-	movs r0, #4
-	movs r1, #0
-	ldrb r2, [r6, #0x1f]
-	orrs r0, r2
-	strb r0, [r6, #0x1f]
-	str r1, [r4]
-	ldr r1, [r4, #4]
-	ldr r0, [r4, #8]
-	str r0, [r1, #8]
-	ldr r1, [r4, #8]
-	ldr r0, [r4, #4]
-	str r0, [r1, #4]
-	ldrh r3, [r4, #0xc]
-	cmp r3, #0xff
-	beq _08010A28
-	adds r2, r4, #0
-	adds r2, #0x24
-	ldrb r5, [r2]
-	cmp r5, #9
-	bhi _08010A28
-	adds r1, r5, #0
-	subs r1, #6
-	movs r0, #1
-	lsls r0, r1
-	ldrb r7, [r6, #0x1e]
-	bics r7, r0
-	adds r0, r7, #0
-	strb r0, [r6, #0x1e]
-	lsls r1, r1, #5
-	ldr r0, _08010A40
-	adds r3, r1, r0
-	ldrb r2, [r2]
-	lsls r1, r2, #5
-	ldr r0, _08010A44
-	adds r1, r1, r0
-	ldr r0, [r4, #0x20]
-	ldr r0, [r0]
-	lsls r0, r0, #5
-	ldr r2, _08010A48
-	str r3, [r2]
-	str r1, [r2, #4]
-	lsrs r0, r0, #1
-	movs r1, #0x80
-	lsls r1, r1, #0x18
-	orrs r0, r1
-	str r0, [r2, #8]
-	ldr r0, [r2, #8]
-_08010A28:
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08010A30: .4byte gMain
-_08010A34: .4byte 0x00FFFFFF
-_08010A38: .4byte 0x001600FF
-_08010A3C: .4byte gOamObjects
-_08010A40: .4byte gObjPaletteBuffer
-_08010A44: .4byte 0x05000200
-_08010A48: .4byte 0x040000D4
-
 	THUMB_FUNC_START sub_8010A4C
 sub_8010A4C: @ 0x08010A4C
 	push {r4, r5, r6, r7, lr}
@@ -272,7 +157,7 @@ _08010B3E:
 	adds r1, r3, #0
 	b _08010BA0
 	.align 2, 0
-_08010B70: .4byte gBG0MapBuffer
+_08010B70: .4byte gOamObjects+0x400
 _08010B74: .4byte gAnimation
 _08010B78: .4byte gMain
 _08010B7C: .4byte 0x00000FFF

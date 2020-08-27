@@ -405,7 +405,7 @@ void SaveGameExitSaveScreenSubProcess(struct Main *main)
     main->unk2F = gSaveDataBuffer.main.unk2F;
     main->unk30 = gSaveDataBuffer.main.unk30;
     main->unk32 = gSaveDataBuffer.main.unk32;
-    main->frameData = gSaveDataBuffer.main.frameData;
+    main->unk34 = gSaveDataBuffer.main.unk34;
     main->unk36 = gSaveDataBuffer.main.unk36;
     main->unk38 = gSaveDataBuffer.main.unk38;
     main->unk3A = gSaveDataBuffer.main.unk3A;
