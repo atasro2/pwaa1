@@ -36,7 +36,6 @@ SECTIONS {
         asm/rom8008DF4.o(.text);
         src/sound_control.o(.text);
         src/rom800F7F0.o(.text);
-        asm/rom800F7F0.o(.text);
         asm/m4a_1.o(.text);
         src/m4a.o(.text);
         asm/libagbsyscall.o(.text);

@@ -10,6 +10,8 @@ extern const u8 gUnknown_08013B70[0x400];
 extern u8 gUnknown_080189A4[];
 extern u8 gSaveVersion[0x30];
 extern void (*gGameProcesses[15])(struct Main *);
+extern void (*gUnknown_0811DFD0[11])(struct AnimationStruct *);
+extern void (*gUnknown_0811DFFC[6])(struct AnimationStruct *, struct CourtScroll *);
 extern u32 * gFlagPtrs[3]; 
 extern s16 gSineTable[256+64];
 extern u32 gUnknown_080150D0[12];
@@ -23,6 +25,10 @@ extern u8 * gCourtScrollGfxPointers[3];
 extern struct Struct80187C8 gUnknown_080187C8[16];
 extern struct Struct8018DD4 gUnknown_08018DD4[];
 extern struct Struct8018F78 gUnknown_08018F78[];
+extern struct Struct8019450 gUnknown_08019450[0xF];
+extern s8 gUnknown_0801948C[0x1F];
+extern s8 gUnknown_080194AB[0x1F];
+extern s8 gUnknown_080194CA[0x1F];
 
 // 0x180000 onwards // GFX basically
 // maybe change to defines
@@ -101,14 +107,15 @@ struct Struct2002650 * sub_8010304(struct Struct2002650 *);
 struct Struct2002650 * sub_801042C(struct Struct2002650 *);
 struct AnimationStruct * sub_8010468(struct AnimationStructFieldC *, u32, u32);
 extern void sub_8002878(struct CourtRecord *);
-extern void sub_8010E14(s16);
+extern void sub_8010E14(u32);
 extern void sub_800EEFC(struct Main *);
-extern void sub_8010C4C(u8);
+extern void sub_8010C4C(bool32);
 extern void ResetSoundControl();
 extern void sub_800B7A8(struct InvestigationStruct *, u32);
 extern s32 FindEvidenceInCourtRecord(u16, u32);
 extern s32 FindFirstEmptySlotInCourtRecord(u16);
 extern void sub_800ED68(struct CourtRecord *);
+extern void sub_80110E4(struct AnimationStruct *);
 extern void sub_8011108(u32, u32, u32, u32);
 extern void sub_8010960(struct AnimationStruct *);
 extern void StartAnimationBlend(u32, u32);

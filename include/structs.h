@@ -24,11 +24,11 @@ struct AnimationStructFieldC
 {
     u16 unk0;
     u8 unk2[2];
-    u16 xOrigin; /* + 0x4 */
-    u16 yOrigin; /* + 0x6 */
+    s16 xOrigin; /* + 0x4 */
+    s16 yOrigin; /* + 0x6 */
     u8 * animFrameDataStartPtr; /* + 0x8 */ 
-    u8 * unkC;
-    u8 * vramPtr; // vram tile address
+    u8 *volatile tileDataPtr;
+    u8 *volatile vramPtr; // vram tile address
     u8 * animGfxDataStartPtr; /* + 0x14 */
     u8 unk18;
     u8 unk19;
@@ -36,16 +36,25 @@ struct AnimationStructFieldC
     u8 filler1B[1];
 };
 
+struct SpriteTemplate {
+    s8 x;
+    s8 y;
+    u16 data;
+};
+
 struct AnimationStruct
 {
-    u32 unk0;
+    s32 unk0;
     struct AnimationStruct * unk4;
     struct AnimationStruct * unk8;
     struct AnimationStructFieldC unkC;
     s16 frameDurationCounter; /* + 0x28 */
-    u8 filler2A[0x2];
-    u8 unk2C[4];
-    u8 * unk30;
+    u8 unk2A; 
+    u8 unk2B; 
+    u8 unk2C;
+    u8 unk2D;
+    s16 unk2E;
+    struct SpriteTemplate * unk30;
     struct AnimationFrame * frameData;
     u16 tileNum; /* + 0x38 */
     u8 unk3A;
@@ -207,7 +216,10 @@ struct CourtScroll
 {
     u8 * unk0;
     u16 state;
-    u8 filler6[0x6];
+    u8 unk6;
+    u8 unk7; // padding??
+    u16 unk8;
+    u16 unkA;
     s16 unkC;
     s16 unkE;
 };
@@ -221,8 +233,11 @@ struct Struct2002650
     s16 yOrigin; /* + 0x6 */
     u8 * unk8;
     u16 unkC;
-    u8 fillerE[0x2];
-    u8 unk10[4];
+    u8 unkE; 
+    u8 unkF; 
+    u8 unk10;
+    u8 unk11;
+    u16 unk12;
     u32 unk14;
     struct AnimationFrame * frameData;
 };
@@ -273,6 +288,12 @@ struct Struct8018F78
     u8 unk11;
     u8 unk12;
     u8 unk13;
+};
+
+struct Struct8019450 {
+    u16 unk0;
+    u8 unk2;
+    u8 unk3;
 };
 
 struct ExaminationData

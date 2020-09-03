@@ -1636,7 +1636,7 @@ gUnknown_080194AB:
 
     .global gUnknown_080194CA
 gUnknown_080194CA:
-    .incbin "baserom.gba", 0x000194CA, 0x22
+    .incbin "baserom.gba", 0x000194CA, 0x1F
     
     @ SOUND_DATA.s 
 
