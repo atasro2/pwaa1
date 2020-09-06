@@ -1551,7 +1551,7 @@ _080015FE:
 	ldrsb r0, [r6, r0]
 	rsbs r0, r0, #0
 	movs r1, #0
-	bl sub_80105FC
+	bl OffsetAllAnimations
 	b _0800172A
 _0800160C:
 	movs r1, #0x40
@@ -1625,7 +1625,7 @@ _0800168A:
 	ldrsb r1, [r6, r1]
 	rsbs r1, r1, #0
 	movs r0, #0
-	bl sub_80105FC
+	bl OffsetAllAnimations
 	b _0800172A
 _08001698:
 	movs r0, #0x80
@@ -1702,7 +1702,7 @@ _0800171E:
 	ldrsb r1, [r6, r1]
 	rsbs r1, r1, #0
 	movs r0, #0
-	bl sub_80105FC
+	bl OffsetAllAnimations
 _0800172A:
 	ldrh r0, [r5, #0x32]
 	adds r0, #8
@@ -1734,7 +1734,7 @@ sub_8001744: @ 0x08001744
 	strb r0, [r1]
 	movs r1, #0x2a
 	ldrsh r0, [r2, r1]
-	bl sub_8010E14
+	bl UpdateAnimations
 	b _08001828
 	.align 2, 0
 _08001764: .4byte 0xFFFF7FFF
@@ -1765,7 +1765,7 @@ _0800178C:
 	ldr r0, _080017FC
 	movs r1, #0x2a
 	ldrsh r0, [r0, r1]
-	bl sub_8010E14
+	bl UpdateAnimations
 _080017A0:
 	ldr r2, _080017FC
 	adds r0, r2, #0
@@ -1854,7 +1854,7 @@ sub_8001830: @ 0x08001830
 	ldr r6, _08001890
 	movs r1, #0x2a
 	ldrsh r0, [r6, r1]
-	bl sub_8010E14
+	bl UpdateAnimations
 	ldr r0, _08001894
 	ands r4, r0
 	cmp r4, #0xff
@@ -2170,7 +2170,7 @@ _08001AC0: .4byte gMain
 _08001AC4: .4byte gIORegisters
 _08001AC8:
 	movs r0, #0
-	bl sub_8010C4C
+	bl MoveAnimationTilesToRam
 	bl MoveSpritesToOAM
 	adds r5, r4, #0
 	ldr r4, _08001B30

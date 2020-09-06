@@ -1,5 +1,6 @@
 #include "global.h"
 #include "main.h"
+#include "animation.h"
 #include "sound_control.h"
 #include "m4a.h"
 #include "ewram.h"
@@ -60,7 +61,7 @@ void AgbMain()
             gMain.unk0++;
             sub_80013EC();
             UpdateBGTilemaps();
-            sub_8010C4C(0);
+            MoveAnimationTilesToRam(0);
             MoveSpritesToOAM();
             SetLCDIORegs();
         }
@@ -74,7 +75,7 @@ void AgbMain()
             sub_800232C();
             sub_800EEFC(&gMain);
             DoGameProcess();
-            sub_8010E14(gMain.previousBG);
+            UpdateAnimations(gMain.previousBG);
             UpdateHardwareBlend();
         }
         else
@@ -223,7 +224,7 @@ void ResetGameState()
     ioRegsp->lcd_bldy = 0x10;
     HideAllSprites();
     InitBGs();
-    sub_800F804(); //init animation system?
+    ResetAnimationSystem(); //init animation system?
     ResetSoundControl();
     LoadCurrentScriptIntoRam();
     sub_8000738(0x30, 0xF);

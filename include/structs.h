@@ -22,7 +22,7 @@ struct AnimationFrame
 
 struct AnimationStructFieldC
 {
-    u16 unk0;
+    u16 animId;
     u8 unk2[2];
     s16 xOrigin; /* + 0x4 */
     s16 yOrigin; /* + 0x6 */
@@ -44,9 +44,9 @@ struct SpriteTemplate {
 
 struct AnimationStruct
 {
-    s32 unk0;
-    struct AnimationStruct * unk4;
-    struct AnimationStruct * unk8;
+    s32 flags;
+    struct AnimationStruct * prevAnimation;
+    struct AnimationStruct * nextAnimation;
     struct AnimationStructFieldC unkC;
     s16 frameDurationCounter; /* + 0x28 */
     u8 unk2A; 
@@ -57,9 +57,9 @@ struct AnimationStruct
     struct SpriteTemplate * unk30;
     struct AnimationFrame * frameData;
     u16 tileNum; /* + 0x38 */
-    u8 unk3A;
-    u8 unk3B;
-    s16 unk3C;
+    u8 animtionOamStartIdx;
+    u8 animtionOamEndIdx;
+    s16 rotationAmount;
     u16 unk3E;
 };
 

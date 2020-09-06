@@ -179,7 +179,7 @@ _08002F34:
 	movs r1, #0x41
 	bl sub_8002CCC
 	movs r0, #0x1b
-	bl sub_8010204
+	bl PlayAnimation
 	b _08002F56
 _08002F50:
 	movs r0, #0xc
@@ -191,7 +191,7 @@ _08002F56:
 	cmp r0, #0
 	beq _08002F68
 	movs r0, #0xc
-	bl sub_8010204
+	bl PlayAnimation
 _08002F68:
 	ldr r1, _08002F78
 	ldr r0, _08002F7C
@@ -657,7 +657,7 @@ _08003348:
 	bl sub_8002CCC
 _08003376:
 	movs r0, #0xd
-	bl sub_8010204
+	bl PlayAnimation
 	b _0800352E
 	.align 2, 0
 _08003380: .4byte 0x040000D4
@@ -1720,7 +1720,7 @@ _08003CCE:
 	movs r1, #0
 	movs r2, #0
 	movs r3, #0
-	bl sub_8010048
+	bl PlayPersonAnimation
 	ldr r0, _08003D1C
 	movs r1, #1
 	strb r1, [r0, #5]
@@ -1751,7 +1751,7 @@ _08003D30:
 	cmp r0, #0
 	bne _08003D42
 	movs r0, #0xe
-	bl sub_8010204
+	bl PlayAnimation
 _08003D42:
 	movs r0, #0
 	movs r1, #0xb3
@@ -2369,7 +2369,7 @@ _08004292:
 	movs r1, #0
 	movs r2, #0
 	movs r3, #0
-	bl sub_8010048
+	bl PlayPersonAnimation
 	ldr r0, _080042E0
 	movs r1, #1
 	strb r1, [r0, #5]
@@ -2929,7 +2929,7 @@ _080047AC:
 	cmp r0, #0
 	bne _080047BE
 	movs r0, #0x10
-	bl sub_8010204
+	bl PlayAnimation
 _080047BE:
 	ldr r1, _080047CC
 	ldr r0, _080047D0
@@ -4249,7 +4249,7 @@ _08005374:
 	bl ChangeBGM
 _0800537A:
 	movs r0, #0xf
-	bl sub_8010204
+	bl PlayAnimation
 	ldr r1, _0800538C
 	ldr r0, _08005390
 	b _080053E0

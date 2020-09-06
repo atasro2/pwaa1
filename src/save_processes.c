@@ -1,4 +1,5 @@
 #include "global.h"
+#include "animation.h"
 #include "ewram.h"
 #include "script.h"
 #include "background.h"
@@ -217,7 +218,7 @@ void SaveGameInit1SubProcess(struct Main *main)
     {
         gMapMarker[i].id |= 0xFF;
     }
-    sub_801042C(gSaveDataBuffer.ewramStruct2650);
+    SaveAnimationDataToBuffer(gSaveDataBuffer.ewramStruct2650);
     main->advanceScriptContext = FALSE;
     StartHardwareBlend(2, 0, 1, 0x1F);
     main->process[GAME_SUBPROCESS]++;
@@ -432,7 +433,7 @@ void SaveGameExitSaveScreenSubProcess(struct Main *main)
     main->gameStateFlags = gSaveDataBuffer.main.gameStateFlags;
     main->shakeTimer = gSaveDataBuffer.main.shakeTimer;
     main->tilemapUpdateBits = gSaveDataBuffer.main.tilemapUpdateBits;
-    sub_8010304(gSaveDataBuffer.ewramStruct2650);
+    RestoreAnimationsFromBuffer(gSaveDataBuffer.ewramStruct2650);
     gMain.unk1F |= 3;
     DmaCopy16(3, gSaveDataBuffer.oam, gOamObjects, sizeof(gOamObjects));
     DmaCopy16(3, gUnknown_081942C0[0], OBJ_PLTT+0x100, sizeof(gUnknown_081942C0[0]));

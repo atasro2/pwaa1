@@ -20,12 +20,12 @@
 //#define IO_REG_STRUCT_MEMBER(localBgStruct, field) \
 //    *((vu32 *) localBgStruct + (offsetof(struct IORegisters, field) / 4)) \
 
-#define DataCopy(src, dest, bit) \
-	*(vu##bit *)(src) = *(vu##bit *)(dest)
+#define DataCopy(dest, src, bit) \
+	*(vu##bit *)(dest) = *(vu##bit *)(src)
 
-#define DataCopy32(src, dest) DataCopy(src, dest, 32)
-#define DataCopy16(src, dest) DataCopy(src, dest, 16)
-#define DataCopy8(src, dest) DataCopy(src, dest, 8)
+#define DataCopy32(dest, src) DataCopy(dest, src, 32)
+#define DataCopy16(dest, src) DataCopy(dest, src, 16)
+#define DataCopy8(dest, src) DataCopy(dest, src, 8)
 
 #define SPRITE_ATTR0(y, affineMode, objMode, mosaic, bpp, shape) \
 	((y) + ((affineMode) << 8) + ((objMode) << 10) + ((mosaic) << 12) + ((bpp) << 13) + ((shape) << 14))

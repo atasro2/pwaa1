@@ -46,7 +46,7 @@ curse you shared memory accesses
 3. script commands can go up to 0x7F but the amount of script commands is actually 0x4D 
 alongside some other commands which were just stubbed for some reason
 
-4. sub_8010C4C is the function that updates animations and it takes a single value
+4. MoveAnimationTilesToRam is the function that updates animations and it takes a single value
 
 if the value is not 0 then the game will update the animation tiles to an address in EWRAM
 instead of a field in the animation struct for some reason

@@ -1,5 +1,6 @@
 #include "global.h"
 #include "main.h"
+#include "animation.h"
 #include "sound_control.h"
 #include "background.h"
 
@@ -151,7 +152,7 @@ void sub_8002C98(u32 arg0, u32 arg1, u32 arg2)
     struct Main * main = &gMain;
     main->talkingAnimationOffset = arg1;
     main->idleAnimationOffset = arg2;
-    sub_8010048(arg0, 0, arg1, 0);
+    PlayPersonAnimation(arg0, 0, arg1, 0);
     gInvestigation.unk5 = 1;
     sub_800B7A8(&gInvestigation, 0xF);
 }

@@ -239,16 +239,16 @@ void PutCharInTextbox(u32 characterCode, u32 y, u32 x)
         idx = x + 2 * 0x10;
         gTextBoxCharacters[idx].x = gScriptContext.fullscreenTextX * (16-2); 
         gTextBoxCharacters[idx].y = (y - 2) * (16+4);
-        gTextBoxCharacters[idx].objVramOffset = 2 * 0x40 + x * 4;
+        gTextBoxCharacters[idx].objAttr2 = 2 * 0x40 + x * 4;
     }
     else
     {
         idx = x + y * 0x10;
         gTextBoxCharacters[idx].x = x * (16-2); 
         gTextBoxCharacters[idx].y = y * (16+2);
-        gTextBoxCharacters[idx].objVramOffset = y * 0x40 + x * 4;
+        gTextBoxCharacters[idx].objAttr2 = y * 0x40 + x * 4;
     }
-    gTextBoxCharacters[idx].objVramOffset += 0x400; // doesn't actually do anything? look at actual rendering function plz
+    gTextBoxCharacters[idx].objAttr2 += 0x400;
     gTextBoxCharacters[idx].state = characterCode | 0x8000;
     gTextBoxCharacters[idx].color = gScriptContext.textColor;
 }

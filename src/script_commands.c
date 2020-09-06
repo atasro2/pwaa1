@@ -1,5 +1,6 @@
 #include "global.h"
 #include "main.h"
+#include "animation.h"
 #include "script.h"
 #include "sound_control.h"
 #include "m4a.h"
@@ -123,13 +124,13 @@ bool32 Command02(struct ScriptContext * scriptCtx)
             gTextBoxCharacters[i].state &= ~0x8000;
         }
         if(scriptCtx->currentToken == 0x2)
-            sub_800FBA0(&gAnimation[1], gMain.talkingAnimationOffset);
+            SetAnimationFrameOffset(&gAnimation[1], gMain.talkingAnimationOffset);
     }
     else
     {
         if((scriptCtx->unk0 & 1) == 0)
         {
-            sub_800FBA0(&gAnimation[1], gMain.idleAnimationOffset);
+            SetAnimationFrameOffset(&gAnimation[1], gMain.idleAnimationOffset);
             scriptCtx->unk0 |= 1;
         }
         if(gMain.process[GAME_PROCESS] != 9)
@@ -515,7 +516,7 @@ bool32 Command15(struct ScriptContext * scriptCtx)
     }
     if(*scriptCtx->scriptPtr == 0x15)
     {
-        sub_800FBA0(&gAnimation[1], gMain.idleAnimationOffset);
+        SetAnimationFrameOffset(&gAnimation[1], gMain.idleAnimationOffset);
     }
     scriptCtx->unk0 |= 8;
     return 1;
@@ -696,7 +697,7 @@ u32 Command1C(struct ScriptContext * scriptCtx)
         case 2:
             if(gMain.process[GAME_PROCESS] == 3)
             {
-                sub_8010960(&gAnimation[1]);
+                DestroyAnimation(&gAnimation[1]);
                 gInvestigation.unk5 = 0;
                 sub_800B7A8(&gInvestigation, 15);
             }
@@ -705,7 +706,7 @@ u32 Command1C(struct ScriptContext * scriptCtx)
         case 3:
             if(gMain.process[GAME_PROCESS] == 3)
             {
-                sub_8010960(&gAnimation[1]);
+                DestroyAnimation(&gAnimation[1]);
                 gInvestigation.unk5 = 0;
                 sub_800B7A8(&gInvestigation, 15);
             }
@@ -783,13 +784,13 @@ u32 Command1E(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     if(var0 != 0)
     {
-        sub_8010048(var0, 0, var1, 0);
+        PlayPersonAnimation(var0, 0, var1, 0);
         gInvestigation.unk5 = 1;
         sub_800B7A8(&gInvestigation, 15);
     }
     else
     {
-        sub_8010960(&gAnimation[1]);
+        DestroyAnimation(&gAnimation[1]);
         gInvestigation.unk5 = 0;
         sub_800B7A8(&gInvestigation, 15);
     }
@@ -997,7 +998,7 @@ bool32 Command2C(struct ScriptContext * scriptCtx)
     }
     gBG1MapBuffer[622] = 9; // clear downward arrow in text box
     gBG1MapBuffer[623] = 9; // clear downward arrow in text box
-    sub_800FBA0(&gAnimation[1], gMain.idleAnimationOffset); 
+    SetAnimationFrameOffset(&gAnimation[1], gMain.idleAnimationOffset); 
     return 0;
 }
 
@@ -1026,9 +1027,9 @@ bool32 Command2F(struct ScriptContext * scriptCtx)
     temp = *scriptCtx->scriptPtr;
     scriptCtx->scriptPtr++;
     if(*scriptCtx->scriptPtr)
-        sub_8010204(temp);
+        PlayAnimation(temp);
     else
-        sub_8010960(sub_800F8BC(temp));
+        DestroyAnimation(FindAnimationFromAnimId(temp));
     scriptCtx->scriptPtr++;
     return 0;
 }
