@@ -19,7 +19,7 @@ include config.mk
 # Secondary expansion is required for dependency variables in object rules.
 .SECONDEXPANSION:
 
-.PHONY: rom compare clean rev1 compare_rev1
+.PHONY: rom compare clean clean_rev1 rev1 compare_rev1
 
 ROM := $(BUILD_NAME).gba
 OBJ_DIR := build/$(BUILD_NAME)
@@ -148,3 +148,4 @@ $(C_BUILDDIR)/%.o: $(C_SUBDIR)/%.c $$(c_dep)
 
 rev1:         ; @$(MAKE) GAME_REVISION=1
 compare_rev1: ; @$(MAKE) GAME_REVISION=1 COMPARE=1
+clean_rev1:   ; @$(MAKE) GAME_REVISION=1 clean
