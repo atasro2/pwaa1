@@ -111,9 +111,7 @@ static void SetAnimationRotScaleParams(struct AnimationStruct *animation, u32 ro
     if (animation != NULL)
     {
         if (rotscaleIdx > 0x1f)
-        {
             rotscaleIdx = 0x1f;
-        }
         animation->flags = (animation->flags & ~1) | 0x100000;
         animation->rotationAmount &= 0xff;
         animation->unk3E &= 0xff00;
@@ -202,20 +200,18 @@ void SetAnimationPriority(struct AnimationStruct *animation, u32 priority)
     }
 }
 
-void SetAnimationFrameOffset(struct AnimationStruct *animation, u32 arg1)
+void SetAnimationFrameOffset(struct AnimationStruct *animation, u32 animOffset)
 {
     if (animation != NULL)
     {
         if (animation->unkC.animId == 0xFF)
         {
-            u8 *ptr1;
-            ptr1 = gUnknown_08018DD4[animation->unkC.unk2[0]].unk4 + arg1;
-            if (animation->unkC.animFrameDataStartPtr == ptr1)
-            {
+            u8 *framePtr;
+            framePtr = gPersonAnimData[animation->unkC.unk2[0]].frameData + animOffset;
+            if (animation->unkC.animFrameDataStartPtr == framePtr)
                 return;
-            }
-            animation->unkC.animFrameDataStartPtr = ptr1;
-            animation->unkC.animGfxDataStartPtr = gUnknown_08018DD4[animation->unkC.unk2[0]].unk0;
+            animation->unkC.animFrameDataStartPtr = framePtr;
+            animation->unkC.animGfxDataStartPtr = gPersonAnimData[animation->unkC.unk2[0]].gfxData;
         }
         else
         {
@@ -223,7 +219,7 @@ void SetAnimationFrameOffset(struct AnimationStruct *animation, u32 arg1)
             {
                 if (animation->unkC.animId <= 0x10)
                 {
-                    animation->unkC.animFrameDataStartPtr = (u8 *)0x871FCF4 + arg1; // ! FOR THE LOVE OF GOD CAPCOM
+                    animation->unkC.animFrameDataStartPtr = (u8 *)0x871FCF4 + animOffset; // ! FOR THE LOVE OF GOD CAPCOM
                     animation->unkC.animGfxDataStartPtr = (u8 *)0x871EBBC;
                 }
                 else
@@ -232,13 +228,13 @@ void SetAnimationFrameOffset(struct AnimationStruct *animation, u32 arg1)
                     {
                         return;
                     }
-                    animation->unkC.animFrameDataStartPtr = (u8 *)0x8748218 + arg1;
+                    animation->unkC.animFrameDataStartPtr = (u8 *)0x8748218 + animOffset;
                     animation->unkC.animGfxDataStartPtr = (u8 *)0x871FDF8;
                 }
             }
             else
             {
-                animation->unkC.animFrameDataStartPtr = (u8 *)0x8748218 + arg1;
+                animation->unkC.animFrameDataStartPtr = (u8 *)0x8748218 + animOffset;
                 animation->unkC.animGfxDataStartPtr = (u8 *)0x871FDF8;
             }
         }
@@ -456,7 +452,7 @@ _0800FD84: .4byte gUnknown_0200AFC0+0x8\n\
 _0800FD88: .4byte gUnknown_0200AFC0+0x10\n\
 _0800FD8C: .4byte gUnknown_0200AFC0\n\
 _0800FD90: .4byte 0x0000FFFF\n\
-_0800FD94: .4byte gUnknown_08019450\n\
+_0800FD94: .4byte gSpriteSizeTable\n\
 _0800FD98:\n\
 	asrs r0, r2, #3\n\
 	muls r0, r6, r0\n\
@@ -629,7 +625,7 @@ static void PutAnimationInAnimList(struct AnimationStruct *animation)
             break;
         }
         animation2 = animation2->nextAnimation;
-        if (animation2->unkC.unk1A < animation->unkC.unk1A)
+        if (animation2->unkC.priority < animation->unkC.priority)
         {
             animation->prevAnimation = animation2->prevAnimation;
             animation->nextAnimation = animation2;
@@ -689,14 +685,14 @@ struct AnimationStruct *PlayPersonAnimationAtCustomOrigin(u32 arg0, u32 talkingA
     animationStructFieldC.animId = 0xFF;
     *(u16 *)animationStructFieldC.unk2 = arg0;
     animationStructFieldC.vramPtr = OBJ_VRAM0 + 0x5800;
-    animationStructFieldC.animGfxDataStartPtr = gUnknown_08018DD4[personId].unk0;
-    animationStructFieldC.animFrameDataStartPtr = gUnknown_08018DD4[personId].unk4 + talkingAnimOff;
-    animationStructFieldC.unk18 = 14;
+    animationStructFieldC.animGfxDataStartPtr = gPersonAnimData[personId].gfxData;
+    animationStructFieldC.animFrameDataStartPtr = gPersonAnimData[personId].frameData + talkingAnimOff;
+    animationStructFieldC.paletteSlot = 14;
     if (main->process[GAME_PROCESS] == 3) // trial
-        animationStructFieldC.unk19 = 0x27;
+        animationStructFieldC.spriteCount = 0x27;
     else
-        animationStructFieldC.unk19 = gUnknown_08018DD4[personId].unk8;
-    animationStructFieldC.unk1A = 0x21;
+        animationStructFieldC.spriteCount = gPersonAnimData[personId].spriteCount;
+    animationStructFieldC.priority = 0x21;
     animationStructFieldC.xOrigin = xOrigin;
     animationStructFieldC.yOrigin = yOrigin;
     if (!(animation->flags & 0x10000000))
@@ -744,7 +740,7 @@ struct AnimationStruct *PlayAnimation(u32 arg0)
 {
     s32 xOrigin, yOrigin;
     struct Main *main = &gMain;
-    struct Struct8018F78 *ptr = &gUnknown_08018F78[arg0];
+    struct AnimationData *ptr = &gAnimationData[arg0];
     xOrigin = ptr->xOrigin;
     yOrigin = ptr->yOrigin;
     if (main->unk3A & 0x10 && arg0 > 0xB)
@@ -757,7 +753,7 @@ struct AnimationStruct *PlayAnimationAtCustomOrigin(u32 arg0, s32 xOrigin, s32 y
     struct AnimationStruct *animationStruct;
     struct AnimationStructFieldC animationStructFieldC;
     struct Main *main = &gMain;
-    struct Struct8018F78 *ptr = &gUnknown_08018F78[arg0];
+    struct AnimationData *animData = &gAnimationData[arg0];
     u32 var1;
     u32 var0;
 #ifndef NONMATCHING
@@ -767,20 +763,20 @@ struct AnimationStruct *PlayAnimationAtCustomOrigin(u32 arg0, s32 xOrigin, s32 y
 #endif
 
     animationStructFieldC.animId = arg0;
-    animationStructFieldC.vramPtr = ptr->vramPtr;
-    animationStructFieldC.animGfxDataStartPtr = ptr->unk0;
-    animationStructFieldC.animFrameDataStartPtr = ptr->unk8;
-    animationStructFieldC.unk18 = ptr->unk10;
-    animationStructFieldC.unk19 = ptr->unk11;
-    animationStructFieldC.unk1A = ptr->unk12;
+    animationStructFieldC.vramPtr = animData->vramPtr;
+    animationStructFieldC.animGfxDataStartPtr = animData->gfxData;
+    animationStructFieldC.animFrameDataStartPtr = animData->frameData;
+    animationStructFieldC.paletteSlot = animData->paletteSlot;
+    animationStructFieldC.spriteCount = animData->spriteCount;
+    animationStructFieldC.priority = animData->priority;
     animationStructFieldC.xOrigin = xOrigin;
     animationStructFieldC.yOrigin = yOrigin;
-    animationStruct = sub_8010468(&animationStructFieldC, arg0, ptr->unk13);
-    var1 = animationStruct->unkC.unk18 - 6;
+    animationStruct = sub_8010468(&animationStructFieldC, arg0, animData->flags);
+    var1 = animationStruct->unkC.paletteSlot - 6;
     var0 = (1 << var1);
     var1++;
     var1--;
-    if (!(main->unk1E & var0) && animationStruct->unkC.unk18 < 10)
+    if (!(main->unk1E & var0) && animationStruct->unkC.paletteSlot < 10)
     {
 #ifndef NONMATCHING
         register void *src asm("r5");
@@ -791,7 +787,7 @@ struct AnimationStruct *PlayAnimationAtCustomOrigin(u32 arg0, s32 xOrigin, s32 y
 
         u32 size;
         main->unk1E |= var0;
-        var2 = animationStruct->unkC.unk18 * 0x20;
+        var2 = animationStruct->unkC.paletteSlot * 0x20;
         src = (u16 *)(OBJ_PLTT + var2);
         dest = gObjPaletteBuffer[var1];
         var1 = *(u32 *)animationStruct->unkC.animGfxDataStartPtr;
@@ -815,11 +811,11 @@ struct Struct2002650 * RestoreAnimationsFromBuffer(struct Struct2002650 * ewStru
         animationStructFieldC.animId = 0xFF;
         animationStructFieldC.unk2[0] = ewStruct2650->unk2;
         animationStructFieldC.vramPtr = OBJ_VRAM0 + 0x5800;
-        animationStructFieldC.animGfxDataStartPtr = gUnknown_08018DD4[ewStruct2650->unk2].unk0;
+        animationStructFieldC.animGfxDataStartPtr = gPersonAnimData[ewStruct2650->unk2].gfxData;
         animationStructFieldC.animFrameDataStartPtr = ewStruct2650->unk8;
-        animationStructFieldC.unk18 = 0xE;
-        animationStructFieldC.unk19 = gUnknown_08018DD4[ewStruct2650->unk2].unk8;
-        animationStructFieldC.unk1A = 0x21;
+        animationStructFieldC.paletteSlot = 0xE;
+        animationStructFieldC.spriteCount = gPersonAnimData[ewStruct2650->unk2].spriteCount;
+        animationStructFieldC.priority = 0x21;
         animationStructFieldC.xOrigin = ewStruct2650->xOrigin;
         animationStructFieldC.yOrigin = ewStruct2650->yOrigin;
         DmaCopy16(3, &animationStructFieldC, &animation->unkC, sizeof(animationStructFieldC));
@@ -831,8 +827,8 @@ struct Struct2002650 * RestoreAnimationsFromBuffer(struct Struct2002650 * ewStru
         animation->flags = ewStruct2650->unk14 | (0x40000000 | 0x01000000);
         animation->tileNum |= (uintptr_t)animation->unkC.vramPtr / TILE_SIZE_4BPP; // get OAM tile num from VRAM address
         animation->unk3E = 0x300;
-        SetAnimationPriority(animation, animation->unkC.unk1A >> 4);
-        animation->unkC.unk1A &= 0xF;
+        SetAnimationPriority(animation, animation->unkC.priority >> 4);
+        animation->unkC.priority &= 0xF;
         animation->unk2C = ewStruct2650->unk10;
         PutAnimationInAnimList(animation);
     }
@@ -882,8 +878,8 @@ static struct AnimationStruct * sub_8010468(struct AnimationStructFieldC * anima
     animation->tileNum |= (uintptr_t)animation->unkC.vramPtr / TILE_SIZE_4BPP; // get OAM tile num from VRAM address
     animation->rotationAmount = 0;
     animation->unk3E = 0x300;
-    SetAnimationPriority(animation, animation->unkC.unk1A >> 4);
-    animation->unkC.unk1A &= 0xF;
+    SetAnimationPriority(animation, animation->unkC.priority >> 4);
+    animation->unkC.priority &= 0xF;
     PutAnimationInAnimList(animation);
     if (animation->frameData->flags & 0x2)
         PlaySE(animation->frameData->songId);
@@ -1128,12 +1124,12 @@ void DestroyAnimation(struct AnimationStruct *animation)
         animation->nextAnimation->prevAnimation = animation->prevAnimation;
         if (animation->unkC.animId == 0xFF)
             return;
-        if (animation->unkC.unk18 > 9)
+        if (animation->unkC.paletteSlot > 9)
             return;
-        var0 = animation->unkC.unk18 - 6;
+        var0 = animation->unkC.paletteSlot - 6;
         main->unk1E &= ~(1 << var0);
         src = gObjPaletteBuffer[var0];
-        var1 = animation->unkC.unk18 * 16;
+        var1 = animation->unkC.paletteSlot * 16;
         dest = (u16 *)OBJ_PLTT;
         dest += var1;
         size = *(u32 *)animation->unkC.animGfxDataStartPtr * 32;
@@ -1277,16 +1273,16 @@ static void UpdateAllAnimationSprites()
             s32 yOrigin = animation->unkC.yOrigin - gMain.shakeAmountY;
             u32 tileNum = animation->tileNum & 0xFFF;
             s32 spriteCount = *(u16 *)ptr;
-            struct Struct8019450 *ewram = eUnknown_0200AFC0;
-            ewram += var0;
+            struct SpriteSizeData *spriteSizeData = eUnknown_0200AFC0;
+            spriteSizeData += var0;
             for (i = 0; i < spriteCount; i++)
             {
                 s32 y;
                 var0--;
                 oam--;
-                ewram--;
+                spriteSizeData--;
                 spriteTemplates++;
-                *ewram = gUnknown_08019450[spriteTemplates->data >> 0xC];
+                *spriteSizeData = gSpriteSizeTable[spriteTemplates->data >> 0xC];
                 oam->attr0 = (spriteTemplates->data & 0x3000) << 2; // Sprite Shape
                 y = yOrigin + spriteTemplates->y;
                 if (y < -64)
@@ -1299,7 +1295,7 @@ static void UpdateAllAnimationSprites()
                 oam->attr1 = spriteTemplates->data & 0xC000;
                 if (animation->flags & 1)
                 {
-                    u16 x = (xOrigin - (spriteTemplates->x + ewram->unk3)) & 0x1FF;
+                    u16 x = (xOrigin - (spriteTemplates->x + spriteSizeData->width)) & 0x1FF;
                     oam->attr1 |= 0x1000 | x;
                 }
                 else
@@ -1309,13 +1305,13 @@ static void UpdateAllAnimationSprites()
                 }
                 oam->attr2 = tileNum | *((u8 *)(&animation->unk3E) + 1) << 10;
                 if (animation->frameData->flags & 1)
-                    oam->attr2 |= (animation->unkC.unk18 + ((spriteTemplates->data >> 9) & 7)) << 12;
+                    oam->attr2 |= (animation->unkC.paletteSlot + ((spriteTemplates->data >> 9) & 7)) << 12;
                 else
-                    oam->attr2 |= (animation->unkC.unk18 + ((spriteTemplates->data >> 11) & 1)) << 12;
-                tileNum += ewram->unk0 / TILE_SIZE_4BPP;
+                    oam->attr2 |= (animation->unkC.paletteSlot + ((spriteTemplates->data >> 11) & 1)) << 12;
+                tileNum += spriteSizeData->tileSize / TILE_SIZE_4BPP;
             }
         }
-        animation->animtionOamStartIdx = animation->animtionOamEndIdx - animation->unkC.unk19;
+        animation->animtionOamStartIdx = animation->animtionOamEndIdx - animation->unkC.spriteCount;
         var0 -= animation->animtionOamStartIdx;
         for (var0 -= 1; var0 != -1; var0--)
         {
@@ -1338,7 +1334,7 @@ void MoveAnimationTilesToRam(bool32 arg0)
         u32 spriteCount;
         u32 palCount;
         struct SpriteTemplate * spriteTemplates;
-        struct Struct8019450 * ewram;
+        struct SpriteSizeData * spriteSizeData;
         struct AnimationStructFieldC * animC;
         if(!(animation->flags & 0x40000000))
             continue;
@@ -1347,8 +1343,8 @@ void MoveAnimationTilesToRam(bool32 arg0)
         tileDest = arg0 ? (u8*)0x200B1C0 : animation->unkC.vramPtr;
         spriteTemplates = animation->unk30;
         spriteCount = *(u16*)animation->unk30;
-        ewram = eUnknown_0200AFC0;
-        ewram += animation->animtionOamEndIdx;
+        spriteSizeData = eUnknown_0200AFC0;
+        spriteSizeData += animation->animtionOamEndIdx;
         animation->flags &= ~0x40000000;
         palCount = *(u32*)animation->unkC.animGfxDataStartPtr;
         if(palCount & 0x80000000)
@@ -1361,8 +1357,8 @@ void MoveAnimationTilesToRam(bool32 arg0)
                 u32 tileNum;
                 u32 compressedTileOffset;
                 spriteTemplates++;
-                ewram--;
-                ptr = tileDest + ewram->unk0;
+                spriteSizeData--;
+                ptr = tileDest + spriteSizeData->tileSize;
                 tileNum = spriteTemplates->data & 0x1FF;
                 ptr3 = animation->unkC.tileDataPtr;
                 compressedTileOffset = ((u32 *)ptr3)[tileNum];
@@ -1398,10 +1394,10 @@ void MoveAnimationTilesToRam(bool32 arg0)
                 u8 * tilePtr;
                 u16 * what;
                 spriteTemplates++;
-                ewram--;
+                spriteSizeData--;
                 tileNum = spriteTemplates->data & mask;
                 tilePtr = animation->unkC.tileDataPtr + tileNum * 32;
-                what = &ewram->unk0;
+                what = &spriteSizeData->tileSize;
                 DmaCopy16(3, tilePtr, tileDest, *what);
                 tileDest += *what;
             }
@@ -1412,7 +1408,7 @@ void MoveAnimationTilesToRam(bool32 arg0)
             u8 * src;
             u32 size;
             u32 palOffset;
-            palOffset = animation->unkC.unk18 & 0xF;
+            palOffset = animation->unkC.paletteSlot & 0xF;
 
             dest = (u8*)OBJ_PLTT + palOffset*32;
             palCount *= 32;

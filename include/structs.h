@@ -27,12 +27,12 @@ struct AnimationStructFieldC
     s16 xOrigin; /* + 0x4 */
     s16 yOrigin; /* + 0x6 */
     u8 * animFrameDataStartPtr; /* + 0x8 */ 
-    u8 *volatile tileDataPtr;
-    u8 *volatile vramPtr; // vram tile address
+    u8 * tileDataPtr;
+    u8 * vramPtr; // vram tile address
     u8 * animGfxDataStartPtr; /* + 0x14 */
-    u8 unk18;
-    u8 unk19;
-    u8 unk1A;
+    u8 paletteSlot;
+    u8 spriteCount;
+    u8 priority;
     u8 filler1B[1];
 };
 
@@ -269,31 +269,31 @@ struct Struct80187C8
     u16 attr2;
 };
 
-struct Struct8018DD4
+struct PersonAnimationData
 {
-    u8* unk0;
-    u8* unk4;
-    u16 unk8;
+    u8* gfxData;
+    u8* frameData;
+    u16 spriteCount;
     u16 unkA;
 };
 
-struct Struct8018F78
+struct AnimationData
 {
-    u8* unk0;
+    u8* gfxData;
     u8* vramPtr;
-    u8* unk8;
+    u8* frameData;
     s16 xOrigin;
     s16 yOrigin;
-    u8 unk10;
-    u8 unk11;
-    u8 unk12;
-    u8 unk13;
+    u8 paletteSlot;
+    u8 spriteCount;
+    u8 priority; // first nibble animation priority(?) second nibble sprite priority
+    u8 flags;
 };
 
-struct Struct8019450 {
-    u16 unk0;
-    u8 unk2;
-    u8 unk3;
+struct SpriteSizeData {
+    u16 tileSize;
+    u8 height;
+    u8 width;
 };
 
 struct ExaminationData

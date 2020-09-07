@@ -805,9 +805,7 @@ u32 Command1F(struct ScriptContext * scriptCtx)
     gIORegisters.lcd_dispcnt &= ~DISPCNT_BG2_ON;
     tilemapBuffer = gBG2MapBuffer;
     for(i = 0; i < 0x2A0; i++, tilemapBuffer++)
-    {
        *tilemapBuffer = 0;
-    }
     gIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP; // TODO: add TXT/AFF macro once known which one is used
     scriptCtx->unk0 &= ~0x40;
     return 0;
