@@ -1,4 +1,4 @@
-#include "global.h"
+//#include "global.h"
 #include "gba/m4a_internal.h"
 
 extern const u8 gCgb3Vol[];
@@ -1081,7 +1081,8 @@ void CgbSound(void)
 #else
 NAKED void CgbSound(void)
 {
-    asm_unified("push {r4, r5, r6, r7, lr}\n\
+    asm(".syntax unified\n\
+    push {r4, r5, r6, r7, lr}\n\
 	mov r7, sl\n\
 	mov r6, sb\n\
 	mov r5, r8\n\
@@ -1661,7 +1662,8 @@ _08012EEA:\n\
 	pop {r4, r5, r6, r7}\n\
 	pop {r0}\n\
 	bx r0\n\
-	.align 2, 0\n");
+	.align 2, 0\n\
+    .syntax divided\n");
 }
 #endif
 

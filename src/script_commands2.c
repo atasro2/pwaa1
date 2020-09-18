@@ -19,7 +19,7 @@ bool32 Command40(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
     scriptCtx->unk0 &= ~0x400;
-    gOamObjects[88].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+    gOamObjects[88].attr0 = SPRITE_ATTR0_CLEAR;
     return 0;
 }
 
@@ -81,7 +81,7 @@ bool32 Command43(struct ScriptContext * scriptCtx)
         oam = &gOamObjects[35];
         for(i = 0; i < 5; i++)
 	    {
-            oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
+            oam->attr0 = SPRITE_ATTR0_CLEAR;
             oam++;
         }
     }
@@ -115,7 +115,7 @@ bool32 Command44(struct ScriptContext * scriptCtx)
     oam->attr1 = SPRITE_ATTR1_AFFINE((~16 & 511), 0, 3);
     oam->attr2 = SPRITE_ATTR2(0x1A0, 0, 5);
     oam++;
-    oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
+    oam->attr0 = SPRITE_ATTR0_CLEAR;
     return 0;
 }
 
@@ -146,8 +146,8 @@ bool32 Command46(struct ScriptContext * scriptCtx)
     }
     r6 += 32 + 20*30*2;
     DmaCopy16(3, r6, eUnknown_02031FC0, 30*20*TILE_SIZE_4BPP);
-    gLCDIORegisters.lcd_dispcnt |= DISPCNT_BG2_ON;
-    gLCDIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(2) | BGCNT_CHARBASE(2) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP;
+    gIORegisters.lcd_dispcnt |= DISPCNT_BG2_ON;
+    gIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(2) | BGCNT_CHARBASE(2) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP;
     scriptCtx->unk0 |= 0x40;
     scriptCtx->scriptPtr++;
     return 0;
@@ -172,14 +172,14 @@ bool32 Command48(struct ScriptContext *scriptCtx)
     scriptCtx->scriptPtr++;
     if(*scriptCtx->scriptPtr == 0xFFFF) 
     {
-        gLCDIORegisters.lcd_dispcnt |= DISPCNT_BG1_ON;
+        gIORegisters.lcd_dispcnt |= DISPCNT_BG1_ON;
         scriptCtx->textXOffset = 9;
         scriptCtx->textYOffset = DISPLAY_HEIGHT-44;
         scriptCtx->scriptPtr+=2;
     }
     else 
     {
-        gLCDIORegisters.lcd_dispcnt &= ~DISPCNT_BG1_ON;
+        gIORegisters.lcd_dispcnt &= ~DISPCNT_BG1_ON;
         scriptCtx->textXOffset = *scriptCtx->scriptPtr;
         scriptCtx->scriptPtr++;
         scriptCtx->textYOffset = *scriptCtx->scriptPtr;

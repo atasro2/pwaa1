@@ -136,7 +136,7 @@ _08008F04: .4byte gUnknown_08186540
 _08008F08: .4byte 0x80000800
 _08008F0C: .4byte gMain
 _08008F10: .4byte gOamObjects
-_08008F14: .4byte gLCDIORegisters
+_08008F14: .4byte gIORegisters
 _08008F18: .4byte 0x000091A0
 _08008F1C: .4byte 0x000091E0
 _08008F20:
@@ -1165,7 +1165,7 @@ _0800970E:
 	strb r2, [r5, #6]
 	b _0800977A
 	.align 2, 0
-_0800974C: .4byte gLCDIORegisters
+_0800974C: .4byte gIORegisters
 _08009750: .4byte 0x0000FDFF
 _08009754:
 	movs r0, #0x2a
@@ -1741,7 +1741,7 @@ _08009B90: .4byte 0x80000020
 _08009B94: .4byte gOamObjects
 _08009B98: .4byte 0x000003FF
 _08009B9C: .4byte gBG2MapBuffer
-_08009BA0: .4byte gLCDIORegisters
+_08009BA0: .4byte gIORegisters
 _08009BA4: .4byte 0x00003E01
 _08009BA8:
 	ldr r4, _08009C04
@@ -1794,7 +1794,7 @@ _08009BFC:
 _08009C04: .4byte gCourtRecord
 _08009C08: .4byte gScriptContext
 _08009C0C: .4byte 0x0000FFFF
-_08009C10: .4byte gLCDIORegisters
+_08009C10: .4byte gIORegisters
 _08009C14:
 	ldr r1, _08009C48
 	movs r0, #8
@@ -1995,7 +1995,7 @@ _08009D8C:
 _08009D98:
 	bl HideAllSprites
 	bl InitBGs
-	bl sub_800F804
+	bl ResetAnimationSystem
 	bl ResetSoundControl
 	bl LoadCurrentScriptIntoRam
 	ldr r5, _08009E90
@@ -2054,7 +2054,7 @@ _08009D98:
 	ldr r2, _08009ECC
 	adds r4, r4, r2
 	adds r0, r4, #0
-	bl sub_8010304
+	bl RestoreAnimationsFromBuffer
 	ldrb r3, [r7, #4]
 	cmp r3, #4
 	bne _08009F0E
@@ -2412,7 +2412,7 @@ _0800A14C: .4byte 0xFFFFF6D8
 _0800A150: .4byte gScriptContext
 _0800A154: .4byte 0x80000020
 _0800A158: .4byte 0xFFFFF684
-_0800A15C: .4byte gLCDIORegisters
+_0800A15C: .4byte gIORegisters
 _0800A160: .4byte 0x8000002A
 _0800A164: .4byte 0xFFFFF718
 _0800A168: .4byte gCourtRecord
@@ -2641,7 +2641,7 @@ _0800A334: .4byte gOamObjects+0x130
 _0800A338: .4byte 0x00004062
 _0800A33C: .4byte 0x0000C038
 _0800A340: .4byte 0x000091E0
-_0800A344: .4byte gLCDIORegisters
+_0800A344: .4byte gIORegisters
 
 	THUMB_FUNC_START sub_800A348
 sub_800A348: @ 0x0800A348
@@ -2745,7 +2745,7 @@ sub_800A3EC: @ 0x0800A3EC
 	ldr r0, [r4, #8]
 	bl HideAllSprites
 	bl InitBGs
-	bl sub_800F804
+	bl ResetAnimationSystem
 	bl LoadCurrentScriptIntoRam
 	adds r5, r7, #0
 	adds r5, #0x4a
@@ -2877,7 +2877,7 @@ _0800A4E0:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800A540: .4byte gLCDIORegisters
+_0800A540: .4byte gIORegisters
 _0800A544: .4byte 0x040000D4
 _0800A548: .4byte gTestimony
 _0800A54C: .4byte 0x81000004
@@ -3114,9 +3114,9 @@ _0800A74C: @ jump table
 	.4byte _0800A810 @ case 4
 _0800A760:
 	movs r0, #0x13
-	bl sub_8010204
+	bl PlayAnimation
 	movs r0, #0x14
-	bl sub_8010204
+	bl PlayAnimation
 	movs r0, #0x53
 	bl PlaySE
 	ldr r0, _0800A77C
@@ -3127,10 +3127,10 @@ _0800A760:
 _0800A77C: .4byte gTestimony
 _0800A780:
 	movs r0, #0x13
-	bl sub_800F8BC
+	bl FindAnimationFromAnimId
 	adds r4, r0, #0
 	movs r0, #0x14
-	bl sub_800F8BC
+	bl FindAnimationFromAnimId
 	adds r5, r0, #0
 	ldrh r0, [r4, #0x10]
 	adds r0, #0xa
@@ -3156,11 +3156,11 @@ _0800A780:
 	movs r3, #0x1f
 	bl StartHardwareBlend
 	adds r0, r4, #0
-	bl sub_8010960
+	bl DestroyAnimation
 	adds r0, r5, #0
-	bl sub_8010960
+	bl DestroyAnimation
 	movs r0, #0x11
-	bl sub_8010204
+	bl PlayAnimation
 	b _0800A808
 _0800A7D4:
 	adds r0, r6, #0
@@ -3171,21 +3171,21 @@ _0800A7D4:
 	b _0800A808
 _0800A7E0:
 	movs r0, #0x11
-	bl sub_800F8BC
+	bl FindAnimationFromAnimId
 	adds r1, r0, #0
 	ldr r0, [r1]
 	cmp r0, #0
 	blt _0800A870
 	adds r0, r1, #0
-	bl sub_8010960
+	bl DestroyAnimation
 	movs r0, #0x13
 	movs r1, #0x78
 	movs r2, #0x3c
-	bl sub_8010244
+	bl PlayAnimationAtCustomOrigin
 	movs r0, #0x14
 	movs r1, #0x78
 	movs r2, #0x3c
-	bl sub_8010244
+	bl PlayAnimationAtCustomOrigin
 _0800A808:
 	ldrb r0, [r6, #6]
 	adds r0, #1
@@ -3193,10 +3193,10 @@ _0800A808:
 	b _0800A870
 _0800A810:
 	movs r0, #0x13
-	bl sub_800F8BC
+	bl FindAnimationFromAnimId
 	adds r4, r0, #0
 	movs r0, #0x14
-	bl sub_800F8BC
+	bl FindAnimationFromAnimId
 	adds r5, r0, #0
 	ldr r2, _0800A878
 	ldrh r3, [r4, #0x10]
@@ -3232,9 +3232,9 @@ _0800A854:
 	cmp r1, r0
 	ble _0800A870
 	adds r0, r4, #0
-	bl sub_8010960
+	bl DestroyAnimation
 	adds r0, r5, #0
-	bl sub_8010960
+	bl DestroyAnimation
 	movs r0, #1
 	strb r0, [r6, #5]
 _0800A870:
@@ -3463,9 +3463,9 @@ _0800AA2C: @ jump table
 	.4byte _0800AAEE @ case 4
 _0800AA40:
 	movs r0, #0x15
-	bl sub_8010204
+	bl PlayAnimation
 	movs r0, #0x16
-	bl sub_8010204
+	bl PlayAnimation
 	movs r0, #0x53
 	bl PlaySE
 	ldrb r0, [r6, #6]
@@ -3473,10 +3473,10 @@ _0800AA40:
 	b _0800AB38
 _0800AA58:
 	movs r0, #0x15
-	bl sub_800F8BC
+	bl FindAnimationFromAnimId
 	adds r4, r0, #0
 	movs r0, #0x16
-	bl sub_800F8BC
+	bl FindAnimationFromAnimId
 	adds r5, r0, #0
 	ldrh r0, [r4, #0x10]
 	adds r0, #0xa
@@ -3502,11 +3502,11 @@ _0800AA58:
 	movs r3, #0x1f
 	bl StartHardwareBlend
 	adds r0, r4, #0
-	bl sub_8010960
+	bl DestroyAnimation
 	adds r0, r5, #0
-	bl sub_8010960
+	bl DestroyAnimation
 	movs r0, #0x12
-	bl sub_8010204
+	bl PlayAnimation
 	ldrb r0, [r6, #6]
 	adds r0, #1
 	b _0800AB38
@@ -3521,30 +3521,30 @@ _0800AAB0:
 	b _0800AB38
 _0800AAC0:
 	movs r0, #0x12
-	bl sub_800F8BC
+	bl FindAnimationFromAnimId
 	adds r1, r0, #0
 	ldr r0, [r1]
 	cmp r0, #0
 	blt _0800AB3A
 	adds r0, r1, #0
-	bl sub_8010960
+	bl DestroyAnimation
 	movs r0, #0x15
 	movs r1, #0x78
 	movs r2, #0x3c
-	bl sub_8010244
+	bl PlayAnimationAtCustomOrigin
 	movs r0, #0x16
 	movs r1, #0x78
 	movs r2, #0x3c
-	bl sub_8010244
+	bl PlayAnimationAtCustomOrigin
 	ldrb r0, [r6, #6]
 	adds r0, #1
 	b _0800AB38
 _0800AAEE:
 	movs r0, #0x15
-	bl sub_800F8BC
+	bl FindAnimationFromAnimId
 	adds r4, r0, #0
 	movs r0, #0x16
-	bl sub_800F8BC
+	bl FindAnimationFromAnimId
 	adds r5, r0, #0
 	ldrh r0, [r4, #0x12]
 	subs r0, #7
@@ -3567,9 +3567,9 @@ _0800AAEE:
 	cmp r1, r0
 	bge _0800AB3A
 	adds r0, r4, #0
-	bl sub_8010960
+	bl DestroyAnimation
 	adds r0, r5, #0
-	bl sub_8010960
+	bl DestroyAnimation
 	movs r0, #1
 	strb r0, [r6, #5]
 	movs r0, #0
@@ -3794,7 +3794,7 @@ _0800ACFA:
 	cmp r0, #0
 	beq _0800ADB4
 	movs r0, #1
-	bl sub_8010204
+	bl PlayAnimation
 	movs r0, #0x47
 	bl PlaySE
 	movs r0, #3
@@ -3828,7 +3828,7 @@ _0800ACFA:
 	b _0800AE4C
 	.align 2, 0
 _0800AD54: .4byte gTestimony
-_0800AD58: .4byte gLCDIORegisters
+_0800AD58: .4byte gIORegisters
 _0800AD5C: .4byte 0x0000FDFF
 _0800AD60:
 	movs r0, #0x80
@@ -4018,7 +4018,7 @@ _0800AEA6:
 _0800AED0: .4byte gCourtScroll
 _0800AED4: .4byte gScriptContext
 _0800AED8: .4byte gMain
-_0800AEDC: .4byte gLCDIORegisters
+_0800AEDC: .4byte gIORegisters
 _0800AEE0:
 	movs r0, #1
 	bl sub_800244C
@@ -4163,7 +4163,7 @@ _0800AFC4:
 _0800AFFC: .4byte gTestimony
 _0800B000: .4byte gScriptContext
 _0800B004: .4byte gMain
-_0800B008: .4byte gLCDIORegisters
+_0800B008: .4byte gIORegisters
 _0800B00C:
 	movs r0, #1
 	bl sub_800244C
@@ -5182,7 +5182,7 @@ sub_800B808: @ 0x0800B808
 	ldr r0, [r4, #8]
 	bl HideAllSprites
 	bl InitBGs
-	bl sub_800F804
+	bl ResetAnimationSystem
 	bl LoadCurrentScriptIntoRam
 	adds r1, r7, #0
 	adds r1, #0x4a
@@ -5416,7 +5416,7 @@ _0800BA1C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0800BA34: .4byte gLCDIORegisters
+_0800BA34: .4byte gIORegisters
 _0800BA38: .4byte 0x040000D4
 _0800BA3C: .4byte gTestimony
 _0800BA40: .4byte 0x81000004
@@ -5695,7 +5695,7 @@ _0800BC6A:
 	bne _0800BCD4
 	movs r0, #0xc
 	movs r1, #1
-	bl sub_80106A4
+	bl StartAnimationBlend
 	strb r6, [r4, #0x17]
 	strb r6, [r4, #0x16]
 	ldr r1, _0800BCE0
@@ -6022,9 +6022,9 @@ _0800BEFE:
 	strb r4, [r5, #0xb]
 	movs r0, #1
 	strb r0, [r5, #0xc]
-	bl sub_800F84C
+	bl ClearAllAnimationSprites
 	ldr r0, _0800BF84
-	bl sub_8010960
+	bl DestroyAnimation
 	ldr r0, _0800BF88
 	strb r4, [r0, #5]
 	movs r1, #0xf
@@ -6515,7 +6515,7 @@ _0800C2EE:
 	bl sub_800FA74
 	movs r0, #1
 	movs r1, #1
-	bl sub_80106A4
+	bl StartAnimationBlend
 	movs r0, #0x82
 	lsls r0, r0, #1
 	str r0, [r6, #4]
@@ -9409,7 +9409,7 @@ _0800D926:
 	.align 2, 0
 _0800D934: .4byte gBG2MapBuffer
 _0800D938: .4byte 0x000003FF
-_0800D93C: .4byte gLCDIORegisters
+_0800D93C: .4byte gIORegisters
 _0800D940: .4byte gOamObjects+0x188
 _0800D944: .4byte gOamObjects+0x1A0
 _0800D948: .4byte 0x00006560
@@ -9595,13 +9595,13 @@ _0800DAC0:
 	cmp r3, #0
 	beq _0800DAD8
 	movs r0, #4
-	bl sub_8010204
+	bl PlayAnimation
 	movs r0, #0x37
 	bl PlaySE
 	b _0800DAE4
 _0800DAD8:
 	movs r0, #2
-	bl sub_8010204
+	bl PlayAnimation
 	movs r0, #0x51
 	bl PlaySE
 _0800DAE4:
@@ -9655,7 +9655,7 @@ _0800DAE4:
 	b _0800DBD6
 	.align 2, 0
 _0800DB50: .4byte gTestimony
-_0800DB54: .4byte gLCDIORegisters
+_0800DB54: .4byte gIORegisters
 _0800DB58: .4byte 0x0000FDFF
 _0800DB5C: .4byte 0x0000FBFF
 _0800DB60: .4byte gScriptContext
@@ -9851,7 +9851,7 @@ _0800DC8E:
 	str r0, [r1]
 	b _0800DD78
 	.align 2, 0
-_0800DCFC: .4byte gLCDIORegisters
+_0800DCFC: .4byte gIORegisters
 _0800DD00: .4byte 0x0000FBFF
 _0800DD04: .4byte gOamObjects
 _0800DD08: .4byte gInvestigation
@@ -10166,7 +10166,7 @@ _0800DF74:
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-_0800DF80: .4byte gLCDIORegisters
+_0800DF80: .4byte gIORegisters
 _0800DF84: .4byte _0800DF88
 _0800DF88: @ jump table
 	.4byte _0800DFA4 @ case 0
@@ -10324,7 +10324,7 @@ _0800E0C8: .4byte 0x80000200
 _0800E0CC: .4byte gMapMarker
 _0800E0D0: .4byte 0x80000050
 _0800E0D4: .4byte gOamObjects+0x188
-_0800E0D8: .4byte gLCDIORegisters
+_0800E0D8: .4byte gIORegisters
 _0800E0DC: .4byte gScriptContext
 _0800E0E0: .4byte gSaveDataBuffer
 _0800E0E4: .4byte 0x0000FCFF
@@ -10343,7 +10343,7 @@ _0800E0E8:
 	b _0800E13C
 	.align 2, 0
 _0800E100: .4byte gOamObjects+0x188
-_0800E104: .4byte gLCDIORegisters
+_0800E104: .4byte gIORegisters
 _0800E108: .4byte gScriptContext
 _0800E10C: .4byte gSaveDataBuffer
 _0800E110:
@@ -10414,7 +10414,7 @@ _0800E150:
 	adds r0, #1
 	b _0800E476
 	.align 2, 0
-_0800E198: .4byte gLCDIORegisters
+_0800E198: .4byte gIORegisters
 _0800E19C: .4byte gScriptContext
 _0800E1A0: .4byte gSaveDataBuffer
 _0800E1A4: .4byte gOamObjects+0x1B8
@@ -10657,7 +10657,7 @@ _0800E374:
 	b _0800E476
 	.align 2, 0
 _0800E390: .4byte gSaveDataBuffer
-_0800E394: .4byte gLCDIORegisters
+_0800E394: .4byte gIORegisters
 _0800E398: .4byte 0x040000D4
 _0800E39C: .4byte gOamObjects
 _0800E3A0: .4byte 0x80000200
@@ -10840,7 +10840,7 @@ _0800E4D0:
 	b _0800E6A6
 _0800E4EE:
 	movs r0, #4
-	bl sub_8010204
+	bl PlayAnimation
 	movs r0, #0x37
 	bl PlaySE
 	ldr r1, _0800E574
@@ -10915,7 +10915,7 @@ _0800E58C: .4byte gUnknown_081B292C
 _0800E590: .4byte 0x06011000
 _0800E594: .4byte 0x80000400
 _0800E598: .4byte 0x0000C058
-_0800E59C: .4byte gLCDIORegisters
+_0800E59C: .4byte gIORegisters
 _0800E5A0: .4byte 0x0000FDFF
 _0800E5A4:
 	ldrb r0, [r5, #7]
@@ -10973,7 +10973,7 @@ _0800E5CC:
 	b _0800E676
 	.align 2, 0
 _0800E610: .4byte gInvestigation
-_0800E614: .4byte gLCDIORegisters
+_0800E614: .4byte gIORegisters
 _0800E618: .4byte gScriptContext
 _0800E61C:
 	ldrh r4, [r6, #0x1e]
@@ -11176,7 +11176,7 @@ _0800E76A:
 	.align 2, 0
 _0800E7B4: .4byte gBG2MapBuffer
 _0800E7B8: .4byte 0x000003FF
-_0800E7BC: .4byte gLCDIORegisters
+_0800E7BC: .4byte gIORegisters
 
 	THUMB_FUNC_START sub_800E7C0
 sub_800E7C0: @ 0x0800E7C0
@@ -12284,7 +12284,7 @@ _0800F064: .4byte 0x040000D4
 _0800F068: .4byte gOamObjects+0x2C0
 _0800F06C: .4byte 0x070002C0
 _0800F070: .4byte 0x80000004
-_0800F074: .4byte gLCDIORegisters
+_0800F074: .4byte gIORegisters
 _0800F078: .4byte 0x0000FEFF
 _0800F07C:
 	ldrb r0, [r4, #4]
@@ -12325,7 +12325,7 @@ _0800F0A2:
 	b _0800F0D8
 	.align 2, 0
 _0800F0C4: .4byte 0x0000C0A0
-_0800F0C8: .4byte gLCDIORegisters
+_0800F0C8: .4byte gIORegisters
 _0800F0CC:
 	ldrb r0, [r4, #4]
 	cmp r0, #0xa

@@ -37,7 +37,7 @@ struct Main
     s16 bgmFadeVolume; /* + 0x1A */
     u8 unk1C; // sound_status
     u8 currentPlayingBgm; /* + 0x1D */
-    u8 filler1E[0x1];
+    u8 unk1E;
     u8 unk1F;
     s16 bgmFadeAmount; /* + 0x20 */
     s16 bgmVolume; /* + 0x22 */
@@ -91,7 +91,7 @@ struct Main
     u32 unk19C;
 };
 
-struct LCDIORegisters
+struct IORegisters
 {
     u16 lcd_bg0cnt;   /* + 0 */
     u16 lcd_bg1cnt;   /* + 2 */
@@ -135,7 +135,7 @@ struct LCDIORegisters
 
 extern struct Joypad gJoypad;
 extern struct Main gMain;
-extern struct LCDIORegisters gLCDIORegisters;
+extern struct IORegisters gIORegisters;
 
 #define GAME_PROCESS 0
 #define GAME_SUBPROCESS 1

@@ -1,5 +1,5 @@
-#ifndef GUARD_BACKGROUND_H
-#define GUARD_BACKGROUND_H
+#ifndef GUARD_CONST_BG_H
+#define GUARD_CONST_BG_H
 
 #define BG_MODE_SIZE_240x160 0x0
 #define BG_MODE_SIZE_480x160 (1 << 0)
@@ -24,4 +24,4 @@
 #define BG_SHIFT_UP 2
 #define BG_SHIFT_DOWN 3
 
-#endif//GUARD_BACKGROUND_H
+#endif//GUARD_BG_H

@@ -1,5 +1,6 @@
 #include "global.h"
 #include "main.h"
+#include "animation.h"
 #include "sound_control.h"
 #include "m4a.h"
 #include "ewram.h"
@@ -60,7 +61,7 @@ void AgbMain()
             gMain.unk0++;
             sub_80013EC();
             UpdateBGTilemaps();
-            sub_8010C4C(0);
+            MoveAnimationTilesToRam(0);
             MoveSpritesToOAM();
             SetLCDIORegs();
         }
@@ -74,7 +75,7 @@ void AgbMain()
             sub_800232C();
             sub_800EEFC(&gMain);
             DoGameProcess();
-            sub_8010E14(gMain.previousBG);
+            UpdateAnimations(gMain.previousBG);
             UpdateHardwareBlend();
         }
         else
@@ -136,10 +137,10 @@ void DoGameProcess()
             main->shakeAmountY = rand & amplitude;
         }
 
-        gLCDIORegisters.lcd_bg3vofs = main->shakeAmountY + 8;
-        gLCDIORegisters.lcd_bg3hofs = main->shakeAmountX + 8;
-        gLCDIORegisters.lcd_bg1vofs = main->shakeAmountX;
-        gLCDIORegisters.lcd_bg1hofs = main->shakeAmountY;
+        gIORegisters.lcd_bg3vofs = main->shakeAmountY + 8;
+        gIORegisters.lcd_bg3hofs = main->shakeAmountX + 8;
+        gIORegisters.lcd_bg1vofs = main->shakeAmountX;
+        gIORegisters.lcd_bg1hofs = main->shakeAmountY;
 
         if (main->shakeTimer != 0)
         {
@@ -147,10 +148,10 @@ void DoGameProcess()
             if (main->shakeTimer == 0)
             {
                 main->gameStateFlags &= ~1; // disable shakes
-                gLCDIORegisters.lcd_bg3vofs = 8;
-                gLCDIORegisters.lcd_bg3hofs = 8;
-                gLCDIORegisters.lcd_bg1vofs = 0;
-                gLCDIORegisters.lcd_bg1hofs = 0;
+                gIORegisters.lcd_bg3vofs = 8;
+                gIORegisters.lcd_bg3hofs = 8;
+                gIORegisters.lcd_bg1vofs = 0;
+                gIORegisters.lcd_bg1hofs = 0;
             }
         }
     }
@@ -171,7 +172,7 @@ void DoGameProcess()
 void ClearRamAndInitGame()
 {
     struct Main *main = &gMain;
-    struct LCDIORegisters *lcdIoRegsp = &gLCDIORegisters;
+    struct IORegisters *ioRegsp = &gIORegisters;
     u32 temp = main->process[GAME_PROCESS] ? 1 : 0;
 
     RegisterRamReset(RESET_SIO_REGS | RESET_SOUND_REGS | RESET_REGS);
@@ -189,18 +190,18 @@ void ClearRamAndInitGame()
 
     m4aSoundInit();
     REG_WAITCNT = WAITCNT_SRAM_4 | WAITCNT_WS0_N_3 | WAITCNT_WS0_S_1 | WAITCNT_WS1_N_4 | WAITCNT_WS1_S_4 | WAITCNT_WS2_N_4 | WAITCNT_WS2_S_8 | WAITCNT_PHI_OUT_NONE | WAITCNT_PREFETCH_ENABLE;
-    lcdIoRegsp->iwp_ie = INTR_FLAG_VBLANK | INTR_FLAG_GAMEPAK;
-    lcdIoRegsp->lcd_dispstat = DISPSTAT_VBLANK_INTR;
-    lcdIoRegsp->lcd_bldcnt = BLDCNT_TGT1_BG0 | BLDCNT_TGT1_BG1 | BLDCNT_TGT1_BG2 | BLDCNT_TGT1_BG3 | BLDCNT_TGT1_OBJ | BLDCNT_EFFECT_DARKEN;
-    lcdIoRegsp->lcd_bldy = 0x10;
-    REG_IE = lcdIoRegsp->iwp_ie;
-    REG_DISPSTAT = lcdIoRegsp->lcd_dispstat;
+    ioRegsp->iwp_ie = INTR_FLAG_VBLANK | INTR_FLAG_GAMEPAK;
+    ioRegsp->lcd_dispstat = DISPSTAT_VBLANK_INTR;
+    ioRegsp->lcd_bldcnt = BLDCNT_TGT1_BG0 | BLDCNT_TGT1_BG1 | BLDCNT_TGT1_BG2 | BLDCNT_TGT1_BG3 | BLDCNT_TGT1_OBJ | BLDCNT_EFFECT_DARKEN;
+    ioRegsp->lcd_bldy = 0x10;
+    REG_IE = ioRegsp->iwp_ie;
+    REG_DISPSTAT = ioRegsp->lcd_dispstat;
     REG_IME = TRUE;
 }
 
 void ResetGameState()
 {
-    struct LCDIORegisters *lcdIoRegsp = &gLCDIORegisters;
+    struct IORegisters *ioRegsp = &gIORegisters;
     struct Main *main = &gMain;
     DmaFill16(3, 0, VRAM, VRAM_SIZE);
     DmaFill16(3, 0, OAM, OAM_SIZE);
@@ -212,18 +213,18 @@ void ResetGameState()
     DmaFill16(3, 0, &gInvestigation, sizeof(gInvestigation));
     DmaFill16(3, 0, &gCourtRecord, sizeof(gCourtRecord));
     DmaFill16(3, 0, &gSaveDataBuffer, sizeof(gSaveDataBuffer));
-    main->rngSeed = 0xD37;
+    main->rngSeed = 3383;
     main->scenarioIdx = 0;
     main->unk8E = 1;
-    lcdIoRegsp->lcd_bg0cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(28) | BGCNT_16COLOR | BGCNT_WRAP;                 // TODO: add TXT/AFF macro once known which one is used
-    lcdIoRegsp->lcd_bg1cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(29) | BGCNT_16COLOR | BGCNT_WRAP;                 // TODO: add TXT/AFF macro once known which one is used
-    lcdIoRegsp->lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP;                 // TODO: add TXT/AFF macro once known which one is used
-    lcdIoRegsp->lcd_bg3cnt = BGCNT_PRIORITY(3) | BGCNT_CHARBASE(1) | BGCNT_SCREENBASE(31) | BGCNT_MOSAIC | BGCNT_256COLOR | BGCNT_WRAP; // TODO: add TXT/AFF macro once known which one is used
-    lcdIoRegsp->lcd_bldcnt = BLDCNT_TGT1_BG0 | BLDCNT_TGT1_BG1 | BLDCNT_TGT1_BG2 | BLDCNT_TGT1_BG3 | BLDCNT_TGT1_OBJ | BLDCNT_EFFECT_DARKEN;
-    lcdIoRegsp->lcd_bldy = 0x10;
+    ioRegsp->lcd_bg0cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(28) | BGCNT_16COLOR | BGCNT_WRAP;                 // TODO: add TXT/AFF macro once known which one is used
+    ioRegsp->lcd_bg1cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(29) | BGCNT_16COLOR | BGCNT_WRAP;                 // TODO: add TXT/AFF macro once known which one is used
+    ioRegsp->lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP;                 // TODO: add TXT/AFF macro once known which one is used
+    ioRegsp->lcd_bg3cnt = BGCNT_PRIORITY(3) | BGCNT_CHARBASE(1) | BGCNT_SCREENBASE(31) | BGCNT_MOSAIC | BGCNT_256COLOR | BGCNT_WRAP; // TODO: add TXT/AFF macro once known which one is used
+    ioRegsp->lcd_bldcnt = BLDCNT_TGT1_BG0 | BLDCNT_TGT1_BG1 | BLDCNT_TGT1_BG2 | BLDCNT_TGT1_BG3 | BLDCNT_TGT1_OBJ | BLDCNT_EFFECT_DARKEN;
+    ioRegsp->lcd_bldy = 0x10;
     HideAllSprites();
     InitBGs();
-    sub_800F804(); //init animation system?
+    ResetAnimationSystem(); //init animation system?
     ResetSoundControl();
     LoadCurrentScriptIntoRam();
     sub_8000738(0x30, 0xF);
@@ -235,39 +236,37 @@ void HideAllSprites()
     u32 i;
     for (i = 0; i < MAX_OAM_OBJ_COUNT; i++)
     {
-        gOamObjects[i].attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_ERASE, 0, 0, 0, 0);
+        gOamObjects[i].attr0 = SPRITE_ATTR0_CLEAR;
     }
 }
 
 void SetLCDIORegs()
 {
-    struct LCDIORegisters *lcdIoRegsp = &gLCDIORegisters;
-
-    REG_IE = lcdIoRegsp->iwp_ie;
-    REG_DISPSTAT = lcdIoRegsp->lcd_dispstat;
-    REG_DISPCNT = lcdIoRegsp->lcd_dispcnt;
-    // TODO: make these better
-    (*(vu32 *)REG_ADDR_BG0CNT) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg0cnt);
-    (*(vu32 *)REG_ADDR_BG0HOFS) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg0hofs);
-    (*(vu32 *)REG_ADDR_BG1HOFS) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg1hofs);
-    (*(vu32 *)REG_ADDR_BG2CNT) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg2cnt);
-    (*(vu32 *)REG_ADDR_BG2HOFS) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg2hofs);
-    (*(vu32 *)REG_ADDR_BG3HOFS) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg3hofs);
-    (*(vu32 *)REG_ADDR_BG2PA) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg2pa);
-    (*(vu32 *)REG_ADDR_BG2PC) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg2pc);
-    REG_BG2X = lcdIoRegsp->lcd_bg2x;
-    REG_BG2Y = lcdIoRegsp->lcd_bg2y;
-    (*(vu32 *)REG_ADDR_BG3PA) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg3pa);
-    (*(vu32 *)REG_ADDR_BG3PC) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_bg3pc);
-    REG_BG3X = lcdIoRegsp->lcd_bg3x;
-    REG_BG3Y = lcdIoRegsp->lcd_bg3y;
-    (*(vu32 *)REG_ADDR_WIN0H) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_win0h);
-    (*(vu32 *)REG_ADDR_WIN0V) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_win0v);
-    (*(vu32 *)REG_ADDR_WININ) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_winin);
-    (*(vu32 *)REG_ADDR_MOSAIC) = IO_REG_STRUCT_MEMBER(lcdIoRegsp, lcd_mosaic); // this writes to REG_BLDCNT when it shouldn't should theoretically just write 0
-    REG_BLDCNT = lcdIoRegsp->lcd_bldcnt;
-    REG_BLDALPHA = lcdIoRegsp->lcd_bldalpha;
-    REG_BLDY = lcdIoRegsp->lcd_bldy;
+    struct IORegisters *ioRegsp = &gIORegisters;
+    REG_IE = ioRegsp->iwp_ie;
+    REG_DISPSTAT = ioRegsp->lcd_dispstat;
+    REG_DISPCNT = ioRegsp->lcd_dispcnt;
+    DataCopy32(&REG_BG0CNT, &ioRegsp->lcd_bg0cnt);
+    DataCopy32(&REG_BG0HOFS, &ioRegsp->lcd_bg0hofs);
+    DataCopy32(&REG_BG1HOFS, &ioRegsp->lcd_bg1hofs);
+    DataCopy32(&REG_BG2CNT, &ioRegsp->lcd_bg2cnt);
+    DataCopy32(&REG_BG2HOFS, &ioRegsp->lcd_bg2hofs);
+    DataCopy32(&REG_BG3HOFS, &ioRegsp->lcd_bg3hofs);
+    DataCopy32(&REG_BG2PA, &ioRegsp->lcd_bg2pa);
+    DataCopy32(&REG_BG2PC, &ioRegsp->lcd_bg2pc);
+    REG_BG2X = ioRegsp->lcd_bg2x;
+    REG_BG2Y = ioRegsp->lcd_bg2y;
+    DataCopy32(&REG_BG3PA, &ioRegsp->lcd_bg3pa);
+    DataCopy32(&REG_BG3PC, &ioRegsp->lcd_bg3pc);
+    REG_BG3X = ioRegsp->lcd_bg3x;
+    REG_BG3Y = ioRegsp->lcd_bg3y;
+    DataCopy32(&REG_WIN0H, &ioRegsp->lcd_win0h);
+    DataCopy32(&REG_WIN0V, &ioRegsp->lcd_win0v);
+    DataCopy32(&REG_WININ, &ioRegsp->lcd_winin);
+    DataCopy32(&REG_MOSAIC, &ioRegsp->lcd_mosaic); // this writes to REG_BLDCNT, it shouldn't, should theoretically just write 0.
+    REG_BLDCNT = ioRegsp->lcd_bldcnt;
+    REG_BLDALPHA = ioRegsp->lcd_bldalpha;
+    REG_BLDY = ioRegsp->lcd_bldy;
 }
 
 void ReadKeys()
@@ -364,70 +363,70 @@ void StartHardwareBlend(u32 mode, u32 delay, u32 deltaY, u32 target)
 static void UpdateHardwareBlend()
 {
     struct Main *main = &gMain;
-    struct LCDIORegisters *lcdIoRegsp = &gLCDIORegisters;
+    struct IORegisters *ioRegsp = &gIORegisters;
     switch (main->blendMode)
     {
     case 0:
     default:
         break;
     case 1:
-        lcdIoRegsp->lcd_bldcnt = main->blendTarget | BLDCNT_EFFECT_DARKEN;
+        ioRegsp->lcd_bldcnt = main->blendTarget | BLDCNT_EFFECT_DARKEN;
         main->blendCounter++;
         if (main->blendCounter >= main->blendDelay)
         {
             main->blendCounter = 0;
-            lcdIoRegsp->lcd_bldy -= main->blendDeltaY;
+            ioRegsp->lcd_bldy -= main->blendDeltaY;
         }
-        lcdIoRegsp->lcd_bldy &= 0x1F;
-        if (lcdIoRegsp->lcd_bldy == 0) // ! will break with odd numbers
+        ioRegsp->lcd_bldy &= 0x1F;
+        if (ioRegsp->lcd_bldy == 0) // ! will break with odd numbers
         {
-            lcdIoRegsp->lcd_bldy = 0;
-            lcdIoRegsp->lcd_bldcnt = BLDCNT_TGT1_BG1 | BLDCNT_TGT2_BG2 | BLDCNT_TGT2_BG3 | BLDCNT_TGT2_OBJ | BLDCNT_EFFECT_BLEND;
-            lcdIoRegsp->lcd_bldalpha = BLDALPHA_BLEND(0x1F, 0x7);
+            ioRegsp->lcd_bldy = 0;
+            ioRegsp->lcd_bldcnt = BLDCNT_TGT1_BG1 | BLDCNT_TGT2_BG2 | BLDCNT_TGT2_BG3 | BLDCNT_TGT2_OBJ | BLDCNT_EFFECT_BLEND;
+            ioRegsp->lcd_bldalpha = BLDALPHA_BLEND(0x1F, 0x7);
             main->blendMode = 0;
         }
         break;
     case 2:
-        lcdIoRegsp->lcd_bldcnt = main->blendTarget | BLDCNT_EFFECT_DARKEN;
+        ioRegsp->lcd_bldcnt = main->blendTarget | BLDCNT_EFFECT_DARKEN;
         main->blendCounter++;
         if (main->blendCounter >= main->blendDelay)
         {
             main->blendCounter = 0;
-            lcdIoRegsp->lcd_bldy += main->blendDeltaY;
+            ioRegsp->lcd_bldy += main->blendDeltaY;
         }
-        lcdIoRegsp->lcd_bldy &= 0x1F;
-        if (lcdIoRegsp->lcd_bldy == 0x10) // ! will break with odd numbers
+        ioRegsp->lcd_bldy &= 0x1F;
+        if (ioRegsp->lcd_bldy == 0x10) // ! will break with odd numbers
         {
             main->blendMode = 0;
         }
         break;
     case 3:
-        lcdIoRegsp->lcd_bldcnt = main->blendTarget | BLDCNT_EFFECT_LIGHTEN;
+        ioRegsp->lcd_bldcnt = main->blendTarget | BLDCNT_EFFECT_LIGHTEN;
         main->blendCounter++;
         if (main->blendCounter >= main->blendDelay)
         {
             main->blendCounter = 0;
-            lcdIoRegsp->lcd_bldy -= main->blendDeltaY;
+            ioRegsp->lcd_bldy -= main->blendDeltaY;
         }
-        lcdIoRegsp->lcd_bldy &= 0x1F;
-        if (lcdIoRegsp->lcd_bldy == 0) // ! will break with odd numbers
+        ioRegsp->lcd_bldy &= 0x1F;
+        if (ioRegsp->lcd_bldy == 0) // ! will break with odd numbers
         {
-            lcdIoRegsp->lcd_bldy = 0;
-            lcdIoRegsp->lcd_bldcnt = BLDCNT_TGT1_BG1 | BLDCNT_TGT2_BG2 | BLDCNT_TGT2_BG3 | BLDCNT_TGT2_OBJ | BLDCNT_EFFECT_BLEND;
-            lcdIoRegsp->lcd_bldalpha = BLDALPHA_BLEND(0x1F, 0x7);
+            ioRegsp->lcd_bldy = 0;
+            ioRegsp->lcd_bldcnt = BLDCNT_TGT1_BG1 | BLDCNT_TGT2_BG2 | BLDCNT_TGT2_BG3 | BLDCNT_TGT2_OBJ | BLDCNT_EFFECT_BLEND;
+            ioRegsp->lcd_bldalpha = BLDALPHA_BLEND(0x1F, 0x7);
             main->blendMode = 0;
         }
         break;
     case 4:
-        lcdIoRegsp->lcd_bldcnt = main->blendTarget | BLDCNT_EFFECT_LIGHTEN;
+        ioRegsp->lcd_bldcnt = main->blendTarget | BLDCNT_EFFECT_LIGHTEN;
         main->blendCounter++;
         if (main->blendCounter >= main->blendDelay)
         {
             main->blendCounter = 0;
-            lcdIoRegsp->lcd_bldy += main->blendDeltaY;
+            ioRegsp->lcd_bldy += main->blendDeltaY;
         }
-        lcdIoRegsp->lcd_bldy &= 0x1F;
-        if (lcdIoRegsp->lcd_bldy == 0x10) // ! will break with odd numbers
+        ioRegsp->lcd_bldy &= 0x1F;
+        if (ioRegsp->lcd_bldy == 0x10) // ! will break with odd numbers
         {
             main->blendMode = 0;
         }

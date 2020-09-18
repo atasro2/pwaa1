@@ -918,8 +918,8 @@ gUnknown_08018DCC:
 gUnknown_08018DD0:
     .incbin "baserom.gba", 0x00018DD0, 0x4
 
-    .global gUnknown_08018DD4
-gUnknown_08018DD4: @ person data
+    .global gPersonAnimData
+gPersonAnimData: @ person data
     .4byte 0x00000000
     .4byte 0x00000000
     .2byte 0x0000
@@ -1061,8 +1061,8 @@ gUnknown_08018DD4: @ person data
     .2byte 0x000a
     .2byte 0x0000
 
-    .global gUnknown_08018F78
-gUnknown_08018F78:
+    .global gAnimationData
+gAnimationData:
 	.4byte 0x00000000
 	.4byte 0x00000000
 	.4byte 0x00000000
@@ -1622,8 +1622,8 @@ gUnknown_08018F78:
 	.byte 0x20
 	.byte 0x00
 
-    .global gUnknown_08019450
-gUnknown_08019450:
+    .global gSpriteSizeTable
+gSpriteSizeTable:
     .incbin "baserom.gba", 0x00019450, 0x3C
 
     .global gUnknown_0801948C
@@ -1636,7 +1636,7 @@ gUnknown_080194AB:
 
     .global gUnknown_080194CA
 gUnknown_080194CA:
-    .incbin "baserom.gba", 0x000194CA, 0x22
+    .incbin "baserom.gba", 0x000194CA, 0x1F
     
     @ SOUND_DATA.s 
 

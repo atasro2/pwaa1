@@ -1,5 +1,5 @@
 #include "global.h"
-#include "constants/background.h"
+#include "constants/bg.h"
 #include "background.h"
 
 #include "data/background.h"
@@ -15,8 +15,8 @@ void InitBGs()
         (*temp) = gUnknown_08013B70[i];
     }
     DmaFill16(3, 0, &gBG2MapBuffer, sizeof(gBG2MapBuffer));
-    gLCDIORegisters.lcd_bg2vofs = 0;
-    gLCDIORegisters.lcd_bg2hofs = 8;
+    gIORegisters.lcd_bg2vofs = 0;
+    gIORegisters.lcd_bg2hofs = 8;
     InitBG3();
 }
 
@@ -24,7 +24,7 @@ void InitBG3()
 {
     u32 i = 0;
     u32 j = 0;
-    struct LCDIORegisters *lcdIoRegsp = &gLCDIORegisters;
+    struct IORegisters *ioRegsp = &gIORegisters;
 
     for (i = 0; i < 30; i++)
     {
@@ -38,7 +38,7 @@ void InitBG3()
             gBG3MapBuffer[GET_MAP_TILE_INDEX(i, j, 1, 1)] = j + i * 30;
         }
     }
-    lcdIoRegsp->lcd_bg3vofs = 8;
-    lcdIoRegsp->lcd_bg3hofs = 8;
+    ioRegsp->lcd_bg3vofs = 8;
+    ioRegsp->lcd_bg3hofs = 8;
     DmaFill16(3, 0, VRAM + 0xDD80, 0x40); // empty 8bpp tile
 }

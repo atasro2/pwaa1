@@ -10,48 +10,56 @@ struct OamAttrs // why tho capcom there is already a struct called OamData that 
     u16 attr3;
 };
 
-struct Struct300080C
+struct AnimationFrame
 {
-    u16 unk0;
-    u16 unk2;
-    u16 xOrigin; /* + 0x4 */
-    u16 yOrigin; /* + 0x6 */
-    u8 * unk8; 
-    u8 * unkC;
-    u8 * unk10; // vram tile address
-    u8 * unk14;
-    u8 unk18;
-    u8 unk19;
-    u8 unk1A;
+    u16 spriteDataOffset; /* + 0x0 */
+    u8 frameDuration; /* + 0x2 */
+    u8 flags; /* + 03 */
+    u8 songId; /* + 0x4 */
+    u8 action; /* + 0x5 */
+    u8 filler6[2];
+};
+
+struct AnimationStructFieldC
+{
+    u16 animId;
+    u8 unk2[2];
+    s16 xOrigin; /* + 0x4 */
+    s16 yOrigin; /* + 0x6 */
+    u8 * animFrameDataStartPtr; /* + 0x8 */ 
+    u8 * tileDataPtr;
+    u8 * vramPtr; // vram tile address
+    u8 * animGfxDataStartPtr; /* + 0x14 */
+    u8 paletteSlot;
+    u8 spriteCount;
+    u8 priority;
     u8 filler1B[1];
+};
+
+struct SpriteTemplate {
+    s8 x;
+    s8 y;
+    u16 data;
 };
 
 struct AnimationStruct
 {
-    u32 unk0;
-    struct AnimationStruct * unk4;
-    struct AnimationStruct * unk8;
-    u16 unkC;
-    u8 personId; /* + 0xE */ // was this originally a u16?
-    u16 xOrigin; /* + 0x10 */
-    u16 yOrigin; /* + 0x12 */
-    u8 * animFrameDataStartPtr;
-    u8 * unk18;
-    u8 * unk1C; // vram tile address
-    u8 * animGfxDataStartPtr;
-    u8 filler24[2];
-    u8 unk26;
-    u8 filler27[1];
-    u16 unk28;
-    u8 filler2A[0x2];
+    s32 flags;
+    struct AnimationStruct * prevAnimation;
+    struct AnimationStruct * nextAnimation;
+    struct AnimationStructFieldC unkC;
+    s16 frameDurationCounter; /* + 0x28 */
+    u8 unk2A; 
+    u8 unk2B; 
     u8 unk2C;
-    u8 filler2D[0x3];
-    u8 * unk30;
-    u8 * unk34;
-    u8 filler38[2];
-    u8 unk3A;
-    u8 unk3B;
-    s16 unk3C;
+    u8 unk2D;
+    s16 unk2E;
+    struct SpriteTemplate * unk30;
+    struct AnimationFrame * frameData;
+    u16 tileNum; /* + 0x38 */
+    u8 animtionOamStartIdx;
+    u8 animtionOamEndIdx;
+    s16 rotationAmount;
     u16 unk3E;
 };
 
@@ -208,18 +216,30 @@ struct CourtScroll
 {
     u8 * unk0;
     u16 state;
-    u8 filler6[0x6];
+    u8 unk6;
+    u8 unk7; // padding??
+    u16 unk8;
+    u16 unkA;
     s16 unkC;
     s16 unkE;
 };
 
 struct Struct2002650
 {
-    u8 filler0[0x8];
+    u16 unk0;
+    u8 unk2;
+    u8 unk3;
+    s16 xOrigin; /* + 0x4 */
+    s16 yOrigin; /* + 0x6 */
     u8 * unk8;
-    u8 fillerC[0x8];
+    u16 unkC;
+    u8 unkE; 
+    u8 unkF; 
+    u8 unk10;
+    u8 unk11;
+    u16 unk12;
     u32 unk14;
-    u8 * unk18;
+    struct AnimationFrame * frameData;
 };
 
 struct Point 
@@ -249,12 +269,31 @@ struct Struct80187C8
     u16 attr2;
 };
 
-struct Struct8018DD4
+struct PersonAnimationData
 {
-    u8* unk0;
-    u8* unk4;
-    u16 unk8;
+    u8* gfxData;
+    u8* frameData;
+    u16 spriteCount;
     u16 unkA;
+};
+
+struct AnimationData
+{
+    u8* gfxData;
+    u8* vramPtr;
+    u8* frameData;
+    s16 xOrigin;
+    s16 yOrigin;
+    u8 paletteSlot;
+    u8 spriteCount;
+    u8 priority; // first nibble animation priority(?) second nibble sprite priority
+    u8 flags;
+};
+
+struct SpriteSizeData {
+    u16 tileSize;
+    u8 height;
+    u8 width;
 };
 
 struct ExaminationData
@@ -270,7 +309,7 @@ struct SaveData
     char saveDataVer[0x30]; /* + 0x0 */
     u32 magic;         /* + 0x30 */
     struct Main main; /* + 0x34 */
-    struct LCDIORegisters ioRegs; /* + 0x1D4 */
+    struct IORegisters ioRegs; /* + 0x1D4 */
     struct ScriptContext scriptCtx; /* + 0x228 */
     struct CourtRecord courtRecord; /* + 0x268 */
     struct CourtScroll courtScroll;  /* + 0x2C0 */
