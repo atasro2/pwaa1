@@ -1,109 +1,28 @@
 #include "global.h"
 #include "script.h"
 #include "ewram.h"
+#include "mgba.h"
 
 #define VWF_RENDERER ((struct FontRenderData *)(EWRAM_START+0x5000))
 #define VWF_CHARDATA (struct NewTextBoxCharacter *)(EWRAM_START+0x5080)
 
 static const u8 sCharCodeArgCount[] =
 {
-	0,
-	0,
-	0,
-	1,
-	1,
-	2,
-	1,
-	0,
-	2,
-	3,
-	1,
-	1,
-	1,
-	0,
-	1,
-	2,
-	1,
-	0,
-	3,
-	1,
-	0,
-	0,
-	0,
-	1,
-	1,
-	2,
-	4,
-	1,
-	1,
-	1,
-	3,
-	0,
-	1,
-	0,
-	2,
-	2,
-	0,
-	1,
-	1,
-	2,
-	1,
-	1,
-	3,
-	0,
-	1,
-	0,
-	0,
-	2,
-	1,
-	2,
-	2,
-	5,
-	1,
-	2,
-	1,
-	2,
-	1,
-	1,
-	2,
-	2,
-	1,
-	1,
-	1,
-	0,
-	0,
-	0,
-	1,
-	1,
-	1,
-	0,
-	1,
-	2,
-	2,
-	0,
-	1,
-	1,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	1,
-	0,
-	0
+	0, 0, 0, 1, 1, 2, 1, 0,
+	2, 3, 1, 1, 1, 0, 1, 2,
+	1, 0, 3, 1, 0, 0, 0, 1,
+	1, 2, 4, 1, 1, 1, 3, 0,
+	1, 0, 2, 2, 0, 1, 1, 2,
+	1, 1, 3, 0, 1, 0, 0, 2,
+	1, 2, 2, 5, 1, 2, 1, 2,
+	1, 1, 2, 2, 1, 1, 1, 0,
+	0, 0, 1, 1, 1, 0, 1, 2,
+	2, 0, 1, 1, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 1, 0, 0
 };
+
+#define PRINT_DEBUG
 
 // the next comment is lying the font is 4bpp
 typedef u8 Glyph[128]; // The font in the translation is 8bpp.... ~~Not anymore there is a blanket~~
@@ -154,11 +73,32 @@ extern u32 const gArialGlyphWidths[0xE0];
 extern Glyph const gArialGlyphs4bpp[0xE0];
 
 #define DivRoundNearest(divisor, dividend) (((divisor) + ((dividend)/2)) / (dividend))
+#define DivRoundCeil(divisor, dividend) (((divisor) + ((dividend)-1)) / (dividend))
+
+#define MAX_TILES 252
+#define MAX_CHARACTERS 192
+
+void profile_start()
+{
+    REG_TM2CNT_L = 0;    
+	REG_TM3CNT_L = 0;
+    REG_TM2CNT_H = 0;  
+	REG_TM3CNT_H = 0;
+    REG_TM3CNT_H = TIMER_ENABLE | 0x4;
+    REG_TM2CNT_H = TIMER_ENABLE;
+}
+
+u32 profile_stop()
+{
+   REG_TM2CNT_H = 0;
+   return (REG_TM3CNT_L<<16)|REG_TM2CNT_L;
+}
 
 void SaveVWFCharacters(void)
 {
     struct NewTextBoxCharacter * charBuffer = (struct NewTextBoxCharacter *)&gSaveDataBuffer.textBoxCharacters;
     struct NewTextBoxCharacter * nCharacters = VWF_CHARDATA;
+	u32 charCount = 0;
     DmaFill16(3, 0, gTextBoxCharacters, sizeof(gTextBoxCharacters));
     nCharacters--;
     do
@@ -166,8 +106,11 @@ void SaveVWFCharacters(void)
         nCharacters++;
         DmaCopy16(3, nCharacters, charBuffer, sizeof(struct NewTextBoxCharacter));
         charBuffer++;
+		charCount++;
     }
-    while(nCharacters->charCode != 0xFFF);
+    while(nCharacters->charCode != 0xFFF && charCount < MAX_CHARACTERS);
+	if(charCount >= MAX_CHARACTERS)
+		(charBuffer-1)->charCode = 0xFFF;
 }
 
 void RedrawVWFCharacters(void)
@@ -187,6 +130,7 @@ void RedrawVWFCharactersFromSave(void)
 {
     u32 oldColor = gScriptContext.textColor;
 	u32 oldY = 0;
+	u32 startTime, endTime, totalScanLines = 0;
     struct NewTextBoxCharacter * nCharacters = (struct NewTextBoxCharacter *)&gSaveDataBuffer.textBoxCharacters;
 	DmaFill16(3, 0, gTextBoxCharacters, sizeof(gTextBoxCharacters));
     VWF_RENDERER->isReloading = TRUE;
@@ -198,6 +142,9 @@ void RedrawVWFCharactersFromSave(void)
 	}
     if(gScriptContext.unk0 & 4)
 		gScriptContext.fullscreenTextX = 0;
+	#ifdef PRINT_DEBUG
+	profile_start();
+	#endif
 	while(nCharacters->charCode != 0xFFF)
     {
 		if(nCharacters->xPos == 0 || oldY != nCharacters->yPos)
@@ -229,6 +176,7 @@ void RedrawVWFCharactersFromSave(void)
 			else
 				gScriptContext.unk0 &= ~0x8000;
 		}
+		/*
 		if(nCharacters->yPos < 2)
 		{
 			if(gScriptContext.unk0 & 4)
@@ -241,13 +189,48 @@ void RedrawVWFCharactersFromSave(void)
 			if(!(gScriptContext.unk0 & 4))
 				gScriptContext.unk0 |= 4;
 		}
+		*/
         gScriptContext.textColor = nCharacters->color;
+		startTime = REG_VCOUNT;
+        
         PutVwfCharInTextbox(nCharacters->charCode, nCharacters->yPos, nCharacters->xPos);
+        
+        //debug
+        endTime = REG_VCOUNT;
+        if (endTime < startTime)
+            endTime += 228;
+        totalScanLines += endTime - startTime;
+        //PutVwfCharInTextbox(nCharacters->charCode, nCharacters->yPos, nCharacters->xPos);
 		gScriptContext.fullscreenTextX++;
 		oldY = nCharacters->yPos;
         nCharacters++;
     }
-    gScriptContext.textColor = oldColor;
+	#ifdef PRINT_DEBUG
+	{
+	u32 profiling = profile_stop();
+	u32 xBGPos = 29;
+	u32 remaining = totalScanLines;
+	gMain.unk1F = 0xFF;
+	while (remaining > 0) {
+		u32 digit = remaining % 10;
+		u32 ascii = 464 + digit;
+		remaining /= 10;
+		gSaveDataBuffer.bg0Map[xBGPos--] = ascii;
+	}
+	xBGPos--;
+	remaining = profiling;
+	while (remaining > 0) {
+		u32 digit = remaining % 10;
+		u32 ascii = 464 + digit;
+		remaining /= 10;
+		gSaveDataBuffer.bg0Map[xBGPos--] = ascii;
+	}
+	
+	mgba_printf(MGBA_LOG_DEBUG, "redraw totalScanLines 0x%X, profileResult: %u", totalScanLines, profiling);
+	}
+	#endif
+
+	gScriptContext.textColor = oldColor;
 	VWF_RENDERER->isReloading = FALSE;
 }
 
@@ -377,69 +360,140 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 	}
 	
 	// fill loop
-	for (y = 0; y < 16; y++) {
-		for (x = renderer->permanentXPos; x - renderer->permanentXPos < characterWidth; x++) {
-			// tile numbers go
-			// 0 1
-			// 2 3
-			// meaning 4 tiles per 16x16 OAM
-			u32 tileNum;
-			u32 *vram;
-			u8 pixel;
-			u16 numBitsIntoTile;
-			u32 index;
-			
-			if (renderer->yRow >= 2) {
-				tileNum = renderer->fsBaseTile;
-			} else {
-				tileNum = renderer->yRow * 16 * 4;
-			}
+	{
+	u32 tileNum;
+	u32 tileX;
+	u32 tileY;
+	u32 oldPixel;
+	u32 neededTilesX;
+	u32 baseTileNum;
+	u16 numBitsIntoTile;
+	u32 clearPixels;
+	u32 colorLine;
+	u32 permanentXPos;
+	u32 * pixelPtr;
+	u32 tileNumTable[4];
 
-			tileNum += (x >> 4) * 4;
-			if ((x & 0xF) >= 8)
-				tileNum += 1;
-			if (y >= 8)
-				tileNum += 2;
+	permanentXPos = renderer->permanentXPos;
+	neededTilesX = DivRoundCeil(((permanentXPos % 8) + characterWidth), 8);
+	numBitsIntoTile = (permanentXPos % 8) * 4;
+
+	// precalculation of 8-pixel lines, cleared pixels and colored ones
+	clearPixels = ~(0xFFFFFFFF << numBitsIntoTile);
+	colorLine = (ctx->textColor & 0xF) * 0x33333333;
+
+	renderer->tileXOfs = permanentXPos % 8;
+
+	if (renderer->yRow >= 2)
+		baseTileNum = renderer->fsBaseTile;
+	else
+		baseTileNum = renderer->yRow * 16 * 4;
+
+	// check if we are going to cross the current oam boundary and need a new one
+	{
+	u32 startOamNum = permanentXPos >> 4;
+	u32 endOamNum = (permanentXPos + characterWidth) >> 4;
+	if (permanentXPos % 16 == 0 || endOamNum > startOamNum) {
+		tileNum = baseTileNum + endOamNum * 4;
+		
+		if (tileNum < MAX_TILES) {
+			renderer->oamBaseTile = tileNum;
+			renderer->oamNum = tileNum >> 2;
+			renderer->oamNecessary = 1;
+					
+			// clean up the next 4 tiles (32 bytes per 4bpp tile)
+			// 32 x 4 bytes (u32) = 128 bytes (4 tiles)
+			DmaFill32(3, 0, (u32*)((u8*)OBJ_VRAM0 + tileNum * 32), 128);
+		}
+	}
+	}
+	// copy over the character from the rom into the tile buffer already used by the game
+	
+	// color the character in the tile buffer
+	// if the target color is not white
+	pixelPtr = (u32 *)renderer->arialGlyphsAddr;
+	if (ctx->textColor != 0) {
+		u32 i;
+		pixelPtr = (u32 *)gTextColorTileBuffer;
+		DmaCopy32(3, (u32*) *renderer->arialGlyphsAddr, pixelPtr, 128);
+		for (i = 0; i < 32; i++) {
+			// read 8 pixels from the tile buffer
+			u32 *pixel = &pixelPtr[i];
 			
-			renderer->tileNum = tileNum;
-			renderer->tileXOfs = x & 7;
-			renderer->tileYOfs = y & 7;
+			// make a mask for every non-zero color (1, 2, 3)
+			// convert all "1", "2" and "3" digits to "F" to use them as a bitmask
+			u32 mask1 = *pixel & 0x11111111;
+			u32 mask2 = (*pixel & 0x22222222) >> 1;
+			u32 pixelMask = (mask1 | mask2) * 0xF;
 			
-			if (((x & 0xF) == 0) && !renderer->oamNecessary) {
-                u32 *p;
-				renderer->oamBaseTile = tileNum;
-				renderer->oamNum = tileNum >> 2;
-				renderer->oamNecessary = 1;
+			// batch operation on all pixels (color * 3 + 3)
+			*pixel = (colorLine + *pixel) & pixelMask;
+		}
+	}
+	
+	// pre-calculate the top tile numbers for every X
+	// tile numbers go
+	// 0 1
+	// 2 3
+	// meaning 4 tiles per 16x16 OAM
+	for (tileX = 0; tileX < neededTilesX; tileX++) {
+		x = permanentXPos + tileX * 8;
+		tileNumTable[tileX] = baseTileNum + (x / 16) * 4 + ((x % 16) / 8);
+	}
+
+	// draw the character
+	for (tileY = 0; tileY < 2; tileY++) {
+		for (y = 0; y < 8; y++) {
+
+			oldPixel = 0;
+			//renderer->tileYOfs = y;  // not used anymore
+			
+			for (tileX = 0; tileX < neededTilesX; tileX++) {
+				u32 *vram;
+				u32 pixel;
+				u32 movedPixel;
+				u32 index;
+
+				tileNum = tileNumTable[tileX] + tileY * 2;
 				
-				// 32 bytes in one 4bpp tile
-				p = (u32*)(OBJ_VRAM0 + renderer->tileNum * 32);
-				while (p != (u32*)(OBJ_VRAM0 + renderer->tileNum * 32 + 128)) {
-					*(p++) = 0;
+				// truncate tiles that would overwrite the hand cursor
+				if (tileNum >= MAX_TILES)
+					break;
+				
+				//renderer->tileNum = tileNum;  // not used anymore
+
+				// Write to VRAM
+				vram = (u32*)((u8*)OBJ_VRAM0 + tileNum * 32) + y;
+
+				// read 8 pixels from the font
+				if (tileX < 2) {
+					index = y + tileY * 16 + tileX * 8;
+					pixel = pixelPtr[index];
 				}
-			}
-			
-			// Write to VRAM
-			vram = (u32*)(OBJ_VRAM0 + renderer->tileNum*32 + renderer->tileYOfs*4);
-			index = ((y&7)*8 + ((y>>3)<<7) + ((x - renderer->permanentXPos)&7) + (((x - renderer->permanentXPos)>>3)<<6));
-			index >>= 1;
-			if(((x - renderer->permanentXPos) & 1) == 0)
-				pixel = (*renderer->arialGlyphsAddr)[index] & 0xF;
-			else
-				pixel = ((*renderer->arialGlyphsAddr)[index] & 0xF0) >> 4;
-			numBitsIntoTile = renderer->tileXOfs*4;
-			// Clear the existing pixel
-			*vram &= ~(0xF << numBitsIntoTile);
-			if (pixel != 0) {
-				*vram |= (ctx->textColor * 3 + pixel) << numBitsIntoTile;
+				else
+					pixel = 0;
+
+				// move the pixels by shifting their bits
+				movedPixel = (pixel << numBitsIntoTile) | (oldPixel >> (32 - numBitsIntoTile));
+				
+				// Clear the existing pixel
+				// batch operation on all pixels (*vram &= ~(0xF << numBitsIntoTile))
+				*vram &= clearPixels;
+				
+				if (movedPixel != 0)
+					*vram |= movedPixel;
+				
+				oldPixel = pixel;
 			}
 		}
+	}
 	}
 	if (renderer->oamNecessary) {
 		// Generate a TextBoxCharacter, which is now just used as a glorified OAM thing
 		struct TextBoxCharacter *oamProxy = &gTextBoxCharacters[renderer->oamNum];
 		int r0 = 0;
 		int r2;
-		oamProxy->state = renderer->characterCode | 0x8000;
+		oamProxy->state = 0x8000;
 		oamProxy->objAttr2 = renderer->oamBaseTile | 0x400;
 		
 		r2 = renderer->oamNum;

@@ -78,7 +78,6 @@ _080001B0:
 	stmdb sp!, {lr}
 	mov lr, pc
 	bx r0
-_080001CC:
 	ldm sp!, {lr}
 	bx lr
 

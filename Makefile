@@ -136,6 +136,8 @@ include graphics.mk
 %.rl: % ; $(GBAGFX) $< $@
 
 $(C_BUILDDIR)/agb_sram.o: CFLAGS := -O -mthumb-interwork
+#$(C_BUILDDIR)/vwf.o: CC1 = $(shell /opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc --print-prog-name=cc1) -quiet
+#$(C_BUILDDIR)/vwf.o: CFLAGS := -march=armv4t -mtune=arm7tdmi -mthumb -mthumb-interwork -std=c17 -Ofast -fno-builtin -Wall -Wextra -Wpedantic
 
 $(ROM): $(ELF)
 	$(OBJCOPY) -O binary --gap-fill 0xff $< $@
