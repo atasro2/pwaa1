@@ -174,7 +174,10 @@ void RedrawVWFCharactersFromSave(void)
 				oldY = nCharacters->yPos;
 			}
 			else
+			{
 				gScriptContext.unk0 &= ~0x8000;
+				VWF_RENDERER->xOffset = 0;
+			}
 		}
 		/*
 		if(nCharacters->yPos < 2)
@@ -252,31 +255,7 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 	renderer->yRow = y;
 	
 	isCharSaveNeeded = !(gMain.process[GAME_PROCESS] == 0xA);
-	/*
-    if (charCode < 0x600) {
-        if (renderer->xCol == 0 || lineHasChanged) {
-		    if (renderer->yRow == 0) {
-                if (isCharSaveNeeded) {
-                    renderer->saveCharCounter = newTBC;
-                }
-		    }
-        }
-		PutCharInTextbox(charCode, y, x);
-        if (isCharSaveNeeded) {
-            renderer->saveCharCounter->charCode = renderer->characterCode;
-            renderer->saveCharCounter->xPos = renderer->xCol;
-            renderer->saveCharCounter->yPos = renderer->yRow;
-            renderer->saveCharCounter->color = ctx->textColor;
-            renderer->saveCharCounter++;
-            renderer->saveCharCounter->charCode = 0xFFF;
-            renderer->saveCharCounter->xPos = 0;
-            renderer->saveCharCounter->yPos = 0;
-            renderer->saveCharCounter->color = 0;
-	    }
-        return;
-	}
-	*/
-	if(!renderer->isReloading && (renderer->xCol == 0 || (renderer->yRow >= 2 && lineHasChanged)) && ctx->unk0 & 0x8000)
+	if(!renderer->isReloading && (renderer->xCol == 0 || (renderer->yRow >= 2 && lineHasChanged)))
 	{
 		u32 charCode2;
 		u16 * oldScriptPtr; 
@@ -284,33 +263,34 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 		//*(u32*)0x03007000 = renderer->yRow;
 		//*(u32*)0x03007004 = renderer->xCol;
 
-		renderer->xOffset = 0;
-
-		oldScriptPtr = ctx->scriptPtr;
-		while(1)
+		if(ctx->unk0 & 0x8000)
 		{
-			u32 token;
-			token = *ctx->scriptPtr;
-			ctx->scriptPtr++;
-			if(token >= 0x80)
+			oldScriptPtr = ctx->scriptPtr;
+			while(1)
 			{
-				charCode2 = token - 0x80;
-				if(charCode2 > 0x600)
-					stringWidth += gArialGlyphWidths[charCode2 - 0x6A0];
+				u32 token;
+				token = *ctx->scriptPtr;
+				ctx->scriptPtr++;
+				if(token >= 0x80)
+				{
+					charCode2 = token - 0x80;
+					if(charCode2 > 0x600)
+						stringWidth += gArialGlyphWidths[charCode2 - 0x6A0];
+					else
+						stringWidth += 14;
+				}
+				else if(token == 1 || token == 2 || token == 7 || token == 8 || token == 9 || token == 10 || token == 13 || token == 21 || token == 42 || token == 45 || token == 46 || token == 69)
+					break;
 				else
-					stringWidth += 14;
+					ctx->scriptPtr += sCharCodeArgCount[token]; // skip command
 			}
-			else if(token == 1 || token == 2 || token == 7 || token == 8 || token == 9 || token == 10 || token == 13 || token == 21 || token == 42 || token == 45 || token == 46 || token == 69)
-				break;
-			else
-				ctx->scriptPtr += sCharCodeArgCount[token]; // skip command
+			renderer->xOffset = (DISPLAY_WIDTH/2) - DivRoundNearest(stringWidth, 2) - ((renderer->yRow >= 2) ? (ctx->unk28 + 4) : ctx->textXOffset);
+			ctx->scriptPtr = oldScriptPtr;
 		}
-		renderer->xOffset = (DISPLAY_WIDTH/2) - DivRoundNearest(stringWidth, 2) - ((renderer->yRow >= 2) ? (ctx->unk28 + 4) : ctx->textXOffset);
-		ctx->scriptPtr = oldScriptPtr;
-		*(u32*)0x03007000 = stringWidth | 0x69000000;
+		else
+			renderer->xOffset = 0;
+		//*(u32*)0x03007000 = stringWidth | 0x69000000;
 	}
-	else if(!(ctx->unk0 & 0x8000))
-		renderer->xOffset = 0;
 	processedCharCode = renderer->characterCode - 0x6A0;
 	
 	if (renderer->xCol == 0 || lineHasChanged) {
