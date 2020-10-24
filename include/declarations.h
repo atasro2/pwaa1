@@ -7,6 +7,7 @@
 extern const u8 gUnknown_08014D70[];
 extern const u16 gUnknown_08014D82[]; // GS1_gameover_message_data_table
 extern const u8 gUnknown_08013B70[0x400];
+extern struct Struct8018870 gUnknown_08018870[7];
 extern u8 gUnknown_080189A4[];
 extern u8 gSaveVersion[0x30];
 extern void (*gGameProcesses[15])(struct Main *);
@@ -45,7 +46,8 @@ extern u8 gUnknown_08191CA0[0x800];
 extern u8 gUnknown_081924A0[0x800];
 extern u8 gUnknown_08192CA0[];
 extern u8 gUnknown_08193CA0[0x400];
-extern u8 gUnknown_081942C0[0x11][0x20]; 
+//extern u8 gUnknown_081942C0[0x11][0x20]; 
+#define gUnknown_081942C0 ((u8*)0x81942C0)
 extern u8 gUnknown_08194500[0x20]; // 4bpp palette
 extern u8 gUnknown_08194520[0x20]; // 4bpp palette
 extern u8 gUnknown_08194540[0x20]; // 4bpp palette
@@ -81,6 +83,8 @@ bool32 GetFlag(u32 arg0, u32 arg1);
 u32 LoadSaveData();
 void CalculateSaveChecksum();
 u32 CheckSaveChecksum();
+
+bool32 CheckRectCollisionWithArea(struct Rect *rect, struct Point4 *area);
 
 //ASMFUNCTIONS
 

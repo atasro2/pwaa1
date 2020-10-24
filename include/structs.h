@@ -269,6 +269,20 @@ struct Struct80187C8
     u16 attr2;
 };
 
+struct Struct8018870
+{
+    struct Point4 unk0;
+    struct Point4 unk10;
+    u16 unk20;
+    u16 unk22;
+    u16 unk24;
+    u8 pad[2]; // possibly another u16 unused
+    u8 unk28;
+    u8 unk29;
+    u8 unk2A;
+    u8 unk2B;
+};
+
 struct PersonAnimationData
 {
     u8* gfxData;
