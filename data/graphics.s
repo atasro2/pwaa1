@@ -619,7 +619,7 @@ gTextPal:
 
     .global gCharSet
 gCharSet:  @ Charset
-    .incbin "baserom.gba", 0x001D312C, 0x2A800
+    .incbin "graphics/fonts/charset.4bpp.lz"
 
     .global gUnknown_081FD92C
 gUnknown_081FD92C:
