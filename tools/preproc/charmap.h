@@ -55,6 +55,15 @@ public:
 
         return it->second;
     }
+
+    int32_t ToUnicode(int32_t codepoint) {
+        const char chars[3] = { char(codepoint & 0xff), char(codepoint >> 8), '\0' };
+        std::string value(chars, 2);
+        for (auto i = m_chars.cbegin(); i != m_chars.cend(); ++i) {
+            if (i->second == value) return i->first;
+        }
+        return -1;
+    }
 private:
     std::map<std::int32_t, std::string> m_chars;
     std::string m_escapes[128];
