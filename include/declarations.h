@@ -53,6 +53,7 @@ extern u8 gUnknown_08194520[0x20]; // 4bpp palette
 extern u8 gUnknown_08194540[0x20]; // 4bpp palette
 extern u8 gUnknown_08194560[0x20]; // 4bpp palette
 extern u8 gUnknown_08194580[0xC0]; // sprite palettes
+extern u8 gUnknown_081946C0[];
 extern u8 gUnknown_081964A8[0x800];
 
 extern u8 gUnknown_081FD92C[0x40]; // sprite palette

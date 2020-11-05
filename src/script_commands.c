@@ -976,9 +976,7 @@ bool32 Command2B(struct ScriptContext * scriptCtx)
     gMain.unk89 = 3; // damage related
     PlaySE(0x4C);
     if(gMain.health <= 0)
-    {
         scriptCtx->nextSection = gUnknown_08014D82[gMain.scenarioIdx];
-    }
     return 0;
 }
 
@@ -1509,4 +1507,30 @@ bool32 Command3F(struct ScriptContext *scriptCtx)
     gOamObjects[88].attr1 = SPRITE_ATTR1_NONAFFINE(investigation->unk0, FALSE, FALSE, 1);
     gOamObjects[88].attr2 = SPRITE_ATTR2(0xFC, 1, 8);
     return 1;
+}
+
+void sub_80074E8()
+{
+    u32 i = 0;
+    u32 id; 
+    struct MapMarker *mapMarker;
+    struct OamAttrs *oam;
+    for (i = 0; i < 8; i++)
+    {
+        if (gMapMarker[i].id == 0xFF)
+            continue;
+
+        id = gMapMarker[i].id;
+        DmaCopy16(3, gUnknown_080187C8[id].tiles, (gMapMarker+i)->vramPtr, gUnknown_080187C8[id].size);
+        mapMarker = &gMapMarker[i];
+        if (!(mapMarker->unk5 & 4))
+        {
+            oam = &gOamObjects[mapMarker->oamIdx];
+            oam->attr0 = mapMarker->attr0;
+            oam->attr1 = mapMarker->attr1;
+            oam->attr2 = mapMarker->attr2;
+        }
+
+        if (mapMarker->id); // needed for matching wtf
+    }
 }

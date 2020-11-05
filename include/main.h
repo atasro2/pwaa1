@@ -71,8 +71,8 @@ struct Main
     u8 unk7D;
     u8 unk7E;
     u8 filler7F[0x5];
-    u16 unk84;
-    u8 filler86[0x2];
+    s16 unk84;
+    u16 unk86;
     u8 unk88;
     u8 unk89;
     u8 previousHealth; /* + 0x8A */
@@ -155,4 +155,9 @@ u32 ReadKeysAndTestResetCombo();
 void StartHardwareBlend(u32 mode, u32 delay, u32 deltaY, u32 target);
 void InitCourtScroll(u8 *, u32, u32, u32);
 void ResetGameState();
+
+s16 fix_mul(s16 a, s16 b);
+s16 fix_div(s16 a, s16 b);
+s16 fix_inverse(s16 b);
+
 #endif//GUARD_MAIN_H
