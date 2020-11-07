@@ -15,6 +15,12 @@ extern void (*gUnknown_0811DFFC[6])(struct AnimationStruct *, struct CourtScroll
 extern u32 * gFlagPtrs[3]; 
 extern s16 gSineTable[256+64];
 extern u32 gUnknown_080150D0[12];
+extern const u16 gUnknown_08015100[0x78/2];
+extern const u16 gUnknown_08015178[0x64/2];
+extern const u16 gUnknown_080151DC[0xDC/2];
+extern const u16 gUnknown_080152B8[0x28/2];
+extern const u16 gUnknown_080152E0[0x64/2];
+extern const u16 gUnknown_08015344[0x78/2];
 extern u16 gUnknown_08014FB8[0x8C];
 extern u8 gTextPal[0x20];
 extern u32 std_scripts[0xDEC/4];
@@ -85,6 +91,8 @@ u32 CheckSaveChecksum();
 //ASMFUNCTIONS
 
 // UNSORTED
+extern void sub_8002CCC(u32, u32);
+extern void sub_8002C98(u32 arg0, u32 arg1, u32 arg2);
 extern void sub_800D6C8(void);
 extern void sub_800D674(void);
 extern void sub_80020B0(u32);
