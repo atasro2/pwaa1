@@ -1,11 +1,6 @@
 	.include "asm/macros.inc"
 	.syntax unified
 
-	THUMB_FUNC_START nullsub_7
-nullsub_7: @ 0x08003188
-	bx lr
-	.align 2, 0
-
 	THUMB_FUNC_START sub_800318C
 sub_800318C: @ 0x0800318C
 	ldr r2, _080031B4
