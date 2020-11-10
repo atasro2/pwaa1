@@ -133,7 +133,8 @@ struct CourtRecord
     u8 unk3;
     u16 unk4;
     u16 unk6;
-    u8 filler8[0x2];
+    u8 unk8;
+    u8 unk9;
     bool8 isSaveScreen;
     u8 unkB;
     u8 unkC;
@@ -200,7 +201,8 @@ struct TestimonyStruct
     u8 unk2;
     u8 unk3;
     u16 unk4;
-    u8 filler6[0x2];
+    u8 unk6;
+    u8 unk7; // filler?
 };
 
 struct TextBoxCharacter

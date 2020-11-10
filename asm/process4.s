@@ -616,7 +616,7 @@ _0800B9A6:
 	adds r0, r6, #0
 	movs r1, #0
 	bl sub_800D530
-	bl GetCurrentEpisodeBit
+	bl SetCurrentEpisodeBit
 	movs r0, #0x30
 	movs r1, #0xf
 	bl sub_8000738

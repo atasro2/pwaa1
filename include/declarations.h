@@ -38,7 +38,12 @@ extern u8 gUnknown_08180000[0x200]; // palette
 extern u8 gUnknown_08180200[]; // compressed tile data goes with previous palette probably
 extern u8 gUnusedAsciiCharSet[0x800]; // first 60 characters of ascii
 extern u8 gUnknown_08186540[0x1000];
+extern u8 gUnknown_0818BD40[];
+extern u8 gUnknown_0818BEC0[];
+extern u8 gUnknown_0818C040[];
+extern u8 gUnknown_0818F8C0[0x800];
 
+extern u8 gUnknown_081900C0[0x400];
 extern u8 gUnknown_08190AC0[]; // some tiles
 extern u8 gUnknown_081911C0[];
 extern u8 gUnknown_081914A0[0x800];
@@ -46,8 +51,11 @@ extern u8 gUnknown_08191CA0[0x800];
 extern u8 gUnknown_081924A0[0x800];
 extern u8 gUnknown_08192CA0[];
 extern u8 gUnknown_08193CA0[0x400];
+extern u8 gUnknown_081940E0[];
 //extern u8 gUnknown_081942C0[0x11][0x20]; 
 #define gUnknown_081942C0 ((u8*)0x81942C0)
+extern u8 gUnknown_08194280[0x20];
+extern u8 gUnknown_081942A0[0x20];
 extern u8 gUnknown_08194500[0x20]; // 4bpp palette
 extern u8 gUnknown_08194520[0x20]; // 4bpp palette
 extern u8 gUnknown_08194540[0x20]; // 4bpp palette
@@ -64,6 +72,8 @@ extern u8 gUnknown_08360834[0x20]; // 4bpp palette
 extern u16 gUnknown_08360854[]; // palette?
 extern u8 gUnknown_08362524[0x20]; // 4bpp palette
 extern u16 gUnknown_08362544[]; // palette?
+
+extern u8 gUnknown_08427D88[];
 
 extern u8 gUnknown_0871FCF4[];
 extern u8 gUnknown_08748218[];
@@ -96,9 +106,13 @@ extern void sub_80020B0(u32);
 extern void sub_8002878(struct CourtRecord *);
 extern void sub_800EEFC(struct Main *);
 extern void ResetSoundControl();
+extern void sub_800B638(struct Main *, struct TestimonyStruct *);
+extern void sub_800B51C(struct Main *, struct TestimonyStruct *, u32);
 extern void sub_800B7A8(struct InvestigationStruct *, u32);
+extern void sub_800D77C(struct Main *, struct CourtRecord *);
 extern s32 FindEvidenceInCourtRecord(u16, u32);
 extern s32 FindFirstEmptySlotInCourtRecord(u16);
+extern void sub_800E8A0(struct CourtRecord *);
 extern void sub_800ED68(struct CourtRecord *);
 extern u32 GetMapMarkerIndexFromId(u32);
 //EWRAM

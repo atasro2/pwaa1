@@ -35,8 +35,9 @@ SECTIONS {
         src/rom8008DF4.o(.text);
         asm/rom8008DF4.o(.text);
         asm/continue_process.o(.text);
-        asm/process3.o(.text);
-        asm/process5.o(.text);
+        src/process3.o(.text);
+        src/process5.o(.text);
+        src/process6.o(.text);
         asm/process6.o(.text);
         asm/process9.o(.text);
         asm/process4.o(.text);
