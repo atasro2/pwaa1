@@ -263,21 +263,21 @@ gSaveGameSubProcesses:
 	.4byte sub_8008CC0
 	.4byte sub_8008D68
 
-    .global gUnknown_0811DF48
-gUnknown_0811DF48:
+    .global gProcess3SubProcesses
+gProcess3SubProcesses:
     .4byte sub_800A3EC
     .4byte sub_800A5B0
     .4byte sub_800A6AC
 
-    .global gUnknown_0811DF54
-gUnknown_0811DF54:
+    .global gProcess5SubProcesses
+gProcess5SubProcesses:
     .4byte sub_800A894
     .4byte sub_800A8E0
     .4byte sub_800A9FC
     .4byte sub_800A730
 
-    .global gUnknown_0811DF64
-gUnknown_0811DF64:
+    .global gProcess6SubProcesses
+gProcess6SubProcesses:
     .4byte sub_800AB58
 	.4byte sub_800AC1C
 	.4byte nullsub_32

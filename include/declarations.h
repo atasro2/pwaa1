@@ -7,6 +7,7 @@
 extern const u8 gUnknown_08014D70[];
 extern const u16 gUnknown_08014D82[]; // GS1_gameover_message_data_table
 extern const u8 gUnknown_08013B70[0x400];
+extern struct Struct8018870 gUnknown_08018870[7];
 extern u8 gUnknown_080189A4[];
 extern u8 gSaveVersion[0x30];
 extern void (*gGameProcesses[15])(struct Main *);
@@ -37,7 +38,12 @@ extern u8 gUnknown_08180000[0x200]; // palette
 extern u8 gUnknown_08180200[]; // compressed tile data goes with previous palette probably
 extern u8 gUnusedAsciiCharSet[0x800]; // first 60 characters of ascii
 extern u8 gUnknown_08186540[0x1000];
+extern u8 gUnknown_0818BD40[];
+extern u8 gUnknown_0818BEC0[];
+extern u8 gUnknown_0818C040[];
+extern u8 gUnknown_0818F8C0[0x800];
 
+extern u8 gUnknown_081900C0[0x400];
 extern u8 gUnknown_08190AC0[]; // some tiles
 extern u8 gUnknown_081911C0[];
 extern u8 gUnknown_081914A0[0x800];
@@ -45,12 +51,17 @@ extern u8 gUnknown_08191CA0[0x800];
 extern u8 gUnknown_081924A0[0x800];
 extern u8 gUnknown_08192CA0[];
 extern u8 gUnknown_08193CA0[0x400];
-extern u8 gUnknown_081942C0[0x11][0x20]; 
+extern u8 gUnknown_081940E0[];
+//extern u8 gUnknown_081942C0[0x11][0x20]; 
+#define gUnknown_081942C0 ((u8*)0x81942C0)
+extern u8 gUnknown_08194280[0x20];
+extern u8 gUnknown_081942A0[0x20];
 extern u8 gUnknown_08194500[0x20]; // 4bpp palette
 extern u8 gUnknown_08194520[0x20]; // 4bpp palette
 extern u8 gUnknown_08194540[0x20]; // 4bpp palette
 extern u8 gUnknown_08194560[0x20]; // 4bpp palette
 extern u8 gUnknown_08194580[0xC0]; // sprite palettes
+extern u8 gUnknown_081946C0[];
 extern u8 gUnknown_081964A8[0x800];
 
 extern u8 gUnknown_081FD92C[0x40]; // sprite palette
@@ -61,6 +72,8 @@ extern u8 gUnknown_08360834[0x20]; // 4bpp palette
 extern u16 gUnknown_08360854[]; // palette?
 extern u8 gUnknown_08362524[0x20]; // 4bpp palette
 extern u16 gUnknown_08362544[]; // palette?
+
+extern u8 gUnknown_08427D88[];
 
 extern u8 gUnknown_0871FCF4[];
 extern u8 gUnknown_08748218[];
@@ -82,6 +95,8 @@ u32 LoadSaveData();
 void CalculateSaveChecksum();
 u32 CheckSaveChecksum();
 
+bool32 CheckRectCollisionWithArea(struct Rect *rect, struct Point4 *area);
+
 //ASMFUNCTIONS
 
 // UNSORTED
@@ -91,9 +106,13 @@ extern void sub_80020B0(u32);
 extern void sub_8002878(struct CourtRecord *);
 extern void sub_800EEFC(struct Main *);
 extern void ResetSoundControl();
+extern void sub_800B638(struct Main *, struct TestimonyStruct *);
+extern void sub_800B51C(struct Main *, struct TestimonyStruct *, u32);
 extern void sub_800B7A8(struct InvestigationStruct *, u32);
+extern void sub_800D77C(struct Main *, struct CourtRecord *);
 extern s32 FindEvidenceInCourtRecord(u16, u32);
 extern s32 FindFirstEmptySlotInCourtRecord(u16);
+extern void sub_800E8A0(struct CourtRecord *);
 extern void sub_800ED68(struct CourtRecord *);
 extern u32 GetMapMarkerIndexFromId(u32);
 //EWRAM

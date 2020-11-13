@@ -33,7 +33,7 @@ struct Main
     bool8 showTextboxCharacters; /* + 0x15 */
     u8 tilemapUpdateBits; /* + 0x16 */
     u8 unk17;
-    u8 filler18[0x2];
+    u16 unk18;
     s16 bgmFadeVolume; /* + 0x1A */
     u8 unk1C; // sound_status
     u8 currentPlayingBgm; /* + 0x1D */
@@ -71,8 +71,8 @@ struct Main
     u8 unk7D;
     u8 unk7E;
     u8 filler7F[0x5];
-    u16 unk84;
-    u8 filler86[0x2];
+    s16 unk84;
+    u16 unk86;
     u8 unk88;
     u8 unk89;
     u8 previousHealth; /* + 0x8A */
@@ -145,6 +145,7 @@ extern struct IORegisters gIORegisters;
 #define SET_PROCESS_PTR(no_0, no_1, no_2, no_3, main) (*(u32*)main->process = ((no_0) | ((no_1) << 8) | ((no_2) << 16) | ((no_3) << 24)))
 #define SET_PROCESS(no_0, no_1, no_2, no_3) (*(u32*)gMain.process = ((no_0) | ((no_1) << 8) | ((no_2) << 16) | ((no_3) << 24)))
 #define BACKUP_PROCESS() (*(u32*)gMain.processCopy = *(u32*)gMain.process)
+#define BACKUP_PROCESS_PTR(main) (*(u32*)main->processCopy = *(u32*)gMain.process)
 #define RESTORE_PROCESS_PTR(main) (*(u32*)gMain.process = *(u32*)main->processCopy)
 
 void ClearRamAndInitGame();
@@ -155,4 +156,9 @@ u32 ReadKeysAndTestResetCombo();
 void StartHardwareBlend(u32 mode, u32 delay, u32 deltaY, u32 target);
 void InitCourtScroll(u8 *, u32, u32, u32);
 void ResetGameState();
+
+s16 fix_mul(s16 a, s16 b);
+s16 fix_div(s16 a, s16 b);
+s16 fix_inverse(s16 b);
+
 #endif//GUARD_MAIN_H

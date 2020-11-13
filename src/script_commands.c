@@ -976,9 +976,7 @@ bool32 Command2B(struct ScriptContext * scriptCtx)
     gMain.unk89 = 3; // damage related
     PlaySE(0x4C);
     if(gMain.health <= 0)
-    {
         scriptCtx->nextSection = gUnknown_08014D82[gMain.scenarioIdx];
-    }
     return 0;
 }
 
@@ -1405,7 +1403,7 @@ bool32 Command3E(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
     DmaCopy16(3, gUnknown_08190AC0, OBJ_VRAM0 + 0x1F80, 0x80);
-    DmaCopy16(3, gUnknown_081942C0[0], OBJ_PLTT + 0x100, sizeof(gUnknown_081942C0[0]));
+    DmaCopy16(3, &gUnknown_081942C0[0], OBJ_PLTT + 0x100, 0x20);
     gInvestigation.unk0 = 0xF0;
     gInvestigation.unk2 = 0x30;
     gInvestigation.unk17 = 0;
@@ -1415,4 +1413,124 @@ bool32 Command3E(struct ScriptContext * scriptCtx)
     scriptCtx->unk0 |= 0x280;
     scriptCtx->scriptPtr++;
     return 0; 
+}
+
+bool32 Command3F(struct ScriptContext *scriptCtx)
+{
+    struct InvestigationStruct * investigation = &gInvestigation;
+    struct Struct8018870 * struct8018870p;
+    struct Rect rect;
+
+    if(scriptCtx->unk0 & 0x80)
+    {
+        investigation->unk0 += investigation->unk8;
+        investigation->unk0 &= 0xFF;
+        investigation->unk8--;
+        if(investigation->unk8 == 0)
+        {
+            scriptCtx->unk0 &= ~0x80;
+            scriptCtx->unk0 |= 0x108;
+        }
+        if(scriptCtx->unk0 & 0x200)
+        {
+            PlaySE(49);
+            scriptCtx->unk0 &= ~0x200;
+        }
+    }
+    else if(scriptCtx->unk0 & 0x100)
+    {
+        struct8018870p = &gUnknown_08018870[investigation->unk9];
+        if(gJoypad.heldKeysRaw & DPAD_LEFT)
+        {
+            investigation->unk0 -= 3;
+            if(investigation->unk0 < struct8018870p->unk28)
+                investigation->unk0 = struct8018870p->unk28;
+            if(investigation->unk0 > DISPLAY_WIDTH-16)
+                investigation->unk0 = 0;
+        }
+        if(gJoypad.heldKeysRaw & DPAD_RIGHT)
+        {
+            investigation->unk0 += 3;
+            if(investigation->unk0 > struct8018870p->unk2A)
+                investigation->unk0 = struct8018870p->unk2A;
+            if(investigation->unk0 > DISPLAY_WIDTH-16)
+                investigation->unk0 = DISPLAY_WIDTH-16;
+        }
+        if(gJoypad.heldKeysRaw & DPAD_UP)
+        {
+            investigation->unk2 -= 3;
+            if(investigation->unk2 < struct8018870p->unk29)
+                investigation->unk2 = struct8018870p->unk29;
+            if(investigation->unk2 > DISPLAY_HEIGHT-16)
+                investigation->unk2 = 0;
+        }
+        if(gJoypad.heldKeysRaw & DPAD_DOWN)
+        {
+            investigation->unk2 += 3;
+            if(investigation->unk2 > struct8018870p->unk2B)
+                investigation->unk2 = struct8018870p->unk2B;
+            if(investigation->unk2 > DISPLAY_HEIGHT-16)
+                investigation->unk2 = DISPLAY_HEIGHT-16;
+        }
+        if(gJoypad.pressedKeysRaw & A_BUTTON)
+        {
+            scriptCtx->unk0 &= ~0x108;
+            rect.origin.x = gMain.unk34 + investigation->unk0 + 12;
+            rect.origin.y = gMain.unk36 + investigation->unk2;
+            rect.w = 4;
+            rect.h = 4;
+            if(CheckRectCollisionWithArea(&rect, &struct8018870p->unk0))
+                ChangeScriptSection(struct8018870p->unk20);
+            else if(CheckRectCollisionWithArea(&rect, &struct8018870p->unk10))
+                ChangeScriptSection(struct8018870p->unk22);
+            else ChangeScriptSection(struct8018870p->unk24);
+            scriptCtx->unk0 |= 0x400;
+            DmaCopy16(3, &gUnknown_081942C0[0], OBJ_PLTT+0x100, 0x20);
+            PlaySE(43);
+            scriptCtx->unk0 |= 0x400;
+            gOamObjects[88].attr0 = SPRITE_ATTR0(investigation->unk2, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
+            gOamObjects[88].attr1 = SPRITE_ATTR1_NONAFFINE(investigation->unk0, FALSE, FALSE, 1);
+            gOamObjects[88].attr2 = SPRITE_ATTR2(0xFC, 1, 8);
+            return 0;
+        }
+        investigation->unk17++;
+        if(investigation->unk17 > 1)
+        {
+            investigation->unk17 = 0;
+            investigation->unk16++;
+            investigation->unk16 &= 0xF;
+            DmaCopy16(3, &gUnknown_081942C0[investigation->unk16*0x20], OBJ_PLTT+0x100, 0x20);
+        }
+    }
+    scriptCtx->unk0 |= 0x400;
+    gOamObjects[88].attr0 = SPRITE_ATTR0(investigation->unk2, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
+    gOamObjects[88].attr1 = SPRITE_ATTR1_NONAFFINE(investigation->unk0, FALSE, FALSE, 1);
+    gOamObjects[88].attr2 = SPRITE_ATTR2(0xFC, 1, 8);
+    return 1;
+}
+
+void sub_80074E8()
+{
+    u32 i = 0;
+    u32 id; 
+    struct MapMarker *mapMarker;
+    struct OamAttrs *oam;
+    for (i = 0; i < 8; i++)
+    {
+        if (gMapMarker[i].id == 0xFF)
+            continue;
+
+        id = gMapMarker[i].id;
+        DmaCopy16(3, gUnknown_080187C8[id].tiles, (gMapMarker+i)->vramPtr, gUnknown_080187C8[id].size);
+        mapMarker = &gMapMarker[i];
+        if (!(mapMarker->unk5 & 4))
+        {
+            oam = &gOamObjects[mapMarker->oamIdx];
+            oam->attr0 = mapMarker->attr0;
+            oam->attr1 = mapMarker->attr1;
+            oam->attr2 = mapMarker->attr2;
+        }
+
+        if (mapMarker->id); // needed for matching wtf
+    }
 }

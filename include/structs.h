@@ -133,7 +133,8 @@ struct CourtRecord
     u8 unk3;
     u16 unk4;
     u16 unk6;
-    u8 filler8[0x2];
+    u8 unk8;
+    u8 unk9;
     bool8 isSaveScreen;
     u8 unkB;
     u8 unkC;
@@ -200,7 +201,8 @@ struct TestimonyStruct
     u8 unk2;
     u8 unk3;
     u16 unk4;
-    u8 filler6[0x2];
+    u8 unk6;
+    u8 unk7; // filler?
 };
 
 struct TextBoxCharacter
@@ -267,6 +269,20 @@ struct Struct80187C8
     u16 attr0;
     u16 attr1;
     u16 attr2;
+};
+
+struct Struct8018870
+{
+    struct Point4 unk0;
+    struct Point4 unk10;
+    u16 unk20;
+    u16 unk22;
+    u16 unk24;
+    u8 pad[2]; // possibly another u16 unused
+    u8 unk28;
+    u8 unk29;
+    u8 unk2A;
+    u8 unk2B;
 };
 
 struct PersonAnimationData

@@ -436,7 +436,7 @@ void SaveGameExitSaveScreenSubProcess(struct Main *main)
     RestoreAnimationsFromBuffer(gSaveDataBuffer.ewramStruct2650);
     gMain.unk1F |= 3;
     DmaCopy16(3, gSaveDataBuffer.oam, gOamObjects, sizeof(gOamObjects));
-    DmaCopy16(3, gUnknown_081942C0[0], OBJ_PLTT+0x100, sizeof(gUnknown_081942C0[0]));
+    DmaCopy16(3, &gUnknown_081942C0[0], OBJ_PLTT+0x100, 0x20);
     RESTORE_PROCESS_PTR(main);
     if(main->process[GAME_PROCESS] == 4 && main->process[GAME_PROCESSUNK2] == 3)
     {
