@@ -166,7 +166,6 @@ void sub_800AC1C(struct Main * main)
         BACKUP_PROCESS_PTR(main);
         SET_PROCESS_PTR(7, 0, 0, 0, main);
     }
-    //testimony = &gTestimony;
     sub_800B51C(main, &gTestimony, 1);
     if(main->gameStateFlags & 0x400)
     {

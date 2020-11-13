@@ -38,8 +38,8 @@ SECTIONS {
         src/process3.o(.text);
         src/process5.o(.text);
         src/process6.o(.text);
-        asm/process6.o(.text);
         asm/process9.o(.text);
+        src/process4.o(.text);
         asm/process4.o(.text);
         asm/rom800D674.o(.text);
         asm/court_record.o(.text);
