@@ -7,11 +7,7 @@ gUnknown_08013B58:
 
     .global gUnknown_08013B64
 gUnknown_08013B64:
-    .incbin "baserom.gba", 0x00013B64, 0x6
-
-    .global gUnknown_08013B6A
-gUnknown_08013B6A:
-    .incbin "baserom.gba", 0x00013B6A, 0x6
+    .incbin "baserom.gba", 0x00013B64, 0xC
 
     .global gUnknown_08013B70
 gUnknown_08013B70:

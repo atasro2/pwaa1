@@ -127,7 +127,7 @@ struct ScriptContext
 
 struct CourtRecord
 {
-    u8 unk0;
+    s8 unk0;
     s8 unk1;
     u8 unk2;
     u8 unk3;

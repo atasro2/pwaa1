@@ -22,7 +22,6 @@ SECTIONS {
         src/bg3_control.o(.text);
         asm/bg3_control.o(.text);
         src/bg_control.o(.text);
-        asm/bg_control.o(.text);
         src/utils.o(.text);
         src/rom8002D6C.o(.text);
         asm/rom8002D6C.o(.text);

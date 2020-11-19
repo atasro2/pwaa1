@@ -4,6 +4,8 @@
 #include "structs.h"
 
 //DATA
+extern u8 gUnknown_08013B58[];
+extern u8 gUnknown_08013B64[];
 extern const u8 gUnknown_08014D70[];
 extern const u16 gUnknown_08014D82[]; // GS1_gameover_message_data_table
 extern const u8 gUnknown_08013B70[0x400];
@@ -11,6 +13,7 @@ extern struct Struct8018870 gUnknown_08018870[7];
 extern u8 gUnknown_080189A4[];
 extern u8 gSaveVersion[0x30];
 extern void (*gGameProcesses[15])(struct Main *);
+extern void (*gUnknown_0811DBF0[5])(struct CourtRecord *);
 extern void (*gUnknown_0811DFD0[11])(struct AnimationStruct *);
 extern void (*gUnknown_0811DFFC[6])(struct AnimationStruct *, struct CourtScroll *);
 extern u32 * gFlagPtrs[3]; 
@@ -30,6 +33,8 @@ extern struct SpriteSizeData gSpriteSizeTable[0xF];
 extern s8 gUnknown_0801948C[0x1F];
 extern s8 gUnknown_080194AB[0x1F];
 extern s8 gUnknown_080194CA[0x1F];
+extern u16 gUnknown_08013F70[];
+extern u16 gUnknown_08014270[];
 
 // 0x180000 onwards // GFX basically
 // maybe change to defines
