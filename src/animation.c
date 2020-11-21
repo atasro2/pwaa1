@@ -539,26 +539,31 @@ _0800FE14:\n\
 }
 #endif
 
-bool32 sub_800FE24(struct Point *pt0, struct Point *pt1, struct Point *pt2, struct Point *pt3)
+bool32 CheckIfLinesIntersect(struct Point *pt0, struct Point *pt1, struct Point *pt2, struct Point *pt3)
 {
-    s32 num, num2, num3, num4, num5, num6, num7, num8, num9;
-    num = pt0->x - pt1->x;
-    num2 = pt0->y - pt1->y;
-    num3 = pt2->x - pt3->x;
-    num4 = pt2->y - pt3->y;
-    num5 = num * num4 - num2 * num3;
-    if (num5 == 0)
+    // check if the lines through pt0-pt1 and pt2-pt3 intersect on the screen
+    s32 xd01, yd01, xd23, yd23, cp0123, xd13, yd13, cp2313, cp0113;
+    xd01 = pt0->x - pt1->x;
+    yd01 = pt0->y - pt1->y;
+    xd23 = pt2->x - pt3->x;
+    yd23 = pt2->y - pt3->y;
+    cp0123 = xd01 * yd23 - yd01 * xd23;
+    // are 0->1 and 2->3 collinear or 0? if yes bail
+    if (cp0123 == 0)
     {
         return FALSE;
     }
-    num6 = pt1->x - pt3->x;
-    num7 = pt1->y - pt3->y;
-    num8 = num7 * num3 - num6 * num4;
-    num9 = num7 * num - num6 * num2;
-    if (((num5 > 0 && num8 >= 0 && num8 <= num5) || (num5 < 0 && num8 >= num5 && num8 <= 0)) && ((num5 > 0 && num9 >= 0 && num9 <= num5) || (num5 < 0 && num9 >= num5 && num9 <= 0)))
+    xd13 = pt1->x - pt3->x;
+    yd13 = pt1->y - pt3->y;
+    cp2313 = yd13 * xd23 - xd13 * yd23;
+    cp0113 = yd13 * xd01 - xd13 * yd01;
+    // does an intersection between the two lines exist on screen? return true if yes...
+    if (((cp0123 > 0 && cp2313 >= 0 && cp2313 <= cp0123) || (cp0123 < 0 && cp2313 >= cp0123 && cp2313 <= 0)) &&
+	((cp0123 > 0 && cp0113 >= 0 && cp0113 <= cp0123) || (cp0123 < 0 && cp0113 >= cp0123 && cp0113 <= 0)))
     {
         return TRUE;
     }
+    // ...else false
     return FALSE;
 }
 
@@ -584,13 +589,13 @@ bool32 CheckRectCollisionWithArea(struct Rect *rect, struct Point4 *area)
         p2 = &area->points[1];
         for (j = 0; j < 3; j++)
         {
-            if (sub_800FE24(p1, p2, p3, p4))
+            if (CheckIfLinesIntersect(p1, p2, p3, p4))
                 return TRUE;
             p1++;
             p2++;
         }
         p2 = &area->points[0];
-        if (sub_800FE24(p1, p2, p3, p4))
+        if (CheckIfLinesIntersect(p1, p2, p3, p4))
             return TRUE;
         p3++;
         p4++;
@@ -600,13 +605,13 @@ bool32 CheckRectCollisionWithArea(struct Rect *rect, struct Point4 *area)
     p2 = &area->points[1];
     for (k = 0; k < 3; k++)
     {
-        if (sub_800FE24(p1, p2, p3, p4))
+        if (CheckIfLinesIntersect(p1, p2, p3, p4))
             return TRUE;
         p1++;
         p2++;
     }
     p2 = &area->points[0];
-    if (sub_800FE24(p1, p2, p3, p4))
+    if (CheckIfLinesIntersect(p1, p2, p3, p4))
         return TRUE;
 
     return FALSE;
