@@ -13,14 +13,16 @@
 #include "lz.h"
 
 #define GET_GBA_PAL_RED(x) (((x) >> 0) & 0x1F)
-#define GET_GBA_PAL_GREEN(x) (((x) >> 5) & 0x1F)
+#define GET_GBA_PAL_GREEN(x) (((((x) >> 5) & 0x1F) << 1) | (((x) >> 15) & 1))
 #define GET_GBA_PAL_BLUE(x) (((x) >> 10) & 0x1F)
 
-#define SET_GBA_PAL(glsb, r, g, b) (((glsb) << 15) | ((b) << 10) | ((g) << 5) | (r))
+#define SET_GBA_PAL(r, g, b) ((((g) & 1) << 15) | ((b) << 10) | (((g) >> 1) << 5) | (r))
 
-#define UPCONVERT_BIT_DEPTH(x) ((((x)*255) / 31) & 0xF8)
+#define UPCONVERT_BIT_DEPTH(x) ((x) * 255 / 31)
+#define UPCONVERT_BIT_DEPTH_GREEN(x) ((x) * 255 / 63)
 
 #define DOWNCONVERT_BIT_DEPTH(x) ((x) / 8)
+#define DOWNCONVERT_BIT_DEPTH_GREEN(x) ((x) / 4)
 
 void ReadGbaPaletteBuffer(unsigned char *buffer, int fileSize, struct Palette *palette)
 {
@@ -35,9 +37,8 @@ void ReadGbaPaletteBuffer(unsigned char *buffer, int fileSize, struct Palette *p
 	{
 		uint16_t paletteEntry = (data[i * 2 + 1] << 8) | data[i * 2];
 		palette->colors[i].red = UPCONVERT_BIT_DEPTH(GET_GBA_PAL_RED(paletteEntry));
-		palette->colors[i].green = UPCONVERT_BIT_DEPTH(GET_GBA_PAL_GREEN(paletteEntry));
+		palette->colors[i].green = UPCONVERT_BIT_DEPTH_GREEN(GET_GBA_PAL_GREEN(paletteEntry));
 		palette->colors[i].blue = UPCONVERT_BIT_DEPTH(GET_GBA_PAL_BLUE(paletteEntry));
-		palette->colors[i].green_lsb = ((paletteEntry & 0x8000) >> 15) & 1;
 	}
 }
 
@@ -53,11 +54,10 @@ unsigned char *GetGbaPalette(struct Palette *palette)
 	for (int i = 0; i < palette->numColors; i++)
 	{
 		unsigned char red = DOWNCONVERT_BIT_DEPTH(palette->colors[i].red);
-		unsigned char green = DOWNCONVERT_BIT_DEPTH(palette->colors[i].green);
+		unsigned char green = DOWNCONVERT_BIT_DEPTH_GREEN(palette->colors[i].green);
 		unsigned char blue = DOWNCONVERT_BIT_DEPTH(palette->colors[i].blue);
-		unsigned char green_lsb = palette->colors[i].green_lsb;
 
-		uint16_t paletteEntry = SET_GBA_PAL(green_lsb, red, green, blue);
+		uint16_t paletteEntry = SET_GBA_PAL(red, green, blue);
 
 		*tmpbuf++ = paletteEntry & 0xFF;
 		*tmpbuf++ = (paletteEntry >> 8);
@@ -735,9 +735,8 @@ void ReadGbaPalette(char *path, struct Palette *palette)
 	{
 		uint16_t paletteEntry = (data[i * 2 + 1] << 8) | data[i * 2];
 		palette->colors[i].red = UPCONVERT_BIT_DEPTH(GET_GBA_PAL_RED(paletteEntry));
-		palette->colors[i].green = UPCONVERT_BIT_DEPTH(GET_GBA_PAL_GREEN(paletteEntry));
+		palette->colors[i].green = UPCONVERT_BIT_DEPTH_GREEN(GET_GBA_PAL_GREEN(paletteEntry));
 		palette->colors[i].blue = UPCONVERT_BIT_DEPTH(GET_GBA_PAL_BLUE(paletteEntry));
-		palette->colors[i].green_lsb = ((paletteEntry & 0x8000) >> 15) & 1;
 	}
 
 	free(data);
@@ -753,11 +752,10 @@ void WriteGbaPalette(char *path, struct Palette *palette)
 	for (int i = 0; i < palette->numColors; i++)
 	{
 		unsigned char red = DOWNCONVERT_BIT_DEPTH(palette->colors[i].red);
-		unsigned char green = DOWNCONVERT_BIT_DEPTH(palette->colors[i].green);
+		unsigned char green = DOWNCONVERT_BIT_DEPTH_GREEN(palette->colors[i].green);
 		unsigned char blue = DOWNCONVERT_BIT_DEPTH(palette->colors[i].blue);
-		unsigned char green_lsb = ((palette->colors[i].green & 4) >> 2) & 1;
 
-		uint16_t paletteEntry = SET_GBA_PAL(green_lsb, red, green, blue);
+		uint16_t paletteEntry = SET_GBA_PAL(red, green, blue);
 
 		fputc(paletteEntry & 0xFF, fp);
 		fputc(paletteEntry >> 8, fp);

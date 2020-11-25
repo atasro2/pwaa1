@@ -160,7 +160,6 @@ void ReadPngPalette(char *path, struct Palette *palette)
         palette->colors[i].red = colors[i].red;
         palette->colors[i].green = colors[i].green;
         palette->colors[i].blue = colors[i].blue;
-		palette->colors[i].green_lsb = ((palette->colors[i].green & 4) >> 2) & 1;
     }
 
     png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
@@ -177,7 +176,7 @@ void SetPngPalette(png_structp png_ptr, png_infop info_ptr, struct Palette *pale
 
     for (int i = 0; i < palette->numColors; i++) {
         colors[i].red = palette->colors[i].red;
-        colors[i].green = palette->colors[i].green | (palette->colors[i].green_lsb<<2);
+        colors[i].green = palette->colors[i].green;
         colors[i].blue = palette->colors[i].blue;
     }
 
