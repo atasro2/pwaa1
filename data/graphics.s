@@ -19,11 +19,11 @@ gUnknown_08182F08:
 
     .global gUnusedAsciiCharSet
 gUnusedAsciiCharSet:
-    .incbin "baserom.gba", 0x00185D20, 0x800
+    .incbin "graphics/unused_ascii_charset.4bpp"
 
     .global gUnknown_08186520
 gUnknown_08186520:
-    .incbin "baserom.gba", 0x00186520, 0x20
+    .incbin "graphics/unk_186520.gbapal"
 
     .global gUnknown_08186540
 gUnknown_08186540:
