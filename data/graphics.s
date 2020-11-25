@@ -3,11 +3,19 @@
 
     .global gUnknown_08180000
 gUnknown_08180000:
-    .incbin "baserom.gba", 0x00180000, 0x200
+    .incbin "graphics/title_screen.gbapal"
 
     .global gUnknown_08180200
 gUnknown_08180200:
-    .incbin "baserom.gba", 0x00180200, 0x5B20
+    .incbin "graphics/title_screen.8bpp.lz"
+
+    .global gUnknown_08182D08
+gUnknown_08182D08:
+    .incbin "graphics/title_screen_demo.gbapal"
+
+    .global gUnknown_08182F08
+gUnknown_08182F08:
+    .incbin "graphics/title_screen_demo.8bpp.lz"
 
     .global gUnusedAsciiCharSet
 gUnusedAsciiCharSet:
