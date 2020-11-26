@@ -143,10 +143,9 @@ void ReadJascPalette(char *path, struct Palette *palette)
         if (blue < 0 || blue > 255)
             FATAL_ERROR("Blue color component (%d) is outside the range [0, 255].\n", blue);
 
-        palette->colors[i].red = red & 0xF8;
-        palette->colors[i].green = green & 0xF8;
-        palette->colors[i].blue = blue & 0xF8;
-		palette->colors[i].green_lsb = ((green & 4) >> 2) & 1;
+        palette->colors[i].red = red;
+        palette->colors[i].green = green;
+        palette->colors[i].blue = blue;
     }
 
     if (fgetc(fp) != EOF)
@@ -166,7 +165,7 @@ void WriteJascPalette(char *path, struct Palette *palette)
     for (int i = 0; i < palette->numColors; i++)
     {
         struct Color *color = &palette->colors[i];
-        fprintf(fp, "%d %d %d\r\n", color->red, color->green | (color->green_lsb<<2), color->blue);
+        fprintf(fp, "%d %d %d\r\n", color->red, color->green, color->blue);
     }
 
     fclose(fp);

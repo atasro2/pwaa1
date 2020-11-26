@@ -1,5 +1,6 @@
 # Auto detect text files and perform LF normalization
 * text=auto eol=lf
+*.pal text eol=crlf
 
 *.c    filter=spabs
 *.h    filter=spabs
