@@ -431,3 +431,8 @@ $(EVIDENCE_PROFILE_DESCRIPTIONS)/001B25F0.4bpp: $(EVIDENCE_PROFILE_DESCRIPTIONS)
 	$(GBAGFX) $< $@ -mwidth 4 -mheight 4
 $(EVIDENCE_PROFILE_DESCRIPTIONS)/001B25F0.4bpp.lz: $(EVIDENCE_PROFILE_DESCRIPTIONS)/001B25F0.4bpp
 	$(GBAGFX) $< $@ -search 8
+
+graphics/title_screen.8bpp.lz: graphics/title_screen.8bpp
+	$(GBAGFX) $< $@ -search 8
+graphics/title_screen_demo.8bpp.lz: graphics/title_screen_demo.8bpp
+	$(GBAGFX) $< $@ -search 8

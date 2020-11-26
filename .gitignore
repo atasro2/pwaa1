@@ -68,6 +68,9 @@ sound/songs/midi/*.s
 .vscode/
 ddump
 *.cs
+*.4bpp
+*.8bpp
+*.gbapal
 *.striped
 *.cheats
 *.ss*
