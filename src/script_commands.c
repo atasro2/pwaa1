@@ -1123,7 +1123,6 @@ bool32 Command35(struct ScriptContext *scriptCtx)
     if(*(scriptCtx->scriptPtr) & 0x80) 
     {
         u32 * heapPtr;
-        //u32 idx;
         scriptCtx->scriptPtr++;
         temp = *scriptCtx->scriptPtr;
         heapPtr = eScriptHeap;
