@@ -181,437 +181,441 @@ gUnknown_081954A8:
 gUnknown_081964A8:
     .incbin "baserom.gba", 0x001964A8, 0x800
 
+@ BEGIN PROFILE AND EVIDENCE DESCRIPTIONS
+
 	.global gUnknown_08196CA8
 gUnknown_08196CA8:
-	.incbin "baserom.gba", 0x00196CA8, 0x434
+	.incbin "graphics/evidence_profile_descriptions/00196CA8.4bpp.lz"
 
 	.global gUnknown_081970DC
 gUnknown_081970DC:
-	.incbin "baserom.gba", 0x001970DC, 0x438
+	.incbin "graphics/evidence_profile_descriptions/001970DC.4bpp.lz"
 
 	.global gUnknown_08197514
 gUnknown_08197514:
-	.incbin "baserom.gba", 0x00197514, 0x414
+	.incbin "graphics/evidence_profile_descriptions/00197514.4bpp.lz"
 
 	.global gUnknown_08197928
 gUnknown_08197928:
-	.incbin "baserom.gba", 0x00197928, 0x3F0
+	.incbin "graphics/evidence_profile_descriptions/00197928.4bpp.lz"
 
 	.global gUnknown_08197D18
 gUnknown_08197D18:
-	.incbin "baserom.gba", 0x00197D18, 0x488
+	.incbin "graphics/evidence_profile_descriptions/00197D18.4bpp.lz"
 
 	.global gUnknown_081981A0
 gUnknown_081981A0:
-	.incbin "baserom.gba", 0x001981A0, 0x438
+	.incbin "graphics/evidence_profile_descriptions/001981A0.4bpp.lz"
 
 	.global gUnknown_081985D8
 gUnknown_081985D8:
-	.incbin "baserom.gba", 0x001985D8, 0x4AC
+	.incbin "graphics/evidence_profile_descriptions/001985D8.4bpp.lz"
 
 	.global gUnknown_08198A84
 gUnknown_08198A84:
-	.incbin "baserom.gba", 0x00198A84, 0x3D8
+	.incbin "graphics/evidence_profile_descriptions/00198A84.4bpp.lz"
 
 	.global gUnknown_08198E5C
 gUnknown_08198E5C:
-	.incbin "baserom.gba", 0x00198E5C, 0x3CC
+	.incbin "graphics/evidence_profile_descriptions/00198E5C.4bpp.lz"
 
 	.global gUnknown_08199228
 gUnknown_08199228:
-	.incbin "baserom.gba", 0x00199228, 0x468
+	.incbin "graphics/evidence_profile_descriptions/00199228.4bpp.lz"
 
 	.global gUnknown_08199690
 gUnknown_08199690:
-	.incbin "baserom.gba", 0x00199690, 0x45C
+	.incbin "graphics/evidence_profile_descriptions/00199690.4bpp.lz"
 
 	.global gUnknown_08199AEC
 gUnknown_08199AEC:
-	.incbin "baserom.gba", 0x00199AEC, 0x3DC
+	.incbin "graphics/evidence_profile_descriptions/00199AEC.4bpp.lz"
 
 	.global gUnknown_08199EC8
 gUnknown_08199EC8:
-	.incbin "baserom.gba", 0x00199EC8, 0x41C
+	.incbin "graphics/evidence_profile_descriptions/00199EC8.4bpp.lz"
 
 	.global gUnknown_0819A2E4
 gUnknown_0819A2E4:
-	.incbin "baserom.gba", 0x0019A2E4, 0x41C
+	.incbin "graphics/evidence_profile_descriptions/0019A2E4.4bpp.lz"
 
 	.global gUnknown_0819A700
 gUnknown_0819A700:
-	.incbin "baserom.gba", 0x0019A700, 0x4BC
+	.incbin "graphics/evidence_profile_descriptions/0019A700.4bpp.lz"
 
 	.global gUnknown_0819ABBC
 gUnknown_0819ABBC:
-	.incbin "baserom.gba", 0x0019ABBC, 0x46C
+	.incbin "graphics/evidence_profile_descriptions/0019ABBC.4bpp.lz"
 
 	.global gUnknown_0819B028
 gUnknown_0819B028:
-	.incbin "baserom.gba", 0x0019B028, 0x400
+	.incbin "graphics/evidence_profile_descriptions/0019B028.4bpp.lz"
 
 	.global gUnknown_0819B428
 gUnknown_0819B428:
-	.incbin "baserom.gba", 0x0019B428, 0x440
+	.incbin "graphics/evidence_profile_descriptions/0019B428.4bpp.lz"
 
 	.global gUnknown_0819B868
 gUnknown_0819B868:
-	.incbin "baserom.gba", 0x0019B868, 0x47C
+	.incbin "graphics/evidence_profile_descriptions/0019B868.4bpp.lz"
 
 	.global gUnknown_0819BCE4
 gUnknown_0819BCE4:
-	.incbin "baserom.gba", 0x0019BCE4, 0x3F4
+	.incbin "graphics/evidence_profile_descriptions/0019BCE4.4bpp.lz"
 
 	.global gUnknown_0819C0D8
 gUnknown_0819C0D8:
-	.incbin "baserom.gba", 0x0019C0D8, 0x35C
+	.incbin "graphics/evidence_profile_descriptions/0019C0D8.4bpp.lz"
 
 	.global gUnknown_0819C434
 gUnknown_0819C434:
-	.incbin "baserom.gba", 0x0019C434, 0x3DC
+	.incbin "graphics/evidence_profile_descriptions/0019C434.4bpp.lz"
 
 	.global gUnknown_0819C810
 gUnknown_0819C810:
-	.incbin "baserom.gba", 0x0019C810, 0x434
+	.incbin "graphics/evidence_profile_descriptions/0019C810.4bpp.lz"
 
 	.global gUnknown_0819CC44
 gUnknown_0819CC44:
-	.incbin "baserom.gba", 0x0019CC44, 0x3E4
+	.incbin "graphics/evidence_profile_descriptions/0019CC44.4bpp.lz"
 
 	.global gUnknown_0819D028
 gUnknown_0819D028:
-	.incbin "baserom.gba", 0x0019D028, 0x4A0
+	.incbin "graphics/evidence_profile_descriptions/0019D028.4bpp.lz"
 
 	.global gUnknown_0819D4C8
 gUnknown_0819D4C8:
-	.incbin "baserom.gba", 0x0019D4C8, 0x444
+	.incbin "graphics/evidence_profile_descriptions/0019D4C8.4bpp.lz"
 
 	.global gUnknown_0819D90C
 gUnknown_0819D90C:
-	.incbin "baserom.gba", 0x0019D90C, 0x4A0
+	.incbin "graphics/evidence_profile_descriptions/0019D90C.4bpp.lz"
 
 	.global gUnknown_0819DDAC
 gUnknown_0819DDAC:
-	.incbin "baserom.gba", 0x0019DDAC, 0x3E0
+	.incbin "graphics/evidence_profile_descriptions/0019DDAC.4bpp.lz"
 
 	.global gUnknown_0819E18C
 gUnknown_0819E18C:
-	.incbin "baserom.gba", 0x0019E18C, 0x414
+	.incbin "graphics/evidence_profile_descriptions/0019E18C.4bpp.lz"
 
 	.global gUnknown_0819E5A0
 gUnknown_0819E5A0:
-	.incbin "baserom.gba", 0x0019E5A0, 0x438
+	.incbin "graphics/evidence_profile_descriptions/0019E5A0.4bpp.lz"
 
 	.global gUnknown_0819E9D8
 gUnknown_0819E9D8:
-	.incbin "baserom.gba", 0x0019E9D8, 0x418
+	.incbin "graphics/evidence_profile_descriptions/0019E9D8.4bpp.lz"
 
 	.global gUnknown_0819EDF0
 gUnknown_0819EDF0:
-	.incbin "baserom.gba", 0x0019EDF0, 0x418
+	.incbin "graphics/evidence_profile_descriptions/0019EDF0.4bpp.lz"
 
 	.global gUnknown_0819F208
 gUnknown_0819F208:
-	.incbin "baserom.gba", 0x0019F208, 0x3B8
+	.incbin "graphics/evidence_profile_descriptions/0019F208.4bpp.lz"
 
 	.global gUnknown_0819F5C0
 gUnknown_0819F5C0:
-	.incbin "baserom.gba", 0x0019F5C0, 0x428
+	.incbin "graphics/evidence_profile_descriptions/0019F5C0.4bpp.lz"
 
 	.global gUnknown_0819F9E8
 gUnknown_0819F9E8:
-	.incbin "baserom.gba", 0x0019F9E8, 0x39C
+	.incbin "graphics/evidence_profile_descriptions/0019F9E8.4bpp.lz"
 
 	.global gUnknown_0819FD84
 gUnknown_0819FD84:
-	.incbin "baserom.gba", 0x0019FD84, 0x39C
+	.incbin "graphics/evidence_profile_descriptions/0019FD84.4bpp.lz"
 
 	.global gUnknown_081A0120
 gUnknown_081A0120:
-	.incbin "baserom.gba", 0x001A0120, 0x460
+	.incbin "graphics/evidence_profile_descriptions/001A0120.4bpp.lz"
 
 	.global gUnknown_081A0580
 gUnknown_081A0580:
-	.incbin "baserom.gba", 0x001A0580, 0x464
+	.incbin "graphics/evidence_profile_descriptions/001A0580.4bpp.lz"
 
 	.global gUnknown_081A09E4
 gUnknown_081A09E4:
-	.incbin "baserom.gba", 0x001A09E4, 0x474
+	.incbin "graphics/evidence_profile_descriptions/001A09E4.4bpp.lz"
 
 	.global gUnknown_081A0E58
 gUnknown_081A0E58:
-	.incbin "baserom.gba", 0x001A0E58, 0x4CC
+	.incbin "graphics/evidence_profile_descriptions/001A0E58.4bpp.lz"
 
 	.global gUnknown_081A1324
 gUnknown_081A1324:
-	.incbin "baserom.gba", 0x001A1324, 0x404
+	.incbin "graphics/evidence_profile_descriptions/001A1324.4bpp.lz"
 
 	.global gUnknown_081A1728
 gUnknown_081A1728:
-	.incbin "baserom.gba", 0x001A1728, 0x2E8
+	.incbin "graphics/evidence_profile_descriptions/001A1728.4bpp.lz"
 
 	.global gUnknown_081A1A10
 gUnknown_081A1A10:
-	.incbin "baserom.gba", 0x001A1A10, 0x40C
+	.incbin "graphics/evidence_profile_descriptions/001A1A10.4bpp.lz"
 
 	.global gUnknown_081A1E1C
 gUnknown_081A1E1C:
-	.incbin "baserom.gba", 0x001A1E1C, 0x488
+	.incbin "graphics/evidence_profile_descriptions/001A1E1C.4bpp.lz"
 
 	.global gUnknown_081A22A4
 gUnknown_081A22A4:
-	.incbin "baserom.gba", 0x001A22A4, 0x418
+	.incbin "graphics/evidence_profile_descriptions/001A22A4.4bpp.lz"
 
 	.global gUnknown_081A26BC
 gUnknown_081A26BC:
-	.incbin "baserom.gba", 0x001A26BC, 0x428
+	.incbin "graphics/evidence_profile_descriptions/001A26BC.4bpp.lz"
 
 	.global gUnknown_081A2AE4
 gUnknown_081A2AE4:
-	.incbin "baserom.gba", 0x001A2AE4, 0x400
+	.incbin "graphics/evidence_profile_descriptions/001A2AE4.4bpp.lz"
 
 	.global gUnknown_081A2EE4
 gUnknown_081A2EE4:
-	.incbin "baserom.gba", 0x001A2EE4, 0x44C
+	.incbin "graphics/evidence_profile_descriptions/001A2EE4.4bpp.lz"
 
 	.global gUnknown_081A3330
 gUnknown_081A3330:
-	.incbin "baserom.gba", 0x001A3330, 0x3E4
+	.incbin "graphics/evidence_profile_descriptions/001A3330.4bpp.lz"
 
 	.global gUnknown_081A3714
 gUnknown_081A3714:
-	.incbin "baserom.gba", 0x001A3714, 0x430
+	.incbin "graphics/evidence_profile_descriptions/001A3714.4bpp.lz"
 
 	.global gUnknown_081A3B44
 gUnknown_081A3B44:
-	.incbin "baserom.gba", 0x001A3B44, 0x4B4
+	.incbin "graphics/evidence_profile_descriptions/001A3B44.4bpp.lz"
 
 	.global gUnknown_081A3FF8
 gUnknown_081A3FF8:
-	.incbin "baserom.gba", 0x001A3FF8, 0x3A4
+	.incbin "graphics/evidence_profile_descriptions/001A3FF8.4bpp.lz"
 
 	.global gUnknown_081A439C
 gUnknown_081A439C:
-	.incbin "baserom.gba", 0x001A439C, 0x438
+	.incbin "graphics/evidence_profile_descriptions/001A439C.4bpp.lz"
 
 	.global gUnknown_081A47D4
 gUnknown_081A47D4:
-	.incbin "baserom.gba", 0x001A47D4, 0x400
+	.incbin "graphics/evidence_profile_descriptions/001A47D4.4bpp.lz"
 
 	.global gUnknown_081A4BD4
 gUnknown_081A4BD4:
-	.incbin "baserom.gba", 0x001A4BD4, 0x41C
+	.incbin "graphics/evidence_profile_descriptions/001A4BD4.4bpp.lz"
 
 	.global gUnknown_081A4FF0
 gUnknown_081A4FF0:
-	.incbin "baserom.gba", 0x001A4FF0, 0x42C
+	.incbin "graphics/evidence_profile_descriptions/001A4FF0.4bpp.lz"
 
 	.global gUnknown_081A541C
 gUnknown_081A541C:
-	.incbin "baserom.gba", 0x001A541C, 0x40C
+	.incbin "graphics/evidence_profile_descriptions/001A541C.4bpp.lz"
 
 	.global gUnknown_081A5828
 gUnknown_081A5828:
-	.incbin "baserom.gba", 0x001A5828, 0x3CC
+	.incbin "graphics/evidence_profile_descriptions/001A5828.4bpp.lz"
 
 	.global gUnknown_081A5BF4
 gUnknown_081A5BF4:
-	.incbin "baserom.gba", 0x001A5BF4, 0x3B0
+	.incbin "graphics/evidence_profile_descriptions/001A5BF4.4bpp.lz"
 
 	.global gUnknown_081A5FA4
 gUnknown_081A5FA4:
-	.incbin "baserom.gba", 0x001A5FA4, 0x3F8
+	.incbin "graphics/evidence_profile_descriptions/001A5FA4.4bpp.lz"
 
 	.global gUnknown_081A639C
 gUnknown_081A639C:
-	.incbin "baserom.gba", 0x001A639C, 0x3C0
+	.incbin "graphics/evidence_profile_descriptions/001A639C.4bpp.lz"
 
 	.global gUnknown_081A675C
 gUnknown_081A675C:
-	.incbin "baserom.gba", 0x001A675C, 0x42C
+	.incbin "graphics/evidence_profile_descriptions/001A675C.4bpp.lz"
 
 	.global gUnknown_081A6B88
 gUnknown_081A6B88:
-	.incbin "baserom.gba", 0x001A6B88, 0x3E0
+	.incbin "graphics/evidence_profile_descriptions/001A6B88.4bpp.lz"
 
 	.global gUnknown_081A6F68
 gUnknown_081A6F68:
-	.incbin "baserom.gba", 0x001A6F68, 0x3A8
+	.incbin "graphics/evidence_profile_descriptions/001A6F68.4bpp.lz"
 
 	.global gUnknown_081A7310
 gUnknown_081A7310:
-	.incbin "baserom.gba", 0x001A7310, 0x44C
+	.incbin "graphics/evidence_profile_descriptions/001A7310.4bpp.lz"
 
 	.global gUnknown_081A775C
 gUnknown_081A775C:
-	.incbin "baserom.gba", 0x001A775C, 0x40C
+	.incbin "graphics/evidence_profile_descriptions/001A775C.4bpp.lz"
 
 	.global gUnknown_081A7B68
 gUnknown_081A7B68:
-	.incbin "baserom.gba", 0x001A7B68, 0x43C
+	.incbin "graphics/evidence_profile_descriptions/001A7B68.4bpp.lz"
 
 	.global gUnknown_081A7FA4
 gUnknown_081A7FA4:
-	.incbin "baserom.gba", 0x001A7FA4, 0x420
+	.incbin "graphics/evidence_profile_descriptions/001A7FA4.4bpp.lz"
 
 	.global gUnknown_081A83C4
 gUnknown_081A83C4:
-	.incbin "baserom.gba", 0x001A83C4, 0x464
+	.incbin "graphics/evidence_profile_descriptions/001A83C4.4bpp.lz"
 
 	.global gUnknown_081A8828
 gUnknown_081A8828:
-	.incbin "baserom.gba", 0x001A8828, 0x408
+	.incbin "graphics/evidence_profile_descriptions/001A8828.4bpp.lz"
 
 	.global gUnknown_081A8C30
 gUnknown_081A8C30:
-	.incbin "baserom.gba", 0x001A8C30, 0x31C
+	.incbin "graphics/evidence_profile_descriptions/001A8C30.4bpp.lz"
 
 	.global gUnknown_081A8F4C
 gUnknown_081A8F4C:
-	.incbin "baserom.gba", 0x001A8F4C, 0x434
+	.incbin "graphics/evidence_profile_descriptions/001A8F4C.4bpp.lz"
 
 	.global gUnknown_081A9380
 gUnknown_081A9380:
-	.incbin "baserom.gba", 0x001A9380, 0x44C
+	.incbin "graphics/evidence_profile_descriptions/001A9380.4bpp.lz"
 
 	.global gUnknown_081A97CC
 gUnknown_081A97CC:
-	.incbin "baserom.gba", 0x001A97CC, 0x3FC
+	.incbin "graphics/evidence_profile_descriptions/001A97CC.4bpp.lz"
 
 	.global gUnknown_081A9BC8
 gUnknown_081A9BC8:
-	.incbin "baserom.gba", 0x001A9BC8, 0x48C
+	.incbin "graphics/evidence_profile_descriptions/001A9BC8.4bpp.lz"
 
 	.global gUnknown_081AA054
 gUnknown_081AA054:
-	.incbin "baserom.gba", 0x001AA054, 0x404
+	.incbin "graphics/evidence_profile_descriptions/001AA054.4bpp.lz"
 
 	.global gUnknown_081AA458
 gUnknown_081AA458:
-	.incbin "baserom.gba", 0x001AA458, 0x43C
+	.incbin "graphics/evidence_profile_descriptions/001AA458.4bpp.lz"
 
 	.global gUnknown_081AA894
 gUnknown_081AA894:
-	.incbin "baserom.gba", 0x001AA894, 0x448
+	.incbin "graphics/evidence_profile_descriptions/001AA894.4bpp.lz"
 
 	.global gUnknown_081AACDC
 gUnknown_081AACDC:
-	.incbin "baserom.gba", 0x001AACDC, 0x49C
+	.incbin "graphics/evidence_profile_descriptions/001AACDC.4bpp.lz"
 
 	.global gUnknown_081AB178
 gUnknown_081AB178:
-	.incbin "baserom.gba", 0x001AB178, 0x3FC
+	.incbin "graphics/evidence_profile_descriptions/001AB178.4bpp.lz"
 
 	.global gUnknown_081AB574
 gUnknown_081AB574:
-	.incbin "baserom.gba", 0x001AB574, 0x488
+	.incbin "graphics/evidence_profile_descriptions/001AB574.4bpp.lz"
 
 	.global gUnknown_081AB9FC
 gUnknown_081AB9FC:
-	.incbin "baserom.gba", 0x001AB9FC, 0x404
+	.incbin "graphics/evidence_profile_descriptions/001AB9FC.4bpp.lz"
 
 	.global gUnknown_081ABE00
 gUnknown_081ABE00:
-	.incbin "baserom.gba", 0x001ABE00, 0x4B0
+	.incbin "graphics/evidence_profile_descriptions/001ABE00.4bpp.lz"
 
 	.global gUnknown_081AC2B0
 gUnknown_081AC2B0:
-	.incbin "baserom.gba", 0x001AC2B0, 0x4AC
+	.incbin "graphics/evidence_profile_descriptions/001AC2B0.4bpp.lz"
 
 	.global gUnknown_081AC75C
 gUnknown_081AC75C:
-	.incbin "baserom.gba", 0x001AC75C, 0x4A0
+	.incbin "graphics/evidence_profile_descriptions/001AC75C.4bpp.lz"
 
 	.global gUnknown_081ACBFC
 gUnknown_081ACBFC:
-	.incbin "baserom.gba", 0x001ACBFC, 0x430
+	.incbin "graphics/evidence_profile_descriptions/001ACBFC.4bpp.lz"
 
 	.global gUnknown_081AD02C
 gUnknown_081AD02C:
-	.incbin "baserom.gba", 0x001AD02C, 0x41C
+	.incbin "graphics/evidence_profile_descriptions/001AD02C.4bpp.lz"
 
 	.global gUnknown_081AD448
 gUnknown_081AD448:
-	.incbin "baserom.gba", 0x001AD448, 0x41C
+	.incbin "graphics/evidence_profile_descriptions/001AD448.4bpp.lz"
 
 	.global gUnknown_081AD864
 gUnknown_081AD864:
-	.incbin "baserom.gba", 0x001AD864, 0x470
+	.incbin "graphics/evidence_profile_descriptions/001AD864.4bpp.lz"
 
 	.global gUnknown_081ADCD4
 gUnknown_081ADCD4:
-	.incbin "baserom.gba", 0x001ADCD4, 0x408
+	.incbin "graphics/evidence_profile_descriptions/001ADCD4.4bpp.lz"
 
 	.global gUnknown_081AE0DC
 gUnknown_081AE0DC:
-	.incbin "baserom.gba", 0x001AE0DC, 0x420
+	.incbin "graphics/evidence_profile_descriptions/001AE0DC.4bpp.lz"
 
 	.global gUnknown_081AE4FC
 gUnknown_081AE4FC:
-	.incbin "baserom.gba", 0x001AE4FC, 0x43C
+	.incbin "graphics/evidence_profile_descriptions/001AE4FC.4bpp.lz"
 
 	.global gUnknown_081AE938
 gUnknown_081AE938:
-	.incbin "baserom.gba", 0x001AE938, 0x404
+	.incbin "graphics/evidence_profile_descriptions/001AE938.4bpp.lz"
 
 	.global gUnknown_081AED3C
 gUnknown_081AED3C:
-	.incbin "baserom.gba", 0x001AED3C, 0x420
+	.incbin "graphics/evidence_profile_descriptions/001AED3C.4bpp.lz"
 
 	.global gUnknown_081AF15C
 gUnknown_081AF15C:
-	.incbin "baserom.gba", 0x001AF15C, 0x44C
+	.incbin "graphics/evidence_profile_descriptions/001AF15C.4bpp.lz"
 
 	.global gUnknown_081AF5A8
 gUnknown_081AF5A8:
-	.incbin "baserom.gba", 0x001AF5A8, 0x434
+	.incbin "graphics/evidence_profile_descriptions/001AF5A8.4bpp.lz"
 
 	.global gUnknown_081AF9DC
 gUnknown_081AF9DC:
-	.incbin "baserom.gba", 0x001AF9DC, 0x430
+	.incbin "graphics/evidence_profile_descriptions/001AF9DC.4bpp.lz"
 
 	.global gUnknown_081AFE0C
 gUnknown_081AFE0C:
-	.incbin "baserom.gba", 0x001AFE0C, 0x3C4
+	.incbin "graphics/evidence_profile_descriptions/001AFE0C.4bpp.lz"
 
 	.global gUnknown_081B01D0
 gUnknown_081B01D0:
-	.incbin "baserom.gba", 0x001B01D0, 0x3C4
+	.incbin "graphics/evidence_profile_descriptions/001B01D0.4bpp.lz"
 
 	.global gUnknown_081B0594
 gUnknown_081B0594:
-	.incbin "baserom.gba", 0x001B0594, 0x3F0
+	.incbin "graphics/evidence_profile_descriptions/001B0594.4bpp.lz"
 
 	.global gUnknown_081B0984
 gUnknown_081B0984:
-	.incbin "baserom.gba", 0x001B0984, 0x440
+	.incbin "graphics/evidence_profile_descriptions/001B0984.4bpp.lz"
 
 	.global gUnknown_081B0DC4
 gUnknown_081B0DC4:
-	.incbin "baserom.gba", 0x001B0DC4, 0x38C
+	.incbin "graphics/evidence_profile_descriptions/001B0DC4.4bpp.lz"
 
 	.global gUnknown_081B1150
 gUnknown_081B1150:
-	.incbin "baserom.gba", 0x001B1150, 0x39C
+	.incbin "graphics/evidence_profile_descriptions/001B1150.4bpp.lz"
 
 	.global gUnknown_081B14EC
 gUnknown_081B14EC:
-	.incbin "baserom.gba", 0x001B14EC, 0x3D4
+	.incbin "graphics/evidence_profile_descriptions/001B14EC.4bpp.lz"
 
 	.global gUnknown_081B18C0
 gUnknown_081B18C0:
-	.incbin "baserom.gba", 0x001B18C0, 0x3FC
+	.incbin "graphics/evidence_profile_descriptions/001B18C0.4bpp.lz"
 
 	.global gUnknown_081B1CBC
 gUnknown_081B1CBC:
-	.incbin "baserom.gba", 0x001B1CBC, 0x494
+	.incbin "graphics/evidence_profile_descriptions/001B1CBC.4bpp.lz"
 
 	.global gUnknown_081B2150
 gUnknown_081B2150:
-	.incbin "baserom.gba", 0x001B2150, 0x4A0
+	.incbin "graphics/evidence_profile_descriptions/001B2150.4bpp.lz"
 
 	.global gUnknown_081B25F0
 gUnknown_081B25F0:
-    .incbin "baserom.gba", 0x001B25F0, 0x31C
+	.incbin "graphics/evidence_profile_descriptions/001B25F0.4bpp.lz"
+
+@ END EVIDENCE AND PROFILE DESCRIPTIONS
 
     .global gUnknown_081B290C
 gUnknown_081B290C:

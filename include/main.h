@@ -35,7 +35,7 @@ struct Main
     u8 unk17;
     u16 unk18;
     s16 bgmFadeVolume; /* + 0x1A */
-    u8 unk1C; // sound_status
+    u8 soundStatus; /* + 0x1C */
     u8 currentPlayingBgm; /* + 0x1D */
     u8 unk1E;
     u8 unk1F;

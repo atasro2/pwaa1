@@ -1,10 +1,11 @@
 #include "global.h"
 #include "sound_control.h"
+#include "constants/sound_control.h"
 #include "m4a.h"
 
 void ResetSoundControl()
 {
-    gMain.unk1C = 1;
+    gMain.soundStatus = SOUND_STATUS_BGM_STOPPED;
     gMain.bgmFadeVolume = 0x100 * 10;
     gMain.bgmVolume = 0x100 * 10;
     gMain.bgmFadeAmount = 0;
@@ -26,7 +27,7 @@ void ChangeBGM(u32 songNum)
     struct Main * main = &gMain;
     if(!(main->soundFlags & SOUND_FLAG_DISABLE_BGM))
     {
-        if((main->unk1C & 0x10))
+        if((main->soundStatus & SOUND_STATUS_BGM_FADING_OUT))
         {
             m4aSongNumStart(songNum);
         }
@@ -36,37 +37,37 @@ void ChangeBGM(u32 songNum)
         }
         main->currentPlayingBgm = songNum;
         main->bgmVolume = 0x100 * 10;
-        main->unk1C = 4;
+        main->soundStatus = SOUND_STATUS_BGM_PLAYING;
     }
 }
 
 void PauseBGM()
 {
     struct Main * main = &gMain;
-    if(main->unk1C & 4)
+    if(main->soundStatus & SOUND_STATUS_BGM_PLAYING)
     {
         m4aMPlayStop(&gMPlayInfo_BGM);
-        main->unk1C &= ~4;
-        main->unk1C |= 2;
-        if(main->unk1C & 0x10)
+        main->soundStatus &= ~SOUND_STATUS_BGM_PLAYING;
+        main->soundStatus |= SOUND_STATUS_BGM_PAUSED;
+        if(main->soundStatus & SOUND_STATUS_BGM_FADING_OUT)
         {
-            main->unk1C |= 1;
+            main->soundStatus |= SOUND_STATUS_BGM_STOPPED;
             m4aMPlayVolumeControl(&gMPlayInfo_BGM, 0xFFFF, 4);
         }
     }
     else
     {
-        main->unk1C |= 1;
+        main->soundStatus |= SOUND_STATUS_BGM_STOPPED;
     }
 }
 
 void StopBGM(void)
 {
     struct Main * main = &gMain;
-    if((main->unk1C & 1) == 0)
+    if((main->soundStatus & SOUND_STATUS_BGM_STOPPED) == 0)
     {
         m4aMPlayStop(&gMPlayInfo_BGM);
-        main->unk1C = 1;
+        main->soundStatus = SOUND_STATUS_BGM_STOPPED;
         main->currentPlayingBgm = 0xFF;
     }
 }
@@ -74,17 +75,17 @@ void StopBGM(void)
 void UnpauseBGM(void)
 {
     struct Main * main = &gMain;
-    if(main->unk1C & 2)
+    if(main->soundStatus & SOUND_STATUS_BGM_PAUSED)
     {
-        if((main->unk1C & 1) == 0)
+        if((main->soundStatus & SOUND_STATUS_BGM_STOPPED) == 0)
         {
             m4aMPlayContinue(&gMPlayInfo_BGM);
-            main->unk1C &= ~2;
-            main->unk1C |= 4;
+            main->soundStatus &= ~SOUND_STATUS_BGM_PAUSED;
+            main->soundStatus |= SOUND_STATUS_BGM_PLAYING;
         }
         else
         {
-            main->unk1C &= ~1;
+            main->soundStatus &= ~SOUND_STATUS_BGM_STOPPED;
         }
     }
 }
@@ -92,10 +93,10 @@ void UnpauseBGM(void)
 void FadeOutBGM(u32 fadeTime)
 {
     struct Main * main = &gMain;
-    if(main->unk1C & 4)
+    if(main->soundStatus & SOUND_STATUS_BGM_PLAYING)
     {
         m4aMPlayFadeOutTemporarily(&gMPlayInfo_BGM, fadeTime/16);
-        main->unk1C = 0x10 | 0x4;
+        main->soundStatus = SOUND_STATUS_BGM_FADING_OUT | SOUND_STATUS_BGM_PLAYING;
     }
 }
 
@@ -104,11 +105,11 @@ void PlayBGM(u32 fadeTime, u32 songNum) // named according to phoenix unity
     struct Main * main = &gMain;
     if(!(main->soundFlags & SOUND_FLAG_DISABLE_BGM))
     {
-        if(main->currentPlayingBgm == songNum && (main->unk1C & 1))
+        if(main->currentPlayingBgm == songNum && (main->soundStatus & SOUND_STATUS_BGM_STOPPED))
         {
-            if(main->unk1C & 2)
+            if(main->soundStatus & SOUND_STATUS_BGM_PAUSED)
             {
-                main->unk1C &= ~(0x10 | 0x1);
+                main->soundStatus &= ~(SOUND_STATUS_BGM_FADING_OUT | SOUND_STATUS_BGM_STOPPED);
                 m4aSongNumStart(songNum);
                 m4aMPlayImmInit(&gMPlayInfo_BGM);
                 m4aMPlayStop(&gMPlayInfo_BGM);
@@ -120,12 +121,12 @@ void PlayBGM(u32 fadeTime, u32 songNum) // named according to phoenix unity
         {
             if(songNum == 255)
             {
-                if(main->unk1C & 1)
+                if(main->soundStatus & SOUND_STATUS_BGM_STOPPED)
                 {
-                    if(main->unk1C & 2)
+                    if(main->soundStatus & SOUND_STATUS_BGM_PAUSED)
                     {
-                        main->unk1C &= ~0x1;
-                        if(main->unk1C & 0x10)
+                        main->soundStatus &= ~SOUND_STATUS_BGM_STOPPED;
+                        if(main->soundStatus & SOUND_STATUS_BGM_FADING_OUT)
                         {
                             UnpauseBGM();
                         }
@@ -134,10 +135,10 @@ void PlayBGM(u32 fadeTime, u32 songNum) // named according to phoenix unity
                 }
                 else
                 {
-                    if(main->unk1C & 0x10)
+                    if(main->soundStatus & SOUND_STATUS_BGM_FADING_OUT)
                     {
                         m4aMPlayFadeIn(&gMPlayInfo_BGM, fadeTime/16);
-                        main->unk1C = 4;
+                        main->soundStatus = SOUND_STATUS_BGM_PLAYING;
                         return;
                     }
                     else
@@ -157,7 +158,7 @@ void PlayBGM(u32 fadeTime, u32 songNum) // named according to phoenix unity
             return;
         }
         main->bgmFadeAmount = (main->bgmFadeVolume / fadeTime) + 1;
-        main->unk1C = 0x8 | 0x4;
+        main->soundStatus = SOUND_STATUS_BGM_FADING | SOUND_STATUS_BGM_PLAYING;
         main->bgmVolume = 4 * 10;
     }
 }
@@ -165,7 +166,7 @@ void PlayBGM(u32 fadeTime, u32 songNum) // named according to phoenix unity
 void UpdateBGMFade()
 {
     struct Main * main = &gMain;
-    if((main->unk1C & (1 | 2)) == 0)
+    if((main->soundStatus & (SOUND_STATUS_BGM_STOPPED | SOUND_STATUS_BGM_PAUSED)) == 0)
     {
         if(main->bgmFadeAmount != 0)
         {
@@ -176,7 +177,7 @@ void UpdateBGMFade()
                 {
                     main->bgmVolume = main->bgmFadeVolume;
                     main->bgmFadeAmount = 0;
-                    main->unk1C = 4;
+                    main->soundStatus = SOUND_STATUS_BGM_PLAYING;
                 }
             }
             else
@@ -185,7 +186,7 @@ void UpdateBGMFade()
                 {
                     main->bgmVolume = main->bgmFadeVolume;
                     main->bgmFadeAmount = 0;
-                    main->unk1C = 4;
+                    main->soundStatus = SOUND_STATUS_BGM_PLAYING;
                 }
             }
             m4aMPlayVolumeControl(&gMPlayInfo_BGM, 0xFFFF, (main->bgmVolume / 10) & 0x1FC);
@@ -195,7 +196,7 @@ void UpdateBGMFade()
         {
             if(gMPlayInfo_BGM.status & MUSICPLAYER_STATUS_PAUSE)
             {
-                main->unk1C = 2;
+                main->soundStatus = SOUND_STATUS_BGM_PAUSED;
             }
         }
     }
@@ -221,7 +222,7 @@ void ChangeTrackVolume(u32 track, u32 volume) // unused
 void ChangeBGMVolume(u32 volume, s32 fadeTime)
 {
     struct Main * main = &gMain;
-    if((main->unk1C & 3) == 0)
+    if((main->soundStatus & (SOUND_STATUS_BGM_STOPPED | SOUND_STATUS_BGM_PAUSED)) == 0)
     {
         if(volume > 256)
         {
@@ -235,7 +236,7 @@ void ChangeBGMVolume(u32 volume, s32 fadeTime)
         {
             main->bgmFadeVolume = volume * 10;
             main->bgmFadeAmount = ((main->bgmFadeVolume - main->bgmVolume) / fadeTime);
-            main->unk1C |= 8;
+            main->soundStatus |= SOUND_STATUS_BGM_FADING;
         }
         else
         {

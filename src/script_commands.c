@@ -1094,21 +1094,18 @@ bool32 Command34(struct ScriptContext * scriptCtx)
     return 0;
 }
 
-//fuck ewram
-#ifdef NONMATCHING
 bool32 Command35(struct ScriptContext *scriptCtx)
 {
     u32 offset;
-    u32 flag;
-    u32 sectionNumber;
+    u32 temp;
     u16 * jmpArgs;
 
     scriptCtx->scriptPtr++;
-    flag = *scriptCtx->scriptPtr >> 8;
+    temp = *scriptCtx->scriptPtr >> 8;
 
     if(*scriptCtx->scriptPtr & 1) 
     {
-        if(!GetFlag(0, flag)) 
+        if(!GetFlag(0, temp)) 
         {
             scriptCtx->scriptPtr += 2;
             return 0;
@@ -1117,7 +1114,7 @@ bool32 Command35(struct ScriptContext *scriptCtx)
     }
     else 
     {
-        if(GetFlag(0, flag)) 
+        if(GetFlag(0, temp)) 
         {
             scriptCtx->scriptPtr += 2;
             return 0;
@@ -1125,97 +1122,28 @@ bool32 Command35(struct ScriptContext *scriptCtx)
     }
     if(*(scriptCtx->scriptPtr) & 0x80) 
     {
+        u32 * heapPtr;
         scriptCtx->scriptPtr++;
-        jmpArgs = (u16*)(((u32 *)eScriptHeap)+1+*scriptCtx->scriptPtr);
+        temp = *scriptCtx->scriptPtr;
+        heapPtr = eScriptHeap;
+        heapPtr += temp+1;
+        jmpArgs = (u16*)heapPtr;
         offset = jmpArgs[0] / 2;
-        sectionNumber = jmpArgs[1];
-        scriptCtx->currentSection = sectionNumber + 0x80;
-        scriptCtx->scriptSectionPtr = eScriptHeap + (((u32 *)eScriptHeap)+1)[sectionNumber];
+        temp = jmpArgs[1];
+        scriptCtx->currentSection = temp + 0x80;
+        heapPtr = eScriptHeap;
+        heapPtr += temp+1;
+        scriptCtx->scriptSectionPtr = eScriptHeap + *heapPtr;
         scriptCtx->scriptPtr = scriptCtx->scriptSectionPtr + offset;
     }
     else 
     {
         scriptCtx->scriptPtr++;
-        offset = *scriptCtx->scriptPtr / 2;
-        scriptCtx->scriptPtr = scriptCtx->scriptSectionPtr + offset;
+        temp = *scriptCtx->scriptPtr / 2;
+        scriptCtx->scriptPtr = scriptCtx->scriptSectionPtr + temp;
     }
     return 0;
 }
-#else
-NAKED
-bool32 Command35(struct ScriptContext *scriptCtx)
-{
-    asm_unified("push {r4, lr}\n\
-	adds r4, r0, #0\n\
-	ldr r1, [r4, #4]\n\
-	adds r0, r1, #2\n\
-	str r0, [r4, #4]\n\
-	ldrh r1, [r1, #2]\n\
-	lsrs r2, r1, #8\n\
-	movs r0, #1\n\
-	ands r0, r1\n\
-	cmp r0, #0\n\
-	beq _08006E44\n\
-	movs r0, #0\n\
-	adds r1, r2, #0\n\
-	bl GetFlag\n\
-	cmp r0, #0\n\
-	bne _08006E56\n\
-	ldr r0, [r4, #4]\n\
-	adds r0, #4\n\
-	b _08006E96\n\
-_08006E44:\n\
-	movs r0, #0\n\
-	adds r1, r2, #0\n\
-	bl GetFlag\n\
-	cmp r0, #0\n\
-	beq _08006E56\n\
-	ldr r0, [r4, #4]\n\
-	adds r0, #4\n\
-	b _08006E96\n\
-_08006E56:\n\
-	ldr r1, [r4, #4]\n\
-	movs r0, #0x80\n\
-	ldrh r2, [r1]\n\
-	ands r0, r2\n\
-	cmp r0, #0\n\
-	beq _08006E8C\n\
-	ldrh r1, [r1, #2]\n\
-	lsls r0, r1, #2\n\
-	ldr r1, _08006E88\n\
-	adds r0, r0, r1\n\
-	ldrh r2, [r0]\n\
-	lsrs r1, r2, #1\n\
-	ldrh r2, [r0, #2]\n\
-	adds r0, r2, #0\n\
-	adds r0, #0x80\n\
-	strh r0, [r4, #0x1e]\n\
-	lsls r0, r2, #2\n\
-	ldr r2, _08006E88\n\
-	adds r0, r0, r2\n\
-	ldr r0, [r0]\n\
-	subs r2, #4\n\
-	adds r0, r0, r2\n\
-	str r0, [r4, #8]\n\
-	lsls r1, r1, #1\n\
-	b _08006E94\n\
-	.align 2, 0\n\
-_08006E88: .4byte gScriptHeap+4\n\
-_08006E8C:\n\
-	ldrh r1, [r1, #2]\n\
-	lsrs r2, r1, #1\n\
-	lsls r1, r2, #1\n\
-	ldr r0, [r4, #8]\n\
-_08006E94:\n\
-	adds r0, r0, r1\n\
-_08006E96:\n\
-	str r0, [r4, #4]\n\
-	movs r0, #0\n\
-	pop {r4}\n\
-	pop {r1}\n\
-	bx r1\n");
-}
-#endif
 
 bool32 Command36(struct ScriptContext * scriptCtx)
 {
