@@ -25,7 +25,7 @@ TOOLS = $(foreach tool,$(TOOLBASE),tools/$(tool)/$(tool)$(EXE))
 # Secondary expansion is required for dependency variables in object rules.
 .SECONDEXPANSION:
 
-.PHONY: rom compare clean clean_rev1 rev1 compare_rev1 tools clean-tools $(TOOLDIRS)
+.PHONY: rom compare realclean clean clean_rev1 rev1 compare_rev1 tools clean-tools $(TOOLDIRS)
 
 ROM := $(BUILD_NAME).gba
 OBJ_DIR := build/$(BUILD_NAME)
@@ -91,10 +91,12 @@ endif
 compare:
 	@$(MAKE) COMPARE=1
 
+realclean: clean clean-tools
+
 clean-tools:
 	@$(foreach tooldir,$(TOOLDIRS),$(MAKE) clean -C $(tooldir);)
 
-clean: clean-tools
+clean:
 	rm -f $(ROM) $(ELF) $(MAP)
 	rm -r $(OBJ_DIR)
 	find . \( -iname '*.1bpp' -o -iname '*.4bpp' -o -iname '*.8bpp' -o -iname '*.gbapal' -o -iname '*.lz' -o -iname '*.striped' \) -exec rm {} +
