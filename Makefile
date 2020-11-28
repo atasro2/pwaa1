@@ -10,6 +10,12 @@ MID := tools/mid2agb/mid2agb
 
 include config.mk
 
+
+TOOLDIRS := $(filter-out tools/agbcc tools/binutils,$(wildcard tools/*))
+TOOLBASE = $(TOOLDIRS:tools/%=%)
+TOOLS = $(foreach tool,$(TOOLBASE),tools/$(tool)/$(tool)$(EXE))
+
+
 # Clear the default suffixes
 .SUFFIXES:
 # Don't delete intermediate files
@@ -19,7 +25,7 @@ include config.mk
 # Secondary expansion is required for dependency variables in object rules.
 .SECONDEXPANSION:
 
-.PHONY: rom compare clean clean_rev1 rev1 compare_rev1
+.PHONY: rom compare realclean clean clean_rev1 rev1 compare_rev1 tools clean-tools $(TOOLDIRS)
 
 ROM := $(BUILD_NAME).gba
 OBJ_DIR := build/$(BUILD_NAME)
@@ -70,6 +76,12 @@ MAP = $(ROM:.gba=.map)
 TITLE := GYAKUTEN_SAI
 GAMECODE := ASBJ
 
+all: rom
+
+tools: $(TOOLDIRS)
+
+$(TOOLDIRS):
+	@$(MAKE) -C $@
 
 rom: $(ROM)
 ifeq ($(COMPARE),1)
@@ -78,6 +90,11 @@ endif
 
 compare:
 	@$(MAKE) COMPARE=1
+
+realclean: clean clean-tools
+
+clean-tools:
+	@$(foreach tooldir,$(TOOLDIRS),$(MAKE) clean -C $(tooldir);)
 
 clean:
 	rm -f $(ROM) $(ELF) $(MAP)
