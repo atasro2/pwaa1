@@ -23,7 +23,7 @@ gUnusedAsciiCharSet:
 
     .global gUnknown_08186520
 gUnknown_08186520:
-    .incbin "graphics/unk_186520.gbapal"
+    .incbin "graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal"
 
     .global gUnknown_08186540
 gUnknown_08186540:
