@@ -20,8 +20,8 @@ struct Joypad
 struct Main
 {
     u32 unk0; // System_timer? unused in unity
-    u8 process[4];
-    u8 processCopy[4];
+    u8 process[4]; /* + 0x4 */
+    u8 processCopy[4]; /* + 0x8 */
     u8 vblankWaitCounter; /* + 0xC */
     u8 vblankWaitAmount; /* + 0xD */
     s8 shakeAmountX; /* + 0xE */ // Quake_x 

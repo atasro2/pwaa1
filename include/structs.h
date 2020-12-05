@@ -138,10 +138,14 @@ struct CourtRecord
     bool8 isSaveScreen;
     u8 unkB;
     u8 unkC;
-    u8 fillerD[0x3];
+    u8 unkD;
+    u8 unkE;
+    u8 unkF;
     u8 unk10;
     u8 unk11;
-    u8 filler12[0x6];
+    u8 unk12;
+    u8 filler13[0x1];
+    u8 * unk14;
     u8 evidenceList[0x20];
     u8 profileList[0x20];
 };

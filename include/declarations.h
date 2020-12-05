@@ -14,6 +14,7 @@ extern u8 gUnknown_080189A4[];
 extern u8 gSaveVersion[0x30];
 extern void (*gGameProcesses[15])(struct Main *);
 extern void (*gUnknown_0811DBF0[5])(struct CourtRecord *);
+extern u8 * gUnknown_0811DC10[17];
 extern void (*gUnknown_0811DFD0[11])(struct AnimationStruct *);
 extern void (*gUnknown_0811DFFC[6])(struct AnimationStruct *, struct CourtScroll *);
 extern u32 * gFlagPtrs[3]; 
@@ -124,6 +125,8 @@ extern void sub_800D77C(struct Main *, struct CourtRecord *);
 extern s32 FindEvidenceInCourtRecord(u16, u32);
 extern s32 FindFirstEmptySlotInCourtRecord(u16);
 extern void sub_800E8A0(struct CourtRecord *);
+extern void sub_800E914();
+extern void sub_800EA80(u32);
 extern void sub_800ED68(struct CourtRecord *);
 extern u32 GetMapMarkerIndexFromId(u32);
 //EWRAM
