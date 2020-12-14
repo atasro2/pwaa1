@@ -30,11 +30,9 @@ void sub_800D6C8(void)
           }
         }
     }
-    // D6F6
     fillerdata = talkdata->filler4;
     for(i = 0; i < 4; i++) {
         void *src;
-        // vu32 *dmaRegs = (vu32 *)REG_ADDR_DMA3;
         void *destination = (void *)VRAM+0x13400;
         destination += i*0x800;
         if(*fillerdata != 0xFF) {
