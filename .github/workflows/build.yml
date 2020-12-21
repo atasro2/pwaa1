@@ -13,6 +13,9 @@ jobs:
       - name: Fetch repo
         uses: actions/checkout@master
       
+      - name: foon
+        run: nproc
+      
       - name: Load and setup agbcc
         run: |
           git clone https://github.com/luckytyphlosion/agbcc.git -b new_layout_with_libs
@@ -28,8 +31,8 @@ jobs:
         
       - name: Build via Makefile
         run: |
-          make compare
-          make compare_rev1
+          make -j${nproc} compare
+          make -j${nproc} compare_rev1
       
       # only run OK when pushed to master
       - name: Run OK webhook
