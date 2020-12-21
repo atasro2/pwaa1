@@ -41,7 +41,7 @@ SECTIONS {
         asm/process9.o(.text);
         src/process4.o(.text);
         asm/process4.o(.text);
-        asm/rom800D674.o(.text);
+        src/rom800D674.o(.text);
         asm/court_record.o(.text);
         src/sound_control.o(.text);
         src/animation.o(.text);

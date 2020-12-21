@@ -163,11 +163,13 @@ struct TalkData
 
     public uint[] mess = new uint[4];
     */
-    u8 unk0;
-    u8 unk1;
-    u8 unk2;
-    u8 unk3;
-    u8 filler4[0x10];
+    u8 roomId; /* +0x0 */
+    u8 personId; /* +0x1 */
+    u8 unk2; // called dm in unity?
+    u8 enableFlag; /* +0x3 */ // en- or disables this specific set of talk data, allows for multiple sets for one character in one room
+    u8 iconId[0x4]; /* +0x4 */
+    u8 talkFlagId[0x4]; /* +0x8 */
+    u16 talkSection[0x4]; /* +0xC */
 };
 
 struct InvestigationStruct

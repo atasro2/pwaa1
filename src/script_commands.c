@@ -1169,7 +1169,7 @@ bool32 Command37(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     temp = *scriptCtx->scriptPtr;
     scriptCtx->scriptPtr++;
-    gTalkData[temp].unk3 = *scriptCtx->scriptPtr;
+    gTalkData[temp].enableFlag = *scriptCtx->scriptPtr;
     scriptCtx->scriptPtr++;
     return 0;
 }

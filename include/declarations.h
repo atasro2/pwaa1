@@ -64,7 +64,13 @@ extern u8 gUnknown_08194580[0xC0]; // sprite palettes
 extern u8 gUnknown_081946C0[];
 extern u8 gUnknown_081964A8[0x800];
 
+extern u8 gUnknown_08190FC0[0x200];
+extern u8 gUnknown_081944E0[0x20]; // palette
+
 extern u8 gUnknown_081FD92C[0x40]; // sprite palette
+extern u8 gUnknown_081FD96C[0x800*4]; // tons of tiles?
+
+extern u8 gUnknown_0820816C[0x800*4];
 
 extern u8 gUnknown_0824696C[0x20]; // palette
 
