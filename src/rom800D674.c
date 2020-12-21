@@ -24,30 +24,30 @@ void sub_800D6C8(void)
 {
     u32 i;
     struct TalkData *talkdata;
-    u8 *dataarr;
-    for(talkdata = gTalkData; talkdata->unk0 != 0xFF; talkdata++)
+    u8 *icons;
+    for(talkdata = gTalkData; talkdata->roomId != 0xFF; talkdata++)
     {
-        if(gMain.currentRoomId == talkdata->unk0)
+        if(gMain.currentRoomId == talkdata->roomId)
 	{
-            if(gAnimation[1].unkC.unk2[0] == talkdata->unk1)
+            if(gAnimation[1].unkC.unk2[0] == talkdata->personId)
 	    {
-                if(talkdata->unk3 == 1)
+                if(talkdata->enableFlag == 1)
 		    break;
             }
         }
     }
-    dataarr = talkdata->unk4;
+    icons = talkdata->iconId;
     for(i = 0; i < 4; i++)
     {
         void *src;
         void *destination = (void *)VRAM+0x13400;
         destination += i*0x800;
-        if(*dataarr != 0xFF)
+        if(*icons != 0xFF)
 	{
-            src = gUnknown_0820816C + *dataarr*0x800;
+            src = gUnknown_0820816C + *icons*0x800;
             DmaCopy16(3, src, destination, 0x800);
         }
-        dataarr++;
+        icons++;
     }
     DmaCopy16(3, (void *)0x08190FC0, (void *)VRAM+0x15400, 0x200);
     DmaCopy16(3, (void *)0x081944E0, (void *)PLTT+0x360, 0x20);
