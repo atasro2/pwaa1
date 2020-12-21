@@ -13,13 +13,10 @@ jobs:
       - name: Fetch repo
         uses: actions/checkout@master
       
-      - name: foon
-        run: nproc
-      
       - name: Load and setup agbcc
         run: |
           git clone https://github.com/luckytyphlosion/agbcc.git -b new_layout_with_libs
-          cd agbcc && make && make install prefix=$GITHUB_WORKSPACE
+          cd agbcc && make -j${nproc} && make install prefix=$GITHUB_WORKSPACE
         
       - name: Build tools and baserom
         run: |
