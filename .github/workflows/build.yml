@@ -37,6 +37,6 @@ jobs:
         # if: ${{ github.event_name == 'push' }}
         env:
           CALCROM_DISCORD_WEBHOOK_USERNAME: ${{ secrets.CALCROM_DISCORD_WEBHOOK_USERNAME }}
-          CALCROM_DISCORD_WEBHOOK_AVATAR_URL:  ${{ secrets.CALCROM_DISCORD_WEBHOOK_AVATAR }}
+          CALCROM_DISCORD_WEBHOOK_AVATAR_URL:  ${{ secrets.CALCROM_DISCORD_WEBHOOK_AVATAR_URL }}
           CALCROM_DISCORD_WEBHOOK_URL:  ${{ secrets.CALCROM_DISCORD_WEBHOOK_URL }}
         run: sh .github/calcrom/webhook.sh pwaa1
