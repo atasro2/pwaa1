@@ -167,7 +167,7 @@ struct TalkData
     u8 unk1;
     u8 unk2;
     u8 unk3;
-    u8 filler4[0x10];
+    u8 unk4[0x10];
 };
 
 struct InvestigationStruct
