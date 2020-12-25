@@ -31,12 +31,12 @@ extern struct Struct80187C8 gUnknown_080187C8[16];
 extern struct PersonAnimationData gPersonAnimData[];
 extern struct AnimationData gAnimationData[];
 extern struct SpriteSizeData gSpriteSizeTable[0xF];
+extern struct EvidenceProfileData gUnknown_08018A6C[];
 extern s8 gUnknown_0801948C[0x1F];
 extern s8 gUnknown_080194AB[0x1F];
 extern s8 gUnknown_080194CA[0x1F];
 extern u16 gUnknown_08013F70[];
 extern u16 gUnknown_08014270[];
-
 // 0x180000 onwards // GFX basically
 // maybe change to defines
 // keep both actually it won't matter a whole lot
@@ -50,6 +50,8 @@ extern u8 gUnknown_0818C040[];
 extern u8 gUnknown_0818F8C0[0x800];
 
 extern u8 gUnknown_081900C0[0x400];
+extern u8 gUnknown_081906C0[0x200];
+extern u8 gUnknown_081908C0[0x200];
 extern u8 gUnknown_08190AC0[]; // some tiles
 extern u8 gUnknown_081911C0[];
 extern u8 gUnknown_081914A0[0x800];
@@ -93,6 +95,8 @@ extern u8 gUnknown_0871EBBC[];
 extern u8 gUnknown_0871FDF8[];
 //FUNCTIONS // these should be moved soon
 
+void sub_80074E8();
+
 void UpdateCourtScroll(struct CourtScroll *);
 u8 Random();
 void ChangeScriptSection(u32);
@@ -116,6 +120,14 @@ extern void sub_800D6C8(void);
 extern void sub_800D674(void);
 extern void sub_80020B0(u32);
 extern void sub_8002878(struct CourtRecord *);
+extern void sub_800E9D4(struct CourtRecord *);
+extern void sub_800EAF8(struct CourtRecord *);
+extern void sub_800EB88(u32);
+extern void sub_800EB6C(struct CourtRecord *);
+extern void sub_800EBF0(u32);
+extern void sub_800ECA8(u32);
+extern u32 sub_800EE20(u32, u32);
+extern u32 sub_800EEA4(struct Main *, u32);
 extern void sub_800EEFC(struct Main *);
 extern void ResetSoundControl();
 extern void sub_800B638(struct Main *, struct TestimonyStruct *);

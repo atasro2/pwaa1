@@ -144,7 +144,7 @@ struct CourtRecord
     u8 unk10;
     u8 unk11;
     u8 unk12;
-    u8 filler13[0x1];
+    u8 unk13;
     u8 * unk14;
     u8 evidenceList[0x20];
     u8 profileList[0x20];
@@ -324,6 +324,13 @@ struct ExaminationData
     u8 unk2;
     u8 unk3;
     struct Point4 area;
+};
+
+struct EvidenceProfileData
+{
+    u8 * descriptionTiles;
+    u8 filler4[0x2];
+    u16 unk6;
 };
 
 struct SaveData
