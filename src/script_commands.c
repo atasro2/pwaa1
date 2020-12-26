@@ -594,7 +594,7 @@ bool32 Command18(struct ScriptContext * scriptCtx)
         {
             gCourtRecord.evidenceList[evidenceSlot] = 0xFF;
         }
-        sub_800ED68(&gCourtRecord);
+        SortCourtRecordAndSyncListCount(&gCourtRecord);
     }
     scriptCtx->scriptPtr++;
     return 0;

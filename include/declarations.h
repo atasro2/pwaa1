@@ -11,10 +11,14 @@ extern const u16 gUnknown_08014D82[]; // GS1_gameover_message_data_table
 extern const u8 gUnknown_08013B70[0x400];
 extern struct Struct8018870 gUnknown_08018870[7];
 extern u8 gUnknown_080189A4[];
+extern u8 gUnknown_08018DCC[];
+extern u8 gUnknown_08018DD0[];
 extern u8 gSaveVersion[0x30];
 extern void (*gGameProcesses[15])(struct Main *);
 extern void (*gUnknown_0811DBF0[5])(struct CourtRecord *);
 extern u8 * gUnknown_0811DC10[17];
+extern struct Struct811DC54 * gUnknown_0811DC54[17];
+extern struct Struct811DC98 * gUnknown_0811DC98[17];
 extern void (*gUnknown_0811DFD0[11])(struct AnimationStruct *);
 extern void (*gUnknown_0811DFFC[6])(struct AnimationStruct *, struct CourtScroll *);
 extern u32 * gFlagPtrs[3]; 
@@ -134,12 +138,14 @@ extern void sub_800B638(struct Main *, struct TestimonyStruct *);
 extern void sub_800B51C(struct Main *, struct TestimonyStruct *, u32);
 extern void sub_800B7A8(struct InvestigationStruct *, u32);
 extern void sub_800D77C(struct Main *, struct CourtRecord *);
-extern s32 FindEvidenceInCourtRecord(u16, u32);
-extern s32 FindFirstEmptySlotInCourtRecord(u16);
+extern s32 FindEvidenceInCourtRecord(u32, u32);
+extern s32 FindFirstEmptySlotInCourtRecord(u32);
 extern void sub_800E8A0(struct CourtRecord *);
 extern void sub_800E914();
 extern void sub_800EA80(u32);
-extern void sub_800ED68(struct CourtRecord *);
+extern void SortCourtRecordAndSyncListCount(struct CourtRecord *);
+extern void sub_800F0E0(struct Main *);
+extern void sub_800F134(struct Main *);
 extern u32 GetMapMarkerIndexFromId(u32);
 //EWRAM
 // fuck capcom

@@ -38,6 +38,9 @@ Weird things:
 specifically it's used for some coordinates and stuff related to the hand pointer
 idk why capcom would do this since they have enough space in IWRAM to do this
 
+it is also used as a decompression buffer for the description of evidence and profiles
+and 
+
 2. gBGDecompBuffer is sometimes used for copying background graphics to VRAM
 
 it's a decompression buffer for god's sake

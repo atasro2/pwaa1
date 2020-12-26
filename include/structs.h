@@ -329,7 +329,26 @@ struct ExaminationData
 struct EvidenceProfileData
 {
     u8 * descriptionTiles;
-    u8 filler4[0x2];
+    u16 unk4;
+    u16 unk6;
+};
+
+struct Struct811DC54
+{
+    u16 unk0;
+    u16 unk2;
+    u16 unk4;
+    u8 unk6;
+    u8 unk7;
+};
+
+struct Struct811DC98
+{
+    u8 unk0;
+    u8 unk1;
+    u8 unk2;
+    u8 unk3;
+    u16 unk4;
     u16 unk6;
 };
 

@@ -70,7 +70,11 @@ struct Main
     u8 unk7C;
     u8 unk7D;
     u8 unk7E;
-    u8 filler7F[0x5];
+    u8 unk7F;
+    s8 unk80;
+    u8 unk81;
+    u8 unk82;
+    u8 filler83[0x1]; // filler?
     s16 unk84;
     u16 unk86;
     u8 unk88;
