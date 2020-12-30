@@ -439,7 +439,7 @@ void sub_800DE8C(struct Main * main, struct CourtRecord * courtRecord)
         if(courtRecord->unkC & 1)
         {
             courtRecord->unkC &= ~1;
-            DmaCopy16(3, gUnknown_081906C0, OBJ_VRAM0+0x3500, sizeof(gUnknown_081906C0));
+            DmaCopy16(3, gUnknown_081906C0, OBJ_VRAM0+0x3500, TILE_SIZE_4BPP*16);
             courtRecord->unkE = courtRecord->unk10;
             courtRecord->unk14 = courtRecord->evidenceList;
         }
@@ -723,9 +723,9 @@ void sub_800E4A4(struct Main * main, struct CourtRecord * courtRecord)
                 gTestimony.unk1 = 6;
                 evidenceId = courtRecord->unk14[courtRecord->unkD];
                 offset = gUnknown_08018A6C[evidenceId].unk4 * (TILE_SIZE_4BPP * 64 + 0x20);
-                temp = 0x81B290C + offset;
+                temp = (uintptr_t)gUnknown_081B290C + offset; //! Evil, uses a u32 for this pointer keep in mind and also global define
                 DmaCopy16(3, temp, OBJ_PLTT+0x20, 0x20);
-                temp = 0x81B290C + offset + 0x20;
+                temp = (uintptr_t)gUnknown_081B290C + offset + 0x20;
                 DmaCopy16(3, temp, OBJ_VRAM0+0x1000, TILE_SIZE_4BPP * 64);
                 oam->attr0 = SPRITE_ATTR0(16, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
                 oam->attr1 = SPRITE_ATTR1_NONAFFINE(88, FALSE, FALSE, 3);
@@ -887,22 +887,22 @@ void sub_800E8A0(struct CourtRecord * courtRecord)
         courtRecord->unk9 = 0;
         courtRecord->unk8++;
         courtRecord->unk8 &= 3;
-        DmaCopy16(3, (u8*)0x818BD40 + gUnknown_08018DCC[courtRecord->unk8] * 32, OBJ_VRAM0+0x3400, TILE_SIZE_4BPP*4);
-        DmaCopy16(3, (u8*)0x818BD40 + gUnknown_08018DD0[courtRecord->unk8] * 32, OBJ_VRAM0+0x3480, TILE_SIZE_4BPP*4);
+        DmaCopy16(3, gUnknown_0818BD40 + gUnknown_08018DCC[courtRecord->unk8] * 32, OBJ_VRAM0+0x3400, TILE_SIZE_4BPP*4);
+        DmaCopy16(3, gUnknown_0818BD40 + gUnknown_08018DD0[courtRecord->unk8] * 32, OBJ_VRAM0+0x3480, TILE_SIZE_4BPP*4);
     }
 }
 
 void sub_800E914()
 {
     sub_80024C8(1, 0xC);
-    DmaCopy16(3, (u8*)0x818BD40, OBJ_VRAM0+0x3400, TILE_SIZE_4BPP*4);
-    DmaCopy16(3, (u8*)0x818BD40 + TILE_SIZE_4BPP*4 * 3, OBJ_VRAM0+0x3480, TILE_SIZE_4BPP*4);
-    DmaCopy16(3, (u8*)0x818F4C0, OBJ_VRAM0+0x3800, TILE_SIZE_4BPP*16);
-    DmaCopy16(3, (u8*)0x81904C0, OBJ_VRAM0+0x3A00, TILE_SIZE_4BPP*16);
-    DmaCopy16(3, (u8*)0x81906C0, OBJ_VRAM0+0x3500, TILE_SIZE_4BPP*16);
-    DmaCopy16(3, (u8*)0x81940E0, OBJ_PLTT+0x60, 0x20);
-    DmaCopy16(3, (u8*)0x8194240, OBJ_PLTT+0x80, 0x20);
-    DmaCopy16(3, (u8*)0x8186520, OBJ_PLTT+0x40, 0x20);
+    DmaCopy16(3, gUnknown_0818BD40, OBJ_VRAM0+0x3400, TILE_SIZE_4BPP*4);
+    DmaCopy16(3, gUnknown_0818BD40 + TILE_SIZE_4BPP*4 * 3, OBJ_VRAM0+0x3480, TILE_SIZE_4BPP*4);
+    DmaCopy16(3, gUnknown_0818F4C0, OBJ_VRAM0+0x3800, TILE_SIZE_4BPP*16);
+    DmaCopy16(3, gUnknown_081904C0, OBJ_VRAM0+0x3A00, TILE_SIZE_4BPP*16);
+    DmaCopy16(3, gUnknown_081906C0, OBJ_VRAM0+0x3500, TILE_SIZE_4BPP*16);
+    DmaCopy16(3, gUnknown_081940E0, OBJ_PLTT+0x60, 0x20);
+    DmaCopy16(3, gUnknown_08194240, OBJ_PLTT+0x80, 0x20);
+    DmaCopy16(3, gUnknown_08186520, OBJ_PLTT+0x40, 0x20);
 }
 
 void sub_800E9D4(struct CourtRecord * courtRecord)
@@ -951,9 +951,9 @@ void sub_800EA80(u32 evidenceId)
     u8 * src;
 
     offset = gUnknown_08018A6C[evidenceId].unk4 * (TILE_SIZE_4BPP * 64 + 0x20);
-    src = (u8*)0x81B290C + offset;
+    src = gUnknown_081B290C + offset;
     DmaCopy16(3, src, OBJ_PLTT+0x20, 0x20);
-    src = (u8*)0x81B290C + offset + 0x20;
+    src = gUnknown_081B290C + offset + 0x20;
     DmaCopy16(3, src, OBJ_VRAM0+0x5000, TILE_SIZE_4BPP * 64);
     src = gUnknown_08018A6C[evidenceId].descriptionTiles;
     LZ77UnCompWram(src, eUnknown_0200AFC0);
@@ -1306,13 +1306,13 @@ void sub_800F0E0(struct Main * main)
     u8 * src;
 
     offset = gUnknown_08018A6C[main->unk7C].unk4 * (TILE_SIZE_4BPP * 64 + 0x20);
-    src = (u8*)0x81B290C + offset;
+    src = gUnknown_081B290C + offset;
     DmaCopy16(3, src, OBJ_PLTT+0x20, 0x20);
-    src = (u8*)0x81B290C + offset + 0x20;
+    src = gUnknown_081B290C + offset + 0x20;
     DmaCopy16(3, src, OBJ_VRAM0+0x1000, TILE_SIZE_4BPP * 64);
 }
 
-void sub_800F134(struct Main * main)
+void sub_800F134(struct Main * main) // how did i match this
 {
     u16 * map;
     u32 i;

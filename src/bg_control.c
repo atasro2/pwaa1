@@ -315,7 +315,7 @@ void sub_80028B4(u32 arg0, u32 arg1)
     unk1 = (arg0 % 5);
     unk0 *= 0x800;
     unk1 *= 0xC0;
-    src = ((u8*)0x8187540);
+    src = gUnknown_08187540;
     src += unk0;
     src += unk1;
     DmaCopy16(3, src, VRAM+0xA80, 0xC0);

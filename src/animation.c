@@ -219,8 +219,8 @@ void SetAnimationFrameOffset(struct AnimationStruct *animation, u32 animOffset)
             {
                 if (animation->unkC.animId <= 0x10)
                 {
-                    animation->unkC.animFrameDataStartPtr = (u8 *)0x871FCF4 + animOffset; // ! FOR THE LOVE OF GOD CAPCOM
-                    animation->unkC.animGfxDataStartPtr = (u8 *)0x871EBBC;
+                    animation->unkC.animFrameDataStartPtr = gUnknown_0871FCF4 + animOffset; // ! These globals are defines *sob*
+                    animation->unkC.animGfxDataStartPtr = gUnknown_0871EBBC;
                 }
                 else
                 {
@@ -228,14 +228,14 @@ void SetAnimationFrameOffset(struct AnimationStruct *animation, u32 animOffset)
                     {
                         return;
                     }
-                    animation->unkC.animFrameDataStartPtr = (u8 *)0x8748218 + animOffset;
-                    animation->unkC.animGfxDataStartPtr = (u8 *)0x871FDF8;
+                    animation->unkC.animFrameDataStartPtr = gUnknown_08748218 + animOffset;
+                    animation->unkC.animGfxDataStartPtr = gUnknown_0871FDF8;
                 }
             }
             else
             {
-                animation->unkC.animFrameDataStartPtr = (u8 *)0x8748218 + animOffset;
-                animation->unkC.animGfxDataStartPtr = (u8 *)0x871FDF8;
+                animation->unkC.animFrameDataStartPtr = gUnknown_08748218 + animOffset;
+                animation->unkC.animGfxDataStartPtr = gUnknown_0871FDF8;
             }
         }
         animation->flags |= 0xC0000000;
@@ -577,12 +577,12 @@ bool32 CheckRectCollisionWithArea(struct Rect *rect, struct Point4 *area)
     struct Point *p4 = &p.points[1];
     if (CheckPointInArea(&rect->origin, area))
         return TRUE;
-
+    
     p.points[0].x = p.points[3].x = rect->origin.x;
     p.points[0].y = p.points[1].y = rect->origin.y;
     p.points[1].x = p.points[2].x = rect->origin.x + rect->w;
     p.points[2].y = p.points[3].y = rect->origin.y + rect->h;
-
+    // see if any part of the rect is in area
     for (i = 0; i < 3; i++)
     {
         p1 = &area->points[0];
