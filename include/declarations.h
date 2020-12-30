@@ -149,28 +149,10 @@ extern void sub_800D6C8(void);
 extern void sub_800D674(void);
 extern void sub_80020B0(u32);
 extern void sub_8002878(struct CourtRecord *);
-extern void sub_800E9D4(struct CourtRecord *);
-extern void sub_800EAF8(struct CourtRecord *);
-extern void sub_800EB88(u32);
-extern void sub_800EB6C(struct CourtRecord *);
-extern void sub_800EBF0(u32);
-extern void sub_800ECA8(u32);
-extern u32 sub_800EE20(u32, u32);
-extern u32 sub_800EEA4(struct Main *, u32);
-extern void sub_800EEFC(struct Main *);
 extern void ResetSoundControl();
 extern void sub_800B638(struct Main *, struct TestimonyStruct *);
 extern void sub_800B51C(struct Main *, struct TestimonyStruct *, u32);
 extern void sub_800B7A8(struct InvestigationStruct *, u32);
-extern void sub_800D77C(struct Main *, struct CourtRecord *);
-extern s32 FindEvidenceInCourtRecord(u32, u32);
-extern s32 FindFirstEmptySlotInCourtRecord(u32);
-extern void sub_800E8A0(struct CourtRecord *);
-extern void sub_800E914();
-extern void sub_800EA80(u32);
-extern void SortCourtRecordAndSyncListCount(struct CourtRecord *);
-extern void sub_800F0E0(struct Main *);
-extern void sub_800F134(struct Main *);
 extern u32 GetMapMarkerIndexFromId(u32);
 //EWRAM
 // fuck capcom

@@ -1,4 +1,5 @@
 #include "global.h"
+#include "court_record.h"
 #include "background.h"
 #include "sound_control.h"
 #include "animation.h"

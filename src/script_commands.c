@@ -7,6 +7,7 @@
 #include "constants/bg.h"
 #include "ewram.h"
 #include "background.h"
+#include "court_record.h"
 
 bool32 CommandDummy(struct ScriptContext * scriptCtx)
 {

@@ -4,6 +4,7 @@
 #include "script.h"
 #include "sound_control.h"
 #include "ewram.h"
+#include "court_record.h"
 
 void SetCurrentEpisodeBit()
 {
