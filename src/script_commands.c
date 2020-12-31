@@ -7,6 +7,7 @@
 #include "constants/bg.h"
 #include "ewram.h"
 #include "background.h"
+#include "court_record.h"
 
 bool32 CommandDummy(struct ScriptContext * scriptCtx)
 {
@@ -594,7 +595,7 @@ bool32 Command18(struct ScriptContext * scriptCtx)
         {
             gCourtRecord.evidenceList[evidenceSlot] = 0xFF;
         }
-        sub_800ED68(&gCourtRecord);
+        SortCourtRecordAndSyncListCount(&gCourtRecord);
     }
     scriptCtx->scriptPtr++;
     return 0;

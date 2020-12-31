@@ -3,6 +3,7 @@
 #include "sound_control.h"
 #include "ewram.h"
 #include "background.h"
+#include "court_record.h"
 
 void sub_800AA10(struct Main * main)
 {

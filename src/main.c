@@ -5,6 +5,7 @@
 #include "m4a.h"
 #include "ewram.h"
 #include "background.h"
+#include "court_record.h"
 
 static void DoGameProcess();
 static void VBlankIntr();

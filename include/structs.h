@@ -127,7 +127,7 @@ struct ScriptContext
 
 struct CourtRecord
 {
-    u8 unk0;
+    s8 unk0;
     s8 unk1;
     u8 unk2;
     u8 unk3;
@@ -138,10 +138,14 @@ struct CourtRecord
     bool8 isSaveScreen;
     u8 unkB;
     u8 unkC;
-    u8 fillerD[0x3];
+    u8 unkD;
+    u8 unkE;
+    u8 unkF;
     u8 unk10;
     u8 unk11;
-    u8 filler12[0x6];
+    u8 unk12;
+    u8 unk13;
+    u8 * unk14;
     u8 evidenceList[0x20];
     u8 profileList[0x20];
 };
@@ -320,6 +324,32 @@ struct ExaminationData
     u8 unk2;
     u8 unk3;
     struct Point4 area;
+};
+
+struct EvidenceProfileData
+{
+    u8 * descriptionTiles;
+    u16 unk4;
+    u16 unk6;
+};
+
+struct Struct811DC54
+{
+    u16 unk0;
+    u16 unk2;
+    u16 unk4;
+    u8 unk6;
+    u8 unk7;
+};
+
+struct Struct811DC98
+{
+    u8 unk0;
+    u8 unk1;
+    u8 unk2;
+    u8 unk3;
+    u16 unk4;
+    u16 unk6;
 };
 
 struct SaveData

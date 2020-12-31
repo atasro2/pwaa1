@@ -20,8 +20,8 @@ struct Joypad
 struct Main
 {
     u32 unk0; // System_timer? unused in unity
-    u8 process[4];
-    u8 processCopy[4];
+    u8 process[4]; /* + 0x4 */
+    u8 processCopy[4]; /* + 0x8 */
     u8 vblankWaitCounter; /* + 0xC */
     u8 vblankWaitAmount; /* + 0xD */
     s8 shakeAmountX; /* + 0xE */ // Quake_x 
@@ -70,7 +70,11 @@ struct Main
     u8 unk7C;
     u8 unk7D;
     u8 unk7E;
-    u8 filler7F[0x5];
+    u8 unk7F;
+    s8 unk80;
+    u8 unk81;
+    u8 unk82;
+    u8 filler83[0x1]; // filler?
     s16 unk84;
     u16 unk86;
     u8 unk88;
@@ -144,6 +148,7 @@ extern struct IORegisters gIORegisters;
 
 #define SET_PROCESS_PTR(no_0, no_1, no_2, no_3, main) (*(u32*)main->process = ((no_0) | ((no_1) << 8) | ((no_2) << 16) | ((no_3) << 24)))
 #define SET_PROCESS(no_0, no_1, no_2, no_3) (*(u32*)gMain.process = ((no_0) | ((no_1) << 8) | ((no_2) << 16) | ((no_3) << 24)))
+#define SET_PROCESS_BACKUP_PTR(no_0, no_1, no_2, no_3, main) (*(u32*)main->processCopy = ((no_0) | ((no_1) << 8) | ((no_2) << 16) | ((no_3) << 24)))
 #define BACKUP_PROCESS() (*(u32*)gMain.processCopy = *(u32*)gMain.process)
 #define BACKUP_PROCESS_PTR(main) (*(u32*)main->processCopy = *(u32*)gMain.process)
 #define RESTORE_PROCESS_PTR(main) (*(u32*)gMain.process = *(u32*)main->processCopy)

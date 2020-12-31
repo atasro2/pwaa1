@@ -12,7 +12,7 @@ void sub_800D674(void)
         void *destination = (void *)VRAM+0x13400;
         destination += i*0x800;
         if(*roomptr != 0xFF)
-	{
+	    {
             src = gUnknown_081FD96C+*roomptr*0x800;
             DmaCopy16(3, src, destination, 0x800);
         }
@@ -28,11 +28,11 @@ void sub_800D6C8(void)
     for(talkdata = gTalkData; talkdata->roomId != 0xFF; talkdata++)
     {
         if(gMain.currentRoomId == talkdata->roomId)
-	{
-            if(gAnimation[1].unkC.unk2[0] == talkdata->personId)
 	    {
+            if(gAnimation[1].unkC.unk2[0] == talkdata->personId)
+	        {
                 if(talkdata->enableFlag == 1)
-		    break;
+		            break;
             }
         }
     }
@@ -43,7 +43,7 @@ void sub_800D6C8(void)
         void *destination = (void *)VRAM+0x13400;
         destination += i*0x800;
         if(*icons != 0xFF)
-	{
+	    {
             src = gUnknown_0820816C + *icons*0x800;
             DmaCopy16(3, src, destination, 0x800);
         }

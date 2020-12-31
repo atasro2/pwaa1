@@ -22,7 +22,6 @@ SECTIONS {
         src/bg3_control.o(.text);
         asm/bg3_control.o(.text);
         src/bg_control.o(.text);
-        asm/bg_control.o(.text);
         src/utils.o(.text);
         src/rom8002D6C.o(.text);
         asm/rom8002D6C.o(.text);
@@ -42,7 +41,7 @@ SECTIONS {
         src/process4.o(.text);
         asm/process4.o(.text);
         src/rom800D674.o(.text);
-        asm/court_record.o(.text);
+        src/court_record.o(.text);
         src/sound_control.o(.text);
         src/animation.o(.text);
         asm/m4a_1.o(.text);
