@@ -179,60 +179,48 @@ void AdvanceScriptContext(struct ScriptContext * scriptCtx)
 #ifdef NONMATCHING
 void PutCharInTextbox(u32 characterCode, u32 y, u32 x)
 {
-    u8 * charTiles;
-    u8 * ptr;
-    u32 half1;
-    u32 half2; 
-    u32 i;
-    u32 colorIdx;
-    u32 temp;
-    u32 temp2;
+    u8* src;
+    u8* dst;
     u32 idx;
-    u32 val;
-    charTiles = gCharSet[characterCode];
-    // gTextColorTileBuffer == text color tile buffer 
-    if (gScriptContext.textColor != 0) // if colored 
+    u32 temp = characterCode;
+    temp *= 0x80;
+    temp += (u32)gCharSet; //! why tho
+    if(gScriptContext.textColor)
     {
-        DmaCopy16(3, charTiles, gTextColorTileBuffer, sizeof(gTextColorTileBuffer))
-        ptr = gTextColorTileBuffer;
-        colorIdx = (gScriptContext.textColor * 3); // does some palette stuff probably
-        for(i = 0; i < ARRAY_COUNT(gTextColorTileBuffer); i++) // add color to all tiles
+        u32 j;
+        u32 colorIdx;
+        DmaCopy16(3, temp, gTextColorTileBuffer, 0x80);
+        src = gTextColorTileBuffer;
+        temp = gScriptContext.textColor * 3;
+        for(j = 0; j < 0x80; j++)
         {
-            val = *ptr;
-            half1 = (u8)val & 0xF;
-            half2 = (u8)val & 0xF0;
-            half1 += half1 ? colorIdx : 0;
-            half2 += half2 ? colorIdx << 4 : 0;
-            *ptr++ = half2 | half1;
+            u32 half1, half2;
+            half2 = *src; // honestly wtf capcom
+            half1 = half2 & 0xF;
+            half2 = half2 & 0xF0;
+            if(half1)
+                half1 += temp;
+            if(half2)
+                half2 += temp << 4;
+            *src++ = half1 | half2;
         }
-
-        temp = x;
-        temp *= 0x80; 
-        temp += (VRAM + 0x10000);
-        if (gScriptContext.unk0 & 0x4) // is fullscreen 
-        {
-            temp += 0x80 * (2 * 16);
-        }
-        else 
-        {
-            temp += 0x80 * (y * 16);
-        }
-        DmaCopy16(3, gTextColorTileBuffer, temp, 0x80);
+        dst = (u8*)(OBJ_VRAM0);
+        dst += x * 0x80;
+        if(gScriptContext.unk0 & 4)
+            dst += 0x80 * (2 * 16);
+        else
+            dst += 0x80 * (y * 16);
+        DmaCopy16(3, gTextColorTileBuffer, dst, 0x80);
     }
-    else 
+    else
     {
-        temp = x;
-        temp *= 0x80; 
-        temp += (VRAM + 0x10000);
-        if (gScriptContext.unk0 & 0x4) // is fullscreen
-        {
-            temp += 0x80 * (2 * 16);
-        }
-        else 
-        {
-            temp += 0x80 * (y * 16);
-        }
-        DmaCopy16(3, charTiles, temp, 0x80);
+        dst = (u8*)(OBJ_VRAM0);
+        dst += x * 0x80;
+        if(gScriptContext.unk0 & 4)
+            dst += 0x80 * (2 * 16);
+        else
+            dst += 0x80 * (y * 16);
+        DmaCopy16(3, temp, dst, 0x80);
     }
     // matches completely after this other than small regalloc stuff
     if(gScriptContext.unk0 & 4)
@@ -601,6 +589,52 @@ void DrawTextAndMapMarkers(struct ScriptContext * scriptCtx)
             {
                 oam->attr0 = SPRITE_ATTR0_CLEAR;
                 oam++;
+            }
+        }
+    }
+}
+
+void RedrawTextboxCharacters()
+{
+    u32 i;
+    u8 * src;
+    u8 * dst;
+    for(i = 0; i < ARRAY_COUNT(gTextBoxCharacters); i++)
+    {
+        struct TextBoxCharacter *theCharacter = &gTextBoxCharacters[i];
+        if(theCharacter->state & 0x8000)
+        {
+            u32 temp = theCharacter->state & 0x7FFF;
+            temp *= 0x80;
+            temp += (u32)gCharSet; //! why tho
+            if(theCharacter->color)
+            {
+                u32 j;
+                u8 * tileBuf;
+                u32 colorIdx;
+                DmaCopy16(3, temp, gTextColorTileBuffer, 0x80);
+                tileBuf = gTextColorTileBuffer;
+                temp = theCharacter->color * 3;
+                for(j = 0; j < 0x80; j++)
+                {
+                    u32 half1, half2;
+                    half2 = *tileBuf; // honestly wtf capcom
+                    half1 = half2 & 0xF;
+                    half2 = half2 & 0xF0;
+                    if(half1)
+                        half1 += temp;
+                    if(half2)
+                        half2 += temp << 4;
+                    *tileBuf++ = half1 | half2;
+                }
+                src = gTextColorTileBuffer;
+                dst = (u8*)(OBJ_VRAM0 + i * 0x80);
+                DmaCopy16(3, src, dst, 0x80);
+            }
+            else
+            {
+                dst = (u8*)(OBJ_VRAM0 + i * 0x80);
+                DmaCopy16(3, temp, dst, 0x80);
             }
         }
     }

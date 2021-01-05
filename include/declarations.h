@@ -100,6 +100,9 @@ extern u8 gUnknown_081964A8[0x800];
 //extern u8 gUnknown_081B290C[];
 #define gUnknown_081B290C ((u8*)(GFX_BASE_ADDR + 0x3290C))
 
+//extern u8 gCharSet[0x550][0x80];
+#define gCharSet ((u8*)(GFX_BASE_ADDR + 0x5312C))
+
 extern u8 gUnknown_081FD92C[0x40]; // sprite palette
 extern u8 gUnknown_081FD96C[0x800*4]; // tons of tiles?
 

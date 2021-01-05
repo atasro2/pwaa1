@@ -87,7 +87,7 @@ bool32 Command02(struct ScriptContext * scriptCtx)
         if(scriptCtx->currentToken == 7)
         {
             scriptCtx->scriptPtr++;
-            DmaCopy16(3, gCharSet[226], OBJ_VRAM0 + 0x1F80, sizeof(gCharSet[0]));
+            DmaCopy16(3, &gCharSet[226*0x80], OBJ_VRAM0 + 0x1F80, 0x80);
             scriptCtx->unk39 = 0;
             scriptCtx->flags |= SCRIPT_FULLSCREEN;
             scriptCtx->unk26 = scriptCtx->textSpeed;
