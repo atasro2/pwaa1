@@ -5,6 +5,7 @@
 #include "sound_control.h"
 #include "ewram.h"
 #include "court_record.h"
+#include "constants/script.h"
 
 void SetCurrentEpisodeBit()
 {
@@ -96,7 +97,7 @@ void sub_800A5B0(struct Main * main)
         return;
     if((gJoypad.pressedKeysRaw & START_BUTTON) &&
     !(main->gameStateFlags & 0x10) &&
-    gScriptContext.unk0 & 5)
+    gScriptContext.flags & (SCRIPT_FULLSCREEN | 1))
     {
         PauseBGM();
         DmaCopy16(3, gOamObjects, gSaveDataBuffer.oam, sizeof(gOamObjects));
@@ -108,7 +109,7 @@ void sub_800A5B0(struct Main * main)
     }
     else if((gJoypad.pressedKeysRaw & R_BUTTON) &&
     !(main->gameStateFlags & 0x10) &&
-    gScriptContext.unk0 & 5)
+    gScriptContext.flags & (SCRIPT_FULLSCREEN | 1))
     {
         PlaySE(49);
         BACKUP_PROCESS_PTR(main);

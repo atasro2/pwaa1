@@ -3,8 +3,8 @@
 
 struct Background
 {
-    u8 * bgData;
-    u32 controlBits;
+    /* +0x00 */ u8 * bgData;
+    /* +0x04 */ u32 controlBits;
 };
 
 extern void InitBGs();

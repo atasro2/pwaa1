@@ -2,6 +2,8 @@
 #include "animation.h"
 #include "sound_control.h"
 #include "ewram.h"
+#include "constants/script.h"
+#include "constants/animation.h"
 
 void sub_800A730(struct Main * main)
 {
@@ -21,9 +23,9 @@ void sub_800A730(struct Main * main)
             animation = FindAnimationFromAnimId(0x13);
             animation2 = FindAnimationFromAnimId(0x14);
             animation->unkC.xOrigin += 10;
-            animation->flags |= 0x20000000;
+            animation->flags |= ANIM_ACTIVE;
             animation2->unkC.xOrigin -= 10;
-            animation2->flags |= 0x20000000;
+            animation2->flags |= ANIM_ACTIVE;
             if(animation->unkC.xOrigin >= 120)
             {
                 StartHardwareBlend(3, 1, 8, 0x1F);
@@ -39,7 +41,7 @@ void sub_800A730(struct Main * main)
             break;
         case 3:
             animation3 = FindAnimationFromAnimId(0x11);
-            if(!(animation3->flags & 0x80000000))
+            if(!(animation3->flags & ANIM_PLAYING))
             {
                 DestroyAnimation(animation3);
                 PlayAnimationAtCustomOrigin(0x13, 120, 60);
@@ -51,9 +53,9 @@ void sub_800A730(struct Main * main)
             animation = FindAnimationFromAnimId(0x13);
             animation2 = FindAnimationFromAnimId(0x14);
             animation->unkC.xOrigin += gTestimony.unk6;
-            animation->flags |= 0x20000000;
+            animation->flags |= ANIM_ACTIVE;
             animation2->unkC.xOrigin -= gTestimony.unk6;
-            animation2->flags |= 0x20000000;
+            animation2->flags |= ANIM_ACTIVE;
             gTestimony.unk6++;
             if(gTestimony.unk6 > 12)
                 gTestimony.unk6 = 12;
@@ -90,7 +92,7 @@ void sub_800A8E0(struct Main * main)
         return;
     if((gJoypad.pressedKeysRaw & START_BUTTON) &&
     !(main->gameStateFlags & 0x10) &&
-    gScriptContext.unk0 & 5)
+    gScriptContext.flags & (SCRIPT_FULLSCREEN | 1))
     {
         PauseBGM();
         DmaCopy16(3, gOamObjects, gSaveDataBuffer.oam, sizeof(gOamObjects));
@@ -102,7 +104,7 @@ void sub_800A8E0(struct Main * main)
     }
     else if((gJoypad.pressedKeysRaw & R_BUTTON) &&
     !(main->gameStateFlags & 0x10) &&
-    gScriptContext.unk0 & 5)
+    gScriptContext.flags & (SCRIPT_FULLSCREEN | 1))
     {
         PlaySE(49);
         BACKUP_PROCESS_PTR(main);

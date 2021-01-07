@@ -5,6 +5,7 @@
 #include "sound_control.h"
 #include "m4a.h"
 #include "constants/bg.h"
+#include "constants/script.h"
 #include "ewram.h"
 #include "background.h"
 #include "court_record.h"
@@ -25,7 +26,7 @@ bool32 Command00(struct ScriptContext * scriptCtx)
 
 bool32 Command01(struct ScriptContext * scriptCtx)
 {
-    if(scriptCtx->unk0 & 4)
+    if(scriptCtx->flags & SCRIPT_FULLSCREEN)
     {
         scriptCtx->fullscreenTextX = 0;
         scriptCtx->fullscreenTextY++;
@@ -45,7 +46,7 @@ bool32 Command02(struct ScriptContext * scriptCtx)
     u32 i;
     u32 temp;
 
-    if(scriptCtx->unk0 & 0x20)
+    if(scriptCtx->flags & 0x20)
     {
         if(scriptCtx->unk32 != 0)
         {
@@ -54,7 +55,7 @@ bool32 Command02(struct ScriptContext * scriptCtx)
         }
         else
         {
-            scriptCtx->unk0 &= ~0x20;
+            scriptCtx->flags &= ~0x20;
             scriptCtx->scriptPtr++; 
             if(scriptCtx->currentToken == 0xA) // if script cmd is 0xA
                 scriptCtx->scriptPtr++;
@@ -63,20 +64,20 @@ bool32 Command02(struct ScriptContext * scriptCtx)
     }
     if(gMain.process[GAME_PROCESS] >= 3 && gMain.process[GAME_PROCESS] <= 6)
     {
-        if(scriptCtx->unk0 & 1)
+        if(scriptCtx->flags & 1)
             if(gJoypad.pressedKeysRaw & A_BUTTON)
-                scriptCtx->unk0 |= 2;
+                scriptCtx->flags |= 2;
         if(scriptCtx->unk14 > 0)
             scriptCtx->unk14--;
         if(gJoypad.heldKeysRaw & B_BUTTON && scriptCtx->unk13 != 0 && scriptCtx->unk14 == 0)
-            scriptCtx->unk0 |= 2;
+            scriptCtx->flags |= 2;
     }
-    if(scriptCtx->unk0 & 2)
+    if(scriptCtx->flags & 2)
     {
         PlaySE(47);
         gBG1MapBuffer[622] = 9;
         gBG1MapBuffer[623] = 9;
-        scriptCtx->unk0 &= ~3;
+        scriptCtx->flags &= ~(2 | 1);
         if(scriptCtx->unk13 > 0)
         {
             scriptCtx->textSpeed = 3;
@@ -88,7 +89,7 @@ bool32 Command02(struct ScriptContext * scriptCtx)
             scriptCtx->scriptPtr++;
             DmaCopy16(3, gCharSet[226], OBJ_VRAM0 + 0x1F80, sizeof(gCharSet[0]));
             scriptCtx->unk39 = 0;
-            scriptCtx->unk0 |= 4;
+            scriptCtx->flags |= SCRIPT_FULLSCREEN;
             scriptCtx->unk26 = scriptCtx->textSpeed;
             scriptCtx->textSpeed = 0;
             scriptCtx->unk35 = 0x18;
@@ -107,7 +108,7 @@ bool32 Command02(struct ScriptContext * scriptCtx)
             return 0;
         }
         scriptCtx->unk32 = 0xA;
-        scriptCtx->unk0 |= 0x20;
+        scriptCtx->flags |= 0x20;
         if(scriptCtx->currentToken == 0xA) // if script cmd is 0xA ?
         {
             if(gMain.health > 0)
@@ -129,10 +130,10 @@ bool32 Command02(struct ScriptContext * scriptCtx)
     }
     else
     {
-        if((scriptCtx->unk0 & 1) == 0)
+        if((scriptCtx->flags & 1) == 0)
         {
             SetAnimationFrameOffset(&gAnimation[1], gMain.idleAnimationOffset);
-            scriptCtx->unk0 |= 1;
+            scriptCtx->flags |= 1;
         }
         if(gMain.process[GAME_PROCESS] != 9)
         {
@@ -215,14 +216,14 @@ bool32 Command08(struct ScriptContext * scriptCtx)
 {
     u32 i;
     u8 process;
-    if(scriptCtx->unk0 & 0x20)
+    if(scriptCtx->flags & 0x20)
     {
         if(scriptCtx->unk32 > 0)
         {
             scriptCtx->unk32--;
             return TRUE;
         }
-        scriptCtx->unk0 &= ~0x20;
+        scriptCtx->flags &= ~0x20;
         scriptCtx->scriptPtr += 3;
         return TRUE;
     }
@@ -263,14 +264,14 @@ bool32 Command08(struct ScriptContext * scriptCtx)
         {
             PlaySE(0x2B);
             scriptCtx->unk32 = 10;
-            scriptCtx->unk0 |= 0x20;
+            scriptCtx->flags |= 0x20;
             if(scriptCtx->unk39 == 0)
                 scriptCtx->nextSection = *(scriptCtx->scriptPtr+1);
             else
                 scriptCtx->nextSection = *(scriptCtx->scriptPtr+2);
             scriptCtx->textX = 0;
             scriptCtx->textY = 0;
-            scriptCtx->unk0 &= ~0x4;
+            scriptCtx->flags &= ~SCRIPT_FULLSCREEN;
             scriptCtx->textYOffset = 0x74;
             scriptCtx->textSpeed = scriptCtx->unk26;
             scriptCtx->textboxNameId = 0;
@@ -293,14 +294,14 @@ bool32 Command09(struct ScriptContext * scriptCtx)
 {
     u32 i;
     u8 process;
-    if(scriptCtx->unk0 & 0x20)
+    if(scriptCtx->flags & 0x20)
     {
         if(scriptCtx->unk32 > 0)
         {
             scriptCtx->unk32--;
             return TRUE;
         }
-        scriptCtx->unk0 &= ~0x20;
+        scriptCtx->flags &= ~0x20;
         scriptCtx->scriptPtr += 4;
         return TRUE;
     }
@@ -341,7 +342,7 @@ bool32 Command09(struct ScriptContext * scriptCtx)
         {
             PlaySE(0x2B);
             scriptCtx->unk32 = 10;
-            scriptCtx->unk0 |= 0x20;
+            scriptCtx->flags |= 0x20;
             if(scriptCtx->unk39 == 0)
                 scriptCtx->nextSection = *(scriptCtx->scriptPtr+1);
             else if (scriptCtx->unk39 == 1)
@@ -350,7 +351,7 @@ bool32 Command09(struct ScriptContext * scriptCtx)
                 scriptCtx->nextSection = *(scriptCtx->scriptPtr+3);
             scriptCtx->textX = 0;
             scriptCtx->textY = 0;
-            scriptCtx->unk0 &= ~0x4;
+            scriptCtx->flags &= ~SCRIPT_FULLSCREEN;
             scriptCtx->textYOffset = 0x74;
             scriptCtx->textSpeed = scriptCtx->unk26;
             scriptCtx->textboxNameId = 0;
@@ -468,7 +469,7 @@ bool32 Command11(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
     PlaySE(49);
-    scriptCtx->unk0 |= 0x10;
+    scriptCtx->flags |= 0x10;
     gMain.gameStateFlags |= 0x100;
     BACKUP_PROCESS();
     SET_PROCESS(7, 0, 0, 1);
@@ -511,7 +512,7 @@ bool32 Command14(struct ScriptContext * scriptCtx)
 
 bool32 Command15(struct ScriptContext * scriptCtx)
 {
-    if(scriptCtx->unk0 & 8)
+    if(scriptCtx->flags & SCRIPT_LOOP)
     {
         return 1;
     }
@@ -519,7 +520,7 @@ bool32 Command15(struct ScriptContext * scriptCtx)
     {
         SetAnimationFrameOffset(&gAnimation[1], gMain.idleAnimationOffset);
     }
-    scriptCtx->unk0 |= 8;
+    scriptCtx->flags |= SCRIPT_LOOP;
     return 1;
 }
 
@@ -808,7 +809,7 @@ u32 Command1F(struct ScriptContext * scriptCtx)
     for(i = 0; i < 0x2A0; i++, tilemapBuffer++)
        *tilemapBuffer = 0;
     gIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP; // TODO: add TXT/AFF macro once known which one is used
-    scriptCtx->unk0 &= ~0x40;
+    scriptCtx->flags &= ~0x40;
     return 0;
 }
 
@@ -824,7 +825,7 @@ bool32 Command21(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
     PlaySE(0x31);
-    scriptCtx->unk0 |= 0x10;
+    scriptCtx->flags |= 0x10;
     gMain.gameStateFlags |= 0x300;
     BACKUP_PROCESS();
     SET_PROCESS(7, 0, 0, 1);
@@ -1002,7 +1003,7 @@ bool32 Command2C(struct ScriptContext * scriptCtx)
 bool32 Command2E(struct ScriptContext * scriptCtx)
 {
     u32 i;
-    scriptCtx->unk0 &= ~(0x2 | 0x1);
+    scriptCtx->flags &= ~(0x2 | 0x1);
     scriptCtx->scriptPtr++;
     scriptCtx->textX = 0;
     scriptCtx->textY = 0;
@@ -1339,7 +1340,7 @@ bool32 Command3E(struct ScriptContext * scriptCtx)
     gInvestigation.unk16 = 8;
     gInvestigation.unk8 = 0xF;
     gInvestigation.unk9 = *scriptCtx->scriptPtr;
-    scriptCtx->unk0 |= 0x280;
+    scriptCtx->flags |= (SCRIPT_SPOTSELECT_MOVE_TO_START | SCRIPT_SPOTSELECT_PLAY_SPAWN_SOUND);
     scriptCtx->scriptPtr++;
     return 0; 
 }
@@ -1350,23 +1351,23 @@ bool32 Command3F(struct ScriptContext *scriptCtx)
     struct Struct8018870 * struct8018870p;
     struct Rect rect;
 
-    if(scriptCtx->unk0 & 0x80)
+    if(scriptCtx->flags & SCRIPT_SPOTSELECT_MOVE_TO_START)
     {
         investigation->unk0 += investigation->unk8;
         investigation->unk0 &= 0xFF;
         investigation->unk8--;
         if(investigation->unk8 == 0)
         {
-            scriptCtx->unk0 &= ~0x80;
-            scriptCtx->unk0 |= 0x108;
+            scriptCtx->flags &= ~SCRIPT_SPOTSELECT_MOVE_TO_START;
+            scriptCtx->flags |= (SCRIPT_SPOTSELECT_INPUT | SCRIPT_LOOP);
         }
-        if(scriptCtx->unk0 & 0x200)
+        if(scriptCtx->flags & SCRIPT_SPOTSELECT_PLAY_SPAWN_SOUND)
         {
             PlaySE(49);
-            scriptCtx->unk0 &= ~0x200;
+            scriptCtx->flags &= ~SCRIPT_SPOTSELECT_PLAY_SPAWN_SOUND;
         }
     }
-    else if(scriptCtx->unk0 & 0x100)
+    else if(scriptCtx->flags & SCRIPT_SPOTSELECT_INPUT)
     {
         struct8018870p = &gUnknown_08018870[investigation->unk9];
         if(gJoypad.heldKeysRaw & DPAD_LEFT)
@@ -1403,7 +1404,7 @@ bool32 Command3F(struct ScriptContext *scriptCtx)
         }
         if(gJoypad.pressedKeysRaw & A_BUTTON)
         {
-            scriptCtx->unk0 &= ~0x108;
+            scriptCtx->flags &= ~(SCRIPT_SPOTSELECT_INPUT | SCRIPT_LOOP);
             rect.origin.x = gMain.unk34 + investigation->unk0 + 12;
             rect.origin.y = gMain.unk36 + investigation->unk2;
             rect.w = 4;
@@ -1413,10 +1414,10 @@ bool32 Command3F(struct ScriptContext *scriptCtx)
             else if(CheckRectCollisionWithArea(&rect, &struct8018870p->unk10))
                 ChangeScriptSection(struct8018870p->unk22);
             else ChangeScriptSection(struct8018870p->unk24);
-            scriptCtx->unk0 |= 0x400;
+            scriptCtx->flags |= SCRIPT_SPOTSELECT_SELECTION_MADE;
             DmaCopy16(3, &gUnknown_081942C0[0], OBJ_PLTT+0x100, 0x20);
             PlaySE(43);
-            scriptCtx->unk0 |= 0x400;
+            scriptCtx->flags |= SCRIPT_SPOTSELECT_SELECTION_MADE;
             gOamObjects[88].attr0 = SPRITE_ATTR0(investigation->unk2, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
             gOamObjects[88].attr1 = SPRITE_ATTR1_NONAFFINE(investigation->unk0, FALSE, FALSE, 1);
             gOamObjects[88].attr2 = SPRITE_ATTR2(0xFC, 1, 8);
@@ -1431,7 +1432,7 @@ bool32 Command3F(struct ScriptContext *scriptCtx)
             DmaCopy16(3, &gUnknown_081942C0[investigation->unk16*0x20], OBJ_PLTT+0x100, 0x20);
         }
     }
-    scriptCtx->unk0 |= 0x400;
+    scriptCtx->flags |= SCRIPT_SPOTSELECT_SELECTION_MADE;
     gOamObjects[88].attr0 = SPRITE_ATTR0(investigation->unk2, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
     gOamObjects[88].attr1 = SPRITE_ATTR1_NONAFFINE(investigation->unk0, FALSE, FALSE, 1);
     gOamObjects[88].attr2 = SPRITE_ATTR2(0xFC, 1, 8);

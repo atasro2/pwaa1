@@ -9,7 +9,7 @@ static void sub_80110E4(struct AnimationStruct * animation);
 
 static void InitCurrentAnimationToNull()
 {
-    gAnimation[0].flags = 1;
+    gAnimation[0].flags = ANIM_ENABLE_XFLIP;
     gAnimation[0].nextAnimation = NULL;
     gAnimation[0].prevAnimation = NULL;
 }
@@ -30,7 +30,7 @@ void ClearAllAnimationSprites()
     struct AnimationStruct *animation;
     for (animation = &gAnimation[1]; animation < &gAnimation[0x20]; animation++)
     {
-        if (animation->flags & 0x10000000)
+        if (animation->flags & ANIM_ALLOCATED)
         {
             if (&gOamObjects[animation->animtionOamStartIdx] < &gOamObjects[animation->animtionOamEndIdx])
             {
@@ -48,7 +48,7 @@ struct AnimationStruct * FindAnimationFromAnimId(u32 animId)
     s32 i;
     for(i = 0x1F; i != -1; i--) // ! Might read first element in gAnimation array 
     {
-        if (animation->unkC.animId == animId && animation->flags & 0x10000000)
+        if (animation->unkC.animId == animId && animation->flags & ANIM_ALLOCATED)
             return animation;
         animation--;
     }
@@ -63,13 +63,13 @@ static struct AnimationStruct *AllocateAnimationWithId(u32 animId)
     if (animation != NULL)
     {
         flags = (animation->flags & 0x02000000) ? 0x02000000 : flags;
-        flags = (animation->flags & 0x08000000) ? 0x08000000 : flags;
+        flags = (animation->flags & ANIM_INACTIVE) ? ANIM_INACTIVE : flags;
         DestroyAnimation(animation);
         DmaFill16(3, 0, animation, 0x40)
-        animation->flags = 0xF1000000 | flags;
+        animation->flags = (ANIM_PLAYING | ANIM_QUEUED_TILE_UPLOAD | ANIM_ACTIVE | ANIM_ALLOCATED | ANIM_QUEUED_PAL_UPLOAD) | flags;
         animation->frameDurationCounter = 0xffff;
-        if (flags & 0x08000000)
-            animation->flags &= ~0x20000000;
+        if (flags & ANIM_INACTIVE)
+            animation->flags &= ~ANIM_ACTIVE;
         animation->unkC.animId = animId;
         return animation;
     }
@@ -78,12 +78,12 @@ static struct AnimationStruct *AllocateAnimationWithId(u32 animId)
         animation = &gAnimation[0x1F];
         for (i = 0x1f; i != -1; i--)
         {
-            if (!(animation->flags & 0x10000000))
+            if (!(animation->flags & ANIM_ALLOCATED))
             {
                 if (animation != &gAnimation[1])
                 {
                     DmaFill16(3, 0, animation, 0x40)
-                    animation->flags = 0xf1000000;
+                    animation->flags = (ANIM_PLAYING | ANIM_QUEUED_TILE_UPLOAD | ANIM_ACTIVE | ANIM_ALLOCATED | ANIM_QUEUED_PAL_UPLOAD);
                     animation->unkC.animId = animId;
                     return animation;
                 }
@@ -112,7 +112,7 @@ static void SetAnimationRotScaleParams(struct AnimationStruct *animation, u32 ro
     {
         if (rotscaleIdx > 0x1f)
             rotscaleIdx = 0x1f;
-        animation->flags = (animation->flags & ~1) | 0x100000;
+        animation->flags = (animation->flags & ~ANIM_ENABLE_XFLIP) | ANIM_ENABLE_ROTATION;
         animation->rotationAmount &= 0xff;
         animation->unk3E &= 0xff00;
         animation->unk3E |= rotscaleIdx;
@@ -137,23 +137,23 @@ void SetAnimationRotation(struct AnimationStruct *animation, u32 rotscaleIdx, u3
 void DisableAnimationRotation(struct AnimationStruct *animation)
 {
     if (animation != NULL)
-        animation->flags &= ~0x100000;
+        animation->flags &= ~ANIM_ENABLE_ROTATION;
 }
 
 void sub_800FA74(struct AnimationStruct *animation, bool32 arg1)
 {
     u32 i;
-    if (animation != 0 && (animation->flags & 0x10000000))
+    if (animation != 0 && (animation->flags & ANIM_ALLOCATED))
     {
         if (arg1)
         {
-            animation->flags &= ~0x8000000;
-            animation->flags |= 0x20000000;
+            animation->flags &= ~ANIM_INACTIVE;
+            animation->flags |= ANIM_ACTIVE;
         }
         else
         {
-            animation->flags &= ~0x20000000;
-            animation->flags |= 0x08000000;
+            animation->flags &= ~ANIM_ACTIVE;
+            animation->flags |= ANIM_INACTIVE;
             for (i = animation->animtionOamStartIdx; i < animation->animtionOamEndIdx; i++)
                 gOamObjects[i].attr0 = SPRITE_ATTR0_CLEAR;
         }
@@ -163,13 +163,13 @@ void sub_800FA74(struct AnimationStruct *animation, bool32 arg1)
             {
                 if (arg1)
                 {
-                    animation->flags &= ~0x8000000;
-                    animation->flags |= 0x20000000;
+                    animation->flags &= ~ANIM_INACTIVE;
+                    animation->flags |= ANIM_ACTIVE;
                 }
                 else
                 {
-                    animation->flags &= ~0x20000000;
-                    animation->flags |= 0x08000000;
+                    animation->flags &= ~ANIM_ACTIVE;
+                    animation->flags |= ANIM_INACTIVE;
                     for (i = animation->animtionOamStartIdx; i < animation->animtionOamEndIdx; i++)
                         gOamObjects[i].attr0 = SPRITE_ATTR0_CLEAR;
                 }
@@ -238,7 +238,7 @@ void SetAnimationFrameOffset(struct AnimationStruct *animation, u32 animOffset)
                 animation->unkC.animGfxDataStartPtr = gUnknown_0871FDF8;
             }
         }
-        animation->flags |= 0xC0000000;
+        animation->flags |= (ANIM_PLAYING | ANIM_QUEUED_TILE_UPLOAD);
         animation->frameDurationCounter = 0xFFFF;
         // comments mostly based on h3rmit docs
         // animation->animFrameDataStartPtr animation block beginning
@@ -683,7 +683,7 @@ struct AnimationStruct *PlayPersonAnimationAtCustomOrigin(u32 arg0, u32 talkingA
     u32 personId = arg0 & 0xFF;
     if (personId == 0)
     {
-        if (animation->flags & 0x10000000)
+        if (animation->flags & ANIM_ALLOCATED)
             DestroyAnimation(animation);
         return NULL;
     }
@@ -700,10 +700,10 @@ struct AnimationStruct *PlayPersonAnimationAtCustomOrigin(u32 arg0, u32 talkingA
     animationStructFieldC.priority = 0x21;
     animationStructFieldC.xOrigin = xOrigin;
     animationStructFieldC.yOrigin = yOrigin;
-    if (!(animation->flags & 0x10000000))
+    if (!(animation->flags & ANIM_ALLOCATED))
     {
         DmaFill16(3, 0, animation, sizeof(gAnimation[1]));
-        animation->flags |= 0x10000000;
+        animation->flags |= ANIM_ALLOCATED;
         animation->unkC.animId = 0xFF;
         PutAnimationInAnimList(animation);
     }
@@ -801,70 +801,70 @@ struct AnimationStruct *PlayAnimationAtCustomOrigin(u32 arg0, s32 xOrigin, s32 y
     }
     animationStruct->unk2C = main->currentBG;
     animationStruct->unk2D = main->currentRoomId;
-    animationStruct->flags |= 0x1000000;
+    animationStruct->flags |= ANIM_QUEUED_PAL_UPLOAD;
     return animationStruct;
 }
 
-struct Struct2002650 * RestoreAnimationsFromBuffer(struct Struct2002650 * ewStruct2650) // ! UB: this function doesn't return anything
+struct AnimationBackupStruct * RestoreAnimationsFromBuffer(struct AnimationBackupStruct * backupAnimation) // ! UB: this function doesn't return anything
 {
     u32 i;
     struct AnimationStruct *animation = &gAnimation[1];
     struct AnimationStructFieldC animationStructFieldC;
     ResetAnimationSystem();
-    if (ewStruct2650->unk14 & 0x10000000)
+    if (backupAnimation->flags & ANIM_ALLOCATED)
     {
         animationStructFieldC.animId = 0xFF;
-        animationStructFieldC.unk2[0] = ewStruct2650->unk2;
+        animationStructFieldC.unk2[0] = backupAnimation->unk2;
         animationStructFieldC.vramPtr = OBJ_VRAM0 + 0x5800;
-        animationStructFieldC.animGfxDataStartPtr = gPersonAnimData[ewStruct2650->unk2].gfxData;
-        animationStructFieldC.animFrameDataStartPtr = ewStruct2650->unk8;
+        animationStructFieldC.animGfxDataStartPtr = gPersonAnimData[backupAnimation->unk2].gfxData;
+        animationStructFieldC.animFrameDataStartPtr = backupAnimation->animFrameDataStartPtr;
         animationStructFieldC.paletteSlot = 0xE;
-        animationStructFieldC.spriteCount = gPersonAnimData[ewStruct2650->unk2].spriteCount;
+        animationStructFieldC.spriteCount = gPersonAnimData[backupAnimation->unk2].spriteCount;
         animationStructFieldC.priority = 0x21;
-        animationStructFieldC.xOrigin = ewStruct2650->xOrigin;
-        animationStructFieldC.yOrigin = ewStruct2650->yOrigin;
+        animationStructFieldC.xOrigin = backupAnimation->xOrigin;
+        animationStructFieldC.yOrigin = backupAnimation->yOrigin;
         DmaCopy16(3, &animationStructFieldC, &animation->unkC, sizeof(animationStructFieldC));
         animation->frameData = (struct AnimationFrame *)(animation->unkC.animFrameDataStartPtr);
         animation->unkC.animGfxDataStartPtr += 1 [(u32 *)animation->frameData]; // offsets the graphics pointer
         animation->unkC.tileDataPtr = animation->unkC.animGfxDataStartPtr + 4 + (*(u32 *)animation->unkC.animGfxDataStartPtr) * 0x20;
-        animation->frameData = ewStruct2650->frameData;
+        animation->frameData = backupAnimation->frameData;
         animation->unk30 = (void *)(animation->unkC.animFrameDataStartPtr + animation->frameData->spriteDataOffset);
-        animation->flags = ewStruct2650->unk14 | (0x40000000 | 0x01000000);
+        animation->flags = backupAnimation->flags | (ANIM_QUEUED_TILE_UPLOAD | ANIM_QUEUED_PAL_UPLOAD);
         animation->tileNum |= (uintptr_t)animation->unkC.vramPtr / TILE_SIZE_4BPP; // get OAM tile num from VRAM address
         animation->unk3E = 0x300;
         SetAnimationPriority(animation, animation->unkC.priority >> 4);
         animation->unkC.priority &= 0xF;
-        animation->unk2C = ewStruct2650->unk10;
+        animation->unk2C = backupAnimation->unk10;
         PutAnimationInAnimList(animation);
     }
-    ewStruct2650++;
-    for (i = 2; i < 0x20; i++, ewStruct2650++)
+    backupAnimation++;
+    for (i = 2; i < 0x20; i++, backupAnimation++)
     {
-        if (ewStruct2650->unk14 & 0x10000000)
+        if (backupAnimation->flags & ANIM_ALLOCATED)
         {
-            animation = PlayAnimationAtCustomOrigin(ewStruct2650->unk0, ewStruct2650->xOrigin, ewStruct2650->yOrigin);
-            animation->flags = ewStruct2650->unk14 | (0x40000000 | 0x01000000);
-            animation->frameData = ewStruct2650->frameData;
+            animation = PlayAnimationAtCustomOrigin(backupAnimation->animId, backupAnimation->xOrigin, backupAnimation->yOrigin);
+            animation->flags = backupAnimation->flags | (ANIM_QUEUED_TILE_UPLOAD | ANIM_QUEUED_PAL_UPLOAD);
+            animation->frameData = backupAnimation->frameData;
             animation->unk30 = (void *)(animation->unkC.animFrameDataStartPtr + animation->frameData->spriteDataOffset);
-            DataCopy32(&animation->unk2C, &ewStruct2650->unk10);
+            DataCopy32(&animation->unk2C, &backupAnimation->unk10);
         }
     }
 }
 
-struct Struct2002650 * SaveAnimationDataToBuffer(struct Struct2002650 * ewStruct2650)
+struct AnimationBackupStruct * SaveAnimationDataToBuffer(struct AnimationBackupStruct * backupAnimation)
 {
     struct AnimationStruct *animation;
-    for (animation = &gAnimation[1]; animation < &gAnimation[0x20]; animation++, ewStruct2650++)
+    for (animation = &gAnimation[1]; animation < &gAnimation[0x20]; animation++, backupAnimation++)
     {
-        DataCopy32(&ewStruct2650->unk0, &animation->unkC.animId);
-        DataCopy32(&ewStruct2650->xOrigin, &animation->unkC.xOrigin);
-        DataCopy32(&ewStruct2650->unkC, &animation->frameDurationCounter);
-        DataCopy32(&ewStruct2650->unk10, &animation->unk2C);
-        ewStruct2650->unk8 = animation->unkC.animFrameDataStartPtr;
-        ewStruct2650->unk14 = animation->flags;
-        ewStruct2650->frameData = animation->frameData;
+        DataCopy32(&backupAnimation->animId, &animation->unkC.animId);
+        DataCopy32(&backupAnimation->xOrigin, &animation->unkC.xOrigin);
+        DataCopy32(&backupAnimation->frameDurationCounter, &animation->frameDurationCounter);
+        DataCopy32(&backupAnimation->unk10, &animation->unk2C);
+        backupAnimation->animFrameDataStartPtr = animation->unkC.animFrameDataStartPtr;
+        backupAnimation->flags = animation->flags;
+        backupAnimation->frameData = animation->frameData;
     }
-    return ewStruct2650;
+    return backupAnimation;
 }
 
 static struct AnimationStruct * sub_8010468(struct AnimationStructFieldC * animationFieldC, u32 arg1, u32 arg2)
@@ -879,7 +879,7 @@ static struct AnimationStruct * sub_8010468(struct AnimationStructFieldC * anima
     animation->unk30 = (void *)(animation->unkC.animFrameDataStartPtr + animation->frameData->spriteDataOffset);                  // Frame tilemap pointer
     animation->flags |= arg2;
     if (arg2 & 0x10)
-        animation->flags &= ~0x80000000;
+        animation->flags &= ~ANIM_PLAYING;
     animation->tileNum |= (uintptr_t)animation->unkC.vramPtr / TILE_SIZE_4BPP; // get OAM tile num from VRAM address
     animation->rotationAmount = 0;
     animation->unk3E = 0x300;
@@ -911,11 +911,11 @@ static u32 AdvanceAnimationFrame(struct AnimationStruct * animation)
     case ANIM_LOOP:
         animation->frameData = (struct AnimationFrame *)(animation->unkC.animFrameDataStartPtr + 8);
         animation->unk30 = (void *)(animation->unkC.animFrameDataStartPtr + animation->frameData->spriteDataOffset);
-        animation->flags |= 0x40000000;
+        animation->flags |= ANIM_QUEUED_TILE_UPLOAD;
         retVal = 7;
         break;
     case ANIM_STOP:
-        animation->flags &= ~0x80000000;
+        animation->flags &= ~ANIM_PLAYING;
         retVal = 0;
         animation->frameData--;
         break;
@@ -925,7 +925,7 @@ static u32 AdvanceAnimationFrame(struct AnimationStruct * animation)
         break;
     default:
         animation->unk30 = (void *)(animation->unkC.animFrameDataStartPtr + animation->frameData->spriteDataOffset);
-        animation->flags |= 0x40000000;
+        animation->flags |= ANIM_QUEUED_TILE_UPLOAD;
         retVal = 5;
         break;
     }
@@ -979,7 +979,7 @@ void StartAnimationBlend(u32 arg0, u32 arg1)
     else
         animation2 = &gAnimation[1];
 
-    if (ioRegsp->lcd_bldy == 0x10 || (!(animation2->flags & 0x10000000) && !(arg0 & 2)))
+    if (ioRegsp->lcd_bldy == 0x10 || (!(animation2->flags & ANIM_ALLOCATED) && !(arg0 & 2)))
         return;
 
     if (animation2->unkC.unk2[0] == 0x16)
@@ -993,9 +993,9 @@ void StartAnimationBlend(u32 arg0, u32 arg1)
     {
         if ((animation2->flags & 0x02000000) && !(animation2->flags & 0x4))
             return;
-        animation2->flags &= ~0x0C000004;
+        animation2->flags &= ~(ANIM_INACTIVE | 0x04000000 | 4);
         if (animation != NULL)
-            animation->flags &= ~0x0C000004;
+            animation->flags &= ~(ANIM_INACTIVE | 0x04000000 | 4);
         main->blendDeltaY = 0x10;
     }
     else if (arg0 & 4)
@@ -1015,9 +1015,9 @@ void StartAnimationBlend(u32 arg0, u32 arg1)
     }
     else
         return;
-    animation2->flags |= (0x20000000 | 0x2000000);
+    animation2->flags |= (ANIM_ACTIVE | 0x2000000);
     if (animation != NULL)
-        animation->flags |= (0x20000000 | 0x2000000);
+        animation->flags |= (ANIM_ACTIVE | 0x2000000);
     main->blendDelay = arg1;
     main->blendCounter = 0;
     ioRegsp->lcd_bldcnt = BLDCNT_EFFECT_BLEND | BLDCNT_TGT2_BG3;
@@ -1091,8 +1091,8 @@ void sub_8010928() // unused
 
     for (; animation < &gAnimation[ARRAY_COUNT(gAnimation)]; animation++)
     {
-        if (animation->flags & 0x10000000)
-            animation->flags |= (0x20000000 | 0x40000000);
+        if (animation->flags & ANIM_ALLOCATED)
+            animation->flags |= (ANIM_ACTIVE | ANIM_QUEUED_TILE_UPLOAD);
     }
 }
 
@@ -1115,7 +1115,7 @@ void DestroyAnimation(struct AnimationStruct *animation)
         if (animation2 != NULL)
             DestroyAnimation(animation2);
     }
-    if (animation->flags & 0x10000000)
+    if (animation->flags & ANIM_ALLOCATED)
     {
         u32 var1;
         u16 *src;
@@ -1267,10 +1267,10 @@ static void UpdateAllAnimationSprites()
     for (animation = gAnimation[0].nextAnimation; animation != NULL; animation = animation->nextAnimation)
     {
         u32 i, j;
-        if ((animation->flags & 0x10000000) == 0)
+        if ((animation->flags & ANIM_ALLOCATED) == 0)
             continue;
         animation->animtionOamEndIdx = var0;
-        if ((gMain.unk1F & 2) && (animation->flags & 0x20000000))
+        if ((gMain.unk1F & 2) && (animation->flags & ANIM_ACTIVE))
         {
             void *ptr = (void *)animation->unk30;
             struct SpriteTemplate *spriteTemplates = animation->unk30;
@@ -1298,7 +1298,7 @@ static void UpdateAllAnimationSprites()
                 if (animation->flags & 0x2000000)
                     oam->attr0 |= 0x400;
                 oam->attr1 = spriteTemplates->data & 0xC000;
-                if (animation->flags & 1)
+                if (animation->flags & ANIM_ENABLE_XFLIP)
                 {
                     u16 x = (xOrigin - (spriteTemplates->x + spriteSizeData->width)) & 0x1FF;
                     oam->attr1 |= 0x1000 | x;
@@ -1341,16 +1341,16 @@ void MoveAnimationTilesToRam(bool32 arg0)
         struct SpriteTemplate * spriteTemplates;
         struct SpriteSizeData * spriteSizeData;
         struct AnimationStructFieldC * animC;
-        if(!(animation->flags & 0x40000000))
+        if(!(animation->flags & ANIM_QUEUED_TILE_UPLOAD))
             continue;
-        if(!(animation->flags & 0x20000000))
+        if(!(animation->flags & ANIM_ACTIVE))
             continue;
         tileDest = arg0 ? (u8*)0x200B1C0 : animation->unkC.vramPtr;
         spriteTemplates = animation->unk30;
         spriteCount = *(u16*)animation->unk30;
         spriteSizeData = eUnknown_0200AFC0;
         spriteSizeData += animation->animtionOamEndIdx;
-        animation->flags &= ~0x40000000;
+        animation->flags &= ~ANIM_QUEUED_TILE_UPLOAD;
         palCount = *(u32*)animation->unkC.animGfxDataStartPtr;
         if(palCount & 0x80000000)
         {
@@ -1407,7 +1407,7 @@ void MoveAnimationTilesToRam(bool32 arg0)
                 tileDest += *what;
             }
         }
-        if(animation->flags & 0x1000000)
+        if(animation->flags & ANIM_QUEUED_PAL_UPLOAD)
         {
             void * dest;
             u8 * src;
@@ -1419,7 +1419,7 @@ void MoveAnimationTilesToRam(bool32 arg0)
             palCount *= 32;
             src = animation->unkC.animGfxDataStartPtr+4;
             DmaCopy16(3, src, dest, palCount);
-            animation->flags &= ~0x1000000;
+            animation->flags &= ~ANIM_QUEUED_PAL_UPLOAD;
         }
     }
 }
@@ -1683,7 +1683,7 @@ void UpdateAnimations(u32 arg0)
                 }
                 else
                 {
-                    if(!(animation->flags & 0x20000000))
+                    if(!(animation->flags & ANIM_ACTIVE))
                     {
                         if(main->unk2C == 0)
                         {

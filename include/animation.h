@@ -16,8 +16,8 @@ struct AnimationStruct * PlayPersonAnimation(u32 arg0, u32 arg1, u32 talkingAnim
 struct AnimationStruct * PlayPersonAnimationAtCustomOrigin(u32 arg0, u32 talkingAnimOff, u32 xOrigin, u32 yOrigin, u32 arg4);
 struct AnimationStruct * PlayAnimation(u32 arg0);
 struct AnimationStruct * PlayAnimationAtCustomOrigin(u32 arg0, s32 xOrigin, s32 yOrigin);
-struct Struct2002650 * RestoreAnimationsFromBuffer(struct Struct2002650 * ewStruct2650); // ! does not return a value UB
-struct Struct2002650 * SaveAnimationDataToBuffer(struct Struct2002650 * ewStruct2650);
+struct AnimationBackupStruct * RestoreAnimationsFromBuffer(struct AnimationBackupStruct * ewStruct2650); // ! does not return a value UB
+struct AnimationBackupStruct * SaveAnimationDataToBuffer(struct AnimationBackupStruct * ewStruct2650);
 
 void OffsetAllAnimations(s32 xOffset, s32 yOffset);
 void StartAnimationBlend(u32 arg0, u32 arg1);

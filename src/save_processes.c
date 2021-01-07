@@ -5,6 +5,7 @@
 #include "background.h"
 #include "sound_control.h"
 #include "agb_sram.h"
+#include "constants/script.h"
 
 u32 SaveGameData()
 {
@@ -137,7 +138,7 @@ void ClearSaveProcess(struct Main *main)
         }
         break;
     case 2:
-        if(gScriptContext.unk0 & 0x8)
+        if(gScriptContext.flags & SCRIPT_LOOP)
         {
             if(gJoypad.pressedKeysRaw & (DPAD_RIGHT|DPAD_LEFT))
             {
@@ -218,7 +219,7 @@ void SaveGameInit1SubProcess(struct Main *main)
     {
         gMapMarker[i].id |= 0xFF;
     }
-    SaveAnimationDataToBuffer(gSaveDataBuffer.ewramStruct2650);
+    SaveAnimationDataToBuffer(gSaveDataBuffer.backupAnimations);
     main->advanceScriptContext = FALSE;
     StartHardwareBlend(2, 0, 1, 0x1F);
     main->process[GAME_SUBPROCESS]++;
@@ -305,7 +306,7 @@ void SaveGameInitButtonsSubProcess(struct Main *main)
 void SaveGameWaitForInputSubProcess(struct Main *main)
 {
     struct OamAttrs * oam;
-    if(gScriptContext.unk0 & 0x8)
+    if(gScriptContext.flags & SCRIPT_LOOP)
     {
         if(gJoypad.pressedKeysRaw & (DPAD_RIGHT | DPAD_LEFT))
         {
@@ -433,7 +434,7 @@ void SaveGameExitSaveScreenSubProcess(struct Main *main)
     main->gameStateFlags = gSaveDataBuffer.main.gameStateFlags;
     main->shakeTimer = gSaveDataBuffer.main.shakeTimer;
     main->tilemapUpdateBits = gSaveDataBuffer.main.tilemapUpdateBits;
-    RestoreAnimationsFromBuffer(gSaveDataBuffer.ewramStruct2650);
+    RestoreAnimationsFromBuffer(gSaveDataBuffer.backupAnimations);
     gMain.unk1F |= 3;
     DmaCopy16(3, gSaveDataBuffer.oam, gOamObjects, sizeof(gOamObjects));
     DmaCopy16(3, &gUnknown_081942C0[0], OBJ_PLTT+0x100, 0x20);
@@ -481,7 +482,7 @@ void SaveGameSubProcess5(struct Main *main) // ! WHAT THE FUCK
 
 void sub_8008CC0(struct Main * main)
 {
-    if(gScriptContext.unk0 & 0x8 && gJoypad.pressedKeysRaw & A_BUTTON)
+    if(gScriptContext.flags & SCRIPT_LOOP && gJoypad.pressedKeysRaw & A_BUTTON)
     {
         main->advanceScriptContext = 1;
         main->showTextboxCharacters = 1;

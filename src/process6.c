@@ -4,6 +4,8 @@
 #include "ewram.h"
 #include "background.h"
 #include "court_record.h"
+#include "constants/script.h"
+#include "constants/animation.h"
 
 void sub_800AA10(struct Main * main)
 {
@@ -23,9 +25,9 @@ void sub_800AA10(struct Main * main)
             animation = FindAnimationFromAnimId(0x15);
             animation2 = FindAnimationFromAnimId(0x16);
             animation->unkC.xOrigin += 10;
-            animation->flags |= 0x20000000;
+            animation->flags |= ANIM_ACTIVE;
             animation2->unkC.xOrigin -= 10;
-            animation2->flags |= 0x20000000;
+            animation2->flags |= ANIM_ACTIVE;
             if(animation->unkC.xOrigin >= 120)
             {
                 StartHardwareBlend(3, 1, 8, 0x1F);
@@ -41,7 +43,7 @@ void sub_800AA10(struct Main * main)
             break;
         case 3:
             animation3 = FindAnimationFromAnimId(0x12);
-            if(!(animation3->flags & 0x80000000))
+            if(!(animation3->flags & ANIM_PLAYING))
             {
                 DestroyAnimation(animation3);
                 PlayAnimationAtCustomOrigin(0x15, 120, 60);
@@ -53,9 +55,9 @@ void sub_800AA10(struct Main * main)
             animation = FindAnimationFromAnimId(0x15);
             animation2 = FindAnimationFromAnimId(0x16);
             animation->unkC.yOrigin -= 7;
-            animation->flags |= 0x20000000;
+            animation->flags |= ANIM_ACTIVE;
             animation2->unkC.yOrigin += 7;
-            animation2->flags |= 0x20000000;
+            animation2->flags |= ANIM_ACTIVE;
             if(animation->unkC.yOrigin < -60)
             {
                 DestroyAnimation(animation);
@@ -101,7 +103,7 @@ void sub_800AC1C(struct Main * main)
         return;
     if((gJoypad.pressedKeysRaw & START_BUTTON))
     {
-        if(!(main->gameStateFlags & 0x10) && gScriptContext.unk0 & 0xD)
+        if(!(main->gameStateFlags & 0x10) && gScriptContext.flags & (SCRIPT_LOOP | SCRIPT_FULLSCREEN | 1))
         {
             PauseBGM();
             DmaCopy16(3, gOamObjects, gSaveDataBuffer.oam, sizeof(gOamObjects));
@@ -112,7 +114,7 @@ void sub_800AC1C(struct Main * main)
             SET_PROCESS_PTR(0xA, 0, 0, 0, main);
         }
     }
-    else if(gScriptContext.unk0 & 0x8)
+    else if(gScriptContext.flags & SCRIPT_LOOP)
     {
         u32 section;
         if(gJoypad.pressedKeysRaw & (A_BUTTON | DPAD_RIGHT))
@@ -161,7 +163,7 @@ void sub_800AC1C(struct Main * main)
     }
     else if((gJoypad.pressedKeysRaw & R_BUTTON) &&
     !(main->gameStateFlags & 0x10) &&
-    gScriptContext.unk0 & 5)
+    gScriptContext.flags & (SCRIPT_FULLSCREEN | 1))
     {
         PlaySE(0x31);
         BACKUP_PROCESS_PTR(main);
@@ -176,7 +178,7 @@ void sub_800AC1C(struct Main * main)
     }
     sub_800E8A0(&gCourtRecord);
     oam = gOamObjects;
-    if(gScriptContext.unk0 & 8)
+    if(gScriptContext.flags & SCRIPT_LOOP)
     {
         if(gScriptContext.currentSection-1 != main->unk18)
             oam->attr0 = SPRITE_ATTR0(128, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
