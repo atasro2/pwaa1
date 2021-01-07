@@ -2,6 +2,7 @@
 #include "script.h"
 #include "sound_control.h"
 #include "ewram.h"
+#include "constants/script.h"
 
 u32 GetMapMarkerIndexFromId(u32 id) // GetExplCharWorkIndexById
 {
@@ -18,7 +19,7 @@ u32 GetMapMarkerIndexFromId(u32 id) // GetExplCharWorkIndexById
 bool32 Command40(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
-    scriptCtx->unk0 &= ~0x400;
+    scriptCtx->flags &= ~SCRIPT_SPOTSELECT_SELECTION_MADE;
     gOamObjects[88].attr0 = SPRITE_ATTR0_CLEAR;
     return 0;
 }
@@ -148,7 +149,7 @@ bool32 Command46(struct ScriptContext * scriptCtx)
     DmaCopy16(3, r6, eUnknown_02031FC0, 30*20*TILE_SIZE_4BPP);
     gIORegisters.lcd_dispcnt |= DISPCNT_BG2_ON;
     gIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(2) | BGCNT_CHARBASE(2) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP;
-    scriptCtx->unk0 |= 0x40;
+    scriptCtx->flags |= 0x40;
     scriptCtx->scriptPtr++;
     return 0;
 }

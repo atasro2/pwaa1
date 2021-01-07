@@ -4,6 +4,7 @@
 #include "sound_control.h"
 #include "animation.h"
 #include "ewram.h"
+#include "constants/script.h"
 
 void sub_800D77C(struct Main * main, struct CourtRecord * courtRecord)
 {
@@ -252,7 +253,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
             else
             {
                 u32 section = gScriptContext.currentSection;
-                if(gScriptContext.unk0 & 0x10)
+                if(gScriptContext.flags & 0x10)
                     ChangeScriptSection(++section);
                 else
                 {
@@ -281,7 +282,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
                     }
                     gScriptContext.nextSection = section;
                 }
-                gScriptContext.unk0 &= ~0x10;
+                gScriptContext.flags &= ~0x10;
                 SET_PROCESS_BACKUP_PTR(6, 1, 0, 0, main);
             }
             SET_PROCESS_PTR(6, 5, 0, 0, main);
@@ -390,7 +391,7 @@ void sub_800DD88(struct Main * main, struct CourtRecord * courtRecord)
     {
         courtRecord->unkC |= 4;
         courtRecord->unkC &= ~2;
-        if(main->process[GAME_PROCESSUNK3] == 0 && !(gScriptContext.unk0 & 4))
+        if(main->process[GAME_PROCESSUNK3] == 0 && !(gScriptContext.flags & SCRIPT_FULLSCREEN))
         {
             gBG1MapBuffer[622] = 0x20;
             gBG1MapBuffer[623] = 0x21;
@@ -547,7 +548,7 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
                 oam->attr0 &= ~0x300;
                 oam->attr0 |= (ST_OAM_AFFINE_ERASE << 8);
             }
-            if(gScriptContext.unk0 & 0x400)
+            if(gScriptContext.flags & SCRIPT_SPOTSELECT_SELECTION_MADE)
             {
                 oam = &gOamObjects[88];
                 oam->attr0 = SPRITE_ATTR0_CLEAR;
@@ -769,7 +770,7 @@ void sub_800E4A4(struct Main * main, struct CourtRecord * courtRecord)
                     return;
                 }
                 temp = gScriptContext.currentSection;
-                if(gScriptContext.unk0 & 0x10)
+                if(gScriptContext.flags & 0x10)
                 {
                     temp++;
                     ChangeScriptSection(temp);
@@ -796,7 +797,7 @@ void sub_800E4A4(struct Main * main, struct CourtRecord * courtRecord)
                     }
                     gScriptContext.nextSection = temp;
                 }
-                gScriptContext.unk0 &= ~0x10;
+                gScriptContext.flags &= ~0x10;
                 RESTORE_PROCESS_PTR(main);
                 return;
             }
@@ -844,7 +845,7 @@ void sub_800E7C0(struct Main * main, struct CourtRecord * courtRecord)
 {
     sub_8002878(courtRecord);
     sub_800EAF8(courtRecord);
-    if(courtRecord->unk1 == 0 && gScriptContext.unk0 & 1)
+    if(courtRecord->unk1 == 0 && gScriptContext.flags & 1)
     {
         if(main->process[GAME_PROCESSUNK2] == 0)
         {
@@ -876,7 +877,7 @@ void sub_800E828(struct Main * main, struct CourtRecord * courtRecord)
             else if(gMain.process[GAME_SUBPROCESS] == 9)
                 sub_800B7A8(&gInvestigation, 8);
         }
-        gScriptContext.unk0 |= 2;
+        gScriptContext.flags |= 2;
     }
 }
 

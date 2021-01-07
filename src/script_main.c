@@ -3,6 +3,7 @@
 #include "script.h"
 #include "sound_control.h"
 #include "ewram.h"
+#include "constants/script.h"
 
 static void AdvanceScriptContext(struct ScriptContext *scriptCtx);
 extern void DrawTextAndMapMarkers(struct ScriptContext *scriptCtx);
@@ -62,7 +63,7 @@ void InitScriptSection(struct ScriptContext *scriptCtx)
     scriptCtx->textboxNameId = 0;
     scriptCtx->unk36 = 0;
     scriptCtx->unk37 = 0;
-    scriptCtx->unk0 = 0;
+    scriptCtx->flags = 0;
     scriptCtx->waitTimer = 0;
     scriptCtx->textColor = 0;
     scriptCtx->textSpeed = 3;
@@ -100,59 +101,59 @@ void InitScriptSection(struct ScriptContext *scriptCtx)
     }
 }
 
-void AdvanceScriptContext(struct ScriptContext * scriptCxt)
+void AdvanceScriptContext(struct ScriptContext * scriptCtx)
 {
-    if(scriptCxt->unk13 > 0 && (gJoypad.pressedKeysRaw & A_BUTTON || gJoypad.heldKeysRaw & B_BUTTON)) // text skip
-        scriptCxt->unk13 = 2;
+    if(scriptCtx->unk13 > 0 && (gJoypad.pressedKeysRaw & A_BUTTON || gJoypad.heldKeysRaw & B_BUTTON)) // text skip
+        scriptCtx->unk13 = 2;
     
     continueScript:
-    scriptCxt->currentToken = *scriptCxt->scriptPtr;
-    if(scriptCxt->currentToken < 0x80)
+    scriptCtx->currentToken = *scriptCtx->scriptPtr;
+    if(scriptCtx->currentToken < 0x80)
     {
-        if(gScriptCmdFuncs[scriptCxt->currentToken](scriptCxt))
+        if(gScriptCmdFuncs[scriptCtx->currentToken](scriptCtx))
             return;
         else
             goto continueScript;
     }
-    if(scriptCxt->unk13 > 1)
+    if(scriptCtx->unk13 > 1)
     {
-        scriptCxt->textSpeed = 0;
+        scriptCtx->textSpeed = 0;
     }
-    scriptCxt->textDelayTimer++;
-    if(scriptCxt->textDelayTimer >= scriptCxt->textSpeed)
+    scriptCtx->textDelayTimer++;
+    if(scriptCtx->textDelayTimer >= scriptCtx->textSpeed)
     {
-        scriptCxt->textDelayTimer = 0;
-        scriptCxt->currentToken -= 0x80;
-        if (scriptCxt->unk0 & 4)
+        scriptCtx->textDelayTimer = 0;
+        scriptCtx->currentToken -= 0x80;
+        if (scriptCtx->flags & SCRIPT_FULLSCREEN)
         {
-            PutCharInTextbox(scriptCxt->currentToken, scriptCxt->fullscreenTextY, scriptCxt->fullscreenCharCount);
-            scriptCxt->fullscreenCharCount++;
-            scriptCxt->fullscreenTextX++;
+            PutCharInTextbox(scriptCtx->currentToken, scriptCtx->fullscreenTextY, scriptCtx->fullscreenCharCount);
+            scriptCtx->fullscreenCharCount++;
+            scriptCtx->fullscreenTextX++;
         }
         else
         {
-            PutCharInTextbox(scriptCxt->currentToken, scriptCxt->textY, scriptCxt->textX);
-            scriptCxt->textX++;
+            PutCharInTextbox(scriptCtx->currentToken, scriptCtx->textY, scriptCtx->textX);
+            scriptCtx->textX++;
         }
 
-        scriptCxt->scriptPtr++;
+        scriptCtx->scriptPtr++;
         
-        if (!(scriptCxt->currentSection == 0x80 && gMain.scenarioIdx == 0) && scriptCxt->currentToken != 0xFF)
+        if (!(scriptCtx->currentSection == 0x80 && gMain.scenarioIdx == 0) && scriptCtx->currentToken != 0xFF)
         {
-            if ( scriptCxt->textSpeed > 0)
+            if ( scriptCtx->textSpeed > 0)
             {
-                if ( scriptCxt->soundCueSkip == 0 || scriptCxt->textSpeed > 4 )
+                if ( scriptCtx->soundCueSkip == 0 || scriptCtx->textSpeed > 4 )
                 {
-                    if ( scriptCxt->currentSoundCue != 2 )
-                        scriptCxt->soundCueSkip = 1;
+                    if ( scriptCtx->currentSoundCue != 2 )
+                        scriptCtx->soundCueSkip = 1;
 
                     if (!(gMain.soundFlags & SOUND_FLAG_DISABLE_CUE))
                     {
-                        if (scriptCxt->currentSoundCue == 2)
+                        if (scriptCtx->currentSoundCue == 2)
                         {
                             PlaySE(68);
                         }
-                        else if (scriptCxt->currentSoundCue == 1)
+                        else if (scriptCtx->currentSoundCue == 1)
                         {
                             PlaySE(46);
                         }
@@ -164,11 +165,11 @@ void AdvanceScriptContext(struct ScriptContext * scriptCxt)
                 }
                 else
                 {
-                    scriptCxt->soundCueSkip--;
+                    scriptCtx->soundCueSkip--;
                 }
             }
         }
-        if(scriptCxt->textSpeed == 0)
+        if(scriptCtx->textSpeed == 0)
         {
             goto continueScript;
         }
@@ -477,7 +478,7 @@ void DrawTextAndMapMarkers(struct ScriptContext * scriptCtx)
     struct OamAttrs * oam;
     u32 i;
     u32 y, x;
-    if(!(scriptCtx->unk0 & 0x4))
+    if(!(scriptCtx->flags & SCRIPT_FULLSCREEN))
     {
         oam = &gOamObjects[57];
         for(i = 0; i < ARRAY_COUNT(gMapMarker); i++) 
@@ -568,7 +569,7 @@ void DrawTextAndMapMarkers(struct ScriptContext * scriptCtx)
                 oam->attr0 = SPRITE_ATTR0_CLEAR;
             oam++;
         }   
-        if(scriptCtx->unk0 & 0x4)
+        if(scriptCtx->flags & SCRIPT_FULLSCREEN)
         {
             oam = &gOamObjects[57];
             for(i = 32; i < ARRAY_COUNT(gTextBoxCharacters); i++)
@@ -593,7 +594,7 @@ void DrawTextAndMapMarkers(struct ScriptContext * scriptCtx)
             oam->attr0 = SPRITE_ATTR0_CLEAR;
             oam++;
         }
-        if(scriptCtx->unk0 & 0x4)
+        if(scriptCtx->flags & SCRIPT_FULLSCREEN)
         {
             oam = &gOamObjects[57];
             for(i = 32; i < ARRAY_COUNT(gTextBoxCharacters); i++)
