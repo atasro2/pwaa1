@@ -26,7 +26,6 @@ SECTIONS {
         src/rom8002D6C.o(.text);
         asm/rom8002D6C.o(.text);
         src/script_main.o(.text);
-        asm/script_main.o(.text);
         src/script_commands.o(.text);
         src/script_commands2.o(.text);
         src/start_processes.o(.text);
