@@ -19,8 +19,9 @@ SECTIONS {
     {
         asm/crt0.o(.text);
         src/main.o(.text);
-        src/bg3_control.o(.text);
-        asm/bg3_control.o(.text);
+        src/bg3_control_1.o(.text);
+        asm/bg3_control_2.o(.text); /* merge files later, sorry. by Pidgey */
+        src/bg3_control_3.o(.text);
         src/bg_control.o(.text);
         src/utils.o(.text);
         src/rom8002D6C.o(.text);
@@ -57,7 +58,7 @@ SECTIONS {
     ALIGN(4)
     {
         src/main.o(.rodata);
-        src/bg3_control.o(.rodata);
+        src/bg3_control_1.o(.rodata);
         data/data.o(.rodata);
         data/sound_data.o(.rodata);
         src/m4a_tables.o(.rodata);

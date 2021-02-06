@@ -7,12 +7,14 @@ struct Background
     /* +0x04 */ u32 controlBits;
 };
 
+extern const struct Background gBackgroundTable[];
+
 extern void InitBGs();
 extern void InitBG3();
 extern void sub_80013EC();
-extern void sub_8001744(u16);
-extern void sub_8001830(u16);
-extern void sub_8001A9C(u16);
+extern void sub_8001744(u32);
+extern void sub_8001830(u32);
+extern void sub_8001A9C(u32);
 extern u32 GetBGControlBits(u32);
 extern u8 * GetBGPalettePtr(u32);
 extern void sub_8002244(u32);

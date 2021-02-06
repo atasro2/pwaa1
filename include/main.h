@@ -50,17 +50,17 @@ struct Main
     /* +0x02D */ u8 unk2D; // unused field
     /* +0x02E */ bool8 isBGScrolling;
     /* +0x02F */ u8 unk2F;
-    /* +0x030 */ u16 unk30;
-    /* +0x032 */ u16 unk32;
-    /* +0x034 */ u16 unk34;
-    /* +0x036 */ u16 unk36;
-    /* +0x038 */ u16 unk38;
-    /* +0x03A */ u16 unk3A; 
+    /* +0x030 */ s16 unk30;
+    /* +0x032 */ s16 unk32;
+    /* +0x034 */ s16 unk34;
+    /* +0x036 */ s16 unk36;
+    /* +0x038 */ s16 unk38;
+    /* +0x03A */ s16 unk3A; 
     /* +0x03C */ s8 horizontolBGScrollSpeed;
     /* +0x03D */ s8 verticalBGScrollSpeed;
-    /* +0x03E */ u8 unk3E;
-    /* +0x03F */ u8 unk3F;
-    /* +0x040 */ u32 unk40;
+    /* +0x03E */ s8 unk3E;
+    /* +0x03F */ s8 unk3F;
+    /* +0x040 */ u8 * unk40;
     /* +0x044 */ u32 unk44[12];
     /* +0x074 */ u16 blendTarget;
     /* +0x076 */ u16 blendMode;

@@ -68,13 +68,12 @@ extern u8 gUnknown_08362524[];
 extern u8 gUnknown_08364794[];
 extern u8 gUnknown_08365640[];
 extern u8 gUnknown_08368BC4[];
-extern u8 gUnknown_08369890[];
 extern u8 gUnknown_0836B924[];
 extern u8 gUnknown_08372D2C[];
 extern u8 gUnknown_0837920C[];
 extern u8 gUnknown_0837E52C[];
-extern u8 gUnknown_08369890[];
-extern u8 gUnknown_08369890[];
+//extern u8 gUnknown_08369890[];
+#define gUnknown_08369890 ((u8*)(GFX_BASE_ADDR + 0x1E9890))
 extern u8 gUnknown_0838B364[];
 extern u8 gUnknown_0838D370[];
 extern u8 gUnknown_08392118[];
