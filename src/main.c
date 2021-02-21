@@ -228,7 +228,7 @@ void ResetGameState()
     ResetAnimationSystem(); //init animation system?
     ResetSoundControl();
     LoadCurrentScriptIntoRam();
-    sub_8000738(0x30, 0xF);
+    SetTimedKeysAndDelay(DPAD_RIGHT | DPAD_LEFT, 15);
     m4aMPlayAllStop();
 }
 
@@ -279,31 +279,30 @@ void ReadKeys()
     joypadCtrl->previousPressedKeys = joypadCtrl->pressedKeysRaw;
     joypadCtrl->heldKeysRaw = KEY_NEW();
     joypadCtrl->pressedKeysRaw = keyInput & ~joypadCtrl->previousHeldKeys;
-    
-    joypadCtrl->unk8 = 0;
+    joypadCtrl->activeTimedKeysRaw = 0;
 
-    if (KEY_NEW() & joypadCtrl->unkA)
+    if (KEY_NEW() & joypadCtrl->timedKeys)
     {
-        if (joypadCtrl->unkE >= joypadCtrl->unkC)
+        if (joypadCtrl->timedHoldTimer >= joypadCtrl->timedHoldDelay)
         {
-            joypadCtrl->unkE = 0;
-            joypadCtrl->unk8 = keyInput & joypadCtrl->unkA;
+            joypadCtrl->timedHoldTimer = 0;
+            joypadCtrl->activeTimedKeysRaw = keyInput & joypadCtrl->timedKeys;
         }
         else
         {
-            joypadCtrl->unkE++;
+            joypadCtrl->timedHoldTimer++;
         }
     }
     else
     {
-        joypadCtrl->unkE = joypadCtrl->unkC;
+        joypadCtrl->timedHoldTimer = joypadCtrl->timedHoldDelay;
     }
 }
 
-void sub_8000738(u16 arg0, u16 arg1)
+void SetTimedKeysAndDelay(u32 keyBits, u32 delay)
 {
-    gJoypad.unkA = arg0;
-    gJoypad.unkC = arg1;
+    gJoypad.timedKeys = keyBits;
+    gJoypad.timedHoldDelay = delay;
 }
 
 u32 ReadKeysAndTestResetCombo()

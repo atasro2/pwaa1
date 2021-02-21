@@ -1,4 +1,4 @@
-#ifndef GUARD_COURT_RECORD_H //TODO: get rid of this file when it's possible to move everything to its own header
+#ifndef GUARD_COURT_RECORD_H
 #define GUARD_COURT_RECORD_H
 
 void sub_800D77C(struct Main *, struct CourtRecord *);

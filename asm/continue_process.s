@@ -779,7 +779,7 @@ _0800A0DE:
 	strh r0, [r1]
 	movs r0, #0x30
 	movs r1, #0xf
-	bl sub_8000738
+	bl SetTimedKeysAndDelay
 	adds r0, r7, #0
 	adds r0, #0x7d
 	ldrb r0, [r0]

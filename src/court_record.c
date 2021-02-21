@@ -101,7 +101,7 @@ void sub_800D880(struct Main * main, struct CourtRecord * courtRecord)
     main->process[GAME_SUBPROCESS] = 3;
 }
 
-//TODO: fix shit control flow
+//TODO: fix shit control flow, probably uses local variables to control the flow, don't have time to figure out how
 void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
 {
     struct Joypad * joypad = &gJoypad;
