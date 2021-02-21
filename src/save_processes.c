@@ -450,29 +450,36 @@ void SaveGameExitSaveScreenSubProcess(struct Main *main)
     StartHardwareBlend(1, 0, 1, 0x1F);
 }
 
-void SaveGameSubProcess5(struct Main *main) // ! WHAT THE FUCK
+void SaveGameSubProcess5(struct Main *main)
 {
-    u32 var0;
+    u32 showNewEpsiode;
+    u32 newEpisodeId;
     if(main->blendMode != 0)
         return;
 
     if(main->scenarioIdx == 1)
     {
-        var0 = 1;
-        goto smth;
+        newEpisodeId = 1;
+        showNewEpsiode = TRUE;
     }
-    if(main->scenarioIdx == 5)
+    else if(main->scenarioIdx == 5)
     {
-        var0 = 2;
-        goto smth;
-    }   
-    if(main->scenarioIdx == 11)
+        newEpisodeId = 2;
+        showNewEpsiode = TRUE;
+    }
+    else if(main->scenarioIdx == 11)
     {
-        var0 = 3;
-        smth:
+        newEpisodeId = 3;
+        showNewEpsiode = TRUE;
+    }
+    else
+        showNewEpsiode = FALSE;
+
+    if(showNewEpsiode)
+    {
         main->advanceScriptContext = 0;
         main->showTextboxCharacters = 0;
-        SET_PROCESS_PTR(12, 1, 0, var0, main);
+        SET_PROCESS_PTR(12, 1, 0, newEpisodeId, main);
         return;
     }
     gIORegisters.lcd_dispcnt = 0;

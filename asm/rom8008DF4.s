@@ -191,7 +191,7 @@ _08009648:
 	bl ChangeScriptSection
 	movs r0, #0xc0
 	movs r1, #0x14
-	bl sub_8000738
+	bl SetTimedKeysAndDelay
 	ldrb r0, [r5, #5]
 	adds r0, #1
 	strb r0, [r5, #5]

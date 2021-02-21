@@ -285,8 +285,8 @@ gProcess6SubProcesses:
 	.4byte sub_800AE58
 	.4byte sub_800AF2C
 
-    .global gUnknown_0811DF7C
-gUnknown_0811DF7C:
+    .global gProcess4SubProcesses
+gProcess4SubProcesses:
     .4byte sub_800B808
 	.4byte sub_800BAD4
 	.4byte sub_800BD74

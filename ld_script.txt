@@ -38,6 +38,7 @@ SECTIONS {
         src/process5.o(.text);
         src/process6.o(.text);
         asm/process9.o(.text);
+        src/process9_2.o(.text);
         src/process4.o(.text);
         asm/process4.o(.text);
         src/rom800D674.o(.text);
