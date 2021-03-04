@@ -1221,7 +1221,7 @@ bool32 Command39(struct ScriptContext * scriptCtx)
             oamObject->attr1 = gUnknown_080187C8[id].attr1;
             mapMarker->attr1 = oamObject->attr1;
 
-            oamIdx = ((u32)mapMarker->vramPtr - 0x6011800);
+            oamIdx = ((uintptr_t)mapMarker->vramPtr - (uintptr_t)OBJ_VRAM0+0x1800);
             oamIdx /= 32;
             oamObject->attr2 = SPRITE_ATTR2(oamIdx + 0xC0, 2, 6);
             mapMarker->attr2 = oamObject->attr2;
