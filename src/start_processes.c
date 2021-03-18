@@ -95,13 +95,13 @@ void TitleScreenProcess(struct Main *main)
         SET_PROCESS_PTR(1, 2, 0, 0, main); // ? main->process[GAME_SUBPROCESS]++; hello?
         break;
     case 2:
-        if(gJoypad.pressedKeysRaw & (A_BUTTON | START_BUTTON))
+        if(gJoypad.pressedKeys & (A_BUTTON | START_BUTTON))
         {
             PlaySE(0x3A);
             gScriptContext.unk2A = 0;
             SET_PROCESS_PTR(1, 3, 0, 0, main); // ? main->process[GAME_SUBPROCESS]++; hello?
         }
-        else if(main->unk17 & 0xF0 && gJoypad.pressedKeysRaw & (DPAD_DOWN | DPAD_UP))
+        else if(main->unk17 & 0xF0 && gJoypad.pressedKeys & (DPAD_DOWN | DPAD_UP))
         {
             gInvestigation.unk15 = 0;
             gInvestigation.unk14 = 2;

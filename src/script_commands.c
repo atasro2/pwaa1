@@ -65,11 +65,11 @@ bool32 Command02(struct ScriptContext * scriptCtx)
     if(gMain.process[GAME_PROCESS] >= 3 && gMain.process[GAME_PROCESS] <= 6)
     {
         if(scriptCtx->flags & 1)
-            if(gJoypad.pressedKeysRaw & A_BUTTON)
+            if(gJoypad.pressedKeys & A_BUTTON)
                 scriptCtx->flags |= 2;
         if(scriptCtx->unk14 > 0)
             scriptCtx->unk14--;
-        if(gJoypad.heldKeysRaw & B_BUTTON && scriptCtx->unk13 != 0 && scriptCtx->unk14 == 0)
+        if(gJoypad.heldKeys & B_BUTTON && scriptCtx->unk13 != 0 && scriptCtx->unk14 == 0)
             scriptCtx->flags |= 2;
     }
     if(scriptCtx->flags & 2)
@@ -177,7 +177,7 @@ bool32 Command03(struct ScriptContext * scriptCtx)
 bool32 Command04(struct ScriptContext * scriptCtx)
 {
 
-    if(gJoypad.pressedKeysRaw & scriptCtx->scriptPtr[1]) 
+    if(gJoypad.pressedKeys & scriptCtx->scriptPtr[1]) 
         scriptCtx->scriptPtr+=2;
     return 1;
 }
@@ -242,7 +242,7 @@ bool32 Command08(struct ScriptContext * scriptCtx)
     if(gMain.process[GAME_PROCESS] > 2 && gMain.process[GAME_PROCESS] < 7)
 #endif
     {
-        if(gJoypad.pressedKeysRaw & DPAD_UP)
+        if(gJoypad.pressedKeys & DPAD_UP)
         {
             PlaySE(0x2A);
             scriptCtx->unk39--;
@@ -251,7 +251,7 @@ bool32 Command08(struct ScriptContext * scriptCtx)
                 scriptCtx->unk39 = 1;
             }
         }
-        else if(gJoypad.pressedKeysRaw & DPAD_DOWN)
+        else if(gJoypad.pressedKeys & DPAD_DOWN)
         {
             PlaySE(0x2A);
             scriptCtx->unk39++;
@@ -260,7 +260,7 @@ bool32 Command08(struct ScriptContext * scriptCtx)
                 scriptCtx->unk39 = 0;
             }
         }
-        else if(gJoypad.pressedKeysRaw & A_BUTTON)
+        else if(gJoypad.pressedKeys & A_BUTTON)
         {
             PlaySE(0x2B);
             scriptCtx->unk32 = 10;
@@ -320,7 +320,7 @@ bool32 Command09(struct ScriptContext * scriptCtx)
     if(gMain.process[GAME_PROCESS] > 2 && gMain.process[GAME_PROCESS] < 7)
 #endif
     {
-        if(gJoypad.pressedKeysRaw & DPAD_UP)
+        if(gJoypad.pressedKeys & DPAD_UP)
         {
             PlaySE(0x2A);
             scriptCtx->unk39--;
@@ -329,7 +329,7 @@ bool32 Command09(struct ScriptContext * scriptCtx)
                 scriptCtx->unk39 = 2;
             }
         }
-        else if(gJoypad.pressedKeysRaw & DPAD_DOWN)
+        else if(gJoypad.pressedKeys & DPAD_DOWN)
         {
             PlaySE(0x2A);
             scriptCtx->unk39++;
@@ -338,7 +338,7 @@ bool32 Command09(struct ScriptContext * scriptCtx)
                 scriptCtx->unk39 = 0;
             }
         }
-        else if(gJoypad.pressedKeysRaw & A_BUTTON)
+        else if(gJoypad.pressedKeys & A_BUTTON)
         {
             PlaySE(0x2B);
             scriptCtx->unk32 = 10;
@@ -1370,7 +1370,7 @@ bool32 Command3F(struct ScriptContext *scriptCtx)
     else if(scriptCtx->flags & SCRIPT_SPOTSELECT_INPUT)
     {
         struct8018870p = &gUnknown_08018870[investigation->unk9];
-        if(gJoypad.heldKeysRaw & DPAD_LEFT)
+        if(gJoypad.heldKeys & DPAD_LEFT)
         {
             investigation->unk0 -= 3;
             if(investigation->unk0 < struct8018870p->unk28)
@@ -1378,7 +1378,7 @@ bool32 Command3F(struct ScriptContext *scriptCtx)
             if(investigation->unk0 > DISPLAY_WIDTH-16)
                 investigation->unk0 = 0;
         }
-        if(gJoypad.heldKeysRaw & DPAD_RIGHT)
+        if(gJoypad.heldKeys & DPAD_RIGHT)
         {
             investigation->unk0 += 3;
             if(investigation->unk0 > struct8018870p->unk2A)
@@ -1386,7 +1386,7 @@ bool32 Command3F(struct ScriptContext *scriptCtx)
             if(investigation->unk0 > DISPLAY_WIDTH-16)
                 investigation->unk0 = DISPLAY_WIDTH-16;
         }
-        if(gJoypad.heldKeysRaw & DPAD_UP)
+        if(gJoypad.heldKeys & DPAD_UP)
         {
             investigation->unk2 -= 3;
             if(investigation->unk2 < struct8018870p->unk29)
@@ -1394,7 +1394,7 @@ bool32 Command3F(struct ScriptContext *scriptCtx)
             if(investigation->unk2 > DISPLAY_HEIGHT-16)
                 investigation->unk2 = 0;
         }
-        if(gJoypad.heldKeysRaw & DPAD_DOWN)
+        if(gJoypad.heldKeys & DPAD_DOWN)
         {
             investigation->unk2 += 3;
             if(investigation->unk2 > struct8018870p->unk2B)
@@ -1402,7 +1402,7 @@ bool32 Command3F(struct ScriptContext *scriptCtx)
             if(investigation->unk2 > DISPLAY_HEIGHT-16)
                 investigation->unk2 = DISPLAY_HEIGHT-16;
         }
-        if(gJoypad.pressedKeysRaw & A_BUTTON)
+        if(gJoypad.pressedKeys & A_BUTTON)
         {
             scriptCtx->flags &= ~(SCRIPT_SPOTSELECT_INPUT | SCRIPT_LOOP);
             rect.origin.x = gMain.unk34 + investigation->unk0 + 12;

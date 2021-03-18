@@ -140,12 +140,12 @@ void ClearSaveProcess(struct Main *main)
     case 2:
         if(gScriptContext.flags & SCRIPT_LOOP)
         {
-            if(gJoypad.pressedKeysRaw & (DPAD_RIGHT|DPAD_LEFT))
+            if(gJoypad.pressedKeys & (DPAD_RIGHT|DPAD_LEFT))
             {
                 PlaySE(0x2A);
                 main->selectedButton ^= 1;
             }
-            else if(gJoypad.pressedKeysRaw & A_BUTTON)
+            else if(gJoypad.pressedKeys & A_BUTTON)
             {
                 PlaySE(0x2B);
                 StartHardwareBlend(2, 1, 1, 0x1F);
@@ -308,12 +308,12 @@ void SaveGameWaitForInputSubProcess(struct Main *main)
     struct OamAttrs * oam;
     if(gScriptContext.flags & SCRIPT_LOOP)
     {
-        if(gJoypad.pressedKeysRaw & (DPAD_RIGHT | DPAD_LEFT))
+        if(gJoypad.pressedKeys & (DPAD_RIGHT | DPAD_LEFT))
         {
             main->selectedButton ^= 1;
             PlaySE(0x2A);
         }
-        else if(gJoypad.pressedKeysRaw & A_BUTTON)
+        else if(gJoypad.pressedKeys & A_BUTTON)
         {
             PlaySE(0x40);
             if(main->selectedButton == 0)
@@ -345,7 +345,7 @@ void SaveGameWaitForInputSubProcess(struct Main *main)
             main->process[GAME_SUBPROCESS] = 7;
             main->process[GAME_PROCESSUNK2] = 0;
         }
-        else if(!main->sIsEpisodePartOver && gJoypad.pressedKeysRaw & B_BUTTON)
+        else if(!main->sIsEpisodePartOver && gJoypad.pressedKeys & B_BUTTON)
         {
             PlaySE(0x2C);
             main->selectedButton = 1;
@@ -489,7 +489,7 @@ void SaveGameSubProcess5(struct Main *main)
 
 void sub_8008CC0(struct Main * main)
 {
-    if(gScriptContext.flags & SCRIPT_LOOP && gJoypad.pressedKeysRaw & A_BUTTON)
+    if(gScriptContext.flags & SCRIPT_LOOP && gJoypad.pressedKeys & A_BUTTON)
     {
         main->advanceScriptContext = 1;
         main->showTextboxCharacters = 1;

@@ -7,11 +7,11 @@
 
 struct Joypad
 {
-    /* +0x00 */ u16 heldKeysRaw;
-    /* +0x02 */ u16 pressedKeysRaw;
+    /* +0x00 */ u16 heldKeys;
+    /* +0x02 */ u16 pressedKeys;
     /* +0x04 */ u16 previousHeldKeys;
     /* +0x06 */ u16 previousPressedKeys;
-    /* +0x08 */ u16 activeTimedKeysRaw;
+    /* +0x08 */ u16 activeTimedKeys;
     /* +0x0A */ u16 timedKeys;
     /* +0x0C */ u16 timedHoldDelay;
     /* +0x0E */ u16 timedHoldTimer;

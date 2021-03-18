@@ -90,7 +90,7 @@ void sub_800A8E0(struct Main * main)
     struct OamAttrs * oam;
     if(main->blendMode)
         return;
-    if((gJoypad.pressedKeysRaw & START_BUTTON) &&
+    if((gJoypad.pressedKeys & START_BUTTON) &&
     !(main->gameStateFlags & 0x10) &&
     gScriptContext.flags & (SCRIPT_FULLSCREEN | 1))
     {
@@ -102,7 +102,7 @@ void sub_800A8E0(struct Main * main)
         BACKUP_PROCESS_PTR(main);
         SET_PROCESS_PTR(0xA, 0, 0, 0, main);
     }
-    else if((gJoypad.pressedKeysRaw & R_BUTTON) &&
+    else if((gJoypad.pressedKeys & R_BUTTON) &&
     !(main->gameStateFlags & 0x10) &&
     gScriptContext.flags & (SCRIPT_FULLSCREEN | 1))
     {

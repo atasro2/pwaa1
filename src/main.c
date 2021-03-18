@@ -275,18 +275,18 @@ void ReadKeys()
     struct Joypad *joypadCtrl = &gJoypad;
     u16 keyInput = KEY_NEW();
 
-    joypadCtrl->previousHeldKeys = joypadCtrl->heldKeysRaw;
-    joypadCtrl->previousPressedKeys = joypadCtrl->pressedKeysRaw;
-    joypadCtrl->heldKeysRaw = KEY_NEW();
-    joypadCtrl->pressedKeysRaw = keyInput & ~joypadCtrl->previousHeldKeys;
-    joypadCtrl->activeTimedKeysRaw = 0;
+    joypadCtrl->previousHeldKeys = joypadCtrl->heldKeys;
+    joypadCtrl->previousPressedKeys = joypadCtrl->pressedKeys;
+    joypadCtrl->heldKeys = KEY_NEW();
+    joypadCtrl->pressedKeys = keyInput & ~joypadCtrl->previousHeldKeys;
+    joypadCtrl->activeTimedKeys = 0;
 
     if (KEY_NEW() & joypadCtrl->timedKeys)
     {
         if (joypadCtrl->timedHoldTimer >= joypadCtrl->timedHoldDelay)
         {
             joypadCtrl->timedHoldTimer = 0;
-            joypadCtrl->activeTimedKeysRaw = keyInput & joypadCtrl->timedKeys;
+            joypadCtrl->activeTimedKeys = keyInput & joypadCtrl->timedKeys;
         }
         else
         {
@@ -315,7 +315,7 @@ u32 ReadKeysAndTestResetCombo()
 
     gMain.vblankWaitAmount = 1;
 
-    if (joypadCtrl->heldKeysRaw == (A_BUTTON|B_BUTTON|START_BUTTON|SELECT_BUTTON))
+    if (joypadCtrl->heldKeys == (A_BUTTON|B_BUTTON|START_BUTTON|SELECT_BUTTON))
     {
         return 1;
     }

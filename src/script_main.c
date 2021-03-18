@@ -103,7 +103,7 @@ void InitScriptSection(struct ScriptContext *scriptCtx)
 
 void AdvanceScriptContext(struct ScriptContext * scriptCtx)
 {
-    if(scriptCtx->unk13 > 0 && (gJoypad.pressedKeysRaw & A_BUTTON || gJoypad.heldKeysRaw & B_BUTTON)) // text skip
+    if(scriptCtx->unk13 > 0 && (gJoypad.pressedKeys & A_BUTTON || gJoypad.heldKeys & B_BUTTON)) // text skip
         scriptCtx->unk13 = 2;
     
     continueScript:

@@ -108,7 +108,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
     struct OamAttrs * oam;
     u32 section;
 
-    if(joypad->pressedKeysRaw & L_BUTTON)
+    if(joypad->pressedKeys & L_BUTTON)
     {
         u32 evidenceId = courtRecord->unk14[courtRecord->unkD];
         if(gUnknown_08018A6C[evidenceId].unk6)
@@ -122,7 +122,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
         }
     }
     
-    if(joypad->heldKeysRaw & DPAD_RIGHT && courtRecord->unkE > 1)
+    if(joypad->heldKeys & DPAD_RIGHT && courtRecord->unkE > 1)
     {
         sub_80024C8(1, 0xC);
         if(--courtRecord->unkD > courtRecord->unkE)
@@ -164,7 +164,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
         }
         */
     }
-    else if (joypad->heldKeysRaw & DPAD_LEFT && courtRecord->unkE > 1)
+    else if (joypad->heldKeys & DPAD_LEFT && courtRecord->unkE > 1)
     {
         sub_80024C8(2, 0xC);
         if(++courtRecord->unkD >= courtRecord->unkE)
@@ -206,7 +206,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
     }
     else if(main->process[GAME_PROCESSUNK3] == 1)
     {
-        if(joypad->pressedKeysRaw & A_BUTTON)
+        if(joypad->pressedKeys & A_BUTTON)
         {
             //u32 section;
             sub_800EB88(0);
@@ -292,7 +292,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
         }
         if(!(main->gameStateFlags & 0x100))
         {
-            if(joypad->pressedKeysRaw & B_BUTTON)
+            if(joypad->pressedKeys & B_BUTTON)
             {
                 PlaySE(0x2C);
                 sub_80024C8(4, 0xC);
@@ -323,7 +323,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
     else if(main->process[GAME_PROCESSUNK3] == 2)
     {
         //u32 section;
-        if(joypad->pressedKeysRaw & A_BUTTON)
+        if(joypad->pressedKeys & A_BUTTON)
         {
             PlaySE(0x2B);
             section = sub_800EEA4(main, courtRecord->unk14[courtRecord->unkD]);
@@ -343,7 +343,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
             RESTORE_PROCESS_PTR(main);
             return;
         }
-        else if(joypad->pressedKeysRaw & B_BUTTON)
+        else if(joypad->pressedKeys & B_BUTTON)
         {
             PlaySE(0x2C);
             sub_80024C8(3, 0xC);
@@ -353,14 +353,14 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
     }
     else 
     {
-        if(joypad->pressedKeysRaw & R_BUTTON)
+        if(joypad->pressedKeys & R_BUTTON)
         {
             PlaySE(0x34);
             sub_80024C8(0x3, 0xC);
             courtRecord->unkF = 4;
             main->process[GAME_SUBPROCESS] = 4;
         }
-        else if(joypad->pressedKeysRaw & B_BUTTON)
+        else if(joypad->pressedKeys & B_BUTTON)
         {
             PlaySE(0x2C);
             sub_80024C8(0x3, 0xC);
@@ -576,13 +576,13 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
         case 2:
             if(main->blendMode != 0)
                 break;
-            if(gJoypad.pressedKeysRaw & (L_BUTTON | B_BUTTON))
+            if(gJoypad.pressedKeys & (L_BUTTON | B_BUTTON))
             {
                 PlaySE(0x2C);
                 StartHardwareBlend(2, 1, 1, 0x1F);
                 main->process[GAME_PROCESSUNK2]++;
             }
-            else if(gJoypad.pressedKeysRaw & (DPAD_DOWN | A_BUTTON))
+            else if(gJoypad.pressedKeys & (DPAD_DOWN | A_BUTTON))
             {
                 evidenceId = courtRecord->unk14[courtRecord->unkD];
                 if(gUnknown_08018A6C[evidenceId].unk6 == 9 || gUnknown_08018A6C[evidenceId].unk6 == 2)
@@ -852,7 +852,7 @@ void sub_800E7C0(struct Main * main, struct CourtRecord * courtRecord)
             ChangeBGMVolume(0x100, 0x1E);
             main->process[GAME_PROCESSUNK2] = 1;
         }
-        if(gJoypad.pressedKeysRaw & (A_BUTTON|B_BUTTON))
+        if(gJoypad.pressedKeys & (A_BUTTON|B_BUTTON))
         {
             PlaySE(0x2B);
             sub_80024C8(3, 0xE);

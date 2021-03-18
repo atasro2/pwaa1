@@ -1,12 +1,13 @@
 #include "global.h"
+#include "main.h"
 #include "ewram.h"
 #include "background.h"
 #include "animation.h"
 #include "court_record.h"
 #include "sound_control.h"
+#include "constants/animation.h"
 #include "constants/script.h"
 #include "constants/bg.h"
-#include "main.h"
 
 extern void SetCurrentEpisodeBit();
 extern void sub_800D530(struct Main *, u32);
@@ -111,7 +112,7 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
         return;
     }
 
-    if(gJoypad.pressedKeysRaw & START_BUTTON)
+    if(gJoypad.pressedKeys & START_BUTTON)
     {
         if(!(main->gameStateFlags & 0x10))
         {
@@ -132,7 +133,7 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
         }
     }
 
-    if(gJoypad.pressedKeysRaw & R_BUTTON)
+    if(gJoypad.pressedKeys & R_BUTTON)
     {
         if(!(main->gameStateFlags & 0x10))
         {
@@ -160,7 +161,7 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
         return;
     }
     sub_800D530(main, 1);
-    if(gJoypad.pressedKeysRaw & START_BUTTON)
+    if(gJoypad.pressedKeys & START_BUTTON)
     {
         if(!(main->gameStateFlags & 0x10))
         {
@@ -176,7 +177,7 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
         }
     }
 
-    if(gJoypad.pressedKeysRaw & R_BUTTON)
+    if(gJoypad.pressedKeys & R_BUTTON)
     {
         if(!(main->gameStateFlags & 0x10))
         {
@@ -191,10 +192,10 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
             return;
         }
     }
-    else if(gJoypad.activeTimedKeysRaw & (DPAD_RIGHT | DPAD_LEFT))
+    else if(gJoypad.activeTimedKeys & (DPAD_RIGHT | DPAD_LEFT))
     {
         investigation->unkB = investigation->unkA;
-        if(gJoypad.activeTimedKeysRaw & DPAD_LEFT)
+        if(gJoypad.activeTimedKeys & DPAD_LEFT)
             investigation->unkA--;
         else
             investigation->unkA++;
@@ -206,7 +207,7 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
         investigation->unkE = 0;
         investigation->unkF = 8;
     }
-    else if(gJoypad.pressedKeysRaw & A_BUTTON)
+    else if(gJoypad.pressedKeys & A_BUTTON)
     {
         PlaySE(43);
         investigation->unk0 = 120;
@@ -235,7 +236,7 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
     {
         u32 bgBits = GetBGControlBits(main->currentBG);
         if((bgBits & 1 || bgBits & 2) && 
-        gJoypad.pressedKeysRaw & L_BUTTON)
+        gJoypad.pressedKeys & L_BUTTON)
         {
             if(main->unk34 == 0 || 
             main->unk34 == 120 ||
@@ -321,4 +322,227 @@ void sub_800BE58(struct Main * main, struct InvestigationStruct * investigation)
     sub_800D530(main, 0);
     if(gScriptContext.unk38 == 0)
         SET_PROCESS_PTR(4, 1, 0, 0, main);
+}
+
+void sub_800BE7C(struct Main * main, struct InvestigationStruct * investigation)
+{
+    u32 i, j;
+    u8 * roomData;
+    struct OamAttrs * oam;
+
+    if(gScriptContext.unk38 != 1)
+        return;
+    if(main->blendMode)
+        return;
+    roomData = main->roomData[main->currentRoomId];
+    if(main->process[GAME_PROCESSUNK2] == 0)
+    {
+        ResetSoundControl();
+        sub_8001830(roomData[0]);
+        main->process[GAME_PROCESSUNK2] = 1;
+        return;
+    }
+    sub_8001A9C(roomData[0]);
+    oam = &gOamObjects[38];
+    for(i = 0; i < 4; i++)
+    {
+        for(j = 0; j < 2; oam++, j++)
+            oam->attr0 = SPRITE_ATTR0_CLEAR;
+    }
+    oam = &gOamObjects[49];
+    for(i = 0; i < 4; i++)
+    {
+        oam->attr0 = SPRITE_ATTR0(224, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
+        oam->attr1 = SPRITE_ATTR1_NONAFFINE(i*60, FALSE, FALSE, 3);
+        oam->attr2 = SPRITE_ATTR2(0x100+i*0x20, 0, 5);
+        oam++;
+    }
+    sub_800B7A8(investigation, 0xF);
+    investigation->unkD = 0xE0;
+    investigation->unkE = 0;
+    investigation->unkF = 8;
+    investigation->unkA = 0;
+    investigation->unkB = 0;
+    investigation->unkC = 1;
+    ClearAllAnimationSprites();
+    //TODO: MACROS BITCH!!! these exact 3 lines exist elsewhere in the code so this is 100% a macro in the original code considering it doesn't use the investigation struct ptr 
+    DestroyAnimation(&gAnimation[1]);
+    gInvestigation.unk5 = 0;
+    sub_800B7A8(&gInvestigation, 0xF);
+    
+    gUnknown_0811DD20[main->scenarioIdx](main);
+    sub_800D530(main, 0);
+    StartHardwareBlend(1, 1, 1, 0x1F);
+    SET_PROCESS_PTR(4, 1, 0, 0, main);
+}
+
+void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
+{
+    u32 temp;
+    struct OamAttrs * oam = &gOamObjects[88];
+    if(gAnimation[1].flags & ANIM_BLEND_ACTIVE)
+        return;
+    if(main->blendMode)
+        return;
+    
+    if(gJoypad.pressedKeys & START_BUTTON
+    && !(main->gameStateFlags & 0x10)
+    && gScriptContext.flags & (SCRIPT_FULLSCREEN | 1))
+        goto s;
+    else if(gJoypad.pressedKeys & R_BUTTON
+    && !(main->gameStateFlags & 0x10)
+    && gScriptContext.flags & (SCRIPT_FULLSCREEN | 1))
+        goto r;
+    else if(investigation->unk6)
+        return;
+    else if(gScriptContext.unk38 != 1)
+        return;
+    else if(!(main->advanceScriptContext == FALSE && main->showTextboxCharacters == FALSE))
+        return;
+    else
+    {
+        switch(main->process[GAME_PROCESSUNK2])
+        {
+            default:
+                return;
+            case 0:
+                if(investigation->unkE <= 0xF)
+                    investigation->unkE++;
+                investigation->unkF = 0;
+                if (investigation->unkE > 0xF)
+                    main->process[GAME_PROCESSUNK2]++;
+                return;
+            case 1: // ! wtf please
+                temp = 3;
+                if(gJoypad.pressedKeys & START_BUTTON
+                && !(main->gameStateFlags & 0x10))
+                {
+                    s:
+                    PauseBGM();
+                    DmaCopy16(3, gOamObjects, gSaveDataBuffer.oam, sizeof(gOamObjects));
+                    DmaCopy16(3, &gMain, &gSaveDataBuffer.main, sizeof(gMain));
+                    PlaySE(49);
+                    main->gameStateFlags &= ~1;
+                    BACKUP_PROCESS_PTR(main);
+                    SET_PROCESS_PTR(10, 0, 0, 0, main);
+                    return;
+                }
+                else if(gJoypad.pressedKeys & R_BUTTON
+                && !(main->gameStateFlags & 0x10))
+                {
+                    r:
+                    PlaySE(49);
+                    BACKUP_PROCESS_PTR(main);
+                    SET_PROCESS_PTR(7, 0, 0, 0, main);
+                    oam->attr0 = SPRITE_ATTR0_CLEAR;
+                    return;
+                }
+                if(gJoypad.pressedKeys & A_BUTTON)
+                {
+                    PlaySE(43);
+                    oam->attr0 = SPRITE_ATTR0_CLEAR;
+                    temp = sub_800D5B0(investigation);
+                    ChangeScriptSection(temp);
+                    sub_800244C(1);
+                    investigation->unk6 = 1;
+                    investigation->unk14 = 0;
+                    investigation->unk15 = 0;
+                    investigation->unk7 = 1;
+                    investigation->unkC = 3;
+                    investigation->unkD = 0xF0;
+                    investigation->unkE = 0;
+                    investigation->unkF = 0;
+                    return;
+                }
+                if(gJoypad.pressedKeys & B_BUTTON)
+                {
+                    PlaySE(44);
+                    main->process[GAME_PROCESSUNK2] = 2;
+                    sub_800B7A8(investigation, 0xE);
+                    investigation->unkC = 2;
+                    investigation->unkD = 0xE0;
+                    investigation->unkE = 0x10;
+                    investigation->unkF = 0;
+                    return;
+                }
+                
+                if(gJoypad.heldKeys & DPAD_LEFT)
+                {
+                    investigation->unk0 -= temp;
+                    if(investigation->unk2 < 16 && investigation->unk0 < 60)
+                        investigation->unk0 = 60;
+                    if(investigation->unk0 > 224)
+                        investigation->unk0 = 0;
+                }
+                if(gJoypad.heldKeys & DPAD_RIGHT)
+                {
+                    investigation->unk0 += temp;
+                    if(investigation->unk2 < 16 && investigation->unk0 < 60)
+                        investigation->unk0 = 60;
+                    if(investigation->unk0 > 224)
+                        investigation->unk0 = 224;
+                }
+                if(gJoypad.heldKeys & DPAD_UP)
+                {
+                    investigation->unk2 -= temp;
+                    if(investigation->unk0 < 60 && investigation->unk2 < 16)
+                        investigation->unk2 = 16;
+                    if(investigation->unk2 > 144)
+                        investigation->unk2 = 0;
+                }
+                if(gJoypad.heldKeys & DPAD_DOWN)
+                {
+                    investigation->unk2 += temp;
+                    if(investigation->unk0 < 60 && investigation->unk2 < 16)
+                        investigation->unk2 = 16;
+                    if(investigation->unk2 > 144)
+                        investigation->unk2 = 144;
+                }
+                temp = sub_800D5B0(investigation);
+                if(temp >= 0x18 && temp <= 0x19) // ! come one just a little more hardcoding please :(
+                {
+                    investigation->unk14 = 0;
+                    investigation->unk15 = 0;
+                }
+                else
+                {
+                    investigation->unk15++;
+                    if(investigation->unk15 > 8)
+                    {
+                        investigation->unk15 = 0;
+                        investigation->unk14 += 4;
+                        investigation->unk14 &= 0xF;
+                    }
+                }
+                oam->attr0 = SPRITE_ATTR0(investigation->unk2, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
+                if(investigation->unk0 < 120)
+                    oam->attr1 = SPRITE_ATTR1_NONAFFINE(investigation->unk0, TRUE, FALSE, 1);
+                else
+                    oam->attr1 = SPRITE_ATTR1_NONAFFINE(investigation->unk0, FALSE, FALSE, 1);
+                oam->attr2 = SPRITE_ATTR2(0x190+investigation->unk14, 0, 8);
+                investigation->unk17++;
+                if(investigation->unk17 > 1)
+                {
+                    investigation->unk17 = 0;
+                    investigation->unk16 += 1;
+                    investigation->unk16 &= 0xF;
+                    DmaCopy16(3, gUnknown_081942C0+investigation->unk16*32, OBJ_PLTT+0x100, 0x20);
+                }
+                return;
+            case 2:
+                if(investigation->unkE > 8)
+                    investigation->unkE--;
+                if(investigation->unkC == 0)
+                {
+                    oam->attr0 = SPRITE_ATTR0_CLEAR;
+                    sub_800FA74(&gAnimation[1], TRUE);
+                    StartAnimationBlend(1, 1);
+                    SET_PROCESS_PTR(4, 1, 0, 0, main);
+                    investigation->unk7 += 1 << investigation->unkA;
+                    investigation->unkE = 8;
+                    investigation->unkF = 0;
+                }
+                return;
+        }
+    }
 }
