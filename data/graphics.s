@@ -27,39 +27,40 @@ gUnknown_08186520:
 
     .global gUnknown_08186540
 gUnknown_08186540:
-    .incbin "baserom.gba", 0x00186540, 0x1000
+    .incbin "graphics/ui/message_box/unk_186540.4bpp"
 
     .global gUnknown_08187540
 gUnknown_08187540:
-    .incbin "baserom.gba", 0x00187540, 0x4800
+    .incbin "graphics/ui/message_box/nametags.4bpp"
 
     .global gUnknown_0818BD40
 gUnknown_0818BD40:
-    .incbin "baserom.gba", 0x0018BD40, 0x180
+    .incbin "graphics/ui/left_arrow.4bpp"
 
     .global gUnknown_0818BEC0
 gUnknown_0818BEC0:
-    .incbin "baserom.gba", 0x0018BEC0, 0x180
+    .incbin "graphics/ui/right_arrow.4bpp"
 
     .global gUnknown_0818C040
 gUnknown_0818C040:
-    .incbin "baserom.gba", 0x0018C040, 0x2480
+    .incbin "graphics/ui/trial/exclamation_point.4bpp"
+	.incbin "graphics/ui/trial/unused_testimony_characters.4bpp"
 
     .global gUnknown_0818E4C0
 gUnknown_0818E4C0:
-    .incbin "baserom.gba", 0x0018E4C0, 0x1000
+    .incbin "graphics/ui/investigation/action_buttons.4bpp"
 
     .global gUnknown_0818F4C0
 gUnknown_0818F4C0:
-    .incbin "baserom.gba", 0x0018F4C0, 0x200
+    .incbin "graphics/ui/controller_buttons.4bpp"
 
     .global gUnknown_0818F6C0
 gUnknown_0818F6C0:
-    .incbin "baserom.gba", 0x0018F6C0, 0x200
+    .incbin "graphics/ui/investigation/scroll_prompt.4bpp"
 
     .global gUnknown_0818F8C0
 gUnknown_0818F8C0:
-    .incbin "baserom.gba", 0x0018F8C0, 0x800
+    .incbin "graphics/ui/trial/testimony_text_tiles.4bpp"
 
     .global gUnknown_081900C0
 gUnknown_081900C0:
@@ -119,7 +120,8 @@ gUnknown_081940E0:
 
     .global gUnknown_08194200
 gUnknown_08194200:
-    .incbin "baserom.gba", 0x00194200, 0x40
+    .incbin "graphics/unk_194200_0.gbapal"
+    .incbin "graphics/unk_194200_1.gbapal"
 
     .global gUnknown_08194240
 gUnknown_08194240:
