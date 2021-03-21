@@ -93,15 +93,10 @@ u8 Random()
     struct Main * main = &gMain;
     union s32asBitfields unk0;
     union s32asBitfields unk1;
-
     unk0.shorts.low = (s16)main->rngSeed;
-
     unk1.shorts.low = (s16)main->rngSeed * 3;
-
     unk0.bytes.low += (u8)unk1.bytes.high;
-    
     unk0.bytes.high = unk1.bytes.high;
-
     main->rngSeed = unk0.w;
     return unk0.w;
 }

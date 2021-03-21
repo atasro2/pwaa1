@@ -376,7 +376,7 @@ void sub_800BE7C(struct Main * main, struct InvestigationStruct * investigation)
     SET_PROCESS_PTR(4, 1, 0, 0, main);
 }
 
-void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
+void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation) // ! goto
 {
     u32 temp;
     struct OamAttrs * oam = &gOamObjects[88];
@@ -404,15 +404,15 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
         switch(main->process[GAME_PROCESSUNK2])
         {
             default:
-                return;
+                break;
             case 0:
                 if(investigation->unkE <= 0xF)
                     investigation->unkE++;
                 investigation->unkF = 0;
                 if (investigation->unkE > 0xF)
                     main->process[GAME_PROCESSUNK2]++;
-                return;
-            case 1: // ! wtf please
+                break;
+            case 1:
                 temp = 3;
                 if(gJoypad.pressedKeys & START_BUTTON
                 && !(main->gameStateFlags & 0x10))
@@ -528,7 +528,7 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
                     investigation->unk16 &= 0xF;
                     DmaCopy16(3, gUnknown_081942C0+investigation->unk16*32, OBJ_PLTT+0x100, 0x20);
                 }
-                return;
+                break;
             case 2:
                 if(investigation->unkE > 8)
                     investigation->unkE--;
@@ -542,7 +542,297 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
                     investigation->unkE = 8;
                     investigation->unkF = 0;
                 }
-                return;
+                break;
+        }
+    }
+}
+
+void sub_800C334(struct Main * main, struct InvestigationStruct * investigation) // ! goto
+{
+    u32 attr;
+    u32 i;
+    u32 j;
+    u8 * moveLocations;
+    u8 * moveButtonTiles;
+    u8 * vram;
+    struct OamAttrs * oam;
+    struct OamAttrs * oam2;
+    switch(main->process[GAME_PROCESSUNK2])
+    {
+        default:
+            return;
+        case 0:
+            if(investigation->unkE <= 0xF)
+                investigation->unkE++;
+            investigation->unkF = 0;
+            if (investigation->unkE > 0xF)
+                main->process[GAME_PROCESSUNK2]++;
+            break;
+        case 1: // _0800C39C
+            oam = &gOamObjects[38];
+            moveLocations = &main->roomData[main->currentRoomId][4];
+            for(i = 0; i < 4; i++)
+            {
+                u8 * vram = OBJ_VRAM0 + 0x3400;
+                vram += i * 0x800;
+                if(*moveLocations != 0xFF)
+                {
+                    investigation->unk10[i] = TRUE;
+                    moveButtonTiles = ((u8 *)0x81FD96C)+*moveLocations*0x800; //TODO: label vs value?
+                    DmaCopy16(3, moveButtonTiles, vram, 0x800);
+                    for(j = 0; j < 2; j++)
+                    {
+                        oam->attr0 = SPRITE_ATTR0(128+i*4, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
+                        oam->attr1 = SPRITE_ATTR1_NONAFFINE(j*64+56, FALSE, FALSE, 3);
+                        oam->attr2 = (i*0x40 + j*0x20 + 0x1A0) | 0x9000; // priority 0, palette 9 
+                        oam++;
+                    }
+                }
+                else
+                {
+                    investigation->unk10[i] = FALSE;
+                    oam->attr1 = SPRITE_ATTR1_NONAFFINE(DISPLAY_WIDTH+60, FALSE, FALSE, 0);
+                    oam++;
+                    oam->attr1 = SPRITE_ATTR1_NONAFFINE(DISPLAY_WIDTH+60, FALSE, FALSE, 0);
+                    oam++;
+                }
+                moveLocations++;
+            }
+            investigation->unk4 = 0;
+            main->process[GAME_PROCESSUNK2]++;
+            main->process[GAME_PROCESSUNK3] = 0;
+            break;
+        case 2: // _0800C464
+            oam2 = &gOamObjects[50];
+            if(main->process[GAME_PROCESSUNK3] < 12)
+            {
+                oam = &gOamObjects[38];
+                for(i = 0; i < 4; i++)
+                {
+                    for(j = 0; j < 2; j++)
+                    {
+                        oam->attr0 -= (4-i) * 2;
+                        oam++;
+                    }
+                }
+                main->process[GAME_PROCESSUNK3]++;
+            }
+            oam = oam2;
+            attr = oam->attr1 & ~0x1FF;
+            oam->attr1 -= 6;
+            oam->attr1 &= 0x1FF;
+            if(oam->attr1 > 0x100)
+                oam->attr1 = 0;
+            if(oam->attr1 == 0 && main->process[GAME_PROCESSUNK3] >= 0xC)
+            {
+                main->process[GAME_PROCESSUNK2]++;
+                main->process[GAME_PROCESSUNK3] = 0;
+            }
+            oam->attr1 |= attr;
+            break;
+        case 3: // _0800C4DC
+            if(main->blendMode)
+                break;
+            if(gJoypad.pressedKeys & START_BUTTON)
+            {
+                if(!(main->gameStateFlags & 0x10))
+                {
+                    PauseBGM();
+                    DmaCopy16(3, gOamObjects, gSaveDataBuffer.oam, sizeof(gOamObjects));
+                    DmaCopy16(3, &gMain, &gSaveDataBuffer.main, sizeof(gMain));
+                    PlaySE(49);
+                    main->gameStateFlags &= ~1;
+                    BACKUP_PROCESS_PTR(main);
+                    SET_PROCESS_PTR(10, 0, 0, 0, main);
+                    return;
+                }
+            }
+            else if(gJoypad.pressedKeys & R_BUTTON)
+            {
+                if(!(main->gameStateFlags & 0x10))
+                {
+                    PlaySE(49);
+                    main->process[GAME_PROCESSUNK2] = 6; //! tries opening court record from case 6 but fails spectacularly
+                    BACKUP_PROCESS_PTR(main);
+                    SET_PROCESS_PTR(7, 0, 0, 0, main);
+                    oam = &gOamObjects[38];
+                    for(i = 0; i < 8; oam++, i++)
+                        oam->attr1 = SPRITE_ATTR1_NONAFFINE(DISPLAY_WIDTH+60, FALSE, FALSE, 0);
+                    return;
+                }
+            }
+            if(gJoypad.pressedKeys & DPAD_UP)
+            {
+                u32 temp;
+                i = 0;
+                j = investigation->unk4-1;
+                temp = investigation->unk4;
+                do
+                {
+                    j &= 3;
+                    if(investigation->unk10[j] != FALSE)
+                    {
+                        investigation->unk4 = j;
+                        break;                    
+                    }
+                    j--;
+                }
+                while(++i < 4);
+                if(investigation->unk4 != temp)
+                    PlaySE(42);
+                break;
+            }
+            else if(gJoypad.pressedKeys & DPAD_DOWN)
+            {
+                u32 temp;
+                i = 0;
+                j = investigation->unk4+1;
+                temp = investigation->unk4;
+                do
+                {
+                    j &= 3;
+                    if(investigation->unk10[j] != FALSE)
+                    {
+                        investigation->unk4 = j;
+                        break;                    
+                    }
+                    j++;
+                }
+                while(++i < 4);
+                if(investigation->unk4 != temp)
+                    PlaySE(42);
+                break;
+            }
+            else if(gJoypad.pressedKeys & A_BUTTON)
+            {
+                u32 roomId;
+                PlaySE(43);
+                roomId = main->currentRoomId;
+                j = investigation->unk4+4;
+                main->currentRoomId = main->roomData[roomId][j];
+                FadeOutBGM(20);
+                StartHardwareBlend(2, 1, 1, 0x1F);
+                SET_PROCESS_PTR(4, 5, 0, 0, main);
+                break;
+            }
+            else if(gJoypad.pressedKeys & B_BUTTON)
+            {
+                PlaySE(44);
+                main->process[GAME_PROCESSUNK2]++;
+                main->process[GAME_PROCESSUNK3] = 0;
+                break;
+            }
+            break;
+        case 4: // _0800C690
+            oam2 = &gOamObjects[50];
+            if(main->process[GAME_PROCESSUNK3] <= 12)
+            {
+                oam = &gOamObjects[38];
+                for(i = 0; i < 4; i++)
+                {
+                    for(j = 0; j < 2; j++)
+                    {
+                        oam->attr0 += (4-i) * 2 + 4;
+                        oam++;
+                    }
+                }
+                main->process[GAME_PROCESSUNK3]++;
+            }
+            oam = oam2;
+            attr = oam->attr1 & ~0x1FF;
+            oam->attr1 += 6;
+            oam->attr1 &= 0x1FF;
+            if(oam->attr1 >= 60)
+            {
+                oam->attr1 = 60;
+                sub_800B7A8(investigation, 13);
+                investigation->unkC = 2;
+                investigation->unkD = 0xE0;
+                investigation->unkE = 0x10;
+                investigation->unkF = 0;
+                main->process[GAME_PROCESSUNK2]++;
+            }
+            oam->attr1 |= attr;
+            break;
+        case 5: // _0800C714
+            if(main->process[GAME_PROCESSUNK3] <= 12)
+            {
+                oam = &gOamObjects[38];
+                for(i = 0; i < 4; i++)
+                {
+                    for(j = 0; j < 2; j++)
+                    {
+                        oam->attr0 += (4-i) * 2 + 4;
+                        oam++;
+                    }
+                }
+                main->process[GAME_PROCESSUNK3]++;
+            }
+            if(investigation->unkE > 8)
+                investigation->unkE--;
+            if(investigation->unkC == 0 && main->process[GAME_PROCESSUNK3] > 12)
+            {
+                SET_PROCESS_PTR(4, 1, 0, 0, main);
+                investigation->unk7 += 1 << investigation->unkA;
+                investigation->unkE = 8;
+                investigation->unkF = 0;
+            }
+            break;
+        case 6: // _0800C784
+        oam = &gOamObjects[38];
+        moveLocations = &main->roomData[main->currentRoomId][4];
+        for(i = 0; i < 4; i++)
+        {
+            u8 * moveButtonTiles;
+            u8 * vram = OBJ_VRAM0 + 0x3400;
+            vram += i * 0x800;
+            if(*moveLocations != 0xFF)
+            {
+                investigation->unk10[i] = TRUE;
+                moveButtonTiles = gUnknown_081FD96C+*moveLocations*0x800; //TODO: label vs value?
+                DmaCopy16(3, moveButtonTiles, vram, 0x800);
+                for(j = 0; j < 2; j++)
+                {
+                    oam->attr0 = SPRITE_ATTR0(24, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE) + i*30;
+                    oam->attr1 = SPRITE_ATTR1_NONAFFINE(56, FALSE, FALSE, 3) + j*64;
+                    attr = 0x1A0;
+                    oam->attr2 = (attr + j*0x20 + i*0x40) | 0x9000; // priority 0, palette 9 
+                    oam++;
+                }
+            }
+            else
+            {
+                investigation->unk10[i] = FALSE;
+                oam->attr1 = SPRITE_ATTR1_NONAFFINE(DISPLAY_WIDTH+60, FALSE, FALSE, 0);
+                oam++;
+                oam->attr1 = SPRITE_ATTR1_NONAFFINE(DISPLAY_WIDTH+60, FALSE, FALSE, 0);
+                oam++;
+            }
+            moveLocations++;
+        }
+        main->process[GAME_PROCESSUNK2] = 3;
+        break;
+    }
+    oam = &gOamObjects[38];
+    for(i = 0; i < 4; i++)
+    {
+        if(investigation->unk4 == i)
+        {
+            for(j = 0; j < 2; j++)
+            {
+                oam->attr2 &= ~0xF000;
+                oam->attr2 += 0x9000;
+                oam++;
+            }
+        }
+        else
+        {
+            for(j = 0; j < 2; j++)
+            {
+                oam->attr2 &= ~0xF000;
+                oam->attr2 += 0xA000;
+                oam++;
+            }
         }
     }
 }

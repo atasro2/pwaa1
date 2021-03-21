@@ -167,6 +167,7 @@ extern void sub_8002878(struct CourtRecord *);
 extern void ResetSoundControl();
 extern void sub_800B638(struct Main *, struct TestimonyStruct *);
 extern void sub_800B51C(struct Main *, struct TestimonyStruct *, u32);
+extern u32 sub_800D5B0(struct InvestigationStruct *);
 extern void sub_800B7A8(struct InvestigationStruct *, u32);
 extern u32 GetMapMarkerIndexFromId(u32);
 //EWRAM

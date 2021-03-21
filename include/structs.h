@@ -177,7 +177,7 @@ struct InvestigationStruct // unity: tantei_work_
     /* +0x0D */ u8 unkD;
     /* +0x0E */ u8 unkE;
     /* +0x0F */ u8 unkF;
-    /* +0x10 */ u8 unk10[4]; // unity: sel_place_be?
+    /* +0x10 */ bool8 unk10[4]; // unity: sel_place_be? Which buttons for moving are active
     /* +0x14 */ u8 unk14;
     /* +0x15 */ u8 unk15;
     /* +0x16 */ u8 unk16;
