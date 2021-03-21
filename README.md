@@ -4,7 +4,9 @@ This is a disassembly of Gyakuten Saiban (Japan)
 
 It builds the following ROMs:
 * pwaa1.gba `sha1: 15C0E3389709BB275C42E99ED25212D09E49E361`
-* pwaa1_rev1.gba `sha1: D23B788C80732898C6CFE344A6811900EB060F23`
+* pwaa1_rev1.gba `sha1: D23B788C80732898C6CFE344A6811900EB060F23` [1]
+
+1. Slightly edited ROM because 8 bytes from the release version exist in rev1 and unless the game somehow reads these values it shouldn't matter
 
 ### Setting up the repository
 
