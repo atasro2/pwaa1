@@ -2062,22 +2062,35 @@ gUnknown_0835ABD8:
     
 @ ; END BACKGROUNDS
 
-    .global gUnknown_08360834
+	.global gUnknown_08360834
 gUnknown_08360834:
-    .incbin "baserom.gba", 0x00360834, 0x20
+	.incbin "graphics/bustup_phoenix.gbapal"
 
-    .global gUnknown_08360854
+
+	.global gUnknown_08360854
 gUnknown_08360854:
-    .incbin "baserom.gba", 0x00360854, 0x1CD0
+	.incbin "graphics/bustup_phoenix.bin"
 
-    .global gUnknown_08362524
+
+	.global gUnknown_08360D04
+gUnknown_08360D04:
+	.incbin "graphics/bustup_phoenix.4bpp"
+
+
+	.global gUnknown_08362524
 gUnknown_08362524:
-    .incbin "baserom.gba", 0x00362524, 0x20
+	.incbin "graphics/bustup_edgeworth.gbapal"
 
-    .global gUnknown_08362544
+
+	.global gUnknown_08362544
 gUnknown_08362544:
-    .incbin "baserom.gba", 0x00362544, 0x2250
-    
+	.incbin "graphics/bustup_edgeworth.bin"
+
+
+	.global gUnknown_083629F4
+gUnknown_083629F4:
+	.incbin "graphics/bustup_edgeworth.4bpp"
+
 @ ; BEGIN BACKGROUNDS
 
 
