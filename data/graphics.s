@@ -2080,240 +2080,240 @@ gUnknown_08362544:
     
 @ ; BEGIN BACKGROUNDS
 
-    .global gUnknown_08364794
+
+	.global gUnknown_08364794
 gUnknown_08364794:
-    .incbin "baserom.gba", 0x00364794, 0xEAC
+	.incbin "graphics/striped_images/speedlines.4bpp.striped"
 
 
-    .global gUnknown_08365640
+	.global gUnknown_08365640
 gUnknown_08365640:
-    .incbin "baserom.gba", 0x00365640, 0x3584
+	.incbin "graphics/striped_images/courtroom_background.4bpp.striped"
 
-    .global gUnknown_08368BC4
+
+	.global gUnknown_08368BC4
 gUnknown_08368BC4:
-    .incbin "baserom.gba", 0x00368BC4, 0xCCC
+	.incbin "graphics/striped_images/capcom_screen.4bpp.striped"
 
 @ ; this entry here spills over into an explicitly referenced one (the next), why though...
-    .global gUnknown_08369890
-gUnknown_08369890:
-    .incbin "baserom.gba", 0x00369890, 0x28
+@    .global gUnknown_08369890
 
 @ ; it looks like this reference skips the "table" of this striped image and directly goes to the data?
-    .global gUnknown_083698B8
-gUnknown_083698B8:
-    .incbin "baserom.gba", 0x003698B8, 0x206C
-    
-@ ;
+@    .global gUnknown_083698B8
 
-    .global gUnknown_0836B924
+	.global gUnknown_08369890
+gUnknown_08369890:
+	.incbin "graphics/striped_images/steel_samurai_night.4bpp.striped"
+
+
+	.global gUnknown_0836B924
 gUnknown_0836B924:
-    .incbin "baserom.gba", 0x0036B924, 0x7408
+	.incbin "graphics/striped_images/gourd_lake_entrance.8bpp.striped"
 
 
-    .global gUnknown_08372D2C
+	.global gUnknown_08372D2C
 gUnknown_08372D2C:
-    .incbin "baserom.gba", 0x00372D2C, 0x64E0
+	.incbin "graphics/striped_images/gourd_lake_park.8bpp.striped"
 
 
-    .global gUnknown_0837920C
+	.global gUnknown_0837920C
 gUnknown_0837920C:
-    .incbin "baserom.gba", 0x0037920C, 0x5320
+	.incbin "graphics/striped_images/gourd_lake_park_no_balloon.8bpp.striped"
 
 
-    .global gUnknown_0837E52C
+	.global gUnknown_0837E52C
 gUnknown_0837E52C:
-    .incbin "baserom.gba", 0x0037E52C, 0xB498
+	.incbin "graphics/striped_images/gourd_lake_beach.8bpp.striped"
 
-@ ; this striped image is referenced in code
 
-    .global gUnknown_083899C4
+	.global gUnknown_083899C4
 gUnknown_083899C4:
-    .incbin "baserom.gba", 0x003899C4, 0x28
+	.incbin "graphics/striped_images/case3_intro_grass.4bpp.striped"
 
-    .global gUnknown_083899EC
-gUnknown_083899EC:
-    .incbin "baserom.gba", 0x003899EC, 0x1978
-    
-@ ;
-    
-    .global gUnknown_0838B364
+
+	.global gUnknown_0838A6F4
+gUnknown_0838A6F4:
+	.incbin "graphics/striped_images/case3_intro_trees.4bpp.striped"
+
+
+	.global gUnknown_0838B364
 gUnknown_0838B364:
-    .incbin "baserom.gba", 0x0038B364, 0x200C
+	.incbin "graphics/striped_images/case3_intro_steel_samurai_posing.4bpp.striped"
 
 
-    .global gUnknown_0838D370
+	.global gUnknown_0838D370
 gUnknown_0838D370:
-    .incbin "baserom.gba", 0x0038D370, 0x4DA8
+	.incbin "graphics/striped_images/gourd_lake_boat_rental.8bpp.striped"
 
 
-    .global gUnknown_08392118
+	.global gUnknown_08392118
 gUnknown_08392118:
-    .incbin "baserom.gba", 0x00392118, 0x4D98
+	.incbin "graphics/striped_images/gourd_lake_boat_rental_house.8bpp.striped"
 
 
-    .global gUnknown_08396EB0
+	.global gUnknown_08396EB0
 gUnknown_08396EB0:
-    .incbin "baserom.gba", 0x00396EB0, 0x5E54
+	.incbin "graphics/striped_images/police_station_lobby.8bpp.striped"
 
 
-    .global gUnknown_0839CD04
+	.global gUnknown_0839CD04
 gUnknown_0839CD04:
-    .incbin "baserom.gba", 0x0039CD04, 0x6800
+	.incbin "graphics/striped_images/police_station_evidence_storage.8bpp.striped"
 
 
-    .global gUnknown_083A3504
+	.global gUnknown_083A3504
 gUnknown_083A3504:
-    .incbin "baserom.gba", 0x003A3504, 0x3430
+	.incbin "graphics/striped_images/case3_intro_faceoff.4bpp.striped"
 
 
-    .global gUnknown_083A6934
+	.global gUnknown_083A6934
 gUnknown_083A6934:
-    .incbin "baserom.gba", 0x003A6934, 0xE5C
+	.incbin "graphics/striped_images/3A6934.4bpp.striped"
 
 
-    .global gUnknown_083A7790
+	.global gUnknown_083A7790
 gUnknown_083A7790:
-    .incbin "baserom.gba", 0x003A7790, 0xEB8
+	.incbin "graphics/striped_images/3A7790.4bpp.striped"
 
 
-    .global gUnknown_083A8648
+	.global gUnknown_083A8648
 gUnknown_083A8648:
-    .incbin "baserom.gba", 0x003A8648, 0xECC
+	.incbin "graphics/striped_images/3A8648.4bpp.striped"
 
 
-    .global gUnknown_083A9514
+	.global gUnknown_083A9514
 gUnknown_083A9514:
-    .incbin "baserom.gba", 0x003A9514, 0x67B4
+	.incbin "graphics/striped_images/case4_train_station.8bpp.striped"
 
 
-    .global gUnknown_083AFCC8
+	.global gUnknown_083AFCC8
 gUnknown_083AFCC8:
-    .incbin "baserom.gba", 0x003AFCC8, 0xDCC
+	.incbin "graphics/striped_images/case4_gourd_lake_map.4bpp.striped"
 
 
-    .global gUnknown_083B0A94
+	.global gUnknown_083B0A94
 gUnknown_083B0A94:
-    .incbin "baserom.gba", 0x003B0A94, 0x2C90
+	.incbin "graphics/striped_images/case4_lottas_photo_zoomed.4bpp.striped"
 
 
-    .global gUnknown_083B3724
+	.global gUnknown_083B3724
 gUnknown_083B3724:
-    .incbin "baserom.gba", 0x003B3724, 0x3568
+	.incbin "graphics/striped_images/case4_elevator_photo.4bpp.striped"
 
 
-    .global gUnknown_083B6C8C
+	.global gUnknown_083B6C8C
 gUnknown_083B6C8C:
-    .incbin "baserom.gba", 0x003B6C8C, 0x8530
+	.incbin "graphics/striped_images/case4_newspaper.8bpp.striped"
 
 
-    .global gUnknown_083BF1BC
+	.global gUnknown_083BF1BC
 gUnknown_083BF1BC:
-    .incbin "baserom.gba", 0x003BF1BC, 0x4568
+	.incbin "graphics/striped_images/case4_balloon_launching.4bpp.striped"
 
 
-    .global gUnknown_083C3724
+	.global gUnknown_083C3724
 gUnknown_083C3724:
-    .incbin "baserom.gba", 0x003C3724, 0x3F30
+	.incbin "graphics/striped_images/case4_balloon_landing_in_lake.4bpp.striped"
 
 
-    .global gUnknown_083C7654
+	.global gUnknown_083C7654
 gUnknown_083C7654:
-    .incbin "baserom.gba", 0x003C7654, 0x3A68
+	.incbin "graphics/striped_images/case4_larry_searching_lake.4bpp.striped"
 
 
-    .global gUnknown_083CB0BC
+	.global gUnknown_083CB0BC
 gUnknown_083CB0BC:
-    .incbin "baserom.gba", 0x003CB0BC, 0x76EC
+	.incbin "graphics/striped_images/case4_class_trial.8bpp.striped"
 
 
-    .global gUnknown_083D27A8
+	.global gUnknown_083D27A8
 gUnknown_083D27A8:
-    .incbin "baserom.gba", 0x003D27A8, 0x36BC
+	.incbin "graphics/striped_images/case4_lottas_photo_far.4bpp.striped"
 
 
-    .global gUnknown_083D5E64
+	.global gUnknown_083D5E64
 gUnknown_083D5E64:
-    .incbin "baserom.gba", 0x003D5E64, 0x4C5C
+	.incbin "graphics/striped_images/case4_class_trial_phoenix.8bpp.striped"
 
 
-    .global gUnknown_083DAAC0
+	.global gUnknown_083DAAC0
 gUnknown_083DAAC0:
-    .incbin "baserom.gba", 0x003DAAC0, 0x6A54
+	.incbin "graphics/striped_images/case4_class_trial_edgeworth.8bpp.striped"
 
 
-    .global gUnknown_083E1514
+	.global gUnknown_083E1514
 gUnknown_083E1514:
-    .incbin "baserom.gba", 0x003E1514, 0x5FD4
+	.incbin "graphics/striped_images/case4_class_trial_larry.8bpp.striped"
 
 
-    .global gUnknown_083E74E8
+	.global gUnknown_083E74E8
 gUnknown_083E74E8:
-    .incbin "baserom.gba", 0x003E74E8, 0x369C
+	.incbin "graphics/striped_images/case4_yanni_threatening.4bpp.striped"
 
 
-    .global gUnknown_083EAB84
+	.global gUnknown_083EAB84
 gUnknown_083EAB84:
-    .incbin "baserom.gba", 0x003EAB84, 0x3F3C
+	.incbin "graphics/striped_images/case4_shoot_water_from_boat.4bpp.striped"
 
 
-    .global gUnknown_083EEAC0
+	.global gUnknown_083EEAC0
 gUnknown_083EEAC0:
-    .incbin "baserom.gba", 0x003EEAC0, 0x40E4
+	.incbin "graphics/striped_images/case4_elevator_suffocating.4bpp.striped"
 
 
-    .global gUnknown_083F2BA4
+	.global gUnknown_083F2BA4
 gUnknown_083F2BA4:
-    .incbin "baserom.gba", 0x003F2BA4, 0x40A4
+	.incbin "graphics/striped_images/case4_elevator_edgeworth_throw.4bpp.striped"
 
 
-    .global gUnknown_083F6C48
+	.global gUnknown_083F6C48
 gUnknown_083F6C48:
-    .incbin "baserom.gba", 0x003F6C48, 0x458C
+	.incbin "graphics/striped_images/case4_elevator_vonkarma_shot.4bpp.striped"
 
 
-    .global gUnknown_083FB1D4
+	.global gUnknown_083FB1D4
 gUnknown_083FB1D4:
-    .incbin "baserom.gba", 0x003FB1D4, 0x2700
+	.incbin "graphics/striped_images/case4_elevator_vonkarma_in_door.4bpp.striped"
 
 
-    .global gUnknown_083FD8D4
+	.global gUnknown_083FD8D4
 gUnknown_083FD8D4:
-    .incbin "baserom.gba", 0x003FD8D4, 0x5F24
+	.incbin "graphics/striped_images/case4_train_station_maya_leaving.8bpp.striped"
 
 
-    .global gUnknown_084037F8
+	.global gUnknown_084037F8
 gUnknown_084037F8:
-    .incbin "baserom.gba", 0x004037F8, 0x7444
+	.incbin "graphics/striped_images/trial_won.8bpp.striped"
 
 
-    .global gUnknown_0840AC3C
+	.global gUnknown_0840AC3C
 gUnknown_0840AC3C:
-    .incbin "baserom.gba", 0x0040AC3C, 0x278C
+	.incbin "graphics/striped_images/case4_intro_lake_one_in_boat.4bpp.striped"
 
 
-    .global gUnknown_0840D3C8
+	.global gUnknown_0840D3C8
 gUnknown_0840D3C8:
-    .incbin "baserom.gba", 0x0040D3C8, 0x24F8
+	.incbin "graphics/striped_images/case4_intro_theatened_to_shoot.4bpp.striped"
 
 
-    .global gUnknown_0840F8C0
+	.global gUnknown_0840F8C0
 gUnknown_0840F8C0:
-    .incbin "baserom.gba", 0x0040F8C0, 0xB834
+	.incbin "graphics/striped_images/case4_intro_edgeworth_picks_gun_up.8bpp.striped"
 
 
-    .global gUnknown_0841B0F4
+	.global gUnknown_0841B0F4
 gUnknown_0841B0F4:
-    .incbin "baserom.gba", 0x0041B0F4, 0xC88
+	.incbin "graphics/striped_images/capcom_screen_bw.4bpp.striped"
 
 
-    .global gUnknown_0841BD7C
+	.global gUnknown_0841BD7C
 gUnknown_0841BD7C:
-    .incbin "baserom.gba", 0x0041BD7C, 0x3248
+	.incbin "graphics/striped_images/title_screen_demo.8bpp.striped"
 
 
-    .global gUnknown_0841EFC4
+	.global gUnknown_0841EFC4
 gUnknown_0841EFC4:
-    .incbin "baserom.gba", 0x0041EFC4, 0x8644
+	.incbin "graphics/striped_images/coming_soon_screen.8bpp.striped"
 
 @ ; END
 
