@@ -1,187 +1,187 @@
-    .section .data
-    .include "asm/macros.inc"
+	.section .data
+	.include "asm/macros.inc"
 
-    .global gUnknown_08180000
+	.global gUnknown_08180000
 gUnknown_08180000:
-    .incbin "graphics/title_screen.gbapal"
+	.incbin "graphics/title_screen.gbapal"
 
-    .global gUnknown_08180200
+	.global gUnknown_08180200
 gUnknown_08180200:
-    .incbin "graphics/title_screen.8bpp.lz"
+	.incbin "graphics/title_screen.8bpp.lz"
 
-    .global gUnknown_08182D08
+	.global gUnknown_08182D08
 gUnknown_08182D08:
-    .incbin "graphics/title_screen_demo.gbapal"
+	.incbin "graphics/title_screen_demo.gbapal"
 
-    .global gUnknown_08182F08
+	.global gUnknown_08182F08
 gUnknown_08182F08:
-    .incbin "graphics/title_screen_demo.8bpp.lz"
+	.incbin "graphics/title_screen_demo.8bpp.lz"
 
-    .global gUnusedAsciiCharSet
+	.global gUnusedAsciiCharSet
 gUnusedAsciiCharSet:
-    .incbin "graphics/unused_ascii_charset.4bpp"
+	.incbin "graphics/unused_ascii_charset.4bpp"
 
-    .global gUnknown_08186520
+	.global gUnknown_08186520
 gUnknown_08186520:
-    .incbin "graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal"
+	.incbin "graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal"
 
-    .global gUnknown_08186540
+	.global gUnknown_08186540
 gUnknown_08186540:
-    .incbin "graphics/ui/message_box/unk_186540.4bpp"
+	.incbin "graphics/ui/message_box/unk_186540.4bpp"
 
-    .global gUnknown_08187540
+	.global gUnknown_08187540
 gUnknown_08187540:
-    .incbin "graphics/ui/message_box/nametags.4bpp"
+	.incbin "graphics/ui/message_box/nametags.4bpp"
 
-    .global gUnknown_0818BD40
+	.global gUnknown_0818BD40
 gUnknown_0818BD40:
-    .incbin "graphics/ui/left_arrow.4bpp"
+	.incbin "graphics/ui/left_arrow.4bpp"
 
-    .global gUnknown_0818BEC0
+	.global gUnknown_0818BEC0
 gUnknown_0818BEC0:
-    .incbin "graphics/ui/right_arrow.4bpp"
+	.incbin "graphics/ui/right_arrow.4bpp"
 
-    .global gUnknown_0818C040
+	.global gUnknown_0818C040
 gUnknown_0818C040:
-    .incbin "graphics/ui/trial/exclamation_point.4bpp"
+	.incbin "graphics/ui/trial/exclamation_point.4bpp"
 	.incbin "graphics/ui/trial/unused_testimony_characters.4bpp"
 
-    .global gUnknown_0818E4C0
+	.global gUnknown_0818E4C0
 gUnknown_0818E4C0:
-    .incbin "graphics/ui/investigation/action_buttons.4bpp"
+	.incbin "graphics/ui/investigation/action_buttons.4bpp"
 
-    .global gUnknown_0818F4C0
+	.global gUnknown_0818F4C0
 gUnknown_0818F4C0:
-    .incbin "graphics/ui/controller_buttons.4bpp"
+	.incbin "graphics/ui/controller_buttons.4bpp"
 
-    .global gUnknown_0818F6C0
+	.global gUnknown_0818F6C0
 gUnknown_0818F6C0:
-    .incbin "graphics/ui/investigation/scroll_prompt.4bpp"
+	.incbin "graphics/ui/investigation/scroll_prompt.4bpp"
 
-    .global gUnknown_0818F8C0
+	.global gUnknown_0818F8C0
 gUnknown_0818F8C0:
-    .incbin "graphics/ui/trial/testimony_text_tiles.4bpp"
+	.incbin "graphics/ui/trial/testimony_text_tiles.4bpp"
 
-    .global gUnknown_081900C0
+	.global gUnknown_081900C0
 gUnknown_081900C0:
-    .incbin "baserom.gba", 0x001900C0, 0x400
+	.incbin "baserom.gba", 0x001900C0, 0x400
 
-    .global gUnknown_081904C0
+	.global gUnknown_081904C0
 gUnknown_081904C0:
-    .incbin "baserom.gba", 0x001904C0, 0x200
+	.incbin "baserom.gba", 0x001904C0, 0x200
 
-    .global gUnknown_081906C0
+	.global gUnknown_081906C0
 gUnknown_081906C0:
-    .incbin "baserom.gba", 0x001906C0, 0x200
+	.incbin "baserom.gba", 0x001906C0, 0x200
 
-    .global gUnknown_081908C0
+	.global gUnknown_081908C0
 gUnknown_081908C0:
-    .incbin "baserom.gba", 0x001908C0, 0x200
+	.incbin "baserom.gba", 0x001908C0, 0x200
 
-    .global gUnknown_08190AC0
+	.global gUnknown_08190AC0
 gUnknown_08190AC0:
-    .incbin "baserom.gba", 0x00190AC0, 0x500
+	.incbin "baserom.gba", 0x00190AC0, 0x500
 
-    .global gUnknown_08190FC0
+	.global gUnknown_08190FC0
 gUnknown_08190FC0:
-    .incbin "baserom.gba", 0x00190FC0, 0x200
+	.incbin "baserom.gba", 0x00190FC0, 0x200
 
-    .global gUnknown_081911C0
+	.global gUnknown_081911C0
 gUnknown_081911C0:
-    .incbin "baserom.gba", 0x001911C0, 0x2E0
+	.incbin "baserom.gba", 0x001911C0, 0x2E0
 
-    .global gUnknown_081914A0
+	.global gUnknown_081914A0
 gUnknown_081914A0:
-    .incbin "baserom.gba", 0x001914A0, 0x800
+	.incbin "baserom.gba", 0x001914A0, 0x800
 
-    .global gUnknown_08191CA0
+	.global gUnknown_08191CA0
 gUnknown_08191CA0:
-    .incbin "baserom.gba", 0x00191CA0, 0x800
+	.incbin "baserom.gba", 0x00191CA0, 0x800
 
-    .global gUnknown_081924A0
+	.global gUnknown_081924A0
 gUnknown_081924A0:
-    .incbin "baserom.gba", 0x001924A0, 0x800
+	.incbin "baserom.gba", 0x001924A0, 0x800
 
-    .global gUnknown_08192CA0
+	.global gUnknown_08192CA0
 gUnknown_08192CA0:
-    .incbin "baserom.gba", 0x00192CA0, 0x1000
+	.incbin "baserom.gba", 0x00192CA0, 0x1000
 
-    .global gUnknown_08193CA0
+	.global gUnknown_08193CA0
 gUnknown_08193CA0:
-    .incbin "baserom.gba", 0x00193CA0, 0x400
+	.incbin "baserom.gba", 0x00193CA0, 0x400
 
-    .global gUnknown_081940A0
+	.global gUnknown_081940A0
 gUnknown_081940A0:
-    .incbin "baserom.gba", 0x001940A0, 0x40
+	.incbin "baserom.gba", 0x001940A0, 0x40
 
-    .global gUnknown_081940E0
+	.global gUnknown_081940E0
 gUnknown_081940E0:
-    .incbin "baserom.gba", 0x001940E0, 0x120
+	.incbin "baserom.gba", 0x001940E0, 0x120
 
-    .global gUnknown_08194200
+	.global gUnknown_08194200
 gUnknown_08194200:
-    .incbin "graphics/unk_194200_0.gbapal"
-    .incbin "graphics/unk_194200_1.gbapal"
+	.incbin "graphics/unk_194200_0.gbapal"
+	.incbin "graphics/unk_194200_1.gbapal"
 
-    .global gUnknown_08194240
+	.global gUnknown_08194240
 gUnknown_08194240:
-    .incbin "baserom.gba", 0x00194240, 0x20
+	.incbin "baserom.gba", 0x00194240, 0x20
 
-    .global gUnknown_08194260
+	.global gUnknown_08194260
 gUnknown_08194260:
-    .incbin "baserom.gba", 0x00194260, 0x20
+	.incbin "baserom.gba", 0x00194260, 0x20
 
-    .global gUnknown_08194280
+	.global gUnknown_08194280
 gUnknown_08194280:
-    .incbin "baserom.gba", 0x00194280, 0x20
+	.incbin "baserom.gba", 0x00194280, 0x20
 
-    .global gUnknown_081942A0
+	.global gUnknown_081942A0
 gUnknown_081942A0:
-    .incbin "baserom.gba", 0x001942A0, 0x20
+	.incbin "baserom.gba", 0x001942A0, 0x20
 
-    .global gUnknown_081942C0
+	.global gUnknown_081942C0
 gUnknown_081942C0:
-    .incbin "baserom.gba", 0x001942C0, 0x220
+	.incbin "baserom.gba", 0x001942C0, 0x220
 
-    .global gUnknown_081944E0
+	.global gUnknown_081944E0
 gUnknown_081944E0:
-    .incbin "baserom.gba", 0x001944E0, 0x20
+	.incbin "baserom.gba", 0x001944E0, 0x20
 
-    .global gUnknown_08194500
+	.global gUnknown_08194500
 gUnknown_08194500:
-    .incbin "baserom.gba", 0x00194500, 0x20
+	.incbin "baserom.gba", 0x00194500, 0x20
 
-    .global gUnknown_08194520
+	.global gUnknown_08194520
 gUnknown_08194520:
-    .incbin "baserom.gba", 0x00194520, 0x20
+	.incbin "baserom.gba", 0x00194520, 0x20
 
-    .global gUnknown_08194540
+	.global gUnknown_08194540
 gUnknown_08194540:
-    .incbin "baserom.gba", 0x00194540, 0x20
+	.incbin "baserom.gba", 0x00194540, 0x20
 
-    .global gUnknown_08194560
+	.global gUnknown_08194560
 gUnknown_08194560:
-    .incbin "baserom.gba", 0x00194560, 0x20
+	.incbin "baserom.gba", 0x00194560, 0x20
 
-    .global gUnknown_08194580
+	.global gUnknown_08194580
 gUnknown_08194580:
-    .incbin "baserom.gba", 0x00194580, 0xC0
+	.incbin "baserom.gba", 0x00194580, 0xC0
 
-    .global gUnknown_08194640
+	.global gUnknown_08194640
 gUnknown_08194640:
-    .incbin "baserom.gba", 0x00194640, 0x80
+	.incbin "baserom.gba", 0x00194640, 0x80
 
-    .global gUnknown_081946C0
+	.global gUnknown_081946C0
 gUnknown_081946C0:
-    .incbin "baserom.gba", 0x001946C0, 0xDE8
+	.incbin "baserom.gba", 0x001946C0, 0xDE8
 
-    .global gUnknown_081954A8
+	.global gUnknown_081954A8
 gUnknown_081954A8:
-    .incbin "baserom.gba", 0x001954A8, 0x1000
+	.incbin "baserom.gba", 0x001954A8, 0x1000
 
-    .global gUnknown_081964A8
+	.global gUnknown_081964A8
 gUnknown_081964A8:
-    .incbin "baserom.gba", 0x001964A8, 0x800
+	.incbin "baserom.gba", 0x001964A8, 0x800
 
 @ BEGIN PROFILE AND EVIDENCE DESCRIPTIONS
 
@@ -1135,24 +1135,24 @@ gUnknown_081D28EC_gfx:
 
 @ END EVIDENCE AND PROFILE PICTURES
 
-    .global gTextPal
+	.global gTextPal
 gTextPal:
-    .incbin "graphics/charset.gbapal"
+	.incbin "graphics/charset.gbapal"
 
-    .global gCharSet
+	.global gCharSet
 gCharSet:  @ Charset
-    .incbin "graphics/charset.4bpp"
+	.incbin "graphics/charset.4bpp"
 
 @ BEGIN TALK AND LOCATION CHOICES
 
-    .global gUnknown_081FD92C
+	.global gUnknown_081FD92C
 gUnknown_081FD92C:
-    .incbin "graphics/talk_location_choices/choicescolor.gbapal"
+	.incbin "graphics/talk_location_choices/choice_selected.gbapal"
 
-    .global gUnknown_081FD94C
+	.global gUnknown_081FD94C
 gUnknown_081FD94C:
-    .incbin "graphics/talk_location_choices/choicesbw.gbapal"
-    
+	.incbin "graphics/talk_location_choices/choice_greyed_out.gbapal"
+	
 @ first block of stuffs
 
 	.global gUnknown_081FD96C
@@ -1743,11 +1743,11 @@ gUnknown_0824616C:
 
 @ END TALK AND LOCATION CHOICES
 
-    .global gUnknown_0824696C
+	.global gUnknown_0824696C
 gUnknown_0824696C:
-    .incbin "baserom.gba", 0x0024696C, 0x20
+	.incbin "baserom.gba", 0x0024696C, 0x20
 
-    	.global gUnknown_0824698C
+		.global gUnknown_0824698C
 gUnknown_0824698C:
 	.incbin "baserom.gba", 0x0024698C, 0x80
 
@@ -1805,261 +1805,261 @@ gUnknown_08248C0C:
 
 @ ; BEGIN BACKGROUNDS
 
-    .global gUnknown_08248C4C
+	.global gUnknown_08248C4C
 gUnknown_08248C4C:
-    .incbin "graphics/striped_images/backgrounds/wright_co_law_offices/fey_co_murder_night.8bpp.striped"
+	.incbin "graphics/striped_images/backgrounds/wright_co_law_offices/fey_co_murder_night.8bpp.striped"
 
-    .global gUnknown_0825280C
+	.global gUnknown_0825280C
 gUnknown_0825280C:
 	.incbin "graphics/striped_images/backgrounds/wright_co_law_offices/office_day.8bpp.striped"
 
-    .global gUnknown_08257F28
+	.global gUnknown_08257F28
 gUnknown_08257F28:
 	.incbin "graphics/striped_images/backgrounds/court/defendant_lobby.8bpp.striped"
 
-    .global gUnknown_0825CCCC
+	.global gUnknown_0825CCCC
 gUnknown_0825CCCC:
 	.incbin "graphics/striped_images/backgrounds/court/defense_bench.4bpp.striped"
 
-    .global gUnknown_0825EF64
+	.global gUnknown_0825EF64
 gUnknown_0825EF64:
 	.incbin "graphics/striped_images/backgrounds/court/prosecution_bench.4bpp.striped"
 
-    .global gUnknown_082610F0
+	.global gUnknown_082610F0
 gUnknown_082610F0:
 	.incbin "graphics/striped_images/backgrounds/court/witness_stand.4bpp.striped"
 
-    .global gUnknown_08263898
+	.global gUnknown_08263898
 gUnknown_08263898:
 	.incbin "graphics/striped_images/backgrounds/court/court_room.8bpp.striped"
 
-    .global gUnknown_0826B6DC
+	.global gUnknown_0826B6DC
 gUnknown_0826B6DC:
 	.incbin "graphics/striped_images/backgrounds/court/co_counsel.8bpp.striped"
 
-    .global gUnknown_08271DE8
+	.global gUnknown_08271DE8
 gUnknown_08271DE8:
 	.incbin "graphics/striped_images/backgrounds/court/judge_seat.8bpp.striped"
 
-    .global gUnknown_08278824
+	.global gUnknown_08278824
 gUnknown_08278824:
 	.incbin "graphics/striped_images/backgrounds/wright_co_law_offices/office_entry_night.8bpp.striped"
 
-    .global gUnknown_0827CEEC
+	.global gUnknown_0827CEEC
 gUnknown_0827CEEC:
 	.incbin "graphics/striped_images/backgrounds/cutscenes/case2/maya_seeing_dead_mia.8bpp.striped"
 
-    .global gUnknown_08282870
+	.global gUnknown_08282870
 gUnknown_08282870:
 	.incbin "graphics/striped_images/backgrounds/global_studios/studio_path.8bpp.striped"
 
-    .global gUnknown_08288AE0
+	.global gUnknown_08288AE0
 gUnknown_08288AE0:
 	.incbin "graphics/striped_images/backgrounds/global_studios/staff_area.8bpp.striped"
 
-    .global gUnknown_08291ADC
+	.global gUnknown_08291ADC
 gUnknown_08291ADC:
 	.incbin "graphics/striped_images/backgrounds/witness_account/mia_dodging_right.4bpp.striped"
 
-    .global gUnknown_08293DC0
+	.global gUnknown_08293DC0
 gUnknown_08293DC0:
 	.incbin "graphics/striped_images/backgrounds/witness_account/mia_dodging_left.4bpp.striped"
 
-    .global gUnknown_08296138
+	.global gUnknown_08296138
 gUnknown_08296138:
 	.incbin "graphics/striped_images/backgrounds/evidence/fey_co_diagram.4bpp.striped"
 
-    .global gUnknown_08296E28
+	.global gUnknown_08296E28
 gUnknown_08296E28:
 	.incbin "graphics/striped_images/backgrounds/witness_account/april_getting_room_service.4bpp.striped"
 
-    .global gUnknown_0829A23C
+	.global gUnknown_0829A23C
 gUnknown_0829A23C:
 	.incbin "graphics/striped_images/backgrounds/wright_co_law_offices/mia_dead_on_ground.8bpp.striped"
 
-    .global gUnknown_0829E7A4
+	.global gUnknown_0829E7A4
 gUnknown_0829E7A4:
 	.incbin "graphics/striped_images/backgrounds/cutscenes/case2/phoenix_maya_mia.8bpp.striped"
 
-    .global gUnknown_082A3BA8
+	.global gUnknown_082A3BA8
 gUnknown_082A3BA8:
 	.incbin "graphics/striped_images/backgrounds/global_studios/studio_2_trailer.8bpp.striped"
 
-    .global gUnknown_082A8E3C
+	.global gUnknown_082A8E3C
 gUnknown_082A8E3C:
 	.incbin "graphics/striped_images/backgrounds/cutscenes/case2/april_calling_police.8bpp.striped"
 
-    .global gUnknown_082AE378
+	.global gUnknown_082AE378
 gUnknown_082AE378:
 	.incbin "graphics/striped_images/backgrounds/cutscenes/case2/redd_hitting_mia.8bpp.striped"
 
-    .global gUnknown_082B6B78
+	.global gUnknown_082B6B78
 gUnknown_082B6B78:
 	.incbin "graphics/striped_images/backgrounds/cutscenes/case2/mia_being_attacked.8bpp.striped"
 
-    .global gUnknown_082BDC88
+	.global gUnknown_082BDC88
 gUnknown_082BDC88:
 	.incbin "graphics/striped_images/backgrounds/cutscenes/case2/redd_holding_thinker.4bpp.striped"
 
-    .global gUnknown_082BFC24
+	.global gUnknown_082BFC24
 gUnknown_082BFC24:
 	.incbin "graphics/striped_images/backgrounds/global_studios/will_power_dressing_room.8bpp.striped"
 
-    .global gUnknown_082C5020
+	.global gUnknown_082C5020
 gUnknown_082C5020:
 	.incbin "graphics/striped_images/backgrounds/global_studios/front_gate.8bpp.striped"
 
-    .global gUnknown_082C9600
+	.global gUnknown_082C9600
 gUnknown_082C9600:
 	.incbin "graphics/striped_images/backgrounds/global_studios/studio_1.8bpp.striped"
 
-    .global gUnknown_082CE308
+	.global gUnknown_082CE308
 gUnknown_082CE308:
 	.incbin "graphics/striped_images/backgrounds/gavel/2.8bpp.striped"
 
-    .global gUnknown_082D1A90
+	.global gUnknown_082D1A90
 gUnknown_082D1A90:
 	.incbin "graphics/striped_images/backgrounds/gavel/3.8bpp.striped"
 
-    .global gUnknown_082D79EC
+	.global gUnknown_082D79EC
 gUnknown_082D79EC:
 	.incbin "graphics/striped_images/backgrounds/evidence/fey_co_diagram_light.4bpp.striped"
 
-    .global gUnknown_082D8974
+	.global gUnknown_082D8974
 gUnknown_082D8974:
 	.incbin "graphics/striped_images/backgrounds/detention_center.8bpp.striped"
 
-    .global gUnknown_082DC188
+	.global gUnknown_082DC188
 gUnknown_082DC188:
 	.incbin "graphics/striped_images/backgrounds/bluecorp_ceo_office.8bpp.striped"
 
-    .global gUnknown_082E1FA4
+	.global gUnknown_082E1FA4
 gUnknown_082E1FA4:
 	.incbin "graphics/striped_images/backgrounds/gatewater_hotelroom.8bpp.striped"
 
-    .global gUnknown_082E6BBC
+	.global gUnknown_082E6BBC
 gUnknown_082E6BBC:
 	.incbin "graphics/striped_images/backgrounds/cutscenes/case1/frank_holding_thinker.8bpp.striped"
 
-    .global gUnknown_082EB2B8
+	.global gUnknown_082EB2B8
 gUnknown_082EB2B8:
 	.incbin "graphics/striped_images/backgrounds/cutscenes/case1/cindy_dead_on_floor.8bpp.striped"
 
-    .global gUnknown_082EF904
+	.global gUnknown_082EF904
 gUnknown_082EF904:
 	.incbin "graphics/striped_images/backgrounds/cutscenes/case1/cindy_and_frank.8bpp.striped"
 
-    .global gUnknown_082F7D4C
+	.global gUnknown_082F7D4C
 gUnknown_082F7D4C:
 	.incbin "graphics/striped_images/backgrounds/cutscenes/case1/frank_closeup_1.8bpp.striped"
 
-    .global gUnknown_082FAF44
+	.global gUnknown_082FAF44
 gUnknown_082FAF44:
 	.incbin "graphics/striped_images/backgrounds/cutscenes/case1/frank_closeup_2.8bpp.striped"
 
-    .global gUnknown_082FE610
+	.global gUnknown_082FE610
 gUnknown_082FE610:
 	.incbin "graphics/striped_images/backgrounds/cutscenes/case1/frank_closeup_3.8bpp.striped"
 
-    .global gUnknown_083022F0
+	.global gUnknown_083022F0
 gUnknown_083022F0:
 	.incbin "graphics/striped_images/backgrounds/grossberg_law_offices/grossberg_law_offices_painting.8bpp.striped"
 
-    .global gUnknown_083081E4
+	.global gUnknown_083081E4
 gUnknown_083081E4:
 	.incbin "graphics/striped_images/backgrounds/grossberg_law_offices/grossberg_law_offices_no_painting.8bpp.striped"
 
-    .global gUnknown_0830D2D8
+	.global gUnknown_0830D2D8
 gUnknown_0830D2D8:
 	.incbin "graphics/striped_images/backgrounds/witness_account/cindy_finding_frank.4bpp.striped"
 
-    .global gUnknown_0831002C
+	.global gUnknown_0831002C
 gUnknown_0831002C:
 	.incbin "graphics/striped_images/backgrounds/witness_account/frank_witnessing_larry.4bpp.striped"
 
-    .global gUnknown_08312664
+	.global gUnknown_08312664
 gUnknown_08312664:
 	.incbin "graphics/striped_images/backgrounds/witness_account/frank_finding_cindy.4bpp.striped"
 
-    .global gUnknown_08314F8C
+	.global gUnknown_08314F8C
 gUnknown_08314F8C:
 	.incbin "graphics/striped_images/backgrounds/global_studios/studio_2.8bpp.striped"
 
-    .global gUnknown_0831E8E0
+	.global gUnknown_0831E8E0
 gUnknown_0831E8E0:
 	.incbin "graphics/striped_images/backgrounds/evidence/maya_phone_call_page_1.4bpp.striped"
-    .global gUnknown_0831F624
+	.global gUnknown_0831F624
 gUnknown_0831F624:
 	.incbin "graphics/striped_images/backgrounds/evidence/maya_phone_call_page_2.4bpp.striped"
 
-    .global gUnknown_08320328
+	.global gUnknown_08320328
 gUnknown_08320328:
 	.incbin "graphics/striped_images/backgrounds/gavel/1.8bpp.striped"
 
-    .global gUnknown_083230C0
+	.global gUnknown_083230C0
 gUnknown_083230C0:
 	.incbin "graphics/striped_images/backgrounds/evidence/maya_phone_call_page_3.4bpp.striped"
 
-    .global gUnknown_08323EDC
+	.global gUnknown_08323EDC
 gUnknown_08323EDC:
 	.incbin "graphics/striped_images/backgrounds/witness_account/jack_at_gate_photo.4bpp.striped"
 
-    .global gUnknown_08327074
+	.global gUnknown_08327074
 gUnknown_08327074:
 	.incbin "graphics/striped_images/backgrounds/witness_account/jack_dead_at_studio_1.4bpp.striped"
 
-    .global gUnknown_0832AFB8
+	.global gUnknown_0832AFB8
 gUnknown_0832AFB8:
 	.incbin "graphics/striped_images/backgrounds/witness_account/jack_wearing_samurai_suit.4bpp.striped"
 
-    .global gUnknown_0832E7B0
+	.global gUnknown_0832E7B0
 gUnknown_0832E7B0:
 	.incbin "graphics/striped_images/backgrounds/witness_account/vasquez_pushing_jack_aftermath.4bpp.striped"
 
-    .global gUnknown_08331B38
+	.global gUnknown_08331B38
 gUnknown_08331B38:
 	.incbin "graphics/striped_images/backgrounds/witness_account/staff_eating_lunch.4bpp.striped"
 
-    .global gUnknown_08335A58
+	.global gUnknown_08335A58
 gUnknown_08335A58:
 	.incbin "graphics/striped_images/backgrounds/witness_account/studio_2_jack_and_vasquez.4bpp.striped"
 
-    .global gUnknown_08339144
+	.global gUnknown_08339144
 gUnknown_08339144:
 	.incbin "graphics/striped_images/backgrounds/witness_account/cody_witnessing_samurai.4bpp.striped"
 
-    .global gUnknown_0833DC0C
+	.global gUnknown_0833DC0C
 gUnknown_0833DC0C:
 	.incbin "graphics/striped_images/backgrounds/witness_account/samurai_at_studio_2_photo.4bpp.striped"
 
-    .global gUnknown_0833F720
+	.global gUnknown_0833F720
 gUnknown_0833F720:
 	.incbin "graphics/striped_images/backgrounds/witness_account/5_year_old_photo.4bpp.striped"
 
-    .global gUnknown_08342908
+	.global gUnknown_08342908
 gUnknown_08342908:
 	.incbin "graphics/striped_images/backgrounds/global_studios/studio_2_trailer_mafia.8bpp.striped"
 
-    .global gUnknown_0834863C
+	.global gUnknown_0834863C
 gUnknown_0834863C:
 	.incbin "graphics/striped_images/backgrounds/cutscenes/case3/pink_princess.8bpp.striped"
 
-    .global gUnknown_0834F218
+	.global gUnknown_0834F218
 gUnknown_0834F218:
 	.incbin "graphics/striped_images/backgrounds/global_studios/monkey_on_studio_2_path.8bpp.striped"
 
-    .global gUnknown_0835699C
+	.global gUnknown_0835699C
 gUnknown_0835699C:
 	.incbin "graphics/striped_images/backgrounds/evidence/global_studio_diagram.4bpp.striped"
 
-    .global gUnknown_08357870
+	.global gUnknown_08357870
 gUnknown_08357870:
 	.incbin "graphics/striped_images/backgrounds/witness_account/will_power_injury.4bpp.striped"
 
-    .global gUnknown_0835ABD8
+	.global gUnknown_0835ABD8
 gUnknown_0835ABD8:
-    .incbin "graphics/striped_images/backgrounds/cutscenes/case3/steel_samurai.8bpp.striped"
-    
+	.incbin "graphics/striped_images/backgrounds/cutscenes/case3/steel_samurai.8bpp.striped"
+	
 @ ; END BACKGROUNDS
 
 	.global gUnknown_08360834
@@ -2109,10 +2109,10 @@ gUnknown_08368BC4:
 	.incbin "graphics/striped_images/capcom_screen.4bpp.striped"
 
 @ ; this entry here spills over into an explicitly referenced one (the next), why though...
-@    .global gUnknown_08369890
+@	.global gUnknown_08369890
 
 @ ; it looks like this reference skips the "table" of this striped image and directly goes to the data?
-@    .global gUnknown_083698B8
+@	.global gUnknown_083698B8
 
 	.global gUnknown_08369890
 gUnknown_08369890:
@@ -2330,10 +2330,10 @@ gUnknown_0841EFC4:
 
 @ ; END
 
-    .global gUnknown_08427608
+	.global gUnknown_08427608
 gUnknown_08427608:
-    .incbin "baserom.gba", 0x00427608, 0x780
-    
+	.incbin "baserom.gba", 0x00427608, 0x780
+	
 @ BEGIN COURT SCROLLS
 
 @ scroll left to center
@@ -2821,45 +2821,45 @@ gUnknown_08504888:
 
 @ END COURT SCROLLS
 
-    .global gUnknown_08509388 @ character animations and shit
+	.global gUnknown_08509388 @ character animations and shit
 gUnknown_08509388:
-    .incbin "baserom.gba", 0x00509388, 0x297FC
-    
-    .global gUnknown_08532B84
+	.incbin "baserom.gba", 0x00509388, 0x297FC
+	
+	.global gUnknown_08532B84
 gUnknown_08532B84:
-    .incbin "baserom.gba", 0x00532B84, 0x3B9C
+	.incbin "baserom.gba", 0x00532B84, 0x3B9C
 
-    .global gUnknown_08536720
+	.global gUnknown_08536720
 gUnknown_08536720:
-    .incbin "baserom.gba", 0x00536720, 0x1F7D4
-    
-    .global gUnknown_08555EF4
+	.incbin "baserom.gba", 0x00536720, 0x1F7D4
+	
+	.global gUnknown_08555EF4
 gUnknown_08555EF4:
-    .incbin "baserom.gba", 0x00555EF4, 0x7DF0
+	.incbin "baserom.gba", 0x00555EF4, 0x7DF0
 
-    .global gUnknown_0855DCE4
+	.global gUnknown_0855DCE4
 gUnknown_0855DCE4:
-    .incbin "baserom.gba", 0x0055DCE4, 0xC0A8
+	.incbin "baserom.gba", 0x0055DCE4, 0xC0A8
 
-    .global gUnknown_08569D8C
+	.global gUnknown_08569D8C
 gUnknown_08569D8C:
-    .incbin "baserom.gba", 0x00569D8C, 0x26AC
+	.incbin "baserom.gba", 0x00569D8C, 0x26AC
 
-    .global gUnknown_0856C438
+	.global gUnknown_0856C438
 gUnknown_0856C438:
-    .incbin "baserom.gba", 0x0056C438, 0x9A88
+	.incbin "baserom.gba", 0x0056C438, 0x9A88
 
-    .global gUnknown_08575EC0
+	.global gUnknown_08575EC0
 gUnknown_08575EC0:
-    .incbin "baserom.gba", 0x00575EC0, 0x1C1C
+	.incbin "baserom.gba", 0x00575EC0, 0x1C1C
 
-    .global gUnknown_08577ADC
+	.global gUnknown_08577ADC
 gUnknown_08577ADC:
-    .incbin "baserom.gba", 0x00577ADC, 0x4F24
+	.incbin "baserom.gba", 0x00577ADC, 0x4F24
 
-    .global gUnknown_0857CA00
+	.global gUnknown_0857CA00
 gUnknown_0857CA00:
-    .incbin "baserom.gba", 0x0057CA00, 0xD94
+	.incbin "baserom.gba", 0x0057CA00, 0xD94
 
 	.global gUnknown_0857D794
 gUnknown_0857D794:
@@ -3027,13 +3027,13 @@ gUnknown_0871CF30:
 
 	.global gUnknown_0871E9F4
 gUnknown_0871E9F4:
-    .incbin "baserom.gba", 0x0071E9F4, 0x1C8
+	.incbin "baserom.gba", 0x0071E9F4, 0x1C8
 
 @ end dump
 
-    .global gUnknown_0871EBBC
+	.global gUnknown_0871EBBC
 gUnknown_0871EBBC:
-    .incbin "baserom.gba", 0x0071EBBC, 0x1138
+	.incbin "baserom.gba", 0x0071EBBC, 0x1138
 
 	.global gUnknown_0871FCF4
 gUnknown_0871FCF4:
@@ -3059,10 +3059,10 @@ gUnknown_0871FDAC:
 gUnknown_0871FDD0:
 	.incbin "baserom.gba", 0x0071FDD0, 0x28
 
-    .global gUnknown_0871FDF8
+	.global gUnknown_0871FDF8
 gUnknown_0871FDF8:
-    .incbin "baserom.gba", 0x0071FDF8, 0x28420
-    
+	.incbin "baserom.gba", 0x0071FDF8, 0x28420
+	
 	.global gUnknown_08748218
 gUnknown_08748218:
 	.incbin "baserom.gba", 0x00748218, 0x128
@@ -3253,4 +3253,4 @@ gUnknown_087493D4:
 
 	.global gUnknown_08749404
 gUnknown_08749404:
-    .incbin "baserom.gba", 0x00749404, 0x24
+	.incbin "baserom.gba", 0x00749404, 0x24
