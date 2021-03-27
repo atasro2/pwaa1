@@ -2320,18 +2320,493 @@ gUnknown_0841EFC4:
     .global gUnknown_08427608
 gUnknown_08427608:
     .incbin "baserom.gba", 0x00427608, 0x780
-
-    .global gUnknown_08427D88
-gUnknown_08427D88:
-    .incbin "baserom.gba", 0x00427D88, 0x4B200
-
-    .global gUnknown_08472F88
-gUnknown_08472F88:
-    .incbin "baserom.gba", 0x00472F88, 0x4B200
     
-    .global gUnknown_084BE188
+@ BEGIN COURT SCROLLS
+
+@ scroll left to center
+
+	.global gUnknown_08427D88
+gUnknown_08427D88:
+	.incbin "graphics/court_scrolls/court_scroll01.gbapal"
+
+
+	.global gUnknown_08427DA8
+gUnknown_08427DA8:
+	.incbin "graphics/court_scrolls/court_scroll01.4bpp"
+
+
+	.global gUnknown_0842C8A8
+gUnknown_0842C8A8:
+	.incbin "graphics/court_scrolls/court_scroll02.gbapal"
+
+
+	.global gUnknown_0842C8C8
+gUnknown_0842C8C8:
+	.incbin "graphics/court_scrolls/court_scroll02.4bpp"
+
+
+	.global gUnknown_084313C8
+gUnknown_084313C8:
+	.incbin "graphics/court_scrolls/court_scroll03.gbapal"
+
+
+	.global gUnknown_084313E8
+gUnknown_084313E8:
+	.incbin "graphics/court_scrolls/court_scroll03.4bpp"
+
+
+	.global gUnknown_08435EE8
+gUnknown_08435EE8:
+	.incbin "graphics/court_scrolls/court_scroll04.gbapal"
+
+
+	.global gUnknown_08435F08
+gUnknown_08435F08:
+	.incbin "graphics/court_scrolls/court_scroll04.4bpp"
+
+
+	.global gUnknown_0843AA08
+gUnknown_0843AA08:
+	.incbin "graphics/court_scrolls/court_scroll05.gbapal"
+
+
+	.global gUnknown_0843AA28
+gUnknown_0843AA28:
+	.incbin "graphics/court_scrolls/court_scroll05.4bpp"
+
+
+	.global gUnknown_0843F528
+gUnknown_0843F528:
+	.incbin "graphics/court_scrolls/court_scroll06.gbapal"
+
+
+	.global gUnknown_0843F548
+gUnknown_0843F548:
+	.incbin "graphics/court_scrolls/court_scroll06.4bpp"
+
+
+	.global gUnknown_08444048
+gUnknown_08444048:
+	.incbin "graphics/court_scrolls/court_scroll07.gbapal"
+
+
+	.global gUnknown_08444068
+gUnknown_08444068:
+	.incbin "graphics/court_scrolls/court_scroll07.4bpp"
+
+
+	.global gUnknown_08448B68
+gUnknown_08448B68:
+	.incbin "graphics/court_scrolls/court_scroll08.gbapal"
+
+
+	.global gUnknown_08448B88
+gUnknown_08448B88:
+	.incbin "graphics/court_scrolls/court_scroll08.4bpp"
+
+
+	.global gUnknown_0844D688
+gUnknown_0844D688:
+	.incbin "graphics/court_scrolls/court_scroll09.gbapal"
+
+
+	.global gUnknown_0844D6A8
+gUnknown_0844D6A8:
+	.incbin "graphics/court_scrolls/court_scroll09.4bpp"
+
+
+	.global gUnknown_084521A8
+gUnknown_084521A8:
+	.incbin "graphics/court_scrolls/court_scroll10.gbapal"
+
+
+	.global gUnknown_084521C8
+gUnknown_084521C8:
+	.incbin "graphics/court_scrolls/court_scroll10.4bpp"
+
+
+	.global gUnknown_08456CC8
+gUnknown_08456CC8:
+	.incbin "graphics/court_scrolls/court_scroll11.gbapal"
+
+
+	.global gUnknown_08456CE8
+gUnknown_08456CE8:
+	.incbin "graphics/court_scrolls/court_scroll11.4bpp"
+
+
+	.global gUnknown_0845B7E8
+gUnknown_0845B7E8:
+	.incbin "graphics/court_scrolls/court_scroll12.gbapal"
+
+
+	.global gUnknown_0845B808
+gUnknown_0845B808:
+	.incbin "graphics/court_scrolls/court_scroll12.4bpp"
+
+
+	.global gUnknown_08460308
+gUnknown_08460308:
+	.incbin "graphics/court_scrolls/court_scroll13.gbapal"
+
+
+	.global gUnknown_08460328
+gUnknown_08460328:
+	.incbin "graphics/court_scrolls/court_scroll13.4bpp"
+
+
+	.global gUnknown_08464E28
+gUnknown_08464E28:
+	.incbin "graphics/court_scrolls/court_scroll14.gbapal"
+
+
+	.global gUnknown_08464E48
+gUnknown_08464E48:
+	.incbin "graphics/court_scrolls/court_scroll14.4bpp"
+
+
+	.global gUnknown_08469948
+gUnknown_08469948:
+	.incbin "graphics/court_scrolls/court_scroll15.gbapal"
+
+
+	.global gUnknown_08469968
+gUnknown_08469968:
+	.incbin "graphics/court_scrolls/court_scroll15.4bpp"
+
+
+	.global gUnknown_0846E468
+gUnknown_0846E468:
+	.incbin "graphics/court_scrolls/court_scroll16.gbapal"
+
+
+	.global gUnknown_0846E488
+gUnknown_0846E488:
+	.incbin "graphics/court_scrolls/court_scroll16.4bpp"
+
+@ scroll right to left
+
+	.global gUnknown_08472F88
+gUnknown_08472F88:
+	.incbin "graphics/court_scrolls/court_scroll17.gbapal"
+
+
+	.global gUnknown_08472FA8
+gUnknown_08472FA8:
+	.incbin "graphics/court_scrolls/court_scroll17.4bpp"
+
+
+	.global gUnknown_08477AA8
+gUnknown_08477AA8:
+	.incbin "graphics/court_scrolls/court_scroll18.gbapal"
+
+
+	.global gUnknown_08477AC8
+gUnknown_08477AC8:
+	.incbin "graphics/court_scrolls/court_scroll18.4bpp"
+
+
+	.global gUnknown_0847C5C8
+gUnknown_0847C5C8:
+	.incbin "graphics/court_scrolls/court_scroll19.gbapal"
+
+
+	.global gUnknown_0847C5E8
+gUnknown_0847C5E8:
+	.incbin "graphics/court_scrolls/court_scroll19.4bpp"
+
+
+	.global gUnknown_084810E8
+gUnknown_084810E8:
+	.incbin "graphics/court_scrolls/court_scroll20.gbapal"
+
+
+	.global gUnknown_08481108
+gUnknown_08481108:
+	.incbin "graphics/court_scrolls/court_scroll20.4bpp"
+
+
+	.global gUnknown_08485C08
+gUnknown_08485C08:
+	.incbin "graphics/court_scrolls/court_scroll21.gbapal"
+
+
+	.global gUnknown_08485C28
+gUnknown_08485C28:
+	.incbin "graphics/court_scrolls/court_scroll21.4bpp"
+
+
+	.global gUnknown_0848A728
+gUnknown_0848A728:
+	.incbin "graphics/court_scrolls/court_scroll22.gbapal"
+
+
+	.global gUnknown_0848A748
+gUnknown_0848A748:
+	.incbin "graphics/court_scrolls/court_scroll22.4bpp"
+
+
+	.global gUnknown_0848F248
+gUnknown_0848F248:
+	.incbin "graphics/court_scrolls/court_scroll23.gbapal"
+
+
+	.global gUnknown_0848F268
+gUnknown_0848F268:
+	.incbin "graphics/court_scrolls/court_scroll23.4bpp"
+
+
+	.global gUnknown_08493D68
+gUnknown_08493D68:
+	.incbin "graphics/court_scrolls/court_scroll24.gbapal"
+
+
+	.global gUnknown_08493D88
+gUnknown_08493D88:
+	.incbin "graphics/court_scrolls/court_scroll24.4bpp"
+
+
+	.global gUnknown_08498888
+gUnknown_08498888:
+	.incbin "graphics/court_scrolls/court_scroll25.gbapal"
+
+
+	.global gUnknown_084988A8
+gUnknown_084988A8:
+	.incbin "graphics/court_scrolls/court_scroll25.4bpp"
+
+
+	.global gUnknown_0849D3A8
+gUnknown_0849D3A8:
+	.incbin "graphics/court_scrolls/court_scroll26.gbapal"
+
+
+	.global gUnknown_0849D3C8
+gUnknown_0849D3C8:
+	.incbin "graphics/court_scrolls/court_scroll26.4bpp"
+
+
+	.global gUnknown_084A1EC8
+gUnknown_084A1EC8:
+	.incbin "graphics/court_scrolls/court_scroll27.gbapal"
+
+
+	.global gUnknown_084A1EE8
+gUnknown_084A1EE8:
+	.incbin "graphics/court_scrolls/court_scroll27.4bpp"
+
+
+	.global gUnknown_084A69E8
+gUnknown_084A69E8:
+	.incbin "graphics/court_scrolls/court_scroll28.gbapal"
+
+
+	.global gUnknown_084A6A08
+gUnknown_084A6A08:
+	.incbin "graphics/court_scrolls/court_scroll28.4bpp"
+
+
+	.global gUnknown_084AB508
+gUnknown_084AB508:
+	.incbin "graphics/court_scrolls/court_scroll29.gbapal"
+
+
+	.global gUnknown_084AB528
+gUnknown_084AB528:
+	.incbin "graphics/court_scrolls/court_scroll29.4bpp"
+
+
+	.global gUnknown_084B0028
+gUnknown_084B0028:
+	.incbin "graphics/court_scrolls/court_scroll30.gbapal"
+
+
+	.global gUnknown_084B0048
+gUnknown_084B0048:
+	.incbin "graphics/court_scrolls/court_scroll30.4bpp"
+
+
+	.global gUnknown_084B4B48
+gUnknown_084B4B48:
+	.incbin "graphics/court_scrolls/court_scroll31.gbapal"
+
+
+	.global gUnknown_084B4B68
+gUnknown_084B4B68:
+	.incbin "graphics/court_scrolls/court_scroll31.4bpp"
+
+
+	.global gUnknown_084B9668
+gUnknown_084B9668:
+	.incbin "graphics/court_scrolls/court_scroll32.gbapal"
+
+
+	.global gUnknown_084B9688
+gUnknown_084B9688:
+	.incbin "graphics/court_scrolls/court_scroll32.4bpp"
+
+@ scroll right to center
+
+	.global gUnknown_084BE188
 gUnknown_084BE188:
-    .incbin "baserom.gba", 0x004BE188, 0x4B200
+	.incbin "graphics/court_scrolls/court_scroll33.gbapal"
+
+
+	.global gUnknown_084BE1A8
+gUnknown_084BE1A8:
+	.incbin "graphics/court_scrolls/court_scroll33.4bpp"
+
+
+	.global gUnknown_084C2CA8
+gUnknown_084C2CA8:
+	.incbin "graphics/court_scrolls/court_scroll34.gbapal"
+
+
+	.global gUnknown_084C2CC8
+gUnknown_084C2CC8:
+	.incbin "graphics/court_scrolls/court_scroll34.4bpp"
+
+
+	.global gUnknown_084C77C8
+gUnknown_084C77C8:
+	.incbin "graphics/court_scrolls/court_scroll35.gbapal"
+
+
+	.global gUnknown_084C77E8
+gUnknown_084C77E8:
+	.incbin "graphics/court_scrolls/court_scroll35.4bpp"
+
+
+	.global gUnknown_084CC2E8
+gUnknown_084CC2E8:
+	.incbin "graphics/court_scrolls/court_scroll36.gbapal"
+
+
+	.global gUnknown_084CC308
+gUnknown_084CC308:
+	.incbin "graphics/court_scrolls/court_scroll36.4bpp"
+
+
+	.global gUnknown_084D0E08
+gUnknown_084D0E08:
+	.incbin "graphics/court_scrolls/court_scroll37.gbapal"
+
+
+	.global gUnknown_084D0E28
+gUnknown_084D0E28:
+	.incbin "graphics/court_scrolls/court_scroll37.4bpp"
+
+
+	.global gUnknown_084D5928
+gUnknown_084D5928:
+	.incbin "graphics/court_scrolls/court_scroll38.gbapal"
+
+
+	.global gUnknown_084D5948
+gUnknown_084D5948:
+	.incbin "graphics/court_scrolls/court_scroll38.4bpp"
+
+
+	.global gUnknown_084DA448
+gUnknown_084DA448:
+	.incbin "graphics/court_scrolls/court_scroll39.gbapal"
+
+
+	.global gUnknown_084DA468
+gUnknown_084DA468:
+	.incbin "graphics/court_scrolls/court_scroll39.4bpp"
+
+
+	.global gUnknown_084DEF68
+gUnknown_084DEF68:
+	.incbin "graphics/court_scrolls/court_scroll40.gbapal"
+
+
+	.global gUnknown_084DEF88
+gUnknown_084DEF88:
+	.incbin "graphics/court_scrolls/court_scroll40.4bpp"
+
+
+	.global gUnknown_084E3A88
+gUnknown_084E3A88:
+	.incbin "graphics/court_scrolls/court_scroll41.gbapal"
+
+
+	.global gUnknown_084E3AA8
+gUnknown_084E3AA8:
+	.incbin "graphics/court_scrolls/court_scroll41.4bpp"
+
+
+	.global gUnknown_084E85A8
+gUnknown_084E85A8:
+	.incbin "graphics/court_scrolls/court_scroll42.gbapal"
+
+
+	.global gUnknown_084E85C8
+gUnknown_084E85C8:
+	.incbin "graphics/court_scrolls/court_scroll42.4bpp"
+
+
+	.global gUnknown_084ED0C8
+gUnknown_084ED0C8:
+	.incbin "graphics/court_scrolls/court_scroll43.gbapal"
+
+
+	.global gUnknown_084ED0E8
+gUnknown_084ED0E8:
+	.incbin "graphics/court_scrolls/court_scroll43.4bpp"
+
+
+	.global gUnknown_084F1BE8
+gUnknown_084F1BE8:
+	.incbin "graphics/court_scrolls/court_scroll44.gbapal"
+
+
+	.global gUnknown_084F1C08
+gUnknown_084F1C08:
+	.incbin "graphics/court_scrolls/court_scroll44.4bpp"
+
+
+	.global gUnknown_084F6708
+gUnknown_084F6708:
+	.incbin "graphics/court_scrolls/court_scroll45.gbapal"
+
+
+	.global gUnknown_084F6728
+gUnknown_084F6728:
+	.incbin "graphics/court_scrolls/court_scroll45.4bpp"
+
+
+	.global gUnknown_084FB228
+gUnknown_084FB228:
+	.incbin "graphics/court_scrolls/court_scroll46.gbapal"
+
+
+	.global gUnknown_084FB248
+gUnknown_084FB248:
+	.incbin "graphics/court_scrolls/court_scroll46.4bpp"
+
+
+	.global gUnknown_084FFD48
+gUnknown_084FFD48:
+	.incbin "graphics/court_scrolls/court_scroll47.gbapal"
+
+
+	.global gUnknown_084FFD68
+gUnknown_084FFD68:
+	.incbin "graphics/court_scrolls/court_scroll47.4bpp"
+
+
+	.global gUnknown_08504868
+gUnknown_08504868:
+	.incbin "graphics/court_scrolls/court_scroll48.gbapal"
+
+
+	.global gUnknown_08504888
+gUnknown_08504888:
+	.incbin "graphics/court_scrolls/court_scroll48.4bpp"
+
+@ END COURT SCROLLS
 
     .global gUnknown_08509388 @ character animations and shit
 gUnknown_08509388:
