@@ -619,33 +619,1129 @@ gUnknown_081B25F0:
 
 @ END EVIDENCE AND PROFILE DESCRIPTIONS
 
-    .global gUnknown_081B290C
-gUnknown_081B290C:
-    .incbin "baserom.gba", 0x001B290C, 0x20
+@ BEGIN EVIDENCE AND PROFILE PICTURES
 
-    .global gUnknown_081B292C
-gUnknown_081B292C:
-    .incbin "baserom.gba", 0x001B292C, 0x207E0
+	.global gUnknown_081B290C_pal
+gUnknown_081B290C_pal:
+	.incbin "graphics/evidence_profile_pictures/001B290C.gbapal"
+
+	.global gUnknown_081B290C_gfx
+gUnknown_081B290C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001B290C.4bpp"
+
+	.global gUnknown_081B312C_pal
+gUnknown_081B312C_pal:
+	.incbin "graphics/evidence_profile_pictures/001B312C.gbapal"
+
+	.global gUnknown_081B312C_gfx
+gUnknown_081B312C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001B312C.4bpp"
+
+	.global gUnknown_081B394C_pal
+gUnknown_081B394C_pal:
+	.incbin "graphics/evidence_profile_pictures/001B394C.gbapal"
+
+	.global gUnknown_081B394C_gfx
+gUnknown_081B394C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001B394C.4bpp"
+
+	.global gUnknown_081B416C_pal
+gUnknown_081B416C_pal:
+	.incbin "graphics/evidence_profile_pictures/001B416C.gbapal"
+
+	.global gUnknown_081B416C_gfx
+gUnknown_081B416C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001B416C.4bpp"
+
+	.global gUnknown_081B498C_pal
+gUnknown_081B498C_pal:
+	.incbin "graphics/evidence_profile_pictures/001B498C.gbapal"
+
+	.global gUnknown_081B498C_gfx
+gUnknown_081B498C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001B498C.4bpp"
+
+	.global gUnknown_081B51AC_pal
+gUnknown_081B51AC_pal:
+	.incbin "graphics/evidence_profile_pictures/001B51AC.gbapal"
+
+	.global gUnknown_081B51AC_gfx
+gUnknown_081B51AC_gfx:
+	.incbin "graphics/evidence_profile_pictures/001B51AC.4bpp"
+
+	.global gUnknown_081B59CC_pal
+gUnknown_081B59CC_pal:
+	.incbin "graphics/evidence_profile_pictures/001B59CC.gbapal"
+
+	.global gUnknown_081B59CC_gfx
+gUnknown_081B59CC_gfx:
+	.incbin "graphics/evidence_profile_pictures/001B59CC.4bpp"
+
+	.global gUnknown_081B61EC_pal
+gUnknown_081B61EC_pal:
+	.incbin "graphics/evidence_profile_pictures/001B61EC.gbapal"
+
+	.global gUnknown_081B61EC_gfx
+gUnknown_081B61EC_gfx:
+	.incbin "graphics/evidence_profile_pictures/001B61EC.4bpp"
+
+	.global gUnknown_081B6A0C_pal
+gUnknown_081B6A0C_pal:
+	.incbin "graphics/evidence_profile_pictures/001B6A0C.gbapal"
+
+	.global gUnknown_081B6A0C_gfx
+gUnknown_081B6A0C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001B6A0C.4bpp"
+
+	.global gUnknown_081B722C_pal
+gUnknown_081B722C_pal:
+	.incbin "graphics/evidence_profile_pictures/001B722C.gbapal"
+
+	.global gUnknown_081B722C_gfx
+gUnknown_081B722C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001B722C.4bpp"
+
+	.global gUnknown_081B7A4C_pal
+gUnknown_081B7A4C_pal:
+	.incbin "graphics/evidence_profile_pictures/001B7A4C.gbapal"
+
+	.global gUnknown_081B7A4C_gfx
+gUnknown_081B7A4C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001B7A4C.4bpp"
+
+	.global gUnknown_081B826C_pal
+gUnknown_081B826C_pal:
+	.incbin "graphics/evidence_profile_pictures/001B826C.gbapal"
+
+	.global gUnknown_081B826C_gfx
+gUnknown_081B826C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001B826C.4bpp"
+
+	.global gUnknown_081B8A8C_pal
+gUnknown_081B8A8C_pal:
+	.incbin "graphics/evidence_profile_pictures/001B8A8C.gbapal"
+
+	.global gUnknown_081B8A8C_gfx
+gUnknown_081B8A8C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001B8A8C.4bpp"
+
+	.global gUnknown_081B92AC_pal
+gUnknown_081B92AC_pal:
+	.incbin "graphics/evidence_profile_pictures/001B92AC.gbapal"
+
+	.global gUnknown_081B92AC_gfx
+gUnknown_081B92AC_gfx:
+	.incbin "graphics/evidence_profile_pictures/001B92AC.4bpp"
+
+	.global gUnknown_081B9ACC_pal
+gUnknown_081B9ACC_pal:
+	.incbin "graphics/evidence_profile_pictures/001B9ACC.gbapal"
+
+	.global gUnknown_081B9ACC_gfx
+gUnknown_081B9ACC_gfx:
+	.incbin "graphics/evidence_profile_pictures/001B9ACC.4bpp"
+
+	.global gUnknown_081BA2EC_pal
+gUnknown_081BA2EC_pal:
+	.incbin "graphics/evidence_profile_pictures/001BA2EC.gbapal"
+
+	.global gUnknown_081BA2EC_gfx
+gUnknown_081BA2EC_gfx:
+	.incbin "graphics/evidence_profile_pictures/001BA2EC.4bpp"
+
+	.global gUnknown_081BAB0C_pal
+gUnknown_081BAB0C_pal:
+	.incbin "graphics/evidence_profile_pictures/001BAB0C.gbapal"
+
+	.global gUnknown_081BAB0C_gfx
+gUnknown_081BAB0C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001BAB0C.4bpp"
+
+	.global gUnknown_081BB32C_pal
+gUnknown_081BB32C_pal:
+	.incbin "graphics/evidence_profile_pictures/001BB32C.gbapal"
+
+	.global gUnknown_081BB32C_gfx
+gUnknown_081BB32C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001BB32C.4bpp"
+
+	.global gUnknown_081BBB4C_pal
+gUnknown_081BBB4C_pal:
+	.incbin "graphics/evidence_profile_pictures/001BBB4C.gbapal"
+
+	.global gUnknown_081BBB4C_gfx
+gUnknown_081BBB4C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001BBB4C.4bpp"
+
+	.global gUnknown_081BC36C_pal
+gUnknown_081BC36C_pal:
+	.incbin "graphics/evidence_profile_pictures/001BC36C.gbapal"
+
+	.global gUnknown_081BC36C_gfx
+gUnknown_081BC36C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001BC36C.4bpp"
+
+	.global gUnknown_081BCB8C_pal
+gUnknown_081BCB8C_pal:
+	.incbin "graphics/evidence_profile_pictures/001BCB8C.gbapal"
+
+	.global gUnknown_081BCB8C_gfx
+gUnknown_081BCB8C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001BCB8C.4bpp"
+
+	.global gUnknown_081BD3AC_pal
+gUnknown_081BD3AC_pal:
+	.incbin "graphics/evidence_profile_pictures/001BD3AC.gbapal"
+
+	.global gUnknown_081BD3AC_gfx
+gUnknown_081BD3AC_gfx:
+	.incbin "graphics/evidence_profile_pictures/001BD3AC.4bpp"
+
+	.global gUnknown_081BDBCC_pal
+gUnknown_081BDBCC_pal:
+	.incbin "graphics/evidence_profile_pictures/001BDBCC.gbapal"
+
+	.global gUnknown_081BDBCC_gfx
+gUnknown_081BDBCC_gfx:
+	.incbin "graphics/evidence_profile_pictures/001BDBCC.4bpp"
+
+	.global gUnknown_081BE3EC_pal
+gUnknown_081BE3EC_pal:
+	.incbin "graphics/evidence_profile_pictures/001BE3EC.gbapal"
+
+	.global gUnknown_081BE3EC_gfx
+gUnknown_081BE3EC_gfx:
+	.incbin "graphics/evidence_profile_pictures/001BE3EC.4bpp"
+
+	.global gUnknown_081BEC0C_pal
+gUnknown_081BEC0C_pal:
+	.incbin "graphics/evidence_profile_pictures/001BEC0C.gbapal"
+
+	.global gUnknown_081BEC0C_gfx
+gUnknown_081BEC0C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001BEC0C.4bpp"
+
+	.global gUnknown_081BF42C_pal
+gUnknown_081BF42C_pal:
+	.incbin "graphics/evidence_profile_pictures/001BF42C.gbapal"
+
+	.global gUnknown_081BF42C_gfx
+gUnknown_081BF42C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001BF42C.4bpp"
+
+	.global gUnknown_081BFC4C_pal
+gUnknown_081BFC4C_pal:
+	.incbin "graphics/evidence_profile_pictures/001BFC4C.gbapal"
+
+	.global gUnknown_081BFC4C_gfx
+gUnknown_081BFC4C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001BFC4C.4bpp"
+
+	.global gUnknown_081C046C_pal
+gUnknown_081C046C_pal:
+	.incbin "graphics/evidence_profile_pictures/001C046C.gbapal"
+
+	.global gUnknown_081C046C_gfx
+gUnknown_081C046C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001C046C.4bpp"
+
+	.global gUnknown_081C0C8C_pal
+gUnknown_081C0C8C_pal:
+	.incbin "graphics/evidence_profile_pictures/001C0C8C.gbapal"
+
+	.global gUnknown_081C0C8C_gfx
+gUnknown_081C0C8C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001C0C8C.4bpp"
+
+	.global gUnknown_081C14AC_pal
+gUnknown_081C14AC_pal:
+	.incbin "graphics/evidence_profile_pictures/001C14AC.gbapal"
+
+	.global gUnknown_081C14AC_gfx
+gUnknown_081C14AC_gfx:
+	.incbin "graphics/evidence_profile_pictures/001C14AC.4bpp"
+
+	.global gUnknown_081C1CCC_pal
+gUnknown_081C1CCC_pal:
+	.incbin "graphics/evidence_profile_pictures/001C1CCC.gbapal"
+
+	.global gUnknown_081C1CCC_gfx
+gUnknown_081C1CCC_gfx:
+	.incbin "graphics/evidence_profile_pictures/001C1CCC.4bpp"
+
+	.global gUnknown_081C24EC_pal
+gUnknown_081C24EC_pal:
+	.incbin "graphics/evidence_profile_pictures/001C24EC.gbapal"
+
+	.global gUnknown_081C24EC_gfx
+gUnknown_081C24EC_gfx:
+	.incbin "graphics/evidence_profile_pictures/001C24EC.4bpp"
+
+	.global gUnknown_081C2D0C_pal
+gUnknown_081C2D0C_pal:
+	.incbin "graphics/evidence_profile_pictures/001C2D0C.gbapal"
+
+	.global gUnknown_081C2D0C_gfx
+gUnknown_081C2D0C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001C2D0C.4bpp"
+
+	.global gUnknown_081C352C_pal
+gUnknown_081C352C_pal:
+	.incbin "graphics/evidence_profile_pictures/001C352C.gbapal"
+
+	.global gUnknown_081C352C_gfx
+gUnknown_081C352C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001C352C.4bpp"
+
+	.global gUnknown_081C3D4C_pal
+gUnknown_081C3D4C_pal:
+	.incbin "graphics/evidence_profile_pictures/001C3D4C.gbapal"
+
+	.global gUnknown_081C3D4C_gfx
+gUnknown_081C3D4C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001C3D4C.4bpp"
+
+	.global gUnknown_081C456C_pal
+gUnknown_081C456C_pal:
+	.incbin "graphics/evidence_profile_pictures/001C456C.gbapal"
+
+	.global gUnknown_081C456C_gfx
+gUnknown_081C456C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001C456C.4bpp"
+
+	.global gUnknown_081C4D8C_pal
+gUnknown_081C4D8C_pal:
+	.incbin "graphics/evidence_profile_pictures/001C4D8C.gbapal"
+
+	.global gUnknown_081C4D8C_gfx
+gUnknown_081C4D8C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001C4D8C.4bpp"
+
+	.global gUnknown_081C55AC_pal
+gUnknown_081C55AC_pal:
+	.incbin "graphics/evidence_profile_pictures/001C55AC.gbapal"
+
+	.global gUnknown_081C55AC_gfx
+gUnknown_081C55AC_gfx:
+	.incbin "graphics/evidence_profile_pictures/001C55AC.4bpp"
+
+	.global gUnknown_081C5DCC_pal
+gUnknown_081C5DCC_pal:
+	.incbin "graphics/evidence_profile_pictures/001C5DCC.gbapal"
+
+	.global gUnknown_081C5DCC_gfx
+gUnknown_081C5DCC_gfx:
+	.incbin "graphics/evidence_profile_pictures/001C5DCC.4bpp"
+
+	.global gUnknown_081C65EC_pal
+gUnknown_081C65EC_pal:
+	.incbin "graphics/evidence_profile_pictures/001C65EC.gbapal"
+
+	.global gUnknown_081C65EC_gfx
+gUnknown_081C65EC_gfx:
+	.incbin "graphics/evidence_profile_pictures/001C65EC.4bpp"
+
+	.global gUnknown_081C6E0C_pal
+gUnknown_081C6E0C_pal:
+	.incbin "graphics/evidence_profile_pictures/001C6E0C.gbapal"
+
+	.global gUnknown_081C6E0C_gfx
+gUnknown_081C6E0C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001C6E0C.4bpp"
+
+	.global gUnknown_081C762C_pal
+gUnknown_081C762C_pal:
+	.incbin "graphics/evidence_profile_pictures/001C762C.gbapal"
+
+	.global gUnknown_081C762C_gfx
+gUnknown_081C762C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001C762C.4bpp"
+
+	.global gUnknown_081C7E4C_pal
+gUnknown_081C7E4C_pal:
+	.incbin "graphics/evidence_profile_pictures/001C7E4C.gbapal"
+
+	.global gUnknown_081C7E4C_gfx
+gUnknown_081C7E4C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001C7E4C.4bpp"
+
+	.global gUnknown_081C866C_pal
+gUnknown_081C866C_pal:
+	.incbin "graphics/evidence_profile_pictures/001C866C.gbapal"
+
+	.global gUnknown_081C866C_gfx
+gUnknown_081C866C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001C866C.4bpp"
+
+	.global gUnknown_081C8E8C_pal
+gUnknown_081C8E8C_pal:
+	.incbin "graphics/evidence_profile_pictures/001C8E8C.gbapal"
+
+	.global gUnknown_081C8E8C_gfx
+gUnknown_081C8E8C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001C8E8C.4bpp"
+
+	.global gUnknown_081C96AC_pal
+gUnknown_081C96AC_pal:
+	.incbin "graphics/evidence_profile_pictures/001C96AC.gbapal"
+
+	.global gUnknown_081C96AC_gfx
+gUnknown_081C96AC_gfx:
+	.incbin "graphics/evidence_profile_pictures/001C96AC.4bpp"
+
+	.global gUnknown_081C9ECC_pal
+gUnknown_081C9ECC_pal:
+	.incbin "graphics/evidence_profile_pictures/001C9ECC.gbapal"
+
+	.global gUnknown_081C9ECC_gfx
+gUnknown_081C9ECC_gfx:
+	.incbin "graphics/evidence_profile_pictures/001C9ECC.4bpp"
+
+	.global gUnknown_081CA6EC_pal
+gUnknown_081CA6EC_pal:
+	.incbin "graphics/evidence_profile_pictures/001CA6EC.gbapal"
+
+	.global gUnknown_081CA6EC_gfx
+gUnknown_081CA6EC_gfx:
+	.incbin "graphics/evidence_profile_pictures/001CA6EC.4bpp"
+
+	.global gUnknown_081CAF0C_pal
+gUnknown_081CAF0C_pal:
+	.incbin "graphics/evidence_profile_pictures/001CAF0C.gbapal"
+
+	.global gUnknown_081CAF0C_gfx
+gUnknown_081CAF0C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001CAF0C.4bpp"
+
+	.global gUnknown_081CB72C_pal
+gUnknown_081CB72C_pal:
+	.incbin "graphics/evidence_profile_pictures/001CB72C.gbapal"
+
+	.global gUnknown_081CB72C_gfx
+gUnknown_081CB72C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001CB72C.4bpp"
+
+	.global gUnknown_081CBF4C_pal
+gUnknown_081CBF4C_pal:
+	.incbin "graphics/evidence_profile_pictures/001CBF4C.gbapal"
+
+	.global gUnknown_081CBF4C_gfx
+gUnknown_081CBF4C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001CBF4C.4bpp"
+
+	.global gUnknown_081CC76C_pal
+gUnknown_081CC76C_pal:
+	.incbin "graphics/evidence_profile_pictures/001CC76C.gbapal"
+
+	.global gUnknown_081CC76C_gfx
+gUnknown_081CC76C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001CC76C.4bpp"
+
+	.global gUnknown_081CCF8C_pal
+gUnknown_081CCF8C_pal:
+	.incbin "graphics/evidence_profile_pictures/001CCF8C.gbapal"
+
+	.global gUnknown_081CCF8C_gfx
+gUnknown_081CCF8C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001CCF8C.4bpp"
+
+	.global gUnknown_081CD7AC_pal
+gUnknown_081CD7AC_pal:
+	.incbin "graphics/evidence_profile_pictures/001CD7AC.gbapal"
+
+	.global gUnknown_081CD7AC_gfx
+gUnknown_081CD7AC_gfx:
+	.incbin "graphics/evidence_profile_pictures/001CD7AC.4bpp"
+
+	.global gUnknown_081CDFCC_pal
+gUnknown_081CDFCC_pal:
+	.incbin "graphics/evidence_profile_pictures/001CDFCC.gbapal"
+
+	.global gUnknown_081CDFCC_gfx
+gUnknown_081CDFCC_gfx:
+	.incbin "graphics/evidence_profile_pictures/001CDFCC.4bpp"
+
+	.global gUnknown_081CE7EC_pal
+gUnknown_081CE7EC_pal:
+	.incbin "graphics/evidence_profile_pictures/001CE7EC.gbapal"
+
+	.global gUnknown_081CE7EC_gfx
+gUnknown_081CE7EC_gfx:
+	.incbin "graphics/evidence_profile_pictures/001CE7EC.4bpp"
+
+	.global gUnknown_081CF00C_pal
+gUnknown_081CF00C_pal:
+	.incbin "graphics/evidence_profile_pictures/001CF00C.gbapal"
+
+	.global gUnknown_081CF00C_gfx
+gUnknown_081CF00C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001CF00C.4bpp"
+
+	.global gUnknown_081CF82C_pal
+gUnknown_081CF82C_pal:
+	.incbin "graphics/evidence_profile_pictures/001CF82C.gbapal"
+
+	.global gUnknown_081CF82C_gfx
+gUnknown_081CF82C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001CF82C.4bpp"
+
+	.global gUnknown_081D004C_pal
+gUnknown_081D004C_pal:
+	.incbin "graphics/evidence_profile_pictures/001D004C.gbapal"
+
+	.global gUnknown_081D004C_gfx
+gUnknown_081D004C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001D004C.4bpp"
+
+	.global gUnknown_081D086C_pal
+gUnknown_081D086C_pal:
+	.incbin "graphics/evidence_profile_pictures/001D086C.gbapal"
+
+	.global gUnknown_081D086C_gfx
+gUnknown_081D086C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001D086C.4bpp"
+
+	.global gUnknown_081D108C_pal
+gUnknown_081D108C_pal:
+	.incbin "graphics/evidence_profile_pictures/001D108C.gbapal"
+
+	.global gUnknown_081D108C_gfx
+gUnknown_081D108C_gfx:
+	.incbin "graphics/evidence_profile_pictures/001D108C.4bpp"
+
+	.global gUnknown_081D18AC_pal
+gUnknown_081D18AC_pal:
+	.incbin "graphics/evidence_profile_pictures/001D18AC.gbapal"
+
+	.global gUnknown_081D18AC_gfx
+gUnknown_081D18AC_gfx:
+	.incbin "graphics/evidence_profile_pictures/001D18AC.4bpp"
+
+	.global gUnknown_081D20CC_pal
+gUnknown_081D20CC_pal:
+	.incbin "graphics/evidence_profile_pictures/001D20CC.gbapal"
+
+	.global gUnknown_081D20CC_gfx
+gUnknown_081D20CC_gfx:
+	.incbin "graphics/evidence_profile_pictures/001D20CC.4bpp"
+
+	.global gUnknown_081D28EC_pal
+gUnknown_081D28EC_pal:
+	.incbin "graphics/evidence_profile_pictures/001D28EC.gbapal"
+
+	.global gUnknown_081D28EC_gfx
+gUnknown_081D28EC_gfx:
+	.incbin "graphics/evidence_profile_pictures/001D28EC.4bpp"
+
+@ END EVIDENCE AND PROFILE PICTURES
 
     .global gTextPal
 gTextPal:
-    .incbin "baserom.gba", 0x001D310C, 0x20
+    .incbin "graphics/charset.gbapal"
 
     .global gCharSet
 gCharSet:  @ Charset
-    .incbin "baserom.gba", 0x001D312C, 0x2A800
+    .incbin "graphics/charset.4bpp"
+
+@ BEGIN TALK AND LOCATION CHOICES
 
     .global gUnknown_081FD92C
 gUnknown_081FD92C:
-    .incbin "baserom.gba", 0x001FD92C, 0x40
+    .incbin "graphics/talk_location_choices/choicescolor.gbapal"
 
-    .global gUnknown_081FD96C
+    .global gUnknown_081FD94C
+gUnknown_081FD94C:
+    .incbin "graphics/talk_location_choices/choicesbw.gbapal"
+    
+@ first block of stuffs
+
+	.global gUnknown_081FD96C
 gUnknown_081FD96C:
-    .incbin "baserom.gba", 0x001FD96C, 0xA800
+	.incbin "graphics/talk_location_choices/001FD96C.4bpp"
 
-    .global gUnknown_0820816C
+	.global gUnknown_081FE16C
+gUnknown_081FE16C:
+	.incbin "graphics/talk_location_choices/001FE16C.4bpp"
+
+	.global gUnknown_081FE96C
+gUnknown_081FE96C:
+	.incbin "graphics/talk_location_choices/001FE96C.4bpp"
+
+	.global gUnknown_081FF16C
+gUnknown_081FF16C:
+	.incbin "graphics/talk_location_choices/001FF16C.4bpp"
+
+	.global gUnknown_081FF96C
+gUnknown_081FF96C:
+	.incbin "graphics/talk_location_choices/001FF96C.4bpp"
+
+	.global gUnknown_0820016C
+gUnknown_0820016C:
+	.incbin "graphics/talk_location_choices/0020016C.4bpp"
+
+	.global gUnknown_0820096C
+gUnknown_0820096C:
+	.incbin "graphics/talk_location_choices/0020096C.4bpp"
+
+	.global gUnknown_0820116C
+gUnknown_0820116C:
+	.incbin "graphics/talk_location_choices/0020116C.4bpp"
+
+	.global gUnknown_0820196C
+gUnknown_0820196C:
+	.incbin "graphics/talk_location_choices/0020196C.4bpp"
+
+	.global gUnknown_0820216C
+gUnknown_0820216C:
+	.incbin "graphics/talk_location_choices/0020216C.4bpp"
+
+	.global gUnknown_0820296C
+gUnknown_0820296C:
+	.incbin "graphics/talk_location_choices/0020296C.4bpp"
+
+	.global gUnknown_0820316C
+gUnknown_0820316C:
+	.incbin "graphics/talk_location_choices/0020316C.4bpp"
+
+	.global gUnknown_0820396C
+gUnknown_0820396C:
+	.incbin "graphics/talk_location_choices/0020396C.4bpp"
+
+	.global gUnknown_0820416C
+gUnknown_0820416C:
+	.incbin "graphics/talk_location_choices/0020416C.4bpp"
+
+	.global gUnknown_0820496C
+gUnknown_0820496C:
+	.incbin "graphics/talk_location_choices/0020496C.4bpp"
+
+	.global gUnknown_0820516C
+gUnknown_0820516C:
+	.incbin "graphics/talk_location_choices/0020516C.4bpp"
+
+	.global gUnknown_0820596C
+gUnknown_0820596C:
+	.incbin "graphics/talk_location_choices/0020596C.4bpp"
+
+	.global gUnknown_0820616C
+gUnknown_0820616C:
+	.incbin "graphics/talk_location_choices/0020616C.4bpp"
+
+	.global gUnknown_0820696C
+gUnknown_0820696C:
+	.incbin "graphics/talk_location_choices/0020696C.4bpp"
+
+	.global gUnknown_0820716C
+gUnknown_0820716C:
+	.incbin "graphics/talk_location_choices/0020716C.4bpp"
+
+	.global gUnknown_0820796C
+gUnknown_0820796C:
+	.incbin "graphics/talk_location_choices/0020796C.4bpp"
+
+@ second block of stuffs
+
+	.global gUnknown_0820816C
 gUnknown_0820816C:
-    .incbin "baserom.gba", 0x0020816C, 0x3E800
+	.incbin "graphics/talk_location_choices/0020816C.4bpp"
+
+	.global gUnknown_0820896C
+gUnknown_0820896C:
+	.incbin "graphics/talk_location_choices/0020896C.4bpp"
+
+	.global gUnknown_0820916C
+gUnknown_0820916C:
+	.incbin "graphics/talk_location_choices/0020916C.4bpp"
+
+	.global gUnknown_0820996C
+gUnknown_0820996C:
+	.incbin "graphics/talk_location_choices/0020996C.4bpp"
+
+	.global gUnknown_0820A16C
+gUnknown_0820A16C:
+	.incbin "graphics/talk_location_choices/0020A16C.4bpp"
+
+	.global gUnknown_0820A96C
+gUnknown_0820A96C:
+	.incbin "graphics/talk_location_choices/0020A96C.4bpp"
+
+	.global gUnknown_0820B16C
+gUnknown_0820B16C:
+	.incbin "graphics/talk_location_choices/0020B16C.4bpp"
+
+	.global gUnknown_0820B96C
+gUnknown_0820B96C:
+	.incbin "graphics/talk_location_choices/0020B96C.4bpp"
+
+	.global gUnknown_0820C16C
+gUnknown_0820C16C:
+	.incbin "graphics/talk_location_choices/0020C16C.4bpp"
+
+	.global gUnknown_0820C96C
+gUnknown_0820C96C:
+	.incbin "graphics/talk_location_choices/0020C96C.4bpp"
+
+	.global gUnknown_0820D16C
+gUnknown_0820D16C:
+	.incbin "graphics/talk_location_choices/0020D16C.4bpp"
+
+	.global gUnknown_0820D96C
+gUnknown_0820D96C:
+	.incbin "graphics/talk_location_choices/0020D96C.4bpp"
+
+	.global gUnknown_0820E16C
+gUnknown_0820E16C:
+	.incbin "graphics/talk_location_choices/0020E16C.4bpp"
+
+	.global gUnknown_0820E96C
+gUnknown_0820E96C:
+	.incbin "graphics/talk_location_choices/0020E96C.4bpp"
+
+	.global gUnknown_0820F16C
+gUnknown_0820F16C:
+	.incbin "graphics/talk_location_choices/0020F16C.4bpp"
+
+	.global gUnknown_0820F96C
+gUnknown_0820F96C:
+	.incbin "graphics/talk_location_choices/0020F96C.4bpp"
+
+	.global gUnknown_0821016C
+gUnknown_0821016C:
+	.incbin "graphics/talk_location_choices/0021016C.4bpp"
+
+	.global gUnknown_0821096C
+gUnknown_0821096C:
+	.incbin "graphics/talk_location_choices/0021096C.4bpp"
+
+	.global gUnknown_0821116C
+gUnknown_0821116C:
+	.incbin "graphics/talk_location_choices/0021116C.4bpp"
+
+	.global gUnknown_0821196C
+gUnknown_0821196C:
+	.incbin "graphics/talk_location_choices/0021196C.4bpp"
+
+	.global gUnknown_0821216C
+gUnknown_0821216C:
+	.incbin "graphics/talk_location_choices/0021216C.4bpp"
+
+	.global gUnknown_0821296C
+gUnknown_0821296C:
+	.incbin "graphics/talk_location_choices/0021296C.4bpp"
+
+	.global gUnknown_0821316C
+gUnknown_0821316C:
+	.incbin "graphics/talk_location_choices/0021316C.4bpp"
+
+	.global gUnknown_0821396C
+gUnknown_0821396C:
+	.incbin "graphics/talk_location_choices/0021396C.4bpp"
+
+	.global gUnknown_0821416C
+gUnknown_0821416C:
+	.incbin "graphics/talk_location_choices/0021416C.4bpp"
+
+	.global gUnknown_0821496C
+gUnknown_0821496C:
+	.incbin "graphics/talk_location_choices/0021496C.4bpp"
+
+	.global gUnknown_0821516C
+gUnknown_0821516C:
+	.incbin "graphics/talk_location_choices/0021516C.4bpp"
+
+	.global gUnknown_0821596C
+gUnknown_0821596C:
+	.incbin "graphics/talk_location_choices/0021596C.4bpp"
+
+	.global gUnknown_0821616C
+gUnknown_0821616C:
+	.incbin "graphics/talk_location_choices/0021616C.4bpp"
+
+	.global gUnknown_0821696C
+gUnknown_0821696C:
+	.incbin "graphics/talk_location_choices/0021696C.4bpp"
+
+	.global gUnknown_0821716C
+gUnknown_0821716C:
+	.incbin "graphics/talk_location_choices/0021716C.4bpp"
+
+	.global gUnknown_0821796C
+gUnknown_0821796C:
+	.incbin "graphics/talk_location_choices/0021796C.4bpp"
+
+	.global gUnknown_0821816C
+gUnknown_0821816C:
+	.incbin "graphics/talk_location_choices/0021816C.4bpp"
+
+	.global gUnknown_0821896C
+gUnknown_0821896C:
+	.incbin "graphics/talk_location_choices/0021896C.4bpp"
+
+	.global gUnknown_0821916C
+gUnknown_0821916C:
+	.incbin "graphics/talk_location_choices/0021916C.4bpp"
+
+	.global gUnknown_0821996C
+gUnknown_0821996C:
+	.incbin "graphics/talk_location_choices/0021996C.4bpp"
+
+	.global gUnknown_0821A16C
+gUnknown_0821A16C:
+	.incbin "graphics/talk_location_choices/0021A16C.4bpp"
+
+	.global gUnknown_0821A96C
+gUnknown_0821A96C:
+	.incbin "graphics/talk_location_choices/0021A96C.4bpp"
+
+	.global gUnknown_0821B16C
+gUnknown_0821B16C:
+	.incbin "graphics/talk_location_choices/0021B16C.4bpp"
+
+	.global gUnknown_0821B96C
+gUnknown_0821B96C:
+	.incbin "graphics/talk_location_choices/0021B96C.4bpp"
+
+	.global gUnknown_0821C16C
+gUnknown_0821C16C:
+	.incbin "graphics/talk_location_choices/0021C16C.4bpp"
+
+	.global gUnknown_0821C96C
+gUnknown_0821C96C:
+	.incbin "graphics/talk_location_choices/0021C96C.4bpp"
+
+	.global gUnknown_0821D16C
+gUnknown_0821D16C:
+	.incbin "graphics/talk_location_choices/0021D16C.4bpp"
+
+	.global gUnknown_0821D96C
+gUnknown_0821D96C:
+	.incbin "graphics/talk_location_choices/0021D96C.4bpp"
+
+	.global gUnknown_0821E16C
+gUnknown_0821E16C:
+	.incbin "graphics/talk_location_choices/0021E16C.4bpp"
+
+	.global gUnknown_0821E96C
+gUnknown_0821E96C:
+	.incbin "graphics/talk_location_choices/0021E96C.4bpp"
+
+	.global gUnknown_0821F16C
+gUnknown_0821F16C:
+	.incbin "graphics/talk_location_choices/0021F16C.4bpp"
+
+	.global gUnknown_0821F96C
+gUnknown_0821F96C:
+	.incbin "graphics/talk_location_choices/0021F96C.4bpp"
+
+	.global gUnknown_0822016C
+gUnknown_0822016C:
+	.incbin "graphics/talk_location_choices/0022016C.4bpp"
+
+	.global gUnknown_0822096C
+gUnknown_0822096C:
+	.incbin "graphics/talk_location_choices/0022096C.4bpp"
+
+	.global gUnknown_0822116C
+gUnknown_0822116C:
+	.incbin "graphics/talk_location_choices/0022116C.4bpp"
+
+	.global gUnknown_0822196C
+gUnknown_0822196C:
+	.incbin "graphics/talk_location_choices/0022196C.4bpp"
+
+	.global gUnknown_0822216C
+gUnknown_0822216C:
+	.incbin "graphics/talk_location_choices/0022216C.4bpp"
+
+	.global gUnknown_0822296C
+gUnknown_0822296C:
+	.incbin "graphics/talk_location_choices/0022296C.4bpp"
+
+	.global gUnknown_0822316C
+gUnknown_0822316C:
+	.incbin "graphics/talk_location_choices/0022316C.4bpp"
+
+	.global gUnknown_0822396C
+gUnknown_0822396C:
+	.incbin "graphics/talk_location_choices/0022396C.4bpp"
+
+	.global gUnknown_0822416C
+gUnknown_0822416C:
+	.incbin "graphics/talk_location_choices/0022416C.4bpp"
+
+	.global gUnknown_0822496C
+gUnknown_0822496C:
+	.incbin "graphics/talk_location_choices/0022496C.4bpp"
+
+	.global gUnknown_0822516C
+gUnknown_0822516C:
+	.incbin "graphics/talk_location_choices/0022516C.4bpp"
+
+	.global gUnknown_0822596C
+gUnknown_0822596C:
+	.incbin "graphics/talk_location_choices/0022596C.4bpp"
+
+	.global gUnknown_0822616C
+gUnknown_0822616C:
+	.incbin "graphics/talk_location_choices/0022616C.4bpp"
+
+	.global gUnknown_0822696C
+gUnknown_0822696C:
+	.incbin "graphics/talk_location_choices/0022696C.4bpp"
+
+	.global gUnknown_0822716C
+gUnknown_0822716C:
+	.incbin "graphics/talk_location_choices/0022716C.4bpp"
+
+	.global gUnknown_0822796C
+gUnknown_0822796C:
+	.incbin "graphics/talk_location_choices/0022796C.4bpp"
+
+	.global gUnknown_0822816C
+gUnknown_0822816C:
+	.incbin "graphics/talk_location_choices/0022816C.4bpp"
+
+	.global gUnknown_0822896C
+gUnknown_0822896C:
+	.incbin "graphics/talk_location_choices/0022896C.4bpp"
+
+	.global gUnknown_0822916C
+gUnknown_0822916C:
+	.incbin "graphics/talk_location_choices/0022916C.4bpp"
+
+	.global gUnknown_0822996C
+gUnknown_0822996C:
+	.incbin "graphics/talk_location_choices/0022996C.4bpp"
+
+	.global gUnknown_0822A16C
+gUnknown_0822A16C:
+	.incbin "graphics/talk_location_choices/0022A16C.4bpp"
+
+	.global gUnknown_0822A96C
+gUnknown_0822A96C:
+	.incbin "graphics/talk_location_choices/0022A96C.4bpp"
+
+	.global gUnknown_0822B16C
+gUnknown_0822B16C:
+	.incbin "graphics/talk_location_choices/0022B16C.4bpp"
+
+	.global gUnknown_0822B96C
+gUnknown_0822B96C:
+	.incbin "graphics/talk_location_choices/0022B96C.4bpp"
+
+	.global gUnknown_0822C16C
+gUnknown_0822C16C:
+	.incbin "graphics/talk_location_choices/0022C16C.4bpp"
+
+	.global gUnknown_0822C96C
+gUnknown_0822C96C:
+	.incbin "graphics/talk_location_choices/0022C96C.4bpp"
+
+	.global gUnknown_0822D16C
+gUnknown_0822D16C:
+	.incbin "graphics/talk_location_choices/0022D16C.4bpp"
+
+	.global gUnknown_0822D96C
+gUnknown_0822D96C:
+	.incbin "graphics/talk_location_choices/0022D96C.4bpp"
+
+	.global gUnknown_0822E16C
+gUnknown_0822E16C:
+	.incbin "graphics/talk_location_choices/0022E16C.4bpp"
+
+	.global gUnknown_0822E96C
+gUnknown_0822E96C:
+	.incbin "graphics/talk_location_choices/0022E96C.4bpp"
+
+	.global gUnknown_0822F16C
+gUnknown_0822F16C:
+	.incbin "graphics/talk_location_choices/0022F16C.4bpp"
+
+	.global gUnknown_0822F96C
+gUnknown_0822F96C:
+	.incbin "graphics/talk_location_choices/0022F96C.4bpp"
+
+	.global gUnknown_0823016C
+gUnknown_0823016C:
+	.incbin "graphics/talk_location_choices/0023016C.4bpp"
+
+	.global gUnknown_0823096C
+gUnknown_0823096C:
+	.incbin "graphics/talk_location_choices/0023096C.4bpp"
+
+	.global gUnknown_0823116C
+gUnknown_0823116C:
+	.incbin "graphics/talk_location_choices/0023116C.4bpp"
+
+	.global gUnknown_0823196C
+gUnknown_0823196C:
+	.incbin "graphics/talk_location_choices/0023196C.4bpp"
+
+	.global gUnknown_0823216C
+gUnknown_0823216C:
+	.incbin "graphics/talk_location_choices/0023216C.4bpp"
+
+	.global gUnknown_0823296C
+gUnknown_0823296C:
+	.incbin "graphics/talk_location_choices/0023296C.4bpp"
+
+	.global gUnknown_0823316C
+gUnknown_0823316C:
+	.incbin "graphics/talk_location_choices/0023316C.4bpp"
+
+	.global gUnknown_0823396C
+gUnknown_0823396C:
+	.incbin "graphics/talk_location_choices/0023396C.4bpp"
+
+	.global gUnknown_0823416C
+gUnknown_0823416C:
+	.incbin "graphics/talk_location_choices/0023416C.4bpp"
+
+	.global gUnknown_0823496C
+gUnknown_0823496C:
+	.incbin "graphics/talk_location_choices/0023496C.4bpp"
+
+	.global gUnknown_0823516C
+gUnknown_0823516C:
+	.incbin "graphics/talk_location_choices/0023516C.4bpp"
+
+	.global gUnknown_0823596C
+gUnknown_0823596C:
+	.incbin "graphics/talk_location_choices/0023596C.4bpp"
+
+	.global gUnknown_0823616C
+gUnknown_0823616C:
+	.incbin "graphics/talk_location_choices/0023616C.4bpp"
+
+	.global gUnknown_0823696C
+gUnknown_0823696C:
+	.incbin "graphics/talk_location_choices/0023696C.4bpp"
+
+	.global gUnknown_0823716C
+gUnknown_0823716C:
+	.incbin "graphics/talk_location_choices/0023716C.4bpp"
+
+	.global gUnknown_0823796C
+gUnknown_0823796C:
+	.incbin "graphics/talk_location_choices/0023796C.4bpp"
+
+	.global gUnknown_0823816C
+gUnknown_0823816C:
+	.incbin "graphics/talk_location_choices/0023816C.4bpp"
+
+	.global gUnknown_0823896C
+gUnknown_0823896C:
+	.incbin "graphics/talk_location_choices/0023896C.4bpp"
+
+	.global gUnknown_0823916C
+gUnknown_0823916C:
+	.incbin "graphics/talk_location_choices/0023916C.4bpp"
+
+	.global gUnknown_0823996C
+gUnknown_0823996C:
+	.incbin "graphics/talk_location_choices/0023996C.4bpp"
+
+	.global gUnknown_0823A16C
+gUnknown_0823A16C:
+	.incbin "graphics/talk_location_choices/0023A16C.4bpp"
+
+	.global gUnknown_0823A96C
+gUnknown_0823A96C:
+	.incbin "graphics/talk_location_choices/0023A96C.4bpp"
+
+	.global gUnknown_0823B16C
+gUnknown_0823B16C:
+	.incbin "graphics/talk_location_choices/0023B16C.4bpp"
+
+	.global gUnknown_0823B96C
+gUnknown_0823B96C:
+	.incbin "graphics/talk_location_choices/0023B96C.4bpp"
+
+	.global gUnknown_0823C16C
+gUnknown_0823C16C:
+	.incbin "graphics/talk_location_choices/0023C16C.4bpp"
+
+	.global gUnknown_0823C96C
+gUnknown_0823C96C:
+	.incbin "graphics/talk_location_choices/0023C96C.4bpp"
+
+	.global gUnknown_0823D16C
+gUnknown_0823D16C:
+	.incbin "graphics/talk_location_choices/0023D16C.4bpp"
+
+	.global gUnknown_0823D96C
+gUnknown_0823D96C:
+	.incbin "graphics/talk_location_choices/0023D96C.4bpp"
+
+	.global gUnknown_0823E16C
+gUnknown_0823E16C:
+	.incbin "graphics/talk_location_choices/0023E16C.4bpp"
+
+	.global gUnknown_0823E96C
+gUnknown_0823E96C:
+	.incbin "graphics/talk_location_choices/0023E96C.4bpp"
+
+	.global gUnknown_0823F16C
+gUnknown_0823F16C:
+	.incbin "graphics/talk_location_choices/0023F16C.4bpp"
+
+	.global gUnknown_0823F96C
+gUnknown_0823F96C:
+	.incbin "graphics/talk_location_choices/0023F96C.4bpp"
+
+	.global gUnknown_0824016C
+gUnknown_0824016C:
+	.incbin "graphics/talk_location_choices/0024016C.4bpp"
+
+	.global gUnknown_0824096C
+gUnknown_0824096C:
+	.incbin "graphics/talk_location_choices/0024096C.4bpp"
+
+	.global gUnknown_0824116C
+gUnknown_0824116C:
+	.incbin "graphics/talk_location_choices/0024116C.4bpp"
+
+	.global gUnknown_0824196C
+gUnknown_0824196C:
+	.incbin "graphics/talk_location_choices/0024196C.4bpp"
+
+	.global gUnknown_0824216C
+gUnknown_0824216C:
+	.incbin "graphics/talk_location_choices/0024216C.4bpp"
+
+	.global gUnknown_0824296C
+gUnknown_0824296C:
+	.incbin "graphics/talk_location_choices/0024296C.4bpp"
+
+	.global gUnknown_0824316C
+gUnknown_0824316C:
+	.incbin "graphics/talk_location_choices/0024316C.4bpp"
+
+	.global gUnknown_0824396C
+gUnknown_0824396C:
+	.incbin "graphics/talk_location_choices/0024396C.4bpp"
+
+	.global gUnknown_0824416C
+gUnknown_0824416C:
+	.incbin "graphics/talk_location_choices/0024416C.4bpp"
+
+	.global gUnknown_0824496C
+gUnknown_0824496C:
+	.incbin "graphics/talk_location_choices/0024496C.4bpp"
+
+	.global gUnknown_0824516C
+gUnknown_0824516C:
+	.incbin "graphics/talk_location_choices/0024516C.4bpp"
+
+	.global gUnknown_0824596C
+gUnknown_0824596C:
+	.incbin "graphics/talk_location_choices/0024596C.4bpp"
+
+	.global gUnknown_0824616C
+gUnknown_0824616C:
+	.incbin "graphics/talk_location_choices/0024616C.4bpp"
+
+@ END TALK AND LOCATION CHOICES
 
     .global gUnknown_0824696C
 gUnknown_0824696C:
