@@ -4,15 +4,15 @@
 void ReadSram_Core(const u8 *src, u8 *dest, u32 size);
 u32 VerifySram_Core(const u8 *src, u8 *dest, u32 size);
 
-char sSramVersionString[] = "SRAM_V112";
+char const sSramVersionString[] = "SRAM_V112";
 
-void (* sSramReadFunctions[])(const u8 *src, u8 *dest, u32 size) =
+void const (* sSramReadFunctions[])(const u8 *src, u8 *dest, u32 size) =
 {
     ReadSram_Core,
     ReadSram
 };
 
-u32 (* sSramVerifyFunctions[])(const u8 *src, u8 *dest, u32 size) =
+u32 const (* sSramVerifyFunctions[])(const u8 *src, u8 *dest, u32 size) =
 {
     VerifySram_Core,
     VerifySram

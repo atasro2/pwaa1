@@ -548,7 +548,7 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
 }
 
 /*
-void sub_800C334(struct Main * main, struct InvestigationStruct * investigation) // ! goto
+void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
 {
     u32 attr;
     u32 i;
