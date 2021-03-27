@@ -1,6 +1,6 @@
 #include "global.h"
 #include "animation.h"
-#include "sound_control.h"
+#include "sound.h"
 #include "ewram.h"
 #include "constants/script.h"
 #include "constants/animation.h"

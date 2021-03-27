@@ -1,7 +1,7 @@
 #include "global.h"
 #include "court_record.h"
 #include "background.h"
-#include "sound_control.h"
+#include "sound.h"
 #include "animation.h"
 #include "ewram.h"
 #include "constants/script.h"
@@ -835,7 +835,7 @@ void sub_800E75C(struct Main * main, struct CourtRecord * courtRecord)
     gIORegisters.lcd_dispcnt |= DISPCNT_BG2_ON;
     sub_800E914();
     sub_800EA80(main->unk27);
-    ChangeBGMVolume(main->bgmVolume >> 1, 4);
+    SetBGMVolume(main->bgmVolume >> 1, 4);
     PlaySE(0xF);
     main->process[GAME_SUBPROCESS]++;
     main->process[GAME_PROCESSUNK2] = 0;
@@ -849,7 +849,7 @@ void sub_800E7C0(struct Main * main, struct CourtRecord * courtRecord)
     {
         if(main->process[GAME_PROCESSUNK2] == 0)
         {
-            ChangeBGMVolume(0x100, 0x1E);
+            SetBGMVolume(0x100, 0x1E);
             main->process[GAME_PROCESSUNK2] = 1;
         }
         if(gJoypad.pressedKeys & (A_BUTTON|B_BUTTON))

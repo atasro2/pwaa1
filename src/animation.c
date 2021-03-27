@@ -1,7 +1,7 @@
 #include "global.h"
 #include "animation.h"
 #include "ewram.h"
-#include "sound_control.h"
+#include "sound.h"
 #include "constants/animation.h"
 
 static struct AnimationStruct * sub_8010468(struct AnimationStructFieldC *animationFieldC, u32 arg1, u32 arg2);

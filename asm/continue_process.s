@@ -790,7 +790,7 @@ _0800A0DE:
 _0800A112:
 	ldrb r1, [r7, #0x1d]
 	movs r0, #0x14
-	bl PlayBGM
+	bl FadeInBGM
 	movs r0, #1
 	movs r1, #1
 	b _0800A236

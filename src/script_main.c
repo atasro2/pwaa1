@@ -1,7 +1,7 @@
 #include "global.h"
 #include "main.h"
 #include "script.h"
-#include "sound_control.h"
+#include "sound.h"
 #include "ewram.h"
 #include "constants/script.h"
 

@@ -1,7 +1,7 @@
 #include "global.h"
 #include "main.h"
 #include "animation.h"
-#include "sound_control.h"
+#include "sound.h"
 #include "m4a.h"
 #include "ewram.h"
 #include "background.h"

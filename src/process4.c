@@ -4,7 +4,7 @@
 #include "background.h"
 #include "animation.h"
 #include "court_record.h"
-#include "sound_control.h"
+#include "sound.h"
 #include "constants/animation.h"
 #include "constants/script.h"
 #include "constants/bg.h"
@@ -547,6 +547,7 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
     }
 }
 
+/*
 void sub_800C334(struct Main * main, struct InvestigationStruct * investigation) // ! goto
 {
     u32 attr;
@@ -836,3 +837,4 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
         }
     }
 }
+*/

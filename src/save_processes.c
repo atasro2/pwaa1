@@ -3,7 +3,7 @@
 #include "ewram.h"
 #include "script.h"
 #include "background.h"
-#include "sound_control.h"
+#include "sound.h"
 #include "agb_sram.h"
 #include "constants/script.h"
 
@@ -446,7 +446,7 @@ void SaveGameExitSaveScreenSubProcess(struct Main *main)
         else if(main->process[GAME_SUBPROCESS] == 8)
             sub_800D6C8();
     }
-    PlayBGM(0x1E, 0xFF); // unpause BGM
+    FadeInBGM(0x1E, 0xFF); // unpause BGM
     StartHardwareBlend(1, 0, 1, 0x1F);
 }
 

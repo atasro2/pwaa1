@@ -1,7 +1,7 @@
 #include "global.h"
 #include "background.h"
 #include "ewram.h"
-#include "sound_control.h"
+#include "sound.h"
 #include "agb_sram.h"
 #include "save.h"
 

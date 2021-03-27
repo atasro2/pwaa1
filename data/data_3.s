@@ -95,63 +95,63 @@ gUnknown_0811DC98:
 
     .global gUnknown_0811DCDC
 gUnknown_0811DCDC:
-    .4byte nullsub_4
+    .4byte InvestigationSegmentDummy
 	.4byte sub_8002D70
-	.4byte nullsub_4
+	.4byte InvestigationSegmentDummy
 	.4byte sub_800318C
-	.4byte nullsub_4
+	.4byte InvestigationSegmentDummy
 	.4byte sub_8003594
-	.4byte nullsub_4
+	.4byte InvestigationSegmentDummy
 	.4byte sub_8003924
-	.4byte nullsub_4
+	.4byte InvestigationSegmentDummy
 	.4byte sub_80040A4
-	.4byte nullsub_4
+	.4byte InvestigationSegmentDummy
 	.4byte sub_80044D0
-	.4byte nullsub_4
+	.4byte InvestigationSegmentDummy
 	.4byte sub_80049F8
-	.4byte nullsub_4
+	.4byte InvestigationSegmentDummy
 	.4byte sub_8005034
-	.4byte nullsub_4
+	.4byte InvestigationSegmentDummy
 
     .global gUnknown_0811DD20
 gUnknown_0811DD20:
-    .4byte nullsub_4
+    .4byte InvestigationSegmentDummy
 	.4byte sub_8002DB4
-	.4byte nullsub_4
+	.4byte InvestigationSegmentDummy
 	.4byte sub_80031D0
-	.4byte nullsub_4
+	.4byte InvestigationSegmentDummy
 	.4byte sub_80035D8
-	.4byte nullsub_4
+	.4byte InvestigationSegmentDummy
 	.4byte sub_8003968
-	.4byte nullsub_4
+	.4byte InvestigationSegmentDummy
 	.4byte sub_80040E8
-	.4byte nullsub_4
+	.4byte InvestigationSegmentDummy
 	.4byte sub_8004514
-	.4byte nullsub_4
+	.4byte InvestigationSegmentDummy
 	.4byte sub_8004A3C
-	.4byte nullsub_4
+	.4byte InvestigationSegmentDummy
 	.4byte sub_8005078
-	.4byte nullsub_4
+	.4byte InvestigationSegmentDummy
 
     .global gUnknown_0811DD64
 gUnknown_0811DD64:
-    .4byte nullsub_4
+    .4byte InvestigationSegmentDummy
 	.4byte nullsub_7
-	.4byte nullsub_4
+	.4byte InvestigationSegmentDummy
 	.4byte sub_8003544
-	.4byte nullsub_4
+	.4byte InvestigationSegmentDummy
 	.4byte nullsub_8
-	.4byte nullsub_4
+	.4byte InvestigationSegmentDummy
 	.4byte nullsub_9
-	.4byte nullsub_4
+	.4byte InvestigationSegmentDummy
 	.4byte sub_8004488
-	.4byte nullsub_4
+	.4byte InvestigationSegmentDummy
 	.4byte nullsub_10
-	.4byte nullsub_4
+	.4byte InvestigationSegmentDummy
 	.4byte nullsub_11
-	.4byte nullsub_4
+	.4byte InvestigationSegmentDummy
 	.4byte nullsub_37
-	.4byte nullsub_4
+	.4byte InvestigationSegmentDummy
 
     .global gScriptCmdFuncs
 gScriptCmdFuncs:

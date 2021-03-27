@@ -2,7 +2,7 @@
 #include "background.h"
 #include "animation.h"
 #include "script.h"
-#include "sound_control.h"
+#include "sound.h"
 #include "ewram.h"
 #include "court_record.h"
 #include "constants/script.h"

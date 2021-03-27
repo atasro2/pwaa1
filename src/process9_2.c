@@ -1,6 +1,3 @@
-// this file was an accident, process 4 was split out incorrectly
-// the functions in here aren't for process 9 either which is just fucking weird
-// these 2 functions are related to displaying the remaining penalty court, also called credibility in PLvAA
 #include "global.h"
 
 void sub_800B51C(struct Main * main, struct TestimonyStruct * testimony, u32 unk2)
