@@ -1,7 +1,7 @@
 #include "global.h"
 #include "animation.h"
 #include "ewram.h"
-#include "sound_control.h"
+#include "sound.h"
 #include "constants/animation.h"
 
 static struct AnimationStruct * sub_8010468(struct AnimationStructFieldC *animationFieldC, u32 arg1, u32 arg2);
@@ -1015,9 +1015,9 @@ void StartAnimationBlend(u32 arg0, u32 arg1)
     }
     else
         return;
-    animation2->flags |= (ANIM_ACTIVE | 0x2000000);
+    animation2->flags |= (ANIM_ACTIVE | ANIM_BLEND_ACTIVE);
     if (animation != NULL)
-        animation->flags |= (ANIM_ACTIVE | 0x2000000);
+        animation->flags |= (ANIM_ACTIVE | ANIM_BLEND_ACTIVE);
     main->blendDelay = arg1;
     main->blendCounter = 0;
     ioRegsp->lcd_bldcnt = BLDCNT_EFFECT_BLEND | BLDCNT_TGT2_BG3;
@@ -1033,7 +1033,7 @@ static void UpdateAnimationBlend(struct AnimationStruct *animation)
     struct AnimationStruct *animation2 = NULL;
     if (main->blendMode)
     {
-        animation->flags &= ~0x2000000;
+        animation->flags &= ~ANIM_BLEND_ACTIVE;
         return;
     }
 
@@ -1054,7 +1054,7 @@ static void UpdateAnimationBlend(struct AnimationStruct *animation)
             {
                 ioRegsp->lcd_bldcnt = BLDCNT_TGT1_BG1 | BLDCNT_EFFECT_BLEND | BLDCNT_TGT2_BG3 | BLDCNT_TGT2_OBJ;
                 ioRegsp->lcd_bldalpha = BLDALPHA_BLEND(0x1F, 0x7);
-                animation->flags &= ~0x2000000;
+                animation->flags &= ~ANIM_BLEND_ACTIVE;
                 if (animation->flags & 0x04000000)
                 {
                     sub_800FA74(animation, 0);
@@ -1075,9 +1075,9 @@ static void UpdateAnimationBlend(struct AnimationStruct *animation)
             {
                 ioRegsp->lcd_bldcnt = BLDCNT_TGT1_BG1 | BLDCNT_EFFECT_BLEND | BLDCNT_TGT2_BG3 | BLDCNT_TGT2_OBJ;
                 ioRegsp->lcd_bldalpha = BLDALPHA_BLEND(0x1F, 0x7);
-                animation->flags &= ~0x2000000;
+                animation->flags &= ~ANIM_BLEND_ACTIVE;
                 if (animation2 != NULL)
-                    animation2->flags &= ~0x2000000;
+                    animation2->flags &= ~ANIM_BLEND_ACTIVE;
                 return;
             }
         }
@@ -1295,7 +1295,7 @@ static void UpdateAllAnimationSprites()
                 if (y > 224)
                     y = 224;
                 oam->attr0 |= y & 0xFF;
-                if (animation->flags & 0x2000000)
+                if (animation->flags & ANIM_BLEND_ACTIVE)
                     oam->attr0 |= 0x400;
                 oam->attr1 = spriteTemplates->data & 0xC000;
                 if (animation->flags & ANIM_ENABLE_XFLIP)
@@ -1706,7 +1706,7 @@ void UpdateAnimations(u32 arg0)
                 if(main->currentBG != animation->unk2C)
                     DestroyAnimation(animation);
             }
-            if(animation->flags & 0x2000000)
+            if(animation->flags & ANIM_BLEND_ACTIVE)
             {
                 if(!(animation->unkC.animId <= 24 && animation->unkC.animId >= 17))
                     UpdateAnimationBlend(animation);

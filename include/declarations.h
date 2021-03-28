@@ -42,6 +42,10 @@ extern s8 gUnknown_080194CA[0x1F];
 extern u16 gUnknown_08013F70[];
 extern u16 gUnknown_08014270[];
 
+extern void (*gUnknown_0811DD20[])(struct Main *);
+extern void (*gUnknown_0811DCDC[])(struct Main *);
+extern void (*gUnknown_0811DD64[])(struct Main *);
+
 #ifndef ROM_START
 #define ROM_START 0x08000000 // why is this not already a fucking define 
 #endif
@@ -61,7 +65,12 @@ extern u8 gUnknown_08187540[];
 //extern u8 gUnknown_0818BD40[];
 #define gUnknown_0818BD40 ((u8*)(GFX_BASE_ADDR + 0xBD40))
 extern u8 gUnknown_0818BEC0[];
-extern u8 gUnknown_0818C040[];
+extern u8 gUnknown_0818F6C0[0x200];
+extern u8 gUnknown_0818F8C0[0x800];
+
+//extern u8 gUnknown_0818C040[];
+#define gUnknown_0818C040 ((u8*)(GFX_BASE_ADDR + 0xC040))
+extern u8 gUnknown_0818E4C0[];
 //extern u8 gUnknown_0818F4C0[];
 #define gUnknown_0818F4C0 ((u8*)(GFX_BASE_ADDR + 0xF4C0))
 extern u8 gUnknown_0818F8C0[0x800];
@@ -83,7 +92,9 @@ extern u8 gUnknown_08193CA0[0x400];
 //extern u8 gUnknown_081940E0[];
 #define gUnknown_081940E0 ((u8*)(GFX_BASE_ADDR + 0x140E0))
 //extern u8 gUnknown_08194240[];
+extern u8 gUnknown_08194200[];
 #define gUnknown_08194240 ((u8*)(GFX_BASE_ADDR + 0x14240))
+extern u8 gUnknown_08194260[];
 //extern u8 gUnknown_081942C0[0x11][0x20]; 
 #define gUnknown_081942C0 ((u8*)(GFX_BASE_ADDR + 0x142C0))
 extern u8 gUnknown_08194280[0x20];
@@ -148,6 +159,7 @@ bool32 CheckRectCollisionWithArea(struct Rect *rect, struct Point4 *area);
 //ASMFUNCTIONS
 
 // UNSORTED
+extern void sub_800D3C8(struct InvestigationStruct *);
 extern void sub_800D6C8(void);
 extern void sub_800D674(void);
 extern void sub_80020B0(u32);
@@ -155,6 +167,7 @@ extern void sub_8002878(struct CourtRecord *);
 extern void ResetSoundControl();
 extern void sub_800B638(struct Main *, struct TestimonyStruct *);
 extern void sub_800B51C(struct Main *, struct TestimonyStruct *, u32);
+extern u32 sub_800D5B0(struct InvestigationStruct *);
 extern void sub_800B7A8(struct InvestigationStruct *, u32);
 extern u32 GetMapMarkerIndexFromId(u32);
 //EWRAM
@@ -163,7 +176,7 @@ extern u32 GetMapMarkerIndexFromId(u32);
 extern u16 gBG2MapBuffer[0x400]; // BG 2 Map buffer
 extern struct AnimationStruct gAnimation[0x20];
 extern u16 gBG3MapBuffer[0x400]; // BG 3 Map buffer
-extern u16 gBG3MapBufferCopy[0x400]; // BG 3 Map buffer copy TODO: this 1 array is keeping me away from naming the other ones..  BG Pan related?
+extern u16 gBG3MapBufferCopy[0x400]; // BG 3 Map buffer copy
 extern u16 gBG1MapBuffer[0x400]; // BG 1 Map buffer
 extern struct CourtRecord gCourtRecord;
 extern struct TalkData gTalkData[32];

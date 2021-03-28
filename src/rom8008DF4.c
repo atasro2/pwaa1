@@ -1,7 +1,7 @@
 #include "global.h"
 #include "background.h"
 #include "ewram.h"
-#include "sound_control.h"
+#include "sound.h"
 #include "agb_sram.h"
 #include "save.h"
 
@@ -268,7 +268,7 @@ void EpisodeClearedProcess(struct Main * main) // should work the same way
         case 8:
             if(gScriptContext.unk0 & 8)
             {
-                if(gJoypad.pressedKeysRaw & (A_BUTTON|B_BUTTON|SELECT_BUTTON|START_BUTTON))
+                if(gJoypad.pressedKeys & (A_BUTTON|B_BUTTON|SELECT_BUTTON|START_BUTTON))
                 {
                     PauseBGM();
                     PlaySE(0x2B);

@@ -7,44 +7,44 @@
 
 struct Joypad
 {
-    /* +0x00 */ u16 heldKeysRaw;
-    /* +0x02 */ u16 pressedKeysRaw;
+    /* +0x00 */ u16 heldKeys;
+    /* +0x02 */ u16 pressedKeys;
     /* +0x04 */ u16 previousHeldKeys;
     /* +0x06 */ u16 previousPressedKeys;
-    /* +0x08 */ u16 unk8;
-    /* +0x0A */ u16 unkA;
-    /* +0x0C */ u16 unkC;
-    /* +0x0E */ u16 unkE;
+    /* +0x08 */ u16 activeTimedKeys;
+    /* +0x0A */ u16 timedKeys;
+    /* +0x0C */ u16 timedHoldDelay;
+    /* +0x0E */ u16 timedHoldTimer;
 };
 
 struct Main
 {
-    /* +0x000 */ u32 unk0; // System_timer? unused in unity
-    /* +0x004 */ u8 process[4];
-    /* +0x008 */ u8 processCopy[4];
-    /* +0x00C */ u8 vblankWaitCounter;
-    /* +0x00D */ u8 vblankWaitAmount;
-    /* +0x00E */ s8 shakeAmountX;
-    /* +0x00F */ s8 shakeAmountY;
-    /* +0x010 */ u16 shakeTimer;
-    /* +0x012 */ u8 shakeIntensity;
-    /* +0x013 */ u8 selectedButton;
-    /* +0x014 */ bool8 advanceScriptContext;
-    /* +0x015 */ bool8 showTextboxCharacters;
+    /* +0x000 */ u32 unk0; // unity: System_timer? unused in unity
+    /* +0x004 */ u8 process[4]; // unity: r
+    /* +0x008 */ u8 processCopy[4]; // unity: r_bk
+    /* +0x00C */ u8 vblankWaitCounter; // unity: V_blank_flag
+    /* +0x00D */ u8 vblankWaitAmount; // unity: V_blank_ctr
+    /* +0x00E */ s8 shakeAmountX; // unity: Quake_x
+    /* +0x00F */ s8 shakeAmountY; // unity: Quake_y
+    /* +0x010 */ u16 shakeTimer; // unity: Quake_timer
+    /* +0x012 */ u8 shakeIntensity; // unity: Quake_power
+    /* +0x013 */ u8 selectedButton; // unity: Cursol? not sure also engrish
+    /* +0x014 */ bool8 advanceScriptContext; // unity: Mess_move_flag
+    /* +0x015 */ bool8 showTextboxCharacters; // unity: message_active_window?
     /* +0x016 */ u8 tilemapUpdateBits;
     /* +0x017 */ u8 unk17;
-    /* +0x018 */ u16 unk18;
-    /* +0x01A */ s16 bgmFadeVolume;
-    /* +0x01C */ u8 soundStatus;
-    /* +0x01D */ u8 currentPlayingBgm;
-    /* +0x01E */ u8 unk1E;
-    /* +0x01F */ u8 unk1F;
-    /* +0x020 */ s16 bgmFadeAmount;
-    /* +0x022 */ s16 bgmVolume;
-    /* +0x024 */ u16 rngSeed;
-    /* +0x026 */ u8 unk26;
-    /* +0x027 */ u8 unk27;
-    /* +0x028 */ u16 currentBG;
+    /* +0x018 */ u16 unk18; // unity: bk_start_mess
+    /* +0x01A */ s16 bgmFadeVolume; // unity: bgm_vol_next?
+    /* +0x01C */ u8 soundStatus; // unity: sound_status, comes after currentPlayingBgm in unity?
+    /* +0x01D */ u8 currentPlayingBgm; // unity: bgm_now
+    /* +0x01E */ u8 unk1E; // unity: Obj_plt_use_flag
+    /* +0x01F */ u8 unk1F; // unity: Obj_flag
+    /* +0x020 */ s16 bgmFadeAmount; // unity: bgm_fade_time?
+    /* +0x022 */ s16 bgmVolume; // unity: bgm_vol
+    /* +0x024 */ u16 rngSeed; // unity: Random_seed
+    /* +0x026 */ u8 unk26; // unity: get_note_file
+    /* +0x027 */ u8 unk27; // unity: get_note_id
+    /* +0x028 */ u16 currentBG; // BG related code not in GlobalWork struct, this might be another struct on its own but i'm not sure
     /* +0x02A */ s16 previousBG; // probably wrong
     /* +0x02C */ s8 unk2C;
     /* +0x02D */ u8 unk2D; // unused field
@@ -62,11 +62,11 @@ struct Main
     /* +0x03F */ s8 unk3F;
     /* +0x040 */ u8 * unk40;
     /* +0x044 */ u32 unk44[12];
-    /* +0x074 */ u16 blendTarget;
-    /* +0x076 */ u16 blendMode;
-    /* +0x078 */ u16 blendCounter;
-    /* +0x07A */ u8 blendDelay;
-    /* +0x07B */ u8 blendDeltaY;
+    /* +0x074 */ u16 blendTarget; // unity: Fade_object
+    /* +0x076 */ u16 blendMode; // unity: Fade_status
+    /* +0x078 */ u16 blendCounter; // unity: Fade_timer
+    /* +0x07A */ u8 blendDelay; // unity: fade_time
+    /* +0x07B */ u8 blendDeltaY; // unity: fade_speed
     /* +0x07C */ u8 unk7C;
     /* +0x07D */ u8 unk7D;
     /* +0x07E */ u8 unk7E;
@@ -77,20 +77,20 @@ struct Main
     /* +0x083 */ u8 filler83[0x1]; // filler?
     /* +0x084 */ s16 unk84;
     /* +0x086 */ u16 unk86;
-    /* +0x088 */ u8 unk88;
-    /* +0x089 */ u8 unk89;
-    /* +0x08A */ u8 previousHealth;
-    /* +0x08B */ u8 unk8B;
-    /* +0x08C */ u8 currentRoomId;
-    /* +0x08D */ u8 scenarioIdx;
-    /* +0x08E */ u8 unk8E;
-    /* +0x08F */ s8 health;
-    /* +0x090 */ u16 talkingAnimationOffset;
-    /* +0x092 */ u16 idleAnimationOffset;
-    /* +0x094 */ u32 unk94[8]; // sce_flag matches debug menu
-    /* +0x0B4 */ u32 gameStateFlags; // status_flag matches debug menu
-    /* +0x0B8 */ u32 unkB8[8]; // talk_end_flag
-    /* +0x0D8 */ u8 roomData[24][8]; // Map_data //TODO: first size might be wrong
+    /* +0x088 */ u8 unk88; // unity: Rest_type
+    /* +0x089 */ u8 unk89; // unity: Rest_timer
+    /* +0x08A */ u8 previousHealth; // unity: rest_old
+    /* +0x08B */ u8 unk8B; // unused?
+    /* +0x08C */ u8 currentRoomId; // unity: Room? uint in unity
+    /* +0x08D */ u8 scenarioIdx; // unity: scenario, actually the script you're running
+    /* +0x08E */ u8 unk8E; // unity: Scenario_enable, whetever a case is enabled or not, unity names suck
+    /* +0x08F */ s8 health; // unity: rest
+    /* +0x090 */ u16 talkingAnimationOffset; // unity: Def_talk_foa
+    /* +0x092 */ u16 idleAnimationOffset; // unity: Def_wait_foa
+    /* +0x094 */ u32 unk94[8]; // unity: sce_flag matches debug menu
+    /* +0x0B4 */ u32 gameStateFlags; // unity: status_flag matches debug menu
+    /* +0x0B8 */ u32 unkB8[8]; // unity: talk_end_flag
+    /* +0x0D8 */ u8 roomData[24][8]; // unity: Map_data //TODO: first size might be wrong
     /* +0x198 */ u32 soundFlags;
     /* +0x19C */ u32 unk19C;
 };
@@ -156,7 +156,7 @@ extern struct IORegisters gIORegisters;
 void ClearRamAndInitGame();
 void HideAllSprites();
 void SetLCDIORegs();
-void sub_8000738(u16, u16);
+void SetTimedKeysAndDelay(u32 keyBits, u32 delay);
 u32 ReadKeysAndTestResetCombo();
 void StartHardwareBlend(u32 mode, u32 delay, u32 deltaY, u32 target);
 void InitCourtScroll(u8 *, u32, u32, u32);

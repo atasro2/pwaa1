@@ -1,6 +1,6 @@
 #include "global.h"
 #include "animation.h"
-#include "sound_control.h"
+#include "sound.h"
 #include "ewram.h"
 #include "background.h"
 #include "court_record.h"
@@ -101,7 +101,7 @@ void sub_800AC1C(struct Main * main)
 
     if(main->blendMode)
         return;
-    if((gJoypad.pressedKeysRaw & START_BUTTON))
+    if((gJoypad.pressedKeys & START_BUTTON))
     {
         if(!(main->gameStateFlags & 0x10) && gScriptContext.flags & (SCRIPT_LOOP | SCRIPT_FULLSCREEN | 1))
         {
@@ -117,14 +117,14 @@ void sub_800AC1C(struct Main * main)
     else if(gScriptContext.flags & SCRIPT_LOOP)
     {
         u32 section;
-        if(gJoypad.pressedKeysRaw & (A_BUTTON | DPAD_RIGHT))
+        if(gJoypad.pressedKeys & (A_BUTTON | DPAD_RIGHT))
         {
             section = gScriptContext.nextSection;
             PlaySE(0x2B);
             ChangeScriptSection(section);
             RunScriptContext();
         }
-        else if(gJoypad.pressedKeysRaw & (B_BUTTON | DPAD_LEFT))
+        else if(gJoypad.pressedKeys & (B_BUTTON | DPAD_LEFT))
         {
             if(gScriptContext.currentSection-1 != main->unk18)
             {
@@ -134,7 +134,7 @@ void sub_800AC1C(struct Main * main)
                 RunScriptContext();
             }
         }
-        else if(gJoypad.pressedKeysRaw & L_BUTTON)
+        else if(gJoypad.pressedKeys & L_BUTTON)
         {
             if(gScriptContext.holdItSection != 0)
             {
@@ -154,14 +154,14 @@ void sub_800AC1C(struct Main * main)
                 return;
             }
         }
-        else if(gJoypad.pressedKeysRaw & R_BUTTON)
+        else if(gJoypad.pressedKeys & R_BUTTON)
         {
             PlaySE(0x31);
             BACKUP_PROCESS_PTR(main);
             SET_PROCESS_PTR(7, 0, 0, 1, main);
         }
     }
-    else if((gJoypad.pressedKeysRaw & R_BUTTON) &&
+    else if((gJoypad.pressedKeys & R_BUTTON) &&
     !(main->gameStateFlags & 0x10) &&
     gScriptContext.flags & (SCRIPT_FULLSCREEN | 1))
     {

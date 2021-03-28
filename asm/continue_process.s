@@ -779,7 +779,7 @@ _0800A0DE:
 	strh r0, [r1]
 	movs r0, #0x30
 	movs r1, #0xf
-	bl sub_8000738
+	bl SetTimedKeysAndDelay
 	adds r0, r7, #0
 	adds r0, #0x7d
 	ldrb r0, [r0]
@@ -790,7 +790,7 @@ _0800A0DE:
 _0800A112:
 	ldrb r1, [r7, #0x1d]
 	movs r0, #0x14
-	bl PlayBGM
+	bl FadeInBGM
 	movs r0, #1
 	movs r1, #1
 	b _0800A236

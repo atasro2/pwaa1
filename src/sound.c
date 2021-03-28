@@ -1,9 +1,9 @@
 #include "global.h"
-#include "sound_control.h"
-#include "constants/sound_control.h"
+#include "sound.h"
+#include "constants/sound.h"
 #include "m4a.h"
 
-void ResetSoundControl()
+void ResetSoundControl() // Bgm_init
 {
     gMain.soundStatus = SOUND_STATUS_BGM_STOPPED;
     gMain.bgmFadeVolume = 0x100 * 10;
@@ -13,7 +13,7 @@ void ResetSoundControl()
 
 }
 
-void PlaySE(u32 songNum)
+void PlaySE(u32 songNum) // Se_play?
 {
     struct Main * main = &gMain;
     if(!(main->soundFlags & SOUND_FLAG_DISABLE_SE))
@@ -22,7 +22,7 @@ void PlaySE(u32 songNum)
     }
 }
 
-void ChangeBGM(u32 songNum)
+void PlayBGM(u32 songNum) // Bgm_play
 {
     struct Main * main = &gMain;
     if(!(main->soundFlags & SOUND_FLAG_DISABLE_BGM))
@@ -41,7 +41,7 @@ void ChangeBGM(u32 songNum)
     }
 }
 
-void PauseBGM()
+void PauseBGM() // Bgm_pause
 {
     struct Main * main = &gMain;
     if(main->soundStatus & SOUND_STATUS_BGM_PLAYING)
@@ -61,7 +61,7 @@ void PauseBGM()
     }
 }
 
-void StopBGM(void)
+void StopBGM(void) // Bgm_stop
 {
     struct Main * main = &gMain;
     if((main->soundStatus & SOUND_STATUS_BGM_STOPPED) == 0)
@@ -72,7 +72,7 @@ void StopBGM(void)
     }
 }
 
-void UnpauseBGM(void)
+void UnpauseBGM(void) // Bgm_continue
 {
     struct Main * main = &gMain;
     if(main->soundStatus & SOUND_STATUS_BGM_PAUSED)
@@ -90,7 +90,7 @@ void UnpauseBGM(void)
     }
 }
 
-void FadeOutBGM(u32 fadeTime)
+void FadeOutBGM(u32 fadeTime) // Bgm_fadeout
 {
     struct Main * main = &gMain;
     if(main->soundStatus & SOUND_STATUS_BGM_PLAYING)
@@ -100,7 +100,7 @@ void FadeOutBGM(u32 fadeTime)
     }
 }
 
-void PlayBGM(u32 fadeTime, u32 songNum) // named according to phoenix unity
+void FadeInBGM(u32 fadeTime, u32 songNum) // Bgm_fadein
 {
     struct Main * main = &gMain;
     if(!(main->soundFlags & SOUND_FLAG_DISABLE_BGM))
@@ -149,7 +149,7 @@ void PlayBGM(u32 fadeTime, u32 songNum) // named according to phoenix unity
             }
             else
             {
-                ChangeBGM(songNum);
+                PlayBGM(songNum);
                 m4aMPlayImmInit(&gMPlayInfo_BGM);
             }
         }
@@ -163,7 +163,7 @@ void PlayBGM(u32 fadeTime, u32 songNum) // named according to phoenix unity
     }
 }
 
-void UpdateBGMFade()
+void UpdateBGMFade() // Bgm_fade_main
 {
     struct Main * main = &gMain;
     if((main->soundStatus & (SOUND_STATUS_BGM_STOPPED | SOUND_STATUS_BGM_PAUSED)) == 0)
@@ -219,7 +219,7 @@ void ChangeTrackVolume(u32 track, u32 volume) // unused
         m4aMPlayVolumeControl(&gMPlayInfo_SE2, 0xFFFF, volume & 0x1FC);
 }
 
-void ChangeBGMVolume(u32 volume, s32 fadeTime)
+void SetBGMVolume(u32 volume, s32 fadeTime) // Bgm_volume_set
 {
     struct Main * main = &gMain;
     if((main->soundStatus & (SOUND_STATUS_BGM_STOPPED | SOUND_STATUS_BGM_PAUSED)) == 0)

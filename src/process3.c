@@ -2,7 +2,7 @@
 #include "background.h"
 #include "animation.h"
 #include "script.h"
-#include "sound_control.h"
+#include "sound.h"
 #include "ewram.h"
 #include "court_record.h"
 #include "constants/script.h"
@@ -67,10 +67,10 @@ void sub_800A3EC(struct Main * main)
     DmaCopy16(3, gUnknown_0818C040, OBJ_VRAM0 + 0x3780, 0x80);
     DmaCopy16(3, gUnknown_081940E0, OBJ_PLTT+0x60, 0x20);
     sub_8001830(1);
-    sub_8001A9C(1); // what kind of fucking copy paste is this
-    sub_8001A9C(0xFF); // what the fuck
+    sub_8001A9C(1);
+    sub_8001A9C(0xFF);
     ioRegs->lcd_bg1vofs = ~80; // ??????
-    ioRegs->lcd_dispcnt &= ~DISPCNT_BG1_ON; // ARE YOU FUCKING SERIOUS??? 
+    ioRegs->lcd_dispcnt &= ~DISPCNT_BG1_ON; // what the fuck is this doing
     sub_800D77C(main, &gCourtRecord);
     DmaFill32(3, 0, main->unk94, sizeof(main->unk94));
     if(main->scenarioIdx > 1)
@@ -84,7 +84,7 @@ void sub_800A3EC(struct Main * main)
     main->health = 5;
     main->previousHealth = 0xFF;
     SetCurrentEpisodeBit();
-    sub_8000738(0x30, 0xF);
+    SetTimedKeysAndDelay(DPAD_RIGHT | DPAD_LEFT, 15);
     StartHardwareBlend(1, 1, 1, 0x1F);
     ioRegs->lcd_bldy = 0x10;
     SET_PROCESS(3, 1, 0, 0); // please increase the subprocess instead thank you :^)
@@ -95,7 +95,7 @@ void sub_800A5B0(struct Main * main)
     struct TestimonyStruct * testimony = &gTestimony;
     if(main->blendMode)
         return;
-    if((gJoypad.pressedKeysRaw & START_BUTTON) &&
+    if((gJoypad.pressedKeys & START_BUTTON) &&
     !(main->gameStateFlags & 0x10) &&
     gScriptContext.flags & (SCRIPT_FULLSCREEN | 1))
     {
@@ -107,7 +107,7 @@ void sub_800A5B0(struct Main * main)
         BACKUP_PROCESS_PTR(main);
         SET_PROCESS_PTR(0xA, 0, 0, 0, main);
     }
-    else if((gJoypad.pressedKeysRaw & R_BUTTON) &&
+    else if((gJoypad.pressedKeys & R_BUTTON) &&
     !(main->gameStateFlags & 0x10) &&
     gScriptContext.flags & (SCRIPT_FULLSCREEN | 1))
     {

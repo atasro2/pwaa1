@@ -3,7 +3,7 @@
 #include "ewram.h"
 #include "script.h"
 #include "background.h"
-#include "sound_control.h"
+#include "sound.h"
 #include "agb_sram.h"
 #include "constants/script.h"
 
@@ -140,12 +140,12 @@ void ClearSaveProcess(struct Main *main)
     case 2:
         if(gScriptContext.flags & SCRIPT_LOOP)
         {
-            if(gJoypad.pressedKeysRaw & (DPAD_RIGHT|DPAD_LEFT))
+            if(gJoypad.pressedKeys & (DPAD_RIGHT|DPAD_LEFT))
             {
                 PlaySE(0x2A);
                 main->selectedButton ^= 1;
             }
-            else if(gJoypad.pressedKeysRaw & A_BUTTON)
+            else if(gJoypad.pressedKeys & A_BUTTON)
             {
                 PlaySE(0x2B);
                 StartHardwareBlend(2, 1, 1, 0x1F);
@@ -308,12 +308,12 @@ void SaveGameWaitForInputSubProcess(struct Main *main)
     struct OamAttrs * oam;
     if(gScriptContext.flags & SCRIPT_LOOP)
     {
-        if(gJoypad.pressedKeysRaw & (DPAD_RIGHT | DPAD_LEFT))
+        if(gJoypad.pressedKeys & (DPAD_RIGHT | DPAD_LEFT))
         {
             main->selectedButton ^= 1;
             PlaySE(0x2A);
         }
-        else if(gJoypad.pressedKeysRaw & A_BUTTON)
+        else if(gJoypad.pressedKeys & A_BUTTON)
         {
             PlaySE(0x40);
             if(main->selectedButton == 0)
@@ -345,7 +345,7 @@ void SaveGameWaitForInputSubProcess(struct Main *main)
             main->process[GAME_SUBPROCESS] = 7;
             main->process[GAME_PROCESSUNK2] = 0;
         }
-        else if(!main->sIsEpisodePartOver && gJoypad.pressedKeysRaw & B_BUTTON)
+        else if(!main->sIsEpisodePartOver && gJoypad.pressedKeys & B_BUTTON)
         {
             PlaySE(0x2C);
             main->selectedButton = 1;
@@ -446,33 +446,40 @@ void SaveGameExitSaveScreenSubProcess(struct Main *main)
         else if(main->process[GAME_SUBPROCESS] == 8)
             sub_800D6C8();
     }
-    PlayBGM(0x1E, 0xFF); // unpause BGM
+    FadeInBGM(0x1E, 0xFF); // unpause BGM
     StartHardwareBlend(1, 0, 1, 0x1F);
 }
 
-void SaveGameSubProcess5(struct Main *main) // ! WHAT THE FUCK
+void SaveGameSubProcess5(struct Main *main)
 {
-    u32 var0;
+    u32 showNewEpsiode;
+    u32 newEpisodeId;
     if(main->blendMode != 0)
         return;
 
     if(main->scenarioIdx == 1)
     {
-        var0 = 1;
-        goto smth;
+        newEpisodeId = 1;
+        showNewEpsiode = TRUE;
     }
-    if(main->scenarioIdx == 5)
+    else if(main->scenarioIdx == 5)
     {
-        var0 = 2;
-        goto smth;
-    }   
-    if(main->scenarioIdx == 11)
+        newEpisodeId = 2;
+        showNewEpsiode = TRUE;
+    }
+    else if(main->scenarioIdx == 11)
     {
-        var0 = 3;
-        smth:
+        newEpisodeId = 3;
+        showNewEpsiode = TRUE;
+    }
+    else
+        showNewEpsiode = FALSE;
+
+    if(showNewEpsiode)
+    {
         main->advanceScriptContext = 0;
         main->showTextboxCharacters = 0;
-        SET_PROCESS_PTR(12, 1, 0, var0, main);
+        SET_PROCESS_PTR(12, 1, 0, newEpisodeId, main);
         return;
     }
     gIORegisters.lcd_dispcnt = 0;
@@ -482,7 +489,7 @@ void SaveGameSubProcess5(struct Main *main) // ! WHAT THE FUCK
 
 void sub_8008CC0(struct Main * main)
 {
-    if(gScriptContext.flags & SCRIPT_LOOP && gJoypad.pressedKeysRaw & A_BUTTON)
+    if(gScriptContext.flags & SCRIPT_LOOP && gJoypad.pressedKeys & A_BUTTON)
     {
         main->advanceScriptContext = 1;
         main->showTextboxCharacters = 1;
