@@ -3088,7 +3088,7 @@ gUnknown_0871E9F4:
 
 	.global gUnknown_0871EBBC
 gUnknown_0871EBBC:
-	.incbin "graphics/animations/animation01.pix"
+	.incbin "graphics/animations/tileset01.pix"
 
 
 	.global gUnknown_0871FCF4
@@ -3098,271 +3098,271 @@ gUnknown_0871FCF4:
 
 	.global gUnknown_0871FD14
 gUnknown_0871FD14:
-	.incbin "graphics/animations/animation02.pix"
+	.incbin "graphics/animations/animation02.seq"
 
 
 	.global gUnknown_0871FD60
 gUnknown_0871FD60:
-	.incbin "graphics/animations/animation02.seq"
+	.incbin "graphics/animations/animation03.seq"
 
 
 	.global gUnknown_0871FD80
 gUnknown_0871FD80:
-	.incbin "graphics/animations/animation03.pix"
+	.incbin "graphics/animations/animation04.seq"
 
 
 	.global gUnknown_0871FDAC
 gUnknown_0871FDAC:
-	.incbin "graphics/animations/animation03.seq"
+	.incbin "graphics/animations/animation05.seq"
 
 
 	.global gUnknown_0871FDD0
 gUnknown_0871FDD0:
-	.incbin "graphics/animations/animation04.pix"
+	.incbin "graphics/animations/animation06.seq"
 
 
 	.global gUnknown_0871FDF8
 gUnknown_0871FDF8:
-	.incbin "graphics/animations/animation04.seq"
+	.incbin "graphics/animations/tileset02.pix"
 
 
 	.global gUnknown_08748218
 gUnknown_08748218:
-	.incbin "graphics/animations/animation05.pix"
+	.incbin "graphics/animations/animation07.seq"
 
 
 	.global gUnknown_08748340
 gUnknown_08748340:
-	.incbin "graphics/animations/animation05.seq"
+	.incbin "graphics/animations/animation08.seq"
 
 
 	.global gUnknown_08748468
 gUnknown_08748468:
-	.incbin "graphics/animations/animation06.pix"
+	.incbin "graphics/animations/animation09.seq"
 
 
 	.global gUnknown_08748488
 gUnknown_08748488:
-	.incbin "graphics/animations/animation06.seq"
+	.incbin "graphics/animations/animation10.seq"
 
 
 	.global gUnknown_087484A8
 gUnknown_087484A8:
-	.incbin "graphics/animations/animation07.pix"
+	.incbin "graphics/animations/animation11.seq"
 
 
 	.global gUnknown_087484C8
 gUnknown_087484C8:
-	.incbin "graphics/animations/animation07.seq"
+	.incbin "graphics/animations/animation12.seq"
 
 
 	.global gUnknown_087484E8
 gUnknown_087484E8:
-	.incbin "graphics/animations/animation08.pix"
+	.incbin "graphics/animations/animation13.seq"
 
 
 	.global gUnknown_08748520
 gUnknown_08748520:
-	.incbin "graphics/animations/animation08.seq"
+	.incbin "graphics/animations/animation14.seq"
 
 
 	.global gUnknown_08748558
 gUnknown_08748558:
-	.incbin "graphics/animations/animation09.pix"
+	.incbin "graphics/animations/animation15.seq"
 
 
 	.global gUnknown_08748590
 gUnknown_08748590:
-	.incbin "graphics/animations/animation09.seq"
+	.incbin "graphics/animations/animation16.seq"
 
 
 	.global gUnknown_087485C0
 gUnknown_087485C0:
-	.incbin "graphics/animations/animation10.pix"
+	.incbin "graphics/animations/animation17.seq"
 
 
 	.global gUnknown_087485F4
 gUnknown_087485F4:
-	.incbin "graphics/animations/animation10.seq"
+	.incbin "graphics/animations/animation18.seq"
 
 
 	.global gUnknown_08748684
 gUnknown_08748684:
-	.incbin "graphics/animations/animation11.pix"
+	.incbin "graphics/animations/animation19.seq"
 
 
 	.global gUnknown_08748774
 gUnknown_08748774:
-	.incbin "graphics/animations/animation11.seq"
+	.incbin "graphics/animations/animation20.seq"
 
 
 	.global gUnknown_08748AB4
 gUnknown_08748AB4:
-	.incbin "graphics/animations/animation12.pix"
+	.incbin "graphics/animations/animation21.seq"
 
 
 	.global gUnknown_08748AEC
 gUnknown_08748AEC:
-	.incbin "graphics/animations/animation12.seq"
+	.incbin "graphics/animations/animation22.seq"
 
 
 	.global gUnknown_08748B24
 gUnknown_08748B24:
-	.incbin "graphics/animations/animation13.pix"
+	.incbin "graphics/animations/animation23.seq"
 
 
 	.global gUnknown_08748C38
 gUnknown_08748C38:
-	.incbin "graphics/animations/animation13.seq"
+	.incbin "graphics/animations/animation24.seq"
 
 
 	.global gUnknown_08748CA0
 gUnknown_08748CA0:
-	.incbin "graphics/animations/animation14.pix"
+	.incbin "graphics/animations/animation25.seq"
 
 
 	.global gUnknown_08748D74
 gUnknown_08748D74:
-	.incbin "graphics/animations/animation14.seq"
+	.incbin "graphics/animations/animation26.seq"
 
 
 	.global gUnknown_08748D98
 gUnknown_08748D98:
-	.incbin "graphics/animations/animation15.pix"
+	.incbin "graphics/animations/animation27.seq"
 
 
 	.global gUnknown_08748DB8
 gUnknown_08748DB8:
-	.incbin "graphics/animations/animation15.seq"
+	.incbin "graphics/animations/animation28.seq"
 
 
 	.global gUnknown_08748E0C
 gUnknown_08748E0C:
-	.incbin "graphics/animations/animation16.pix"
+	.incbin "graphics/animations/animation29.seq"
 
 
 	.global gUnknown_08748EE4
 gUnknown_08748EE4:
-	.incbin "graphics/animations/animation16.seq"
+	.incbin "graphics/animations/animation30.seq"
 
 
 	.global gUnknown_08748F44
 gUnknown_08748F44:
-	.incbin "graphics/animations/animation17.pix"
+	.incbin "graphics/animations/animation31.seq"
 
 
 	.global gUnknown_08748F80
 gUnknown_08748F80:
-	.incbin "graphics/animations/animation17.seq"
+	.incbin "graphics/animations/animation32.seq"
 
 
 	.global gUnknown_08748FA4
 gUnknown_08748FA4:
-	.incbin "graphics/animations/animation18.pix"
+	.incbin "graphics/animations/animation33.seq"
 
 
 	.global gUnknown_08748FDC
 gUnknown_08748FDC:
-	.incbin "graphics/animations/animation18.seq"
+	.incbin "graphics/animations/animation34.seq"
 
 
 	.global gUnknown_08749000
 gUnknown_08749000:
-	.incbin "graphics/animations/animation19.pix"
+	.incbin "graphics/animations/animation35.seq"
 
 
 	.global gUnknown_08749044
 gUnknown_08749044:
-	.incbin "graphics/animations/animation19.seq"
+	.incbin "graphics/animations/animation36.seq"
 
 
 	.global gUnknown_087490B0
 gUnknown_087490B0:
-	.incbin "graphics/animations/animation20.pix"
+	.incbin "graphics/animations/animation37.seq"
 
 
 	.global gUnknown_0874911C
 gUnknown_0874911C:
-	.incbin "graphics/animations/animation20.seq"
+	.incbin "graphics/animations/animation38.seq"
 
 
 	.global gUnknown_08749158
 gUnknown_08749158:
-	.incbin "graphics/animations/animation21.pix"
+	.incbin "graphics/animations/animation39.seq"
 
 
 	.global gUnknown_08749194
 gUnknown_08749194:
-	.incbin "graphics/animations/animation21.seq"
+	.incbin "graphics/animations/animation40.seq"
 
 
 	.global gUnknown_087491C4
 gUnknown_087491C4:
-	.incbin "graphics/animations/animation22.pix"
+	.incbin "graphics/animations/animation41.seq"
 
 
 	.global gUnknown_087491EC
 gUnknown_087491EC:
-	.incbin "graphics/animations/animation22.seq"
+	.incbin "graphics/animations/animation42.seq"
 
 
 	.global gUnknown_08749210
 gUnknown_08749210:
-	.incbin "graphics/animations/animation23.pix"
+	.incbin "graphics/animations/animation43.seq"
 
 
 	.global gUnknown_08749240
 gUnknown_08749240:
-	.incbin "graphics/animations/animation23.seq"
+	.incbin "graphics/animations/animation44.seq"
 
 
 	.global gUnknown_08749268
 gUnknown_08749268:
-	.incbin "graphics/animations/animation24.pix"
+	.incbin "graphics/animations/animation45.seq"
 
 
 	.global gUnknown_08749290
 gUnknown_08749290:
-	.incbin "graphics/animations/animation24.seq"
+	.incbin "graphics/animations/animation46.seq"
 
 
 	.global gUnknown_087492C0
 gUnknown_087492C0:
-	.incbin "graphics/animations/animation25.pix"
+	.incbin "graphics/animations/animation47.seq"
 
 
 	.global gUnknown_08749314
 gUnknown_08749314:
-	.incbin "graphics/animations/animation25.seq"
+	.incbin "graphics/animations/animation48.seq"
 
 
 	.global gUnknown_08749334
 gUnknown_08749334:
-	.incbin "graphics/animations/animation26.pix"
+	.incbin "graphics/animations/animation49.seq"
 
 
 	.global gUnknown_08749360
 gUnknown_08749360:
-	.incbin "graphics/animations/animation26.seq"
+	.incbin "graphics/animations/animation50.seq"
 
 
 	.global gUnknown_08749384
 gUnknown_08749384:
-	.incbin "graphics/animations/animation27.pix"
+	.incbin "graphics/animations/animation51.seq"
 
 
 	.global gUnknown_087493A8
 gUnknown_087493A8:
-	.incbin "graphics/animations/animation27.seq"
+	.incbin "graphics/animations/animation52.seq"
 
 
 	.global gUnknown_087493D4
 gUnknown_087493D4:
-	.incbin "graphics/animations/animation28.pix"
+	.incbin "graphics/animations/animation53.seq"
 
 
 	.global gUnknown_08749404
 gUnknown_08749404:
-	.incbin "graphics/animations/animation28.seq"
+	.incbin "graphics/animations/animation54.seq"
 
 @ END ANIMATION GRAPHICS PACKAGES AND SEQUENCES
