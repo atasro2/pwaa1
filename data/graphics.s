@@ -2821,436 +2821,548 @@ gUnknown_08504888:
 
 @ END COURT SCROLLS
 
-	.global gUnknown_08509388 @ character animations and shit
+@ BEGIN CHARACTER ANIMATION GRAPHICS PACKAGES AND SEQUENCES
+
+	.global gUnknown_08509388
 gUnknown_08509388:
-	.incbin "baserom.gba", 0x00509388, 0x297FC
-	
+	.incbin "graphics/animations/characters/animation01.pix"
+
+
 	.global gUnknown_08532B84
 gUnknown_08532B84:
-	.incbin "baserom.gba", 0x00532B84, 0x3B9C
+	.incbin "graphics/animations/characters/animation01.seq"
+
 
 	.global gUnknown_08536720
 gUnknown_08536720:
-	.incbin "baserom.gba", 0x00536720, 0x1F7D4
-	
+	.incbin "graphics/animations/characters/animation02.pix"
+
+
 	.global gUnknown_08555EF4
 gUnknown_08555EF4:
-	.incbin "baserom.gba", 0x00555EF4, 0x7DF0
+	.incbin "graphics/animations/characters/animation02.seq"
+
 
 	.global gUnknown_0855DCE4
 gUnknown_0855DCE4:
-	.incbin "baserom.gba", 0x0055DCE4, 0xC0A8
+	.incbin "graphics/animations/characters/animation03.pix"
+
 
 	.global gUnknown_08569D8C
 gUnknown_08569D8C:
-	.incbin "baserom.gba", 0x00569D8C, 0x26AC
+	.incbin "graphics/animations/characters/animation03.seq"
+
 
 	.global gUnknown_0856C438
 gUnknown_0856C438:
-	.incbin "baserom.gba", 0x0056C438, 0x9A88
+	.incbin "graphics/animations/characters/animation04.pix"
+
 
 	.global gUnknown_08575EC0
 gUnknown_08575EC0:
-	.incbin "baserom.gba", 0x00575EC0, 0x1C1C
+	.incbin "graphics/animations/characters/animation04.seq"
+
 
 	.global gUnknown_08577ADC
 gUnknown_08577ADC:
-	.incbin "baserom.gba", 0x00577ADC, 0x4F24
+	.incbin "graphics/animations/characters/animation05.pix"
+
 
 	.global gUnknown_0857CA00
 gUnknown_0857CA00:
-	.incbin "baserom.gba", 0x0057CA00, 0xD94
+	.incbin "graphics/animations/characters/animation05.seq"
+
 
 	.global gUnknown_0857D794
 gUnknown_0857D794:
-	.incbin "baserom.gba", 0x0057D794, 0x39F28
+	.incbin "graphics/animations/characters/animation06.pix"
+
 
 	.global gUnknown_085B76BC
 gUnknown_085B76BC:
-	.incbin "baserom.gba", 0x005B76BC, 0xB5D8
+	.incbin "graphics/animations/characters/animation06.seq"
+
 
 	.global gUnknown_085C2C94
 gUnknown_085C2C94:
-	.incbin "baserom.gba", 0x005C2C94, 0x206F4
+	.incbin "graphics/animations/characters/animation07.pix"
+
 
 	.global gUnknown_085E3388
 gUnknown_085E3388:
-	.incbin "baserom.gba", 0x005E3388, 0x56C0
+	.incbin "graphics/animations/characters/animation07.seq"
+
 
 	.global gUnknown_085E8A48
 gUnknown_085E8A48:
-	.incbin "baserom.gba", 0x005E8A48, 0x26518
+	.incbin "graphics/animations/characters/animation08.pix"
+
 
 	.global gUnknown_0860EF60
 gUnknown_0860EF60:
-	.incbin "baserom.gba", 0x0060EF60, 0x30B4
+	.incbin "graphics/animations/characters/animation08.seq"
+
 
 	.global gUnknown_08612014
 gUnknown_08612014:
-	.incbin "baserom.gba", 0x00612014, 0xE568
+	.incbin "graphics/animations/characters/animation09.pix"
+
 
 	.global gUnknown_0862057C
 gUnknown_0862057C:
-	.incbin "baserom.gba", 0x0062057C, 0x29A4
+	.incbin "graphics/animations/characters/animation09.seq"
+
 
 	.global gUnknown_08622F20
 gUnknown_08622F20:
-	.incbin "baserom.gba", 0x00622F20, 0x3644
+	.incbin "graphics/animations/characters/animation11.pix"
+
 
 	.global gUnknown_08626564
 gUnknown_08626564:
-	.incbin "baserom.gba", 0x00626564, 0x56C
+	.incbin "graphics/animations/characters/animation11.seq"
+
 
 	.global gUnknown_08626AD0
 gUnknown_08626AD0:
-	.incbin "baserom.gba", 0x00626AD0, 0x42E4
+	.incbin "graphics/animations/characters/animation12.pix"
+
 
 	.global gUnknown_0862ADB4
 gUnknown_0862ADB4:
-	.incbin "baserom.gba", 0x0062ADB4, 0xCB4
+	.incbin "graphics/animations/characters/animation12.seq"
+
 
 	.global gUnknown_0862BA68
 gUnknown_0862BA68:
-	.incbin "baserom.gba", 0x0062BA68, 0x26498
+	.incbin "graphics/animations/characters/animation13.pix"
+
 
 	.global gUnknown_08651F00
 gUnknown_08651F00:
-	.incbin "baserom.gba", 0x00651F00, 0x597C
+	.incbin "graphics/animations/characters/animation13.seq"
+
 
 	.global gUnknown_0865787C
 gUnknown_0865787C:
-	.incbin "baserom.gba", 0x0065787C, 0x169F0
+	.incbin "graphics/animations/characters/animation14.pix"
+
 
 	.global gUnknown_0866E26C
 gUnknown_0866E26C:
-	.incbin "baserom.gba", 0x0066E26C, 0x2228
+	.incbin "graphics/animations/characters/animation14.seq"
+
 
 	.global gUnknown_08670494
 gUnknown_08670494:
-	.incbin "baserom.gba", 0x00670494, 0x4BA4
+	.incbin "graphics/animations/characters/animation15.pix"
+
 
 	.global gUnknown_08675038
 gUnknown_08675038:
-	.incbin "baserom.gba", 0x00675038, 0x894
+	.incbin "graphics/animations/characters/animation15.seq"
+
 
 	.global gUnknown_086758CC
 gUnknown_086758CC:
-	.incbin "baserom.gba", 0x006758CC, 0x91E8
+	.incbin "graphics/animations/characters/animation16.pix"
+
 
 	.global gUnknown_0867EAB4
 gUnknown_0867EAB4:
-	.incbin "baserom.gba", 0x0067EAB4, 0x2848
+	.incbin "graphics/animations/characters/animation16.seq"
+
 
 	.global gUnknown_086812FC
 gUnknown_086812FC:
-	.incbin "baserom.gba", 0x006812FC, 0x3EE4
+	.incbin "graphics/animations/characters/animation17.pix"
+
 
 	.global gUnknown_086851E0
 gUnknown_086851E0:
-	.incbin "baserom.gba", 0x006851E0, 0x90C
+	.incbin "graphics/animations/characters/animation17.seq"
+
 
 	.global gUnknown_08685AEC
 gUnknown_08685AEC:
-	.incbin "baserom.gba", 0x00685AEC, 0xA208
+	.incbin "graphics/animations/characters/animation18.pix"
+
 
 	.global gUnknown_0868FCF4
 gUnknown_0868FCF4:
-	.incbin "baserom.gba", 0x0068FCF4, 0x134C
+	.incbin "graphics/animations/characters/animation18.seq"
+
 
 	.global gUnknown_08691040
 gUnknown_08691040:
-	.incbin "baserom.gba", 0x00691040, 0x1042C
+	.incbin "graphics/animations/characters/animation19.pix"
+
 
 	.global gUnknown_086A146C
 gUnknown_086A146C:
-	.incbin "baserom.gba", 0x006A146C, 0x2614
+	.incbin "graphics/animations/characters/animation19.seq"
+
 
 	.global gUnknown_086A3A80
 gUnknown_086A3A80:
-	.incbin "baserom.gba", 0x006A3A80, 0xD428
+	.incbin "graphics/animations/characters/animation21.pix"
+
 
 	.global gUnknown_086B0EA8
 gUnknown_086B0EA8:
-	.incbin "baserom.gba", 0x006B0EA8, 0x365C
+	.incbin "graphics/animations/characters/animation21.seq"
+
 
 	.global gUnknown_086B4504
 gUnknown_086B4504:
-	.incbin "baserom.gba", 0x006B4504, 0x1068C
+	.incbin "graphics/animations/characters/animation22.pix"
+
 
 	.global gUnknown_086C4B90
 gUnknown_086C4B90:
-	.incbin "baserom.gba", 0x006C4B90, 0x2598
+	.incbin "graphics/animations/characters/animation22.seq"
+
 
 	.global gUnknown_086C7128
 gUnknown_086C7128:
-	.incbin "baserom.gba", 0x006C7128, 0x2DA4
+	.incbin "graphics/animations/characters/animation23.pix"
+
 
 	.global gUnknown_086C9ECC
 gUnknown_086C9ECC:
-	.incbin "baserom.gba", 0x006C9ECC, 0x230
+	.incbin "graphics/animations/characters/animation23.seq"
+
 
 	.global gUnknown_086CA0FC
 gUnknown_086CA0FC:
-	.incbin "baserom.gba", 0x006CA0FC, 0x2964
+	.incbin "graphics/animations/characters/animation24.pix"
+
 
 	.global gUnknown_086CCA60
 gUnknown_086CCA60:
-	.incbin "baserom.gba", 0x006CCA60, 0x2A4
+	.incbin "graphics/animations/characters/animation24.seq"
+
 
 	.global gUnknown_086CCD04
 gUnknown_086CCD04:
-	.incbin "baserom.gba", 0x006CCD04, 0xADE8
+	.incbin "graphics/animations/characters/animation25.pix"
+
 
 	.global gUnknown_086D7AEC
 gUnknown_086D7AEC:
-	.incbin "baserom.gba", 0x006D7AEC, 0x2B54
+	.incbin "graphics/animations/characters/animation25.seq"
+
 
 	.global gUnknown_086DA640
 gUnknown_086DA640:
-	.incbin "baserom.gba", 0x006DA640, 0x150D0
+	.incbin "graphics/animations/characters/animation26.pix"
+
 
 	.global gUnknown_086EF710
 gUnknown_086EF710:
-	.incbin "baserom.gba", 0x006EF710, 0x3B7C
+	.incbin "graphics/animations/characters/animation26.seq"
+
 
 	.global gUnknown_086F328C
 gUnknown_086F328C:
-	.incbin "baserom.gba", 0x006F328C, 0x2633C
+	.incbin "graphics/animations/characters/animation27.pix"
+
 
 	.global gUnknown_087195C8
 gUnknown_087195C8:
-	.incbin "baserom.gba", 0x007195C8, 0x3968
+	.incbin "graphics/animations/characters/animation27.seq"
+
 
 	.global gUnknown_0871CF30
 gUnknown_0871CF30:
-	.incbin "baserom.gba", 0x0071CF30, 0x1AC4
+	.incbin "graphics/animations/characters/animation28.pix"
+
 
 	.global gUnknown_0871E9F4
 gUnknown_0871E9F4:
-	.incbin "baserom.gba", 0x0071E9F4, 0x1C8
+	.incbin "graphics/animations/characters/animation28.seq"
 
-@ end dump
+@ END CHARACTER ANIMATION GRAPHICS PACKAGES AND SEQUENCES
+
+@ BEGIN ANIMATION GRAPHICS PACKAGES AND SEQUENCES
 
 	.global gUnknown_0871EBBC
 gUnknown_0871EBBC:
-	.incbin "baserom.gba", 0x0071EBBC, 0x1138
+	.incbin "graphics/animations/tileset01.pix"
+
 
 	.global gUnknown_0871FCF4
 gUnknown_0871FCF4:
-	.incbin "baserom.gba", 0x0071FCF4, 0x20
+	.incbin "graphics/animations/animation01.seq"
+
 
 	.global gUnknown_0871FD14
 gUnknown_0871FD14:
-	.incbin "baserom.gba", 0x0071FD14, 0x4C
+	.incbin "graphics/animations/animation02.seq"
+
 
 	.global gUnknown_0871FD60
 gUnknown_0871FD60:
-	.incbin "baserom.gba", 0x0071FD60, 0x20
+	.incbin "graphics/animations/animation03.seq"
+
 
 	.global gUnknown_0871FD80
 gUnknown_0871FD80:
-	.incbin "baserom.gba", 0x0071FD80, 0x2C
+	.incbin "graphics/animations/animation04.seq"
+
 
 	.global gUnknown_0871FDAC
 gUnknown_0871FDAC:
-	.incbin "baserom.gba", 0x0071FDAC, 0x24
+	.incbin "graphics/animations/animation05.seq"
+
 
 	.global gUnknown_0871FDD0
 gUnknown_0871FDD0:
-	.incbin "baserom.gba", 0x0071FDD0, 0x28
+	.incbin "graphics/animations/animation06.seq"
+
 
 	.global gUnknown_0871FDF8
 gUnknown_0871FDF8:
-	.incbin "baserom.gba", 0x0071FDF8, 0x28420
-	
+	.incbin "graphics/animations/tileset02.pix"
+
+
 	.global gUnknown_08748218
 gUnknown_08748218:
-	.incbin "baserom.gba", 0x00748218, 0x128
+	.incbin "graphics/animations/animation07.seq"
+
 
 	.global gUnknown_08748340
 gUnknown_08748340:
-	.incbin "baserom.gba", 0x00748340, 0x128
+	.incbin "graphics/animations/animation08.seq"
+
 
 	.global gUnknown_08748468
 gUnknown_08748468:
-	.incbin "baserom.gba", 0x00748468, 0x20
+	.incbin "graphics/animations/animation09.seq"
+
 
 	.global gUnknown_08748488
 gUnknown_08748488:
-	.incbin "baserom.gba", 0x00748488, 0x20
+	.incbin "graphics/animations/animation10.seq"
+
 
 	.global gUnknown_087484A8
 gUnknown_087484A8:
-	.incbin "baserom.gba", 0x007484A8, 0x20
+	.incbin "graphics/animations/animation11.seq"
+
 
 	.global gUnknown_087484C8
 gUnknown_087484C8:
-	.incbin "baserom.gba", 0x007484C8, 0x20
+	.incbin "graphics/animations/animation12.seq"
+
 
 	.global gUnknown_087484E8
 gUnknown_087484E8:
-	.incbin "baserom.gba", 0x007484E8, 0x38
+	.incbin "graphics/animations/animation13.seq"
+
 
 	.global gUnknown_08748520
 gUnknown_08748520:
-	.incbin "baserom.gba", 0x00748520, 0x38
+	.incbin "graphics/animations/animation14.seq"
+
 
 	.global gUnknown_08748558
 gUnknown_08748558:
-	.incbin "baserom.gba", 0x00748558, 0x38
+	.incbin "graphics/animations/animation15.seq"
+
 
 	.global gUnknown_08748590
 gUnknown_08748590:
-	.incbin "baserom.gba", 0x00748590, 0x30
+	.incbin "graphics/animations/animation16.seq"
+
 
 	.global gUnknown_087485C0
 gUnknown_087485C0:
-	.incbin "baserom.gba", 0x007485C0, 0x34
+	.incbin "graphics/animations/animation17.seq"
+
 
 	.global gUnknown_087485F4
 gUnknown_087485F4:
-	.incbin "baserom.gba", 0x007485F4, 0x90
+	.incbin "graphics/animations/animation18.seq"
+
 
 	.global gUnknown_08748684
 gUnknown_08748684:
-	.incbin "baserom.gba", 0x00748684, 0xF0
+	.incbin "graphics/animations/animation19.seq"
+
 
 	.global gUnknown_08748774
 gUnknown_08748774:
-	.incbin "baserom.gba", 0x00748774, 0x340
+	.incbin "graphics/animations/animation20.seq"
+
 
 	.global gUnknown_08748AB4
 gUnknown_08748AB4:
-	.incbin "baserom.gba", 0x00748AB4, 0x38
+	.incbin "graphics/animations/animation21.seq"
+
 
 	.global gUnknown_08748AEC
 gUnknown_08748AEC:
-	.incbin "baserom.gba", 0x00748AEC, 0x38
+	.incbin "graphics/animations/animation22.seq"
+
 
 	.global gUnknown_08748B24
 gUnknown_08748B24:
-	.incbin "baserom.gba", 0x00748B24, 0x114
+	.incbin "graphics/animations/animation23.seq"
+
 
 	.global gUnknown_08748C38
 gUnknown_08748C38:
-	.incbin "baserom.gba", 0x00748C38, 0x68
+	.incbin "graphics/animations/animation24.seq"
+
 
 	.global gUnknown_08748CA0
 gUnknown_08748CA0:
-	.incbin "baserom.gba", 0x00748CA0, 0xD4
+	.incbin "graphics/animations/animation25.seq"
+
 
 	.global gUnknown_08748D74
 gUnknown_08748D74:
-	.incbin "baserom.gba", 0x00748D74, 0x24
+	.incbin "graphics/animations/animation26.seq"
+
 
 	.global gUnknown_08748D98
 gUnknown_08748D98:
-	.incbin "baserom.gba", 0x00748D98, 0x20
+	.incbin "graphics/animations/animation27.seq"
+
 
 	.global gUnknown_08748DB8
 gUnknown_08748DB8:
-	.incbin "baserom.gba", 0x00748DB8, 0x54
+	.incbin "graphics/animations/animation28.seq"
+
 
 	.global gUnknown_08748E0C
 gUnknown_08748E0C:
-	.incbin "baserom.gba", 0x00748E0C, 0xD8
+	.incbin "graphics/animations/animation29.seq"
+
 
 	.global gUnknown_08748EE4
 gUnknown_08748EE4:
-	.incbin "baserom.gba", 0x00748EE4, 0x60
+	.incbin "graphics/animations/animation30.seq"
+
 
 	.global gUnknown_08748F44
 gUnknown_08748F44:
-	.incbin "baserom.gba", 0x00748F44, 0x3C
+	.incbin "graphics/animations/animation31.seq"
+
 
 	.global gUnknown_08748F80
 gUnknown_08748F80:
-	.incbin "baserom.gba", 0x00748F80, 0x24
+	.incbin "graphics/animations/animation32.seq"
+
 
 	.global gUnknown_08748FA4
 gUnknown_08748FA4:
-	.incbin "baserom.gba", 0x00748FA4, 0x38
+	.incbin "graphics/animations/animation33.seq"
+
 
 	.global gUnknown_08748FDC
 gUnknown_08748FDC:
-	.incbin "baserom.gba", 0x00748FDC, 0x24
+	.incbin "graphics/animations/animation34.seq"
+
 
 	.global gUnknown_08749000
 gUnknown_08749000:
-	.incbin "baserom.gba", 0x00749000, 0x44
+	.incbin "graphics/animations/animation35.seq"
+
 
 	.global gUnknown_08749044
 gUnknown_08749044:
-	.incbin "baserom.gba", 0x00749044, 0x6C
+	.incbin "graphics/animations/animation36.seq"
+
 
 	.global gUnknown_087490B0
 gUnknown_087490B0:
-	.incbin "baserom.gba", 0x007490B0, 0x6C
+	.incbin "graphics/animations/animation37.seq"
+
 
 	.global gUnknown_0874911C
 gUnknown_0874911C:
-	.incbin "baserom.gba", 0x0074911C, 0x3C
+	.incbin "graphics/animations/animation38.seq"
+
 
 	.global gUnknown_08749158
 gUnknown_08749158:
-	.incbin "baserom.gba", 0x00749158, 0x3C
+	.incbin "graphics/animations/animation39.seq"
+
 
 	.global gUnknown_08749194
 gUnknown_08749194:
-	.incbin "baserom.gba", 0x00749194, 0x30
+	.incbin "graphics/animations/animation40.seq"
+
 
 	.global gUnknown_087491C4
 gUnknown_087491C4:
-	.incbin "baserom.gba", 0x007491C4, 0x28
+	.incbin "graphics/animations/animation41.seq"
+
 
 	.global gUnknown_087491EC
 gUnknown_087491EC:
-	.incbin "baserom.gba", 0x007491EC, 0x24
+	.incbin "graphics/animations/animation42.seq"
+
 
 	.global gUnknown_08749210
 gUnknown_08749210:
-	.incbin "baserom.gba", 0x00749210, 0x30
+	.incbin "graphics/animations/animation43.seq"
+
 
 	.global gUnknown_08749240
 gUnknown_08749240:
-	.incbin "baserom.gba", 0x00749240, 0x28
+	.incbin "graphics/animations/animation44.seq"
+
 
 	.global gUnknown_08749268
 gUnknown_08749268:
-	.incbin "baserom.gba", 0x00749268, 0x28
+	.incbin "graphics/animations/animation45.seq"
+
 
 	.global gUnknown_08749290
 gUnknown_08749290:
-	.incbin "baserom.gba", 0x00749290, 0x30
+	.incbin "graphics/animations/animation46.seq"
+
 
 	.global gUnknown_087492C0
 gUnknown_087492C0:
-	.incbin "baserom.gba", 0x007492C0, 0x54
+	.incbin "graphics/animations/animation47.seq"
+
 
 	.global gUnknown_08749314
 gUnknown_08749314:
-	.incbin "baserom.gba", 0x00749314, 0x20
+	.incbin "graphics/animations/animation48.seq"
+
 
 	.global gUnknown_08749334
 gUnknown_08749334:
-	.incbin "baserom.gba", 0x00749334, 0x2C
+	.incbin "graphics/animations/animation49.seq"
+
 
 	.global gUnknown_08749360
 gUnknown_08749360:
-	.incbin "baserom.gba", 0x00749360, 0x24
+	.incbin "graphics/animations/animation50.seq"
+
 
 	.global gUnknown_08749384
 gUnknown_08749384:
-	.incbin "baserom.gba", 0x00749384, 0x24
+	.incbin "graphics/animations/animation51.seq"
+
 
 	.global gUnknown_087493A8
 gUnknown_087493A8:
-	.incbin "baserom.gba", 0x007493A8, 0x2C
+	.incbin "graphics/animations/animation52.seq"
+
 
 	.global gUnknown_087493D4
 gUnknown_087493D4:
-	.incbin "baserom.gba", 0x007493D4, 0x30
+	.incbin "graphics/animations/animation53.seq"
+
 
 	.global gUnknown_08749404
 gUnknown_08749404:
-	.incbin "baserom.gba", 0x00749404, 0x24
+	.incbin "graphics/animations/animation54.seq"
+
+@ END ANIMATION GRAPHICS PACKAGES AND SEQUENCES
