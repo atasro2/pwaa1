@@ -28,7 +28,7 @@ SECTIONS {
         /* sub1.c + sub2.c */
         src/utils.o(.text);
         /* scenario.c */
-        src/investigation_segment_main.o(.text);
+        src/case_data.o(.text);
         /* sce1_0.c */
         src/investigation_segment_1_0.o(.text);
         asm/investigation_segment_1_0.o(.text);
@@ -70,10 +70,9 @@ SECTIONS {
         asm/process9.o(.text);
         src/process9_2.o(.text);
         /* tantei.c */
-        src/process4.o(.text);
-        asm/process4.o(.text);
-        /* ?????? */
-        src/rom800D674.o(.text);
+        src/investigation.o(.text);
+        asm/investigation.o(.text);
+        src/investigation_2.o(.text);
         /* status.c */
         src/court_record.o(.text);
         /* sound.o */
@@ -96,7 +95,9 @@ SECTIONS {
     {
         src/main.o(.rodata);
         src/bg3_1.o(.rodata);
-        data/data.o(.rodata);
+        rodata/bg.o(.rodata);
+        src/utils.o(.rodata);
+        rodata/data.o(.rodata);
         data/sound_data.o(.rodata);
         src/m4a_tables.o(.rodata);
         data/sound_data2.o(.rodata);
@@ -107,7 +108,11 @@ SECTIONS {
     .data :
     ALIGN(4)
     {
-        data/data_3.o(.data); /* these are all pointers */
+        src/main.o(.data);
+        src/bg.o(.data);
+        src/utils.o(.data);
+        data/case_data.o(.data);
+        data/data_3.o(.data);
     } =0
     . = 0x8180000;
     gfx_data :

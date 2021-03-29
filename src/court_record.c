@@ -3,8 +3,23 @@
 #include "background.h"
 #include "sound.h"
 #include "animation.h"
+#include "save.h"
 #include "ewram.h"
+#include "utils.h"
+#include "court.h"
+#include "script.h"
+#include "case_data.h"
+#include "investigation.h"
 #include "constants/script.h"
+
+struct EvidenceProfileData
+{
+    /* +0x00 */ u8 * descriptionTiles;
+    /* +0x04 */ u16 unk4;
+    /* +0x06 */ u16 unk6;
+};
+
+extern struct EvidenceProfileData gUnknown_08018A6C[];
 
 void sub_800D77C(struct Main * main, struct CourtRecord * courtRecord)
 {

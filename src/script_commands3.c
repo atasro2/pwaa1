@@ -2,6 +2,9 @@
 #include "script.h"
 #include "sound.h"
 #include "ewram.h"
+#include "court.h"
+#include "background.h"
+#include "investigation.h"
 #include "constants/script.h"
 
 bool32 Command40(struct ScriptContext * scriptCtx)

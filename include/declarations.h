@@ -1,50 +1,31 @@
 #ifndef GUARD_DECLARATIONS_H //TODO: get rid of this file when it's possible to move everything to its own header
 #define GUARD_DECLARATIONS_H
 
-#include "structs.h"
-
 //DATA
 extern u8 gUnknown_08013B58[];
 extern u8 gUnknown_08013B64[];
 extern const u8 gUnknown_08014D70[];
 extern const u16 gUnknown_08014D82[]; // GS1_gameover_message_data_table
 extern const u8 gUnknown_08013B70[0x400];
-extern struct Struct8018870 gUnknown_08018870[7];
 extern u8 gUnknown_080189A4[];
 extern u8 gUnknown_08018DCC[];
 extern u8 gUnknown_08018DD0[];
 extern u8 gSaveVersion[0x30];
-extern void (*gGameProcesses[15])(struct Main *);
-extern void (*gUnknown_0811DBF0[5])(struct CourtRecord *);
 extern u8 * gUnknown_0811DC10[17];
-extern struct Struct811DC54 * gUnknown_0811DC54[17];
-extern struct Struct811DC98 * gUnknown_0811DC98[17];
-extern void (*gUnknown_0811DFD0[11])(struct AnimationStruct *);
-extern void (*gUnknown_0811DFFC[6])(struct AnimationStruct *, struct CourtScroll *);
 extern u32 * gFlagPtrs[3]; 
-extern s16 gSineTable[256+64];
 extern u32 gUnknown_080150D0[12];
 extern u16 gUnknown_08014FB8[0x8C];
 extern u8 gTextPal[0x20];
 extern u32 std_scripts[0xDEC/4];
-extern u32 * gScriptTable[17];
 extern u8 gSoundCueTable[0x30];
 extern u8 gTextboxDownArrowTileIndexes[8];
 extern u8 * gCourtScrollGfxPointers[3];
-extern struct Struct80187C8 gUnknown_080187C8[16];
-extern struct PersonAnimationData gPersonAnimData[];
-extern struct AnimationData gAnimationData[];
-extern struct SpriteSizeData gSpriteSizeTable[0xF];
-extern struct EvidenceProfileData gUnknown_08018A6C[];
+
 extern s8 gUnknown_0801948C[0x1F];
 extern s8 gUnknown_080194AB[0x1F];
 extern s8 gUnknown_080194CA[0x1F];
 extern u16 gUnknown_08013F70[];
 extern u16 gUnknown_08014270[];
-
-extern void (*gUnknown_0811DD20[])(struct Main *);
-extern void (*gUnknown_0811DCDC[])(struct Main *);
-extern void (*gUnknown_0811DD64[])(struct Main *);
 
 #ifndef ROM_START
 #define ROM_START 0x08000000 // why is this not already a fucking define 
@@ -136,63 +117,4 @@ extern u8 gUnknown_08427D88[];
 //extern u8 gUnknown_08748218[];
 #define gUnknown_08748218 ((u8*)(GFX_BASE_ADDR + 0x5C8218))
 
-//FUNCTIONS // these should be moved soon
-
-void sub_80074E8();
-
-void UpdateCourtScroll(struct CourtScroll *);
-u8 Random();
-void ChangeScriptSection(u32);
-void LoadCurrentScriptIntoRam();
-void RunScriptContext();
-void MoveSpritesToOAM();
-bool32 CheckPointInArea(struct Point * point, struct Point4 * area);
-void ChangeFlag(u32, u32, bool32);
-bool32 GetFlag(u32 arg0, u32 arg1);
-// rom8007A0C
-u32 LoadSaveData();
-void CalculateSaveChecksum();
-u32 CheckSaveChecksum();
-
-bool32 CheckRectCollisionWithArea(struct Rect *rect, struct Point4 *area);
-
-//ASMFUNCTIONS
-
-// UNSORTED
-extern void sub_800D3C8(struct InvestigationStruct *);
-extern void sub_800D6C8(void);
-extern void sub_800D674(void);
-extern void sub_80020B0(u32);
-extern void sub_8002878(struct CourtRecord *);
-extern void ResetSoundControl();
-extern void sub_800B638(struct Main *, struct TestimonyStruct *);
-extern void sub_800B51C(struct Main *, struct TestimonyStruct *, u32);
-extern u32 sub_800D5B0(struct InvestigationStruct *);
-extern void sub_800B7A8(struct InvestigationStruct *, u32);
-extern u32 GetMapMarkerIndexFromId(u32);
-//EWRAM
-// fuck capcom
-//IWRAM
-extern u16 gBG2MapBuffer[0x400]; // BG 2 Map buffer
-extern struct AnimationStruct gAnimation[0x20];
-extern u16 gBG3MapBuffer[0x400]; // BG 3 Map buffer
-extern u16 gBG3MapBufferCopy[0x400]; // BG 3 Map buffer copy
-extern u16 gBG1MapBuffer[0x400]; // BG 1 Map buffer
-extern struct CourtRecord gCourtRecord;
-extern struct TalkData gTalkData[32];
-extern struct OamAttrs gOamObjects[128];
-extern u16 gBG0MapBuffer[0x400]; // BG 0 Map buffer
-extern struct MapMarker gMapMarker[8];
-extern u8 gTextColorTileBuffer[0x80];
-extern struct InvestigationStruct gInvestigation;
-extern struct ScriptContext gScriptContext;
-extern struct TestimonyStruct gTestimony; 
-extern struct ExaminationData gExaminationData[16];
-extern struct TextBoxCharacter gTextBoxCharacters[0x3F];
-extern u16 gObjPaletteBuffer[16][16];
-extern struct CourtScroll gCourtScroll;
-extern struct MusicPlayerInfo gMPlayInfo_BGM;
-extern struct MusicPlayerInfo gMPlayInfo_SE1;
-extern struct MusicPlayerInfo gMPlayInfo_SE2;
-extern struct MusicPlayerInfo gMPlayInfo_SE3;
 #endif//GUARD_DECLARATIONS_H

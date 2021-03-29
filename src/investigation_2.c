@@ -1,5 +1,7 @@
 #include "global.h"
 #include "main.h"
+#include "investigation.h"
+#include "animation.h"
 
 void sub_800D674(void)
 {

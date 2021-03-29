@@ -2,8 +2,38 @@
 #include "script.h"
 #include "sound.h"
 #include "ewram.h"
+#include "utils.h"
+#include "background.h"
 #include "animation.h"
+#include "court.h"
+#include "investigation.h"
 #include "constants/script.h"
+
+struct Struct80187C8
+{
+    /* +0x00 */ u8 * tiles;
+    /* +0x04 */ u16 size;
+    /* +0x06 */ u16 attr0;
+    /* +0x08 */ u16 attr1;
+    /* +0x0A */ u16 attr2;
+};
+
+struct Struct8018870
+{
+    /* +0x00 */ struct Point4 unk0;
+    /* +0x10 */ struct Point4 unk10;
+    /* +0x20 */ u16 unk20;
+    /* +0x22 */ u16 unk22;
+    /* +0x24 */ u16 unk24;
+    /* +0x26 */ u8 pad[2]; // possibly another u16 unused
+    /* +0x28 */ u8 unk28;
+    /* +0x29 */ u8 unk29;
+    /* +0x2A */ u8 unk2A;
+    /* +0x2B */ u8 unk2B;
+};
+
+extern struct Struct80187C8 gUnknown_080187C8[16];
+extern struct Struct8018870 gUnknown_08018870[7];
 
 u32 Command20(struct ScriptContext * scriptCtx)
 {

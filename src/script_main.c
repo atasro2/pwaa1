@@ -5,10 +5,15 @@
 #include "ewram.h"
 #include "constants/script.h"
 
-static void AdvanceScriptContext(struct ScriptContext *scriptCtx);
-extern void DrawTextAndMapMarkers(struct ScriptContext *scriptCtx);
-void PutCharInTextbox(u32, u32, u32);
+static void AdvanceScriptContext(struct ScriptContext *);
+static void DrawTextAndMapMarkers(struct ScriptContext *);
+static void PutCharInTextbox(u32, u32, u32);
+
 extern bool32 (*gScriptCmdFuncs[0x5F])(struct ScriptContext *);
+
+extern u8 gTextColorTileBuffer[0x80];
+
+extern const u32 * gScriptTable[17];
 
 void LoadCurrentScriptIntoRam(void)
 {
@@ -101,7 +106,7 @@ void InitScriptSection(struct ScriptContext *scriptCtx)
     }
 }
 
-void AdvanceScriptContext(struct ScriptContext * scriptCtx)
+static void AdvanceScriptContext(struct ScriptContext * scriptCtx)
 {
     if(scriptCtx->unk13 > 0 && (gJoypad.pressedKeys & A_BUTTON || gJoypad.heldKeys & B_BUTTON)) // text skip
         scriptCtx->unk13 = 2;
@@ -177,7 +182,7 @@ void AdvanceScriptContext(struct ScriptContext * scriptCtx)
 }
 
 #ifdef NONMATCHING
-void PutCharInTextbox(u32 characterCode, u32 y, u32 x)
+static void PutCharInTextbox(u32 characterCode, u32 y, u32 x)
 {
     u8* src;
     u8* dst;
@@ -243,10 +248,9 @@ void PutCharInTextbox(u32 characterCode, u32 y, u32 x)
 }
 #else
 NAKED
-void PutCharInTextbox(u32 characterCode, u32 y, u32 x)
+static void PutCharInTextbox(u32 characterCode, u32 y, u32 x)
 {
-    asm_unified("PutCharInTextbox:\n\
-	push {r4, r5, r6, r7, lr}\n\
+    asm_unified("push {r4, r5, r6, r7, lr}\n\
 	mov r7, sl\n\
 	mov r6, sb\n\
 	mov r5, r8\n\
@@ -461,7 +465,7 @@ _0800588C: .4byte gScriptContext\n");
 }
 #endif
 
-void DrawTextAndMapMarkers(struct ScriptContext * scriptCtx)
+static void DrawTextAndMapMarkers(struct ScriptContext * scriptCtx)
 {
     struct OamAttrs * oam;
     u32 i;

@@ -1,6 +1,9 @@
 #include "global.h"
 #include "animation.h"
 #include "background.h"
+#include "investigation.h"
+#include "script.h"
+#include "utils.h"
 #include "sound.h"
 
 void sub_8002C98(u32 arg0, u32 arg1, u32 arg2) // Set_char

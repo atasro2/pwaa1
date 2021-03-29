@@ -4,14 +4,21 @@
 #include "sound.h"
 #include "m4a.h"
 #include "ewram.h"
+#include "utils.h"
+#include "script.h"
 #include "background.h"
 #include "court_record.h"
+#include "investigation.h"
+#include "save.h"
+#include "court.h"
 
 static void DoGameProcess();
 static void VBlankIntr();
 static void HBlankIntr();
 static void IntrDummy();
 static void UpdateHardwareBlend();
+static void UpdateCourtScroll(struct CourtScroll * );
+
 static void (* const IntrTableFunctionPtrs[])() =
 {
     VBlankIntr,
@@ -30,6 +37,35 @@ static void (* const IntrTableFunctionPtrs[])() =
     IntrDummy,
     IntrDummy,
     IntrDummy
+};
+
+void CapcomLogoProcess(struct Main *);
+void TitleScreenProcess(struct Main *);
+
+void GameOverScreenProcess(struct Main *);
+
+void SaveGameProcess(struct Main *);
+void EpisodeClearedProcess(struct Main *);
+void SelectEpisodeProcess(struct Main *);
+void ContinueSaveProcess(struct Main *);
+void ClearSaveProcess(struct Main *);
+
+void (*gGameProcesses[])(struct Main *) = {
+    CapcomLogoProcess,
+    TitleScreenProcess,
+    GameOverScreenProcess,
+    GameProcess03,
+    GameProcess04,
+    GameProcess05,
+    GameProcess06,
+    CourtRecordProcess,
+    GameProcess08,
+    GameProcess09,
+    SaveGameProcess,
+    EpisodeClearedProcess,
+    SelectEpisodeProcess,
+    ContinueSaveProcess,
+    ClearSaveProcess
 };
 
 extern void (*gIntrTable[0x10]);
@@ -322,7 +358,7 @@ u32 ReadKeysAndTestResetCombo()
     return 0;
 }
 
-void InitCourtScroll(u8 * arg0, u32 arg1, u32 arg2, u32 arg3) // init court scroll
+void InitCourtScroll(u8 * arg0, u32 arg1, u32 arg2, u32 arg3)
 {
     gCourtScroll.unk0 = arg0;
     gCourtScroll.state = arg3;
@@ -331,7 +367,7 @@ void InitCourtScroll(u8 * arg0, u32 arg1, u32 arg2, u32 arg3) // init court scro
     gMain.isBGScrolling = 0;
 }
 
-void UpdateCourtScroll(struct CourtScroll * courtScroll) // update court scroll
+static void UpdateCourtScroll(struct CourtScroll * courtScroll)
 {
     if (courtScroll->state & 1)
     {

@@ -1,16 +1,23 @@
 #include "global.h"
 #include "main.h"
+#include "investigation.h"
+#include "save.h"
+#include "court.h"
 #include "ewram.h"
+#include "utils.h"
+#include "script.h"
 #include "background.h"
 #include "animation.h"
 #include "court_record.h"
 #include "sound.h"
+#include "case_data.h"
 #include "constants/animation.h"
 #include "constants/script.h"
 #include "constants/bg.h"
 
 extern void SetCurrentEpisodeBit();
 extern void sub_800D530(struct Main *, u32);
+extern void sub_800D3C8(struct InvestigationStruct *);
 
 void sub_800B7A8(struct InvestigationStruct * investigation, u32 arg1)
 {

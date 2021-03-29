@@ -3,6 +3,11 @@
 #include "constants/sound.h"
 #include "m4a.h"
 
+extern struct MusicPlayerInfo gMPlayInfo_BGM;
+extern struct MusicPlayerInfo gMPlayInfo_SE1;
+extern struct MusicPlayerInfo gMPlayInfo_SE2;
+extern struct MusicPlayerInfo gMPlayInfo_SE3;
+
 void ResetSoundControl() // Bgm_init
 {
     gMain.soundStatus = SOUND_STATUS_BGM_STOPPED;

@@ -3,12 +3,14 @@
 #include "animation.h"
 #include "script.h"
 #include "sound.h"
+#include "utils.h"
 #include "m4a.h"
-#include "constants/bg.h"
-#include "constants/script.h"
 #include "ewram.h"
 #include "background.h"
+#include "investigation.h"
 #include "court_record.h"
+#include "constants/bg.h"
+#include "constants/script.h"
 
 bool32 CommandDummy(struct ScriptContext * scriptCtx)
 {

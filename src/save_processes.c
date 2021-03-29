@@ -1,10 +1,14 @@
 #include "global.h"
+#include "save.h"
 #include "animation.h"
 #include "ewram.h"
 #include "script.h"
 #include "background.h"
 #include "sound.h"
+#include "court.h"
 #include "agb_sram.h"
+#include "court_record.h"
+#include "investigation.h"
 #include "constants/script.h"
 
 u32 SaveGameData()
@@ -233,8 +237,8 @@ void SaveGameInit2SubProcess(struct Main *main)
         return;
     DmaCopy16(3, gBG0MapBuffer, gSaveDataBuffer.bg0Map, sizeof(gBG0MapBuffer));
     DmaCopy16(3, &gCourtRecord, &gSaveDataBuffer.courtRecord, sizeof(gCourtRecord));
-    DmaCopy16(3, &gInvestigation, &gSaveDataBuffer.iwramStruct3A50, sizeof(gInvestigation));
-    DmaCopy16(3, &gTestimony, &gSaveDataBuffer.iwramStruct3AB0, sizeof(gTestimony));
+    DmaCopy16(3, &gInvestigation, &gSaveDataBuffer.investigation, sizeof(gInvestigation));
+    DmaCopy16(3, &gTestimony, &gSaveDataBuffer.testimony, sizeof(gTestimony));
     DmaCopy16(3, &gCourtScroll, &gSaveDataBuffer.courtScroll, sizeof(gCourtScroll))
     DmaCopy16(3, gExaminationData, gSaveDataBuffer.examinationData, sizeof(gExaminationData));
     DmaCopy16(3, gTalkData, gSaveDataBuffer.talkData, sizeof(gTalkData));
