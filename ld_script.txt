@@ -118,13 +118,13 @@ SECTIONS {
     gfx_data :
     ALIGN(4)
     {
-        data/graphics.o(.data);
+        data/graphics.o(gfx_data);
     } =0
 
     script_data :
     ALIGN(4)
     {
-        data/scripts.o(.data);
+        data/scripts.o(script_data);
     } =0
 
     /* DWARF debug sections.

@@ -1,4 +1,4 @@
-	.section .data
+	.section gfx_data, "aw", %progbits
 	.include "asm/macros.inc"
 
 	.global gUnknown_08180000
