@@ -32,7 +32,7 @@ SECTIONS {
         /* sce1_0.c */
         src/investigation_segment_1_0.o(.text);
         /* sce1_2.c */
-        asm/investigation_segment_1_2.o(.text);
+        src/investigation_segment_1_2.o(.text);
         /* sce2_0.c */
         asm/investigation_segment_2_0.o(.text);
         /* sce2_2.c */

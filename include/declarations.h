@@ -17,6 +17,18 @@ extern u8 gUnknown_080152B8[];
 extern u8 gUnknown_080152E0[];
 extern u8 gUnknown_08015344[];
 
+extern u8 gUnknown_0801541C[];
+extern u8 gUnknown_08015520[];
+
+extern u8 gUnknown_08015550[];
+extern u8 gUnknown_080155B4[];
+extern u8 gUnknown_08015618[];
+extern u8 gUnknown_08015640[];
+extern u8 gUnknown_080156B8[];
+extern u8 gUnknown_0801571C[];
+extern u8 gUnknown_08015780[];
+extern u8 gUnknown_080157F8[];
+
 extern struct Struct8018870 gUnknown_08018870[7];
 extern u8 gUnknown_080189A4[];
 extern u8 gUnknown_08018DCC[];

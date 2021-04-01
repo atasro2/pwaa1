@@ -12,7 +12,6 @@ void sub_8002D70(struct Main * main)
 
 void sub_8002DB4(struct Main * main)
 {
-    u32 temp;
     DmaFill16(3, 0xFFFF, gExaminationData, sizeof(gExaminationData));
     switch(main->currentRoomId) {
         case 0: {
