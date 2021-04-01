@@ -9,6 +9,14 @@ extern u8 gUnknown_08013B64[];
 extern const u8 gUnknown_08014D70[];
 extern const u16 gUnknown_08014D82[]; // GS1_gameover_message_data_table
 extern const u8 gUnknown_08013B70[0x400];
+
+extern u8 gUnknown_08015100[];
+extern u8 gUnknown_08015178[];
+extern u8 gUnknown_080151DC[];
+extern u8 gUnknown_080152B8[];
+extern u8 gUnknown_080152E0[];
+extern u8 gUnknown_08015344[];
+
 extern struct Struct8018870 gUnknown_08018870[7];
 extern u8 gUnknown_080189A4[];
 extern u8 gUnknown_08018DCC[];
@@ -139,6 +147,9 @@ extern u8 gUnknown_08427D88[];
 //FUNCTIONS // these should be moved soon
 
 void sub_80074E8();
+
+void sub_8002CCC(u32 section, u32 flagId);
+void sub_8002C98(u32 arg0, u32 arg1, u32 arg2);
 
 void UpdateCourtScroll(struct CourtScroll *);
 u8 Random();

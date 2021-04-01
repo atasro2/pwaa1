@@ -31,7 +31,6 @@ SECTIONS {
         src/investigation_segment_main.o(.text);
         /* sce1_0.c */
         src/investigation_segment_1_0.o(.text);
-        asm/investigation_segment_1_0.o(.text);
         /* sce1_2.c */
         asm/investigation_segment_1_2.o(.text);
         /* sce2_0.c */
