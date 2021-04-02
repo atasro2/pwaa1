@@ -31,15 +31,6 @@ void sub_80035D8(struct Main * main)
             DmaCopy16(3, gUnknown_08015BD0, gExaminationData, sizeof(gUnknown_08015BD0));
             break;
         }
-        case 1: {
-            break;
-        }
-        case 2: {
-            break;
-        }
-        case 3: {
-            break;
-        }
         case 0: {
             if (GetFlag(0, 0xA0)) {
                 if (!GetFlag(0, 0x92)) {

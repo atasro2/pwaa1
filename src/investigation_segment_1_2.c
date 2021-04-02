@@ -36,9 +36,6 @@ void sub_80031D0(struct Main * main)
             }
             break;
         }
-        case 1: {
-            break;
-        }
         case 2: {
             DmaCopy16(3, gUnknown_08015618, gExaminationData, 0x28);
             if(!GetFlag(0, 0x80)) {

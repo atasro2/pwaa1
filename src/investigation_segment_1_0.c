@@ -122,9 +122,6 @@ void sub_8002DB4(struct Main * main)
             DmaCopy16(3, gUnknown_080152E0, gExaminationData, 0x64);
             break;
         }
-        case 4: {
-            break;
-        }
         case 5: {
             if(GetFlag(0, 0x5A)) {
                 if(!GetFlag(0, 0x54)) {
