@@ -11,6 +11,8 @@
 #include "investigation.h"
 #include "constants/script.h"
 
+const char gSaveVersion[0x30] = "2001 CAPCOM GBA GYAKUTEN-SAIBAN 06/15 Ver 1.000-";
+
 u32 SaveGameData()
 {
     gSaveDataBuffer.main.unk17 |= 0x10;
@@ -488,7 +490,7 @@ void SaveGameSubProcess5(struct Main *main)
     }
     gIORegisters.lcd_dispcnt = 0;
     gScriptContext.currentSection = 0x80;
-    SET_PROCESS_PTR(gUnknown_08014D70[main->scenarioIdx], 0, 0, 0, main);
+    SET_PROCESS_PTR(gCaseStartProcess[main->scenarioIdx], 0, 0, 0, main);
 }
 
 void sub_8008CC0(struct Main * main)

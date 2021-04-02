@@ -575,7 +575,7 @@ _0800FE14:\n\
 }
 #endif
 
-bool32 CheckIfLinesIntersect(struct Point *pt0, struct Point *pt1, struct Point *pt2, struct Point *pt3)
+bool32 CheckIfLinesIntersect(const struct Point *pt0, const struct Point *pt1, const struct Point *pt2, const struct Point *pt3)
 {
     // check if the lines through pt0-pt1 and pt2-pt3 intersect on the screen
     s32 xd01, yd01, xd23, yd23, cp0123, xd13, yd13, cp2313, cp0113;
@@ -603,14 +603,14 @@ bool32 CheckIfLinesIntersect(struct Point *pt0, struct Point *pt1, struct Point 
     return FALSE;
 }
 
-bool32 CheckRectCollisionWithArea(struct Rect *rect, struct Point4 *area)
+bool32 CheckRectCollisionWithArea(const struct Rect * rect, const struct Point4 * area)
 {
     u32 i, j, k;
     struct Point4 p;
-    struct Point *p1 = &area->points[0];
-    struct Point *p2 = &area->points[1];
-    struct Point *p3 = &p.points[0];
-    struct Point *p4 = &p.points[1];
+    const struct Point *p1 = &area->points[0];
+    const struct Point *p2 = &area->points[1];
+    const struct Point *p3 = &p.points[0];
+    const struct Point *p4 = &p.points[1];
     if (CheckPointInArea(&rect->origin, area))
         return TRUE;
     

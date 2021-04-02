@@ -33,6 +33,8 @@ struct SaveData
 
 extern EWRAM_DATA struct SaveData gSaveDataBuffer;
 
+extern const char gSaveVersion[0x30];
+
 u32 SaveGameData();
 u32 LoadSaveData();
 void CalculateSaveChecksum();

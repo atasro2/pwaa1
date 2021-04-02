@@ -4,22 +4,16 @@
 //DATA
 extern u8 gUnknown_08013B58[];
 extern u8 gUnknown_08013B64[];
-extern const u8 gUnknown_08014D70[];
-extern const u16 gUnknown_08014D82[]; // GS1_gameover_message_data_table
+extern const u8 gCaseStartProcess[];
+extern const u16 gCaseGameoverSections[]; // GS1_gameover_message_data_table
 extern const u8 gUnknown_08013B70[0x400];
 extern u8 gUnknown_080189A4[];
-extern u8 gUnknown_08018DCC[];
-extern u8 gUnknown_08018DD0[];
-extern u8 gSaveVersion[0x30];
 extern u8 * gUnknown_0811DC10[17];
 extern u32 * gFlagPtrs[3]; 
 extern u32 gUnknown_080150D0[12];
 extern u16 gUnknown_08014FB8[0x8C];
 extern u8 gTextPal[0x20];
 extern u32 std_scripts[0xDEC/4];
-extern u8 gSoundCueTable[0x30];
-extern u8 gTextboxDownArrowTileIndexes[8];
-extern u8 * gCourtScrollGfxPointers[3];
 
 extern s8 gUnknown_0801948C[0x1F];
 extern s8 gUnknown_080194AB[0x1F];
@@ -45,7 +39,6 @@ extern u8 gUnknown_08186540[0x1000];
 extern u8 gUnknown_08187540[];
 //extern u8 gUnknown_0818BD40[];
 #define gUnknown_0818BD40 ((u8*)(GFX_BASE_ADDR + 0xBD40))
-extern u8 gUnknown_0818BEC0[];
 extern u8 gUnknown_0818F6C0[0x200];
 extern u8 gUnknown_0818F8C0[0x800];
 
@@ -89,6 +82,115 @@ extern u8 gUnknown_08194580[0xC0]; // sprite palettes
 extern u8 gUnknown_081946C0[];
 extern u8 gUnknown_081964A8[0x800];
 
+extern u8 gUnknown_08196CA8[];
+extern u8 gUnknown_081970DC[];
+extern u8 gUnknown_08197514[];
+extern u8 gUnknown_08197928[];
+extern u8 gUnknown_08197D18[];
+extern u8 gUnknown_081981A0[];
+extern u8 gUnknown_081985D8[];
+extern u8 gUnknown_08198A84[];
+extern u8 gUnknown_08198E5C[];
+extern u8 gUnknown_08199228[];
+extern u8 gUnknown_08199690[];
+extern u8 gUnknown_08199AEC[];
+extern u8 gUnknown_08199EC8[];
+extern u8 gUnknown_0819A2E4[];
+extern u8 gUnknown_0819A700[];
+extern u8 gUnknown_0819ABBC[];
+extern u8 gUnknown_0819B028[];
+extern u8 gUnknown_0819B428[];
+extern u8 gUnknown_0819B868[];
+extern u8 gUnknown_0819BCE4[];
+extern u8 gUnknown_0819C0D8[];
+extern u8 gUnknown_0819C434[];
+extern u8 gUnknown_0819C810[];
+extern u8 gUnknown_0819CC44[];
+extern u8 gUnknown_0819D028[];
+extern u8 gUnknown_0819D4C8[];
+extern u8 gUnknown_0819D90C[];
+extern u8 gUnknown_0819DDAC[];
+extern u8 gUnknown_0819E18C[];
+extern u8 gUnknown_0819E5A0[];
+extern u8 gUnknown_0819E9D8[];
+extern u8 gUnknown_0819EDF0[];
+extern u8 gUnknown_0819F208[];
+extern u8 gUnknown_0819F5C0[];
+extern u8 gUnknown_0819F9E8[];
+extern u8 gUnknown_0819FD84[];
+extern u8 gUnknown_081A0120[];
+extern u8 gUnknown_081A0580[];
+extern u8 gUnknown_081A09E4[];
+extern u8 gUnknown_081A0E58[];
+extern u8 gUnknown_081A1324[];
+extern u8 gUnknown_081A1728[];
+extern u8 gUnknown_081A1A10[];
+extern u8 gUnknown_081A1E1C[];
+extern u8 gUnknown_081A22A4[];
+extern u8 gUnknown_081A26BC[];
+extern u8 gUnknown_081A2AE4[];
+extern u8 gUnknown_081A2EE4[];
+extern u8 gUnknown_081A3330[];
+extern u8 gUnknown_081A3714[];
+extern u8 gUnknown_081A3B44[];
+extern u8 gUnknown_081A3FF8[];
+extern u8 gUnknown_081A439C[];
+extern u8 gUnknown_081A47D4[];
+extern u8 gUnknown_081A4BD4[];
+extern u8 gUnknown_081A4FF0[];
+extern u8 gUnknown_081A541C[];
+extern u8 gUnknown_081A5828[];
+extern u8 gUnknown_081A5BF4[];
+extern u8 gUnknown_081A5FA4[];
+extern u8 gUnknown_081A639C[];
+extern u8 gUnknown_081A675C[];
+extern u8 gUnknown_081A6B88[];
+extern u8 gUnknown_081A6F68[];
+extern u8 gUnknown_081A7310[];
+extern u8 gUnknown_081A775C[];
+extern u8 gUnknown_081A7B68[];
+extern u8 gUnknown_081A7FA4[];
+extern u8 gUnknown_081A83C4[];
+extern u8 gUnknown_081A8828[];
+extern u8 gUnknown_081A8C30[];
+extern u8 gUnknown_081A8F4C[];
+extern u8 gUnknown_081A9380[];
+extern u8 gUnknown_081A97CC[];
+extern u8 gUnknown_081A9BC8[];
+extern u8 gUnknown_081AA054[];
+extern u8 gUnknown_081AA458[];
+extern u8 gUnknown_081AA894[];
+extern u8 gUnknown_081AACDC[];
+extern u8 gUnknown_081AB178[];
+extern u8 gUnknown_081AB574[];
+extern u8 gUnknown_081AB9FC[];
+extern u8 gUnknown_081ABE00[];
+extern u8 gUnknown_081AC2B0[];
+extern u8 gUnknown_081AC75C[];
+extern u8 gUnknown_081ACBFC[];
+extern u8 gUnknown_081AD02C[];
+extern u8 gUnknown_081AD448[];
+extern u8 gUnknown_081AD864[];
+extern u8 gUnknown_081ADCD4[];
+extern u8 gUnknown_081AE0DC[];
+extern u8 gUnknown_081AE4FC[];
+extern u8 gUnknown_081AE938[];
+extern u8 gUnknown_081AED3C[];
+extern u8 gUnknown_081AF15C[];
+extern u8 gUnknown_081AF5A8[];
+extern u8 gUnknown_081AF9DC[];
+extern u8 gUnknown_081AFE0C[];
+extern u8 gUnknown_081B01D0[];
+extern u8 gUnknown_081B0594[];
+extern u8 gUnknown_081B0984[];
+extern u8 gUnknown_081B0DC4[];
+extern u8 gUnknown_081B1150[];
+extern u8 gUnknown_081B14EC[];
+extern u8 gUnknown_081B18C0[];
+extern u8 gUnknown_081B1CBC[];
+extern u8 gUnknown_081B2150[];
+extern u8 gUnknown_081B25F0[];
+
 //extern u8 gUnknown_081B290C[];
 #define gUnknown_081B290C ((u8*)(GFX_BASE_ADDR + 0x3290C))
 
@@ -107,6 +209,8 @@ extern u8 gUnknown_08362524[0x20]; // 4bpp palette
 extern u16 gUnknown_08362544[]; // palette?
 
 extern u8 gUnknown_08427D88[];
+extern u8 gUnknown_08472F88[];
+extern u8 gUnknown_084BE188[];
 
 //extern u8 gUnknown_0871EBBC[];
 #define gUnknown_0871EBBC ((u8*)(GFX_BASE_ADDR + 0x59EBBC))

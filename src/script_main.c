@@ -13,7 +13,43 @@ extern bool32 (*gScriptCmdFuncs[0x5F])(struct ScriptContext *);
 
 extern u8 gTextColorTileBuffer[0x80];
 
-extern const u32 * gScriptTable[17];
+extern u8 scenario_0_script[];
+extern u8 scenario_1_0_script[];
+extern u8 scenario_1_1_script[];
+extern u8 scenario_1_2_script[];
+extern u8 scenario_1_3_script[];
+extern u8 scenario_2_0_script[];
+extern u8 scenario_2_1_script[];
+extern u8 scenario_2_2_script[];
+extern u8 scenario_2_3_script[];
+extern u8 scenario_2_4_script[];
+extern u8 scenario_2_5_script[];
+extern u8 scenario_3_0_script[];
+extern u8 scenario_3_1_script[];
+extern u8 scenario_3_2_script[];
+extern u8 scenario_3_3_script[];
+extern u8 scenario_3_4_script[];
+extern u8 scenario_3_5_script[];
+
+u8 * const gScriptTable[] = {
+    scenario_0_script,
+    scenario_1_0_script,
+    scenario_1_1_script,
+    scenario_1_2_script,
+    scenario_1_3_script,
+    scenario_2_0_script,
+    scenario_2_1_script,
+    scenario_2_2_script,
+    scenario_2_3_script,
+    scenario_2_4_script,
+    scenario_2_5_script,
+    scenario_3_0_script,
+    scenario_3_1_script,
+    scenario_3_2_script,
+    scenario_3_3_script,
+    scenario_3_4_script,
+    scenario_3_5_script,
+};
 
 void LoadCurrentScriptIntoRam(void)
 {

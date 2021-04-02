@@ -12,6 +12,26 @@
 #include "constants/bg.h"
 #include "constants/script.h"
 
+
+const u8 gSoundCueTable[] = {
+    0, 0, 0, 0, 1, 1, 1, 1,
+	0, 0, 0, 0, 0, 0, 0, 1,
+	1, 1, 0, 0, 0, 0, 1, 0,
+	0, 0, 0, 0, 0, 0, 0, 1,
+    0, 0, 0, 0, 0, 0, 1, 1,
+	1, 1, 0, 0, 0, 0, 0, 0,
+};
+
+u8 * const gCourtScrollGfxPointers[] = {
+    gUnknown_08427D88,
+    gUnknown_08472F88,
+    gUnknown_084BE188,
+};
+
+const u8 gTextboxDownArrowTileIndexes[] = {
+    0x20, 0x22, 0x24, 0x26, 0x24, 0x22,
+};
+
 bool32 CommandDummy(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;

@@ -36,9 +36,6 @@ gUnknown_08187540:
 	.global gUnknown_0818BD40
 gUnknown_0818BD40:
 	.incbin "graphics/ui/left_arrow.4bpp"
-
-	.global gUnknown_0818BEC0
-gUnknown_0818BEC0:
 	.incbin "graphics/ui/right_arrow.4bpp"
 
 	.global gUnknown_0818C040

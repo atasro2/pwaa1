@@ -22,8 +22,8 @@ struct Rect
 extern const s16 gSineTable[256+64];
 
 void MoveSpritesToOAM();
-bool32 CheckPointInArea(struct Point * point, struct Point4 * area);
-bool32 CheckRectCollisionWithArea(struct Rect *rect, struct Point4 *area);
+bool32 CheckPointInArea(const struct Point * point, const struct Point4 * area);
+bool32 CheckRectCollisionWithArea(const struct Rect * rect, const struct Point4 * area);
 s16 fix_mul(s16 a, s16 b);
 s16 fix_div(s16 a, s16 b);
 s16 fix_inverse(s16 b);

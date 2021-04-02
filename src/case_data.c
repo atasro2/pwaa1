@@ -1,10 +1,51 @@
 #include "global.h"
+#include "case_data.h"
 #include "animation.h"
 #include "background.h"
 #include "investigation.h"
 #include "script.h"
 #include "utils.h"
 #include "sound.h"
+
+const u8 gCaseStartProcess[] = {
+    3,
+    4,
+    3,
+    4,
+    3,
+    4,
+    3,
+    4,
+    3,
+    4,
+    3,
+    4,
+    3,
+    4,
+    3,
+    4,
+    3,
+};
+
+const u16 gCaseGameoverSections[] = {
+    0xF1,
+    0x0,
+    0x11D,
+    0x0,
+    0xE8,
+    0x0,
+    0xDC,
+    0x0,
+    0xFD,
+    0x0,
+    0xE0,
+    0x0,
+    0xF9,
+    0x0,
+    0xE4,
+    0x0,
+    0xF7
+};
 
 void sub_8002C98(u32 arg0, u32 arg1, u32 arg2) // Set_char
 {

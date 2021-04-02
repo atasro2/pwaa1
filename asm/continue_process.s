@@ -801,7 +801,7 @@ _0800A128: .4byte 0x80000200
 _0800A12C: .4byte gUnknown_081942A0
 _0800A130: .4byte 0x050002A0
 _0800A134: .4byte gUnknown_0818BD40
-_0800A138: .4byte gUnknown_0818BEC0
+_0800A138: .4byte gUnknown_0818BD40+0x180
 _0800A13C: .4byte 0x040000D4
 _0800A140: .4byte gSaveDataBuffer+0xB50
 _0800A144: .4byte gTextBoxCharacters
@@ -853,7 +853,7 @@ _0800A1D0:
 	str r0, [r7, #4]
 	b _0800A322
 	.align 2, 0
-_0800A1E0: .4byte gUnknown_08014D70
+_0800A1E0: .4byte gCaseStartProcess
 _0800A1E4:
 	adds r0, r7, #0
 	adds r0, #0x76

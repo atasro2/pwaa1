@@ -97,6 +97,14 @@ SECTIONS {
         src/bg3_1.o(.rodata);
         rodata/bg.o(.rodata);
         src/utils.o(.rodata);
+        src/case_data.o(.rodata);
+        rodata/case_data.o(.rodata);
+        src/script_main.o(.rodata);
+        src/script_commands.o(.rodata);
+        src/script_commands2.o(.rodata);
+        rodata/gameover_process.o(.rodata);
+        src/save_processes.o(.rodata);
+        src/court_record.o(.rodata);
         rodata/data.o(.rodata);
         data/sound_data.o(.rodata);
         src/m4a_tables.o(.rodata);

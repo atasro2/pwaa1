@@ -335,7 +335,7 @@ void MoveSpritesToOAM()
     DmaCopy16(3, gOamObjects, OAM, sizeof(gOamObjects));
 }
 
-bool32 CheckPointInArea(struct Point * point, struct Point4 * area)
+bool32 CheckPointInArea(const struct Point * point, const struct Point4 * area)
 {
     s32 num;
     s32 num2;
