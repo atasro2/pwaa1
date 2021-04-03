@@ -19,7 +19,7 @@ void sub_8002DB4(struct Main * main)
                 if(!GetFlag(0, 0x4F)) {
                     sub_8002CCC(0xB1, 0x4F);
                 }
-                DmaCopy16(3, gUnknown_08015178, gExaminationData, 0x64);
+                LOADEXAMDATA(gUnknown_08015178);
             }
             else if(GetFlag(0, 0x48)) {
                 if(!GetFlag(0, 0x4A)) {
@@ -29,7 +29,7 @@ void sub_8002DB4(struct Main * main)
                     sub_8002C98(0x14, 0, 0);
                     PlayBGM(0x19);
                 }
-                DmaCopy16(3, gUnknown_08015178, gExaminationData, 0x64);
+                LOADEXAMDATA(gUnknown_08015178);
             }
             else if (GetFlag(0, 0x41)) {
                 if(!GetFlag(0, 0x42)) {
@@ -44,7 +44,7 @@ void sub_8002DB4(struct Main * main)
                         PlayBGM(0xC);
                     }
                 }
-                DmaCopy16(3, gUnknown_08015100, gExaminationData, 0x78);
+                LOADEXAMDATA(gUnknown_08015100);
             }
             else if(GetFlag(0, 0x3F)) {
                 sub_8002CCC(0x82, 0x40);
@@ -62,7 +62,7 @@ void sub_8002DB4(struct Main * main)
             if(GetFlag(0, 0x49)) {
                 PlayAnimation(0xC);
             }
-            DmaCopy16(3, gUnknown_080151DC, gExaminationData, 0xDC);
+            LOADEXAMDATA(gUnknown_080151DC);
             break;
         }
         case 2: {
@@ -101,7 +101,7 @@ void sub_8002DB4(struct Main * main)
                 sub_8002C98(4, 0x1FB0, 0x1FB0);
                 PlayBGM(0);
             }
-            DmaCopy16(3, gUnknown_080152B8, gExaminationData, 0x28);
+            LOADEXAMDATA(gUnknown_080152B8);
             break;
         }
         case 3: {
@@ -119,7 +119,7 @@ void sub_8002DB4(struct Main * main)
             else if(!GetFlag(0, 0x50)) {
                 sub_8002CCC(0xFA, 0x50);
             }
-            DmaCopy16(3, gUnknown_080152E0, gExaminationData, 0x64);
+            LOADEXAMDATA(gUnknown_080152E0);
             break;
         }
         case 5: {
@@ -140,7 +140,7 @@ void sub_8002DB4(struct Main * main)
                 }
                 PlayBGM(0x16);
             }
-            DmaCopy16(3, gUnknown_08015344, gExaminationData, 0x78);
+            LOADEXAMDATA(gUnknown_08015344);
             break;
         }
     }

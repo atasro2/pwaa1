@@ -51,5 +51,6 @@
 #define _Sin( a ) (gSineTable[(a)])
 #define _Cos( a ) (gSineTable[(a)+64])
 
+#define LOADEXAMDATA(x) DmaCopy16(3, (x), gExaminationData, sizeof(x))
 
 #endif//GUARD_GLOBAL_H

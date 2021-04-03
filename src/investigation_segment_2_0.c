@@ -28,7 +28,7 @@ void sub_80035D8(struct Main * main)
                 sub_8002C98(4, 0x510, 0x510);
                 PlayBGM(6);
             }
-            DmaCopy16(3, gUnknown_08015BD0, gExaminationData, sizeof(gUnknown_08015BD0));
+            LOADEXAMDATA(gUnknown_08015BD0);
             break;
         }
         case 0: {
@@ -53,7 +53,7 @@ void sub_80035D8(struct Main * main)
                 sub_8002C98(0x1B, 0, 0);
                 PlayBGM(0);
             }
-            DmaCopy16(3, gUnknown_08015C34, gExaminationData, sizeof(gUnknown_08015C34));
+            LOADEXAMDATA(gUnknown_08015C34);
             break;
         }
         case 5: {
@@ -85,21 +85,21 @@ void sub_80035D8(struct Main * main)
                 sub_8002C98(0x11, 0, 0);
                 PlayBGM(0x19);
             }
-            DmaCopy16(3, gUnknown_08015C5C, gExaminationData, sizeof(gUnknown_08015C5C));
+            LOADEXAMDATA(gUnknown_08015C5C);
             break;
         }
         case 6: {
             if(!GetFlag(0, 0x9D)) {
                 sub_8002CCC(0xBE, 0x9D);
             }
-            DmaCopy16(3, gUnknown_08015CC0, gExaminationData, sizeof(gUnknown_08015CC0));
+            LOADEXAMDATA(gUnknown_08015CC0);
             break;
         }
         case 7: {
             if(!GetFlag(0, 0xA2)) {
                 sub_8002CCC(0xC9, 0xA2);
             }
-            DmaCopy16(3, gUnknown_08015D88, gExaminationData, sizeof(gUnknown_08015D88));
+            LOADEXAMDATA(gUnknown_08015D88);
             break;
         }
         case 8: {
@@ -110,7 +110,7 @@ void sub_80035D8(struct Main * main)
                 sub_8002C98(0x14, 0, 0);
                 PlayBGM(1);
             }
-            DmaCopy16(3, gUnknown_08015E14, gExaminationData, sizeof(gUnknown_08015E14));
+            LOADEXAMDATA(gUnknown_08015E14);
             break;
         }
         case 9: {
@@ -128,7 +128,7 @@ void sub_80035D8(struct Main * main)
                 }
                 PlayBGM(0x19);
             }
-            DmaCopy16(3, gUnknown_08015E8C, gExaminationData, 0x78);
+            LOADEXAMDATA(gUnknown_08015E8C);
             break;
         }
     }
