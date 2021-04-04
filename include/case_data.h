@@ -20,6 +20,9 @@ struct Struct811DC98
     /* +0x06 */ u16 unk6;
 };
 
+extern const u8 gCaseStartProcess[];
+extern const u16 gCaseGameoverSections[];
+
 extern struct Struct811DC54 * gUnknown_0811DC54[17];
 extern struct Struct811DC98 * gUnknown_0811DC98[17];
 extern void (*gUnknown_0811DCDC[])(struct Main *);

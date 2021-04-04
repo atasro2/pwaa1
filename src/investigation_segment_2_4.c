@@ -5,6 +5,18 @@
 #include "sound.h"
 #include "animation.h"
 
+extern u8 gUnknown_08016B6C[0x104];
+extern u8 gUnknown_08016C70[0x70];
+extern u8 gUnknown_08016CE0[0x64];
+extern u8 gUnknown_08016D44[0x28];
+extern u8 gUnknown_08016D6C[0x64];
+extern u8 gUnknown_08016DD0[0xC8];
+extern u8 gUnknown_08016E98[0x8C];
+extern u8 gUnknown_08016F24[0x8C];
+extern u8 gUnknown_08016FB0[0x78];
+extern u8 gUnknown_08017028[0xB4];
+extern u8 gUnknown_080170DC[0x8C];
+
 void sub_80040A4(struct Main * main)
 {
     DmaCopy16(3, gUnknown_08016C70, gMain.roomData, sizeof(gUnknown_08016C70));
@@ -132,7 +144,13 @@ void sub_80040E8(struct Main * main)
             else if(!GetFlag(0, 0xE8)) {
                 sub_8002CCC(0xF7, 0xE8);
             }
+            #ifndef NONMATCHING // !! This DmaCopy uses the wrong sizeof from the previous DmaCopy
+                                // !! due to a copy paste error over on capcom's side,
+                                // !! we have to explicitly write the macro by hand
+            DmaCopy16(3, (gUnknown_080170DC), gExaminationData, sizeof(gUnknown_08017028));
+            #else
             LOADEXAMDATA(gUnknown_080170DC);
+            #endif
             break;
         }
     }

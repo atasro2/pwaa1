@@ -6,6 +6,7 @@
 #include "background.h"
 #include "animation.h"
 #include "court.h"
+#include "case_data.h"
 #include "investigation.h"
 #include "constants/script.h"
 

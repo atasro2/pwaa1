@@ -5,6 +5,20 @@
 #include "sound.h"
 #include "animation.h"
 
+extern u8 gUnknown_08017B24[0x168];
+extern u8 gUnknown_08017C8C[0xA8];
+extern u8 gUnknown_08017D34[0x64];
+extern u8 gUnknown_08017D98[0x28];
+extern u8 gUnknown_08017DC0[0x50];
+extern u8 gUnknown_08017E10[0x78];
+extern u8 gUnknown_08017E88[0xDC];
+extern u8 gUnknown_08017F64[0x8C];
+extern u8 gUnknown_08017FF0[0x3C];
+extern u8 gUnknown_0801802C[0x8C];
+extern u8 gUnknown_080180B8[0x78];
+extern u8 gUnknown_08018130[0x50];
+extern u8 gUnknown_08018180[0x64];
+
 void sub_80049F8(struct Main * main)
 {
     DmaCopy16(3, gUnknown_08017C8C, gMain.roomData, sizeof(gUnknown_08017C8C));

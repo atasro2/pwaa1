@@ -7,6 +7,7 @@
 #include "sound.h"
 #include "court.h"
 #include "agb_sram.h"
+#include "case_data.h"
 #include "court_record.h"
 #include "investigation.h"
 #include "constants/script.h"
