@@ -42,7 +42,7 @@ void GameOverScreenProcess(struct Main *main)
         oam->attr1 = (((oam->attr1 & 0x1FF) + 8) & 0x1FF) + (oam->attr1 & ~0x1FF); // shitty way to add 8 to the X coordinate but ok
         oam++;
         oam->attr1 -= 8;
-        ptr = &gUnknown_080189A4[0xE]; //matches better with pure pointer i think
+        ptr = &gUnknown_080189A4[0xE];
         for(i = 0; i < 10; i++)
         {
             u8 * ptr3 = &ptr[i * 0xF];

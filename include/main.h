@@ -137,9 +137,18 @@ struct IORegisters
     /* +0x52 */ u16 lcd_dispstat;
 };
 
+struct OamAttrs 
+{
+    /* +0x00 */ u16 attr0;
+    /* +0x02 */ u16 attr1;
+    /* +0x04 */ u16 attr2;
+    /* +0x06 */ u16 attr3;
+};
+
 extern struct Joypad gJoypad;
 extern struct Main gMain;
 extern struct IORegisters gIORegisters;
+extern struct OamAttrs gOamObjects[128];
 
 #define GAME_PROCESS 0
 #define GAME_SUBPROCESS 1
@@ -161,9 +170,5 @@ u32 ReadKeysAndTestResetCombo();
 void StartHardwareBlend(u32 mode, u32 delay, u32 deltaY, u32 target);
 void InitCourtScroll(u8 *, u32, u32, u32);
 void ResetGameState();
-
-s16 fix_mul(s16 a, s16 b);
-s16 fix_div(s16 a, s16 b);
-s16 fix_inverse(s16 b);
 
 #endif//GUARD_MAIN_H

@@ -1,6 +1,33 @@
 #ifndef GUARD_COURT_RECORD_H
 #define GUARD_COURT_RECORD_H
 
+struct CourtRecord
+{
+    /* +0x00 */ s8 unk0;
+    /* +0x01 */ s8 unk1;
+    /* +0x02 */ u8 unk2;
+    /* +0x03 */ u8 unk3;
+    /* +0x04 */ u16 unk4;
+    /* +0x06 */ u16 unk6;
+    /* +0x08 */ u8 unk8;
+    /* +0x09 */ u8 unk9;
+    /* +0x0A */ bool8 isSaveScreen;
+    /* +0x0B */ u8 unkB;
+    /* +0x0C */ u8 unkC;
+    /* +0x0D */ u8 unkD;
+    /* +0x0E */ u8 unkE;
+    /* +0x0F */ u8 unkF;
+    /* +0x10 */ u8 unk10;
+    /* +0x11 */ u8 unk11;
+    /* +0x12 */ u8 unk12;
+    /* +0x13 */ u8 unk13;
+    /* +0x14 */ u8 * unk14;
+    /* +0x18 */ u8 evidenceList[0x20];
+    /* +0x38 */ u8 profileList[0x20];
+};
+
+extern struct CourtRecord gCourtRecord;
+
 void sub_800D77C(struct Main *, struct CourtRecord *);
 void sub_800E8A0(struct CourtRecord *);
 void sub_800E914();
@@ -19,5 +46,8 @@ u32 sub_800EEA4(struct Main *, u32);
 void sub_800EEFC(struct Main *);
 void sub_800F0E0(struct Main *);
 void sub_800F134(struct Main *);
+
+void CourtRecordProcess(struct Main *);
+void GameProcess08(struct Main *);
 
 #endif//GUARD_COURT_RECORD_H

@@ -2,6 +2,8 @@
 #include "background.h"
 #include "ewram.h"
 #include "script.h"
+#include "utils.h"
+#include "save.h"
 #include "sound.h"
 
 void CapcomLogoProcess(struct Main *main)

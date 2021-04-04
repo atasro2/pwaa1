@@ -2,7 +2,43 @@
 #include "animation.h"
 #include "ewram.h"
 #include "sound.h"
+#include "utils.h"
+#include "script.h"
+#include "background.h"
 #include "constants/animation.h"
+
+struct PersonAnimationData
+{
+    /* +0x00 */ u8* gfxData;
+    /* +0x04 */ u8* frameData;
+    /* +0x08 */ u16 spriteCount;
+    /* +0x0A */ u16 unkA;
+};
+
+struct AnimationData
+{
+    /* +0x00 */ u8* gfxData;
+    /* +0x04 */ u8* vramPtr;
+    /* +0x08 */ u8* frameData;
+    /* +0x0C */ s16 xOrigin;
+    /* +0x0E */ s16 yOrigin;
+    /* +0x10 */ u8 paletteSlot;
+    /* +0x11 */ u8 spriteCount;
+    /* +0x12 */ u8 priority; // first nibble animation priority(?) second nibble sprite priority
+    /* +0x13 */ u8 flags;
+};
+
+struct SpriteSizeData {
+    /* +0x00 */ u16 tileSize;
+    /* +0x02 */ u8 height;
+    /* +0x03 */ u8 width;
+};
+
+extern struct PersonAnimationData gPersonAnimData[];
+extern struct AnimationData gAnimationData[];
+extern struct SpriteSizeData gSpriteSizeTable[0xF];
+
+extern u16 gObjPaletteBuffer[16][16];
 
 static struct AnimationStruct * sub_8010468(struct AnimationStructFieldC *animationFieldC, u32 arg1, u32 arg2);
 static void sub_80110E4(struct AnimationStruct * animation);
@@ -539,7 +575,7 @@ _0800FE14:\n\
 }
 #endif
 
-bool32 CheckIfLinesIntersect(struct Point *pt0, struct Point *pt1, struct Point *pt2, struct Point *pt3)
+bool32 CheckIfLinesIntersect(const struct Point *pt0, const struct Point *pt1, const struct Point *pt2, const struct Point *pt3)
 {
     // check if the lines through pt0-pt1 and pt2-pt3 intersect on the screen
     s32 xd01, yd01, xd23, yd23, cp0123, xd13, yd13, cp2313, cp0113;
@@ -567,14 +603,14 @@ bool32 CheckIfLinesIntersect(struct Point *pt0, struct Point *pt1, struct Point 
     return FALSE;
 }
 
-bool32 CheckRectCollisionWithArea(struct Rect *rect, struct Point4 *area)
+bool32 CheckRectCollisionWithArea(const struct Rect * rect, const struct Point4 * area)
 {
     u32 i, j, k;
     struct Point4 p;
-    struct Point *p1 = &area->points[0];
-    struct Point *p2 = &area->points[1];
-    struct Point *p3 = &p.points[0];
-    struct Point *p4 = &p.points[1];
+    const struct Point *p1 = &area->points[0];
+    const struct Point *p2 = &area->points[1];
+    const struct Point *p3 = &p.points[0];
+    const struct Point *p4 = &p.points[1];
     if (CheckPointInArea(&rect->origin, area))
         return TRUE;
     
@@ -1661,6 +1697,8 @@ _08010E10: .4byte 0xFEFFFFFF\n");
 }
 #endif
 
+extern void (*gUnknown_0811DFD0[11])(struct AnimationStruct *);
+
 void UpdateAnimations(u32 arg0)
 {
     struct Main * main = &gMain;
@@ -1778,6 +1816,8 @@ void sub_80110A8(struct AnimationStruct * animation, struct CourtScroll * courtS
     if(courtScroll->unkC == 0xE)
         PlayPersonAnimationAtCustomOrigin(courtScroll->unk8, courtScroll->unkA, 20, 80, 0);
 }
+
+extern void (*gUnknown_0811DFFC[6])(struct AnimationStruct *, struct CourtScroll *);
 
 static void sub_80110E4(struct AnimationStruct * animation)
 {

@@ -1,4 +1,4 @@
-	.section .data
+	.section script_data, "aw", %progbits
     .include "asm/macros.inc"
 
     .global std_scripts @ uncompressed

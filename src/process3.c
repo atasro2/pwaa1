@@ -3,7 +3,10 @@
 #include "animation.h"
 #include "script.h"
 #include "sound.h"
+#include "court.h"
 #include "ewram.h"
+#include "utils.h"
+#include "save.h"
 #include "court_record.h"
 #include "constants/script.h"
 

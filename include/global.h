@@ -51,6 +51,7 @@
 #define _Sin( a ) (gSineTable[(a)])
 #define _Cos( a ) (gSineTable[(a)+64])
 
-#define LOADEXAMDATA(x) DmaCopy16(3, (x), gExaminationData, sizeof(x))
+// Converts a number to Q8.8 fixed-point format
+#define Q_8_8(n) ((s16)((n) * 256))
 
 #endif//GUARD_GLOBAL_H

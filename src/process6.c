@@ -1,8 +1,11 @@
 #include "global.h"
 #include "animation.h"
 #include "sound.h"
+#include "script.h"
 #include "ewram.h"
 #include "background.h"
+#include "court.h"
+#include "save.h"
 #include "court_record.h"
 #include "constants/script.h"
 #include "constants/animation.h"
@@ -84,7 +87,7 @@ void sub_800AB58(struct Main * main)
     DmaCopy16(3, gUnknown_081900C0, OBJ_VRAM0+0x3000, 0x400);
     DmaCopy16(3, gUnknown_081942A0, OBJ_PLTT+0xA0, 0x20);
     DmaCopy16(3, gUnknown_0818BD40, 0x1A0, 0x80); // WHAT, HOW
-    DmaCopy16(3, gUnknown_0818BEC0, 0x220, 0x80); // WHAT, HOW
+    DmaCopy16(3, gUnknown_0818BD40 + 12 * TILE_SIZE_4BPP, 0x220, 0x80); // WHAT, HOW
     main->unk18 = gScriptContext.currentSection;
     gCourtRecord.unk9 = 0;
     gCourtRecord.unk8++;

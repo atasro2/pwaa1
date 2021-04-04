@@ -1,5 +1,7 @@
 #include "global.h"
 #include "background.h"
+#include "script.h"
+#include "investigation.h"
 
 void sub_8002244(u32 unk0)
 {
@@ -287,6 +289,14 @@ void sub_8002734(struct CourtRecord * courtRecord)
         }
     }
 }
+
+void (*gUnknown_0811DBF0[])(struct CourtRecord *) = {
+    nullsub_1,
+	sub_800254C,
+	sub_800254C,
+	sub_8002734,
+	sub_8002734,
+};
 
 void sub_8002878(struct CourtRecord * courtRecord)
 {

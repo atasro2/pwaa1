@@ -1,11 +1,18 @@
 #include "global.h"
+#include "save.h"
 #include "animation.h"
 #include "ewram.h"
 #include "script.h"
 #include "background.h"
 #include "sound.h"
+#include "court.h"
 #include "agb_sram.h"
+#include "case_data.h"
+#include "court_record.h"
+#include "investigation.h"
 #include "constants/script.h"
+
+const char gSaveVersion[0x30] = "2001 CAPCOM GBA GYAKUTEN-SAIBAN 06/15 Ver 1.000-";
 
 u32 SaveGameData()
 {
@@ -233,8 +240,8 @@ void SaveGameInit2SubProcess(struct Main *main)
         return;
     DmaCopy16(3, gBG0MapBuffer, gSaveDataBuffer.bg0Map, sizeof(gBG0MapBuffer));
     DmaCopy16(3, &gCourtRecord, &gSaveDataBuffer.courtRecord, sizeof(gCourtRecord));
-    DmaCopy16(3, &gInvestigation, &gSaveDataBuffer.iwramStruct3A50, sizeof(gInvestigation));
-    DmaCopy16(3, &gTestimony, &gSaveDataBuffer.iwramStruct3AB0, sizeof(gTestimony));
+    DmaCopy16(3, &gInvestigation, &gSaveDataBuffer.investigation, sizeof(gInvestigation));
+    DmaCopy16(3, &gTestimony, &gSaveDataBuffer.testimony, sizeof(gTestimony));
     DmaCopy16(3, &gCourtScroll, &gSaveDataBuffer.courtScroll, sizeof(gCourtScroll))
     DmaCopy16(3, gExaminationData, gSaveDataBuffer.examinationData, sizeof(gExaminationData));
     DmaCopy16(3, gTalkData, gSaveDataBuffer.talkData, sizeof(gTalkData));
@@ -484,7 +491,7 @@ void SaveGameSubProcess5(struct Main *main)
     }
     gIORegisters.lcd_dispcnt = 0;
     gScriptContext.currentSection = 0x80;
-    SET_PROCESS_PTR(gUnknown_08014D70[main->scenarioIdx], 0, 0, 0, main);
+    SET_PROCESS_PTR(gCaseStartProcess[main->scenarioIdx], 0, 0, 0, main);
 }
 
 void sub_8008CC0(struct Main * main)

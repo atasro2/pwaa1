@@ -722,7 +722,7 @@ _08009A34:
 	ldrb r0, [r0]
 	b _08009A50
 	.align 2, 0
-_08009A40: .4byte gUnknown_08014D70
+_08009A40: .4byte gCaseStartProcess
 _08009A44:
 	adds r0, r5, #0
 	adds r0, #0x76

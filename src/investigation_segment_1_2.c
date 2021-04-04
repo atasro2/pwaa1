@@ -1,8 +1,20 @@
 #include "global.h"
 #include "main.h"
-#include "declarations.h"
+#include "case_data.h"
+#include "investigation.h"
 #include "sound.h"
 #include "animation.h"
+
+extern u8 gUnknown_0801541C[0x104];
+extern u8 gUnknown_08015520[0x30];
+extern u8 gUnknown_08015550[0x64];
+extern u8 gUnknown_080155B4[0x64];
+extern u8 gUnknown_08015618[0x28];
+extern u8 gUnknown_08015640[0x78];
+extern u8 gUnknown_080156B8[0x64];
+extern u8 gUnknown_0801571C[0x64];
+extern u8 gUnknown_08015780[0x78];
+extern u8 gUnknown_080157F8[0x78];
 
 void sub_800318C(struct Main *main)
 {

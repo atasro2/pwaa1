@@ -1,7 +1,21 @@
 #include "global.h"
 #include "main.h"
+#include "case_data.h"
+#include "investigation.h"
 #include "sound.h"
 #include "animation.h"
+
+extern u8 gUnknown_080173B0[0x1E0];
+extern u8 gUnknown_08017590[0xA8];
+extern u8 gUnknown_08017638[0x64];
+extern u8 gUnknown_0801769C[0x28];
+extern u8 gUnknown_080176C4[0x50];
+extern u8 gUnknown_08017714[0x8C];
+extern u8 gUnknown_080177A0[0x78];
+extern u8 gUnknown_08017818[0x8C];
+extern u8 gUnknown_080178A4[0x3C];
+extern u8 gUnknown_080178E0[0x78];
+extern u8 gUnknown_08017958[0x64];
 
 void sub_80044D0(struct Main * main)
 {

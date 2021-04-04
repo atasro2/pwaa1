@@ -45,6 +45,17 @@ while (my $line = <$file>)
                 $data += $size;
             }
         }
+        elsif ($section =~ /rodata/)
+        {
+            if ($dir eq 'src')
+            {
+                $srcdata += $size;
+            }
+            elsif ($dir eq 'rodata')
+            {
+                $data += $size;
+            }
+        }
     }
 }
 
