@@ -13,8 +13,8 @@ void sub_8003594(struct Main * main)
 void sub_80035D8(struct Main * main)
 {
     DmaFill16(3, 0xFFFF, gExaminationData, sizeof(gExaminationData));
-    switch(main->currentRoomId-2) {
-        case 4: {
+    switch(main->currentRoomId) {
+        case 6: {
             if(GetFlag(0, 0xA0)) {
                 if(!GetFlag(0, 0x95)) {
                     sub_8002CCC(0x8C, 0x95);
@@ -31,7 +31,7 @@ void sub_80035D8(struct Main * main)
             LOADEXAMDATA(gUnknown_08015BD0);
             break;
         }
-        case 0: {
+        case 2: {
             if (GetFlag(0, 0xA0)) {
                 if (!GetFlag(0, 0x92)) {
                     sub_8002CCC(0x9F, 0x92);
@@ -56,7 +56,7 @@ void sub_80035D8(struct Main * main)
             LOADEXAMDATA(gUnknown_08015C34);
             break;
         }
-        case 5: {
+        case 7: {
             if(GetFlag(0, 0xA8)) {
                 if(!GetFlag(0, 0xA9)) {
                     sub_8002CCC(0xB4, 0xA9);
@@ -88,21 +88,21 @@ void sub_80035D8(struct Main * main)
             LOADEXAMDATA(gUnknown_08015C5C);
             break;
         }
-        case 6: {
+        case 8: {
             if(!GetFlag(0, 0x9D)) {
                 sub_8002CCC(0xBE, 0x9D);
             }
             LOADEXAMDATA(gUnknown_08015CC0);
             break;
         }
-        case 7: {
+        case 9: {
             if(!GetFlag(0, 0xA2)) {
                 sub_8002CCC(0xC9, 0xA2);
             }
             LOADEXAMDATA(gUnknown_08015D88);
             break;
         }
-        case 8: {
+        case 10: {
             if(!GetFlag(0, 0x9C)) {
                 sub_8002CCC(0xD2, 0x9C);
             }
@@ -113,7 +113,7 @@ void sub_80035D8(struct Main * main)
             LOADEXAMDATA(gUnknown_08015E14);
             break;
         }
-        case 9: {
+        case 11: {
             if(GetFlag(0, 0xAA)) {
                 if(!GetFlag(0, 0xAB)) {
                     sub_8002CCC(0xFA, 0xAB);

@@ -13,8 +13,8 @@ void sub_80040A4(struct Main * main)
 void sub_80040E8(struct Main * main)
 {
     DmaFill16(3, 0xFFFF, gExaminationData, sizeof(gExaminationData));
-    switch(main->currentRoomId-2) {
-        case 4: {
+    switch(main->currentRoomId) {
+        case 6: {
             if(GetFlag(0, 0xE0)) {
                 sub_8002C98(4, 0x510, 0x510);
                 PlayBGM(6);
@@ -22,7 +22,7 @@ void sub_80040E8(struct Main * main)
             LOADEXAMDATA(gUnknown_08016CE0);
             break;
         }
-        case 0: {
+        case 2: {
             if(!GetFlag(0, 0xE1)) {
                 sub_8002CCC(0x8E, 0xE1);
             }
@@ -33,7 +33,7 @@ void sub_80040E8(struct Main * main)
             LOADEXAMDATA(gUnknown_08016D44);
             break;
         }
-        case 5: {
+        case 7: {
             if(GetFlag(2, 0x77)) {
                 if(!GetFlag(0, 0xEE)) {
                     sub_8002CCC(0xA3, 0xEE);
@@ -53,7 +53,7 @@ void sub_80040E8(struct Main * main)
             LOADEXAMDATA(gUnknown_08016D6C);
             break;
         }
-        case 6: {
+        case 8: {
             if(GetFlag(0, 0xEF)) {
                 if(!GetFlag(0, 0xF0)) {
                     sub_8002CCC(0xC6, 0xF0);
@@ -75,7 +75,7 @@ void sub_80040E8(struct Main * main)
             LOADEXAMDATA(gUnknown_08016DD0);
             break;
         }
-        case 7: {
+        case 9: {
             if(GetFlag(0, 0xEF)) {
                 if(!GetFlag(0, 0xF1)) {
                     sub_8002CCC(0xDF, 0xF1);
@@ -100,7 +100,7 @@ void sub_80040E8(struct Main * main)
             }
             break;
         }
-        case 8: {
+        case 10: {
             if(!GetFlag(0, 0xE6)) {
                 sub_8002CCC(0xE0, 0xE6);
             }
@@ -110,7 +110,7 @@ void sub_80040E8(struct Main * main)
             LOADEXAMDATA(gUnknown_08016FB0);
             break;
         }
-        case 10: {
+        case 12: {
             if(!GetFlag(0, 0xE7)) {
                 sub_8002CCC(0xE7, 0xE7);
             }
@@ -123,7 +123,7 @@ void sub_80040E8(struct Main * main)
             LOADEXAMDATA(gUnknown_08017028);
             break;
         }
-        case 11: {
+        case 13: {
             if(GetFlag(0, 0xF2)) {
                 sub_8002CCC(0xFF, 0xFF);
             }
