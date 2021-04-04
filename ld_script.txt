@@ -31,21 +31,20 @@ SECTIONS {
         src/investigation_segment_main.o(.text);
         /* sce1_0.c */
         src/investigation_segment_1_0.o(.text);
-        asm/investigation_segment_1_0.o(.text);
         /* sce1_2.c */
-        asm/investigation_segment_1_2.o(.text);
+        src/investigation_segment_1_2.o(.text);
         /* sce2_0.c */
-        asm/investigation_segment_2_0.o(.text);
+        src/investigation_segment_2_0.o(.text);
         /* sce2_2.c */
-        asm/investigation_segment_2_2.o(.text);
+        src/investigation_segment_2_2.o(.text);
         /* sce2_4.c */
-        asm/investigation_segment_2_4.o(.text);
+        src/investigation_segment_2_4.o(.text);
         /* sce3_0.c */
-        asm/investigation_segment_3_0.o(.text);
+        src/investigation_segment_3_0.o(.text);
         /* sce3_2.c */
-        asm/investigation_segment_3_2.o(.text);
+        src/investigation_segment_3_2.o(.text);
         /* sce3_4.c */
-        asm/investigation_segment_3_4.o(.text);
+        src/investigation_segment_3_4.o(.text);
         /* mess.c */
         src/script_main.o(.text);
         /* mes_sub0.c */
