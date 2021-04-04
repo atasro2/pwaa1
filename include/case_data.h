@@ -26,4 +26,9 @@ extern void (*gUnknown_0811DCDC[])(struct Main *);
 extern void (*gUnknown_0811DD20[])(struct Main *);
 extern void (*gUnknown_0811DD64[])(struct Main *);
 
+void sub_8002C98(u32 arg0, u32 arg1, u32 arg2);
+void sub_8002CCC(u32 section, u32 flagId);
+
+#define LOADEXAMDATA(x) DmaCopy16(3, (x), gExaminationData, sizeof(x))
+
 #endif//GUARD_CASE_DATA_H
