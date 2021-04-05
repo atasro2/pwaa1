@@ -11,6 +11,7 @@
 #include "court_record.h"
 #include "sound.h"
 #include "case_data.h"
+#include "graphics.h"
 #include "constants/animation.h"
 #include "constants/script.h"
 #include "constants/bg.h"

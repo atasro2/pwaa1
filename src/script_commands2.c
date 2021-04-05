@@ -8,6 +8,7 @@
 #include "court.h"
 #include "case_data.h"
 #include "investigation.h"
+#include "graphics.h"
 #include "constants/script.h"
 
 struct MapMarkerSprite
@@ -32,21 +33,6 @@ struct Struct8018870
     /* +0x2A */ u8 right;
     /* +0x2B */ u8 bottom;
 };
-
-extern u8 gUnknown_0824698C[];
-extern u8 gUnknown_08246A0C[];
-extern u8 gUnknown_08246A8C[];
-extern u8 gUnknown_08246E8C[];
-extern u8 gUnknown_08246ECC[];
-extern u8 gUnknown_082476CC[];
-extern u8 gUnknown_08247ECC[];
-extern u8 gUnknown_082486CC[];
-extern u8 gUnknown_0824874C[];
-extern u8 gUnknown_0824884C[];
-extern u8 gUnknown_082488CC[];
-extern u8 gUnknown_0824890C[];
-extern u8 gUnknown_08248B0C[];
-extern u8 gUnknown_08248C0C[];
 
 static const struct MapMarkerSprite sMapMarkerSprites[] = {
     {

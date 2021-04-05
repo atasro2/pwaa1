@@ -10,6 +10,7 @@
 #include "script.h"
 #include "case_data.h"
 #include "investigation.h"
+#include "graphics.h"
 #include "constants/script.h"
 
 

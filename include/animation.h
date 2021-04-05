@@ -73,6 +73,33 @@ struct AnimationBackupStruct
     /* +0x18 */ struct AnimationFrame * frameData;
 };
 
+struct PersonAnimationData
+{
+    /* +0x00 */ u8* gfxData;
+    /* +0x04 */ u8* frameData;
+    /* +0x08 */ u16 spriteCount;
+    /* +0x0A */ u16 unkA;
+};
+
+struct AnimationData
+{
+    /* +0x00 */ u8* gfxData;
+    /* +0x04 */ u8* vramPtr;
+    /* +0x08 */ u8* frameData;
+    /* +0x0C */ s16 xOrigin;
+    /* +0x0E */ s16 yOrigin;
+    /* +0x10 */ u8 paletteSlot;
+    /* +0x11 */ u8 spriteCount;
+    /* +0x12 */ u8 priority; // first nibble animation priority(?) second nibble sprite priority
+    /* +0x13 */ u8 flags;
+};
+
+struct SpriteSizeData {
+    /* +0x00 */ u16 tileSize;
+    /* +0x02 */ u8 height;
+    /* +0x03 */ u8 width;
+};
+
 extern struct AnimationStruct gAnimation[32];
 
 //~ gUnknown_0811DFD0:

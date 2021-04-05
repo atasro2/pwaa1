@@ -7,6 +7,7 @@
 #include "court.h"
 #include "save.h"
 #include "court_record.h"
+#include "graphics.h"
 #include "constants/script.h"
 #include "constants/animation.h"
 

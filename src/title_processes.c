@@ -5,6 +5,7 @@
 #include "utils.h"
 #include "save.h"
 #include "sound.h"
+#include "graphics.h"
 
 void CapcomLogoProcess(struct Main *main)
 {

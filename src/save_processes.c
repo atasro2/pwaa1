@@ -10,6 +10,7 @@
 #include "case_data.h"
 #include "court_record.h"
 #include "investigation.h"
+#include "graphics.h"
 #include "constants/script.h"
 
 const char gSaveVersion[0x30] = "2001 CAPCOM GBA GYAKUTEN-SAIBAN 06/15 Ver 1.000-";

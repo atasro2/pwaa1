@@ -17,6 +17,8 @@ extern u16 gBG2MapBuffer[0x400];
 extern u16 gBG3MapBuffer[0x400];
 extern u16 gBG3MapBufferCopy[0x400];
 
+extern const u8 gUnknown_08013B70[0x400];
+
 struct CourtScroll
 {
     /* +0x00 */ u8 * unk0;

@@ -5,6 +5,7 @@
 #include "court.h"
 #include "background.h"
 #include "investigation.h"
+#include "graphics.h"
 #include "constants/script.h"
 
 bool32 Command40(struct ScriptContext * scriptCtx)

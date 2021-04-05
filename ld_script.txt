@@ -94,7 +94,7 @@ SECTIONS {
     {
         src/main.o(.rodata);
         src/bg3_1.o(.rodata);
-        rodata/bg.o(.rodata);
+        src/bg.o(.rodata);
         src/utils.o(.rodata);
         src/case_data.o(.rodata);
         /* sce1_0.c */
@@ -119,7 +119,7 @@ SECTIONS {
         src/gameover_process.o(.rodata);
         src/save_processes.o(.rodata);
         src/court_record.o(.rodata);
-        rodata/data.o(.rodata);
+        src/animation.o(.rodata);
         data/sound_data.o(.rodata);
         src/m4a_tables.o(.rodata);
         data/sound_data2.o(.rodata);

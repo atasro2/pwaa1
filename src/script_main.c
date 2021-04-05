@@ -3,6 +3,7 @@
 #include "script.h"
 #include "sound.h"
 #include "ewram.h"
+#include "graphics.h"
 #include "constants/script.h"
 
 static void AdvanceScriptContext(struct ScriptContext *);

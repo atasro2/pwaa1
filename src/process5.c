@@ -3,6 +3,7 @@
 #include "sound.h"
 #include "ewram.h"
 #include "save.h"
+#include "graphics.h"
 #include "constants/script.h"
 #include "constants/animation.h"
 

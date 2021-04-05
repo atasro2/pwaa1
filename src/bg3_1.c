@@ -602,8 +602,6 @@ void sub_8001830(u32 bgId)
     }
 }
 
-#define gUnknown_083899C4 ((u8*)(GFX_BASE_ADDR + 0x2099C4))
-
 void sub_80018F8()
 {
     struct Main * main = &gMain;
