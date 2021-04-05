@@ -29,7 +29,6 @@ extern u8 gUnknown_08013B58[];
 extern u8 gUnknown_08013B64[];
 extern const u8 gUnknown_08013B70[0x400];
 
-extern u8 gUnknown_080189A4[];
 extern u8 gTextPal[0x20];
 
 extern s8 gUnknown_0801948C[0x1F];
