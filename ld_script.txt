@@ -134,6 +134,7 @@ SECTIONS {
         src/bg.o(.data);
         src/utils.o(.data);
         src/case_data.o(.data);
+        src/script_main.o(.data);
         data/data_3.o(.data);
     } =0
     . = 0x8180000;
