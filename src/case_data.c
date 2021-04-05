@@ -47,10 +47,6 @@ const u16 gCaseGameoverSections[] = {
     0xF7
 };
 
-// BEGIN RODATA
-
-// END RODATA
-
 const u8 * gUnknown_0811DC10[17] = {
 	gUnknown_08014DA4,
 	gUnknown_08014E0C,
