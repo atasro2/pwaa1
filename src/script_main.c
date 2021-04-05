@@ -11,25 +11,7 @@ static void PutCharInTextbox(u32, u32, u32);
 
 extern u8 gTextColorTileBuffer[0x80];
 
-extern u8 scenario_0_script[];
-extern u8 scenario_1_0_script[];
-extern u8 scenario_1_1_script[];
-extern u8 scenario_1_2_script[];
-extern u8 scenario_1_3_script[];
-extern u8 scenario_2_0_script[];
-extern u8 scenario_2_1_script[];
-extern u8 scenario_2_2_script[];
-extern u8 scenario_2_3_script[];
-extern u8 scenario_2_4_script[];
-extern u8 scenario_2_5_script[];
-extern u8 scenario_3_0_script[];
-extern u8 scenario_3_1_script[];
-extern u8 scenario_3_2_script[];
-extern u8 scenario_3_3_script[];
-extern u8 scenario_3_4_script[];
-extern u8 scenario_3_5_script[];
-
-u8 * const gScriptTable[] = {
+const u8 * const gScriptTable[] = {
     scenario_0_script,
     scenario_1_0_script,
     scenario_1_1_script,
@@ -210,8 +192,8 @@ void InitScriptSection(struct ScriptContext *scriptCtx)
     scriptCtx->unk28 = 0x18;
     scriptCtx->unk2A = 0x56;
     {
-        void *r1;
-        u32 *r0;
+        const void *r1;
+        const u32 *r0;
         if (scriptCtx->currentSection >= 0x80)
         {
             r1 = eScriptHeap;

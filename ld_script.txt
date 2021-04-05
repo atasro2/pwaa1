@@ -147,7 +147,7 @@ SECTIONS {
     script_data :
     ALIGN(4)
     {
-        data/scripts.o(script_data);
+        src/scripts.o(script_data);
     } =0
 
     /* DWARF debug sections.

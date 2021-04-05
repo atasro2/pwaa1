@@ -5,8 +5,8 @@ struct ScriptContext
 {
     /* +0x00 */ u16 flags; // message status, flags
     /* +0x02 */ u16 waitTimer;
-    /* +0x04 */ u16 * scriptPtr;
-    /* +0x08 */ u16 * scriptSectionPtr;
+    /* +0x04 */ const u16 * scriptPtr;
+    /* +0x08 */ const u16 * scriptSectionPtr;
     /* +0x0C */ u16 currentToken;
     /* +0x0E */ u8 textX;
     /* +0x0F */ u8 textY;
@@ -75,6 +75,29 @@ struct MapMarker
 extern struct ScriptContext gScriptContext;
 extern struct TextBoxCharacter gTextBoxCharacters[0x3F];
 extern struct MapMarker gMapMarker[8];
+
+/* begin script data */
+
+extern const u32 std_scripts[];
+extern const u8 scenario_0_script[];
+extern const u8 scenario_1_0_script[];
+extern const u8 scenario_1_1_script[];
+extern const u8 scenario_1_2_script[];
+extern const u8 scenario_1_3_script[];
+extern const u8 scenario_2_0_script[];
+extern const u8 scenario_2_1_script[];
+extern const u8 scenario_2_2_script[];
+extern const u8 scenario_2_3_script[];
+extern const u8 scenario_2_4_script[];
+extern const u8 scenario_2_5_script[];
+extern const u8 scenario_3_0_script[];
+extern const u8 scenario_3_1_script[];
+extern const u8 scenario_3_2_script[];
+extern const u8 scenario_3_3_script[];
+extern const u8 scenario_3_4_script[];
+extern const u8 scenario_3_5_script[];
+
+/* end script data */ 
 
 void ChangeScriptSection(u32);
 void LoadCurrentScriptIntoRam();
