@@ -567,7 +567,7 @@ const u8 sCourtRecordRightArrowTileIndexes[] = {12, 16, 20, 16};
 
 void sub_800D77C(struct Main * main, struct CourtRecord * courtRecord)
 {
-    u8 * recordIds;
+    const u8 * recordIds;
     u32 i;
 
     for(i = 0; i < 32; i++)
@@ -1731,7 +1731,7 @@ void SortCourtRecordAndSyncListCount(struct CourtRecord * courtRecord)
 
 u32 sub_800EE20(u32 section, u32 evidenceId)
 {
-    struct Struct811DC54 * struct811DC54p;
+    const struct Struct811DC54 * struct811DC54p;
     struct811DC54p = gUnknown_0811DC54[gMain.scenarioIdx];
     for(; struct811DC54p->unk0 != 0xFFFF; struct811DC54p++)
     {
@@ -1755,7 +1755,7 @@ u32 sub_800EE20(u32 section, u32 evidenceId)
 
 u32 sub_800EEA4(struct Main * main, u32 evidenceId)
 {
-    struct Struct811DC98 * struct811DC98p;
+    const struct Struct811DC98 * struct811DC98p;
     u32 retVal; // why just why
 
     struct811DC98p = gUnknown_0811DC98[main->scenarioIdx];

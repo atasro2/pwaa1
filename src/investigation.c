@@ -26,7 +26,6 @@ void sub_800B7A8(struct InvestigationStruct * investigation, u32 arg1)
         investigation->unk7 &= ~0xC;
 }
 
-extern void (*gUnknown_0811DD64[])(struct Main *);
 extern void (*gProcess4SubProcesses[])(struct Main *, struct InvestigationStruct *);
 
 void GameProcess04(struct Main * main)

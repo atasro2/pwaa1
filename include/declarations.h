@@ -7,7 +7,6 @@ extern u8 gUnknown_08013B64[];
 extern const u8 gUnknown_08013B70[0x400];
 
 extern u8 gUnknown_080189A4[];
-extern u8 * gUnknown_0811DC10[17];
 extern u8 gTextPal[0x20];
 extern u32 std_scripts[0xDEC/4];
 

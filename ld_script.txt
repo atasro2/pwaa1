@@ -97,7 +97,22 @@ SECTIONS {
         rodata/bg.o(.rodata);
         src/utils.o(.rodata);
         src/case_data.o(.rodata);
-        rodata/case_data.o(.rodata);
+        /* sce1_0.c */
+        src/investigation_segment_1_0.o(.rodata);
+        /* sce1_2.c */
+        src/investigation_segment_1_2.o(.rodata);
+        /* sce2_0.c */
+        src/investigation_segment_2_0.o(.rodata);
+        /* sce2_2.c */
+        src/investigation_segment_2_2.o(.rodata);
+        /* sce2_4.c */
+        src/investigation_segment_2_4.o(.rodata);
+        /* sce3_0.c */
+        src/investigation_segment_3_0.o(.rodata);
+        /* sce3_2.c */
+        src/investigation_segment_3_2.o(.rodata);
+        /* sce3_4.c */
+        src/investigation_segment_3_4.o(.rodata);
         src/script_main.o(.rodata);
         src/script_commands.o(.rodata);
         src/script_commands2.o(.rodata);
@@ -118,7 +133,7 @@ SECTIONS {
         src/main.o(.data);
         src/bg.o(.data);
         src/utils.o(.data);
-        data/case_data.o(.data);
+        src/case_data.o(.data);
         data/data_3.o(.data);
     } =0
     . = 0x8180000;
