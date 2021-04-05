@@ -135,7 +135,13 @@ SECTIONS {
         src/utils.o(.data);
         src/case_data.o(.data);
         src/script_main.o(.data);
-        data/data_3.o(.data);
+        src/save_processes.o(.data);
+        src/process3.o(.data);
+        src/process5.o(.data);
+        src/process6.o(.data);
+        src/investigation.o(.data);
+        src/court_record.o(.data);
+        src/animation.o(.data);
     } =0
     . = 0x8180000;
     gfx_data :

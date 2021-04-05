@@ -28,6 +28,21 @@ struct CourtRecord
 
 extern struct CourtRecord gCourtRecord;
 
+//~ gCourtRecordSubProcesses:
+void sub_800D880(struct Main *, struct CourtRecord * courtRecord);
+void sub_800D94C(struct Main *, struct CourtRecord * courtRecord);
+void sub_800DD88(struct Main *, struct CourtRecord * courtRecord);
+void sub_800DE28(struct Main *, struct CourtRecord * courtRecord);
+void sub_800DE8C(struct Main *, struct CourtRecord * courtRecord);
+void sub_800DF44(struct Main *, struct CourtRecord * courtRecord);
+void sub_800E488(struct Main *, struct CourtRecord * courtRecord);
+void sub_800E4A4(struct Main *, struct CourtRecord * courtRecord);
+
+//~ gProcess8SubProcesses:
+void sub_800E75C(struct Main *, struct CourtRecord * courtRecord);
+void sub_800E7C0(struct Main *, struct CourtRecord * courtRecord);
+void sub_800E828(struct Main *, struct CourtRecord * courtRecord);
+
 void sub_800D77C(struct Main *, struct CourtRecord *);
 void sub_800E8A0(struct CourtRecord *);
 void sub_800E914();

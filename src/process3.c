@@ -10,6 +10,12 @@
 #include "court_record.h"
 #include "constants/script.h"
 
+void (*gProcess3SubProcesses[])(struct Main *) = {
+	sub_800A3EC,
+	sub_800A5B0,
+	sub_800A6AC
+};
+
 void SetCurrentEpisodeBit()
 {
     struct Main * main = &gMain;
@@ -42,8 +48,6 @@ void SetCurrentEpisodeBit()
             main->unk8E |= 1;
     }
 }
-
-extern void (*gProcess3SubProcesses[])(struct Main *);
 
 void GameProcess03(struct Main * main)
 {

@@ -15,6 +15,19 @@
 #include "constants/script.h"
 #include "constants/bg.h"
 
+void (*gProcess4SubProcesses[])(struct Main *, struct InvestigationStruct *) = {
+	sub_800B808,
+	sub_800BAD4,
+	sub_800BD74,
+	sub_800BDF8,
+	sub_800BE58,
+	sub_800BE7C,
+	sub_800BF90,
+	sub_800C334,
+	sub_800C8B8,
+	sub_800D2B0
+};
+
 extern void SetCurrentEpisodeBit();
 extern void sub_800D530(struct Main *, u32);
 extern void sub_800D3C8(struct InvestigationStruct *);
@@ -25,8 +38,6 @@ void sub_800B7A8(struct InvestigationStruct * investigation, u32 arg1)
     if(investigation->unk5 == 0)
         investigation->unk7 &= ~0xC;
 }
-
-extern void (*gProcess4SubProcesses[])(struct Main *, struct InvestigationStruct *);
 
 void GameProcess04(struct Main * main)
 {

@@ -1,6 +1,29 @@
 #ifndef GUARD_DECLARATIONS_H //TODO: get rid of this file when it's possible to move everything to its own header
 #define GUARD_DECLARATIONS_H
 
+/* numbered processes for now */
+
+//~ gProcess3SubProcesses:
+void sub_800A3EC(struct Main *);
+void sub_800A5B0(struct Main *);
+void sub_800A6AC(struct Main *);
+
+//~ gProcess5SubProcesses:
+void sub_800A894(struct Main *);
+void sub_800A8E0(struct Main *);
+void sub_800A9FC(struct Main *);
+void sub_800A730(struct Main *);
+
+//~ gProcess6SubProcesses:
+void sub_800AB58(struct Main *);
+void sub_800AC1C(struct Main *);
+void nullsub_32(struct Main *);
+void sub_800AA10(struct Main *);
+void sub_800AE58(struct Main *);
+void sub_800AF2C(struct Main *);
+
+/* end numbered processes for now */
+
 //DATA
 extern u8 gUnknown_08013B58[];
 extern u8 gUnknown_08013B64[];
@@ -8,7 +31,6 @@ extern const u8 gUnknown_08013B70[0x400];
 
 extern u8 gUnknown_080189A4[];
 extern u8 gTextPal[0x20];
-extern u32 std_scripts[0xDEC/4];
 
 extern s8 gUnknown_0801948C[0x1F];
 extern s8 gUnknown_080194AB[0x1F];

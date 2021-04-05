@@ -12,6 +12,7 @@
 #include "investigation.h"
 #include "constants/script.h"
 
+
 struct EvidenceProfileData
 {
     /* +0x00 */ u8 * descriptionTiles;
@@ -565,6 +566,23 @@ static const struct EvidenceProfileData gUnknown_08018A6C[] = {
 const u8 sCourtRecordLeftArrowTileIndexes[] = {0, 4, 8, 4};
 const u8 sCourtRecordRightArrowTileIndexes[] = {12, 16, 20, 16};
 
+void (*gCourtRecordSubProcesses[8])(struct Main *, struct CourtRecord *) = {
+	sub_800D880,
+	sub_800D94C,
+	sub_800DD88,
+	sub_800DE28,
+	sub_800DE8C,
+	sub_800DF44,
+	sub_800E488,
+	sub_800E4A4
+};
+
+void (*gProcess8SubProcesses[3])(struct Main *, struct CourtRecord *) = {
+	sub_800E75C,
+	sub_800E7C0,
+	sub_800E828
+};
+
 void sub_800D77C(struct Main * main, struct CourtRecord * courtRecord)
 {
     const u8 * recordIds;
@@ -592,20 +610,16 @@ void sub_800D77C(struct Main * main, struct CourtRecord * courtRecord)
     }
 }
 
-extern void (*gUnknown_0811DFA4[8])(struct Main *, struct CourtRecord *);
-
 void CourtRecordProcess(struct Main * main)
 {
     gBG1MapBuffer[622] = 9;
     gBG1MapBuffer[623] = 9;
-    gUnknown_0811DFA4[main->process[GAME_SUBPROCESS]](main, &gCourtRecord);
+    gCourtRecordSubProcesses[main->process[GAME_SUBPROCESS]](main, &gCourtRecord);
 }
-
-extern void (*gUnknown_0811DFC4[3])(struct Main *, struct CourtRecord *);
 
 void GameProcess08(struct Main * main)
 {
-    gUnknown_0811DFC4[main->process[GAME_SUBPROCESS]](main, &gCourtRecord);
+    gProcess8SubProcesses[main->process[GAME_SUBPROCESS]](main, &gCourtRecord);
 }
 
 void sub_800D880(struct Main * main, struct CourtRecord * courtRecord)

@@ -43,6 +43,29 @@ extern u16 gObjPaletteBuffer[16][16];
 static struct AnimationStruct * sub_8010468(struct AnimationStructFieldC *animationFieldC, u32 arg1, u32 arg2);
 static void sub_80110E4(struct AnimationStruct * animation);
 
+void (*gUnknown_0811DFD0[11])(struct AnimationStruct *) = {
+	sub_8011130,
+	sub_8011130,
+	sub_8011130,
+	sub_8011130,
+	sub_80111A0,
+	sub_80111A0,
+	sub_80111A0,
+	sub_80111A0,
+	sub_80111A0,
+	sub_8011130,
+	sub_8011130
+};
+
+void (*gUnknown_0811DFFC[6])(struct AnimationStruct *, struct CourtScroll *) = {
+	sub_8011068,
+	sub_80110A8,
+	sub_8010F68,
+	sub_8010FA8,
+	sub_8010FEC,
+	sub_801102C
+};
+
 static void InitCurrentAnimationToNull()
 {
     gAnimation[0].flags = ANIM_ENABLE_XFLIP;
@@ -1697,8 +1720,6 @@ _08010E10: .4byte 0xFEFFFFFF\n");
 }
 #endif
 
-extern void (*gUnknown_0811DFD0[11])(struct AnimationStruct *);
-
 void UpdateAnimations(u32 arg0)
 {
     struct Main * main = &gMain;
@@ -1816,8 +1837,6 @@ void sub_80110A8(struct AnimationStruct * animation, struct CourtScroll * courtS
     if(courtScroll->unkC == 0xE)
         PlayPersonAnimationAtCustomOrigin(courtScroll->unk8, courtScroll->unkA, 20, 80, 0);
 }
-
-extern void (*gUnknown_0811DFFC[6])(struct AnimationStruct *, struct CourtScroll *);
 
 static void sub_80110E4(struct AnimationStruct * animation)
 {

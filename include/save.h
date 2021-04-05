@@ -40,4 +40,13 @@ u32 LoadSaveData();
 void CalculateSaveChecksum();
 bool32 CheckSaveChecksum();
 
+void SaveGameInit1SubProcess(struct Main *);
+void SaveGameInit2SubProcess(struct Main *);
+void SaveGameInitButtonsSubProcess(struct Main *);
+void SaveGameWaitForInputSubProcess(struct Main *);
+void SaveGameExitSaveScreenSubProcess(struct Main *);
+void SaveGameSubProcess5(struct Main *);
+void sub_8008CC0(struct Main *);
+void sub_8008D68(struct Main *);
+
 #endif//GUARD_SAVE_H

@@ -1,5 +1,6 @@
 #ifndef GUARD_ANIMATION_H
 #define GUARD_ANIMATION_H
+#include "background.h"
 
 struct AnimationFrame
 {
@@ -73,6 +74,27 @@ struct AnimationBackupStruct
 };
 
 extern struct AnimationStruct gAnimation[32];
+
+//~ gUnknown_0811DFD0:
+void sub_8011130(struct AnimationStruct *);
+void sub_8011130(struct AnimationStruct *);
+void sub_8011130(struct AnimationStruct *);
+void sub_8011130(struct AnimationStruct *);
+void sub_80111A0(struct AnimationStruct *);
+void sub_80111A0(struct AnimationStruct *);
+void sub_80111A0(struct AnimationStruct *);
+void sub_80111A0(struct AnimationStruct *);
+void sub_80111A0(struct AnimationStruct *);
+void sub_8011130(struct AnimationStruct *);
+void sub_8011130(struct AnimationStruct *);
+
+//~ gUnknown_0811DFFC:
+void sub_8011068(struct AnimationStruct *, struct CourtScroll *);
+void sub_80110A8(struct AnimationStruct *, struct CourtScroll *);
+void sub_8010F68(struct AnimationStruct *, struct CourtScroll *);
+void sub_8010FA8(struct AnimationStruct *, struct CourtScroll *);
+void sub_8010FEC(struct AnimationStruct *, struct CourtScroll *);
+void sub_801102C(struct AnimationStruct *, struct CourtScroll *);
 
 void ResetAnimationSystem();
 void ClearAllAnimationSprites();

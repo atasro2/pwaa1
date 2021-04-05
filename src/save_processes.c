@@ -14,6 +14,17 @@
 
 const char gSaveVersion[0x30] = "2001 CAPCOM GBA GYAKUTEN-SAIBAN 06/15 Ver 1.000-";
 
+void (*gSaveGameSubProcesses[])(struct Main *) = {
+	SaveGameInit1SubProcess,
+	SaveGameInit2SubProcess,
+	SaveGameInitButtonsSubProcess,
+	SaveGameWaitForInputSubProcess,
+	SaveGameExitSaveScreenSubProcess,
+	SaveGameSubProcess5,
+	sub_8008CC0,
+	sub_8008D68
+};
+
 u32 SaveGameData()
 {
     gSaveDataBuffer.main.unk17 |= 0x10;
@@ -203,7 +214,7 @@ void ClearSaveProcess(struct Main *main)
     }
 }
 
-extern void (*gSaveGameSubProcesses[])(struct Main *);
+//~ extern void (*gSaveGameSubProcesses[])(struct Main *);
 
 #define sIsEpisodePartOver process[3]
 
