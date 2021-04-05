@@ -15,7 +15,7 @@
 #include "constants/script.h"
 #include "constants/bg.h"
 
-void (*gProcess4SubProcesses[])(struct Main *, struct InvestigationStruct *) = {
+void (*gInvestigationSubProcesses[])(struct Main *, struct InvestigationStruct *) = {
 	sub_800B808,
 	sub_800BAD4,
 	sub_800BD74,
@@ -43,7 +43,7 @@ void GameProcess04(struct Main * main)
 {
     if(main->process[GAME_SUBPROCESS] != 5)
         gUnknown_0811DD64[main->scenarioIdx](main);
-    gProcess4SubProcesses[main->process[GAME_SUBPROCESS]](main, &gInvestigation);
+    gInvestigationSubProcesses[main->process[GAME_SUBPROCESS]](main, &gInvestigation);
     sub_800D3C8(&gInvestigation);
 }
 

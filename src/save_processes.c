@@ -214,8 +214,6 @@ void ClearSaveProcess(struct Main *main)
     }
 }
 
-//~ extern void (*gSaveGameSubProcesses[])(struct Main *);
-
 #define sIsEpisodePartOver process[3]
 
 void SaveGameProcess(struct Main *main)
