@@ -886,7 +886,7 @@ bool32 Command39(struct ScriptContext * scriptCtx)
             mapMarker->id = id;
             mapMarker->vramPtr = scriptCtx->unk3C;
             DmaCopy16(3, sMapMarkerSprites[id].tiles, mapMarker->vramPtr, size = sMapMarkerSprites[id].size); // weird shit going on here
-            DmaCopy16(3, gUnknown_0824696C, OBJ_PLTT + 0xC0, sizeof(gUnknown_0824696C));
+            DmaCopy16(3, gUnknown_0824696C, OBJ_PLTT + 0xC0, 0x20);
             mapMarker->oamIdx = oamIdx;
             oamObject = &gOamObjects[oamIdx];
             

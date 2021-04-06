@@ -69,8 +69,8 @@ void sub_800A3EC(struct Main * main)
     ioRegs->lcd_bg1cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(29) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
     ioRegs->lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
     ioRegs->lcd_bg3cnt = BGCNT_PRIORITY(3) | BGCNT_CHARBASE(1) | BGCNT_SCREENBASE(31) | BGCNT_MOSAIC | BGCNT_256COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
-    DmaCopy16(3, gUnusedAsciiCharSet, VRAM + 0x3800, sizeof(gUnusedAsciiCharSet));
-    DmaCopy16(3, gUnknown_08186540, VRAM, sizeof(gUnknown_08186540));
+    DmaCopy16(3, gUnusedAsciiCharSet, VRAM + 0x3800, 0x800);
+    DmaCopy16(3, gUnknown_08186540, VRAM, 0x1000);
     DmaCopy16(3, &gUnknown_081942C0[0], OBJ_PLTT+0x100, 0x20);
     DmaCopy16(3, gUnknown_0818C040, OBJ_VRAM0 + 0x3780, 0x80);
     DmaCopy16(3, gUnknown_081940E0, OBJ_PLTT+0x60, 0x20);

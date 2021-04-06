@@ -1022,7 +1022,7 @@ void sub_800DE8C(struct Main * main, struct CourtRecord * courtRecord)
         else
         {
             courtRecord->unkC |= 1;
-            DmaCopy16(3, gUnknown_081908C0, OBJ_VRAM0+0x3500, sizeof(gUnknown_081908C0));
+            DmaCopy16(3, gUnknown_081908C0, OBJ_VRAM0+0x3500, 0x200);
             courtRecord->unkE = courtRecord->unk11;
             courtRecord->unk14 = courtRecord->profileList;
         }

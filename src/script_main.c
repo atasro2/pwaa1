@@ -134,7 +134,7 @@ bool32 (*gScriptCmdFuncs[0x60])(struct ScriptContext *) = {
 void LoadCurrentScriptIntoRam(void)
 {
     u32 i;
-    DmaCopy16(3, gTextPal, OBJ_PLTT, sizeof(gTextPal));
+    DmaCopy16(3, gTextPal, OBJ_PLTT, 0x20);
 
     for (i = 0; i < ARRAY_COUNT(gTextBoxCharacters); i++)
     {
