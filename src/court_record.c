@@ -10,7 +10,9 @@
 #include "script.h"
 #include "case_data.h"
 #include "investigation.h"
+#include "graphics.h"
 #include "constants/script.h"
+
 
 struct EvidenceProfileData
 {
@@ -565,9 +567,26 @@ static const struct EvidenceProfileData gUnknown_08018A6C[] = {
 const u8 sCourtRecordLeftArrowTileIndexes[] = {0, 4, 8, 4};
 const u8 sCourtRecordRightArrowTileIndexes[] = {12, 16, 20, 16};
 
+void (*gCourtRecordSubProcesses[8])(struct Main *, struct CourtRecord *) = {
+	sub_800D880,
+	sub_800D94C,
+	sub_800DD88,
+	sub_800DE28,
+	sub_800DE8C,
+	sub_800DF44,
+	sub_800E488,
+	sub_800E4A4
+};
+
+void (*gProcess8SubProcesses[3])(struct Main *, struct CourtRecord *) = {
+	sub_800E75C,
+	sub_800E7C0,
+	sub_800E828
+};
+
 void sub_800D77C(struct Main * main, struct CourtRecord * courtRecord)
 {
-    u8 * recordIds;
+    const u8 * recordIds;
     u32 i;
 
     for(i = 0; i < 32; i++)
@@ -592,20 +611,16 @@ void sub_800D77C(struct Main * main, struct CourtRecord * courtRecord)
     }
 }
 
-extern void (*gUnknown_0811DFA4[8])(struct Main *, struct CourtRecord *);
-
 void CourtRecordProcess(struct Main * main)
 {
     gBG1MapBuffer[622] = 9;
     gBG1MapBuffer[623] = 9;
-    gUnknown_0811DFA4[main->process[GAME_SUBPROCESS]](main, &gCourtRecord);
+    gCourtRecordSubProcesses[main->process[GAME_SUBPROCESS]](main, &gCourtRecord);
 }
-
-extern void (*gUnknown_0811DFC4[3])(struct Main *, struct CourtRecord *);
 
 void GameProcess08(struct Main * main)
 {
-    gUnknown_0811DFC4[main->process[GAME_SUBPROCESS]](main, &gCourtRecord);
+    gProcess8SubProcesses[main->process[GAME_SUBPROCESS]](main, &gCourtRecord);
 }
 
 void sub_800D880(struct Main * main, struct CourtRecord * courtRecord)
@@ -1007,7 +1022,7 @@ void sub_800DE8C(struct Main * main, struct CourtRecord * courtRecord)
         else
         {
             courtRecord->unkC |= 1;
-            DmaCopy16(3, gUnknown_081908C0, OBJ_VRAM0+0x3500, sizeof(gUnknown_081908C0));
+            DmaCopy16(3, gUnknown_081908C0, OBJ_VRAM0+0x3500, 0x200);
             courtRecord->unkE = courtRecord->unk11;
             courtRecord->unk14 = courtRecord->profileList;
         }
@@ -1731,7 +1746,7 @@ void SortCourtRecordAndSyncListCount(struct CourtRecord * courtRecord)
 
 u32 sub_800EE20(u32 section, u32 evidenceId)
 {
-    struct Struct811DC54 * struct811DC54p;
+    const struct Struct811DC54 * struct811DC54p;
     struct811DC54p = gUnknown_0811DC54[gMain.scenarioIdx];
     for(; struct811DC54p->unk0 != 0xFFFF; struct811DC54p++)
     {
@@ -1755,7 +1770,7 @@ u32 sub_800EE20(u32 section, u32 evidenceId)
 
 u32 sub_800EEA4(struct Main * main, u32 evidenceId)
 {
-    struct Struct811DC98 * struct811DC98p;
+    const struct Struct811DC98 * struct811DC98p;
     u32 retVal; // why just why
 
     struct811DC98p = gUnknown_0811DC98[main->scenarioIdx];

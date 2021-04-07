@@ -2,6 +2,7 @@
 #include "court.h"
 #include "utils.h"
 #include "script.h"
+#include "graphics.h"
 
 void sub_800B51C(struct Main * main, struct TestimonyStruct * testimony, u32 unk2)
 {

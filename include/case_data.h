@@ -23,8 +23,9 @@ struct Struct811DC98
 extern const u8 gCaseStartProcess[];
 extern const u16 gCaseGameoverSections[];
 
-extern struct Struct811DC54 * gUnknown_0811DC54[17];
-extern struct Struct811DC98 * gUnknown_0811DC98[17];
+extern const u8 * gUnknown_0811DC10[17];
+extern const struct Struct811DC54 * gUnknown_0811DC54[17];
+extern const struct Struct811DC98 * gUnknown_0811DC98[17];
 extern void (*gUnknown_0811DCDC[])(struct Main *);
 extern void (*gUnknown_0811DD20[])(struct Main *);
 extern void (*gUnknown_0811DD64[])(struct Main *);

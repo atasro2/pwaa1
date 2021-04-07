@@ -10,9 +10,21 @@
 #include "case_data.h"
 #include "court_record.h"
 #include "investigation.h"
+#include "graphics.h"
 #include "constants/script.h"
 
 const char gSaveVersion[0x30] = "2001 CAPCOM GBA GYAKUTEN-SAIBAN 06/15 Ver 1.000-";
+
+void (*gSaveGameSubProcesses[])(struct Main *) = {
+	SaveGameInit1SubProcess,
+	SaveGameInit2SubProcess,
+	SaveGameInitButtonsSubProcess,
+	SaveGameWaitForInputSubProcess,
+	SaveGameExitSaveScreenSubProcess,
+	SaveGameSubProcess5,
+	sub_8008CC0,
+	sub_8008D68
+};
 
 u32 SaveGameData()
 {
@@ -89,12 +101,12 @@ void ClearSaveProcess(struct Main *main)
     switch (main->process[GAME_SUBPROCESS])
     {
     case 0:
-        DmaCopy16(3, gUnusedAsciiCharSet, VRAM + 0x3800, sizeof(gUnusedAsciiCharSet));
+        DmaCopy16(3, gUnusedAsciiCharSet, VRAM + 0x3800, 0x800);
         DmaCopy16(3, GetBGPalettePtr(0), PLTT, BG_PLTT_SIZE);
-        DmaCopy16(3, gUnknown_08186540, VRAM, sizeof(gUnknown_08186540));
-        DmaCopy16(3, gUnknown_081964A8, OBJ_VRAM0 + 0x3C00, sizeof(gUnknown_081964A8));
-        DmaCopy16(3, gUnknown_081FD92C, OBJ_PLTT + 0x120, sizeof(gUnknown_081FD92C));
-        DmaCopy16(3, gTextPal, OBJ_PLTT, sizeof(gTextPal));
+        DmaCopy16(3, gUnknown_08186540, VRAM, 0x1000);
+        DmaCopy16(3, gUnknown_081964A8, OBJ_VRAM0 + 0x3C00, 0x800);
+        DmaCopy16(3, gUnknown_081FD92C, OBJ_PLTT + 0x120, 0x40);
+        DmaCopy16(3, gTextPal, OBJ_PLTT, 0x20);
         gIORegisters.lcd_bg0cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(28) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
         gIORegisters.lcd_bg1cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(29) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
         gIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
@@ -203,8 +215,6 @@ void ClearSaveProcess(struct Main *main)
     }
 }
 
-extern void (*gSaveGameSubProcesses[])(struct Main *);
-
 #define sIsEpisodePartOver process[3]
 
 void SaveGameProcess(struct Main *main)
@@ -245,10 +255,10 @@ void SaveGameInit2SubProcess(struct Main *main)
     DmaCopy16(3, &gCourtScroll, &gSaveDataBuffer.courtScroll, sizeof(gCourtScroll))
     DmaCopy16(3, gExaminationData, gSaveDataBuffer.examinationData, sizeof(gExaminationData));
     DmaCopy16(3, gTalkData, gSaveDataBuffer.talkData, sizeof(gTalkData));
-    DmaCopy16(3, gUnknown_08193CA0, OBJ_VRAM0 + 0x3800, sizeof(gUnknown_08193CA0));
-    DmaCopy16(3, gUnknown_08194580, OBJ_PLTT + 0x100, sizeof(gUnknown_08194580));
-    DmaCopy16(3, gUnknown_081964A8, OBJ_VRAM0 + 0x3C00, sizeof(gUnknown_081964A8));
-    DmaCopy16(3, gUnknown_081FD92C, OBJ_PLTT + 0x120, sizeof(gUnknown_081FD92C));
+    DmaCopy16(3, gUnknown_08193CA0, OBJ_VRAM0 + 0x3800, 0x400);
+    DmaCopy16(3, gUnknown_08194580, OBJ_PLTT + 0x100, 0xC0);
+    DmaCopy16(3, gUnknown_081964A8, OBJ_VRAM0 + 0x3C00, 0x800);
+    DmaCopy16(3, gUnknown_081FD92C, OBJ_PLTT + 0x120, 0x40);
     sub_8001830(0x43);
     sub_8001A9C(0x43);
     main->unk1F &= ~3;

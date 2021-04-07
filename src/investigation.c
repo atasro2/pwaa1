@@ -11,9 +11,23 @@
 #include "court_record.h"
 #include "sound.h"
 #include "case_data.h"
+#include "graphics.h"
 #include "constants/animation.h"
 #include "constants/script.h"
 #include "constants/bg.h"
+
+void (*gInvestigationSubProcesses[])(struct Main *, struct InvestigationStruct *) = {
+	sub_800B808,
+	sub_800BAD4,
+	sub_800BD74,
+	sub_800BDF8,
+	sub_800BE58,
+	sub_800BE7C,
+	sub_800BF90,
+	sub_800C334,
+	sub_800C8B8,
+	sub_800D2B0
+};
 
 extern void SetCurrentEpisodeBit();
 extern void sub_800D530(struct Main *, u32);
@@ -26,14 +40,11 @@ void sub_800B7A8(struct InvestigationStruct * investigation, u32 arg1)
         investigation->unk7 &= ~0xC;
 }
 
-extern void (*gUnknown_0811DD64[])(struct Main *);
-extern void (*gProcess4SubProcesses[])(struct Main *, struct InvestigationStruct *);
-
 void GameProcess04(struct Main * main)
 {
     if(main->process[GAME_SUBPROCESS] != 5)
         gUnknown_0811DD64[main->scenarioIdx](main);
-    gProcess4SubProcesses[main->process[GAME_SUBPROCESS]](main, &gInvestigation);
+    gInvestigationSubProcesses[main->process[GAME_SUBPROCESS]](main, &gInvestigation);
     sub_800D3C8(&gInvestigation);
 }
 
@@ -54,8 +65,8 @@ void sub_800B808(struct Main * main, struct InvestigationStruct * investigation)
     ioRegs->lcd_bg1cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(29) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
     ioRegs->lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
     ioRegs->lcd_bg3cnt = BGCNT_PRIORITY(3) | BGCNT_CHARBASE(1) | BGCNT_SCREENBASE(31) | BGCNT_MOSAIC | BGCNT_256COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
-    DmaCopy16(3, gUnusedAsciiCharSet, VRAM + 0x3800, sizeof(gUnusedAsciiCharSet));
-    DmaCopy16(3, gUnknown_08186540, VRAM, sizeof(gUnknown_08186540));
+    DmaCopy16(3, gUnusedAsciiCharSet, VRAM + 0x3800, 0x800);
+    DmaCopy16(3, gUnknown_08186540, VRAM, 0x1000);
     DmaCopy16(3, gUnknown_0818E4C0, OBJ_VRAM0 + 0x2000, 0x1000);
     DmaCopy16(3, gUnknown_08194200, OBJ_PLTT+0xA0, 0x40);
     DmaCopy16(3, gUnknown_0818F6C0, OBJ_VRAM0 + 0x3000, 0x200);

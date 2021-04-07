@@ -7,8 +7,18 @@
 #include "court.h"
 #include "save.h"
 #include "court_record.h"
+#include "graphics.h"
 #include "constants/script.h"
 #include "constants/animation.h"
+
+void (*gProcess6SubProcesses[])(struct Main *) = {
+	sub_800AB58,
+	sub_800AC1C,
+	nullsub_32,
+	sub_800AA10,
+	sub_800AE58,
+	sub_800AF2C
+};
 
 void sub_800AA10(struct Main * main)
 {
@@ -72,8 +82,6 @@ void sub_800AA10(struct Main * main)
             break;
     }
 }
-
-extern void (*gProcess6SubProcesses[])(struct Main *);
 
 void GameProcess06(struct Main * main)
 {

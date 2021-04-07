@@ -2,6 +2,7 @@
 #include "main.h"
 #include "investigation.h"
 #include "animation.h"
+#include "graphics.h"
 
 void sub_800D674(void)
 {

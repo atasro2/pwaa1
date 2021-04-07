@@ -14,7 +14,8 @@
 // to help in decompiling
 #define asm_comment(x) asm volatile("@ -- " x " -- ")
 #define asm_unified(x) asm(".syntax unified\n" x "\n.syntax divided")
-#define NAKED __attribute__((naked))
+#define GRAPHICS_DATA __attribute__((section("gfx_data")))
+#define SCRIPT_DATA __attribute__((section("script_data")))
 
 #define ARRAY_COUNT(array) (size_t)(sizeof(array) / sizeof((array)[0]))
 #define MAX_OAM_OBJ_COUNT 128

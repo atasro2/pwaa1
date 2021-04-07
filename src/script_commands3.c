@@ -5,6 +5,7 @@
 #include "court.h"
 #include "background.h"
 #include "investigation.h"
+#include "graphics.h"
 #include "constants/script.h"
 
 bool32 Command40(struct ScriptContext * scriptCtx)
@@ -92,14 +93,14 @@ bool32 Command44(struct ScriptContext * scriptCtx)
     if(*scriptCtx->scriptPtr) 
     {
         DmaCopy16(3, gUnknown_08191CA0, OBJ_VRAM0+0x3400, 0x1000);
-        DmaCopy16(3, gUnknown_08194520, OBJ_PLTT+0xA0, sizeof(gUnknown_08194520));
+        DmaCopy16(3, gUnknown_08194520, OBJ_PLTT+0xA0, 0x20);
         SET_PROCESS(9,0,0,0);
     }
     else 
     {
-        DmaCopy16(3, gUnknown_081914A0, OBJ_VRAM0+0x3400, sizeof(gUnknown_081914A0));
-        DmaCopy16(3, gUnknown_081924A0, OBJ_VRAM0+0x3C00, sizeof(gUnknown_081924A0));
-        DmaCopy16(3, gUnknown_08194540, OBJ_PLTT+0xA0, sizeof(gUnknown_08194540));
+        DmaCopy16(3, gUnknown_081914A0, OBJ_VRAM0+0x3400, 0x800);
+        DmaCopy16(3, gUnknown_081924A0, OBJ_VRAM0+0x3C00, 0x800);
+        DmaCopy16(3, gUnknown_08194540, OBJ_PLTT+0xA0, 0x20);
         SET_PROCESS(9,0,0,1);
     }
     scriptCtx->scriptPtr++;

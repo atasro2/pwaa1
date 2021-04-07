@@ -6,6 +6,7 @@ SHA1SUM := sha1sum -c
 GBAFIX := tools/gbafix/gbafix
 GBAGFX := tools/gbagfx/gbagfx
 SCANINC := tools/scaninc/scaninc
+PREPROC := tools/preproc/preproc
 MID := tools/mid2agb/mid2agb
 
 include config.mk
@@ -173,9 +174,10 @@ $(C_BUILDDIR)/%.o: c_dep :=
 else
 $(C_BUILDDIR)/%.o: c_dep = $(shell $(SCANINC) -I include $(C_SUBDIR)/$*.c)
 endif
-
-$(C_BUILDDIR)/%.o: $(C_SUBDIR)/%.c $$(c_dep)
-	$(CPP) $(CPPFLAGS) $< | $(CC1) $(CFLAGS) -o $(C_BUILDDIR)/$*.s
+	
+$(C_BUILDDIR)/%.o : $(C_SUBDIR)/%.c $$(c_dep)
+	$(CPP) $(CPPFLAGS) $< -o $(C_BUILDDIR)/$*.i
+	@$(PREPROC) $(C_BUILDDIR)/$*.i | $(CC1) $(CFLAGS) -o $(C_BUILDDIR)/$*.s
 	@echo | sed "i.text\n\t.align\t2, 0" >> $(C_BUILDDIR)/$*.s
 	$(AS) $(ASFLAGS) -o $@ $(C_BUILDDIR)/$*.s
 

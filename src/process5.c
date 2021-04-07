@@ -3,8 +3,16 @@
 #include "sound.h"
 #include "ewram.h"
 #include "save.h"
+#include "graphics.h"
 #include "constants/script.h"
 #include "constants/animation.h"
+
+void (*gProcess5SubProcesses[])(struct Main *) = {
+	sub_800A894,
+	sub_800A8E0,
+	sub_800A9FC,
+	sub_800A730
+};
 
 void sub_800A730(struct Main * main)
 {
@@ -70,8 +78,6 @@ void sub_800A730(struct Main * main)
             break;
     }
 }
-
-extern void (*gProcess5SubProcesses[])(struct Main *);
 
 void GameProcess05(struct Main * main)
 {

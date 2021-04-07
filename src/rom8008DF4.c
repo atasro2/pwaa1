@@ -4,6 +4,7 @@
 #include "sound.h"
 #include "agb_sram.h"
 #include "save.h"
+#include "graphics.h"
 
 void sub_8008DF4(struct Main * main)
 {

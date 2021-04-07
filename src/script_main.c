@@ -3,35 +3,16 @@
 #include "script.h"
 #include "sound.h"
 #include "ewram.h"
+#include "graphics.h"
 #include "constants/script.h"
 
 static void AdvanceScriptContext(struct ScriptContext *);
 static void DrawTextAndMapMarkers(struct ScriptContext *);
 static void PutCharInTextbox(u32, u32, u32);
 
-extern bool32 (*gScriptCmdFuncs[0x5F])(struct ScriptContext *);
-
 extern u8 gTextColorTileBuffer[0x80];
 
-extern u8 scenario_0_script[];
-extern u8 scenario_1_0_script[];
-extern u8 scenario_1_1_script[];
-extern u8 scenario_1_2_script[];
-extern u8 scenario_1_3_script[];
-extern u8 scenario_2_0_script[];
-extern u8 scenario_2_1_script[];
-extern u8 scenario_2_2_script[];
-extern u8 scenario_2_3_script[];
-extern u8 scenario_2_4_script[];
-extern u8 scenario_2_5_script[];
-extern u8 scenario_3_0_script[];
-extern u8 scenario_3_1_script[];
-extern u8 scenario_3_2_script[];
-extern u8 scenario_3_3_script[];
-extern u8 scenario_3_4_script[];
-extern u8 scenario_3_5_script[];
-
-u8 * const gScriptTable[] = {
+const u8 * const gScriptTable[] = {
     scenario_0_script,
     scenario_1_0_script,
     scenario_1_1_script,
@@ -51,10 +32,109 @@ u8 * const gScriptTable[] = {
     scenario_3_5_script,
 };
 
+bool32 (*gScriptCmdFuncs[0x60])(struct ScriptContext *) = {
+	Command00,
+	Command01,
+	Command02,
+	Command03,
+	Command04,
+	Command05,
+	Command06,
+	Command02,
+	Command08,
+	Command09,
+	Command02,
+	Command0B,
+	Command0C,
+	Command0D,
+	Command0E,
+	Command0F,
+	Command10,
+	Command11,
+	Command12,
+	Command13,
+	Command14,
+	Command15,
+	Command16,
+	Command17,
+	Command18,
+	Command19,
+	Command1A,
+	Command1B,
+	Command1C,
+	Command1D,
+	Command1E,
+	Command1F,
+	Command20,
+	Command21,
+	Command22,
+	Command23,
+	Command24,
+	Command25,
+	Command26,
+	Command27,
+	Command28,
+	Command29,
+	Command2A,
+	Command2B,
+	Command2C,
+	Command02,
+	Command2E,
+	Command2F,
+	Command30,
+	Command31,
+	Command32,
+	Command33,
+	Command34,
+	Command35,
+	Command36,
+	Command37,
+	Command38,
+	Command39,
+	Command3A,
+	Command3B,
+	Command3C,
+	Command3D,
+	Command3E,
+	Command3F,
+	Command40,
+	Command41,
+	Command42,
+	Command43,
+	Command44,
+	Command15,
+	Command46,
+	Command47,
+	Command48,
+	Command49,
+	Command4A,
+	Command4B,
+	Command4C,
+	Command4D,
+	Command4E,
+	Command4F,
+	Command50,
+	Command51,
+	Command52,
+	Command53,
+	Command54,
+	Command55,
+	Command56,
+	Command57,
+	Command58,
+	Command59,
+	Command5A,
+	Command5B,
+	Command5C,
+	Command5D,
+	Command5E,
+	Command5F,
+};
+
 void LoadCurrentScriptIntoRam(void)
 {
     u32 i;
-    DmaCopy16(3, gTextPal, OBJ_PLTT, sizeof(gTextPal));
+    DmaCopy16(3, gTextPal, OBJ_PLTT, 0x20);
 
     for (i = 0; i < ARRAY_COUNT(gTextBoxCharacters); i++)
     {
@@ -113,8 +193,8 @@ void InitScriptSection(struct ScriptContext *scriptCtx)
     scriptCtx->unk28 = 0x18;
     scriptCtx->unk2A = 0x56;
     {
-        void *r1;
-        u32 *r0;
+        const void *r1;
+        const u32 *r0;
         if (scriptCtx->currentSection >= 0x80)
         {
             r1 = eScriptHeap;

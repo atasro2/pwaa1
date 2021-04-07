@@ -94,17 +94,32 @@ SECTIONS {
     {
         src/main.o(.rodata);
         src/bg3_1.o(.rodata);
-        rodata/bg.o(.rodata);
+        src/bg.o(.rodata);
         src/utils.o(.rodata);
         src/case_data.o(.rodata);
-        rodata/case_data.o(.rodata);
+        /* sce1_0.c */
+        src/investigation_segment_1_0.o(.rodata);
+        /* sce1_2.c */
+        src/investigation_segment_1_2.o(.rodata);
+        /* sce2_0.c */
+        src/investigation_segment_2_0.o(.rodata);
+        /* sce2_2.c */
+        src/investigation_segment_2_2.o(.rodata);
+        /* sce2_4.c */
+        src/investigation_segment_2_4.o(.rodata);
+        /* sce3_0.c */
+        src/investigation_segment_3_0.o(.rodata);
+        /* sce3_2.c */
+        src/investigation_segment_3_2.o(.rodata);
+        /* sce3_4.c */
+        src/investigation_segment_3_4.o(.rodata);
         src/script_main.o(.rodata);
         src/script_commands.o(.rodata);
         src/script_commands2.o(.rodata);
-        rodata/gameover_process.o(.rodata);
+        src/gameover_process.o(.rodata);
         src/save_processes.o(.rodata);
         src/court_record.o(.rodata);
-        rodata/data.o(.rodata);
+        src/animation.o(.rodata);
         data/sound_data.o(.rodata);
         src/m4a_tables.o(.rodata);
         data/sound_data2.o(.rodata);
@@ -118,8 +133,15 @@ SECTIONS {
         src/main.o(.data);
         src/bg.o(.data);
         src/utils.o(.data);
-        data/case_data.o(.data);
-        data/data_3.o(.data);
+        src/case_data.o(.data);
+        src/script_main.o(.data);
+        src/save_processes.o(.data);
+        src/process3.o(.data);
+        src/process5.o(.data);
+        src/process6.o(.data);
+        src/investigation.o(.data);
+        src/court_record.o(.data);
+        src/animation.o(.data);
     } =0
     . = 0x8180000;
     gfx_data :
@@ -131,7 +153,7 @@ SECTIONS {
     script_data :
     ALIGN(4)
     {
-        data/scripts.o(script_data);
+        src/scripts.o(script_data);
     } =0
 
     /* DWARF debug sections.

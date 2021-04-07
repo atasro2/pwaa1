@@ -23,9 +23,6 @@
 #include "preproc.h"
 #include "asm_file.h"
 #include "c_file.h"
-#include "charmap.h"
-
-Charmap* g_charmap;
 
 void PrintAsmBytes(unsigned char *s, int length)
 {
@@ -69,20 +66,6 @@ void PreprocAsmFile(std::string filename)
             stack.push(AsmFile(stack.top().ReadPath()));
             stack.top().OutputLocation();
             break;
-        case Directive::String:
-        {
-            unsigned char s[kMaxStringLength];
-            int length = stack.top().ReadString(s);
-            PrintAsmBytes(s, length);
-            break;
-        }
-        case Directive::Braille:
-        {
-            unsigned char s[kMaxStringLength];
-            int length = stack.top().ReadBraille(s);
-            PrintAsmBytes(s, length);
-            break;
-        }
         case Directive::Unknown:
         {
             std::string globalLabel = stack.top().GetGlobalLabel();
@@ -132,13 +115,11 @@ char* GetFileExtension(char* filename)
 
 int main(int argc, char **argv)
 {
-    if (argc != 3)
+    if (argc != 2)
     {
-        std::fprintf(stderr, "Usage: %s SRC_FILE CHARMAP_FILE", argv[0]);
+        std::fprintf(stderr, "Usage: %s SRC_FILE\n", argv[0]);
         return 1;
     }
-
-    g_charmap = new Charmap(argv[2]);
 
     char* extension = GetFileExtension(argv[1]);
 

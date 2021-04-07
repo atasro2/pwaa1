@@ -9,6 +9,7 @@
 #include "background.h"
 #include "investigation.h"
 #include "court_record.h"
+#include "graphics.h"
 #include "constants/bg.h"
 #include "constants/script.h"
 
