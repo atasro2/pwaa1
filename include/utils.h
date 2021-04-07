@@ -21,6 +21,12 @@ struct Rect
 
 extern const s16 gSineTable[256+64];
 
+#define _Sin( a ) (gSineTable[(a)])
+#define _Cos( a ) (gSineTable[(a)+64])
+
+// Converts a number to Q8.8 fixed-point format
+#define Q_8_8(n) ((s16)((n) * 256))
+
 void MoveSpritesToOAM();
 bool32 CheckPointInArea(const struct Point * point, const struct Point4 * area);
 bool32 CheckRectCollisionWithArea(const struct Rect * rect, const struct Point4 * area);
