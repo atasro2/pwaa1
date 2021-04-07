@@ -63,11 +63,7 @@ SECTIONS {
         asm/rom8008DF4.o(.text);
         asm/continue_process.o(.text);
         /* saiban.c */
-        src/process3.o(.text);
-        src/process5.o(.text);
-        src/process6.o(.text);
-        asm/process9.o(.text);
-        src/process9_2.o(.text);
+        src/court.o(.text);
         /* tantei.c */
         src/investigation.o(.text);
         asm/investigation.o(.text);
@@ -136,9 +132,7 @@ SECTIONS {
         src/case_data.o(.data);
         src/script_main.o(.data);
         src/save_processes.o(.data);
-        src/process3.o(.data);
-        src/process5.o(.data);
-        src/process6.o(.data);
+        src/court.o(.data);
         src/investigation.o(.data);
         src/court_record.o(.data);
         src/animation.o(.data);

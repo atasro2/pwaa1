@@ -464,12 +464,10 @@ bool32 GetFlag(u32 flagType, u32 id)
 void sub_8002BF8(s16 scale)
 {
     struct IORegisters * ioRegsp = &gIORegisters;
-    s16 cos = _Cos(0);
-
-    ioRegsp->lcd_bg2pa = fix_mul(cos, scale);
+    ioRegsp->lcd_bg2pa = fix_mul(_Cos(0), scale);
     ioRegsp->lcd_bg2pb = fix_mul(_Sin(0), scale);
     ioRegsp->lcd_bg2pc = fix_mul(-_Sin(0), scale);
-    ioRegsp->lcd_bg2pd = fix_mul(cos, scale);
+    ioRegsp->lcd_bg2pd = fix_mul(_Cos(0), scale);
     ioRegsp->lcd_bg2x = (((120 * 0x100 - 120) - ioRegsp->lcd_bg2pa * 120) - (ioRegsp->lcd_bg2pb * 80)) & 0x0FFFFFFF;
     ioRegsp->lcd_bg2y = (((80 * 0x100 - 80) - ioRegsp->lcd_bg2pc * 120) - (ioRegsp->lcd_bg2pd * 80)) & 0x0FFFFFFF;
 }
