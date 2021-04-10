@@ -671,7 +671,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                 if(!(main->gameStateFlags & 0x10))
                 {
                     PlaySE(49);
-                    main->process[GAME_PROCESSUNK2] = 6; //! tries opening court record from case 6 but fails spectacularly
+                    main->process[GAME_PROCESSUNK2] = 6; //! tries opening court record from switch case 6 but fails spectacularly
                     BACKUP_PROCESS_PTR(main);
                     SET_PROCESS_PTR(7, 0, 0, 0, main);
                     oam = &gOamObjects[38];

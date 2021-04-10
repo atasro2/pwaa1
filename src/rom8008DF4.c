@@ -5,6 +5,7 @@
 #include "agb_sram.h"
 #include "save.h"
 #include "graphics.h"
+#include "constants/script.h"
 
 void sub_8008DF4(struct Main * main)
 {
@@ -766,3 +767,314 @@ _080094DC: .4byte gSaveDataBuffer\n\
 _080094E0: .4byte 0x0100000A\n");
 }
 #endif
+
+void SelectEpisodeProcess(struct Main * main)
+{
+    struct OamAttrs * oam;
+    u32 i, j;
+    u32 temp;
+    bool32 buttonEnabled;
+    switch(main->process[GAME_SUBPROCESS])
+    {
+        case 0: // _0800953C
+            sub_8008DF4(main);
+            break;
+        case 1: // _08009544
+            if(main->blendMode)
+                return;
+            sub_8008E18(main);
+            if(main->unk17 & 0xF0)
+                main->unk8E = gSaveDataBuffer.main.unk8E;
+            main->selectedButton = main->process[GAME_PROCESSUNK3];
+            oam = &gOamObjects[38];
+            for(i = 0; i < 4; i++)
+            {
+                buttonEnabled = main->unk8E >> i;
+                for(j = 0; j < 2; j++)
+                {
+                    if(main->selectedButton == i)
+                        oam->attr2 = 0x91E0 + j * 0x20 + i * 0x40;
+                    else if(buttonEnabled & 1)
+                        oam->attr2 = 0xA1E0 + j * 0x20 + i * 0x40;
+                    else
+                        oam->attr2 = 0xA1A0 + j * 0x20; 
+                    oam++;
+                }
+            }
+            break;
+        case 2: // _080095E4
+            sub_8008F68(main);
+            break;
+        case 3: // _080095EC
+            sub_8008FE8(main);
+            break;
+        case 4: // _080095F4
+            sub_8009068(main);
+            break;
+        case 5: // _080095FC
+            main->unk86 += 6;
+            main->unk86 &= 0x1FF;
+            oam = &gOamObjects[44];
+            for(i = 3; i < 4; i++)
+            {
+                for(j = 0; j < 2; j++)
+                {
+                    u32 attr1 = 0xC000 + j * 64;
+                    temp = main->unk86 + 0x170;
+                    temp &= 0x1FF;
+                    oam->attr1 = temp + attr1;
+                    oam++;
+                }
+            }
+            if(main->unk86 >= 0xF8)
+            {
+                oam = &gOamObjects[44];
+                oam->attr1 = 0xC068;
+                oam++;
+                oam->attr1 = 0xC0A8;
+                main->advanceScriptContext = TRUE;
+                main->showTextboxCharacters = TRUE;
+                gScriptContext.currentSection = 0xFFFF;
+                ChangeScriptSection(2);
+                SetTimedKeysAndDelay(DPAD_UP | DPAD_DOWN, 20);
+                main->process[GAME_SUBPROCESS]++;
+            }
+            break;
+        case 6: // _08009688
+            if(gScriptContext.flags & SCRIPT_LOOP)
+            {
+                if(gJoypad.activeTimedKeys & DPAD_UP)
+                {
+                    j = main->selectedButton;
+                    for(i = 0; i < 4; i++)
+                    {
+                        main->selectedButton--;
+                        main->selectedButton &= 3;
+                        temp = main->unk8E >> main->selectedButton;
+                        if(temp & 1)
+                        {
+                            if(!(j == main->selectedButton))
+                            {
+                                PlaySE(0x2A);
+                                break;
+                            }
+                        }
+                    }
+                }
+                else if(gJoypad.activeTimedKeys & DPAD_DOWN)
+                {
+                    j = main->selectedButton;
+                    for(i = 0; i < 4; i++)
+                    {
+                        main->selectedButton++;
+                        main->selectedButton &= 3;
+                        temp = main->unk8E >> main->selectedButton;
+                        if(temp & 1)
+                        {
+                            if(!(j == main->selectedButton))
+                            {
+                                PlaySE(0x2A);
+                                break;
+                            }
+                        }
+                    }
+                }
+                else if(gJoypad.pressedKeys & A_BUTTON)
+                {
+                    PlaySE(0x2B);
+                    main->unk86 = 0;
+                    main->advanceScriptContext = FALSE;
+                    main->showTextboxCharacters = FALSE;
+                    gIORegisters.lcd_dispcnt &= ~DISPCNT_BG1_ON;
+                    main->tilemapUpdateBits &= ~2;
+                    main->process[GAME_SUBPROCESS]++;
+                    main->process[GAME_PROCESSUNK3] = 0;
+                    main->process[GAME_PROCESSUNK2] = 0;
+                }
+                else if(gJoypad.pressedKeys & B_BUTTON)
+                {
+                    PlaySE(0x2C);
+                    StartHardwareBlend(2, 0, 1, 0x1F);
+                    main->process[GAME_SUBPROCESS] = 12;
+                }
+            }
+            oam = &gOamObjects[38];
+            for(i = 0; i < 4; i++)
+            {
+                if(i == main->selectedButton)
+                {
+                    for(j = 0; j < 2; j++)
+                    {
+                        temp = main->unk8E >> i; 
+                        if(temp & 1)
+                            oam->attr2 = j * 0x20 + 0x91E0 + i * 0x40;
+                        else
+                            oam->attr2 = j * 0x20 + 0x91A0;
+                        oam++;
+                    }
+                }
+                else
+                {
+                    for(j = 0; j < 2; j++)
+                    {
+                        temp = main->unk8E >> i; 
+                        if(temp & 1)
+                            oam->attr2 = j * 0x20 + 0xA1E0 + i * 0x40;
+                        else
+                            oam->attr2 = j * 0x20 + 0xA1A0;
+                        oam++;
+                    }
+                }
+            }
+            break;
+        case 7: // _0800981E
+            main->process[GAME_PROCESSUNK2]++;
+            if(main->process[GAME_PROCESSUNK2] > 0x28)
+            {
+                main->unk86 = 0;
+                main->process[GAME_SUBPROCESS]++;
+                main->process[GAME_PROCESSUNK3] = 0;   
+                main->process[GAME_PROCESSUNK2] = 0;
+            }
+            oam = &gOamObjects[38];
+            for(i = 0; i < 4; i++)
+            {
+                for(j = 0; j < 2; j++)
+                {
+                    if(i == main->selectedButton)
+                    {
+                        temp = oam->attr1 & 0x1FF;
+                        oam->attr1 &= ~0x1FF;
+                        if(j == 0)
+                        {
+                            if(temp < 56)
+                                temp += 4;
+                            if(temp > 56)
+                                temp -= 4;
+
+                        }
+                        else
+                        {
+                            if(temp < 120)
+                                temp += 4;
+                            if(temp > 120)
+                                temp -= 4;   
+                        }
+                        oam->attr1 += temp;
+                    }
+                    else
+                    {
+                        temp = oam->attr1 & 0x1FF;
+                        oam->attr1 &= ~0x1FF;
+                        temp += main->unk86;
+                        temp &= 0x1FF;
+                        if(temp > 0xF0)
+                            oam->attr0 = SPRITE_ATTR0_CLEAR;
+                        else
+                            oam->attr1 += temp;
+                    }
+                    oam++;
+                }
+            }
+            if(main->unk86 < 8)
+                main->unk86++;
+            break;
+        case 8: // _080098D8
+            oam = &gOamObjects[38];
+            for(i = 0; i < 4; i++)
+            {
+                for(j = 0; j < 2; j++)
+                {
+                    if(i == main->selectedButton)
+                    {
+                        temp = oam->attr0 & 0xFF;
+                        oam->attr0 &= ~0xFF;
+                        if((temp < 56 && (temp += 4) >= 56) || (temp > 56 && (temp -= 4) <= 56))
+                         {
+                            main->process[GAME_SUBPROCESS] = 9;
+                            main->process[GAME_PROCESSUNK3] = 0;
+                            main->process[GAME_PROCESSUNK2] = 0;
+                            temp = 56;
+                        }
+                        oam->attr0 += temp;
+                    }
+                    else
+                        oam->attr0 = SPRITE_ATTR0_CLEAR;
+                    oam++;
+                }
+            }
+            if(main->unk86 < 8)
+                main->unk86++;
+            break;
+        case 9: // _0800994C
+            main->process[GAME_PROCESSUNK2]++;
+            if(main->process[GAME_PROCESSUNK2] > 20)
+            {
+                main->process[GAME_SUBPROCESS] = 10;
+                main->process[GAME_PROCESSUNK3] = 0;
+                main->process[GAME_PROCESSUNK2] = 0;
+            }
+            break;
+        case 10: // _08009966
+            main->process[GAME_PROCESSUNK2]++;
+            if(main->process[GAME_PROCESSUNK2] > 50)
+            {
+                StartHardwareBlend(2, 4, 1, 0x1F);
+                main->process[GAME_SUBPROCESS]++;
+                main->process[GAME_PROCESSUNK3] = 0;
+            }
+            else
+            {
+                if(main->process[GAME_PROCESSUNK3] > 5)
+                    main->process[GAME_PROCESSUNK3] = 0;
+                main->process[GAME_PROCESSUNK3]++;
+            } 
+            oam = &gOamObjects[38];
+            for(i = 0; i < 4; i++)
+            {
+                u32 attr2_2 = 0xA1E0;
+                u32 attr2 = 0x91E0;
+                for(j = 0; j < 2; j++)
+                {
+                    if(i == main->selectedButton)
+                    {
+                        if(main->process[GAME_PROCESSUNK3] > 2)
+                            oam->attr2 = i * 0x40 + attr2_2 + j * 0x20;
+                        else
+                            oam->attr2 = i * 0x40 + attr2 + j * 0x20;   
+                    }
+                    else
+                        oam->attr0 = SPRITE_ATTR0_CLEAR;
+                    oam++;
+                }
+            }
+            break;
+        case 11: // _080099EE
+            if(main->blendMode) 
+                return;
+            switch(main->selectedButton)
+            {
+                case 0:
+                    main->scenarioIdx = 0;
+                    break;
+                case 1:
+                    main->scenarioIdx = 1;
+                    break;
+                case 2:
+                    main->scenarioIdx = 5;
+                    break;
+                case 3:
+                    main->scenarioIdx = 11;
+                    break;
+                default:
+                    main->scenarioIdx = 0;
+            }
+            SET_PROCESS_PTR(gCaseStartProcess[main->scenarioIdx], 0, 0, 0, main);
+            break;
+        case 12: // _08009A44
+            if(main->blendMode) 
+                return;
+            SET_PROCESS_PTR(1, 0, 0, 0, main);
+            break;
+    }
+}
