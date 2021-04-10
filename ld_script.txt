@@ -60,7 +60,6 @@ SECTIONS {
         /* saveload.c */
         src/save_processes.o(.text);
         src/rom8008DF4.o(.text);
-        asm/rom8008DF4.o(.text);
         asm/continue_process.o(.text);
         /* saiban.c */
         src/court.o(.text);
