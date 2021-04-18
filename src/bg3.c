@@ -2,6 +2,7 @@
 #include "background.h"
 #include "ewram.h"
 #include "animation.h"
+#include "utils.h"
 #include "constants/bg.h"
 
 #include "data/background.h"
@@ -654,4 +655,309 @@ void sub_80018F8()
     }
     DmaCopy16(3, eBGDecompBuffer, BG_CHAR_ADDR(1), 0x9B00);
     gMain.isBGScrolling = TRUE;
+}
+
+void sub_8001A9C(u32 bgId)
+{
+    struct Main * main = &gMain; // r8
+    struct IORegisters * ioReg = &gIORegisters; // r9 sb
+    void * dst;
+    const void * src;
+    u8 * tempPtr;
+    u8 * bgData;
+    bool32 is4bpp;
+    u32 tempBgCtrl;
+    u32 tempSize;
+    u32 i, j;
+
+    if(bgId >= 0x4A && bgId <= 0x4B)
+    {
+        sub_80018F8();
+        return;
+    }
+    MoveAnimationTilesToRam(0);
+    MoveSpritesToOAM();
+    tempBgCtrl = bgId;
+    bgId &= ~0x8000;
+    ioReg->lcd_bg3vofs = 8;
+    ioReg->lcd_bg3hofs = 8;
+    main->isBGScrolling = FALSE;
+    main->unk34 = 0;
+    main->unk36 = 0;
+    main->currentBG = bgId;
+    if(bgId == 0xFF)
+    {
+        src = gUnknown_08014570;
+        dst = gBG3MapBuffer;
+        DmaCopy16(3, src, dst, 0x580);
+        DmaFill16(3, 0, BG_PLTT+0x40, 0x1C0);
+        DmaFill16(3, 0x2222, VRAM+0x4000, 0x9600);
+        return;
+    }
+    i = gBackgroundTable[bgId].controlBits;
+    if(i & BG_MODE_SPECIAL_SPEEDLINE)
+    {
+        //u32 temp;
+        src = gUnknown_08014570;
+        dst = gBG3MapBuffer;
+        DmaCopy16(3, src, dst, 0x580);
+        j = 0x258;
+        j++;j--;
+        for(i = 0; i < 20; i++, j++)
+            gBG3MapBuffer[i * 0x20 + 0x20] = j | 0x2000;
+        for(i = 0; i < 20; i++, j++)
+            gBG3MapBuffer[i * 0x20 + 0x3F] = j | 0x2000;
+        main->isBGScrolling = TRUE;
+        DmaCopy16(3, gUnknown_08427608, eBGDecompBuffer+0x4B00, 0x500);
+    }
+    if(tempBgCtrl & 0x8000)
+    {
+        tempBgCtrl = gBackgroundTable[bgId].controlBits; 
+        if(tempBgCtrl & BG_MODE_VSCROLL_TOP)
+        {
+            tempBgCtrl &= ~BG_MODE_VSCROLL_TOP;
+            tempBgCtrl |= BG_MODE_VSCROLL_DOWN;
+        }
+        else if(tempBgCtrl & BG_MODE_VSCROLL_DOWN)
+        {
+            tempBgCtrl &= ~BG_MODE_VSCROLL_DOWN;
+            tempBgCtrl |= BG_MODE_VSCROLL_TOP;
+        }
+        else if(tempBgCtrl & BG_MODE_HSCROLL_RIGHT)
+        {
+            tempBgCtrl &= ~BG_MODE_HSCROLL_RIGHT;
+            tempBgCtrl |= BG_MODE_HSCROLL_LEFT;
+        }
+        else if(tempBgCtrl & BG_MODE_HSCROLL_LEFT)
+        {
+            tempBgCtrl &= ~BG_MODE_HSCROLL_LEFT;
+            tempBgCtrl |= BG_MODE_HSCROLL_RIGHT;
+        }   
+    }
+    else
+        tempBgCtrl = gBackgroundTable[bgId].controlBits;
+    bgData = gBackgroundTable[bgId].bgData + 0x28;
+    if(tempBgCtrl & BG_MODE_4BPP)
+    {
+        is4bpp = TRUE;
+        ioReg->lcd_bg3cnt &= ~BGCNT_256COLOR;
+        DmaCopy16(3, bgData, BG_PLTT+0x40, 0x20);
+        if(gBackgroundTable[bgId].controlBits & BG_MODE_SPECIAL_SPEEDLINE)
+        {
+            src = gUnknown_08360834;
+            dst = (void*)BG_PLTT+0x1C0;
+            DmaCopy16(3, src, dst, 0x20);
+            src = gUnknown_08362524;
+            dst = (void*)BG_PLTT+0x1E0;
+            DmaCopy16(3, src, dst, 0x20);
+            src = eBGDecompBuffer + 0x4B00;
+            dst = (void *)BG_CHAR_ADDR(1) + 0x4B00;
+            DmaCopy16(3, src, dst, 0x5000);
+            src = gBG2MapBuffer;
+            dst = (void *)BG_SCREEN_ADDR(30);
+            DmaCopy16(3, src, dst, 0x580);
+            *(u16 *)REG_ADDR_BG2CNT = *(u16 *)&ioReg->lcd_bg2cnt;
+        }
+        else
+        {
+            DmaFill16(3, 0, BG_CHAR_ADDR(1)+0x4EC0, 0x20);
+        }
+    }
+    else
+    {
+        is4bpp = FALSE;
+        ioReg->lcd_bg3cnt |= BGCNT_256COLOR;
+        DmaCopy16(3, bgData, BG_PLTT, 0x200);
+    }
+    *(u16*)&REG_DISPCNT = *(u16 *)&gIORegisters.lcd_dispcnt;
+    REG_BG3CNT = ioReg->lcd_bg3cnt;
+    *(u32*)&REG_BG3HOFS = *(u32*)&ioReg->lcd_bg3hofs;
+    main->unk3A = tempBgCtrl;
+    bgData = eBGDecompBuffer;
+    if((tempBgCtrl & BG_MODE_SIZE_MASK) == 0)
+    {
+        if((tempBgCtrl & BG_MODE_SPECIAL_SPEEDLINE) == 0)
+        {
+            src = gUnknown_08014570;
+            dst = gBG3MapBuffer;
+            DmaCopy16(3, src, dst, 0x580);
+        }
+        src = gBG3MapBuffer;
+        dst = (void *)BG_SCREEN_ADDR(31);
+        DmaCopy16(3, src, dst, 0x800);
+        DmaCopy16(3, bgData, BG_CHAR_ADDR(1), 0x9600 >> is4bpp);
+        return;
+    }
+    else
+    {
+        if(tempBgCtrl & (BG_MODE_SIZE_240x320 | BG_MODE_SIZE_UNK))
+        {
+            if(tempBgCtrl & BG_MODE_VSCROLL_TOP)
+            {
+                if(tempBgCtrl & BG_MODE_SIZE_240x320)
+                {
+                    bgData += 0x9600 >> is4bpp;
+                    main->unk3E = 0x12;
+                    main->unk36 = 0xA0;        
+                }
+                else
+                {
+                    bgData -= 0x4B00 >> is4bpp;
+                    main->unk3E = 0x8;
+                    main->unk36 = 0x50;
+                }
+                DmaCopy16(3, bgData, BG_CHAR_ADDR(1), 0x9600 >> is4bpp);
+                bgData = eBGDecompBuffer + ((main->unk3E * 0x780) >> is4bpp); // lol gg good luck
+                bgData += 0x780 >> is4bpp;
+                DmaCopy16(3, bgData, BG_CHAR_ADDR(1) + (0x9600 >> is4bpp), 0x780 >> is4bpp);
+                main->unk3F = 0x13;
+                main->unk2F = 0x26;
+            }
+            else
+            {
+                DmaCopy16(3, bgData, BG_CHAR_ADDR(1), 0x9D80 >> is4bpp);
+                main->unk36 = 0;
+                main->unk3F = 0;
+                main->unk3E = 0x15;
+                if(tempBgCtrl & BG_MODE_SIZE_240x320)
+                    main->unk2F = 1;
+                else
+                    main->unk2F = 0x20;
+            }
+            for(i = 0; i < 2; i++)
+            {
+                for(j = 0; j < 30; j++)
+                    gBG3MapBuffer[(i * 0x2A0) + 1 + j] = (0x258 + j) | 0x2000;
+            }
+        }
+        else
+        {
+            tempSize = tempBgCtrl & BG_MODE_SIZE_480x160 ? 0xF00 : 0xB40;
+            if(tempBgCtrl & BG_MODE_HSCROLL_RIGHT)
+            {
+                main->unk3F = 0x1E;
+                main->unk2F = 0x3A;
+                if(tempBgCtrl & BG_MODE_SIZE_480x160)
+                {
+                    bgData += 0x740;
+                    main->unk3E = 0x1C;
+                    main->unk34 = 0xF0;
+                }
+                else
+                {
+                    bgData += 0x380;
+                    main->unk3E = 0xD;
+                    main->unk34 = 0x78;
+                }
+                for(i = 0; i < 20; i++)
+                {
+                    for(j = 0; j < 31; j++)
+                        gBG3MapBuffer[i * 0x20 + 0x20 + j] = (j + i * 0x1F) | 0x2000;
+                }
+            }
+            else if(tempBgCtrl & BG_MODE_HSCROLL_LEFT)
+            {
+                main->unk3E = 0x1F;
+                main->unk34 = 0;
+                main->unk3F = 0;
+                if(tempBgCtrl & BG_MODE_SIZE_480x160)
+                    main->unk2F = 1;
+                else
+                    main->unk2F = 0x2F;
+                for(i = 0; i < 20; i++)
+                {
+                    for(j = 0; j < 31; j++)
+                        gBG3MapBuffer[i * 0x20 + 0x21 + j] = (j + i * 0x1F) | 0x2000;
+                }
+            }
+            for(i = 0; i < 2; i++)
+            {
+                for(j = 0; j < 32; j++)
+                    gBG3MapBuffer[i * 0x2A0 + j] = 0x276 | 0x2000;
+            }
+            tempPtr = BG_CHAR_ADDR(1);
+            for(i = 0; i < 20; i++)
+            {
+                DmaCopy16(3, bgData, tempPtr, 0x7C0 >> is4bpp);
+                bgData += tempSize >> is4bpp;
+                tempPtr += 0x7C0 >> is4bpp; 
+            }
+        }
+        src = gBG3MapBuffer;
+        dst = (void*)BG_SCREEN_ADDR(31);
+        DmaCopy16(3, src, dst, 0x800);
+    }
+}
+
+void sub_80020B0(u32 bgId)
+{
+    struct Main * main = &gMain;
+    u16 sp0 = main->previousBG;
+    bool32 r8 = main->isBGScrolling;
+    u16 sl = main->unk34;
+    u16 spC = main->unk36;
+    u8 r6 = main->horizontolBGScrollSpeed;
+    u8 r5 = main->verticalBGScrollSpeed;
+    u32 unk0;
+    sub_8001A9C(bgId);
+    main->previousBG = sp0;
+    main->isBGScrolling = r8;
+    main->horizontolBGScrollSpeed = r6;
+    main->verticalBGScrollSpeed = r5;
+    main->unk30 = main->unk34 - sl;
+    main->unk32 = main->unk36 - spC;
+    unk0 = gBackgroundTable[main->currentBG].controlBits;
+    if(unk0 & BG_MODE_SPECIAL_SPEEDLINE)
+        return;
+    unk0 &= BG_MODE_4BPP;
+    if(main->unk30 > 0)
+    {
+        main->unk34 = sl;
+        main->unk30 *= -1;
+        if(gBackgroundTable[main->currentBG].controlBits & BG_MODE_SIZE_480x160)
+            unk0 |= 480;
+        else
+            unk0 |= 360;
+        sub_8000B7C(main, unk0);
+    }
+    else if(main->unk30 < 0)
+    {
+        main->unk34 = sl;
+        main->unk30 *= -1;
+        if(gBackgroundTable[main->currentBG].controlBits & BG_MODE_SIZE_480x160)
+            unk0 |= 480;
+        else
+            unk0 |= 360;
+        sub_8000E44(main, unk0);
+    }
+    else if(main->unk32 > 0)
+    {
+        main->unk36 = spC;
+        main->unk32 *= -1;
+        if(gBackgroundTable[main->currentBG].controlBits & BG_MODE_SIZE_240x320)
+            unk0 |= 320;
+        else
+            unk0 |= 240;
+        sub_80010AC(main, unk0);
+    }
+    else if(main->unk32 < 0)
+    {
+        main->unk36 = spC;
+        main->unk32 *= -1;
+        if(gBackgroundTable[main->currentBG].controlBits & BG_MODE_SIZE_240x320)
+            unk0 |= 320;
+        else
+            unk0 |= 240;
+        sub_80012C0(main, unk0);
+    }
+}
+
+u32 GetBGControlBits(u32 bgId)
+{
+    return gBackgroundTable[bgId].controlBits;
+}
+
+u8 * GetBGPalettePtr(u32 bgId)
+{
+    return gBackgroundTable[bgId].bgData + 0x28;
 }

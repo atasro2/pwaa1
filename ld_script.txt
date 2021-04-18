@@ -21,9 +21,7 @@ SECTIONS {
         /* main.c */
         src/main.o(.text);
         /* bg.c */
-        src/bg3_1.o(.text);
-        asm/bg3_2.o(.text); /* merge files later, sorry. by Pidgey */
-        src/bg3_3.o(.text);
+        src/bg3.o(.text);
         src/bg.o(.text);
         /* sub1.c + sub2.c */
         src/utils.o(.text);
@@ -88,7 +86,7 @@ SECTIONS {
     ALIGN(4)
     {
         src/main.o(.rodata);
-        src/bg3_1.o(.rodata);
+        src/bg3.o(.rodata);
         src/bg.o(.rodata);
         src/utils.o(.rodata);
         src/case_data.o(.rodata);
