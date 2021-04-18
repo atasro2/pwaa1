@@ -1727,13 +1727,9 @@ struct AnimationStruct *PlayAnimationAtCustomOrigin(u32 arg0, s32 xOrigin, s32 y
     struct AnimationStructFieldC animationStructFieldC;
     struct Main *main = &gMain;
     const struct AnimationData *animData = &gAnimationData[arg0];
-    u32 var1;
     u32 var0;
-#ifndef NONMATCHING
-    register u32 var2 asm("r0");
-#else
+    uintptr_t var1;
     u32 var2;
-#endif
 
     animationStructFieldC.animId = arg0;
     animationStructFieldC.vramPtr = animData->vramPtr;
@@ -1745,27 +1741,20 @@ struct AnimationStruct *PlayAnimationAtCustomOrigin(u32 arg0, s32 xOrigin, s32 y
     animationStructFieldC.xOrigin = xOrigin;
     animationStructFieldC.yOrigin = yOrigin;
     animationStruct = sub_8010468(&animationStructFieldC, arg0, animData->flags);
-    var1 = animationStruct->unkC.paletteSlot - 6;
-    var0 = (1 << var1);
-    var1++;
-    var1--;
-    if (!(main->unk1E & var0) && animationStruct->unkC.paletteSlot < 10)
+    var0 = animationStruct->unkC.paletteSlot - 6;
+    var1 = (1 << var0);
+    if (!(main->unk1E & var1) && animationStruct->unkC.paletteSlot < 10)
     {
-#ifndef NONMATCHING
-        register void *src asm("r5");
-#else
-        void *src;
-#endif
         void *dest;
-
         u32 size;
-        main->unk1E |= var0;
-        var2 = animationStruct->unkC.paletteSlot * 0x20;
-        src = (u16 *)(OBJ_PLTT + var2);
-        dest = gObjPaletteBuffer[var1];
-        var1 = *(u32 *)animationStruct->unkC.animGfxDataStartPtr;
-        size = var1 * 0x20;
-        DmaCopy16(3, src, dest, size);
+		
+        main->unk1E |= var1;
+        var1 = OBJ_PLTT;
+        var1 += animationStruct->unkC.paletteSlot * 0x20;
+        dest = gObjPaletteBuffer[var0];
+        var0 = *(u32 *)animationStruct->unkC.animGfxDataStartPtr;
+        size = var0 * 0x20;
+        DmaCopy16(3, var1, dest, size);
     }
     animationStruct->unk2C = main->currentBG;
     animationStruct->unk2D = main->currentRoomId;
@@ -2064,13 +2053,13 @@ void sub_8010928() // unused
     }
 }
 
-#ifdef NONMATCHING
 void DestroyAnimation(struct AnimationStruct *animation)
 {
     struct AnimationStruct *animation2;
     struct Main *main = &gMain;
     struct OamAttrs *oam;
     u32 var0;
+    uintptr_t var1;
     if (animation == NULL)
         return;
 
@@ -2085,9 +2074,7 @@ void DestroyAnimation(struct AnimationStruct *animation)
     }
     if (animation->flags & ANIM_ALLOCATED)
     {
-        u32 var1;
-        u16 *src;
-        u16 *dest;
+        void *src;
         u32 size;
         for (oam = &gOamObjects[animation->animtionOamStartIdx]; oam < &gOamObjects[animation->animtionOamEndIdx]; oam++)
             oam->attr0 = SPRITE_ATTR0_CLEAR;
@@ -2100,132 +2087,15 @@ void DestroyAnimation(struct AnimationStruct *animation)
         if (animation->unkC.paletteSlot > 9)
             return;
         var0 = animation->unkC.paletteSlot - 6;
-        main->unk1E &= ~(1 << var0);
-        src = gObjPaletteBuffer[var0];
-        var1 = animation->unkC.paletteSlot * 16;
-        dest = (u16 *)OBJ_PLTT;
-        dest += var1;
-        size = *(u32 *)animation->unkC.animGfxDataStartPtr * 32;
-        DmaCopy16(3, src, dest, size);
+        var1 = 1 << var0;
+        main->unk1E &= ~var1;
+        var1 = (uintptr_t)gObjPaletteBuffer[var0];
+        src = (void*)OBJ_PLTT;
+        src += animation->unkC.paletteSlot * 0x20;
+        size = *(u32 *)animation->unkC.animGfxDataStartPtr * 0x20;
+        DmaCopy16(3, var1, src, size);
     }
 }
-#else
-NAKED void DestroyAnimation(struct AnimationStruct *animation)
-{
-    asm_unified("push {r4, r5, r6, r7, lr}\n\
-	adds r4, r0, #0\n\
-	ldr r6, _08010A30\n\
-	cmp r4, #0\n\
-	beq _08010A28\n\
-	ldr r0, [r4, #0xc]\n\
-	ldr r1, _08010A34\n\
-	ands r0, r1\n\
-	ldr r1, _08010A38\n\
-	cmp r0, r1\n\
-	bne _08010992\n\
-	movs r0, #0x17\n\
-	bl FindAnimationFromAnimId\n\
-	cmp r0, #0\n\
-	beq _08010984\n\
-	bl DestroyAnimation\n\
-_08010984:\n\
-	movs r0, #0x18\n\
-	bl FindAnimationFromAnimId\n\
-	cmp r0, #0\n\
-	beq _08010992\n\
-	bl DestroyAnimation\n\
-_08010992:\n\
-	ldr r0, [r4]\n\
-	movs r1, #0x80\n\
-	lsls r1, r1, #0x15\n\
-	ands r0, r1\n\
-	cmp r0, #0\n\
-	beq _08010A28\n\
-	adds r0, r4, #0\n\
-	adds r0, #0x3a\n\
-	ldrb r0, [r0]\n\
-	lsls r0, r0, #3\n\
-	ldr r3, _08010A3C\n\
-	adds r1, r0, r3\n\
-	adds r2, r4, #0\n\
-	adds r2, #0x3b\n\
-	ldrb r5, [r2]\n\
-	lsls r0, r5, #3\n\
-	adds r0, r0, r3\n\
-	cmp r1, r0\n\
-	bhs _080109CA\n\
-	movs r5, #0x80\n\
-	lsls r5, r5, #2\n\
-_080109BC:\n\
-	strh r5, [r1]\n\
-	adds r1, #8\n\
-	ldrb r7, [r2]\n\
-	lsls r0, r7, #3\n\
-	adds r0, r0, r3\n\
-	cmp r1, r0\n\
-	blo _080109BC\n\
-_080109CA:\n\
-	movs r0, #4\n\
-	movs r1, #0\n\
-	ldrb r2, [r6, #0x1f]\n\
-	orrs r0, r2\n\
-	strb r0, [r6, #0x1f]\n\
-	str r1, [r4]\n\
-	ldr r1, [r4, #4]\n\
-	ldr r0, [r4, #8]\n\
-	str r0, [r1, #8]\n\
-	ldr r1, [r4, #8]\n\
-	ldr r0, [r4, #4]\n\
-	str r0, [r1, #4]\n\
-	ldrh r3, [r4, #0xc]\n\
-	cmp r3, #0xff\n\
-	beq _08010A28\n\
-	adds r2, r4, #0\n\
-	adds r2, #0x24\n\
-	ldrb r5, [r2]\n\
-	cmp r5, #9\n\
-	bhi _08010A28\n\
-	adds r1, r5, #0\n\
-	subs r1, #6\n\
-	movs r0, #1\n\
-	lsls r0, r1\n\
-	ldrb r7, [r6, #0x1e]\n\
-	bics r7, r0\n\
-	adds r0, r7, #0\n\
-	strb r0, [r6, #0x1e]\n\
-	lsls r1, r1, #5\n\
-	ldr r0, _08010A40\n\
-	adds r3, r1, r0\n\
-	ldrb r2, [r2]\n\
-	lsls r1, r2, #5\n\
-	ldr r0, _08010A44\n\
-	adds r1, r1, r0\n\
-	ldr r0, [r4, #0x20]\n\
-	ldr r0, [r0]\n\
-	lsls r0, r0, #5\n\
-	ldr r2, _08010A48\n\
-	str r3, [r2]\n\
-	str r1, [r2, #4]\n\
-	lsrs r0, r0, #1\n\
-	movs r1, #0x80\n\
-	lsls r1, r1, #0x18\n\
-	orrs r0, r1\n\
-	str r0, [r2, #8]\n\
-	ldr r0, [r2, #8]\n\
-_08010A28:\n\
-	pop {r4, r5, r6, r7}\n\
-	pop {r0}\n\
-	bx r0\n\
-	.align 2, 0\n\
-_08010A30: .4byte gMain\n\
-_08010A34: .4byte 0x00FFFFFF\n\
-_08010A38: .4byte 0x001600FF\n\
-_08010A3C: .4byte gOamObjects\n\
-_08010A40: .4byte gObjPaletteBuffer\n\
-_08010A44: .4byte 0x05000200\n\
-_08010A48: .4byte 0x040000D4\n");
-}
-#endif
 
 static void UpdateAllAnimationSprites()
 {
