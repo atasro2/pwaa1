@@ -18,10 +18,10 @@ struct AnimationStructFieldC
     /* +0x02 */ u8 unk2[2];
     /* +0x04 */ s16 xOrigin;
     /* +0x06 */ s16 yOrigin;
-    /* +0x08 */ u8 * animFrameDataStartPtr;
-    /* +0x0C */ u8 * tileDataPtr;
-    /* +0x10 */ u8 * vramPtr;
-    /* +0x14 */ u8 * animGfxDataStartPtr;
+    /* +0x08 */ u8 *volatile animFrameDataStartPtr; // !! THESE 4 POINTERS ARE VOLATILE TO MATCH MoveAnimationTilesToRam AND THAT COULD BE INCORRECT
+    /* +0x0C */ u8 *volatile tileDataPtr;
+    /* +0x10 */ u8 *volatile vramPtr;
+    /* +0x14 */ u8 *volatile animGfxDataStartPtr;
     /* +0x18 */ u8 paletteSlot;
     /* +0x19 */ u8 spriteCount;
     /* +0x1A */ u8 priority;
