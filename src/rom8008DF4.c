@@ -268,7 +268,7 @@ void EpisodeClearedProcess(struct Main * main) // should work the same way
             }
             break;
         case 8:
-            if(gScriptContext.unk0 & 8)
+            if(gScriptContext.flags & 8)
             {
                 if(gJoypad.pressedKeys & (A_BUTTON|B_BUTTON|SELECT_BUTTON|START_BUTTON))
                 {

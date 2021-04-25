@@ -2465,7 +2465,7 @@ _0800D620:
 	b _0800D66C
 _0800D624:
 	mov r0, sp
-	bl sub_800FC40
+	bl CheckRectCollisionWithAnim
 	adds r2, r0, #0
 	ldr r4, _0800D630
 	b _0800D640

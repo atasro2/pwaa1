@@ -1080,8 +1080,8 @@ bool32 Command3F(struct ScriptContext *scriptCtx)
         if(gJoypad.pressedKeys & A_BUTTON)
         {
             scriptCtx->flags &= ~(SCRIPT_SPOTSELECT_INPUT | SCRIPT_LOOP);
-            rect.origin.x = gMain.unk34 + investigation->unk0 + 12;
-            rect.origin.y = gMain.unk36 + investigation->unk2;
+            rect.x = gMain.unk34 + investigation->unk0 + 12;
+            rect.y = gMain.unk36 + investigation->unk2;
             rect.w = 4;
             rect.h = 4;
             if(CheckRectCollisionWithArea(&rect, &struct8018870p->firstArea))

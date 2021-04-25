@@ -122,13 +122,13 @@ bool32 Command46(struct ScriptContext * scriptCtx)
     {
         gMain.horizontolBGScrollSpeed = -0xE;
         r6 = gUnknown_08362524;
-        r3 = gUnknown_08362544;
+        r3 = (u16 *)gUnknown_08362544;
     }
     else 
     {
         gMain.horizontolBGScrollSpeed = 0xE;
         r6 = gUnknown_08360834;
-        r3 = gUnknown_08360854;
+        r3 = (u16 *)gUnknown_08360854;
     }
     for(i = 0; i < 20; i++) 
     {

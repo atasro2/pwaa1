@@ -327,7 +327,7 @@ static void PutCharInTextbox(u32 characterCode, u32 y, u32 x)
         }
         dst = (u8*)(OBJ_VRAM0);
         dst += x * 0x80;
-        if(gScriptContext.unk0 & 4)
+        if(gScriptContext.flags & 4)
             dst += 0x80 * (2 * 16);
         else
             dst += 0x80 * (y * 16);
@@ -337,14 +337,14 @@ static void PutCharInTextbox(u32 characterCode, u32 y, u32 x)
     {
         dst = (u8*)(OBJ_VRAM0);
         dst += x * 0x80;
-        if(gScriptContext.unk0 & 4)
+        if(gScriptContext.flags & 4)
             dst += 0x80 * (2 * 16);
         else
             dst += 0x80 * (y * 16);
         DmaCopy16(3, temp, dst, 0x80);
     }
     // matches completely after this other than small regalloc stuff
-    if(gScriptContext.unk0 & 4)
+    if(gScriptContext.flags & 4)
     {
         idx = x + 2 * 0x10;
         gTextBoxCharacters[idx].x = gScriptContext.fullscreenTextX * (16-2); 
