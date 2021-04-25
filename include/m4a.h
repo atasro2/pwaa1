@@ -1,7 +1,7 @@
 #ifndef GUARD_M4A_H
 #define GUARD_M4A_H
 
-#include "gba/m4a_internal.h"
+#include "m4a_internal.h"
 
 void m4aSoundVSync(void);
 void m4aSoundVSyncOn(void);

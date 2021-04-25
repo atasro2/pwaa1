@@ -1078,3 +1078,296 @@ void SelectEpisodeProcess(struct Main * main)
             break;
     }
 }
+
+void ContinueSaveProcess(struct Main * main) {
+    struct OamAttrs * oam;
+    uintptr_t i, j;
+    
+    switch (main->process[1]) {
+        case 0: // 9AAC
+            sub_8008DF4(main);
+            break;
+        case 1: // 9AB6
+            if (main->blendMode == 0) {
+                main->unk17 = gSaveDataBuffer.main.unk17;
+                main->scenarioIdx = gSaveDataBuffer.main.scenarioIdx;
+                DmaCopy16(3, gUnknown_08186540, BG_CHAR_ADDR(0), 0x1000);
+                DmaCopy16(3, gUnknown_081954A8, OBJ_VRAM0 + 0x3400, 0x1000);
+                DmaCopy16(3, gUnknown_081FD92C, OBJ_PLTT + 0x120, 0x40);
+                sub_8001830(0x43);
+                sub_8001A9C(0x43);
+                main->unk1F &= 0xFC;
+                oam = gOamObjects;
+                for (i = 0; i < 128; ++i) {
+                    oam->attr0 = 0x200;
+                    ++oam;
+                }
+                for (i = 0; i < 0x400; ++i) {
+                    gBG2MapBuffer[i] = 0;
+                }
+                sub_80024C8(5, 8);
+                PlaySE(49);
+                gIORegisters.lcd_dispcnt = 0x1C40;
+                main->tilemapUpdateBits = 0xC;
+                gIORegisters.lcd_bg2cnt = 0x3E01;
+                main->selectedButton = 0;
+                StartHardwareBlend(1, 0, 1, 0x1F);
+                ++main->process[1];
+            }
+            break;
+        case 2: // 9BA8
+            sub_8002878(&gCourtRecord);
+            if (gCourtRecord.unk1 == 0) { // 9BBA
+                main->advanceScriptContext = TRUE;
+                main->showTextboxCharacters = TRUE;
+                gScriptContext.currentSection = 0xFFFF;
+                ChangeScriptSection(main->scenarioIdx + 7);
+                gScriptContext.textXOffset = 9;
+                gScriptContext.textYOffset = 52;
+                main->blendCounter = 0;
+                main->blendDelay = 1;
+                main->blendDeltaY = 16;
+                gIORegisters.lcd_bldcnt = 0x840;
+                gIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0, main->blendDeltaY);
+                ++main->process[1];
+            }
+            break;
+        case 3: // 9C14
+            if (gScriptContext.flags & 8) {
+                if (main->unk17 & 1 && gJoypad.pressedKeys & 0xC0) {
+                    PlaySE(42);
+                    main->selectedButton ^= 1;
+                } else /* 9C50 */ if (gJoypad.pressedKeys & 1) {
+                    PlaySE(43);
+                    main->advanceScriptContext = FALSE;
+                    main->showTextboxCharacters = TRUE;
+                    if ((main->unk17 & 1) == 0) {
+                        StartHardwareBlend(2, 0, 1, 0x1F);
+                        main->process[1] = 5;
+                    } else {
+                        // 9C84
+                        main->blendCounter = 0;
+                        main->blendDelay = 1;
+                        main->blendDeltaY = 0;
+                        main->process[1] = 7;
+                        main->process[2] = 0;
+                    }
+                } else /* 9C9C */ if (gJoypad.pressedKeys & 2) {
+                    PlaySE(44);
+                    StartHardwareBlend(2, 0, 1, 0x1F);
+                    main->process[1] += 3;
+                }
+            }
+            // 9CBC
+            if (main->unk17 & 1) {
+                oam = gOamObjects + 38;
+                // sl = r3 = 0xA1A0
+                // sb = r4 = 0xC038
+                for (i = 0; i < 2; ++i) {
+                    // 9CD2
+                    for (j = 0; j < 2; ++j) {
+                        oam->attr0 = 0x4462 + i * 32;
+                        oam->attr1 = 0xC038 + j * 64;
+                        if (main->selectedButton == i) {
+                            oam->attr2 = j * 0x20 + 0x91A0 + i * 0x40;
+                        } else {
+                            oam->attr2 = j * 0x20 + 0xA1A0 + i * 0x40;
+                        }
+                        ++oam;
+                    }
+                }
+            } else /* 9D28 */ {
+                oam = gOamObjects + 38;
+                // 9D32
+                for (j = 0; j < 2; ++j) {
+                    oam->attr0 = 0x4462;
+                    oam->attr1 = 0xC038 + j * 64;
+                    oam->attr2 = 0x91E0 + j * 32;
+                    ++oam;
+                }
+            }
+            // 9D44
+            if (main->process[1] == 3 && main->blendDeltaY != 0) {
+                // 9D58
+                ++main->blendCounter;
+                if (main->blendCounter >= main->blendDelay) {
+                    // 9D72
+                    main->blendCounter = 0;
+                    --main->blendDeltaY;
+                }
+                // A312
+                gIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0x10 - main->blendDeltaY, main->blendDeltaY);
+            }
+            break;
+        case 4: // 9D98
+            if(main->blendMode != 0)
+                return;
+            HideAllSprites();
+            InitBGs();
+            ResetAnimationSystem();
+            ResetSoundControl();
+            LoadCurrentScriptIntoRam();
+            DmaCopy16(3, gUnusedAsciiCharSet, BG_VRAM + 0x3800, 0x800);
+            DmaCopy16(3, gUnknown_08186540, BG_VRAM, 0x1000);
+            i = (uintptr_t)GetBGPalettePtr(0); // ! BAD FAKEMATCH?
+            DmaCopy16(3, i, BG_PLTT, 0x200);
+            DmaCopy16(3, &gSaveDataBuffer.main, &gMain, sizeof(gMain));
+            LoadCurrentScriptIntoRam();
+            DmaCopy16(3, gUnknown_081942C0, OBJ_PLTT + 0x100, 0x20);
+            DmaCopy16(3, &gSaveDataBuffer.talkData, &gTalkData, sizeof(gTalkData));
+            RestoreAnimationsFromBuffer(gSaveDataBuffer.backupAnimations);
+
+            if (main->process[0] == 4) {
+                DmaCopy16(3, gUnknown_0818E4C0, OBJ_VRAM0 + 0x2000, 0x1000);
+                DmaCopy16(3, gUnknown_08194200, OBJ_PLTT + 0xA0, 0x40);
+                DmaCopy16(3, gUnknown_0818F6C0, OBJ_VRAM0 + 0x3000, 0x200);
+                DmaCopy16(3, gUnknown_08194260, OBJ_PLTT + 0xE0, 0x20);
+                DmaCopy16(3, gUnknown_08190AC0, OBJ_VRAM0 + 0x3200, 0x200);
+                DmaCopy16(3, gUnknown_081FD92C, OBJ_PLTT + 0x120, 0x40);
+
+                if (main->process[2] == 3) {
+                    // 9E82
+                    if (main->process[1] == 7) {
+                        sub_800D674();
+                    } else if (main->process[1] == 8) {
+                        sub_800D6C8();
+                    }
+                }
+            } else {
+                // 9F0E
+                DmaCopy16(3, gUnknown_0818C040, OBJ_VRAM0 + 0x3780, 0x80);
+                DmaCopy16(3, gUnknown_081940E0, OBJ_PLTT + 0x60, 0x20);
+                DmaCopy16(3, gUnknown_0824696C, OBJ_PLTT + 0xC0, 0x20);
+                if (main->process[0] == 5) {
+                    DmaCopy16(3, gUnknown_0818F8C0, OBJ_VRAM0 + 0x3000, 0x800);
+                    DmaCopy16(3, gUnknown_08194280, OBJ_PLTT + 0xA0, 0x20);
+                } else /* 9F84 */ if (main->process[0] == 6) {
+                    // thonk
+                    DmaCopy16(3, gUnknown_0818C040, OBJ_VRAM0 + 0x3780, 0x80);
+                    // double thonk
+                    DmaCopy16(3, gUnknown_081940E0, OBJ_PLTT + 0x60, 0x20);
+                    DmaCopy16(3, gUnknown_081900C0, OBJ_VRAM0 + 0x3000, 0x400);
+                    DmaCopy16(3, gUnknown_081942A0, OBJ_PLTT + 0xA0, 0x20);
+                    // mega thonk
+                    DmaCopy16(3, gUnknown_0818BD40, 0x1A0, 0x80);
+                    DmaCopy16(3, gUnknown_0818BD40 + TILE_SIZE_4BPP*4 * 3, 0x220, 0x80);
+                }
+            }
+            // 9FD0
+            // sizeof(gTextBoxCharacters) != sizeof(gSaveDataBuffer.textBoxCharacters)
+            DmaCopy16(3, gSaveDataBuffer.textBoxCharacters, gTextBoxCharacters, sizeof(gTextBoxCharacters));
+            RedrawTextboxCharacters();
+            DmaCopy16(3, &gSaveDataBuffer.scriptCtx, &gScriptContext, sizeof(gScriptContext));
+            DmaCopy16(3, &gSaveDataBuffer.ioRegs, &gIORegisters, sizeof(gIORegisters));
+            DmaCopy16(3, &gSaveDataBuffer.courtRecord, &gCourtRecord, sizeof(gCourtRecord));
+            DmaCopy16(3, &gSaveDataBuffer.investigation, &gInvestigation, sizeof(gInvestigation));
+            DmaCopy16(3, &gSaveDataBuffer.testimony, &gTestimony, sizeof(gTestimony));
+            DmaCopy16(3, &gSaveDataBuffer.courtScroll, &gCourtScroll, sizeof(gCourtScroll));
+            DmaCopy16(3, gSaveDataBuffer.examinationData, gExaminationData, sizeof(gExaminationData));
+            DmaCopy16(3, gSaveDataBuffer.mapMarker, gMapMarker, sizeof(gMapMarker));
+            sub_80074E8();
+            sub_80028B4(gScriptContext.textboxNameId & 0x7F, gScriptContext.textboxNameId & 0x80);
+            DmaCopy16(3, gSaveDataBuffer.bg1Map, gBG1MapBuffer, sizeof(gBG1MapBuffer));
+            DmaCopy16(3, gSaveDataBuffer.bg0Map, gBG0MapBuffer, sizeof(gBG0MapBuffer));
+            sub_8001830(main->currentBG);
+            sub_80020B0(main->currentBG);
+            if (gScriptContext.flags & 4) {
+                DmaCopy16(3, gCharSet + 0x7100, OBJ_VRAM0 + 0x1F80, 0x80);
+            }
+            // A0C4
+            if (gScriptContext.flags & 0x400) {
+                DmaCopy16(3, gUnknown_08190AC0, OBJ_VRAM0 + 0x1F80, 0x80);
+            }
+            // A0DE
+            DmaCopy16(3, gSaveDataBuffer.oam, gOamObjects, sizeof(gOamObjects));
+            gJoypad.heldKeys = gJoypad.pressedKeys = gJoypad.previousHeldKeys = gJoypad.previousPressedKeys = 0;
+            SetTimedKeysAndDelay(0x30, 0xF);
+            if (main->unk7D > 3) {
+                sub_800F0E0(main);
+            }
+            // A112
+            FadeInBGM(20, main->currentPlayingBgm);
+            StartHardwareBlend(1, 1, 1, 0x1F);
+            break;
+        case 5: // A1C4
+            if (main->blendMode == 0) {
+                // A1D0
+                SET_PROCESS_PTR(gCaseStartProcess[main->scenarioIdx], 0, 0, 0, main);
+            }
+            break;
+        case 6: // A1E4
+            if (main->blendMode == 0) {
+                // A1F0
+                SET_PROCESS_PTR(1, 0, 0, 0, main);
+            }
+            break;
+        case 7: // A1F6
+            ++main->process[2];
+            if (main->process[2] >= 0x30) {
+                if (main->selectedButton == 0) {
+                    main->process[1] = 4;
+                } else {
+                    // A210
+                    main->process[1] = 5;
+                }
+                main->process[2] = 0;
+                oam = gOamObjects + 38;
+                if (main->selectedButton == 0) {
+                    // A222
+                    oam += 2;
+                }
+                for (i = 0; i < 2; ++i) {
+                    // A228
+                    oam->attr0 = 0x200;
+                    ++oam;
+                }
+                StartHardwareBlend(2, 0, 1, 0x1F);
+                break;
+            } else /* A244 */ if (main->unk17 & 1) {
+                oam = gOamObjects + 38;
+                for (i = 0; i < 2; ++i) {
+                    // A252
+                    // r0 = i * 32
+                    // r1 = i * 64
+                    // sl = 0x4062 + i * 32
+                    // sb = 0x4462 + i * 32
+                    // sp4 = 0
+                    // r3 = 0x91A0 + i * 64
+                    // ip = 0xA1A0 + i * 64
+                    for (j = 0; j < 2; ++j) {
+                        // A278
+                        oam->attr1 = 0xC038 + j * 64;
+                        if (main->selectedButton == i) {
+                            oam->attr0 = 0x4062 + i * 32;
+                            oam->attr2 = j * 32 + 0x91A0 + i * 64;
+                        } else {
+                            // A2A0
+                            oam->attr0 = 0x4462 + i * 32;
+                            oam->attr2 = j * 32 + 0xA1A0 + i * 64;
+                        }
+                        // A2AA
+                        ++oam;
+                    }
+                }
+                // goto A2E0
+            } else {
+                oam = gOamObjects + 38;
+                for (j = 0; j < 2; ++j) {
+                    // A278
+                    oam->attr0 = 0x4062;
+                    oam->attr1 = 0xC038 + j * 64;
+                    oam->attr2 = 0x91E0 + j * 32;
+                    ++oam;
+                }
+            }
+            if(main->process[GAME_SUBPROCESS] == 7 && main->blendDeltaY < 0x10) {
+                    ++main->blendCounter;
+                    if (main->blendCounter >= main->blendDelay) {
+                        // 9D72
+                        main->blendCounter = 0;
+                        ++main->blendDeltaY;
+                    }
+                gIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0x10 - main->blendDeltaY, main->blendDeltaY);
+            }
+    }
+}
