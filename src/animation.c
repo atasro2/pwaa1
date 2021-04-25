@@ -1222,34 +1222,108 @@ void SetAnimationFrameOffset(struct AnimationStruct *animation, u32 animOffset)
 }
 
 #ifdef NONMATCHING
-u32 sub_800FC40(struct Rect *p) // NOPE
+#ifdef eUnknown_0200AFC0
+#undef eUnknown_0200AFC0
+#endif
+
+#define eUnknown_0200AFC0 ((struct Rect*)EWRAM_START+0xAFC0)
+
+/***
+  * 
+  * Checks to see if a rectangle has collided with any animation, if yes return animation id
+  * 
+***/
+u32 CheckRectCollisionWithAnim(struct Rect *p) 
 {
-    /*
-    u32 unk0 = 0; // sp
-    u32 unk1;
-    void * unk2, * unk3;
-    struct AnimationStruct * animation;
-    for(animation = gAnimation.unk8; animation != NULL; animation = animation->unk8)
+    // p = sp04
+    struct AnimationStruct * animation; // ip
+    void * vram; // sl
+    struct SpriteSizeData spriteSize = {0}; // sp00
+    u32 spriteCount; // sp08
+    u32 i;
+
+    for(animation = gAnimation[0].nextAnimation; animation != NULL; animation = animation->nextAnimation)
     {
-        u32 i;
-        *(struct Point2 *)0x200AFC0 = *p;
-        ((struct Point2 *)0x200AFC0)->x1 += p->x0;
-        ((struct Point2 *)0x200AFC0)->y1 += p->y0;
-        unk2 = animation->unk1C; // s1
-        unk3 = animation->unk30; // r8
-        unk1 = *(u16 *)unk3;
-        for(i = 0; i < unk1; i++)
+        struct SpriteTemplate * spriteTemplate;
+        struct SpriteSizeData * spriteSizePtr;
+        struct Rect * rect0 = &eUnknown_0200AFC0[0];
+        struct Rect * rect1 = &eUnknown_0200AFC0[1];
+        struct Rect * rect2 = &eUnknown_0200AFC0[2];
+        *rect0 = *p;
+        rect0->w += p->x;
+        rect0->h += p->y;
+        vram = animation->unkC.vramPtr;
+        spriteTemplate = animation->unk30;
+        spriteCount = *(u16*)animation->unk30;
+        for(i = 0; i < spriteCount; i++)
         {
-            unk3 += 4;
-            *(struct Point2 *)0x200AFC8 = *(struct Point2 *)0x200AFC0;
+            spriteSizePtr = &spriteSize;
+            //u32 x, y
+            spriteTemplate++;
+            *rect1 = *rect0;
+            vram += spriteSizePtr->tileSize;
+            spriteSize = gSpriteSizeTable[spriteTemplate->data >> 0xC];
+            //x = animation->unkC.xOrigin + spriteTemplate->x;
+            rect2->x = rect2->w = animation->unkC.xOrigin + spriteTemplate->x;
+            rect2->w += spriteSizePtr->width;
+            rect2->y = rect2->h = spriteTemplate->y + animation->unkC.yOrigin;
+            rect2->h += spriteSizePtr->height;
+            // rect2->y;
+           
+            if(rect2->x < rect1->w 
+            && rect1->x < rect2->w
+            && rect2->y < rect1->h
+            && rect1->y < rect2->h)
+            {
+                u32 temp;
+                s32 x, y;
+                rect1->x -= rect2->x;
+                if(rect1->x < 0)
+                    rect1->x = 0;
+                rect1->y -= rect2->y;
+                if(rect1->y < 0)
+                    rect1->y = 0;
+                if(rect1->w >= rect2->w)
+                    rect1->w = rect2->w;
+                rect1->w -= rect2->x;
+                if(rect1->h >= rect2->h)
+                    rect1->h = rect2->h;
+                rect1->h -= rect2->y;
+                temp = spriteSizePtr->width / 8;
+                y = rect1->y;
+                while(y < rect1->h)
+                {
+                    u32 temp2;
+                    void * temp3;
+                    temp2 = (y >> 3) * temp * 32;
+                    temp2 += y % 8 * 4;
+                    temp3 = vram + temp2; 
+                    x = rect1->x;
+                    while(x < rect1->w)
+                    {
+                        u8 * pixel;
+                        temp2 = (x >> 3) * 32;
+                        if(x % 8 > 1)
+                            pixel = temp2 + (temp3 + 1);
+                        else
+                            pixel = temp2 + temp3;
+                        if(*pixel != 0)
+                            return animation->unkC.animId;
+                        x+=2;
+                    }
+                    y+=2;
+                }
+            }
         }
-        //*((u32 *)0x200AFC4) = *(arg0+1);
     }
     return 0;
-    */
 }
+
+#undef eUnknown_0200AFC0
+#define eUnknown_0200AFC0 ((void*)EWRAM_START+0xAFC0)
+
 #else
-NAKED u32 sub_800FC40(struct Rect *p)
+NAKED u32 CheckRectCollisionWithAnim(struct Rect *p)
 {
     asm_unified("push {r4, r5, r6, r7, lr}\n\
 	mov r7, sl\n\
@@ -1547,13 +1621,13 @@ bool32 CheckRectCollisionWithArea(const struct Rect * rect, const struct Point4 
     const struct Point *p2 = &area->points[1];
     const struct Point *p3 = &p.points[0];
     const struct Point *p4 = &p.points[1];
-    if (CheckPointInArea(&rect->origin, area))
+    if (CheckPointInArea((struct Point *)rect, area))
         return TRUE;
     
-    p.points[0].x = p.points[3].x = rect->origin.x;
-    p.points[0].y = p.points[1].y = rect->origin.y;
-    p.points[1].x = p.points[2].x = rect->origin.x + rect->w;
-    p.points[2].y = p.points[3].y = rect->origin.y + rect->h;
+    p.points[0].x = p.points[3].x = rect->x;
+    p.points[0].y = p.points[1].y = rect->y;
+    p.points[1].x = p.points[2].x = rect->x + rect->w;
+    p.points[2].y = p.points[3].y = rect->y + rect->h;
     // see if any part of the rect is in area
     for (i = 0; i < 3; i++)
     {
@@ -1787,14 +1861,6 @@ struct AnimationBackupStruct * RestoreAnimationsFromBuffer(struct AnimationBacku
         animationStructFieldC.xOrigin = backupAnimation->xOrigin;
         animationStructFieldC.yOrigin = backupAnimation->yOrigin;
         DmaCopy16(3, &animationStructFieldC, &animation->unkC, sizeof(animationStructFieldC));
-        /*
-        animFrameData = animation->unkC.animFrameDataStartPtr;
-        animGfxData = animation->unkC.animGfxDataStartPtr + 1 [(u32 *)animFrameData]; // offsets the graphics pointer
-        animation->unkC.animGfxDataStartPtr = animGfxData;
-        animation->unkC.tileDataPtr = animGfxData + 4 + (*(u32 *)animGfxData) * 0x20; // skip first u32(number of palettes) and the palettes, pointer to tiles
-        animation->frameData = (struct AnimationFrame *)(animFrameData + 8); // skips animation block header, pointer to frame data
-        animation->unk30 = animFrameData + animation->frameData->spriteDataOffset; // Frame tilemap pointer
-        */
         animFrameData = animation->unkC.animFrameDataStartPtr;
         animation->frameData = animFrameData;
         animGfxData = animation->unkC.animGfxDataStartPtr + 1 [(u32 *)animFrameData];

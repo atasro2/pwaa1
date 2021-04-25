@@ -618,6 +618,9 @@ gUnknown_081B25F0:
 
 @ BEGIN EVIDENCE AND PROFILE PICTURES
 
+	.global gUnknown_081B290C
+gUnknown_081B290C:
+
 	.global gUnknown_081B290C_pal
 gUnknown_081B290C_pal:
 	.incbin "graphics/evidence_profile_pictures/001B290C.gbapal"
