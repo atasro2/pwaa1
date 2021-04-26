@@ -56,22 +56,26 @@ Temporary Items
 *.map
 *.o
 *.i
+*.lz
 *.dump
-src/*.s
-tools/ignore/
+*.4bpp
+*.8bpp
+*.gbapal
+*.striped
 tools/agbcc/
 tools/binutils/
 build/
 sound/songs/midi/*.s
+
+# =========================
+# Misc
+# =========================
+
+tools/ignore/
 *.sav
 *.code-workspace
 .vscode/
 ddump
 *.cs
-*.4bpp
-*.8bpp
-*.gbapal
-*.striped
 *.cheats
 *.ss*
-*.lz
