@@ -1,6 +1,7 @@
 #ifndef GUARD_ANIMATION_H
 #define GUARD_ANIMATION_H
 #include "background.h"
+#include "utils.h"
 
 struct AnimationFrame
 {
@@ -140,6 +141,8 @@ struct AnimationStruct * PlayAnimation(u32 arg0);
 struct AnimationStruct * PlayAnimationAtCustomOrigin(u32 arg0, s32 xOrigin, s32 yOrigin);
 struct AnimationBackupStruct * RestoreAnimationsFromBuffer(struct AnimationBackupStruct * ewStruct2650); // ! does not return a value UB
 struct AnimationBackupStruct * SaveAnimationDataToBuffer(struct AnimationBackupStruct * ewStruct2650);
+
+u32 CheckRectCollisionWithAnim(struct Rect *);
 
 void OffsetAllAnimations(s32 xOffset, s32 yOffset);
 void StartAnimationBlend(u32 arg0, u32 arg1);

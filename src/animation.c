@@ -1233,7 +1233,7 @@ void SetAnimationFrameOffset(struct AnimationStruct *animation, u32 animOffset)
   * Checks to see if a rectangle has collided with any animation, if yes return animation id
   * 
 ***/
-u32 CheckRectCollisionWithAnim(struct Rect *p) 
+u32 CheckRectCollisionWithAnim(struct Rect *p)
 {
     // p = sp04
     struct AnimationStruct * animation; // ip
