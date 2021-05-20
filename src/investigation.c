@@ -565,21 +565,24 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
     }
 }
 
-/*
 void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
 {
-    u32 attr;
+    u16 attr1;
     u32 i;
     u32 j;
     u8 * moveLocations;
-    u8 * moveButtonTiles;
+    #ifndef NONMATCHING
+    register u8 * moveButtonTiles asm("r5"); // ! fakematch
+    #else
+    u8 * moveButtonTiles
+    #endif
     u8 * vram;
     struct OamAttrs * oam;
     struct OamAttrs * oam2;
     switch(main->process[GAME_PROCESSUNK2])
     {
         default:
-            return;
+            break;
         case 0:
             if(investigation->unkE <= 0xF)
                 investigation->unkE++;
@@ -589,7 +592,8 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
             break;
         case 1: // _0800C39C
             oam = &gOamObjects[38];
-            moveLocations = &main->roomData[main->currentRoomId][4];
+            moveLocations = main->roomData[main->currentRoomId];
+            moveLocations += 4;
             for(i = 0; i < 4; i++)
             {
                 u8 * vram = OBJ_VRAM0 + 0x3400;
@@ -597,13 +601,14 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                 if(*moveLocations != 0xFF)
                 {
                     investigation->unk10[i] = TRUE;
-                    moveButtonTiles = ((u8 *)0x81FD96C)+*moveLocations*0x800; //TODO: label vs value?
+                    moveButtonTiles = gUnknown_081FD96C+*moveLocations*0x800; //TODO: label vs value?
                     DmaCopy16(3, moveButtonTiles, vram, 0x800);
                     for(j = 0; j < 2; j++)
                     {
-                        oam->attr0 = SPRITE_ATTR0(128+i*4, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
-                        oam->attr1 = SPRITE_ATTR1_NONAFFINE(j*64+56, FALSE, FALSE, 3);
-                        oam->attr2 = (i*0x40 + j*0x20 + 0x1A0) | 0x9000; // priority 0, palette 9 
+                        u32 baseTile = 0x1A0;
+                        oam->attr0 = i * 4 + 0x4080;
+                        oam->attr1 = j * 64 + 0xC038;
+                        oam->attr2 = (j * 0x20 + baseTile + i * 0x40) | 0x9000; // priority 0, palette 9 
                         oam++;
                     }
                 }
@@ -623,31 +628,31 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
             break;
         case 2: // _0800C464
             oam2 = &gOamObjects[50];
-            if(main->process[GAME_PROCESSUNK3] < 12)
+            if(main->process[GAME_PROCESSUNK3] <= 12)
             {
                 oam = &gOamObjects[38];
                 for(i = 0; i < 4; i++)
                 {
                     for(j = 0; j < 2; j++)
                     {
-                        oam->attr0 -= (4-i) * 2;
+                        oam->attr0 -= (4-i) << 1;
                         oam++;
                     }
                 }
                 main->process[GAME_PROCESSUNK3]++;
             }
             oam = oam2;
-            attr = oam->attr1 & ~0x1FF;
+            attr1 = oam->attr1 & ~0x1ff;
             oam->attr1 -= 6;
             oam->attr1 &= 0x1FF;
-            if(oam->attr1 > 0x100)
+            if(oam->attr1 >= 0x100)
                 oam->attr1 = 0;
-            if(oam->attr1 == 0 && main->process[GAME_PROCESSUNK3] >= 0xC)
+            if(oam->attr1 == 0 && main->process[GAME_PROCESSUNK3] > 0xC)
             {
                 main->process[GAME_PROCESSUNK2]++;
                 main->process[GAME_PROCESSUNK3] = 0;
             }
-            oam->attr1 |= attr;
+            oam->attr1 |= attr1;
             break;
         case 3: // _0800C4DC
             if(main->blendMode)
@@ -663,8 +668,8 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                     main->gameStateFlags &= ~1;
                     BACKUP_PROCESS_PTR(main);
                     SET_PROCESS_PTR(10, 0, 0, 0, main);
-                    return;
                 }
+                break;
             }
             else if(gJoypad.pressedKeys & R_BUTTON)
             {
@@ -677,8 +682,8 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                     oam = &gOamObjects[38];
                     for(i = 0; i < 8; oam++, i++)
                         oam->attr1 = SPRITE_ATTR1_NONAFFINE(DISPLAY_WIDTH+60, FALSE, FALSE, 0);
-                    return;
                 }
+                break;
             }
             if(gJoypad.pressedKeys & DPAD_UP)
             {
@@ -697,7 +702,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                     j--;
                 }
                 while(++i < 4);
-                if(investigation->unk4 != temp)
+                if(temp != investigation->unk4)
                     PlaySE(42);
                 break;
             }
@@ -718,7 +723,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                     j++;
                 }
                 while(++i < 4);
-                if(investigation->unk4 != temp)
+                if(temp != investigation->unk4)
                     PlaySE(42);
                 break;
             }
@@ -751,14 +756,14 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                 {
                     for(j = 0; j < 2; j++)
                     {
-                        oam->attr0 += (4-i) * 2 + 4;
+                        oam->attr0 += ((4-i) << 1) + 4;
                         oam++;
                     }
                 }
                 main->process[GAME_PROCESSUNK3]++;
             }
             oam = oam2;
-            attr = oam->attr1 & ~0x1FF;
+            attr1 = oam->attr1 & ~0x1ff;
             oam->attr1 += 6;
             oam->attr1 &= 0x1FF;
             if(oam->attr1 >= 60)
@@ -771,7 +776,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                 investigation->unkF = 0;
                 main->process[GAME_PROCESSUNK2]++;
             }
-            oam->attr1 |= attr;
+            oam->attr1 |= attr1;
             break;
         case 5: // _0800C714
             if(main->process[GAME_PROCESSUNK3] <= 12)
@@ -781,7 +786,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                 {
                     for(j = 0; j < 2; j++)
                     {
-                        oam->attr0 += (4-i) * 2 + 4;
+                        oam->attr0 += ((4-i) << 1) + 4;
                         oam++;
                     }
                 }
@@ -798,44 +803,44 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
             }
             break;
         case 6: // _0800C784
-        oam = &gOamObjects[38];
-        moveLocations = &main->roomData[main->currentRoomId][4];
-        for(i = 0; i < 4; i++)
-        {
-            u8 * moveButtonTiles;
-            u8 * vram = OBJ_VRAM0 + 0x3400;
-            vram += i * 0x800;
-            if(*moveLocations != 0xFF)
+            oam = &gOamObjects[38];
+            moveLocations = main->roomData[main->currentRoomId];
+            moveLocations+= 4;
+            for(i = 0; i < 4; i++)
             {
-                investigation->unk10[i] = TRUE;
-                moveButtonTiles = gUnknown_081FD96C+*moveLocations*0x800; //TODO: label vs value?
-                DmaCopy16(3, moveButtonTiles, vram, 0x800);
-                for(j = 0; j < 2; j++)
+                u8 * vram = OBJ_VRAM0 + 0x3400;
+                vram += i * 0x800;
+                if(*moveLocations != 0xFF)
                 {
-                    oam->attr0 = SPRITE_ATTR0(24, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE) + i*30;
-                    oam->attr1 = SPRITE_ATTR1_NONAFFINE(56, FALSE, FALSE, 3) + j*64;
-                    attr = 0x1A0;
-                    oam->attr2 = (attr + j*0x20 + i*0x40) | 0x9000; // priority 0, palette 9 
+                    investigation->unk10[i] = TRUE;
+                    moveButtonTiles = gUnknown_081FD96C+*moveLocations*0x800; //TODO: label vs value?
+                    DmaCopy16(3, moveButtonTiles, vram, 0x800);
+                    for(j = 0; j < 2; j++)
+                    {
+                        u32 baseTile = 0x1A0;
+                        oam->attr0 = i * 30 + 0x4018;
+                        oam->attr1 = j * 64 + 0xC038;
+                        oam->attr2 = (j * 0x20 + baseTile + i * 0x40) | 0x9000; // priority 0, palette 9
+                        oam++;
+                    }
+                }
+                else
+                {
+                    investigation->unk10[i] = FALSE;
+                    oam->attr1 = SPRITE_ATTR1_NONAFFINE(DISPLAY_WIDTH+60, FALSE, FALSE, 0);
+                    oam++;
+                    oam->attr1 = SPRITE_ATTR1_NONAFFINE(DISPLAY_WIDTH+60, FALSE, FALSE, 0);
                     oam++;
                 }
+                moveLocations++;
             }
-            else
-            {
-                investigation->unk10[i] = FALSE;
-                oam->attr1 = SPRITE_ATTR1_NONAFFINE(DISPLAY_WIDTH+60, FALSE, FALSE, 0);
-                oam++;
-                oam->attr1 = SPRITE_ATTR1_NONAFFINE(DISPLAY_WIDTH+60, FALSE, FALSE, 0);
-                oam++;
-            }
-            moveLocations++;
-        }
-        main->process[GAME_PROCESSUNK2] = 3;
-        break;
+            main->process[GAME_PROCESSUNK2] = 3;
+            break;
     }
     oam = &gOamObjects[38];
     for(i = 0; i < 4; i++)
     {
-        if(investigation->unk4 == i)
+        if(i == investigation->unk4)
         {
             for(j = 0; j < 2; j++)
             {
@@ -855,4 +860,3 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
         }
     }
 }
-*/
