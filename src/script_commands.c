@@ -681,7 +681,7 @@ u32 Command1A(struct ScriptContext * scriptCtx)
     return 0;
 }
 
-u32 Command1B(struct ScriptContext * scriptCtx) // probably fakematch
+u32 Command1B(struct ScriptContext * scriptCtx) // ! probably fakematch
 {
     scriptCtx->scriptPtr++;
     if(gMain.currentBG != *scriptCtx->scriptPtr)
