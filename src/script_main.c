@@ -297,289 +297,66 @@ static void AdvanceScriptContext(struct ScriptContext * scriptCtx)
     }
 }
 
-#ifdef NONMATCHING
 static void PutCharInTextbox(u32 characterCode, u32 y, u32 x)
 {
-    u8* src;
-    u8* dst;
-    u32 idx;
-    u32 temp = characterCode;
-    temp *= 0x80;
-    temp += (u32)gCharSet; //! why tho
+    uintptr_t i;
+    uintptr_t temp = characterCode*0x80;
+    temp += (uintptr_t)gCharSet;
     if(gScriptContext.textColor)
     {
-        u32 j;
-        u32 colorIdx;
+        u8 * vram;
+        u8 * pixel;
         DmaCopy16(3, temp, gTextColorTileBuffer, 0x80);
-        src = gTextColorTileBuffer;
+        pixel = gTextColorTileBuffer;
         temp = gScriptContext.textColor * 3;
-        for(j = 0; j < 0x80; j++)
+        for(i = 0; i < 0x80; i++)
         {
-            u32 half1, half2;
-            half2 = *src; // honestly wtf capcom
-            half1 = half2 & 0xF;
-            half2 = half2 & 0xF0;
-            if(half1)
-                half1 += temp;
-            if(half2)
-                half2 += temp << 4;
-            *src++ = half1 | half2;
+            u32 pixelLeft, pixelRight;
+            pixelLeft = pixelRight = *pixel;
+            pixelLeft &= 0xF;
+            pixelRight &= 0xF0;
+            if(pixelLeft)
+                pixelLeft += temp;
+            if(pixelRight)
+                pixelRight += temp << 4;
+            *pixel++ = pixelLeft | pixelRight;
         }
-        dst = (u8*)(OBJ_VRAM0);
-        dst += x * 0x80;
+        i = (uintptr_t)OBJ_VRAM0;
+        i += x * 0x80;
         if(gScriptContext.flags & 4)
-            dst += 0x80 * (2 * 16);
+            i += 0x80 * (2 * 16);
         else
-            dst += 0x80 * (y * 16);
-        DmaCopy16(3, gTextColorTileBuffer, dst, 0x80);
+            i += 0x80 * (y * 16);
+        DmaCopy16(3, gTextColorTileBuffer, i, 0x80);
     }
     else
     {
-        dst = (u8*)(OBJ_VRAM0);
-        dst += x * 0x80;
+        i = (uintptr_t)OBJ_VRAM0;
+        i += x * 0x80;
         if(gScriptContext.flags & 4)
-            dst += 0x80 * (2 * 16);
+            i += 0x80 * (2 * 16);
         else
-            dst += 0x80 * (y * 16);
-        DmaCopy16(3, temp, dst, 0x80);
+            i += 0x80 * (y * 16);
+        DmaCopy16(3, temp, i, 0x80);
     }
-    // matches completely after this other than small regalloc stuff
     if(gScriptContext.flags & 4)
     {
-        idx = x + 2 * 0x10;
-        gTextBoxCharacters[idx].x = gScriptContext.fullscreenTextX * (16-2); 
-        gTextBoxCharacters[idx].y = (y - 2) * (16+4);
-        gTextBoxCharacters[idx].objAttr2 = 2 * 0x40 + x * 4;
+        temp = x + 2 * 0x10;
+        gTextBoxCharacters[temp].x = gScriptContext.fullscreenTextX * (16-2); 
+        gTextBoxCharacters[temp].y = (y - 2) * (16+4);
+        gTextBoxCharacters[temp].objAttr2 = 2 * 0x40 + x * 4;
     }
     else
     {
-        idx = x + y * 0x10;
-        gTextBoxCharacters[idx].x = x * (16-2); 
-        gTextBoxCharacters[idx].y = y * (16+2);
-        gTextBoxCharacters[idx].objAttr2 = y * 0x40 + x * 4;
+        temp = x + y * 0x10;
+        gTextBoxCharacters[temp].x = x * (16-2); 
+        gTextBoxCharacters[temp].y = y * (16+2);
+        gTextBoxCharacters[temp].objAttr2 = y * 0x40 + x * 4;
     }
-    gTextBoxCharacters[idx].objAttr2 += 0x400;
-    gTextBoxCharacters[idx].state = characterCode | 0x8000;
-    gTextBoxCharacters[idx].color = gScriptContext.textColor;
+    gTextBoxCharacters[temp].objAttr2 += 0x400;
+    gTextBoxCharacters[temp].state = characterCode | 0x8000;
+    gTextBoxCharacters[temp].color = gScriptContext.textColor;
 }
-#else
-NAKED
-static void PutCharInTextbox(u32 characterCode, u32 y, u32 x)
-{
-    asm_unified("push {r4, r5, r6, r7, lr}\n\
-	mov r7, sl\n\
-	mov r6, sb\n\
-	mov r5, r8\n\
-	push {r5, r6, r7}\n\
-	sub sp, #8\n\
-	str r0, [sp]\n\
-	adds r7, r1, #0\n\
-	adds r5, r2, #0\n\
-	lsls r3, r0, #7\n\
-	ldr r0, _08005770\n\
-	adds r3, r3, r0\n\
-	ldr r0, _08005774\n\
-	adds r6, r0, #0\n\
-	adds r6, #0x24\n\
-	ldrb r1, [r6]\n\
-	cmp r1, #0\n\
-	beq _080057A8\n\
-	ldr r1, _08005778\n\
-	str r3, [r1]\n\
-	ldr r2, _0800577C\n\
-	str r2, [r1, #4]\n\
-	ldr r0, _08005780\n\
-	str r0, [r1, #8]\n\
-	ldr r0, [r1, #8]\n\
-	adds r4, r2, #0\n\
-    ldrb r1, [r6]\n\
-	lsls r0, r1, #1\n\
-	adds r3, r0, r1\n\
-	movs r2, #0\n\
-	lsls r6, r5, #7\n\
-	mov sb, r6\n\
-	lsls r0, r5, #2\n\
-	mov ip, r0\n\
-	movs r1, #0xf\n\
-	mov sl, r1\n\
-	movs r6, #0xf0\n\
-	mov r8, r6\n\
-	lsls r0, r3, #4\n\
-	str r0, [sp, #4]\n\
-_08005730:\n\
-	ldrb r1, [r4]\n\
-	adds r0, r1, #0\n\
-	mov r6, sl\n\
-	ands r0, r6\n\
-	mov r6, r8\n\
-	ands r1, r6\n\
-	cmp r0, #0\n\
-	beq _08005742\n\
-	adds r0, r0, r3\n\
-_08005742:\n\
-	cmp r1, #0\n\
-	beq _0800574A\n\
-	ldr r6, [sp, #4]\n\
-	adds r1, r1, r6\n\
-_0800574A:\n\
-	orrs r0, r1\n\
-	strb r0, [r4]\n\
-	adds r4, #1\n\
-	adds r2, #1\n\
-	cmp r2, #0x7f\n\
-	bls _08005730\n\
-	ldr r2, _08005784\n\
-	add r2, sb\n\
-	movs r0, #4\n\
-	ldr r1, _08005774\n\
-	ldrh r1, [r1]\n\
-	ands r0, r1\n\
-	cmp r0, #0\n\
-	beq _08005788\n\
-	movs r3, #0x80\n\
-	lsls r3, r3, #5\n\
-	adds r2, r2, r3\n\
-	b _0800578C\n\
-	.align 2, 0\n\
-_08005770: .4byte gCharSet\n\
-_08005774: .4byte gScriptContext\n\
-_08005778: .4byte 0x040000D4\n\
-_0800577C: .4byte gTextColorTileBuffer\n\
-_08005780: .4byte 0x80000040\n\
-_08005784: .4byte 0x06010000\n\
-_08005788:\n\
-	lsls r0, r7, #0xb\n\
-	adds r2, r2, r0\n\
-_0800578C:\n\
-	ldr r0, _0800579C\n\
-	ldr r4, _080057A0\n\
-	str r4, [r0]\n\
-	str r2, [r0, #4]\n\
-	ldr r1, _080057A4\n\
-	str r1, [r0, #8]\n\
-	ldr r0, [r0, #8]\n\
-	b _080057E0\n\
-	.align 2, 0\n\
-_0800579C: .4byte 0x040000D4\n\
-_080057A0: .4byte gTextColorTileBuffer\n\
-_080057A4: .4byte 0x80000040\n\
-_080057A8:\n\
-	lsls r0, r5, #7\n\
-    ldr r6, _080057C4\n\
-	adds r2, r0, r6\n\
-	movs r0, #4\n\
-	ldr r1, _080057C8\n\
-	ldrh r1, [r1]\n\
-	ands r0, r1\n\
-	cmp r0, #0\n\
-	beq _080057CC\n\
-	movs r4, #0x80\n\
-	lsls r4, r4, #5\n\
-	adds r2, r2, r4\n\
-	b _080057D0\n\
-	.align 2, 0\n\
-_080057C4: .4byte 0x06010000\n\
-_080057C8: .4byte gScriptContext\n\
-_080057CC:\n\
-	lsls r0, r7, #0xb\n\
-	adds r2, r2, r0\n\
-_080057D0:\n\
-	ldr r0, _0800581C\n\
-	str r3, [r0]\n\
-	str r2, [r0, #4]\n\
-	ldr r1, _08005820\n\
-	str r1, [r0, #8]\n\
-	ldr r0, [r0, #8]\n\
-	lsls r6, r5, #2\n\
-	mov ip, r6\n\
-_080057E0:\n\
-	movs r0, #4\n\
-	ldr r1, _08005824\n\
-	ldrh r1, [r1]\n\
-	ands r0, r1\n\
-	cmp r0, #0\n\
-	beq _0800582C\n\
-    adds r3, r5, #0\n\
-	adds r3, #0x20\n\
-    lsls r1, r3, #1\n\
-	adds r1, r1, r3\n\
-	lsls r1, r1, #2\n\
-	ldr r2, _08005828\n\
-	adds r1, r1, r2\n\
-	ldr r4, _08005824\n\
-	ldrb r4, [r4, #0x12]\n\
-	lsls r0, r4, #3\n\
-	ldr r6, _08005824\n\
-	ldrb r6, [r6, #0x12]\n\
-	subs r0, r0, r6\n\
-	lsls r0, r0, #1\n\
-	strh r0, [r1, #4]\n\
-	subs r2, r7, #2\n\
-	lsls r0, r2, #2\n\
-	adds r0, r0, r2\n\
-	lsls r0, r0, #2\n\
-	strh r0, [r1, #6]\n\
-	mov r0, ip\n\
-	adds r0, #0x80\n\
-	b _0800584E\n\
-	.align 2, 0\n\
-_0800581C: .4byte 0x040000D4\n\
-_08005820: .4byte 0x80000040\n\
-_08005824: .4byte gScriptContext\n\
-_08005828: .4byte gTextBoxCharacters\n\
-_0800582C:\n\
-	lsls r0, r7, #4\n\
-	adds r3, r5, r0\n\
-    lsls r1, r3, #1\n\
-	adds r1, r1, r3\n\
-	lsls r1, r1, #2\n\
-	ldr r0, _08005888\n\
-	adds r1, r1, r0\n\
-	lsls r0, r5, #3\n\
-	subs r0, r0, r5\n\
-	lsls r0, r0, #1\n\
-	strh r0, [r1, #4]\n\
-	lsls r0, r7, #3\n\
-	adds r0, r0, r7\n\
-	lsls r0, r0, #1\n\
-	strh r0, [r1, #6]\n\
-	lsls r0, r7, #6\n\
-	add r0, ip\n\
-_0800584E:\n\
-	strh r0, [r1, #2]\n\
-	lsls r0, r3, #1\n\
-	adds r0, r0, r3\n\
-	lsls r0, r0, #2\n\
-	ldr r1, _08005888\n\
-	adds r0, r0, r1\n\
-	ldrh r2, [r0, #2]\n\
-	movs r3, #0x80\n\
-	lsls r3, r3, #3\n\
-	adds r1, r2, r3\n\
-	strh r1, [r0, #2]\n\
-	movs r4, #0x80\n\
-	lsls r4, r4, #8\n\
-	adds r1, r4, #0\n\
-	ldr r6, [sp]\n\
-	orrs r6, r1\n\
-	strh r6, [r0]\n\
-	ldr r1, _0800588C\n\
-	adds r1, #0x24\n\
-	ldrb r1, [r1]\n\
-	strb r1, [r0, #8]\n\
-	add sp, #8\n\
-	pop {r3, r4, r5}\n\
-	mov r8, r3\n\
-	mov sb, r4\n\
-	mov sl, r5\n\
-	pop {r4, r5, r6, r7}\n\
-	pop {r0}\n\
-	bx r0\n\
-	.align 2, 0\n\
-_08005888: .4byte gTextBoxCharacters\n\
-_0800588C: .4byte gScriptContext\n");
-}
-#endif
 
 static void DrawTextAndMapMarkers(struct ScriptContext * scriptCtx)
 {
