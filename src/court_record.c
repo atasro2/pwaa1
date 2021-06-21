@@ -567,7 +567,7 @@ static const struct EvidenceProfileData gUnknown_08018A6C[] = {
 const u8 sCourtRecordLeftArrowTileIndexes[] = {0, 4, 8, 4};
 const u8 sCourtRecordRightArrowTileIndexes[] = {12, 16, 20, 16};
 
-void (*gCourtRecordSubProcesses[8])(struct Main *, struct CourtRecord *) = {
+void (*gCourtRecordProcessStates[8])(struct Main *, struct CourtRecord *) = {
 	sub_800D880,
 	sub_800D94C,
 	sub_800DD88,
@@ -578,7 +578,7 @@ void (*gCourtRecordSubProcesses[8])(struct Main *, struct CourtRecord *) = {
 	sub_800E4A4
 };
 
-void (*gProcess8SubProcesses[3])(struct Main *, struct CourtRecord *) = {
+void (*gProcess8ProcessStates[3])(struct Main *, struct CourtRecord *) = {
 	sub_800E75C,
 	sub_800E7C0,
 	sub_800E828
@@ -615,12 +615,12 @@ void CourtRecordProcess(struct Main * main)
 {
     gBG1MapBuffer[622] = 9;
     gBG1MapBuffer[623] = 9;
-    gCourtRecordSubProcesses[main->process[GAME_SUBPROCESS]](main, &gCourtRecord);
+    gCourtRecordProcessStates[main->process[GAME_PROCESS_STATE]](main, &gCourtRecord);
 }
 
 void GameProcess08(struct Main * main)
 {
-    gProcess8SubProcesses[main->process[GAME_SUBPROCESS]](main, &gCourtRecord);
+    gProcess8ProcessStates[main->process[GAME_PROCESS_STATE]](main, &gCourtRecord);
 }
 
 void sub_800D880(struct Main * main, struct CourtRecord * courtRecord)
@@ -639,7 +639,7 @@ void sub_800D880(struct Main * main, struct CourtRecord * courtRecord)
     io = &gIORegisters;
     if(main->processCopy[GAME_PROCESS] != 6)
     {
-        if(main->processCopy[GAME_PROCESS] == 4 && main->processCopy[GAME_SUBPROCESS] <= 5)
+        if(main->processCopy[GAME_PROCESS] == 4 && main->processCopy[GAME_PROCESS_STATE] <= 5)
         {
             oam = &gOamObjects[49];
             for(i = 0; i < 4; i++)
@@ -672,7 +672,7 @@ void sub_800D880(struct Main * main, struct CourtRecord * courtRecord)
     if(main->process[GAME_PROCESSUNK3] == 1)
         sub_80024C8(2, 0xC);
     courtRecord->unkF = 1;
-    main->process[GAME_SUBPROCESS] = 3;
+    main->process[GAME_PROCESS_STATE] = 3;
 }
 
 //TODO: fix shit control flow, probably uses local variables to control the flow, don't have time to figure out how
@@ -689,7 +689,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
         {
             PauseBGM();
             PlaySE(0x2B);
-            main->process[GAME_SUBPROCESS] = 5;
+            main->process[GAME_PROCESS_STATE] = 5;
             main->process[GAME_PROCESSUNK2] = 0;
             StartHardwareBlend(2, 1, 1, 0x1F);
             return;
@@ -710,7 +710,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
         DmaCopy16(3, OBJ_PLTT+0x20, PLTT+0x20, 0x20);
         sub_800EAF8(courtRecord);
         DmaCopy16(3, &gOamObjects[34], OAM + 34*8, 17*8);
-        main->process[GAME_SUBPROCESS] = 6;
+        main->process[GAME_PROCESS_STATE] = 6;
         if(main->process[GAME_PROCESSUNK3] == 1)
         {
             //goto label;
@@ -751,7 +751,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
         DmaCopy16(3, OBJ_PLTT+0x20, PLTT+0x20, 0x20);
         sub_800EAF8(courtRecord);
         DmaCopy16(3, &gOamObjects[34], OAM + 34*8, 11*8);
-        main->process[GAME_SUBPROCESS] = 6;
+        main->process[GAME_PROCESS_STATE] = 6;
         if(main->process[GAME_PROCESSUNK3] == 1)
         {
         /*
@@ -870,7 +870,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
             {
                 PlaySE(0x2C);
                 sub_80024C8(4, 0xC);
-                main->process[GAME_SUBPROCESS] = 2;
+                main->process[GAME_PROCESS_STATE] = 2;
             }
         }
         label:
@@ -922,7 +922,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
             PlaySE(0x2C);
             sub_80024C8(3, 0xC);
             SET_PROCESS_BACKUP_PTR(4, 9, 3, 0, main);
-            main->process[GAME_SUBPROCESS] = 2;
+            main->process[GAME_PROCESS_STATE] = 2;
         }
     }
     else 
@@ -932,13 +932,13 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
             PlaySE(0x34);
             sub_80024C8(0x3, 0xC);
             courtRecord->unkF = 4;
-            main->process[GAME_SUBPROCESS] = 4;
+            main->process[GAME_PROCESS_STATE] = 4;
         }
         else if(joypad->pressedKeys & B_BUTTON)
         {
             PlaySE(0x2C);
             sub_80024C8(0x3, 0xC);
-            main->process[GAME_SUBPROCESS] = 2;
+            main->process[GAME_PROCESS_STATE] = 2;
         }
     }
     sub_8002878(&gCourtRecord);
@@ -994,7 +994,7 @@ void sub_800DE28(struct Main * main, struct CourtRecord * courtRecord)
     {
         courtRecord->unkC |= 4;
         courtRecord->unkC &= ~2;
-        main->process[GAME_SUBPROCESS] = courtRecord->unkF;
+        main->process[GAME_PROCESS_STATE] = courtRecord->unkF;
     }
 }
 
@@ -1008,7 +1008,7 @@ void sub_800DE8C(struct Main * main, struct CourtRecord * courtRecord)
         courtRecord->unkC &= ~2;
         sub_80024C8(2, 0xC);
         courtRecord->unkF = 1;
-        main->process[GAME_SUBPROCESS] = 3;
+        main->process[GAME_PROCESS_STATE] = 3;
         temp = courtRecord->unkD;
         courtRecord->unkD = courtRecord->unk12;
         courtRecord->unk12 = temp;
@@ -1221,7 +1221,7 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
             if(main->blendMode == 0)
             {
                 UnpauseBGM();
-                main->process[GAME_SUBPROCESS] = 1;
+                main->process[GAME_PROCESS_STATE] = 1;
                 main->process[GAME_PROCESSUNK2] = 0;
             }
             sub_8002878(&gCourtRecord);
@@ -1277,7 +1277,7 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
 void sub_800E488(struct Main * main, struct CourtRecord * courtRecord)
 {
     sub_800EA80(courtRecord->unk14[courtRecord->unkD]);
-    main->process[GAME_SUBPROCESS] = 3;
+    main->process[GAME_PROCESS_STATE] = 3;
 }
 
 void sub_800E4A4(struct Main * main, struct CourtRecord * courtRecord)
@@ -1411,7 +1411,7 @@ void sub_800E75C(struct Main * main, struct CourtRecord * courtRecord)
     sub_800EA80(main->unk27);
     SetBGMVolume(main->bgmVolume >> 1, 4);
     PlaySE(0xF);
-    main->process[GAME_SUBPROCESS]++;
+    main->process[GAME_PROCESS_STATE]++;
     main->process[GAME_PROCESSUNK2] = 0;
 }
 
@@ -1430,7 +1430,7 @@ void sub_800E7C0(struct Main * main, struct CourtRecord * courtRecord)
         {
             PlaySE(0x2B);
             sub_80024C8(3, 0xE);
-            main->process[GAME_SUBPROCESS] = 2; //! ADD 1 IDIOT
+            main->process[GAME_PROCESS_STATE] = 2; //! ADD 1 IDIOT
         }
     }
 }
@@ -1444,11 +1444,11 @@ void sub_800E828(struct Main * main, struct CourtRecord * courtRecord)
         RESTORE_PROCESS_PTR(main);
         if(gMain.process[GAME_PROCESS] == 4)
         {
-            if(gMain.process[GAME_SUBPROCESS] == 6)
+            if(gMain.process[GAME_PROCESS_STATE] == 6)
                 sub_800B7A8(&gInvestigation, 1);
-            else if(main->process[GAME_SUBPROCESS] == 8) //! why?? why???? why are you using that pointer when the other ones are noooot
+            else if(main->process[GAME_PROCESS_STATE] == 8) //! why?? why???? why are you using that pointer when the other ones are noooot
                 sub_800B7A8(&gInvestigation, 4);
-            else if(gMain.process[GAME_SUBPROCESS] == 9)
+            else if(gMain.process[GAME_PROCESS_STATE] == 9)
                 sub_800B7A8(&gInvestigation, 8);
         }
         gScriptContext.flags |= 2;

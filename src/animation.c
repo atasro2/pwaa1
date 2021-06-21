@@ -1170,6 +1170,8 @@ void SetAnimationPriority(struct AnimationStruct *animation, u32 priority)
 
 void SetAnimationFrameOffset(struct AnimationStruct *animation, u32 animOffset)
 {
+    void * animGfxData;
+    void * animFrameData;
     if (animation != NULL)
     {
         if (animation->unkC.animId == 0xFF)
@@ -1210,42 +1212,118 @@ void SetAnimationFrameOffset(struct AnimationStruct *animation, u32 animOffset)
         animation->frameDurationCounter = 0xFFFF;
         // comments mostly based on h3rmit docs
         // animation->animFrameDataStartPtr animation block beginning
-        animation->unkC.animGfxDataStartPtr += 1 [(u32 *)animation->unkC.animFrameDataStartPtr];                                      // offsets the graphics pointer
-        animation->unkC.tileDataPtr = animation->unkC.animGfxDataStartPtr + 4 + (*(u32 *)animation->unkC.animGfxDataStartPtr) * 0x20; // skip first u32(number of palettes) and the palettes, pointer to tiles
-        animation->frameData = (struct AnimationFrame *)(animation->unkC.animFrameDataStartPtr + 8);                                  // skips animation block header, pointer to frame data
-        animation->unk30 = (void *)(animation->unkC.animFrameDataStartPtr + animation->frameData->spriteDataOffset);                  // Frame tilemap pointer
+        animFrameData = animation->unkC.animFrameDataStartPtr;
+        animGfxData = animation->unkC.animGfxDataStartPtr + 1 [(u32 *)animFrameData]; // offsets the graphics pointer
+        animation->unkC.animGfxDataStartPtr = animGfxData;
+        animation->unkC.tileDataPtr = animGfxData + 4 + (*(u32 *)animGfxData) * 0x20; // skip first u32(number of palettes) and the palettes, pointer to tiles
+        animation->frameData = (struct AnimationFrame *)(animFrameData + 8); // skips animation block header, pointer to frame data
+        animation->unk30 = animFrameData + animation->frameData->spriteDataOffset; // Frame tilemap pointer
     }
 }
 
 #ifdef NONMATCHING
-u32 sub_800FC40(struct Rect *p) // NOPE
+#ifdef eUnknown_0200AFC0
+#undef eUnknown_0200AFC0
+#endif
+
+#define eUnknown_0200AFC0 ((struct Rect*)EWRAM_START+0xAFC0)
+
+/***
+  * 
+  * Checks to see if a rectangle has collided with any animation, if yes return animation id
+  * 
+***/
+u32 CheckRectCollisionWithAnim(struct Rect *p)
 {
-    /*
-    u32 unk0 = 0; // sp
-    u32 unk1;
-    void * unk2, * unk3;
-    struct AnimationStruct * animation;
-    for(animation = gAnimation.unk8; animation != NULL; animation = animation->unk8)
+    // p = sp04
+    struct AnimationStruct * animation; // ip
+    void * vram; // sl
+    struct SpriteSizeData spriteSize = {0}; // sp00
+    u32 spriteCount; // sp08
+    u32 i;
+
+    for(animation = gAnimation[0].nextAnimation; animation != NULL; animation = animation->nextAnimation)
     {
-        u32 i;
-        *(struct Point2 *)0x200AFC0 = *p;
-        ((struct Point2 *)0x200AFC0)->x1 += p->x0;
-        ((struct Point2 *)0x200AFC0)->y1 += p->y0;
-        unk2 = animation->unk1C; // s1
-        unk3 = animation->unk30; // r8
-        unk1 = *(u16 *)unk3;
-        for(i = 0; i < unk1; i++)
+        struct SpriteTemplate * spriteTemplate;
+        struct SpriteSizeData * spriteSizePtr;
+        struct Rect * rect0 = &eUnknown_0200AFC0[0];
+        struct Rect * rect1 = &eUnknown_0200AFC0[1];
+        struct Rect * rect2 = &eUnknown_0200AFC0[2];
+        *rect0 = *p;
+        rect0->w += p->x;
+        rect0->h += p->y;
+        vram = animation->unkC.vramPtr;
+        spriteTemplate = animation->unk30;
+        spriteCount = *(u16*)animation->unk30;
+        for(i = 0; i < spriteCount; i++)
         {
-            unk3 += 4;
-            *(struct Point2 *)0x200AFC8 = *(struct Point2 *)0x200AFC0;
+            spriteSizePtr = &spriteSize;
+            //u32 x, y
+            spriteTemplate++;
+            *rect1 = *rect0;
+            vram += spriteSizePtr->tileSize;
+            spriteSize = gSpriteSizeTable[spriteTemplate->data >> 0xC];
+            //x = animation->unkC.xOrigin + spriteTemplate->x;
+            rect2->x = rect2->w = animation->unkC.xOrigin + spriteTemplate->x;
+            rect2->w += spriteSizePtr->width;
+            rect2->y = rect2->h = spriteTemplate->y + animation->unkC.yOrigin;
+            rect2->h += spriteSizePtr->height;
+            // rect2->y;
+           
+            if(rect2->x < rect1->w 
+            && rect1->x < rect2->w
+            && rect2->y < rect1->h
+            && rect1->y < rect2->h)
+            {
+                u32 temp;
+                s32 x, y;
+                rect1->x -= rect2->x;
+                if(rect1->x < 0)
+                    rect1->x = 0;
+                rect1->y -= rect2->y;
+                if(rect1->y < 0)
+                    rect1->y = 0;
+                if(rect1->w >= rect2->w)
+                    rect1->w = rect2->w;
+                rect1->w -= rect2->x;
+                if(rect1->h >= rect2->h)
+                    rect1->h = rect2->h;
+                rect1->h -= rect2->y;
+                temp = spriteSizePtr->width / 8;
+                y = rect1->y;
+                while(y < rect1->h)
+                {
+                    u32 temp2;
+                    void * temp3;
+                    temp2 = (y >> 3) * temp * 32;
+                    temp2 += y % 8 * 4;
+                    temp3 = vram + temp2; 
+                    x = rect1->x;
+                    while(x < rect1->w)
+                    {
+                        u8 * pixel;
+                        temp2 = (x >> 3) * 32;
+                        if(x % 8 > 1)
+                            pixel = temp2 + (temp3 + 1);
+                        else
+                            pixel = temp2 + temp3;
+                        if(*pixel != 0)
+                            return animation->unkC.animId;
+                        x+=2;
+                    }
+                    y+=2;
+                }
+            }
         }
-        //*((u32 *)0x200AFC4) = *(arg0+1);
     }
     return 0;
-    */
 }
+
+#undef eUnknown_0200AFC0
+#define eUnknown_0200AFC0 ((void*)EWRAM_START+0xAFC0)
+
 #else
-NAKED u32 sub_800FC40(struct Rect *p)
+NAKED u32 CheckRectCollisionWithAnim(struct Rect *p)
 {
     asm_unified("push {r4, r5, r6, r7, lr}\n\
 	mov r7, sl\n\
@@ -1543,13 +1621,13 @@ bool32 CheckRectCollisionWithArea(const struct Rect * rect, const struct Point4 
     const struct Point *p2 = &area->points[1];
     const struct Point *p3 = &p.points[0];
     const struct Point *p4 = &p.points[1];
-    if (CheckPointInArea(&rect->origin, area))
+    if (CheckPointInArea((struct Point *)rect, area))
         return TRUE;
     
-    p.points[0].x = p.points[3].x = rect->origin.x;
-    p.points[0].y = p.points[1].y = rect->origin.y;
-    p.points[1].x = p.points[2].x = rect->origin.x + rect->w;
-    p.points[2].y = p.points[3].y = rect->origin.y + rect->h;
+    p.points[0].x = p.points[3].x = rect->x;
+    p.points[0].y = p.points[1].y = rect->y;
+    p.points[1].x = p.points[2].x = rect->x + rect->w;
+    p.points[2].y = p.points[3].y = rect->y + rect->h;
     // see if any part of the rect is in area
     for (i = 0; i < 3; i++)
     {
@@ -1727,13 +1805,9 @@ struct AnimationStruct *PlayAnimationAtCustomOrigin(u32 arg0, s32 xOrigin, s32 y
     struct AnimationStructFieldC animationStructFieldC;
     struct Main *main = &gMain;
     const struct AnimationData *animData = &gAnimationData[arg0];
-    u32 var1;
     u32 var0;
-#ifndef NONMATCHING
-    register u32 var2 asm("r0");
-#else
+    uintptr_t var1;
     u32 var2;
-#endif
 
     animationStructFieldC.animId = arg0;
     animationStructFieldC.vramPtr = animData->vramPtr;
@@ -1745,27 +1819,20 @@ struct AnimationStruct *PlayAnimationAtCustomOrigin(u32 arg0, s32 xOrigin, s32 y
     animationStructFieldC.xOrigin = xOrigin;
     animationStructFieldC.yOrigin = yOrigin;
     animationStruct = sub_8010468(&animationStructFieldC, arg0, animData->flags);
-    var1 = animationStruct->unkC.paletteSlot - 6;
-    var0 = (1 << var1);
-    var1++;
-    var1--;
-    if (!(main->unk1E & var0) && animationStruct->unkC.paletteSlot < 10)
+    var0 = animationStruct->unkC.paletteSlot - 6;
+    var1 = (1 << var0);
+    if (!(main->unk1E & var1) && animationStruct->unkC.paletteSlot < 10)
     {
-#ifndef NONMATCHING
-        register void *src asm("r5");
-#else
-        void *src;
-#endif
         void *dest;
-
         u32 size;
-        main->unk1E |= var0;
-        var2 = animationStruct->unkC.paletteSlot * 0x20;
-        src = (u16 *)(OBJ_PLTT + var2);
-        dest = gObjPaletteBuffer[var1];
-        var1 = *(u32 *)animationStruct->unkC.animGfxDataStartPtr;
-        size = var1 * 0x20;
-        DmaCopy16(3, src, dest, size);
+		
+        main->unk1E |= var1;
+        var1 = OBJ_PLTT;
+        var1 += animationStruct->unkC.paletteSlot * 0x20;
+        dest = gObjPaletteBuffer[var0];
+        var0 = *(u32 *)animationStruct->unkC.animGfxDataStartPtr;
+        size = var0 * 0x20;
+        DmaCopy16(3, var1, dest, size);
     }
     animationStruct->unk2C = main->currentBG;
     animationStruct->unk2D = main->currentRoomId;
@@ -1776,6 +1843,8 @@ struct AnimationStruct *PlayAnimationAtCustomOrigin(u32 arg0, s32 xOrigin, s32 y
 struct AnimationBackupStruct * RestoreAnimationsFromBuffer(struct AnimationBackupStruct * backupAnimation) // ! UB: this function doesn't return anything
 {
     u32 i;
+    void * animFrameData;
+    void * animGfxData;
     struct AnimationStruct *animation = &gAnimation[1];
     struct AnimationStructFieldC animationStructFieldC;
     ResetAnimationSystem();
@@ -1792,11 +1861,13 @@ struct AnimationBackupStruct * RestoreAnimationsFromBuffer(struct AnimationBacku
         animationStructFieldC.xOrigin = backupAnimation->xOrigin;
         animationStructFieldC.yOrigin = backupAnimation->yOrigin;
         DmaCopy16(3, &animationStructFieldC, &animation->unkC, sizeof(animationStructFieldC));
-        animation->frameData = (struct AnimationFrame *)(animation->unkC.animFrameDataStartPtr);
-        animation->unkC.animGfxDataStartPtr += 1 [(u32 *)animation->frameData]; // offsets the graphics pointer
-        animation->unkC.tileDataPtr = animation->unkC.animGfxDataStartPtr + 4 + (*(u32 *)animation->unkC.animGfxDataStartPtr) * 0x20;
+        animFrameData = animation->unkC.animFrameDataStartPtr;
+        animation->frameData = animFrameData;
+        animGfxData = animation->unkC.animGfxDataStartPtr + 1 [(u32 *)animFrameData];
+        animation->unkC.animGfxDataStartPtr = animGfxData; // offsets the graphics pointer
+        animation->unkC.tileDataPtr = animGfxData + 4 + (*(u32 *)animGfxData) * 0x20;
         animation->frameData = backupAnimation->frameData;
-        animation->unk30 = (void *)(animation->unkC.animFrameDataStartPtr + animation->frameData->spriteDataOffset);
+        animation->unk30 = (void *)(animFrameData + animation->frameData->spriteDataOffset);
         animation->flags = backupAnimation->flags | (ANIM_QUEUED_TILE_UPLOAD | ANIM_QUEUED_PAL_UPLOAD);
         animation->tileNum |= (uintptr_t)animation->unkC.vramPtr / TILE_SIZE_4BPP; // get OAM tile num from VRAM address
         animation->unk3E = 0x300;
@@ -1837,14 +1908,18 @@ struct AnimationBackupStruct * SaveAnimationDataToBuffer(struct AnimationBackupS
 
 static struct AnimationStruct * sub_8010468(struct AnimationStructFieldC * animationFieldC, u32 arg1, u32 arg2)
 {
+    void * animFrameData;
+    void * animGfxData;
     struct AnimationStruct *animation = AllocateAnimationWithId(animationFieldC->animId);
     if (animation == NULL)
         return NULL;
     DmaCopy16(3, animationFieldC, &animation->unkC, sizeof(animation->unkC));
-    animation->unkC.animGfxDataStartPtr += 1 [(u32 *)animation->unkC.animFrameDataStartPtr];                                      // offsets the graphics pointer
-    animation->unkC.tileDataPtr = animation->unkC.animGfxDataStartPtr + 4 + (*(u32 *)animation->unkC.animGfxDataStartPtr) * 0x20; // skip first u32(number of palettes) and the palettes, pointer to tiles
-    animation->frameData = (struct AnimationFrame *)(animation->unkC.animFrameDataStartPtr + 8);                                  // skips animation block header, pointer to frame data
-    animation->unk30 = (void *)(animation->unkC.animFrameDataStartPtr + animation->frameData->spriteDataOffset);                  // Frame tilemap pointer
+    animFrameData = animation->unkC.animFrameDataStartPtr;
+    animGfxData = animation->unkC.animGfxDataStartPtr +  1 [(u32 *)animFrameData];
+    animation->unkC.animGfxDataStartPtr = animGfxData;                                      // offsets the graphics pointer
+    animation->unkC.tileDataPtr = animGfxData + 4 + (*(u32 *)animGfxData) * 0x20; // skip first u32(number of palettes) and the palettes, pointer to tiles
+    animation->frameData = (struct AnimationFrame *)(animFrameData + 8);                                  // skips animation block header, pointer to frame data
+    animation->unk30 = (void *)(animFrameData + animation->frameData->spriteDataOffset);                  // Frame tilemap pointer
     animation->flags |= arg2;
     if (arg2 & 0x10)
         animation->flags &= ~ANIM_PLAYING;
@@ -1863,6 +1938,7 @@ static struct AnimationStruct * sub_8010468(struct AnimationStructFieldC * anima
 
 static u32 AdvanceAnimationFrame(struct AnimationStruct * animation)
 {
+    void * gfxDataStart;
     u32 retVal = 4;
     if (gScriptContext.unk32 && animation->unkC.animId == 0xFF)
         return retVal;
@@ -1877,8 +1953,9 @@ static u32 AdvanceAnimationFrame(struct AnimationStruct * animation)
     switch (animation->frameData->frameDuration)
     {
     case ANIM_LOOP:
-        animation->frameData = (struct AnimationFrame *)(animation->unkC.animFrameDataStartPtr + 8);
-        animation->unk30 = (void *)(animation->unkC.animFrameDataStartPtr + animation->frameData->spriteDataOffset);
+        gfxDataStart = animation->unkC.animFrameDataStartPtr;
+        animation->frameData = (struct AnimationFrame *)(gfxDataStart + 8);
+        animation->unk30 = gfxDataStart + animation->frameData->spriteDataOffset;
         animation->flags |= ANIM_QUEUED_TILE_UPLOAD;
         retVal = 7;
         break;
@@ -2064,13 +2141,13 @@ void sub_8010928() // unused
     }
 }
 
-#ifdef NONMATCHING
 void DestroyAnimation(struct AnimationStruct *animation)
 {
     struct AnimationStruct *animation2;
     struct Main *main = &gMain;
     struct OamAttrs *oam;
     u32 var0;
+    uintptr_t var1;
     if (animation == NULL)
         return;
 
@@ -2085,9 +2162,7 @@ void DestroyAnimation(struct AnimationStruct *animation)
     }
     if (animation->flags & ANIM_ALLOCATED)
     {
-        u32 var1;
-        u16 *src;
-        u16 *dest;
+        void *dst;
         u32 size;
         for (oam = &gOamObjects[animation->animtionOamStartIdx]; oam < &gOamObjects[animation->animtionOamEndIdx]; oam++)
             oam->attr0 = SPRITE_ATTR0_CLEAR;
@@ -2100,132 +2175,15 @@ void DestroyAnimation(struct AnimationStruct *animation)
         if (animation->unkC.paletteSlot > 9)
             return;
         var0 = animation->unkC.paletteSlot - 6;
-        main->unk1E &= ~(1 << var0);
-        src = gObjPaletteBuffer[var0];
-        var1 = animation->unkC.paletteSlot * 16;
-        dest = (u16 *)OBJ_PLTT;
-        dest += var1;
-        size = *(u32 *)animation->unkC.animGfxDataStartPtr * 32;
-        DmaCopy16(3, src, dest, size);
+        var1 = 1 << var0;
+        main->unk1E &= ~var1;
+        var1 = (uintptr_t)gObjPaletteBuffer[var0];
+        dst = (void*)OBJ_PLTT;
+        dst += animation->unkC.paletteSlot * 0x20;
+        size = *(u32 *)animation->unkC.animGfxDataStartPtr * 0x20;
+        DmaCopy16(3, var1, dst, size);
     }
 }
-#else
-NAKED void DestroyAnimation(struct AnimationStruct *animation)
-{
-    asm_unified("push {r4, r5, r6, r7, lr}\n\
-	adds r4, r0, #0\n\
-	ldr r6, _08010A30\n\
-	cmp r4, #0\n\
-	beq _08010A28\n\
-	ldr r0, [r4, #0xc]\n\
-	ldr r1, _08010A34\n\
-	ands r0, r1\n\
-	ldr r1, _08010A38\n\
-	cmp r0, r1\n\
-	bne _08010992\n\
-	movs r0, #0x17\n\
-	bl FindAnimationFromAnimId\n\
-	cmp r0, #0\n\
-	beq _08010984\n\
-	bl DestroyAnimation\n\
-_08010984:\n\
-	movs r0, #0x18\n\
-	bl FindAnimationFromAnimId\n\
-	cmp r0, #0\n\
-	beq _08010992\n\
-	bl DestroyAnimation\n\
-_08010992:\n\
-	ldr r0, [r4]\n\
-	movs r1, #0x80\n\
-	lsls r1, r1, #0x15\n\
-	ands r0, r1\n\
-	cmp r0, #0\n\
-	beq _08010A28\n\
-	adds r0, r4, #0\n\
-	adds r0, #0x3a\n\
-	ldrb r0, [r0]\n\
-	lsls r0, r0, #3\n\
-	ldr r3, _08010A3C\n\
-	adds r1, r0, r3\n\
-	adds r2, r4, #0\n\
-	adds r2, #0x3b\n\
-	ldrb r5, [r2]\n\
-	lsls r0, r5, #3\n\
-	adds r0, r0, r3\n\
-	cmp r1, r0\n\
-	bhs _080109CA\n\
-	movs r5, #0x80\n\
-	lsls r5, r5, #2\n\
-_080109BC:\n\
-	strh r5, [r1]\n\
-	adds r1, #8\n\
-	ldrb r7, [r2]\n\
-	lsls r0, r7, #3\n\
-	adds r0, r0, r3\n\
-	cmp r1, r0\n\
-	blo _080109BC\n\
-_080109CA:\n\
-	movs r0, #4\n\
-	movs r1, #0\n\
-	ldrb r2, [r6, #0x1f]\n\
-	orrs r0, r2\n\
-	strb r0, [r6, #0x1f]\n\
-	str r1, [r4]\n\
-	ldr r1, [r4, #4]\n\
-	ldr r0, [r4, #8]\n\
-	str r0, [r1, #8]\n\
-	ldr r1, [r4, #8]\n\
-	ldr r0, [r4, #4]\n\
-	str r0, [r1, #4]\n\
-	ldrh r3, [r4, #0xc]\n\
-	cmp r3, #0xff\n\
-	beq _08010A28\n\
-	adds r2, r4, #0\n\
-	adds r2, #0x24\n\
-	ldrb r5, [r2]\n\
-	cmp r5, #9\n\
-	bhi _08010A28\n\
-	adds r1, r5, #0\n\
-	subs r1, #6\n\
-	movs r0, #1\n\
-	lsls r0, r1\n\
-	ldrb r7, [r6, #0x1e]\n\
-	bics r7, r0\n\
-	adds r0, r7, #0\n\
-	strb r0, [r6, #0x1e]\n\
-	lsls r1, r1, #5\n\
-	ldr r0, _08010A40\n\
-	adds r3, r1, r0\n\
-	ldrb r2, [r2]\n\
-	lsls r1, r2, #5\n\
-	ldr r0, _08010A44\n\
-	adds r1, r1, r0\n\
-	ldr r0, [r4, #0x20]\n\
-	ldr r0, [r0]\n\
-	lsls r0, r0, #5\n\
-	ldr r2, _08010A48\n\
-	str r3, [r2]\n\
-	str r1, [r2, #4]\n\
-	lsrs r0, r0, #1\n\
-	movs r1, #0x80\n\
-	lsls r1, r1, #0x18\n\
-	orrs r0, r1\n\
-	str r0, [r2, #8]\n\
-	ldr r0, [r2, #8]\n\
-_08010A28:\n\
-	pop {r4, r5, r6, r7}\n\
-	pop {r0}\n\
-	bx r0\n\
-	.align 2, 0\n\
-_08010A30: .4byte gMain\n\
-_08010A34: .4byte 0x00FFFFFF\n\
-_08010A38: .4byte 0x001600FF\n\
-_08010A3C: .4byte gOamObjects\n\
-_08010A40: .4byte gObjPaletteBuffer\n\
-_08010A44: .4byte 0x05000200\n\
-_08010A48: .4byte 0x040000D4\n");
-}
-#endif
 
 static void UpdateAllAnimationSprites()
 {
@@ -2295,26 +2253,28 @@ static void UpdateAllAnimationSprites()
     }
 }
 
-#ifdef NONMATCHING
 void MoveAnimationTilesToRam(bool32 arg0)
 {
-    struct AnimationStruct *animation;
+    struct AnimationStruct *animation; // r5
 
     for (animation = gAnimation[0].nextAnimation; animation != NULL; animation = animation->nextAnimation)
     {
-        u8 * tileDest;
+        void * tileData;
+        struct SpriteTemplate * spriteTemplate; // ip
+        struct SpriteSizeData * spriteSizeData; // r7
+        void * tileDest; // r6
+        void * nextTileDest; // r8
+        u32 * temp;
+        u32 spriteCount; // sl
+        u32 palCount; //sp08
         u32 i;
-        u32 spriteCount;
-        u32 palCount;
-        struct SpriteTemplate * spriteTemplates;
-        struct SpriteSizeData * spriteSizeData;
-        struct AnimationStructFieldC * animC;
+
         if(!(animation->flags & ANIM_QUEUED_TILE_UPLOAD))
             continue;
         if(!(animation->flags & ANIM_ACTIVE))
             continue;
-        tileDest = arg0 ? (u8*)0x200B1C0 : animation->unkC.vramPtr;
-        spriteTemplates = animation->unk30;
+        tileDest = arg0 ? eUnknown_0200AFC0 + 0x200 : animation->unkC.vramPtr;
+        spriteTemplate = animation->unk30;
         spriteCount = *(u16*)animation->unk30;
         spriteSizeData = eUnknown_0200AFC0;
         spriteSizeData += animation->animtionOamEndIdx;
@@ -2324,310 +2284,70 @@ void MoveAnimationTilesToRam(bool32 arg0)
         {
             for(i = 0; i < spriteCount; i++)
             {
-                u8 * ptr;
-                void * ptr2;
-                u8 * ptr3;
+                void * tileStart;
+                //void * tileData;
+                u32 * offsets;
                 u32 tileNum;
-                u32 compressedTileOffset;
-                spriteTemplates++;
+                u32 size;
+                spriteTemplate++;
                 spriteSizeData--;
-                ptr = tileDest + spriteSizeData->tileSize;
-                tileNum = spriteTemplates->data & 0x1FF;
-                ptr3 = animation->unkC.tileDataPtr;
-                compressedTileOffset = ((u32 *)ptr3)[tileNum];
-                ptr2 = ptr3 + compressedTileOffset;
-                while(ptr > tileDest)
+                size = spriteSizeData->tileSize;
+                nextTileDest = tileDest + size;
+                tileNum = (spriteTemplate->data & 0x1FF);
+                tileStart = animation->unkC.tileDataPtr;
+                offsets = (u32*)tileStart;
+                tileStart += offsets[tileNum];
+                tileData = tileStart;
+                while(nextTileDest > tileDest)
                 {
-                    if(*(u16*)ptr2 & 0x8000)
+                    if(*(u16*)tileData & 0x8000)
                     {
-                        u32 size = (*(u16*)ptr2 & 0x7FFF) * 2; 
-                        DmaFill16(3, *((u16*)ptr2+1), tileDest, size);
-                        tileDest += size;
-                        ptr2 += 4;
+                        u32 repeatCount = *(u16*)tileData & 0x7FFF;
+                        DmaFill16(3, *((u16*)tileData+1), tileDest, repeatCount*=2);
+                        tileDest += repeatCount;
+                        tileData += 4;
                     }
                     else
                     {
-                        u32 size = *(u16*)ptr2 * 2;
-                        ptr2 += 2;
-                        DmaCopy16(3, ptr2, tileDest, size);
+                        u32 size = *(u16*)tileData * 2;
+                        tileData+=2;
+                        DmaCopy16(3, tileData, tileDest, size);
                         tileDest += size;
-                        ptr2 += size;
+                        tileData += size;
                     }
                 }
             }
         }
         else
         {
-            u32 mask = animation->frameData->flags & 1 ? 0x1FF : 0x7FF;
+            u32 tileNumMask = animation->frameData->flags & 1 ? 0x1FF : 0x7FF;
             for(i = 0; i < spriteCount; i++)
             {
+                u16 * sizePtr;
                 u32 tileNum;
-                u32 size;
-                u32 offset;
-                u8 * tilePtr;
-                u16 * what;
-                spriteTemplates++;
+                spriteTemplate++;
                 spriteSizeData--;
-                tileNum = spriteTemplates->data & mask;
-                tilePtr = animation->unkC.tileDataPtr + tileNum * 32;
-                what = &spriteSizeData->tileSize;
-                DmaCopy16(3, tilePtr, tileDest, *what);
-                tileDest += *what;
+                sizePtr = &spriteSizeData->tileSize; // !! SCRUB C probably fakematch
+                tileData = animation->unkC.tileDataPtr + (spriteTemplate->data & tileNumMask) * TILE_SIZE_4BPP;
+                DmaCopy16(3, tileData, tileDest, *sizePtr);
+                tileDest += *sizePtr;
             }
         }
         if(animation->flags & ANIM_QUEUED_PAL_UPLOAD)
         {
-            void * dest;
-            u8 * src;
-            u32 size;
-            u32 palOffset;
-            palOffset = animation->unkC.paletteSlot & 0xF;
+            u8 * ptr;
+            uintptr_t dest;
+            u32 palOffset = animation->unkC.paletteSlot & 0xF;
 
-            dest = (u8*)OBJ_PLTT + palOffset*32;
+            palOffset *= 32;
+            dest = OBJ_PLTT + palOffset;
             palCount *= 32;
-            src = animation->unkC.animGfxDataStartPtr+4;
-            DmaCopy16(3, src, dest, palCount);
+            tileData = animation->unkC.animGfxDataStartPtr+4;
+            DmaCopy16(3, tileData, dest, palCount);
             animation->flags &= ~ANIM_QUEUED_PAL_UPLOAD;
         }
     }
 }
-#else
-NAKED void MoveAnimationTilesToRam(bool32 arg0)
-{
-    asm_unified("push {r4, r5, r6, r7, lr}\n\
-	mov r7, sl\n\
-	mov r6, sb\n\
-	mov r5, r8\n\
-	push {r5, r6, r7}\n\
-	sub sp, #0x14\n\
-	str r0, [sp, #4]\n\
-	ldr r0, _08010D14\n\
-	ldr r5, [r0, #8]\n\
-	cmp r5, #0\n\
-	bne _08010C64\n\
-	b _08010DEE\n\
-_08010C64:\n\
-	ldr r1, [r5]\n\
-	movs r0, #0x80\n\
-	lsls r0, r0, #0x17\n\
-	ands r0, r1\n\
-	ldr r2, [r5, #8]\n\
-	str r2, [sp, #0xc]\n\
-	cmp r0, #0\n\
-	bne _08010C76\n\
-	b _08010DE6\n\
-_08010C76:\n\
-	movs r0, #0x80\n\
-	lsls r0, r0, #0x16\n\
-	ands r0, r1\n\
-	cmp r0, #0\n\
-	bne _08010C82\n\
-	b _08010DE6\n\
-_08010C82:\n\
-	ldr r6, _08010D18\n\
-	ldr r3, [sp, #4]\n\
-	cmp r3, #0\n\
-	bne _08010C8C\n\
-	ldr r6, [r5, #0x1c]\n\
-_08010C8C:\n\
-	ldr r0, [r5, #0x30]\n\
-	mov ip, r0\n\
-	ldrh r2, [r0]\n\
-	mov sl, r2\n\
-	adds r0, r5, #0\n\
-	adds r0, #0x3b\n\
-	ldrb r0, [r0]\n\
-	lsls r0, r0, #2\n\
-	ldr r3, _08010D1C\n\
-	adds r7, r0, r3\n\
-	ldr r0, _08010D20\n\
-	ands r1, r0\n\
-	str r1, [r5]\n\
-	ldr r0, [r5, #0x20]\n\
-	ldr r0, [r0]\n\
-	str r0, [sp, #8]\n\
-	movs r1, #0x80\n\
-	lsls r1, r1, #0x18\n\
-	ands r0, r1\n\
-	cmp r0, #0\n\
-	beq _08010D56\n\
-	movs r2, #0\n\
-	cmp r2, sl\n\
-	bhs _08010DA4\n\
-_08010CBC:\n\
-	movs r3, #4\n\
-	add ip, r3\n\
-	subs r7, #4\n\
-	ldrh r0, [r7]\n\
-	adds r0, r0, r6\n\
-	mov r8, r0\n\
-	ldr r0, _08010D24\n\
-	mov r1, ip\n\
-	ldrh r1, [r1, #2]\n\
-	ands r0, r1\n\
-	ldr r1, [r5, #0x18]\n\
-	lsls r0, r0, #2\n\
-	adds r0, r0, r1\n\
-	ldr r0, [r0]\n\
-	adds r3, r1, r0\n\
-	adds r2, #1\n\
-	str r2, [sp, #0x10]\n\
-	cmp r8, r6\n\
-	bls _08010D4E\n\
-	ldr r4, _08010D28\n\
-	mov sb, sp\n\
-_08010CE6:\n\
-	ldrh r2, [r3]\n\
-	movs r0, #0x80\n\
-	lsls r0, r0, #8\n\
-	ands r0, r2\n\
-	cmp r0, #0\n\
-	beq _08010D30\n\
-	ldr r1, _08010D2C\n\
-	ands r1, r2\n\
-	ldrh r0, [r3, #2]\n\
-	mov r2, sb\n\
-	strh r0, [r2]\n\
-	mov r0, sp\n\
-	str r0, [r4]\n\
-	str r6, [r4, #4]\n\
-	lsls r2, r1, #1\n\
-	movs r0, #0x81\n\
-	lsls r0, r0, #0x18\n\
-	orrs r1, r0\n\
-	str r1, [r4, #8]\n\
-	ldr r0, [r4, #8]\n\
-	adds r6, r6, r2\n\
-	adds r3, #4\n\
-	b _08010D4A\n\
-	.align 2, 0\n\
-_08010D14: .4byte gAnimation\n\
-_08010D18: .4byte gUnknown_0200B1C0\n\
-_08010D1C: .4byte gUnknown_0200AFC0\n\
-_08010D20: .4byte 0xBFFFFFFF\n\
-_08010D24: .4byte 0x000001FF\n\
-_08010D28: .4byte 0x040000D4\n\
-_08010D2C: .4byte 0x00007FFF\n\
-_08010D30:\n\
-	ldrh r1, [r3]\n\
-	lsls r0, r1, #1\n\
-	adds r3, #2\n\
-	str r3, [r4]\n\
-	str r6, [r4, #4]\n\
-	lsrs r1, r0, #1\n\
-	movs r2, #0x80\n\
-	lsls r2, r2, #0x18\n\
-	orrs r1, r2\n\
-	str r1, [r4, #8]\n\
-	ldr r1, [r4, #8]\n\
-	adds r6, r6, r0\n\
-	adds r3, r3, r0\n\
-_08010D4A:\n\
-	cmp r8, r6\n\
-	bhi _08010CE6\n\
-_08010D4E:\n\
-	ldr r2, [sp, #0x10]\n\
-	cmp r2, sl\n\
-	blo _08010CBC\n\
-	b _08010DA4\n\
-_08010D56:\n\
-	ldr r1, [r5, #0x34]\n\
-	movs r0, #1\n\
-	ldrb r1, [r1, #3]\n\
-	ands r0, r1\n\
-	ldr r3, _08010E00\n\
-	mov sb, r3\n\
-	cmp r0, #0\n\
-	beq _08010D6A\n\
-	ldr r0, _08010E04\n\
-	mov sb, r0\n\
-_08010D6A:\n\
-	movs r2, #0\n\
-	cmp r2, sl\n\
-	bhs _08010DA4\n\
-	ldr r4, _08010E08\n\
-	movs r1, #0x80\n\
-	lsls r1, r1, #0x18\n\
-	mov r8, r1\n\
-_08010D78:\n\
-	movs r3, #4\n\
-	add ip, r3\n\
-	subs r7, #4\n\
-	mov r0, sb\n\
-	mov r1, ip\n\
-	ldrh r1, [r1, #2]\n\
-	ands r0, r1\n\
-	lsls r0, r0, #5\n\
-	ldr r1, [r5, #0x18]\n\
-	adds r3, r1, r0\n\
-	str r3, [r4]\n\
-	str r6, [r4, #4]\n\
-	ldrh r3, [r7]\n\
-	lsrs r0, r3, #1\n\
-	mov r1, r8\n\
-	orrs r0, r1\n\
-	str r0, [r4, #8]\n\
-	ldr r0, [r4, #8]\n\
-	adds r6, r3, r6\n\
-	adds r2, #1\n\
-	cmp r2, sl\n\
-	blo _08010D78\n\
-_08010DA4:\n\
-	ldr r0, [r5]\n\
-	movs r1, #0x80\n\
-	lsls r1, r1, #0x11\n\
-	ands r0, r1\n\
-	cmp r0, #0\n\
-	beq _08010DE6\n\
-	adds r0, r5, #0\n\
-	adds r0, #0x24\n\
-	movs r1, #0xf\n\
-	ldrb r0, [r0]\n\
-	ands r1, r0\n\
-	lsls r1, r1, #5\n\
-	ldr r0, _08010E0C\n\
-	adds r1, r1, r0\n\
-	ldr r0, [sp, #8]\n\
-	lsls r0, r0, #5\n\
-	str r0, [sp, #8]\n\
-	ldr r0, [r5, #0x20]\n\
-	adds r3, r0, #4\n\
-	ldr r2, _08010E08\n\
-	str r3, [r2]\n\
-	str r1, [r2, #4]\n\
-	ldr r1, [sp, #8]\n\
-	lsrs r0, r1, #1\n\
-	movs r3, #0x80\n\
-	lsls r3, r3, #0x18\n\
-	orrs r0, r3\n\
-	str r0, [r2, #8]\n\
-	ldr r0, [r2, #8]\n\
-	ldr r0, [r5]\n\
-	ldr r1, _08010E10\n\
-	ands r0, r1\n\
-	str r0, [r5]\n\
-_08010DE6:\n\
-	ldr r5, [sp, #0xc]\n\
-	cmp r5, #0\n\
-	beq _08010DEE\n\
-	b _08010C64\n\
-_08010DEE:\n\
-	add sp, #0x14\n\
-	pop {r3, r4, r5}\n\
-	mov r8, r3\n\
-	mov sb, r4\n\
-	mov sl, r5\n\
-	pop {r4, r5, r6, r7}\n\
-	pop {r0}\n\
-	bx r0\n\
-	.align 2, 0\n\
-_08010E00: .4byte 0x000007FF\n\
-_08010E04: .4byte 0x000001FF\n\
-_08010E08: .4byte 0x040000D4\n\
-_08010E0C: .4byte 0x05000200\n\
-_08010E10: .4byte 0xFEFFFFFF\n");
-}
-#endif
 
 void UpdateAnimations(u32 arg0)
 {

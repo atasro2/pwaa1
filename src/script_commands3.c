@@ -122,13 +122,13 @@ bool32 Command46(struct ScriptContext * scriptCtx)
     {
         gMain.horizontolBGScrollSpeed = -0xE;
         r6 = gUnknown_08362524;
-        r3 = gUnknown_08362544;
+        r3 = (u16 *)gUnknown_08362544;
     }
     else 
     {
         gMain.horizontolBGScrollSpeed = 0xE;
         r6 = gUnknown_08360834;
-        r3 = gUnknown_08360854;
+        r3 = (u16 *)gUnknown_08360854;
     }
     for(i = 0; i < 20; i++) 
     {
@@ -197,7 +197,7 @@ bool32 Command4A(struct ScriptContext *scriptCtx)
     scriptCtx->scriptPtr++;
     if(*scriptCtx->scriptPtr) 
     {
-        if(gMain.process[GAME_SUBPROCESS] == 8) 
+        if(gMain.process[GAME_PROCESS_STATE] == 8) 
         {
             scriptCtx->scriptPtr++;
             return 0;
@@ -205,7 +205,7 @@ bool32 Command4A(struct ScriptContext *scriptCtx)
     }
     else 
     {
-        if(gMain.process[GAME_SUBPROCESS] == 6) 
+        if(gMain.process[GAME_PROCESS_STATE] == 6) 
         {
             scriptCtx->scriptPtr++;
             return 0;

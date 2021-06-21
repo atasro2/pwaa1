@@ -2,6 +2,7 @@
 #include "background.h"
 #include "script.h"
 #include "investigation.h"
+#include "graphics.h"
 
 const u8 gUnknown_08013B58[12] = {
 	0x54, 0x55, 0x56, 0x57, 0x58, 0x59, 0x5A, 0x5B, 0x5C, 0x5D, 0x5E, 0x5F
@@ -580,13 +581,12 @@ void sub_8002878(struct CourtRecord * courtRecord)
     }
 }
 
-#ifdef NONMATCHING
 void sub_80028B4(u32 arg0, u32 arg1)
 {
     u32 i;
-    u32 unk0, unk1;
-    u32 unk2;
-    u8 * src;
+    u32 j;
+    void * tiles;
+    const u8 * tileId;
     u16 * map;
     if(arg0 == 0)
     {
@@ -594,179 +594,48 @@ void sub_80028B4(u32 arg0, u32 arg1)
             gBG1MapBuffer[i] = gUnknown_08013B70[i];
         return;
     }
-    unk0 = (arg0 / 5);
-    unk1 = (arg0 % 5);
-    unk0 *= 0x800;
-    unk1 *= 0xC0;
-    src = gUnknown_08187540;
-    src += unk0;
-    src += unk1;
-    DmaCopy16(3, src, VRAM+0xA80, 0xC0);
-    DmaCopy16(3, src+0x400, VRAM+0xB40, 0xC0);
+    i = (arg0 / 5);
+    j = (arg0 % 5);
+    i *= 0x800;
+    j *= 0xC0;
+    tiles = gUnknown_08187540 + j + i;
+    DmaCopy16(3, tiles, VRAM+0xA80, 0xC0);
+    DmaCopy16(3, tiles+0x400, VRAM+0xB40, 0xC0);
     if(arg1)
     {
         arg1 = 24;
-        src = gUnknown_08013B64+0x6;
+        tileId = gUnknown_08013B64+0x6;
     }
     else
-    {
-        arg1 = 0;
-        src = gUnknown_08013B64; // could be 2d array
-    }
+        tileId = gUnknown_08013B64;
+
     map = gBG1MapBuffer + 0x1C0;
     map += arg1;
     for(i = 0; i < 6; i++)
     {
-        *map = *src;
+        *map = *tileId;
         map++;
-        src++;
+        tileId++;
     }
     map = gBG1MapBuffer + 0x180;
     map += arg1;
-    src = gUnknown_08013B58;
+    tileId = gUnknown_08013B58;
     for(i = 0; i < 6; i++)
     {
-        *map = *src;
+        *map = *tileId;
         map++;
-        src++;
+        tileId++;
     }
     map = gBG1MapBuffer + 0x1A0;
     map += arg1;
-    src = gUnknown_08013B58+6;
+    tileId = gUnknown_08013B58+6;
     for(i = 0; i < 6; i++)
     {
-        *map = *src;
+        *map = *tileId;
         map++;
-        src++;
+        tileId++;
     }
 }
-#else
-NAKED
-void sub_80028B4(u32 arg0, u32 arg1)
-{
-    asm_unified("	push {r4, r5, r6, r7, lr}\n\
-	adds r5, r0, #0\n\
-	adds r6, r1, #0\n\
-	cmp r5, #0\n\
-	bne _080028EC\n\
-	movs r4, #0xc0\n\
-	lsls r4, r4, #1\n\
-	ldr r3, _080028E0\n\
-	ldr r0, _080028E4\n\
-	ldr r2, _080028E8\n\
-	movs r5, #0xc0\n\
-	lsls r5, r5, #2\n\
-	adds r1, r0, r5\n\
-_080028CE:\n\
-	adds r0, r4, r2\n\
-	ldrb r0, [r0]\n\
-	strh r0, [r1]\n\
-	adds r1, #2\n\
-	adds r4, #1\n\
-	cmp r4, r3\n\
-	bls _080028CE\n\
-	b _0800299A\n\
-	.align 2, 0\n\
-_080028E0: .4byte 0x000001DF\n\
-_080028E4: .4byte gBG1MapBuffer\n\
-_080028E8: .4byte gUnknown_08013B70\n\
-_080028EC:\n\
-	adds r0, r5, #0\n\
-	movs r1, #5\n\
-	bl __udivsi3\n\
-	adds r4, r0, #0\n\
-	adds r0, r5, #0\n\
-	movs r1, #5\n\
-	bl __umodsi3\n\
-	lsls r4, r4, #0xb\n\
-	lsls r1, r0, #1\n\
-	adds r1, r1, r0\n\
-	lsls r1, r1, #6\n\
-	ldr r2, _08002934\n\
-	adds r0, r4, r2\n\
-	adds r1, r1, r0\n\
-	ldr r0, _08002938\n\
-	str r1, [r0]\n\
-	ldr r2, _0800293C\n\
-	str r2, [r0, #4]\n\
-	ldr r2, _08002940\n\
-	str r2, [r0, #8]\n\
-	ldr r3, [r0, #8]\n\
-	movs r3, #0x80\n\
-	lsls r3, r3, #3\n\
-	adds r1, r1, r3\n\
-	str r1, [r0]\n\
-	ldr r1, _08002944\n\
-	str r1, [r0, #4]\n\
-	str r2, [r0, #8]\n\
-	ldr r0, [r0, #8]\n\
-	cmp r6, #0\n\
-	beq _0800294C\n\
-	movs r6, #0x18\n\
-	ldr r2, _08002948\n\
-	b _0800294E\n\
-	.align 2, 0\n\
-_08002934: .4byte gUnknown_08187540\n\
-_08002938: .4byte 0x040000D4\n\
-_0800293C: .4byte 0x06000A80\n\
-_08002940: .4byte 0x80000060\n\
-_08002944: .4byte 0x06000B40\n\
-_08002948: .4byte gUnknown_08013B64+0x6\n\
-_0800294C:\n\
-	ldr r2, _080029A0\n\
-_0800294E:\n\
-	ldr r3, _080029A4\n\
-	lsls r0, r6, #1\n\
-	adds r3, r0, r3\n\
-	movs r4, #0\n\
-	adds r1, r0, #0\n\
-	ldr r5, _080029A8\n\
-	ldr r6, _080029AC\n\
-	adds r7, r5, #0\n\
-	adds r7, #0x40\n\
-	adds r0, r6, #6\n\
-	mov ip, r0\n\
-_08002964:\n\
-	ldrb r0, [r2]\n\
-	strh r0, [r3]\n\
-	adds r3, #2\n\
-	adds r2, #1\n\
-	adds r4, #1\n\
-	cmp r4, #5\n\
-	bls _08002964\n\
-	adds r3, r1, r5\n\
-	adds r2, r6, #0\n\
-	movs r4, #0\n\
-_08002978:\n\
-	ldrb r0, [r2]\n\
-	strh r0, [r3]\n\
-	adds r3, #2\n\
-	adds r2, #1\n\
-	adds r4, #1\n\
-	cmp r4, #5\n\
-	bls _08002978\n\
-	adds r3, r1, r7\n\
-	mov r2, ip\n\
-	movs r4, #0\n\
-_0800298C:\n\
-	ldrb r0, [r2]\n\
-	strh r0, [r3]\n\
-	adds r3, #2\n\
-	adds r2, #1\n\
-	adds r4, #1\n\
-	cmp r4, #5\n\
-	bls _0800298C\n\
-_0800299A:\n\
-	pop {r4, r5, r6, r7}\n\
-	pop {r0}\n\
-	bx r0\n\
-	.align 2, 0\n\
-_080029A0: .4byte gUnknown_08013B64\n\
-_080029A4: .4byte gBG1MapBuffer+0x380\n\
-_080029A8: .4byte gBG1MapBuffer+0x300\n\
-_080029AC: .4byte gUnknown_08013B58\n");
-}
-#endif
 
 void UpdateBGTilemaps()
 {

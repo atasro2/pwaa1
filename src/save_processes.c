@@ -15,13 +15,13 @@
 
 const char gSaveVersion[0x30] = "2001 CAPCOM GBA GYAKUTEN-SAIBAN 06/15 Ver 1.000-";
 
-void (*gSaveGameSubProcesses[])(struct Main *) = {
-	SaveGameInit1SubProcess,
-	SaveGameInit2SubProcess,
-	SaveGameInitButtonsSubProcess,
-	SaveGameWaitForInputSubProcess,
-	SaveGameExitSaveScreenSubProcess,
-	SaveGameSubProcess5,
+void (*gSaveGameProcessStates[])(struct Main *) = {
+	SaveGameInit1,
+	SaveGameInit2,
+	SaveGameInitButtons,
+	SaveGameWaitForInput,
+	SaveGameExitSaveScreen,
+	SaveGame5,
 	sub_8008CC0,
 	sub_8008D68
 };
@@ -98,7 +98,7 @@ void ClearSaveProcess(struct Main *main)
 {
     struct OamAttrs * oam;
     u32 i;
-    switch (main->process[GAME_SUBPROCESS])
+    switch (main->process[GAME_PROCESS_STATE])
     {
     case 0:
         DmaCopy16(3, gUnusedAsciiCharSet, VRAM + 0x3800, 0x800);
@@ -125,7 +125,7 @@ void ClearSaveProcess(struct Main *main)
         gIORegisters.lcd_bldy = 0x10;
         main->selectedButton = 1;
         StartHardwareBlend(1, 1, 1, 0x1F);
-        main->process[GAME_SUBPROCESS]++;
+        main->process[GAME_PROCESS_STATE]++;
         break;
     case 1:
         if(main->blendMode == 0)
@@ -152,7 +152,7 @@ void ClearSaveProcess(struct Main *main)
                 main->blendDeltaY = 0x10;
                 gIORegisters.lcd_bldcnt = BLDCNT_TGT2_BG3 | BLDCNT_EFFECT_BLEND;
                 gIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0, main->blendDeltaY);
-                main->process[GAME_SUBPROCESS]++;
+                main->process[GAME_PROCESS_STATE]++;
             }
         }
         break;
@@ -169,7 +169,7 @@ void ClearSaveProcess(struct Main *main)
                 PlaySE(0x2B);
                 StartHardwareBlend(2, 1, 1, 0x1F);
                 main->tilemapUpdateBits = 0;
-                main->process[GAME_SUBPROCESS]++;
+                main->process[GAME_PROCESS_STATE]++;
             }
         }
         oam = &gOamObjects[40];
@@ -185,7 +185,7 @@ void ClearSaveProcess(struct Main *main)
             oam++;
             oam->attr2 = SPRITE_ATTR2(0x200, 0, 9);
         }
-        if(main->process[GAME_SUBPROCESS] == 2)
+        if(main->process[GAME_PROCESS_STATE] == 2)
         {
             if(main->blendDeltaY > 0)
             {
@@ -219,11 +219,11 @@ void ClearSaveProcess(struct Main *main)
 
 void SaveGameProcess(struct Main *main)
 {
-    gSaveGameSubProcesses[gMain.process[GAME_SUBPROCESS]](&gMain);
+    gSaveGameProcessStates[gMain.process[GAME_PROCESS_STATE]](&gMain);
 }
 
 
-void SaveGameInit1SubProcess(struct Main *main)
+void SaveGameInit1(struct Main *main)
 {
     u32 i;
     DmaCopy16(3, gBG1MapBuffer, gSaveDataBuffer.bg1Map, sizeof(gBG1MapBuffer));
@@ -239,10 +239,10 @@ void SaveGameInit1SubProcess(struct Main *main)
     SaveAnimationDataToBuffer(gSaveDataBuffer.backupAnimations);
     main->advanceScriptContext = FALSE;
     StartHardwareBlend(2, 0, 1, 0x1F);
-    main->process[GAME_SUBPROCESS]++;
+    main->process[GAME_PROCESS_STATE]++;
 }
 
-void SaveGameInit2SubProcess(struct Main *main)
+void SaveGameInit2(struct Main *main)
 {
     struct OamAttrs * oam;
     u32 i;
@@ -281,10 +281,10 @@ void SaveGameInit2SubProcess(struct Main *main)
     gIORegisters.lcd_bg1hofs = 0;
     main->showTextboxCharacters = FALSE;
     StartHardwareBlend(1, 0, 1, 0x1F);
-    main->process[GAME_SUBPROCESS]++;
+    main->process[GAME_PROCESS_STATE]++;
 }
 
-void SaveGameInitButtonsSubProcess(struct Main *main)
+void SaveGameInitButtons(struct Main *main)
 {
     struct OamAttrs * oam;
     sub_8002878(&gCourtRecord);
@@ -316,11 +316,11 @@ void SaveGameInitButtonsSubProcess(struct Main *main)
             main->selectedButton = 0;
         else
             main->selectedButton = 1;
-        main->process[GAME_SUBPROCESS]++;
+        main->process[GAME_PROCESS_STATE]++;
     }
 }
 
-void SaveGameWaitForInputSubProcess(struct Main *main)
+void SaveGameWaitForInput(struct Main *main)
 {
     struct OamAttrs * oam;
     if(gScriptContext.flags & SCRIPT_LOOP)
@@ -345,7 +345,7 @@ void SaveGameWaitForInputSubProcess(struct Main *main)
                     ChangeScriptSection(3);
                     gScriptContext.textXOffset = 9;
                     gScriptContext.textYOffset = 52;
-                    main->process[GAME_SUBPROCESS] = 6;
+                    main->process[GAME_PROCESS_STATE] = 6;
                     return;
                 }
                 if(!main->sIsEpisodePartOver)
@@ -359,7 +359,7 @@ void SaveGameWaitForInputSubProcess(struct Main *main)
                     main->blendDeltaY = 0;
                 }
             }
-            main->process[GAME_SUBPROCESS] = 7;
+            main->process[GAME_PROCESS_STATE] = 7;
             main->process[GAME_PROCESSUNK2] = 0;
         }
         else if(!main->sIsEpisodePartOver && gJoypad.pressedKeys & B_BUTTON)
@@ -367,7 +367,7 @@ void SaveGameWaitForInputSubProcess(struct Main *main)
             PlaySE(0x2C);
             main->selectedButton = 1;
             StartHardwareBlend(2, 0, 1, 0x1F);
-            main->process[GAME_SUBPROCESS] = 4;
+            main->process[GAME_PROCESS_STATE] = 4;
             return;
         }
     }
@@ -392,7 +392,7 @@ void SaveGameWaitForInputSubProcess(struct Main *main)
         oam->attr1 = SPRITE_ATTR1_NONAFFINE(128, FALSE, FALSE, 3);
         oam->attr2 = SPRITE_ATTR2(0x200, 0, 9);
     }
-    if(main->process[GAME_SUBPROCESS] == 3)
+    if(main->process[GAME_PROCESS_STATE] == 3)
     {
         if(main->blendDeltaY > 0)
         {
@@ -407,7 +407,7 @@ void SaveGameWaitForInputSubProcess(struct Main *main)
     }
 }
 
-void SaveGameExitSaveScreenSubProcess(struct Main *main)
+void SaveGameExitSaveScreen(struct Main *main)
 {
     u32 i;
     if(main->blendMode != 0)
@@ -458,16 +458,16 @@ void SaveGameExitSaveScreenSubProcess(struct Main *main)
     RESTORE_PROCESS_PTR(main);
     if(main->process[GAME_PROCESS] == 4 && main->process[GAME_PROCESSUNK2] == 3)
     {
-        if(main->process[GAME_SUBPROCESS] == 7)
+        if(main->process[GAME_PROCESS_STATE] == 7)
             sub_800D674();
-        else if(main->process[GAME_SUBPROCESS] == 8)
+        else if(main->process[GAME_PROCESS_STATE] == 8)
             sub_800D6C8();
     }
     FadeInBGM(0x1E, 0xFF); // unpause BGM
     StartHardwareBlend(1, 0, 1, 0x1F);
 }
 
-void SaveGameSubProcess5(struct Main *main)
+void SaveGame5(struct Main *main)
 {
     u32 showNewEpsiode;
     u32 newEpisodeId;
@@ -526,7 +526,7 @@ void sub_8008CC0(struct Main * main)
             main->selectedButton = 0;
         else
             main->selectedButton = 1;
-        main->process[GAME_SUBPROCESS] = 3;
+        main->process[GAME_PROCESS_STATE] = 3;
     }
     else
     {
@@ -545,16 +545,16 @@ void sub_8008D68(struct Main * main)
     {
         StartHardwareBlend(2, 1, 1, 0x1F);
         if(main->sIsEpisodePartOver)
-            main->process[GAME_SUBPROCESS] = 5;
+            main->process[GAME_PROCESS_STATE] = 5;
         else
-            main->process[GAME_SUBPROCESS] = 4;
+            main->process[GAME_PROCESS_STATE] = 4;
         main->process[GAME_PROCESSUNK2] = 0;
         oam = &gOamObjects[40];
         oam->attr0 = SPRITE_ATTR0_CLEAR;
         oam++;
         oam->attr0 = SPRITE_ATTR0_CLEAR;
     }
-    if(main->process[GAME_SUBPROCESS] == 7 && main->blendDeltaY <= 0xF)
+    if(main->process[GAME_PROCESS_STATE] == 7 && main->blendDeltaY <= 0xF)
     {
         main->blendCounter++;
         if(main->blendCounter >= main->blendDelay)

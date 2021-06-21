@@ -14,9 +14,10 @@ struct Point4 // shamelessly stolen from unity
 
 struct Rect
 {
-    /* +0x00 */ struct Point origin; 
-    /* +0x04 */ u16 w;
-    /* +0x06 */ u16 h;
+    /* +0x00 */ s16 x;
+    /* +0x02 */ s16 y;
+    /* +0x04 */ s16 w;
+    /* +0x06 */ s16 h;
 };
 
 extern const s16 gSineTable[256+64];

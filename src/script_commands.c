@@ -681,7 +681,7 @@ u32 Command1A(struct ScriptContext * scriptCtx)
     return 0;
 }
 
-u32 Command1B(struct ScriptContext * scriptCtx) // probably fakematch
+u32 Command1B(struct ScriptContext * scriptCtx) // ! probably fakematch
 {
     scriptCtx->scriptPtr++;
     if(gMain.currentBG != *scriptCtx->scriptPtr)
@@ -739,17 +739,17 @@ u32 Command1C(struct ScriptContext * scriptCtx)
             if(gMain.process[GAME_PROCESS] == 4)
             {
                 gInvestigation.unkE = 0;
-                if(gMain.process[GAME_SUBPROCESS] == 6)
+                if(gMain.process[GAME_PROCESS_STATE] == 6)
                 {
                     sub_800B7A8(&gInvestigation, 1);
                 }
-                if(gMain.process[GAME_SUBPROCESS] == 8)
+                if(gMain.process[GAME_PROCESS_STATE] == 8)
                 {
                     sub_800B7A8(&gInvestigation, 4);
                     gInvestigation.unkC = 4;
                     gInvestigation.unkD = 0xE0;
                 }
-                if(gMain.process[GAME_SUBPROCESS] == 9)
+                if(gMain.process[GAME_PROCESS_STATE] == 9)
                 {
                     sub_800B7A8(&gInvestigation, 8);
                 }

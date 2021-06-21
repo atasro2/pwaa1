@@ -151,7 +151,7 @@ extern struct IORegisters gIORegisters;
 extern struct OamAttrs gOamObjects[128];
 
 #define GAME_PROCESS 0
-#define GAME_SUBPROCESS 1
+#define GAME_PROCESS_STATE 1
 #define GAME_PROCESSUNK2 2
 #define GAME_PROCESSUNK3 3
 

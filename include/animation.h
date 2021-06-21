@@ -1,6 +1,7 @@
 #ifndef GUARD_ANIMATION_H
 #define GUARD_ANIMATION_H
 #include "background.h"
+#include "utils.h"
 
 struct AnimationFrame
 {
@@ -18,10 +19,10 @@ struct AnimationStructFieldC
     /* +0x02 */ u8 unk2[2];
     /* +0x04 */ s16 xOrigin;
     /* +0x06 */ s16 yOrigin;
-    /* +0x08 */ u8 * animFrameDataStartPtr;
-    /* +0x0C */ u8 * tileDataPtr;
-    /* +0x10 */ u8 * vramPtr;
-    /* +0x14 */ u8 * animGfxDataStartPtr;
+    /* +0x08 */ u8 *volatile animFrameDataStartPtr; // !! THESE 4 POINTERS ARE VOLATILE TO MATCH MoveAnimationTilesToRam AND THAT COULD BE INCORRECT
+    /* +0x0C */ u8 *volatile tileDataPtr;
+    /* +0x10 */ u8 *volatile vramPtr;
+    /* +0x14 */ u8 *volatile animGfxDataStartPtr;
     /* +0x18 */ u8 paletteSlot;
     /* +0x19 */ u8 spriteCount;
     /* +0x1A */ u8 priority;
@@ -140,6 +141,8 @@ struct AnimationStruct * PlayAnimation(u32 arg0);
 struct AnimationStruct * PlayAnimationAtCustomOrigin(u32 arg0, s32 xOrigin, s32 yOrigin);
 struct AnimationBackupStruct * RestoreAnimationsFromBuffer(struct AnimationBackupStruct * ewStruct2650); // ! does not return a value UB
 struct AnimationBackupStruct * SaveAnimationDataToBuffer(struct AnimationBackupStruct * ewStruct2650);
+
+u32 CheckRectCollisionWithAnim(struct Rect *);
 
 void OffsetAllAnimations(s32 xOffset, s32 yOffset);
 void StartAnimationBlend(u32 arg0, u32 arg1);
