@@ -43,7 +43,7 @@ void sub_800B7A8(struct InvestigationStruct * investigation, u32 arg1)
 void GameProcess04(struct Main * main)
 {
     if(main->process[GAME_PROCESS_STATE] != 5)
-        gUnknown_0811DD64[main->scenarioIdx](main);
+        gInvestigationRoomUpdateFunctions[main->scenarioIdx](main);
     gInvestigationProcessStates[main->process[GAME_PROCESS_STATE]](main, &gInvestigation);
     sub_800D3C8(&gInvestigation);
 }
@@ -88,7 +88,7 @@ void sub_800B808(struct Main * main, struct InvestigationStruct * investigation)
     investigation->unkF = 8;
     investigation->unkA = 0;
     investigation->unkB = 0;
-    gUnknown_0811DCDC[main->scenarioIdx](main);
+    gInvestigationSegmentSetupFunctions[main->scenarioIdx](main);
     bgId = main->roomData[main->currentRoomId][0];
     sub_8001830(bgId);
     sub_8001A9C(bgId);
@@ -106,7 +106,7 @@ void sub_800B808(struct Main * main, struct InvestigationStruct * investigation)
     gScriptContext.currentSection = 0xFFFF;
     ChangeScriptSection(0x80);
     sub_800244C(1);
-    gUnknown_0811DD20[main->scenarioIdx](main);
+    gInvestigationRoomSetupFunctions[main->scenarioIdx](main);
     sub_800D530(main, 0);
     SetCurrentEpisodeBit();
     SetTimedKeysAndDelay(DPAD_RIGHT | DPAD_LEFT, 15);
@@ -388,7 +388,7 @@ void sub_800BE7C(struct Main * main, struct InvestigationStruct * investigation)
     gInvestigation.unk5 = 0;
     sub_800B7A8(&gInvestigation, 0xF);
     
-    gUnknown_0811DD20[main->scenarioIdx](main);
+    gInvestigationRoomSetupFunctions[main->scenarioIdx](main);
     sub_800D530(main, 0);
     StartHardwareBlend(1, 1, 1, 0x1F);
     SET_PROCESS_PTR(4, 1, 0, 0, main);

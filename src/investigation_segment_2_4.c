@@ -7,176 +7,176 @@
 
 const struct Struct811DC98 gUnknown_08016ABC[22] = {
 	{
-		.unk0 = 0x6,
-		.unk1 = 0x40,
+		.roomId = 0x6,
+		.evidenceId = 0x40,
 		.unk2 = 0x4,
 		.unk3 = 0x0,
 		.unk4 = 0x89,
 		.unk6 = 0x8D,
 	},
 	{
-		.unk0 = 0x6,
-		.unk1 = 0x41,
+		.roomId = 0x6,
+		.evidenceId = 0x41,
 		.unk2 = 0x4,
 		.unk3 = 0x0,
 		.unk4 = 0x8A,
 		.unk6 = 0x8D,
 	},
 	{
-		.unk0 = 0x6,
-		.unk1 = 0x34,
+		.roomId = 0x6,
+		.evidenceId = 0x34,
 		.unk2 = 0x4,
 		.unk3 = 0x0,
 		.unk4 = 0x8B,
 		.unk6 = 0x8D,
 	},
 	{
-		.unk0 = 0x6,
-		.unk1 = 0x35,
+		.roomId = 0x6,
+		.evidenceId = 0x35,
 		.unk2 = 0x4,
 		.unk3 = 0x0,
 		.unk4 = 0x8B,
 		.unk6 = 0x8D,
 	},
 	{
-		.unk0 = 0x6,
-		.unk1 = 0x37,
+		.roomId = 0x6,
+		.evidenceId = 0x37,
 		.unk2 = 0x4,
 		.unk3 = 0x0,
 		.unk4 = 0x8C,
 		.unk6 = 0x8D,
 	},
 	{
-		.unk0 = 0x6,
-		.unk1 = 0x38,
+		.roomId = 0x6,
+		.evidenceId = 0x38,
 		.unk2 = 0x4,
 		.unk3 = 0x0,
 		.unk4 = 0x8C,
 		.unk6 = 0x8D,
 	},
 	{
-		.unk0 = 0x2,
-		.unk1 = 0x40,
+		.roomId = 0x2,
+		.evidenceId = 0x40,
 		.unk2 = 0x1B,
 		.unk3 = 0x0,
 		.unk4 = 0x94,
 		.unk6 = 0x97,
 	},
 	{
-		.unk0 = 0x2,
-		.unk1 = 0x37,
+		.roomId = 0x2,
+		.evidenceId = 0x37,
 		.unk2 = 0x1B,
 		.unk3 = 0x0,
 		.unk4 = 0x95,
 		.unk6 = 0x97,
 	},
 	{
-		.unk0 = 0x2,
-		.unk1 = 0x38,
+		.roomId = 0x2,
+		.evidenceId = 0x38,
 		.unk2 = 0x1B,
 		.unk3 = 0x0,
 		.unk4 = 0x95,
 		.unk6 = 0x97,
 	},
 	{
-		.unk0 = 0x2,
-		.unk1 = 0x34,
+		.roomId = 0x2,
+		.evidenceId = 0x34,
 		.unk2 = 0x1B,
 		.unk3 = 0x0,
 		.unk4 = 0x96,
 		.unk6 = 0x97,
 	},
 	{
-		.unk0 = 0x2,
-		.unk1 = 0x35,
+		.roomId = 0x2,
+		.evidenceId = 0x35,
 		.unk2 = 0x1B,
 		.unk3 = 0x0,
 		.unk4 = 0x96,
 		.unk6 = 0x97,
 	},
 	{
-		.unk0 = 0x7,
-		.unk1 = 0x34,
+		.roomId = 0x7,
+		.evidenceId = 0x34,
 		.unk2 = 0x11,
 		.unk3 = 0x0,
 		.unk4 = 0xA1,
 		.unk6 = 0xA2,
 	},
 	{
-		.unk0 = 0x7,
-		.unk1 = 0x35,
+		.roomId = 0x7,
+		.evidenceId = 0x35,
 		.unk2 = 0x11,
 		.unk3 = 0x0,
 		.unk4 = 0xA1,
 		.unk6 = 0xA2,
 	},
 	{
-		.unk0 = 0x7,
-		.unk1 = 0x44,
+		.roomId = 0x7,
+		.evidenceId = 0x44,
 		.unk2 = 0x11,
 		.unk3 = 0x0,
 		.unk4 = 0xB2,
 		.unk6 = 0xB3,
 	},
 	{
-		.unk0 = 0x8,
-		.unk1 = 0x43,
+		.roomId = 0x8,
+		.evidenceId = 0x43,
 		.unk2 = 0x14,
 		.unk3 = 0x0,
 		.unk4 = 0xC4,
 		.unk6 = 0xC5,
 	},
 	{
-		.unk0 = 0x8,
-		.unk1 = 0x42,
+		.roomId = 0x8,
+		.evidenceId = 0x42,
 		.unk2 = 0x14,
 		.unk3 = 0x0,
 		.unk4 = 0xC3,
 		.unk6 = 0xC5,
 	},
 	{
-		.unk0 = 0x9,
-		.unk1 = 0x34,
+		.roomId = 0x9,
+		.evidenceId = 0x34,
 		.unk2 = 0x10,
 		.unk3 = 0x0,
 		.unk4 = 0xDB,
 		.unk6 = 0xDE,
 	},
 	{
-		.unk0 = 0x9,
-		.unk1 = 0x35,
+		.roomId = 0x9,
+		.evidenceId = 0x35,
 		.unk2 = 0x10,
 		.unk3 = 0x0,
 		.unk4 = 0xDB,
 		.unk6 = 0xDE,
 	},
 	{
-		.unk0 = 0x9,
-		.unk1 = 0x43,
+		.roomId = 0x9,
+		.evidenceId = 0x43,
 		.unk2 = 0x10,
 		.unk3 = 0x0,
 		.unk4 = 0xDC,
 		.unk6 = 0xDE,
 	},
 	{
-		.unk0 = 0x9,
-		.unk1 = 0x40,
+		.roomId = 0x9,
+		.evidenceId = 0x40,
 		.unk2 = 0x10,
 		.unk3 = 0x0,
 		.unk4 = 0xDD,
 		.unk6 = 0xDE,
 	},
 	{
-		.unk0 = 0xC,
-		.unk1 = 0x44,
+		.roomId = 0xC,
+		.evidenceId = 0x44,
 		.unk2 = 0x18,
 		.unk3 = 0x0,
 		.unk4 = 0xF5,
 		.unk6 = 0xF6,
 	},
 	{
-		.unk0 = 0xFF,
-		.unk1 = 0xFF,
+		.roomId = 0xFF,
+		.evidenceId = 0xFF,
 		.unk2 = 0xFF,
 		.unk3 = 0xFF,
 		.unk4 = 0xFFFF,
@@ -186,7 +186,7 @@ const struct Struct811DC98 gUnknown_08016ABC[22] = {
 
 
 // talk data
-const struct TalkData gUnknown_08016B6C[13] = {
+const struct TalkData gTalkData_2_4[13] = {
 	{
 		.roomId = 0x6,
 		.personId = 0x4,
@@ -307,7 +307,7 @@ const struct TalkData gUnknown_08016B6C[13] = {
 };
 
 // room data
-const u8 gUnknown_08016C70[14][8] = {
+const u8 gRoomData_2_4[14][8] = {
 	{ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
 	{ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
 	{ 0x1E, 0xFF, 0xFF, 0xFF, 0x06, 0x07, 0xFF, 0xFF},
@@ -990,20 +990,20 @@ const struct ExaminationData gUnknown_080170DC[7] = {
 	},
 };
 
-void sub_80040A4(struct Main *main)
+void InvestigationSegmentSetup_2_4(struct Main *main)
 {
-    DmaCopy16(3, gUnknown_08016C70, gMain.roomData, sizeof(gUnknown_08016C70));
-    DmaCopy16(3, gUnknown_08016B6C, gTalkData, sizeof(gUnknown_08016B6C));
+    DmaCopy16(3, gRoomData_2_4, gMain.roomData, sizeof(gRoomData_2_4));
+    DmaCopy16(3, gTalkData_2_4, gTalkData, sizeof(gTalkData_2_4));
     main->currentRoomId = 6;
 }
 
-void sub_80040E8(struct Main *main)
+void InvestigationRoomSetup_2_4(struct Main *main)
 {
     DmaFill16(3, 0xFFFF, gExaminationData, sizeof(gExaminationData));
     switch(main->currentRoomId) {
         case 6: {
             if(GetFlag(0, 0xE0)) {
-                sub_8002C98(4, 0x510, 0x510);
+                InvestigationSetPersonAnimation(4, 0x510, 0x510);
                 PlayBGM(6);
             }
             LOADEXAMDATA(gUnknown_08016CE0);
@@ -1011,10 +1011,10 @@ void sub_80040E8(struct Main *main)
         }
         case 2: {
             if(!GetFlag(0, 0xE1)) {
-                sub_8002CCC(0x8E, 0xE1);
+                InvestigationSetScriptSectionAndFlag(0x8E, 0xE1);
             }
             else {
-                sub_8002C98(0x1B, 0, 0);
+                InvestigationSetPersonAnimation(0x1B, 0, 0);
                 PlayBGM(0);
             }
             LOADEXAMDATA(gUnknown_08016D44);
@@ -1023,18 +1023,18 @@ void sub_80040E8(struct Main *main)
         case 7: {
             if(GetFlag(2, 0x77)) {
                 if(!GetFlag(0, 0xEE)) {
-                    sub_8002CCC(0xA3, 0xEE);
+                    InvestigationSetScriptSectionAndFlag(0xA3, 0xEE);
                 }
                 else {
-                    sub_8002C98(0x11, 0, 0);
+                    InvestigationSetPersonAnimation(0x11, 0, 0);
                     PlayBGM(0xC);
                 }
             }
             else if(!GetFlag(0, 0xE2)) {
-                sub_8002CCC(0x98, 0xE2);
+                InvestigationSetScriptSectionAndFlag(0x98, 0xE2);
             }
             else {
-                sub_8002C98(0x11, 0, 0);
+                InvestigationSetPersonAnimation(0x11, 0, 0);
                 PlayBGM(0x19);
             }
             LOADEXAMDATA(gUnknown_08016D6C);
@@ -1043,11 +1043,11 @@ void sub_80040E8(struct Main *main)
         case 8: {
             if(GetFlag(0, 0xEF)) {
                 if(!GetFlag(0, 0xF0)) {
-                    sub_8002CCC(0xC6, 0xF0);
+                    InvestigationSetScriptSectionAndFlag(0xC6, 0xF0);
                 }
             }
             else if(!GetFlag(0, 0xE3)) {
-                sub_8002CCC(0xB4, 0xE3);
+                InvestigationSetScriptSectionAndFlag(0xB4, 0xE3);
             }
             else {
                 if(GetFlag(0, 0xE4)) {
@@ -1065,23 +1065,23 @@ void sub_80040E8(struct Main *main)
         case 9: {
             if(GetFlag(0, 0xEF)) {
                 if(!GetFlag(0, 0xF1)) {
-                    sub_8002CCC(0xDF, 0xF1);
+                    InvestigationSetScriptSectionAndFlag(0xDF, 0xF1);
                 }
                 LOADEXAMDATA(gUnknown_08016E98);
             }
             else if(GetFlag(0, 0xE9)) {
                 if(!GetFlag(0, 0xEA)) {
-                    sub_8002CCC(0xCA, 0xEA);
+                    InvestigationSetScriptSectionAndFlag(0xCA, 0xEA);
                 }
                 else {
-                    sub_8002C98(0x10, 0, 0);
+                    InvestigationSetPersonAnimation(0x10, 0, 0);
                     PlayBGM(0x19);
                 }
                 LOADEXAMDATA(gUnknown_08016F24);
             }
             else {
                 if(!GetFlag(0, 0xE5)) {
-                    sub_8002CCC(0xC7, 0xE5);
+                    InvestigationSetScriptSectionAndFlag(0xC7, 0xE5);
                 }
                 LOADEXAMDATA(gUnknown_08016E98);
             }
@@ -1089,7 +1089,7 @@ void sub_80040E8(struct Main *main)
         }
         case 10: {
             if(!GetFlag(0, 0xE6)) {
-                sub_8002CCC(0xE0, 0xE6);
+                InvestigationSetScriptSectionAndFlag(0xE0, 0xE6);
             }
             else {
                 PlayBGM(0x1F);
@@ -1099,11 +1099,11 @@ void sub_80040E8(struct Main *main)
         }
         case 12: {
             if(!GetFlag(0, 0xE7)) {
-                sub_8002CCC(0xE7, 0xE7);
+                InvestigationSetScriptSectionAndFlag(0xE7, 0xE7);
             }
             else {
                 if(!GetFlag(0, 0xF2)) {
-                    sub_8002C98(0x18, 0, 0);
+                    InvestigationSetPersonAnimation(0x18, 0, 0);
                 }
                 PlayBGM(0x1F);
             }
@@ -1112,10 +1112,10 @@ void sub_80040E8(struct Main *main)
         }
         case 13: {
             if(GetFlag(0, 0xF2)) {
-                sub_8002CCC(0xFF, 0xFF);
+                InvestigationSetScriptSectionAndFlag(0xFF, 0xFF);
             }
             else if(!GetFlag(0, 0xE8)) {
-                sub_8002CCC(0xF7, 0xE8);
+                InvestigationSetScriptSectionAndFlag(0xF7, 0xE8);
             }
             #ifndef NONMATCHING // !! This DmaCopy uses the wrong sizeof from the previous DmaCopy
                                 // !! due to a copy paste error over on capcom's side,
@@ -1129,7 +1129,7 @@ void sub_80040E8(struct Main *main)
     }
 }
 
-void sub_8004488(struct Main *main)
+void InvestigationRoomUpdate_2_4(struct Main *main)
 {
     if(main->currentRoomId == 2) {
         if(!GetFlag(0, 0xE9) && GetFlag(2, 0x6D) && GetFlag(2, 0x6E) && GetFlag(2, 0x6F)) {

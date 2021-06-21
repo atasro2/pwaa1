@@ -17,8 +17,8 @@ struct CourtRecord
     /* +0x0D */ u8 unkD;
     /* +0x0E */ u8 unkE;
     /* +0x0F */ u8 unkF;
-    /* +0x10 */ u8 unk10;
-    /* +0x11 */ u8 unk11;
+    /* +0x10 */ u8 evidenceCount;
+    /* +0x11 */ u8 profileCount;
     /* +0x12 */ u8 unk12;
     /* +0x13 */ u8 unk13;
     /* +0x14 */ u8 * unk14;

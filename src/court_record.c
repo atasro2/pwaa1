@@ -21,7 +21,7 @@ struct EvidenceProfileData
     /* +0x06 */ u16 unk6;
 };
 
-static const struct EvidenceProfileData gUnknown_08018A6C[] = {
+static const struct EvidenceProfileData gEvidenceProfileData[] = {
 	{
 		.descriptionTiles = gUnknown_08196CA8,
 		.evidenceImageId = 18,
@@ -591,22 +591,22 @@ void sub_800D77C(struct Main * main, struct CourtRecord * courtRecord)
 
     for(i = 0; i < 32; i++)
         courtRecord->profileList[i] |= 0xFF;
-    courtRecord->unk11 = 0;
+    courtRecord->profileCount = 0;
     for(i = 0; i < 32; i++)
         courtRecord->evidenceList[i] |= 0xFF;
-    courtRecord->unk10 = 0;
+    courtRecord->evidenceCount = 0;
     recordIds = gUnknown_0811DC10[main->scenarioIdx];
     for(i = 0; *recordIds != 0xFE; i++)
     {
         courtRecord->profileList[i] = *recordIds;
-        courtRecord->unk11++;
+        courtRecord->profileCount++;
         recordIds++;
     }
     recordIds++;
     for(i = 0; *recordIds != 0xFF; i++)
     {
         courtRecord->evidenceList[i] = *recordIds;
-        courtRecord->unk10++;
+        courtRecord->evidenceCount++;
         recordIds++;
     }
 }
@@ -665,7 +665,7 @@ void sub_800D880(struct Main * main, struct CourtRecord * courtRecord)
     courtRecord->unkC = 0;
     courtRecord->unkD = 0;
     courtRecord->unk12 = 0;
-    courtRecord->unkE = courtRecord->unk10;
+    courtRecord->unkE = courtRecord->evidenceCount;
     courtRecord->unk14 = courtRecord->evidenceList;
     sub_800E914();
     sub_800EA80(courtRecord->unk14[courtRecord->unkD]);
@@ -685,7 +685,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
     if(joypad->pressedKeys & L_BUTTON)
     {
         u32 evidenceId = courtRecord->unk14[courtRecord->unkD];
-        if(gUnknown_08018A6C[evidenceId].unk6)
+        if(gEvidenceProfileData[evidenceId].unk6)
         {
             PauseBGM();
             PlaySE(0x2B);
@@ -1016,14 +1016,14 @@ void sub_800DE8C(struct Main * main, struct CourtRecord * courtRecord)
         {
             courtRecord->unkC &= ~1;
             DmaCopy16(3, gUnknown_081906C0, OBJ_VRAM0+0x3500, TILE_SIZE_4BPP*16);
-            courtRecord->unkE = courtRecord->unk10;
+            courtRecord->unkE = courtRecord->evidenceCount;
             courtRecord->unk14 = courtRecord->evidenceList;
         }
         else
         {
             courtRecord->unkC |= 1;
             DmaCopy16(3, gUnknown_081908C0, OBJ_VRAM0+0x3500, 0x200);
-            courtRecord->unkE = courtRecord->unk11;
+            courtRecord->unkE = courtRecord->profileCount;
             courtRecord->unk14 = courtRecord->profileList;
         }
 
@@ -1053,7 +1053,7 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
             courtRecord->unk13 = 0;
             evidenceId = courtRecord->unk14[courtRecord->unkD];
             DmaCopy16(3, &gMain, &gSaveDataBuffer.main, sizeof(struct Main));
-            switch(gUnknown_08018A6C[evidenceId].unk6)
+            switch(gEvidenceProfileData[evidenceId].unk6)
             {
                 case 0:
                     break;
@@ -1159,7 +1159,7 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
             else if(gJoypad.pressedKeys & (DPAD_DOWN | A_BUTTON))
             {
                 evidenceId = courtRecord->unk14[courtRecord->unkD];
-                if(gUnknown_08018A6C[evidenceId].unk6 == 9 || gUnknown_08018A6C[evidenceId].unk6 == 2)
+                if(gEvidenceProfileData[evidenceId].unk6 == 9 || gEvidenceProfileData[evidenceId].unk6 == 2)
                 {
                     PlaySE(0x2B);
                     courtRecord->unk13++;
@@ -1233,7 +1233,7 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
             if(main->blendMode != 0)
                 break;
             evidenceId = courtRecord->unk14[courtRecord->unkD];
-            if(gUnknown_08018A6C[evidenceId].unk6 == 2)
+            if(gEvidenceProfileData[evidenceId].unk6 == 2)
             {
                 switch(courtRecord->unk13)
                 {
@@ -1298,7 +1298,7 @@ void sub_800E4A4(struct Main * main, struct CourtRecord * courtRecord)
                 PlaySE(0x37);
                 gTestimony.unk1 = 6;
                 evidenceId = courtRecord->unk14[courtRecord->unkD];
-                offset = gUnknown_08018A6C[evidenceId].evidenceImageId * (TILE_SIZE_4BPP * 64 + 0x20);
+                offset = gEvidenceProfileData[evidenceId].evidenceImageId * (TILE_SIZE_4BPP * 64 + 0x20);
                 temp = (uintptr_t)gUnknown_081B290C + offset; //! Evil, uses a u32 for this pointer keep in mind and also global define
                 DmaCopy16(3, temp, OBJ_PLTT+0x20, 0x20);
                 temp = (uintptr_t)gUnknown_081B290C + offset + 0x20;
@@ -1526,12 +1526,12 @@ void sub_800EA80(u32 evidenceId)
     u32 offset;
     u8 * src;
 
-    offset = gUnknown_08018A6C[evidenceId].evidenceImageId * (TILE_SIZE_4BPP * 64 + 0x20);
+    offset = gEvidenceProfileData[evidenceId].evidenceImageId * (TILE_SIZE_4BPP * 64 + 0x20);
     src = gUnknown_081B290C + offset;
     DmaCopy16(3, src, OBJ_PLTT+0x20, 0x20);
     src = gUnknown_081B290C + offset + 0x20;
     DmaCopy16(3, src, OBJ_VRAM0+0x5000, TILE_SIZE_4BPP * 64);
-    src = gUnknown_08018A6C[evidenceId].descriptionTiles;
+    src = gEvidenceProfileData[evidenceId].descriptionTiles;
     LZ77UnCompWram(src, eUnknown_0200AFC0);
     DmaCopy16(3, eUnknown_0200AFC0, (void *)OBJ_VRAM0+0x3C00, TILE_SIZE_4BPP * 160);
 }
@@ -1686,12 +1686,12 @@ s32 FindEvidenceInCourtRecord(u32 isProfile, u32 evidenceId)
     if(isProfile)
     {
         list = gCourtRecord.profileList;
-        evidenceCount = gCourtRecord.unk11;
+        evidenceCount = gCourtRecord.profileCount;
     }
     else
     {
         list = gCourtRecord.evidenceList;
-        evidenceCount = gCourtRecord.unk10;
+        evidenceCount = gCourtRecord.evidenceCount;
     }
     for(i = 0; i < evidenceCount; i++, list++)
     {
@@ -1722,24 +1722,24 @@ void SortCourtRecordAndSyncListCount(struct CourtRecord * courtRecord)
 
     DmaCopy16(3, courtRecord->profileList, ewram, 0x20);
     DmaFill16(3, 0xFFFF, courtRecord->profileList, 0x20);
-    courtRecord->unk11 = 0;
+    courtRecord->profileCount = 0;
     for(i = 0; i < 0x20; i++)
     {
         if(ewram[i] != 0xFF)
         {
-            courtRecord->profileList[courtRecord->unk11] = ewram[i];
-            courtRecord->unk11++;
+            courtRecord->profileList[courtRecord->profileCount] = ewram[i];
+            courtRecord->profileCount++;
         }
     }
     DmaCopy16(3, courtRecord->evidenceList, ewram, 0x20);
     DmaFill16(3, 0xFFFF, courtRecord->evidenceList, 0x20);
-    courtRecord->unk10 = 0;
+    courtRecord->evidenceCount = 0;
     for(i = 0; i < 0x20; i++)
     {
         if(ewram[i] != 0xFF)
         {
-            courtRecord->evidenceList[courtRecord->unk10] = ewram[i];
-            courtRecord->unk10++;
+            courtRecord->evidenceList[courtRecord->evidenceCount] = ewram[i];
+            courtRecord->evidenceCount++;
         }
     }
 }
@@ -1748,14 +1748,14 @@ u32 sub_800EE20(u32 section, u32 evidenceId)
 {
     const struct Struct811DC54 * struct811DC54p;
     struct811DC54p = gUnknown_0811DC54[gMain.scenarioIdx];
-    for(; struct811DC54p->unk0 != 0xFFFF; struct811DC54p++)
+    for(; struct811DC54p->scriptSection != 0xFFFF; struct811DC54p++)
     {
-        if(struct811DC54p->unk6 != 0xFF)
+        if(struct811DC54p->flagId != 0xFF)
         {
-            if(!GetFlag(0, struct811DC54p->unk6))
+            if(!GetFlag(0, struct811DC54p->flagId))
                 continue;
         }
-        if(struct811DC54p->unk0 == section && struct811DC54p->unk2 == evidenceId)
+        if(struct811DC54p->scriptSection == section && struct811DC54p->evidenceId == evidenceId)
         {
             if(struct811DC54p->unk7)
                 gScriptContext.unk33 = 0;
@@ -1779,10 +1779,10 @@ u32 sub_800EEA4(struct Main * main, u32 evidenceId)
     {
         if(gAnimation[1].unkC.unk2[0] == struct811DC98p->unk2)
         {
-            if(main->currentRoomId == struct811DC98p->unk0)
+            if(main->currentRoomId == struct811DC98p->roomId)
             {
                 retVal = struct811DC98p->unk6;
-                if(evidenceId == struct811DC98p->unk1)
+                if(evidenceId == struct811DC98p->evidenceId)
                     return struct811DC98p->unk4;
             }
         }
@@ -1881,7 +1881,7 @@ void sub_800F0E0(struct Main * main)
     u32 offset;
     u8 * src;
 
-    offset = gUnknown_08018A6C[main->unk7C].evidenceImageId * (TILE_SIZE_4BPP * 64 + 0x20);
+    offset = gEvidenceProfileData[main->unk7C].evidenceImageId * (TILE_SIZE_4BPP * 64 + 0x20);
     src = gUnknown_081B290C + offset;
     DmaCopy16(3, src, OBJ_PLTT+0x20, 0x20);
     src = gUnknown_081B290C + offset + 0x20;
