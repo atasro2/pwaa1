@@ -62,8 +62,6 @@ SECTIONS {
         src/court.o(.text);
         /* tantei.c */
         src/investigation.o(.text);
-        asm/investigation.o(.text);
-        src/investigation_2.o(.text);
         /* status.c */
         src/court_record.o(.text);
         /* sound.o */

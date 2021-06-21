@@ -197,7 +197,7 @@ bool32 Command4A(struct ScriptContext *scriptCtx)
     scriptCtx->scriptPtr++;
     if(*scriptCtx->scriptPtr) 
     {
-        if(gMain.process[GAME_SUBPROCESS] == 8) 
+        if(gMain.process[GAME_PROCESS_STATE] == 8) 
         {
             scriptCtx->scriptPtr++;
             return 0;
@@ -205,7 +205,7 @@ bool32 Command4A(struct ScriptContext *scriptCtx)
     }
     else 
     {
-        if(gMain.process[GAME_SUBPROCESS] == 6) 
+        if(gMain.process[GAME_PROCESS_STATE] == 6) 
         {
             scriptCtx->scriptPtr++;
             return 0;

@@ -170,7 +170,7 @@ void InitScriptSection(struct ScriptContext *scriptCtx)
     }
     scriptCtx->textX = 0;
     scriptCtx->textY = 0;
-    if (gMain.process[GAME_PROCESS] != 4 || gMain.process[GAME_SUBPROCESS] != 8)
+    if (gMain.process[GAME_PROCESS] != 4 || gMain.process[GAME_PROCESS_STATE] != 8)
         scriptCtx->unk13 = 0;
     scriptCtx->unk15 = 0;
     scriptCtx->unk14 = 8;

@@ -24,7 +24,7 @@ void GameOverScreenProcess(struct Main *main)
     struct OamAttrs * oam = &gOamObjects[49]; // r3 
     u32 i, j;
     u32 temp;
-    switch (main->process[GAME_SUBPROCESS])
+    switch (main->process[GAME_PROCESS_STATE])
     {
     case 0:
         oam->attr0 = SPRITE_ATTR0(48, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
@@ -47,7 +47,7 @@ void GameOverScreenProcess(struct Main *main)
         ioRegsp->lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
         ioRegsp->lcd_dispcnt = DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG0_ON | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON;
         main->tilemapUpdateBits = 13;
-        main->process[GAME_SUBPROCESS]++;
+        main->process[GAME_PROCESS_STATE]++;
         main->process[GAME_PROCESSUNK2] = 0;
         break;
     case 1:
@@ -89,7 +89,7 @@ void GameOverScreenProcess(struct Main *main)
         else
         {
             PlaySE(0x56);
-            main->process[GAME_SUBPROCESS]++;
+            main->process[GAME_PROCESS_STATE]++;
             main->process[GAME_PROCESSUNK2] = 0;
         }
         break;
@@ -97,7 +97,7 @@ void GameOverScreenProcess(struct Main *main)
         if(main->process[GAME_PROCESSUNK2] >= 120) // 2 seconds?
         {
             StartHardwareBlend(2, 3, 1, 0x1F);
-            main->process[GAME_SUBPROCESS]++;
+            main->process[GAME_PROCESS_STATE]++;
         }
         else
         {

@@ -582,7 +582,7 @@ bool32 Command28(struct ScriptContext * scriptCtx)
     }
     else
     {
-        gMain.process[GAME_SUBPROCESS]++;
+        gMain.process[GAME_PROCESS_STATE]++;
     }
     scriptCtx->scriptPtr++;
     return 0;

@@ -12,7 +12,7 @@ void sub_8008DF4(struct Main * main)
     main->advanceScriptContext = FALSE;
     main->showTextboxCharacters = FALSE;
     StartHardwareBlend(2, 0, 1, 0x1F);
-    main->process[GAME_SUBPROCESS]++;
+    main->process[GAME_PROCESS_STATE]++;
 }
 
 void sub_8008E18(struct Main * main)
@@ -49,7 +49,7 @@ void sub_8008E18(struct Main * main)
     main->unk86 = 0;
     PlaySE(0x31);
     StartHardwareBlend(1, 0, 1, 0x1F);
-    main->process[GAME_SUBPROCESS]++;
+    main->process[GAME_PROCESS_STATE]++;
 }
 
 void sub_8008F68(struct Main * main)
@@ -77,7 +77,7 @@ void sub_8008F68(struct Main * main)
         oam->attr1 = SPRITE_ATTR1_AFFINE(8, 0, 3);
         oam++;
         oam->attr1 = SPRITE_ATTR1_AFFINE(72, 0, 3);
-        main->process[GAME_SUBPROCESS]++;
+        main->process[GAME_PROCESS_STATE]++;
     }
 }
 
@@ -106,7 +106,7 @@ void sub_8008FE8(struct Main * main)
         oam->attr1 = SPRITE_ATTR1_AFFINE(40, 0, 3);
         oam++;
         oam->attr1 = SPRITE_ATTR1_AFFINE(104, 0, 3);
-        main->process[GAME_SUBPROCESS]++;
+        main->process[GAME_PROCESS_STATE]++;
     }
 }
 
@@ -135,7 +135,7 @@ void sub_8009068(struct Main * main)
         oam->attr1 = SPRITE_ATTR1_AFFINE(72, 0, 3);
         oam++;
         oam->attr1 = SPRITE_ATTR1_AFFINE(136, 0, 3);
-        main->process[GAME_SUBPROCESS]++;
+        main->process[GAME_PROCESS_STATE]++;
     }
 }
 
@@ -144,7 +144,7 @@ void EpisodeClearedProcess(struct Main * main)
     struct OamAttrs * oam;
     u32 i, j;
     u32 temp;
-    switch(main->process[GAME_SUBPROCESS])
+    switch(main->process[GAME_PROCESS_STATE])
     {
         case 0:
             sub_8008DF4(main);
@@ -198,7 +198,7 @@ void EpisodeClearedProcess(struct Main * main)
                 oam->attr1 = SPRITE_ATTR1_AFFINE(168, 0, 3);
                 main->unk8E |= 1 << main->process[GAME_PROCESSUNK3];
                 main->unk84 = 0x100;
-                main->process[GAME_SUBPROCESS]++;
+                main->process[GAME_PROCESS_STATE]++;
             }
             break;
         case 6:
@@ -230,7 +230,7 @@ void EpisodeClearedProcess(struct Main * main)
                     oam++;
                 }
             }
-            main->process[GAME_SUBPROCESS]++;
+            main->process[GAME_PROCESS_STATE]++;
             break;
         case 7:
             oam = &gOamObjects[38];
@@ -247,7 +247,7 @@ void EpisodeClearedProcess(struct Main * main)
                     oam->attr0 = SPRITE_ATTR0(main->process[GAME_PROCESSUNK3]*32, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, 1);
                     oam++;
                 }
-                main->process[GAME_SUBPROCESS]++;
+                main->process[GAME_PROCESS_STATE]++;
             }
             else
             {
@@ -291,7 +291,7 @@ void SelectEpisodeProcess(struct Main * main)
     u32 i, j;
     u32 temp;
     bool32 buttonEnabled;
-    switch(main->process[GAME_SUBPROCESS])
+    switch(main->process[GAME_PROCESS_STATE])
     {
         case 0: // _0800953C
             sub_8008DF4(main);
@@ -354,7 +354,7 @@ void SelectEpisodeProcess(struct Main * main)
                 gScriptContext.currentSection = 0xFFFF;
                 ChangeScriptSection(2);
                 SetTimedKeysAndDelay(DPAD_UP | DPAD_DOWN, 20);
-                main->process[GAME_SUBPROCESS]++;
+                main->process[GAME_PROCESS_STATE]++;
             }
             break;
         case 6: // _08009688
@@ -404,7 +404,7 @@ void SelectEpisodeProcess(struct Main * main)
                     main->showTextboxCharacters = FALSE;
                     gIORegisters.lcd_dispcnt &= ~DISPCNT_BG1_ON;
                     main->tilemapUpdateBits &= ~2;
-                    main->process[GAME_SUBPROCESS]++;
+                    main->process[GAME_PROCESS_STATE]++;
                     main->process[GAME_PROCESSUNK3] = 0;
                     main->process[GAME_PROCESSUNK2] = 0;
                 }
@@ -412,7 +412,7 @@ void SelectEpisodeProcess(struct Main * main)
                 {
                     PlaySE(0x2C);
                     StartHardwareBlend(2, 0, 1, 0x1F);
-                    main->process[GAME_SUBPROCESS] = 12;
+                    main->process[GAME_PROCESS_STATE] = 12;
                 }
             }
             oam = &gOamObjects[38];
@@ -449,7 +449,7 @@ void SelectEpisodeProcess(struct Main * main)
             if(main->process[GAME_PROCESSUNK2] > 0x28)
             {
                 main->unk86 = 0;
-                main->process[GAME_SUBPROCESS]++;
+                main->process[GAME_PROCESS_STATE]++;
                 main->process[GAME_PROCESSUNK3] = 0;   
                 main->process[GAME_PROCESSUNK2] = 0;
             }
@@ -508,7 +508,7 @@ void SelectEpisodeProcess(struct Main * main)
                         oam->attr0 &= ~0xFF;
                         if((temp < 56 && (temp += 4) >= 56) || (temp > 56 && (temp -= 4) <= 56))
                          {
-                            main->process[GAME_SUBPROCESS] = 9;
+                            main->process[GAME_PROCESS_STATE] = 9;
                             main->process[GAME_PROCESSUNK3] = 0;
                             main->process[GAME_PROCESSUNK2] = 0;
                             temp = 56;
@@ -527,7 +527,7 @@ void SelectEpisodeProcess(struct Main * main)
             main->process[GAME_PROCESSUNK2]++;
             if(main->process[GAME_PROCESSUNK2] > 20)
             {
-                main->process[GAME_SUBPROCESS] = 10;
+                main->process[GAME_PROCESS_STATE] = 10;
                 main->process[GAME_PROCESSUNK3] = 0;
                 main->process[GAME_PROCESSUNK2] = 0;
             }
@@ -537,7 +537,7 @@ void SelectEpisodeProcess(struct Main * main)
             if(main->process[GAME_PROCESSUNK2] > 50)
             {
                 StartHardwareBlend(2, 4, 1, 0x1F);
-                main->process[GAME_SUBPROCESS]++;
+                main->process[GAME_PROCESS_STATE]++;
                 main->process[GAME_PROCESSUNK3] = 0;
             }
             else
@@ -877,7 +877,7 @@ void ContinueSaveProcess(struct Main * main) {
                     ++oam;
                 }
             }
-            if(main->process[GAME_SUBPROCESS] == 7 && main->blendDeltaY < 0x10) {
+            if(main->process[GAME_PROCESS_STATE] == 7 && main->blendDeltaY < 0x10) {
                     ++main->blendCounter;
                     if (main->blendCounter >= main->blendDelay) {
                         // 9D72

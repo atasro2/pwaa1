@@ -10,7 +10,7 @@
 void CapcomLogoProcess(struct Main *main)
 {
     struct IORegisters *ioRegsp = &gIORegisters;
-    switch (main->process[GAME_SUBPROCESS])
+    switch (main->process[GAME_PROCESS_STATE])
     {
     case 0:
         ioRegsp->lcd_bg0cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(28) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
@@ -23,7 +23,7 @@ void CapcomLogoProcess(struct Main *main)
         ioRegsp->lcd_bldy = 0x10;
         StartHardwareBlend(1, 1, 1, 0x1F);
         main->tilemapUpdateBits = 8;
-        main->process[GAME_SUBPROCESS]++;
+        main->process[GAME_PROCESS_STATE]++;
         main->process[GAME_PROCESSUNK3] = 120; // 2 second timer for showing Capcom logo
         break;
     case 1:
@@ -36,7 +36,7 @@ void CapcomLogoProcess(struct Main *main)
             }
             StartHardwareBlend(2, 1, 1, 0x1F);
             main->tilemapUpdateBits = 0;
-            main->process[GAME_SUBPROCESS]++;
+            main->process[GAME_PROCESS_STATE]++;
         }
         break;
     case 2:
@@ -55,12 +55,12 @@ void TitleScreenProcess(struct Main *main)
     u32 temp;
     struct IORegisters *ioRegsp = &gIORegisters;
     struct OamAttrs * oam;
-    switch (main->process[GAME_SUBPROCESS])
+    switch (main->process[GAME_PROCESS_STATE])
     {
     case 0:
         ResetGameState();
         LoadSaveData();
-        SET_PROCESS_PTR(1, 1, 0, 0, main); // ? main->process[GAME_SUBPROCESS]++; hello?
+        SET_PROCESS_PTR(1, 1, 0, 0, main); // ? main->process[GAME_PROCESS_STATE]++; hello?
         break;
     case 1:
         DmaCopy16(3, gUnusedAsciiCharSet, VRAM + 0x3800, 0x800);
@@ -95,14 +95,14 @@ void TitleScreenProcess(struct Main *main)
         main->unk19C |= 4;
         main->tilemapUpdateBits = 9;
         StartHardwareBlend(1, 1, 1, 0x1F);
-        SET_PROCESS_PTR(1, 2, 0, 0, main); // ? main->process[GAME_SUBPROCESS]++; hello?
+        SET_PROCESS_PTR(1, 2, 0, 0, main); // ? main->process[GAME_PROCESS_STATE]++; hello?
         break;
     case 2:
         if(gJoypad.pressedKeys & (A_BUTTON | START_BUTTON))
         {
             PlaySE(0x3A);
             gScriptContext.unk2A = 0;
-            SET_PROCESS_PTR(1, 3, 0, 0, main); // ? main->process[GAME_SUBPROCESS]++; hello?
+            SET_PROCESS_PTR(1, 3, 0, 0, main); // ? main->process[GAME_PROCESS_STATE]++; hello?
         }
         else if(main->unk17 & 0xF0 && gJoypad.pressedKeys & (DPAD_DOWN | DPAD_UP))
         {

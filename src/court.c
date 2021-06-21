@@ -9,7 +9,7 @@
 #include "constants/script.h"
 #include "constants/animation.h"
 
-void (*gProcess3SubProcesses[])(struct Main *) = {
+void (*gProcess3ProcessStates[])(struct Main *) = {
 	sub_800A3EC,
 	sub_800A5B0,
 	sub_800A6AC
@@ -50,7 +50,7 @@ void SetCurrentEpisodeBit()
 
 void GameProcess03(struct Main * main)
 {
-    gProcess3SubProcesses[main->process[GAME_SUBPROCESS]](main);
+    gProcess3ProcessStates[main->process[GAME_PROCESS_STATE]](main);
 }
 
 void sub_800A3EC(struct Main * main)
@@ -93,7 +93,7 @@ void sub_800A3EC(struct Main * main)
     SetTimedKeysAndDelay(DPAD_RIGHT | DPAD_LEFT, 15);
     StartHardwareBlend(1, 1, 1, 0x1F);
     ioRegs->lcd_bldy = 0x10;
-    SET_PROCESS(3, 1, 0, 0); // please increase the subprocess instead thank you :^)
+    SET_PROCESS(3, 1, 0, 0); // please increase the  instead thank you :^)
 }
 
 void sub_800A5B0(struct Main * main)
@@ -150,7 +150,7 @@ void sub_800A6AC(struct Main * main)
     }
 }
 
-void (*gProcess5SubProcesses[])(struct Main *) = {
+void (*gProcess5ProcessStates[])(struct Main *) = {
 	sub_800A894,
 	sub_800A8E0,
 	sub_800A9FC,
@@ -215,7 +215,7 @@ void sub_800A730(struct Main * main)
             {
                 DestroyAnimation(animation);
                 DestroyAnimation(animation2);
-                main->process[GAME_SUBPROCESS] = 1;
+                main->process[GAME_PROCESS_STATE] = 1;
             }
         default:
             break;
@@ -224,7 +224,7 @@ void sub_800A730(struct Main * main)
 
 void GameProcess05(struct Main * main)
 {
-    gProcess5SubProcesses[main->process[GAME_SUBPROCESS]](main);
+    gProcess5ProcessStates[main->process[GAME_PROCESS_STATE]](main);
 }
 
 void sub_800A894(struct Main * main)
@@ -232,7 +232,7 @@ void sub_800A894(struct Main * main)
     DmaCopy16(3, gUnknown_0818F8C0, OBJ_VRAM0+0x3000, 0x800);
     DmaCopy16(3, gUnknown_08194280, OBJ_PLTT+0xA0, 0x20);
     gTestimony.unk1 = 0;
-    main->process[GAME_SUBPROCESS] = 3;
+    main->process[GAME_PROCESS_STATE] = 3;
 }
 
 void sub_800A8E0(struct Main * main)
@@ -281,7 +281,7 @@ void sub_800A9FC(struct Main * main)
     SET_PROCESS_PTR(3, 1, 0, 0, main);
 }
 
-void (*gProcess6SubProcesses[])(struct Main *) = {
+void (*gProcess6ProcessStates[])(struct Main *) = {
 	sub_800AB58,
 	sub_800AC1C,
 	nullsub_32,
@@ -345,7 +345,7 @@ void sub_800AA10(struct Main * main)
             {
                 DestroyAnimation(animation);
                 DestroyAnimation(animation2);
-                main->process[GAME_SUBPROCESS] = 1;
+                main->process[GAME_PROCESS_STATE] = 1;
                 main->process[GAME_PROCESSUNK2] = 0;
             }
         default:
@@ -355,7 +355,7 @@ void sub_800AA10(struct Main * main)
 
 void GameProcess06(struct Main * main)
 {
-    gProcess6SubProcesses[main->process[GAME_SUBPROCESS]](main);
+    gProcess6ProcessStates[main->process[GAME_PROCESS_STATE]](main);
 }
 
 void sub_800AB58(struct Main * main)
@@ -373,7 +373,7 @@ void sub_800AB58(struct Main * main)
     gTestimony.unk2 = 0xE0;
     gTestimony.unk3 = 0xE0;
     gTestimony.unk0 = 0;
-    main->process[GAME_SUBPROCESS] = 3;
+    main->process[GAME_PROCESS_STATE] = 3;
 }
 
 void sub_800AC1C(struct Main * main)
@@ -430,7 +430,7 @@ void sub_800AC1C(struct Main * main)
                 main->advanceScriptContext = FALSE;
                 main->showTextboxCharacters = FALSE;
                 sub_80028B4(0, 0);
-                main->process[GAME_SUBPROCESS] = 4;
+                main->process[GAME_PROCESS_STATE] = 4;
                 main->process[GAME_PROCESSUNK2] = 0;
                 return;
             }
@@ -518,7 +518,7 @@ void sub_800AE58(struct Main * main)
             gTestimony.unk2 = 0xE0;
             gTestimony.unk3 = 0xE0;
             gTestimony.unk0 = 0;
-            main->process[GAME_SUBPROCESS] = 1;
+            main->process[GAME_PROCESS_STATE] = 1;
             main->process[GAME_PROCESSUNK2] = 0;
             break;
         default:
@@ -593,7 +593,7 @@ void GameProcess09(struct Main * main)
     s16 temp;
     u32 temp2;
     struct OamAttrs *oam = &gOamObjects[49];
-    switch(main->process[GAME_SUBPROCESS]) {
+    switch(main->process[GAME_PROCESS_STATE]) {
         case 0: { // B088
             gMain.unk84 -= 0x10;
             if(gMain.unk84 <= 0x100) 
@@ -605,7 +605,7 @@ void GameProcess09(struct Main * main)
                 gOamObjects[3].attr3 = fix_mul(_Cos(0), temp);
                 StartHardwareBlend(3, 1, 4, 0x1F);
                 PlaySE(0x56);
-                main->process[GAME_SUBPROCESS]++;
+                main->process[GAME_PROCESS_STATE]++;
                 main->process[GAME_PROCESSUNK2] = 0;
             }
             else {
@@ -629,7 +629,7 @@ void GameProcess09(struct Main * main)
                 gOamObjects[5].attr3 = fix_mul(_Sin(0), temp);
                 gOamObjects[6].attr3 = fix_mul(-_Sin(0), temp);
                 gOamObjects[7].attr3 = fix_mul(_Cos(0), temp);
-                main->process[GAME_SUBPROCESS]++;
+                main->process[GAME_PROCESS_STATE]++;
             }
             break;
         }
@@ -644,7 +644,7 @@ void GameProcess09(struct Main * main)
                 StartHardwareBlend(3, 1, 4, 0x1F);
                 PlaySE(0x56);
                 gMain.unk84 = 0x100;
-                main->process[GAME_SUBPROCESS]++;
+                main->process[GAME_PROCESS_STATE]++;
                 main->process[GAME_PROCESSUNK2] = 0;
             }
             else {
@@ -658,7 +658,7 @@ void GameProcess09(struct Main * main)
         }
         case 3: { // B2E4
             if(main->process[GAME_PROCESSUNK2]++ > 64) {
-                main->process[GAME_SUBPROCESS]++;
+                main->process[GAME_PROCESS_STATE]++;
                 main->process[GAME_PROCESSUNK2] = 0;
             }
             break;
@@ -669,7 +669,7 @@ void GameProcess09(struct Main * main)
                 oam++;
                 oam->attr0 = SPRITE_ATTR0_CLEAR;
                 if(main->process[GAME_PROCESSUNK3]) {
-                    main->process[GAME_SUBPROCESS]++;
+                    main->process[GAME_PROCESS_STATE]++;
                     main->process[GAME_PROCESSUNK2] = 0;
                     break;
                 }
@@ -695,7 +695,7 @@ void GameProcess09(struct Main * main)
         case 5: { // B3C8
             DmaCopy16(3, gUnknown_081940A0, OBJ_VRAM0+0x1F80, 0x20);
             DmaCopy16(3, gUnknown_08194640, OBJ_PLTT+0xA0, 0x80);
-            main->process[GAME_SUBPROCESS]++;
+            main->process[GAME_PROCESS_STATE]++;
             break;
         }
         case 6: { // B404
@@ -716,7 +716,7 @@ void GameProcess09(struct Main * main)
                 oam++;
             }
             PlaySE(0x66);
-            main->process[GAME_SUBPROCESS]++;
+            main->process[GAME_PROCESS_STATE]++;
             break;
         }
         case 7: { // B460
@@ -751,7 +751,7 @@ void GameProcess09(struct Main * main)
                     oam->attr0 = SPRITE_ATTR0_CLEAR;
                     oam++;
                 }
-                main->process[GAME_SUBPROCESS]++;
+                main->process[GAME_PROCESS_STATE]++;
             }
             break;
         }
