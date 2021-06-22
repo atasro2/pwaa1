@@ -67,13 +67,13 @@ void sub_800B808(struct Main * main, struct InvestigationStruct * investigation)
     ioRegs->lcd_bg3cnt = BGCNT_PRIORITY(3) | BGCNT_CHARBASE(1) | BGCNT_SCREENBASE(31) | BGCNT_MOSAIC | BGCNT_256COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
     DmaCopy16(3, gUnusedAsciiCharSet, VRAM + 0x3800, 0x800);
     DmaCopy16(3, gUnknown_08186540, VRAM, 0x1000);
-    DmaCopy16(3, gUnknown_0818E4C0, OBJ_VRAM0 + 0x2000, 0x1000);
+    DmaCopy16(3, gGfx4bppInvestigationActions, OBJ_VRAM0 + 0x2000, 0x1000);
     DmaCopy16(3, gUnknown_08194200, OBJ_PLTT+0xA0, 0x40);
-    DmaCopy16(3, gUnknown_0818F6C0, OBJ_VRAM0 + 0x3000, 0x200);
+    DmaCopy16(3, gGfx4bppInvestigationScrollButton, OBJ_VRAM0 + 0x3000, 0x200);
     DmaCopy16(3, gUnknown_08194260, OBJ_PLTT+0xE0, 0x20);
     DmaCopy16(3, gUnknown_08190AC0, OBJ_VRAM0 + 0x3200, 0x200);
     DmaCopy16(3, gUnknown_081942C0, OBJ_PLTT+0x100, 0x20);
-    DmaCopy16(3, gUnknown_081FD92C, OBJ_PLTT+0x120, 0x40);
+    DmaCopy16(3, gGfxPalChoiceSelected, OBJ_PLTT+0x120, 0x40);
     oam = &gOamObjects[49];
     for(i = 0; i < 4; i++)
     {

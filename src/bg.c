@@ -598,7 +598,7 @@ void sub_80028B4(u32 arg0, u32 arg1)
     j = (arg0 % 5);
     i *= 0x800;
     j *= 0xC0;
-    tiles = gUnknown_08187540 + j + i;
+    tiles = gGfx4bppNametags + j + i;
     DmaCopy16(3, tiles, VRAM+0xA80, 0xC0);
     DmaCopy16(3, tiles+0x400, VRAM+0xB40, 0xC0);
     if(arg1)

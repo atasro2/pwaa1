@@ -121,13 +121,13 @@ bool32 Command46(struct ScriptContext * scriptCtx)
     if(*scriptCtx->scriptPtr) 
     {
         gMain.horizontolBGScrollSpeed = -0xE;
-        r6 = gUnknown_08362524;
+        r6 = gGfx_BG065;
         r3 = (u16 *)gUnknown_08362544;
     }
     else 
     {
         gMain.horizontolBGScrollSpeed = 0xE;
-        r6 = gUnknown_08360834;
+        r6 = gGfx_BG064;
         r3 = (u16 *)gUnknown_08360854;
     }
     for(i = 0; i < 20; i++) 

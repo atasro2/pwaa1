@@ -3,451 +3,451 @@
 const struct Background gBackgroundTable[] =
 {
 	{
-		.bgData = gUnknown_08248C4C,
+		.bgData = gGfx_BG000,
 		.controlBits = BG_MODE_SIZE_480x160 | BG_MODE_HSCROLL_RIGHT | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_0825280C,
+		.bgData = gGfx_BG001,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_08257F28,
+		.bgData = gGfx_BG002,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_0825CCCC,
+		.bgData = gGfx_BG003,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_0825EF64,
+		.bgData = gGfx_BG004,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_082610F0,
+		.bgData = gGfx_BG005,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_08263898,
+		.bgData = gGfx_BG006,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_0826B6DC,
+		.bgData = gGfx_BG007,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_08271DE8,
+		.bgData = gGfx_BG008,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_08278824,
+		.bgData = gGfx_BG009,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_0827CEEC,
+		.bgData = gGfx_BG010,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_08282870,
+		.bgData = gGfx_BG011,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_08288AE0,
+		.bgData = gGfx_BG012,
 		.controlBits = BG_MODE_SIZE_480x160 | BG_MODE_HSCROLL_RIGHT | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_08291ADC,
+		.bgData = gGfx_BG013,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_08293DC0,
+		.bgData = gGfx_BG014,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_08296138,
+		.bgData = gGfx_BG015,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_08296E28,
+		.bgData = gGfx_BG016,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_0829A23C,
+		.bgData = gGfx_BG017,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_0829E7A4,
+		.bgData = gGfx_BG018,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_082A3BA8,
+		.bgData = gGfx_BG019,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_082A8E3C,
+		.bgData = gGfx_BG020,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_082AE378,
+		.bgData = gGfx_BG021,
 		.controlBits = BG_MODE_SIZE_240x320 | BG_MODE_VSCROLL_TOP | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_082B6B78,
+		.bgData = gGfx_BG022,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_082BDC88,
+		.bgData = gGfx_BG023,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_082BFC24,
+		.bgData = gGfx_BG024,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_082C5020,
+		.bgData = gGfx_BG025,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_082C9600,
+		.bgData = gGfx_BG026,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_082CE308,
+		.bgData = gGfx_BG027,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_082D1A90,
+		.bgData = gGfx_BG028,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_082D79EC,
+		.bgData = gGfx_BG029,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_082D8974,
+		.bgData = gGfx_BG030,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_082DC188,
+		.bgData = gGfx_BG031,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_082E1FA4,
+		.bgData = gGfx_BG032,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_082E6BBC,
+		.bgData = gGfx_BG033,
 		.controlBits = BG_MODE_SIZE_240x320 | BG_MODE_VSCROLL_TOP | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_082EB2B8,
+		.bgData = gGfx_BG034,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_082EF904,
+		.bgData = gGfx_BG035,
 		.controlBits = BG_MODE_SIZE_240x320 | BG_MODE_VSCROLL_TOP | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_082F7D4C,
+		.bgData = gGfx_BG036,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_082FAF44,
+		.bgData = gGfx_BG037,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_082FE610,
+		.bgData = gGfx_BG038,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_083022F0,
+		.bgData = gGfx_BG039,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_083081E4,
+		.bgData = gGfx_BG040,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_0830D2D8,
+		.bgData = gGfx_BG041,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_0831002C,
+		.bgData = gGfx_BG042,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_08312664,
+		.bgData = gGfx_BG043,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_08314F8C,
+		.bgData = gGfx_BG044,
 		.controlBits = BG_MODE_SIZE_480x160 | BG_MODE_HSCROLL_LEFT | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_0831E8E0,
+		.bgData = gGfx_BG045,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_0831F624,
+		.bgData = gGfx_BG046,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_08320328,
+		.bgData = gGfx_BG047,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_083230C0,
+		.bgData = gGfx_BG048,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_08323EDC,
+		.bgData = gGfx_BG049,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_08327074,
+		.bgData = gGfx_BG050,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_0832AFB8,
+		.bgData = gGfx_BG051,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_0832E7B0,
+		.bgData = gGfx_BG052,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_08331B38,
+		.bgData = gGfx_BG053,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_08335A58,
+		.bgData = gGfx_BG054,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_08339144,
+		.bgData = gGfx_BG055,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_0833DC0C,
+		.bgData = gGfx_BG056,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_0833F720,
+		.bgData = gGfx_BG057,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_08342908,
+		.bgData = gGfx_BG058,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_0834863C,
+		.bgData = gGfx_BG059,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_0834F218,
+		.bgData = gGfx_BG060,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_0835699C,
+		.bgData = gGfx_BG061,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_08357870,
+		.bgData = gGfx_BG062,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_0835ABD8,
+		.bgData = gGfx_BG063,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_08360834,
+		.bgData = gGfx_BG064,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_08362524,
+		.bgData = gGfx_BG065,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_08364794,
+		.bgData = gGfx_BG066,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_SPECIAL_SPEEDLINE | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_08365640,
+		.bgData = gGfx_BG067,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_08368BC4,
+		.bgData = gGfx_BG068,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_08369890,
+		.bgData = gGfx_BG069,
 		.controlBits = BG_MODE_SIZE_240x320 | BG_MODE_VSCROLL_TOP | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_0836B924,
+		.bgData = gGfx_BG070,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_08372D2C,
+		.bgData = gGfx_BG071,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_0837920C,
+		.bgData = gGfx_BG072,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_0837E52C,
+		.bgData = gGfx_BG073,
 		.controlBits = BG_MODE_SIZE_480x160 | BG_MODE_HSCROLL_LEFT | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_08369890,
+		.bgData = gGfx_BG069,
 		.controlBits = BG_MODE_SIZE_240x320 | BG_MODE_NO_SCROLL | BG_MODE_SCROLL_SPECIAL_SLOW | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_08369890,
+		.bgData = gGfx_BG069,
 		.controlBits = BG_MODE_SIZE_240x320 | BG_MODE_NO_SCROLL | BG_MODE_SCROLL_SPECIAL_SLOW | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_0838B364,
+		.bgData = gGfx_BG076,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_0838D370,
+		.bgData = gGfx_BG077,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_08392118,
+		.bgData = gGfx_BG078,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_08396EB0,
+		.bgData = gGfx_BG079,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_0839CD04,
+		.bgData = gGfx_BG080,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_083A3504,
+		.bgData = gGfx_BG081,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_083A6934,
+		.bgData = gGfx_BG082,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_083A7790,
+		.bgData = gGfx_BG083,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_083A8648,
+		.bgData = gGfx_BG084,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_083A9514,
+		.bgData = gGfx_BG085,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_083AFCC8,
+		.bgData = gGfx_BG086,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_083B0A94,
+		.bgData = gGfx_BG087,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_083B3724,
+		.bgData = gGfx_BG088,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_083B6C8C,
+		.bgData = gGfx_BG089,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_083BF1BC,
+		.bgData = gGfx_BG090,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_083C3724,
+		.bgData = gGfx_BG091,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_083C7654,
+		.bgData = gGfx_BG092,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_083CB0BC,
+		.bgData = gGfx_BG093,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_083D27A8,
+		.bgData = gGfx_BG094,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_083D5E64,
+		.bgData = gGfx_BG095,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_083DAAC0,
+		.bgData = gGfx_BG096,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_083E1514,
+		.bgData = gGfx_BG097,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_083E74E8,
+		.bgData = gGfx_BG098,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_083EAB84,
+		.bgData = gGfx_BG099,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_083EEAC0,
+		.bgData = gGfx_BG100,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_083F2BA4,
+		.bgData = gGfx_BG101,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_083F6C48,
+		.bgData = gGfx_BG102,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_083FB1D4,
+		.bgData = gGfx_BG103,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_083FD8D4,
+		.bgData = gGfx_BG104,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_084037F8,
+		.bgData = gGfx_BG105,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_0840AC3C,
+		.bgData = gGfx_BG106,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_0840D3C8,
+		.bgData = gGfx_BG107,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_0840F8C0,
+		.bgData = gGfx_BG108,
 		.controlBits = BG_MODE_SIZE_240x320 | BG_MODE_VSCROLL_TOP | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_0841B0F4,
+		.bgData = gGfx_BG109,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_4BPP,
 	},
 	{
-		.bgData = gUnknown_0841BD7C,
+		.bgData = gGfx_BG110,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 	{
-		.bgData = gUnknown_0841EFC4,
+		.bgData = gGfx_BG111,
 		.controlBits = BG_MODE_SIZE_240x160 | BG_MODE_NO_SCROLL | BG_MODE_8BPP,
 	},
 };

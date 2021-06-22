@@ -1463,22 +1463,22 @@ void sub_800E8A0(struct CourtRecord * courtRecord)
         courtRecord->unk9 = 0;
         courtRecord->unk8++;
         courtRecord->unk8 &= 3;
-        DmaCopy16(3, gUnknown_0818BD40 + sCourtRecordLeftArrowTileIndexes[courtRecord->unk8] * 32, OBJ_VRAM0+0x3400, TILE_SIZE_4BPP*4);
-        DmaCopy16(3, gUnknown_0818BD40 + sCourtRecordRightArrowTileIndexes[courtRecord->unk8] * 32, OBJ_VRAM0+0x3480, TILE_SIZE_4BPP*4);
+        DmaCopy16(3, gGfx4bppTestimonyArrows + sCourtRecordLeftArrowTileIndexes[courtRecord->unk8] * 32, OBJ_VRAM0+0x3400, TILE_SIZE_4BPP*4);
+        DmaCopy16(3, gGfx4bppTestimonyArrows + sCourtRecordRightArrowTileIndexes[courtRecord->unk8] * 32, OBJ_VRAM0+0x3480, TILE_SIZE_4BPP*4);
     }
 }
 
 void sub_800E914()
 {
     sub_80024C8(1, 0xC);
-    DmaCopy16(3, gUnknown_0818BD40, OBJ_VRAM0+0x3400, TILE_SIZE_4BPP*4);
-    DmaCopy16(3, gUnknown_0818BD40 + TILE_SIZE_4BPP*4 * 3, OBJ_VRAM0+0x3480, TILE_SIZE_4BPP*4);
-    DmaCopy16(3, gUnknown_0818F4C0, OBJ_VRAM0+0x3800, TILE_SIZE_4BPP*16);
+    DmaCopy16(3, gGfx4bppTestimonyArrows, OBJ_VRAM0+0x3400, TILE_SIZE_4BPP*4);
+    DmaCopy16(3, gGfx4bppTestimonyArrows + TILE_SIZE_4BPP*4 * 3, OBJ_VRAM0+0x3480, TILE_SIZE_4BPP*4);
+    DmaCopy16(3, gGfx4bppControllerButtons, OBJ_VRAM0+0x3800, TILE_SIZE_4BPP*16);
     DmaCopy16(3, gUnknown_081904C0, OBJ_VRAM0+0x3A00, TILE_SIZE_4BPP*16);
     DmaCopy16(3, gUnknown_081906C0, OBJ_VRAM0+0x3500, TILE_SIZE_4BPP*16);
     DmaCopy16(3, gUnknown_081940E0, OBJ_PLTT+0x60, 0x20);
     DmaCopy16(3, gUnknown_08194240, OBJ_PLTT+0x80, 0x20);
-    DmaCopy16(3, gUnknown_08186520, OBJ_PLTT+0x40, 0x20);
+    DmaCopy16(3, gGfxPalEvidenceProfileDesc, OBJ_PLTT+0x40, 0x20);
 }
 
 void sub_800E9D4(struct CourtRecord * courtRecord)
