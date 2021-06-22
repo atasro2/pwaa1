@@ -600,16 +600,16 @@
 #define gGfxPixAnimationChar26 ((u8*)(ROM_START + 0x71CF30))
 #define gGfxSeqAnimationChar26 ((u8*)(ROM_START + 0x71E9F4))
 
-#define gUnknown_0871EBBC ((u8*)(GFX_BASE_ADDR + 0x59EBBC))
-#define gUnknown_0871FCF4 ((u8*)(GFX_BASE_ADDR + 0x59FCF4))
+#define gGfxPixAnimationTileset01 ((u8*)(GFX_BASE_ADDR + 0x59EBBC))
+#define gGfxSeqAnimation01 ((u8*)(GFX_BASE_ADDR + 0x59FCF4))
 
-#define gGfxSeqAnimation01 ((u8*)(ROM_START + 0x71FD14))
+#define gGfxSeqAnimation02 ((u8*)(ROM_START + 0x71FD14))
 #define gGfxSeqAnimation03 ((u8*)(ROM_START + 0x71FD60))
 #define gGfxSeqAnimation04 ((u8*)(ROM_START + 0x71FD80))
 #define gGfxSeqAnimation05 ((u8*)(ROM_START + 0x71FDAC))
 #define gGfxSeqAnimation06 ((u8*)(ROM_START + 0x71FDD0))
 
-#define gUnknown_0871FDF8 ((u8*)(GFX_BASE_ADDR + 0x59FDF8))
+#define gGfxPixAnimationTileset02 ((u8*)(GFX_BASE_ADDR + 0x59FDF8))
 #define gGfxSeqAnimation07 ((u8*)(GFX_BASE_ADDR + 0x5C8218))
 
 #define gGfxSeqAnimation08 ((u8*)(ROM_START + 0x748340))
@@ -1375,14 +1375,14 @@ extern u8 gGfxPixAnimationChar25[];
 extern u8 gGfxSeqAnimationChar25[];
 extern u8 gGfxPixAnimationChar26[];
 extern u8 gGfxSeqAnimationChar26[];
-extern u8 gUnknown_0871EBBC[];
-extern u8 gUnknown_0871FCF4[];
+extern u8 gGfxPixAnimationTileset01[];
 extern u8 gGfxSeqAnimation01[];
+extern u8 gGfxSeqAnimation02[];
 extern u8 gGfxSeqAnimation03[];
 extern u8 gGfxSeqAnimation04[];
 extern u8 gGfxSeqAnimation05[];
 extern u8 gGfxSeqAnimation06[];
-extern u8 gUnknown_0871FDF8[];
+extern u8 gGfxPixAnimationTileset02[];
 extern u8 gGfxSeqAnimation07[];
 extern u8 gGfxSeqAnimation08[];
 extern u8 gGfxSeqAnimation09[];

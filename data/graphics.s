@@ -3091,13 +3091,13 @@ gGfxPixAnimationTileset01:
 	.incbin "graphics/animations/tileset01.pix"
 
 
-	.global gUnknown_0871FCF4
-gUnknown_0871FCF4:
+	.global gGfxSeqAnimation01
+gGfxSeqAnimation01:
 	.incbin "graphics/animations/animation01.seq"
 
 
-	.global gGfxSeqAnimation01
-gGfxSeqAnimation01:
+	.global gGfxSeqAnimation02
+gGfxSeqAnimation02:
 	.incbin "graphics/animations/animation02.seq"
 
 

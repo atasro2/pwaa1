@@ -182,7 +182,7 @@ const struct PersonAnimationData gPersonAnimData[] = {
 const struct AnimationData gAnimationData[] = {
 	[0] = DUMMYANIMATION,
 	[1] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM0+0x3D00,
 		.frameData = gGfxSeqAnimation14,
 		.xOrigin = 45,
@@ -193,7 +193,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[2] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM0+0x3D00,
 		.frameData = gGfxSeqAnimation13,
 		.xOrigin = 45,
@@ -204,7 +204,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[3] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM0+0x3D00,
 		.frameData = gGfxSeqAnimation13,
 		.xOrigin = 190,
@@ -215,7 +215,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[4] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM0+0x3D00,
 		.frameData = gGfxSeqAnimation15,
 		.xOrigin = 45,
@@ -226,7 +226,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[5] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM0+0x3400,
 		.frameData = gGfxSeqAnimation21,
 		.xOrigin = 60,
@@ -237,7 +237,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[6] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM0+0x3FC0,
 		.frameData = gGfxSeqAnimation22,
 		.xOrigin = 260,
@@ -248,7 +248,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[7] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x22E0,
 		.frameData = gGfxSeqAnimation26,
 		.xOrigin = 80,
@@ -259,7 +259,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[8] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x22E0,
 		.frameData = gGfxSeqAnimation26,
 		.xOrigin = 220,
@@ -270,7 +270,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[9] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x22E0,
 		.frameData = gGfxSeqAnimation26,
 		.xOrigin = 360,
@@ -281,7 +281,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[10] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM0+0x3D00,
 		.frameData = gGfxSeqAnimation14,
 		.xOrigin = 120,
@@ -292,7 +292,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[11] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM0+0x3D00,
 		.frameData = gGfxSeqAnimation13,
 		.xOrigin = 120,
@@ -303,9 +303,9 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[12] = {
-		.gfxData = gUnknown_0871EBBC,
+		.gfxData = gGfxPixAnimationTileset01,
 		.vramPtr = OBJ_VRAM1+0x1800,
-		.frameData = gUnknown_0871FCF4,
+		.frameData = gGfxSeqAnimation01,
 		.xOrigin = 120,
 		.yOrigin = 80,
 		.paletteSlot = 13,
@@ -314,7 +314,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[13] = {
-		.gfxData = gUnknown_0871EBBC,
+		.gfxData = gGfxPixAnimationTileset01,
 		.vramPtr = OBJ_VRAM1+0x1800,
 		.frameData = gGfxSeqAnimation03,
 		.xOrigin = 120,
@@ -325,7 +325,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[14] = {
-		.gfxData = gUnknown_0871EBBC,
+		.gfxData = gGfxPixAnimationTileset01,
 		.vramPtr = OBJ_VRAM1+0x35A0,
 		.frameData = gGfxSeqAnimation04,
 		.xOrigin = 120,
@@ -336,7 +336,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[15] = {
-		.gfxData = gUnknown_0871EBBC,
+		.gfxData = gGfxPixAnimationTileset01,
 		.vramPtr = OBJ_VRAM1+0x3BE0,
 		.frameData = gGfxSeqAnimation05,
 		.xOrigin = 120,
@@ -347,7 +347,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[16] = {
-		.gfxData = gUnknown_0871EBBC,
+		.gfxData = gGfxPixAnimationTileset01,
 		.vramPtr = OBJ_VRAM1+0x35A0,
 		.frameData = gGfxSeqAnimation06,
 		.xOrigin = 120,
@@ -358,7 +358,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[17] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x1000,
 		.frameData = gGfxSeqAnimation07,
 		.xOrigin = 120,
@@ -369,7 +369,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[18] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x1000,
 		.frameData = gGfxSeqAnimation08,
 		.xOrigin = 120,
@@ -380,7 +380,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[19] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x0C00,
 		.frameData = gGfxSeqAnimation09,
 		.xOrigin = 0,
@@ -391,7 +391,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[20] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x0800,
 		.frameData = gGfxSeqAnimation10,
 		.xOrigin = 240,
@@ -402,7 +402,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[21] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x0C00,
 		.frameData = gGfxSeqAnimation11,
 		.xOrigin = 0,
@@ -413,7 +413,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[22] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x0800,
 		.frameData = gGfxSeqAnimation12,
 		.xOrigin = 240,
@@ -424,7 +424,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[23] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x2EC0,
 		.frameData = gGfxSeqAnimation16,
 		.xOrigin = 120,
@@ -435,7 +435,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[24] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x2EC0,
 		.frameData = gGfxSeqAnimation17,
 		.xOrigin = 120,
@@ -446,7 +446,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[25] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x1800,
 		.frameData = gGfxSeqAnimation18,
 		.xOrigin = 120,
@@ -457,7 +457,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[26] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x1800,
 		.frameData = gGfxSeqAnimation19,
 		.xOrigin = 120,
@@ -468,9 +468,9 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[27] = {
-		.gfxData = gUnknown_0871EBBC,
+		.gfxData = gGfxPixAnimationTileset01,
 		.vramPtr = OBJ_VRAM1+0x1800,
-		.frameData = gGfxSeqAnimation01,
+		.frameData = gGfxSeqAnimation02,
 		.xOrigin = 120,
 		.yOrigin = 80,
 		.paletteSlot = 13,
@@ -479,7 +479,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[28] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x1800,
 		.frameData = gGfxSeqAnimation20,
 		.xOrigin = 120,
@@ -490,7 +490,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[29] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x2800,
 		.frameData = gGfxSeqAnimation29,
 		.xOrigin = 120,
@@ -501,7 +501,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[30] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x1800,
 		.frameData = gGfxSeqAnimation30,
 		.xOrigin = 120,
@@ -512,7 +512,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[31] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x1800,
 		.frameData = gGfxSeqAnimation23,
 		.xOrigin = 120,
@@ -523,7 +523,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[32] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x1800,
 		.frameData = gGfxSeqAnimation24,
 		.xOrigin = 120,
@@ -534,7 +534,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x8,
 	},
 	[33] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x1800,
 		.frameData = gGfxSeqAnimation25,
 		.xOrigin = 120,
@@ -545,7 +545,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[34] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x1800,
 		.frameData = gGfxSeqAnimation27,
 		.xOrigin = 120,
@@ -556,7 +556,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[35] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x1A00,
 		.frameData = gGfxSeqAnimation28,
 		.xOrigin = 120,
@@ -567,7 +567,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[36] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x1DA0,
 		.frameData = gGfxSeqAnimation31,
 		.xOrigin = 120,
@@ -578,7 +578,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[37] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x1C80,
 		.frameData = gGfxSeqAnimation32,
 		.xOrigin = 120,
@@ -589,7 +589,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[38] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x0EE0,
 		.frameData = gGfxSeqAnimation33,
 		.xOrigin = 120,
@@ -600,7 +600,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[39] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x1120,
 		.frameData = gGfxSeqAnimation34,
 		.xOrigin = 120,
@@ -611,7 +611,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[40] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x0A40,
 		.frameData = gGfxSeqAnimation35,
 		.xOrigin = 120,
@@ -622,7 +622,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[41] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x1960,
 		.frameData = gGfxSeqAnimation36,
 		.xOrigin = 120,
@@ -633,7 +633,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[42] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x1720,
 		.frameData = gGfxSeqAnimation37,
 		.xOrigin = 120,
@@ -644,7 +644,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x1,
 	},
 	[43] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x02A0,
 		.frameData = gGfxSeqAnimation38,
 		.xOrigin = 120,
@@ -655,7 +655,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[44] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x04A0,
 		.frameData = gGfxSeqAnimation39,
 		.xOrigin = 120,
@@ -666,7 +666,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[45] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x0A60,
 		.frameData = gGfxSeqAnimation40,
 		.xOrigin = 120,
@@ -677,7 +677,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[46] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x08C0,
 		.frameData = gGfxSeqAnimation41,
 		.xOrigin = 120,
@@ -688,7 +688,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[47] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x1C20,
 		.frameData = gGfxSeqAnimation42,
 		.xOrigin = 120,
@@ -699,7 +699,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[48] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x1CA0,
 		.frameData = gGfxSeqAnimation43,
 		.xOrigin = 120,
@@ -710,7 +710,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[49] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x1960,
 		.frameData = gGfxSeqAnimation36,
 		.xOrigin = 120,
@@ -721,7 +721,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x10,
 	},
 	[50] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x1720,
 		.frameData = gGfxSeqAnimation37,
 		.xOrigin = 120,
@@ -732,7 +732,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x11,
 	},
 	[51] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x0400,
 		.frameData = gGfxSeqAnimation44,
 		.xOrigin = 120,
@@ -743,7 +743,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[52] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x0340,
 		.frameData = gGfxSeqAnimation45,
 		.xOrigin = 120,
@@ -754,7 +754,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[53] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x0140,
 		.frameData = gGfxSeqAnimation46,
 		.xOrigin = 120,
@@ -765,7 +765,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[54] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x03E0,
 		.frameData = gGfxSeqAnimation47,
 		.xOrigin = 120,
@@ -776,7 +776,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[55] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x1BA0,
 		.frameData = gGfxSeqAnimation48,
 		.xOrigin = 120,
@@ -787,7 +787,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[56] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x0200,
 		.frameData = gGfxSeqAnimation49,
 		.xOrigin = 120,
@@ -798,7 +798,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[57] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x0280,
 		.frameData = gGfxSeqAnimation50,
 		.xOrigin = 120,
@@ -809,7 +809,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[58] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x0280,
 		.frameData = gGfxSeqAnimation51,
 		.xOrigin = 120,
@@ -820,7 +820,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[59] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x0880,
 		.frameData = gGfxSeqAnimation52,
 		.xOrigin = 120,
@@ -831,7 +831,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[60] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x0300,
 		.frameData = gGfxSeqAnimation53,
 		.xOrigin = 120,
@@ -842,7 +842,7 @@ const struct AnimationData gAnimationData[] = {
 		.flags = 0x0,
 	},
 	[61] = {
-		.gfxData = gUnknown_0871FDF8,
+		.gfxData = gGfxPixAnimationTileset02,
 		.vramPtr = OBJ_VRAM1+0x02C0,
 		.frameData = gGfxSeqAnimation54,
 		.xOrigin = 120,
@@ -1189,8 +1189,8 @@ void SetAnimationFrameOffset(struct AnimationStruct *animation, u32 animOffset)
             {
                 if (animation->unkC.animId <= 0x10)
                 {
-                    animation->unkC.animFrameDataStartPtr = gUnknown_0871FCF4 + animOffset; // ! These globals are defines *sob*
-                    animation->unkC.animGfxDataStartPtr = gUnknown_0871EBBC;
+                    animation->unkC.animFrameDataStartPtr = gGfxSeqAnimation01 + animOffset; // ! These globals are defines *sob*
+                    animation->unkC.animGfxDataStartPtr = gGfxPixAnimationTileset01;
                 }
                 else
                 {
@@ -1199,13 +1199,13 @@ void SetAnimationFrameOffset(struct AnimationStruct *animation, u32 animOffset)
                         return;
                     }
                     animation->unkC.animFrameDataStartPtr = gGfxSeqAnimation07 + animOffset;
-                    animation->unkC.animGfxDataStartPtr = gUnknown_0871FDF8;
+                    animation->unkC.animGfxDataStartPtr = gGfxPixAnimationTileset02;
                 }
             }
             else
             {
                 animation->unkC.animFrameDataStartPtr = gGfxSeqAnimation07 + animOffset;
-                animation->unkC.animGfxDataStartPtr = gUnknown_0871FDF8;
+                animation->unkC.animGfxDataStartPtr = gGfxPixAnimationTileset02;
             }
         }
         animation->flags |= (ANIM_PLAYING | ANIM_QUEUED_TILE_UPLOAD);
