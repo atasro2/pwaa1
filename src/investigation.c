@@ -886,7 +886,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
             for(talkData = gTalkData; talkData->roomId != 0xFF; talkData++)
             {
                 if(main->currentRoomId == talkData->roomId
-                && gAnimation[1].unkC.unk2[0] == talkData->personId
+                && gAnimation[1].unkC.personId == talkData->personId
                 && talkData->enableFlag == TRUE)
                     break;
             }
@@ -965,7 +965,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
             for(talkData = gTalkData; talkData->roomId != 0xFF; talkData++)
             {
                 if(main->currentRoomId == talkData->roomId
-                && gAnimation[1].unkC.unk2[0] == talkData->personId
+                && gAnimation[1].unkC.personId == talkData->personId
                 && talkData->enableFlag == TRUE)
                     break;
             }
@@ -1205,7 +1205,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                 for(talkData = gTalkData; talkData->roomId != 0xFF; talkData++)
                 {
                     if(main->currentRoomId == talkData->roomId
-                    && gAnimation[1].unkC.unk2[0] == talkData->personId
+                    && gAnimation[1].unkC.personId == talkData->personId
                     && talkData->enableFlag == TRUE)
                         break;
                 }
@@ -1273,7 +1273,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
             for(talkData = gTalkData; talkData->roomId != 0xFF; talkData++)
             {
                 if(main->currentRoomId == talkData->roomId
-                && gAnimation[1].unkC.unk2[0] == talkData->personId
+                && gAnimation[1].unkC.personId == talkData->personId
                 && talkData->enableFlag == TRUE)
                     break;
             }
@@ -2845,7 +2845,7 @@ void sub_800D6C8(void)
     {
         if(gMain.currentRoomId == talkdata->roomId)
 	    {
-            if(gAnimation[1].unkC.unk2[0] == talkdata->personId)
+            if(gAnimation[1].unkC.personId == talkdata->personId)
 	        {
                 if(talkdata->enableFlag == 1)
 		            break;

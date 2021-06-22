@@ -949,7 +949,7 @@ const s8 gUnknown_080194CA[31] = {
 
 extern u16 gObjPaletteBuffer[16][16];
 
-static struct AnimationStruct * sub_8010468(struct AnimationStructFieldC *animationFieldC, u32 arg1, u32 arg2);
+static struct AnimationStruct * sub_8010468(struct AnimationStructFieldC *animationFieldC, u32 arg1, u32 flags);
 static void sub_80110E4(struct AnimationStruct * animation);
 
 void (*gUnknown_0811DFD0[11])(struct AnimationStruct *) = {
@@ -989,7 +989,7 @@ void ResetAnimationSystem()
     gMain.unk1F |= 3;
     animation = &gAnimation[1];
     animation->unkC.animId = 0xFF;
-    animation->unkC.unk2[0] = 0;
+    animation->unkC.personId = 0;
     InitCurrentAnimationToNull();
 }
 
@@ -1125,7 +1125,7 @@ void sub_800FA74(struct AnimationStruct *animation, bool32 arg1)
             for (i = animation->animtionOamStartIdx; i < animation->animtionOamEndIdx; i++)
                 gOamObjects[i].attr0 = SPRITE_ATTR0_CLEAR;
         }
-        if (animation->unkC.animId == 0xff && animation->unkC.unk2[0] == 0x16)
+        if (animation->unkC.animId == 0xff && animation->unkC.personId == 0x16)
         {
             if ((animation = FindAnimationFromAnimId(0x17)) != NULL || (animation = FindAnimationFromAnimId(0x18)) != NULL)
             {
@@ -1177,11 +1177,11 @@ void SetAnimationFrameOffset(struct AnimationStruct *animation, u32 animOffset)
         if (animation->unkC.animId == 0xFF)
         {
             u8 *framePtr;
-            framePtr = gPersonAnimData[animation->unkC.unk2[0]].frameData + animOffset;
+            framePtr = gPersonAnimData[animation->unkC.personId].frameData + animOffset;
             if (animation->unkC.animFrameDataStartPtr == framePtr)
                 return;
             animation->unkC.animFrameDataStartPtr = framePtr;
-            animation->unkC.animGfxDataStartPtr = gPersonAnimData[animation->unkC.unk2[0]].gfxData;
+            animation->unkC.animGfxDataStartPtr = gPersonAnimData[animation->unkC.personId].gfxData;
         }
         else
         {
@@ -1217,7 +1217,7 @@ void SetAnimationFrameOffset(struct AnimationStruct *animation, u32 animOffset)
         animation->unkC.animGfxDataStartPtr = animGfxData;
         animation->unkC.tileDataPtr = animGfxData + 4 + (*(u32 *)animGfxData) * 0x20; // skip first u32(number of palettes) and the palettes, pointer to tiles
         animation->frameData = (struct AnimationFrame *)(animFrameData + 8); // skips animation block header, pointer to frame data
-        animation->unk30 = animFrameData + animation->frameData->spriteDataOffset; // Frame tilemap pointer
+        animation->spriteData = animFrameData + animation->frameData->spriteDataOffset; // Frame tilemap pointer
     }
 }
 
@@ -1253,8 +1253,8 @@ u32 CheckRectCollisionWithAnim(struct Rect *p)
         rect0->w += p->x;
         rect0->h += p->y;
         vram = animation->unkC.vramPtr;
-        spriteTemplate = animation->unk30;
-        spriteCount = *(u16*)animation->unk30;
+        spriteTemplate = animation->spriteData;
+        spriteCount = *(u16*)animation->spriteData;
         for(i = 0; i < spriteCount; i++)
         {
             spriteSizePtr = &spriteSize;
@@ -1721,7 +1721,7 @@ struct AnimationStruct *PlayPersonAnimation(u32 arg0, u32 arg1, u32 talkingAnimO
     return PlayPersonAnimationAtCustomOrigin(arg0, talkingAnimOff, xOrigin, DISPLAY_HEIGHT/2, arg1);
 }
 
-struct AnimationStruct *PlayPersonAnimationAtCustomOrigin(u32 arg0, u32 talkingAnimOff, u32 xOrigin, u32 yOrigin, u32 arg4)
+struct AnimationStruct *PlayPersonAnimationAtCustomOrigin(u32 arg0, u32 talkingAnimOff, u32 xOrigin, u32 yOrigin, u32 flags)
 {
     struct Main *main = &gMain;
     struct AnimationStruct *animation = &gAnimation[1];
@@ -1734,7 +1734,7 @@ struct AnimationStruct *PlayPersonAnimationAtCustomOrigin(u32 arg0, u32 talkingA
         return NULL;
     }
     animationStructFieldC.animId = 0xFF;
-    *(u16 *)animationStructFieldC.unk2 = arg0;
+    *(u16 *)(&animationStructFieldC.personId) = arg0; // this assignment matches but sucks. doing it like this allows unk2 to not be an array which makes everything else more sane
     animationStructFieldC.vramPtr = OBJ_VRAM0 + 0x5800;
     animationStructFieldC.animGfxDataStartPtr = gPersonAnimData[personId].gfxData;
     animationStructFieldC.animFrameDataStartPtr = gPersonAnimData[personId].frameData + talkingAnimOff;
@@ -1753,10 +1753,10 @@ struct AnimationStruct *PlayPersonAnimationAtCustomOrigin(u32 arg0, u32 talkingA
         animation->unkC.animId = 0xFF;
         PutAnimationInAnimList(animation);
     }
-    animation->unk2C |= 0;
-    sub_8010468(&animationStructFieldC, 0xFF, arg4);
-    animation->unk2C = main->currentBG;
-    if (animation->unkC.unk2[0] == 0x16 && main->process[GAME_PROCESS] == 4) // person id 0x16 investigation
+    animation->bgId |= 0;
+    sub_8010468(&animationStructFieldC, 0xFF, flags);
+    animation->bgId = main->currentBG;
+    if (animation->unkC.personId == 0x16 && main->process[GAME_PROCESS] == 4) // person id 0x16 investigation
     {
         struct AnimationStruct *ptr;
         u32 var0 = animation->flags & 0x02000000;
@@ -1834,8 +1834,8 @@ struct AnimationStruct *PlayAnimationAtCustomOrigin(u32 arg0, s32 xOrigin, s32 y
         size = var0 * 0x20;
         DmaCopy16(3, var1, dest, size);
     }
-    animationStruct->unk2C = main->currentBG;
-    animationStruct->unk2D = main->currentRoomId;
+    animationStruct->bgId = main->currentBG;
+    animationStruct->roomId = main->currentRoomId;
     animationStruct->flags |= ANIM_QUEUED_PAL_UPLOAD;
     return animationStruct;
 }
@@ -1851,12 +1851,12 @@ struct AnimationBackupStruct * RestoreAnimationsFromBuffer(struct AnimationBacku
     if (backupAnimation->flags & ANIM_ALLOCATED)
     {
         animationStructFieldC.animId = 0xFF;
-        animationStructFieldC.unk2[0] = backupAnimation->unk2;
+        animationStructFieldC.personId = backupAnimation->personId;
         animationStructFieldC.vramPtr = OBJ_VRAM0 + 0x5800;
-        animationStructFieldC.animGfxDataStartPtr = gPersonAnimData[backupAnimation->unk2].gfxData;
+        animationStructFieldC.animGfxDataStartPtr = gPersonAnimData[backupAnimation->personId].gfxData;
         animationStructFieldC.animFrameDataStartPtr = backupAnimation->animFrameDataStartPtr;
         animationStructFieldC.paletteSlot = 0xE;
-        animationStructFieldC.spriteCount = gPersonAnimData[backupAnimation->unk2].spriteCount;
+        animationStructFieldC.spriteCount = gPersonAnimData[backupAnimation->personId].spriteCount;
         animationStructFieldC.priority = 0x21;
         animationStructFieldC.xOrigin = backupAnimation->xOrigin;
         animationStructFieldC.yOrigin = backupAnimation->yOrigin;
@@ -1867,13 +1867,13 @@ struct AnimationBackupStruct * RestoreAnimationsFromBuffer(struct AnimationBacku
         animation->unkC.animGfxDataStartPtr = animGfxData; // offsets the graphics pointer
         animation->unkC.tileDataPtr = animGfxData + 4 + (*(u32 *)animGfxData) * 0x20;
         animation->frameData = backupAnimation->frameData;
-        animation->unk30 = (void *)(animFrameData + animation->frameData->spriteDataOffset);
+        animation->spriteData = (void *)(animFrameData + animation->frameData->spriteDataOffset);
         animation->flags = backupAnimation->flags | (ANIM_QUEUED_TILE_UPLOAD | ANIM_QUEUED_PAL_UPLOAD);
         animation->tileNum |= (uintptr_t)animation->unkC.vramPtr / TILE_SIZE_4BPP; // get OAM tile num from VRAM address
         animation->unk3E = 0x300;
         SetAnimationPriority(animation, animation->unkC.priority >> 4);
         animation->unkC.priority &= 0xF;
-        animation->unk2C = backupAnimation->unk10;
+        animation->bgId = backupAnimation->bgId;
         PutAnimationInAnimList(animation);
     }
     backupAnimation++;
@@ -1884,8 +1884,8 @@ struct AnimationBackupStruct * RestoreAnimationsFromBuffer(struct AnimationBacku
             animation = PlayAnimationAtCustomOrigin(backupAnimation->animId, backupAnimation->xOrigin, backupAnimation->yOrigin);
             animation->flags = backupAnimation->flags | (ANIM_QUEUED_TILE_UPLOAD | ANIM_QUEUED_PAL_UPLOAD);
             animation->frameData = backupAnimation->frameData;
-            animation->unk30 = (void *)(animation->unkC.animFrameDataStartPtr + animation->frameData->spriteDataOffset);
-            DataCopy32(&animation->unk2C, &backupAnimation->unk10);
+            animation->spriteData = (void *)(animation->unkC.animFrameDataStartPtr + animation->frameData->spriteDataOffset);
+            DataCopy32(&animation->bgId, &backupAnimation->bgId);
         }
     }
 }
@@ -1898,7 +1898,7 @@ struct AnimationBackupStruct * SaveAnimationDataToBuffer(struct AnimationBackupS
         DataCopy32(&backupAnimation->animId, &animation->unkC.animId);
         DataCopy32(&backupAnimation->xOrigin, &animation->unkC.xOrigin);
         DataCopy32(&backupAnimation->frameDurationCounter, &animation->frameDurationCounter);
-        DataCopy32(&backupAnimation->unk10, &animation->unk2C);
+        DataCopy32(&backupAnimation->bgId, &animation->bgId);
         backupAnimation->animFrameDataStartPtr = animation->unkC.animFrameDataStartPtr;
         backupAnimation->flags = animation->flags;
         backupAnimation->frameData = animation->frameData;
@@ -1906,7 +1906,7 @@ struct AnimationBackupStruct * SaveAnimationDataToBuffer(struct AnimationBackupS
     return backupAnimation;
 }
 
-static struct AnimationStruct * sub_8010468(struct AnimationStructFieldC * animationFieldC, u32 arg1, u32 arg2)
+static struct AnimationStruct * sub_8010468(struct AnimationStructFieldC * animationFieldC, u32 arg1, u32 flags)
 {
     void * animFrameData;
     void * animGfxData;
@@ -1919,9 +1919,9 @@ static struct AnimationStruct * sub_8010468(struct AnimationStructFieldC * anima
     animation->unkC.animGfxDataStartPtr = animGfxData;                                      // offsets the graphics pointer
     animation->unkC.tileDataPtr = animGfxData + 4 + (*(u32 *)animGfxData) * 0x20; // skip first u32(number of palettes) and the palettes, pointer to tiles
     animation->frameData = (struct AnimationFrame *)(animFrameData + 8);                                  // skips animation block header, pointer to frame data
-    animation->unk30 = (void *)(animFrameData + animation->frameData->spriteDataOffset);                  // Frame tilemap pointer
-    animation->flags |= arg2;
-    if (arg2 & 0x10)
+    animation->spriteData = (void *)(animFrameData + animation->frameData->spriteDataOffset);                  // Frame tilemap pointer
+    animation->flags |= flags;
+    if (flags & 0x10)
         animation->flags &= ~ANIM_PLAYING;
     animation->tileNum |= (uintptr_t)animation->unkC.vramPtr / TILE_SIZE_4BPP; // get OAM tile num from VRAM address
     animation->rotationAmount = 0;
@@ -1955,7 +1955,7 @@ static u32 AdvanceAnimationFrame(struct AnimationStruct * animation)
     case ANIM_LOOP:
         gfxDataStart = animation->unkC.animFrameDataStartPtr;
         animation->frameData = (struct AnimationFrame *)(gfxDataStart + 8);
-        animation->unk30 = gfxDataStart + animation->frameData->spriteDataOffset;
+        animation->spriteData = gfxDataStart + animation->frameData->spriteDataOffset;
         animation->flags |= ANIM_QUEUED_TILE_UPLOAD;
         retVal = 7;
         break;
@@ -1969,7 +1969,7 @@ static u32 AdvanceAnimationFrame(struct AnimationStruct * animation)
         retVal = 0;
         break;
     default:
-        animation->unk30 = (void *)(animation->unkC.animFrameDataStartPtr + animation->frameData->spriteDataOffset);
+        animation->spriteData = (void *)(animation->unkC.animFrameDataStartPtr + animation->frameData->spriteDataOffset);
         animation->flags |= ANIM_QUEUED_TILE_UPLOAD;
         retVal = 5;
         break;
@@ -2027,7 +2027,7 @@ void StartAnimationBlend(u32 arg0, u32 arg1)
     if (ioRegsp->lcd_bldy == 0x10 || (!(animation2->flags & ANIM_ALLOCATED) && !(arg0 & 2)))
         return;
 
-    if (animation2->unkC.unk2[0] == 0x16)
+    if (animation2->unkC.personId == 0x16)
     {
         animation = FindAnimationFromAnimId(0x17);
         if (animation == NULL)
@@ -2082,7 +2082,7 @@ static void UpdateAnimationBlend(struct AnimationStruct *animation)
         return;
     }
 
-    if (animation->unkC.unk2[0] == 0x16)
+    if (animation->unkC.personId == 0x16)
     {
         animation2 = FindAnimationFromAnimId(0x17);
         if (animation2 == NULL)
@@ -2151,7 +2151,7 @@ void DestroyAnimation(struct AnimationStruct *animation)
     if (animation == NULL)
         return;
 
-    if (animation->unkC.animId == 0xFF && animation->unkC.unk2[0] == 0x16)
+    if (animation->unkC.animId == 0xFF && animation->unkC.personId == 0x16)
     {
         animation2 = FindAnimationFromAnimId(0x17);
         if (animation2 != NULL)
@@ -2198,8 +2198,8 @@ static void UpdateAllAnimationSprites()
         animation->animtionOamEndIdx = var0;
         if ((gMain.unk1F & 2) && (animation->flags & ANIM_ACTIVE))
         {
-            void *ptr = (void *)animation->unk30;
-            struct SpriteTemplate *spriteTemplates = animation->unk30;
+            void *ptr = (void *)animation->spriteData;
+            struct SpriteTemplate *spriteTemplates = animation->spriteData;
             s32 xOrigin = animation->unkC.xOrigin - gMain.shakeAmountX;
             s32 yOrigin = animation->unkC.yOrigin - gMain.shakeAmountY;
             u32 tileNum = animation->tileNum & 0xFFF;
@@ -2274,8 +2274,8 @@ void MoveAnimationTilesToRam(bool32 arg0)
         if(!(animation->flags & ANIM_ACTIVE))
             continue;
         tileDest = arg0 ? eUnknown_0200AFC0 + 0x200 : animation->unkC.vramPtr;
-        spriteTemplate = animation->unk30;
-        spriteCount = *(u16*)animation->unk30;
+        spriteTemplate = animation->spriteData;
+        spriteCount = *(u16*)animation->spriteData;
         spriteSizeData = eUnknown_0200AFC0;
         spriteSizeData += animation->animtionOamEndIdx;
         animation->flags &= ~ANIM_QUEUED_TILE_UPLOAD;
@@ -2361,9 +2361,9 @@ void UpdateAnimations(u32 arg0)
         {
             if(animation->unkC.animId >= 12 && animation->unkC.animId <= 16)
             {
-                if(main->currentBG != animation->unk2C)
+                if(main->currentBG != animation->bgId)
                 { 
-                    if(main->currentRoomId == animation->unk2D)
+                    if(main->currentRoomId == animation->roomId)
                         sub_800FA74(animation, 0);
                     else
                         DestroyAnimation(animation);
@@ -2383,7 +2383,7 @@ void UpdateAnimations(u32 arg0)
             }
             else if(animation->unkC.animId >= 31 && animation->unkC.animId <= 61)
             {
-                if(arg0 != animation->unk2C)
+                if(arg0 != animation->bgId)
                 {
                     DestroyAnimation(animation);
                     continue;
@@ -2391,7 +2391,7 @@ void UpdateAnimations(u32 arg0)
             }
             else if(animation->unkC.animId >= 25 && animation->unkC.animId <= 61)
             {
-                if(main->currentBG != animation->unk2C)
+                if(main->currentBG != animation->bgId)
                     DestroyAnimation(animation);
             }
             if(animation->flags & ANIM_BLEND_ACTIVE)
