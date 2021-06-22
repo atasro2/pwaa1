@@ -95,7 +95,7 @@ void sub_800B808(struct Main * main, struct InvestigationStruct * investigation)
     sub_8001A9C(0xFF);
     ioRegs->lcd_bg1vofs = ~80;
     ioRegs->lcd_dispcnt &= ~DISPCNT_BG1_ON;
-    sub_800D77C(main, &gCourtRecord);
+    InitializeCourtRecordForScenario(main, &gCourtRecord);
     DmaFill32(3, 0, main->unk94, sizeof(main->unk94));
     if(main->scenarioIdx > 1)
        ChangeFlag(0, 0x41, TRUE); 

@@ -413,7 +413,7 @@ void sub_80024C8(u32 mode, u32 speed)
     courtRecord->unk3 = mode;
     courtRecord->unk0 = 0;
     courtRecord->unk6 = courtRecord->unk4;
-    courtRecord->unkC &= ~0x4;
+    courtRecord->flags &= ~0x4;
     switch(mode)
     {
     case 0:

@@ -47,24 +47,24 @@ const u16 gCaseGameoverSections[] = {
     0xF7
 };
 
-const u8 * gUnknown_0811DC10[17] = {
-	gUnknown_08014DA4,
-	gUnknown_08014E0C,
-	gUnknown_08014E10,
-	gUnknown_08014E20,
-	gUnknown_08014E32,
-	gUnknown_08015870,
-	gUnknown_08015876,
-	gUnknown_08015884,
-	gUnknown_08015893,
-	gUnknown_080158A7,
-	gUnknown_080158BB,
-	gUnknown_08017168,
-	gUnknown_0801716E,
-	gUnknown_0801717F,
-	gUnknown_08017195,
-	gUnknown_080171B1,
-	gUnknown_080171CD,
+const u8 * gCourtRecordInitialItemLists[17] = {
+	gCourtRecordInitialItems_0_0,
+	gCourtRecordInitialItems_1_0,
+	gCourtRecordInitialItems_1_1,
+	gCourtRecordInitialItems_1_2,
+	gCourtRecordInitialItems_1_3,
+	gCourtRecordInitialItems_2_0,
+	gCourtRecordInitialItems_2_1,
+	gCourtRecordInitialItems_2_2,
+	gCourtRecordInitialItems_2_3,
+	gCourtRecordInitialItems_2_4,
+	gCourtRecordInitialItems_2_5,
+	gCourtRecordInitialItems_3_0,
+	gCourtRecordInitialItems_3_1,
+	gCourtRecordInitialItems_3_2,
+	gCourtRecordInitialItems_3_3,
+	gCourtRecordInitialItems_3_4,
+	gCourtRecordInitialItems_3_5,
 };
 
 const struct Struct811DC54 * gUnknown_0811DC54[17] = {
