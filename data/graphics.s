@@ -3171,198 +3171,198 @@ gGfxSeqAnimation15:
 	.incbin "graphics/animations/animation15.seq"
 
 
-	.global gUnknown_08748590
-gUnknown_08748590:
+	.global gGfxSeqAnimation16
+gGfxSeqAnimation16:
 	.incbin "graphics/animations/animation16.seq"
 
 
-	.global gUnknown_087485C0
-gUnknown_087485C0:
+	.global gGfxSeqAnimation17
+gGfxSeqAnimation17:
 	.incbin "graphics/animations/animation17.seq"
 
 
-	.global gUnknown_087485F4
-gUnknown_087485F4:
+	.global gGfxSeqAnimation18
+gGfxSeqAnimation18:
 	.incbin "graphics/animations/animation18.seq"
 
 
-	.global gUnknown_08748684
-gUnknown_08748684:
+	.global gGfxSeqAnimation19
+gGfxSeqAnimation19:
 	.incbin "graphics/animations/animation19.seq"
 
 
-	.global gUnknown_08748774
-gUnknown_08748774:
+	.global gGfxSeqAnimation20
+gGfxSeqAnimation20:
 	.incbin "graphics/animations/animation20.seq"
 
 
-	.global gUnknown_08748AB4
-gUnknown_08748AB4:
+	.global gGfxSeqAnimation21
+gGfxSeqAnimation21:
 	.incbin "graphics/animations/animation21.seq"
 
 
-	.global gUnknown_08748AEC
-gUnknown_08748AEC:
+	.global gGfxSeqAnimation22
+gGfxSeqAnimation22:
 	.incbin "graphics/animations/animation22.seq"
 
 
-	.global gUnknown_08748B24
-gUnknown_08748B24:
+	.global gGfxSeqAnimation23
+gGfxSeqAnimation23:
 	.incbin "graphics/animations/animation23.seq"
 
 
-	.global gUnknown_08748C38
-gUnknown_08748C38:
+	.global gGfxSeqAnimation24
+gGfxSeqAnimation24:
 	.incbin "graphics/animations/animation24.seq"
 
 
-	.global gUnknown_08748CA0
-gUnknown_08748CA0:
+	.global gGfxSeqAnimation25
+gGfxSeqAnimation25:
 	.incbin "graphics/animations/animation25.seq"
 
 
-	.global gUnknown_08748D74
-gUnknown_08748D74:
+	.global gGfxSeqAnimation26
+gGfxSeqAnimation26:
 	.incbin "graphics/animations/animation26.seq"
 
 
-	.global gUnknown_08748D98
-gUnknown_08748D98:
+	.global gGfxSeqAnimation27
+gGfxSeqAnimation27:
 	.incbin "graphics/animations/animation27.seq"
 
 
-	.global gUnknown_08748DB8
-gUnknown_08748DB8:
+	.global gGfxSeqAnimation28
+gGfxSeqAnimation28:
 	.incbin "graphics/animations/animation28.seq"
 
 
-	.global gUnknown_08748E0C
-gUnknown_08748E0C:
+	.global gGfxSeqAnimation29
+gGfxSeqAnimation29:
 	.incbin "graphics/animations/animation29.seq"
 
 
-	.global gUnknown_08748EE4
-gUnknown_08748EE4:
+	.global gGfxSeqAnimation30
+gGfxSeqAnimation30:
 	.incbin "graphics/animations/animation30.seq"
 
 
-	.global gUnknown_08748F44
-gUnknown_08748F44:
+	.global gGfxSeqAnimation31
+gGfxSeqAnimation31:
 	.incbin "graphics/animations/animation31.seq"
 
 
-	.global gUnknown_08748F80
-gUnknown_08748F80:
+	.global gGfxSeqAnimation32
+gGfxSeqAnimation32:
 	.incbin "graphics/animations/animation32.seq"
 
 
-	.global gUnknown_08748FA4
-gUnknown_08748FA4:
+	.global gGfxSeqAnimation33
+gGfxSeqAnimation33:
 	.incbin "graphics/animations/animation33.seq"
 
 
-	.global gUnknown_08748FDC
-gUnknown_08748FDC:
+	.global gGfxSeqAnimation34
+gGfxSeqAnimation34:
 	.incbin "graphics/animations/animation34.seq"
 
 
-	.global gUnknown_08749000
-gUnknown_08749000:
+	.global gGfxSeqAnimation35
+gGfxSeqAnimation35:
 	.incbin "graphics/animations/animation35.seq"
 
 
-	.global gUnknown_08749044
-gUnknown_08749044:
+	.global gGfxSeqAnimation36
+gGfxSeqAnimation36:
 	.incbin "graphics/animations/animation36.seq"
 
 
-	.global gUnknown_087490B0
-gUnknown_087490B0:
+	.global gGfxSeqAnimation37
+gGfxSeqAnimation37:
 	.incbin "graphics/animations/animation37.seq"
 
 
-	.global gUnknown_0874911C
-gUnknown_0874911C:
+	.global gGfxSeqAnimation38
+gGfxSeqAnimation38:
 	.incbin "graphics/animations/animation38.seq"
 
 
-	.global gUnknown_08749158
-gUnknown_08749158:
+	.global gGfxSeqAnimation39
+gGfxSeqAnimation39:
 	.incbin "graphics/animations/animation39.seq"
 
 
-	.global gUnknown_08749194
-gUnknown_08749194:
+	.global gGfxSeqAnimation40
+gGfxSeqAnimation40:
 	.incbin "graphics/animations/animation40.seq"
 
 
-	.global gUnknown_087491C4
-gUnknown_087491C4:
+	.global gGfxSeqAnimation41
+gGfxSeqAnimation41:
 	.incbin "graphics/animations/animation41.seq"
 
 
-	.global gUnknown_087491EC
-gUnknown_087491EC:
+	.global gGfxSeqAnimation42
+gGfxSeqAnimation42:
 	.incbin "graphics/animations/animation42.seq"
 
 
-	.global gUnknown_08749210
-gUnknown_08749210:
+	.global gGfxSeqAnimation43
+gGfxSeqAnimation43:
 	.incbin "graphics/animations/animation43.seq"
 
 
-	.global gUnknown_08749240
-gUnknown_08749240:
+	.global gGfxSeqAnimation44
+gGfxSeqAnimation44:
 	.incbin "graphics/animations/animation44.seq"
 
 
-	.global gUnknown_08749268
-gUnknown_08749268:
+	.global gGfxSeqAnimation45
+gGfxSeqAnimation45:
 	.incbin "graphics/animations/animation45.seq"
 
 
-	.global gUnknown_08749290
-gUnknown_08749290:
+	.global gGfxSeqAnimation46
+gGfxSeqAnimation46:
 	.incbin "graphics/animations/animation46.seq"
 
 
-	.global gUnknown_087492C0
-gUnknown_087492C0:
+	.global gGfxSeqAnimation47
+gGfxSeqAnimation47:
 	.incbin "graphics/animations/animation47.seq"
 
 
-	.global gUnknown_08749314
-gUnknown_08749314:
+	.global gGfxSeqAnimation48
+gGfxSeqAnimation48:
 	.incbin "graphics/animations/animation48.seq"
 
 
-	.global gUnknown_08749334
-gUnknown_08749334:
+	.global gGfxSeqAnimation49
+gGfxSeqAnimation49:
 	.incbin "graphics/animations/animation49.seq"
 
 
-	.global gUnknown_08749360
-gUnknown_08749360:
+	.global gGfxSeqAnimation50
+gGfxSeqAnimation50:
 	.incbin "graphics/animations/animation50.seq"
 
 
-	.global gUnknown_08749384
-gUnknown_08749384:
+	.global gGfxSeqAnimation51
+gGfxSeqAnimation51:
 	.incbin "graphics/animations/animation51.seq"
 
 
-	.global gUnknown_087493A8
-gUnknown_087493A8:
+	.global gGfxSeqAnimation52
+gGfxSeqAnimation52:
 	.incbin "graphics/animations/animation52.seq"
 
 
-	.global gUnknown_087493D4
-gUnknown_087493D4:
+	.global gGfxSeqAnimation53
+gGfxSeqAnimation53:
 	.incbin "graphics/animations/animation53.seq"
 
 
-	.global gUnknown_08749404
-gUnknown_08749404:
+	.global gGfxSeqAnimation54
+gGfxSeqAnimation54:
 	.incbin "graphics/animations/animation54.seq"
 
 @ END ANIMATION GRAPHICS PACKAGES AND SEQUENCES

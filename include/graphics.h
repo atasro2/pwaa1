@@ -620,45 +620,45 @@
 #define gGfxSeqAnimation13 ((u8*)(ROM_START + 0x7484E8))
 #define gGfxSeqAnimation14 ((u8*)(ROM_START + 0x748520))
 #define gGfxSeqAnimation15 ((u8*)(ROM_START + 0x748558))
-#define gUnknown_08748590 ((u8*)(ROM_START + 0x748590))
-#define gUnknown_087485C0 ((u8*)(ROM_START + 0x7485C0))
-#define gUnknown_087485F4 ((u8*)(ROM_START + 0x7485F4))
-#define gUnknown_08748684 ((u8*)(ROM_START + 0x748684))
-#define gUnknown_08748774 ((u8*)(ROM_START + 0x748774))
-#define gUnknown_08748AB4 ((u8*)(ROM_START + 0x748AB4))
-#define gUnknown_08748AEC ((u8*)(ROM_START + 0x748AEC))
-#define gUnknown_08748B24 ((u8*)(ROM_START + 0x748B24))
-#define gUnknown_08748C38 ((u8*)(ROM_START + 0x748C38))
-#define gUnknown_08748CA0 ((u8*)(ROM_START + 0x748CA0))
-#define gUnknown_08748D74 ((u8*)(ROM_START + 0x748D74))
-#define gUnknown_08748D98 ((u8*)(ROM_START + 0x748D98))
-#define gUnknown_08748DB8 ((u8*)(ROM_START + 0x748DB8))
-#define gUnknown_08748E0C ((u8*)(ROM_START + 0x748E0C))
-#define gUnknown_08748EE4 ((u8*)(ROM_START + 0x748EE4))
-#define gUnknown_08748F44 ((u8*)(ROM_START + 0x748F44))
-#define gUnknown_08748F80 ((u8*)(ROM_START + 0x748F80))
-#define gUnknown_08748FA4 ((u8*)(ROM_START + 0x748FA4))
-#define gUnknown_08748FDC ((u8*)(ROM_START + 0x748FDC))
-#define gUnknown_08749000 ((u8*)(ROM_START + 0x749000))
-#define gUnknown_08749044 ((u8*)(ROM_START + 0x749044))
-#define gUnknown_087490B0 ((u8*)(ROM_START + 0x7490B0))
-#define gUnknown_0874911C ((u8*)(ROM_START + 0x74911C))
-#define gUnknown_08749158 ((u8*)(ROM_START + 0x749158))
-#define gUnknown_08749194 ((u8*)(ROM_START + 0x749194))
-#define gUnknown_087491C4 ((u8*)(ROM_START + 0x7491C4))
-#define gUnknown_087491EC ((u8*)(ROM_START + 0x7491EC))
-#define gUnknown_08749210 ((u8*)(ROM_START + 0x749210))
-#define gUnknown_08749240 ((u8*)(ROM_START + 0x749240))
-#define gUnknown_08749268 ((u8*)(ROM_START + 0x749268))
-#define gUnknown_08749290 ((u8*)(ROM_START + 0x749290))
-#define gUnknown_087492C0 ((u8*)(ROM_START + 0x7492C0))
-#define gUnknown_08749314 ((u8*)(ROM_START + 0x749314))
-#define gUnknown_08749334 ((u8*)(ROM_START + 0x749334))
-#define gUnknown_08749360 ((u8*)(ROM_START + 0x749360))
-#define gUnknown_08749384 ((u8*)(ROM_START + 0x749384))
-#define gUnknown_087493A8 ((u8*)(ROM_START + 0x7493A8))
-#define gUnknown_087493D4 ((u8*)(ROM_START + 0x7493D4))
-#define gUnknown_08749404 ((u8*)(ROM_START + 0x749404))
+#define gGfxSeqAnimation16 ((u8*)(ROM_START + 0x748590))
+#define gGfxSeqAnimation17 ((u8*)(ROM_START + 0x7485C0))
+#define gGfxSeqAnimation18 ((u8*)(ROM_START + 0x7485F4))
+#define gGfxSeqAnimation19 ((u8*)(ROM_START + 0x748684))
+#define gGfxSeqAnimation20 ((u8*)(ROM_START + 0x748774))
+#define gGfxSeqAnimation21 ((u8*)(ROM_START + 0x748AB4))
+#define gGfxSeqAnimation22 ((u8*)(ROM_START + 0x748AEC))
+#define gGfxSeqAnimation23 ((u8*)(ROM_START + 0x748B24))
+#define gGfxSeqAnimation24 ((u8*)(ROM_START + 0x748C38))
+#define gGfxSeqAnimation25 ((u8*)(ROM_START + 0x748CA0))
+#define gGfxSeqAnimation26 ((u8*)(ROM_START + 0x748D74))
+#define gGfxSeqAnimation27 ((u8*)(ROM_START + 0x748D98))
+#define gGfxSeqAnimation28 ((u8*)(ROM_START + 0x748DB8))
+#define gGfxSeqAnimation29 ((u8*)(ROM_START + 0x748E0C))
+#define gGfxSeqAnimation30 ((u8*)(ROM_START + 0x748EE4))
+#define gGfxSeqAnimation31 ((u8*)(ROM_START + 0x748F44))
+#define gGfxSeqAnimation32 ((u8*)(ROM_START + 0x748F80))
+#define gGfxSeqAnimation33 ((u8*)(ROM_START + 0x748FA4))
+#define gGfxSeqAnimation34 ((u8*)(ROM_START + 0x748FDC))
+#define gGfxSeqAnimation35 ((u8*)(ROM_START + 0x749000))
+#define gGfxSeqAnimation36 ((u8*)(ROM_START + 0x749044))
+#define gGfxSeqAnimation37 ((u8*)(ROM_START + 0x7490B0))
+#define gGfxSeqAnimation38 ((u8*)(ROM_START + 0x74911C))
+#define gGfxSeqAnimation39 ((u8*)(ROM_START + 0x749158))
+#define gGfxSeqAnimation40 ((u8*)(ROM_START + 0x749194))
+#define gGfxSeqAnimation41 ((u8*)(ROM_START + 0x7491C4))
+#define gGfxSeqAnimation42 ((u8*)(ROM_START + 0x7491EC))
+#define gGfxSeqAnimation43 ((u8*)(ROM_START + 0x749210))
+#define gGfxSeqAnimation44 ((u8*)(ROM_START + 0x749240))
+#define gGfxSeqAnimation45 ((u8*)(ROM_START + 0x749268))
+#define gGfxSeqAnimation46 ((u8*)(ROM_START + 0x749290))
+#define gGfxSeqAnimation47 ((u8*)(ROM_START + 0x7492C0))
+#define gGfxSeqAnimation48 ((u8*)(ROM_START + 0x749314))
+#define gGfxSeqAnimation49 ((u8*)(ROM_START + 0x749334))
+#define gGfxSeqAnimation50 ((u8*)(ROM_START + 0x749360))
+#define gGfxSeqAnimation51 ((u8*)(ROM_START + 0x749384))
+#define gGfxSeqAnimation52 ((u8*)(ROM_START + 0x7493A8))
+#define gGfxSeqAnimation53 ((u8*)(ROM_START + 0x7493D4))
+#define gGfxSeqAnimation54 ((u8*)(ROM_START + 0x749404))
 
 #else
 extern u8 gGfxPalTitleScreen[];
@@ -1392,45 +1392,45 @@ extern u8 gGfxSeqAnimation12[];
 extern u8 gGfxSeqAnimation13[];
 extern u8 gGfxSeqAnimation14[];
 extern u8 gGfxSeqAnimation15[];
-extern u8 gUnknown_08748590[];
-extern u8 gUnknown_087485C0[];
-extern u8 gUnknown_087485F4[];
-extern u8 gUnknown_08748684[];
-extern u8 gUnknown_08748774[];
-extern u8 gUnknown_08748AB4[];
-extern u8 gUnknown_08748AEC[];
-extern u8 gUnknown_08748B24[];
-extern u8 gUnknown_08748C38[];
-extern u8 gUnknown_08748CA0[];
-extern u8 gUnknown_08748D74[];
-extern u8 gUnknown_08748D98[];
-extern u8 gUnknown_08748DB8[];
-extern u8 gUnknown_08748E0C[];
-extern u8 gUnknown_08748EE4[];
-extern u8 gUnknown_08748F44[];
-extern u8 gUnknown_08748F80[];
-extern u8 gUnknown_08748FA4[];
-extern u8 gUnknown_08748FDC[];
-extern u8 gUnknown_08749000[];
-extern u8 gUnknown_08749044[];
-extern u8 gUnknown_087490B0[];
-extern u8 gUnknown_0874911C[];
-extern u8 gUnknown_08749158[];
-extern u8 gUnknown_08749194[];
-extern u8 gUnknown_087491C4[];
-extern u8 gUnknown_087491EC[];
-extern u8 gUnknown_08749210[];
-extern u8 gUnknown_08749240[];
-extern u8 gUnknown_08749268[];
-extern u8 gUnknown_08749290[];
-extern u8 gUnknown_087492C0[];
-extern u8 gUnknown_08749314[];
-extern u8 gUnknown_08749334[];
-extern u8 gUnknown_08749360[];
-extern u8 gUnknown_08749384[];
-extern u8 gUnknown_087493A8[];
-extern u8 gUnknown_087493D4[];
-extern u8 gUnknown_08749404[];
+extern u8 gGfxSeqAnimation16[];
+extern u8 gGfxSeqAnimation17[];
+extern u8 gGfxSeqAnimation18[];
+extern u8 gGfxSeqAnimation19[];
+extern u8 gGfxSeqAnimation20[];
+extern u8 gGfxSeqAnimation21[];
+extern u8 gGfxSeqAnimation22[];
+extern u8 gGfxSeqAnimation23[];
+extern u8 gGfxSeqAnimation24[];
+extern u8 gGfxSeqAnimation25[];
+extern u8 gGfxSeqAnimation26[];
+extern u8 gGfxSeqAnimation27[];
+extern u8 gGfxSeqAnimation28[];
+extern u8 gGfxSeqAnimation29[];
+extern u8 gGfxSeqAnimation30[];
+extern u8 gGfxSeqAnimation31[];
+extern u8 gGfxSeqAnimation32[];
+extern u8 gGfxSeqAnimation33[];
+extern u8 gGfxSeqAnimation34[];
+extern u8 gGfxSeqAnimation35[];
+extern u8 gGfxSeqAnimation36[];
+extern u8 gGfxSeqAnimation37[];
+extern u8 gGfxSeqAnimation38[];
+extern u8 gGfxSeqAnimation39[];
+extern u8 gGfxSeqAnimation40[];
+extern u8 gGfxSeqAnimation41[];
+extern u8 gGfxSeqAnimation42[];
+extern u8 gGfxSeqAnimation43[];
+extern u8 gGfxSeqAnimation44[];
+extern u8 gGfxSeqAnimation45[];
+extern u8 gGfxSeqAnimation46[];
+extern u8 gGfxSeqAnimation47[];
+extern u8 gGfxSeqAnimation48[];
+extern u8 gGfxSeqAnimation49[];
+extern u8 gGfxSeqAnimation50[];
+extern u8 gGfxSeqAnimation51[];
+extern u8 gGfxSeqAnimation52[];
+extern u8 gGfxSeqAnimation53[];
+extern u8 gGfxSeqAnimation54[];
 #endif
 
 
