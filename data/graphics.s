@@ -1,62 +1,62 @@
 	.section gfx_data, "aw", %progbits
 	.include "asm/macros.inc"
 
-	.global gUnknown_08180000
-gUnknown_08180000:
+	.global gGfxPalTitleScreen
+gGfxPalTitleScreen:
 	.incbin "graphics/title_screen.gbapal"
 
-	.global gUnknown_08180200
-gUnknown_08180200:
+	.global gGfx8lzTitleScreen
+gGfx8lzTitleScreen:
 	.incbin "graphics/title_screen.8bpp.lz"
 
-	.global gUnknown_08182D08
-gUnknown_08182D08:
+	.global gGfxPalTitleScreenDemo
+gGfxPalTitleScreenDemo:
 	.incbin "graphics/title_screen_demo.gbapal"
 
-	.global gUnknown_08182F08
-gUnknown_08182F08:
+	.global gGfx8lzTitleScreenDemo
+gGfx8lzTitleScreenDemo:
 	.incbin "graphics/title_screen_demo.8bpp.lz"
 
 	.global gUnusedAsciiCharSet
 gUnusedAsciiCharSet:
 	.incbin "graphics/unused_ascii_charset.4bpp"
 
-	.global gUnknown_08186520
-gUnknown_08186520:
+	.global gGfxPalEvidenceProfileDesc
+gGfxPalEvidenceProfileDesc:
 	.incbin "graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal"
 
 	.global gUnknown_08186540
 gUnknown_08186540:
 	.incbin "graphics/ui/message_box/unk_186540.4bpp"
 
-	.global gUnknown_08187540
-gUnknown_08187540:
+	.global gGfx4bppNametags
+gGfx4bppNametags:
 	.incbin "graphics/ui/message_box/nametags.4bpp"
 
-	.global gUnknown_0818BD40
-gUnknown_0818BD40:
+	.global gGfx4bppTestimonyArrows
+gGfx4bppTestimonyArrows:
 	.incbin "graphics/ui/left_arrow.4bpp"
 	.incbin "graphics/ui/right_arrow.4bpp"
 
-	.global gUnknown_0818C040
-gUnknown_0818C040:
+	.global gGfx4bppTrialLifeAndUnused
+gGfx4bppTrialLifeAndUnused:
 	.incbin "graphics/ui/trial/exclamation_point.4bpp"
 	.incbin "graphics/ui/trial/unused_testimony_characters.4bpp"
 
-	.global gUnknown_0818E4C0
-gUnknown_0818E4C0:
+	.global gGfx4bppInvestigationActions
+gGfx4bppInvestigationActions:
 	.incbin "graphics/ui/investigation/action_buttons.4bpp"
 
-	.global gUnknown_0818F4C0
-gUnknown_0818F4C0:
+	.global gGfx4bppControllerButtons
+gGfx4bppControllerButtons:
 	.incbin "graphics/ui/controller_buttons.4bpp"
 
-	.global gUnknown_0818F6C0
-gUnknown_0818F6C0:
+	.global gGfx4bppInvestigationScrollButton
+gGfx4bppInvestigationScrollButton:
 	.incbin "graphics/ui/investigation/scroll_prompt.4bpp"
 
-	.global gUnknown_0818F8C0
-gUnknown_0818F8C0:
+	.global gGfx4bppTestimonyTextTiles
+gGfx4bppTestimonyTextTiles:
 	.incbin "graphics/ui/trial/testimony_text_tiles.4bpp"
 
 	.global gUnknown_081900C0
@@ -1145,12 +1145,12 @@ gCharSet:  @ Charset
 
 @ BEGIN TALK AND LOCATION CHOICES
 
-	.global gUnknown_081FD92C
-gUnknown_081FD92C:
+	.global gGfxPalChoiceSelected
+gGfxPalChoiceSelected:
 	.incbin "graphics/talk_location_choices/choice_selected.gbapal"
 
-	.global gUnknown_081FD94C
-gUnknown_081FD94C:
+	.global gGfxPalChoiceGreyedOut
+gGfxPalChoiceGreyedOut:
 	.incbin "graphics/talk_location_choices/choice_greyed_out.gbapal"
 	
 @ first block of stuffs
@@ -1805,265 +1805,265 @@ gUnknown_08248C0C:
 
 @ ; BEGIN BACKGROUNDS
 
-	.global gUnknown_08248C4C
-gUnknown_08248C4C:
+	.global gGfx_BG000
+gGfx_BG000:
 	.incbin "graphics/striped_images/backgrounds/wright_co_law_offices/fey_co_murder_night.8bpp.striped"
 
-	.global gUnknown_0825280C
-gUnknown_0825280C:
+	.global gGfx_BG001
+gGfx_BG001:
 	.incbin "graphics/striped_images/backgrounds/wright_co_law_offices/office_day.8bpp.striped"
 
-	.global gUnknown_08257F28
-gUnknown_08257F28:
+	.global gGfx_BG002
+gGfx_BG002:
 	.incbin "graphics/striped_images/backgrounds/court/defendant_lobby.8bpp.striped"
 
-	.global gUnknown_0825CCCC
-gUnknown_0825CCCC:
+	.global gGfx_BG003
+gGfx_BG003:
 	.incbin "graphics/striped_images/backgrounds/court/defense_bench.4bpp.striped"
 
-	.global gUnknown_0825EF64
-gUnknown_0825EF64:
+	.global gGfx_BG004
+gGfx_BG004:
 	.incbin "graphics/striped_images/backgrounds/court/prosecution_bench.4bpp.striped"
 
-	.global gUnknown_082610F0
-gUnknown_082610F0:
+	.global gGfx_BG005
+gGfx_BG005:
 	.incbin "graphics/striped_images/backgrounds/court/witness_stand.4bpp.striped"
 
-	.global gUnknown_08263898
-gUnknown_08263898:
+	.global gGfx_BG006
+gGfx_BG006:
 	.incbin "graphics/striped_images/backgrounds/court/court_room.8bpp.striped"
 
-	.global gUnknown_0826B6DC
-gUnknown_0826B6DC:
+	.global gGfx_BG007
+gGfx_BG007:
 	.incbin "graphics/striped_images/backgrounds/court/co_counsel.8bpp.striped"
 
-	.global gUnknown_08271DE8
-gUnknown_08271DE8:
+	.global gGfx_BG008
+gGfx_BG008:
 	.incbin "graphics/striped_images/backgrounds/court/judge_seat.8bpp.striped"
 
-	.global gUnknown_08278824
-gUnknown_08278824:
+	.global gGfx_BG009
+gGfx_BG009:
 	.incbin "graphics/striped_images/backgrounds/wright_co_law_offices/office_entry_night.8bpp.striped"
 
-	.global gUnknown_0827CEEC
-gUnknown_0827CEEC:
+	.global gGfx_BG010
+gGfx_BG010:
 	.incbin "graphics/striped_images/backgrounds/cutscenes/case2/maya_seeing_dead_mia.8bpp.striped"
 
-	.global gUnknown_08282870
-gUnknown_08282870:
+	.global gGfx_BG011
+gGfx_BG011:
 	.incbin "graphics/striped_images/backgrounds/global_studios/studio_path.8bpp.striped"
 
-	.global gUnknown_08288AE0
-gUnknown_08288AE0:
+	.global gGfx_BG012
+gGfx_BG012:
 	.incbin "graphics/striped_images/backgrounds/global_studios/staff_area.8bpp.striped"
 
-	.global gUnknown_08291ADC
-gUnknown_08291ADC:
+	.global gGfx_BG013
+gGfx_BG013:
 	.incbin "graphics/striped_images/backgrounds/witness_account/mia_dodging_right.4bpp.striped"
 
-	.global gUnknown_08293DC0
-gUnknown_08293DC0:
+	.global gGfx_BG014
+gGfx_BG014:
 	.incbin "graphics/striped_images/backgrounds/witness_account/mia_dodging_left.4bpp.striped"
 
-	.global gUnknown_08296138
-gUnknown_08296138:
+	.global gGfx_BG015
+gGfx_BG015:
 	.incbin "graphics/striped_images/backgrounds/evidence/fey_co_diagram.4bpp.striped"
 
-	.global gUnknown_08296E28
-gUnknown_08296E28:
+	.global gGfx_BG016
+gGfx_BG016:
 	.incbin "graphics/striped_images/backgrounds/witness_account/april_getting_room_service.4bpp.striped"
 
-	.global gUnknown_0829A23C
-gUnknown_0829A23C:
+	.global gGfx_BG017
+gGfx_BG017:
 	.incbin "graphics/striped_images/backgrounds/wright_co_law_offices/mia_dead_on_ground.8bpp.striped"
 
-	.global gUnknown_0829E7A4
-gUnknown_0829E7A4:
+	.global gGfx_BG018
+gGfx_BG018:
 	.incbin "graphics/striped_images/backgrounds/cutscenes/case2/phoenix_maya_mia.8bpp.striped"
 
-	.global gUnknown_082A3BA8
-gUnknown_082A3BA8:
+	.global gGfx_BG019
+gGfx_BG019:
 	.incbin "graphics/striped_images/backgrounds/global_studios/studio_2_trailer.8bpp.striped"
 
-	.global gUnknown_082A8E3C
-gUnknown_082A8E3C:
+	.global gGfx_BG020
+gGfx_BG020:
 	.incbin "graphics/striped_images/backgrounds/cutscenes/case2/april_calling_police.8bpp.striped"
 
-	.global gUnknown_082AE378
-gUnknown_082AE378:
+	.global gGfx_BG021
+gGfx_BG021:
 	.incbin "graphics/striped_images/backgrounds/cutscenes/case2/redd_hitting_mia.8bpp.striped"
 
-	.global gUnknown_082B6B78
-gUnknown_082B6B78:
+	.global gGfx_BG022
+gGfx_BG022:
 	.incbin "graphics/striped_images/backgrounds/cutscenes/case2/mia_being_attacked.8bpp.striped"
 
-	.global gUnknown_082BDC88
-gUnknown_082BDC88:
+	.global gGfx_BG023
+gGfx_BG023:
 	.incbin "graphics/striped_images/backgrounds/cutscenes/case2/redd_holding_thinker.4bpp.striped"
 
-	.global gUnknown_082BFC24
-gUnknown_082BFC24:
+	.global gGfx_BG024
+gGfx_BG024:
 	.incbin "graphics/striped_images/backgrounds/global_studios/will_power_dressing_room.8bpp.striped"
 
-	.global gUnknown_082C5020
-gUnknown_082C5020:
+	.global gGfx_BG025
+gGfx_BG025:
 	.incbin "graphics/striped_images/backgrounds/global_studios/front_gate.8bpp.striped"
 
-	.global gUnknown_082C9600
-gUnknown_082C9600:
+	.global gGfx_BG026
+gGfx_BG026:
 	.incbin "graphics/striped_images/backgrounds/global_studios/studio_1.8bpp.striped"
 
-	.global gUnknown_082CE308
-gUnknown_082CE308:
+	.global gGfx_BG027
+gGfx_BG027:
 	.incbin "graphics/striped_images/backgrounds/gavel/2.8bpp.striped"
 
-	.global gUnknown_082D1A90
-gUnknown_082D1A90:
+	.global gGfx_BG028
+gGfx_BG028:
 	.incbin "graphics/striped_images/backgrounds/gavel/3.8bpp.striped"
 
-	.global gUnknown_082D79EC
-gUnknown_082D79EC:
+	.global gGfx_BG029
+gGfx_BG029:
 	.incbin "graphics/striped_images/backgrounds/evidence/fey_co_diagram_light.4bpp.striped"
 
-	.global gUnknown_082D8974
-gUnknown_082D8974:
+	.global gGfx_BG030
+gGfx_BG030:
 	.incbin "graphics/striped_images/backgrounds/detention_center.8bpp.striped"
 
-	.global gUnknown_082DC188
-gUnknown_082DC188:
+	.global gGfx_BG031
+gGfx_BG031:
 	.incbin "graphics/striped_images/backgrounds/bluecorp_ceo_office.8bpp.striped"
 
-	.global gUnknown_082E1FA4
-gUnknown_082E1FA4:
+	.global gGfx_BG032
+gGfx_BG032:
 	.incbin "graphics/striped_images/backgrounds/gatewater_hotelroom.8bpp.striped"
 
-	.global gUnknown_082E6BBC
-gUnknown_082E6BBC:
+	.global gGfx_BG033
+gGfx_BG033:
 	.incbin "graphics/striped_images/backgrounds/cutscenes/case1/frank_holding_thinker.8bpp.striped"
 
-	.global gUnknown_082EB2B8
-gUnknown_082EB2B8:
+	.global gGfx_BG034
+gGfx_BG034:
 	.incbin "graphics/striped_images/backgrounds/cutscenes/case1/cindy_dead_on_floor.8bpp.striped"
 
-	.global gUnknown_082EF904
-gUnknown_082EF904:
+	.global gGfx_BG035
+gGfx_BG035:
 	.incbin "graphics/striped_images/backgrounds/cutscenes/case1/cindy_and_frank.8bpp.striped"
 
-	.global gUnknown_082F7D4C
-gUnknown_082F7D4C:
+	.global gGfx_BG036
+gGfx_BG036:
 	.incbin "graphics/striped_images/backgrounds/cutscenes/case1/frank_closeup_1.8bpp.striped"
 
-	.global gUnknown_082FAF44
-gUnknown_082FAF44:
+	.global gGfx_BG037
+gGfx_BG037:
 	.incbin "graphics/striped_images/backgrounds/cutscenes/case1/frank_closeup_2.8bpp.striped"
 
-	.global gUnknown_082FE610
-gUnknown_082FE610:
+	.global gGfx_BG038
+gGfx_BG038:
 	.incbin "graphics/striped_images/backgrounds/cutscenes/case1/frank_closeup_3.8bpp.striped"
 
-	.global gUnknown_083022F0
-gUnknown_083022F0:
+	.global gGfx_BG039
+gGfx_BG039:
 	.incbin "graphics/striped_images/backgrounds/grossberg_law_offices/grossberg_law_offices_painting.8bpp.striped"
 
-	.global gUnknown_083081E4
-gUnknown_083081E4:
+	.global gGfx_BG040
+gGfx_BG040:
 	.incbin "graphics/striped_images/backgrounds/grossberg_law_offices/grossberg_law_offices_no_painting.8bpp.striped"
 
-	.global gUnknown_0830D2D8
-gUnknown_0830D2D8:
+	.global gGfx_BG041
+gGfx_BG041:
 	.incbin "graphics/striped_images/backgrounds/witness_account/cindy_finding_frank.4bpp.striped"
 
-	.global gUnknown_0831002C
-gUnknown_0831002C:
+	.global gGfx_BG042
+gGfx_BG042:
 	.incbin "graphics/striped_images/backgrounds/witness_account/frank_witnessing_larry.4bpp.striped"
 
-	.global gUnknown_08312664
-gUnknown_08312664:
+	.global gGfx_BG043
+gGfx_BG043:
 	.incbin "graphics/striped_images/backgrounds/witness_account/frank_finding_cindy.4bpp.striped"
 
-	.global gUnknown_08314F8C
-gUnknown_08314F8C:
+	.global gGfx_BG044
+gGfx_BG044:
 	.incbin "graphics/striped_images/backgrounds/global_studios/studio_2.8bpp.striped"
 
-	.global gUnknown_0831E8E0
-gUnknown_0831E8E0:
+	.global gGfx_BG045
+gGfx_BG045:
 	.incbin "graphics/striped_images/backgrounds/evidence/maya_phone_call_page_1.4bpp.striped"
-	.global gUnknown_0831F624
-gUnknown_0831F624:
+	.global gGfx_BG046
+gGfx_BG046:
 	.incbin "graphics/striped_images/backgrounds/evidence/maya_phone_call_page_2.4bpp.striped"
 
-	.global gUnknown_08320328
-gUnknown_08320328:
+	.global gGfx_BG047
+gGfx_BG047:
 	.incbin "graphics/striped_images/backgrounds/gavel/1.8bpp.striped"
 
-	.global gUnknown_083230C0
-gUnknown_083230C0:
+	.global gGfx_BG048
+gGfx_BG048:
 	.incbin "graphics/striped_images/backgrounds/evidence/maya_phone_call_page_3.4bpp.striped"
 
-	.global gUnknown_08323EDC
-gUnknown_08323EDC:
+	.global gGfx_BG049
+gGfx_BG049:
 	.incbin "graphics/striped_images/backgrounds/witness_account/jack_at_gate_photo.4bpp.striped"
 
-	.global gUnknown_08327074
-gUnknown_08327074:
+	.global gGfx_BG050
+gGfx_BG050:
 	.incbin "graphics/striped_images/backgrounds/witness_account/jack_dead_at_studio_1.4bpp.striped"
 
-	.global gUnknown_0832AFB8
-gUnknown_0832AFB8:
+	.global gGfx_BG051
+gGfx_BG051:
 	.incbin "graphics/striped_images/backgrounds/witness_account/jack_wearing_samurai_suit.4bpp.striped"
 
-	.global gUnknown_0832E7B0
-gUnknown_0832E7B0:
+	.global gGfx_BG052
+gGfx_BG052:
 	.incbin "graphics/striped_images/backgrounds/witness_account/vasquez_pushing_jack_aftermath.4bpp.striped"
 
-	.global gUnknown_08331B38
-gUnknown_08331B38:
+	.global gGfx_BG053
+gGfx_BG053:
 	.incbin "graphics/striped_images/backgrounds/witness_account/staff_eating_lunch.4bpp.striped"
 
-	.global gUnknown_08335A58
-gUnknown_08335A58:
+	.global gGfx_BG054
+gGfx_BG054:
 	.incbin "graphics/striped_images/backgrounds/witness_account/studio_2_jack_and_vasquez.4bpp.striped"
 
-	.global gUnknown_08339144
-gUnknown_08339144:
+	.global gGfx_BG055
+gGfx_BG055:
 	.incbin "graphics/striped_images/backgrounds/witness_account/cody_witnessing_samurai.4bpp.striped"
 
-	.global gUnknown_0833DC0C
-gUnknown_0833DC0C:
+	.global gGfx_BG056
+gGfx_BG056:
 	.incbin "graphics/striped_images/backgrounds/witness_account/samurai_at_studio_2_photo.4bpp.striped"
 
-	.global gUnknown_0833F720
-gUnknown_0833F720:
+	.global gGfx_BG057
+gGfx_BG057:
 	.incbin "graphics/striped_images/backgrounds/witness_account/5_year_old_photo.4bpp.striped"
 
-	.global gUnknown_08342908
-gUnknown_08342908:
+	.global gGfx_BG058
+gGfx_BG058:
 	.incbin "graphics/striped_images/backgrounds/global_studios/studio_2_trailer_mafia.8bpp.striped"
 
-	.global gUnknown_0834863C
-gUnknown_0834863C:
+	.global gGfx_BG059
+gGfx_BG059:
 	.incbin "graphics/striped_images/backgrounds/cutscenes/case3/pink_princess.8bpp.striped"
 
-	.global gUnknown_0834F218
-gUnknown_0834F218:
+	.global gGfx_BG060
+gGfx_BG060:
 	.incbin "graphics/striped_images/backgrounds/global_studios/monkey_on_studio_2_path.8bpp.striped"
 
-	.global gUnknown_0835699C
-gUnknown_0835699C:
+	.global gGfx_BG061
+gGfx_BG061:
 	.incbin "graphics/striped_images/backgrounds/evidence/global_studio_diagram.4bpp.striped"
 
-	.global gUnknown_08357870
-gUnknown_08357870:
+	.global gGfx_BG062
+gGfx_BG062:
 	.incbin "graphics/striped_images/backgrounds/witness_account/will_power_injury.4bpp.striped"
 
-	.global gUnknown_0835ABD8
-gUnknown_0835ABD8:
+	.global gGfx_BG063
+gGfx_BG063:
 	.incbin "graphics/striped_images/backgrounds/cutscenes/case3/steel_samurai.8bpp.striped"
 	
 @ ; END BACKGROUNDS
 
-	.global gUnknown_08360834
-gUnknown_08360834:
+	.global gGfx_BG064
+gGfx_BG064:
 	.incbin "graphics/bustup_phoenix.gbapal"
 
 
@@ -2077,8 +2077,8 @@ gUnknown_08360D04:
 	.incbin "graphics/bustup_phoenix.4bpp"
 
 
-	.global gUnknown_08362524
-gUnknown_08362524:
+	.global gGfx_BG065
+gGfx_BG065:
 	.incbin "graphics/bustup_edgeworth.gbapal"
 
 
@@ -2094,48 +2094,48 @@ gUnknown_083629F4:
 @ ; BEGIN BACKGROUNDS
 
 
-	.global gUnknown_08364794
-gUnknown_08364794:
+	.global gGfx_BG066
+gGfx_BG066:
 	.incbin "graphics/striped_images/speedlines.4bpp.striped"
 
 
-	.global gUnknown_08365640
-gUnknown_08365640:
+	.global gGfx_BG067
+gGfx_BG067:
 	.incbin "graphics/striped_images/courtroom_background.4bpp.striped"
 
 
-	.global gUnknown_08368BC4
-gUnknown_08368BC4:
+	.global gGfx_BG068
+gGfx_BG068:
 	.incbin "graphics/striped_images/capcom_screen.4bpp.striped"
 
 @ ; this entry here spills over into an explicitly referenced one (the next), why though...
-@	.global gUnknown_08369890
+@	.global gGfx_BG069
 
 @ ; it looks like this reference skips the "table" of this striped image and directly goes to the data?
 @	.global gUnknown_083698B8
 
-	.global gUnknown_08369890
-gUnknown_08369890:
+	.global gGfx_BG069
+gGfx_BG069:
 	.incbin "graphics/striped_images/steel_samurai_night.4bpp.striped"
 
 
-	.global gUnknown_0836B924
-gUnknown_0836B924:
+	.global gGfx_BG070
+gGfx_BG070:
 	.incbin "graphics/striped_images/gourd_lake_entrance.8bpp.striped"
 
 
-	.global gUnknown_08372D2C
-gUnknown_08372D2C:
+	.global gGfx_BG071
+gGfx_BG071:
 	.incbin "graphics/striped_images/gourd_lake_park.8bpp.striped"
 
 
-	.global gUnknown_0837920C
-gUnknown_0837920C:
+	.global gGfx_BG072
+gGfx_BG072:
 	.incbin "graphics/striped_images/gourd_lake_park_no_balloon.8bpp.striped"
 
 
-	.global gUnknown_0837E52C
-gUnknown_0837E52C:
+	.global gGfx_BG073
+gGfx_BG073:
 	.incbin "graphics/striped_images/gourd_lake_beach.8bpp.striped"
 
 
@@ -2149,183 +2149,183 @@ gUnknown_0838A6F4:
 	.incbin "graphics/striped_images/case3_intro_trees.4bpp.striped"
 
 
-	.global gUnknown_0838B364
-gUnknown_0838B364:
+	.global gGfx_BG076
+gGfx_BG076:
 	.incbin "graphics/striped_images/case3_intro_steel_samurai_posing.4bpp.striped"
 
 
-	.global gUnknown_0838D370
-gUnknown_0838D370:
+	.global gGfx_BG077
+gGfx_BG077:
 	.incbin "graphics/striped_images/gourd_lake_boat_rental.8bpp.striped"
 
 
-	.global gUnknown_08392118
-gUnknown_08392118:
+	.global gGfx_BG078
+gGfx_BG078:
 	.incbin "graphics/striped_images/gourd_lake_boat_rental_house.8bpp.striped"
 
 
-	.global gUnknown_08396EB0
-gUnknown_08396EB0:
+	.global gGfx_BG079
+gGfx_BG079:
 	.incbin "graphics/striped_images/police_station_lobby.8bpp.striped"
 
 
-	.global gUnknown_0839CD04
-gUnknown_0839CD04:
+	.global gGfx_BG080
+gGfx_BG080:
 	.incbin "graphics/striped_images/police_station_evidence_storage.8bpp.striped"
 
 
-	.global gUnknown_083A3504
-gUnknown_083A3504:
+	.global gGfx_BG081
+gGfx_BG081:
 	.incbin "graphics/striped_images/case3_intro_faceoff.4bpp.striped"
 
 
-	.global gUnknown_083A6934
-gUnknown_083A6934:
+	.global gGfx_BG082
+gGfx_BG082:
 	.incbin "graphics/striped_images/3A6934.4bpp.striped"
 
 
-	.global gUnknown_083A7790
-gUnknown_083A7790:
+	.global gGfx_BG083
+gGfx_BG083:
 	.incbin "graphics/striped_images/3A7790.4bpp.striped"
 
 
-	.global gUnknown_083A8648
-gUnknown_083A8648:
+	.global gGfx_BG084
+gGfx_BG084:
 	.incbin "graphics/striped_images/3A8648.4bpp.striped"
 
 
-	.global gUnknown_083A9514
-gUnknown_083A9514:
+	.global gGfx_BG085
+gGfx_BG085:
 	.incbin "graphics/striped_images/case4_train_station.8bpp.striped"
 
 
-	.global gUnknown_083AFCC8
-gUnknown_083AFCC8:
+	.global gGfx_BG086
+gGfx_BG086:
 	.incbin "graphics/striped_images/case4_gourd_lake_map.4bpp.striped"
 
 
-	.global gUnknown_083B0A94
-gUnknown_083B0A94:
+	.global gGfx_BG087
+gGfx_BG087:
 	.incbin "graphics/striped_images/case4_lottas_photo_zoomed.4bpp.striped"
 
 
-	.global gUnknown_083B3724
-gUnknown_083B3724:
+	.global gGfx_BG088
+gGfx_BG088:
 	.incbin "graphics/striped_images/case4_elevator_photo.4bpp.striped"
 
 
-	.global gUnknown_083B6C8C
-gUnknown_083B6C8C:
+	.global gGfx_BG089
+gGfx_BG089:
 	.incbin "graphics/striped_images/case4_newspaper.8bpp.striped"
 
 
-	.global gUnknown_083BF1BC
-gUnknown_083BF1BC:
+	.global gGfx_BG090
+gGfx_BG090:
 	.incbin "graphics/striped_images/case4_balloon_launching.4bpp.striped"
 
 
-	.global gUnknown_083C3724
-gUnknown_083C3724:
+	.global gGfx_BG091
+gGfx_BG091:
 	.incbin "graphics/striped_images/case4_balloon_landing_in_lake.4bpp.striped"
 
 
-	.global gUnknown_083C7654
-gUnknown_083C7654:
+	.global gGfx_BG092
+gGfx_BG092:
 	.incbin "graphics/striped_images/case4_larry_searching_lake.4bpp.striped"
 
 
-	.global gUnknown_083CB0BC
-gUnknown_083CB0BC:
+	.global gGfx_BG093
+gGfx_BG093:
 	.incbin "graphics/striped_images/case4_class_trial.8bpp.striped"
 
 
-	.global gUnknown_083D27A8
-gUnknown_083D27A8:
+	.global gGfx_BG094
+gGfx_BG094:
 	.incbin "graphics/striped_images/case4_lottas_photo_far.4bpp.striped"
 
 
-	.global gUnknown_083D5E64
-gUnknown_083D5E64:
+	.global gGfx_BG095
+gGfx_BG095:
 	.incbin "graphics/striped_images/case4_class_trial_phoenix.8bpp.striped"
 
 
-	.global gUnknown_083DAAC0
-gUnknown_083DAAC0:
+	.global gGfx_BG096
+gGfx_BG096:
 	.incbin "graphics/striped_images/case4_class_trial_edgeworth.8bpp.striped"
 
 
-	.global gUnknown_083E1514
-gUnknown_083E1514:
+	.global gGfx_BG097
+gGfx_BG097:
 	.incbin "graphics/striped_images/case4_class_trial_larry.8bpp.striped"
 
 
-	.global gUnknown_083E74E8
-gUnknown_083E74E8:
+	.global gGfx_BG098
+gGfx_BG098:
 	.incbin "graphics/striped_images/case4_yanni_threatening.4bpp.striped"
 
 
-	.global gUnknown_083EAB84
-gUnknown_083EAB84:
+	.global gGfx_BG099
+gGfx_BG099:
 	.incbin "graphics/striped_images/case4_shoot_water_from_boat.4bpp.striped"
 
 
-	.global gUnknown_083EEAC0
-gUnknown_083EEAC0:
+	.global gGfx_BG100
+gGfx_BG100:
 	.incbin "graphics/striped_images/case4_elevator_suffocating.4bpp.striped"
 
 
-	.global gUnknown_083F2BA4
-gUnknown_083F2BA4:
+	.global gGfx_BG101
+gGfx_BG101:
 	.incbin "graphics/striped_images/case4_elevator_edgeworth_throw.4bpp.striped"
 
 
-	.global gUnknown_083F6C48
-gUnknown_083F6C48:
+	.global gGfx_BG102
+gGfx_BG102:
 	.incbin "graphics/striped_images/case4_elevator_vonkarma_shot.4bpp.striped"
 
 
-	.global gUnknown_083FB1D4
-gUnknown_083FB1D4:
+	.global gGfx_BG103
+gGfx_BG103:
 	.incbin "graphics/striped_images/case4_elevator_vonkarma_in_door.4bpp.striped"
 
 
-	.global gUnknown_083FD8D4
-gUnknown_083FD8D4:
+	.global gGfx_BG104
+gGfx_BG104:
 	.incbin "graphics/striped_images/case4_train_station_maya_leaving.8bpp.striped"
 
 
-	.global gUnknown_084037F8
-gUnknown_084037F8:
+	.global gGfx_BG105
+gGfx_BG105:
 	.incbin "graphics/striped_images/trial_won.8bpp.striped"
 
 
-	.global gUnknown_0840AC3C
-gUnknown_0840AC3C:
+	.global gGfx_BG106
+gGfx_BG106:
 	.incbin "graphics/striped_images/case4_intro_lake_one_in_boat.4bpp.striped"
 
 
-	.global gUnknown_0840D3C8
-gUnknown_0840D3C8:
+	.global gGfx_BG107
+gGfx_BG107:
 	.incbin "graphics/striped_images/case4_intro_theatened_to_shoot.4bpp.striped"
 
 
-	.global gUnknown_0840F8C0
-gUnknown_0840F8C0:
+	.global gGfx_BG108
+gGfx_BG108:
 	.incbin "graphics/striped_images/case4_intro_edgeworth_picks_gun_up.8bpp.striped"
 
 
-	.global gUnknown_0841B0F4
-gUnknown_0841B0F4:
+	.global gGfx_BG109
+gGfx_BG109:
 	.incbin "graphics/striped_images/capcom_screen_bw.4bpp.striped"
 
 
-	.global gUnknown_0841BD7C
-gUnknown_0841BD7C:
+	.global gGfx_BG110
+gGfx_BG110:
 	.incbin "graphics/striped_images/title_screen_demo.8bpp.striped"
 
 
-	.global gUnknown_0841EFC4
-gUnknown_0841EFC4:
+	.global gGfx_BG111
+gGfx_BG111:
 	.incbin "graphics/striped_images/coming_soon_screen.8bpp.striped"
 
 @ ; END
@@ -2338,1031 +2338,1031 @@ gUnknown_08427608:
 
 @ scroll left to center
 
-	.global gUnknown_08427D88
-gUnknown_08427D88:
+	.global gGfxPalCourtScroll01
+gGfxPalCourtScroll01:
 	.incbin "graphics/court_scrolls/court_scroll01.gbapal"
 
 
-	.global gUnknown_08427DA8
-gUnknown_08427DA8:
+	.global gGfx4bppCourtScroll01
+gGfx4bppCourtScroll01:
 	.incbin "graphics/court_scrolls/court_scroll01.4bpp"
 
 
-	.global gUnknown_0842C8A8
-gUnknown_0842C8A8:
+	.global gGfxPalCourtScroll02
+gGfxPalCourtScroll02:
 	.incbin "graphics/court_scrolls/court_scroll02.gbapal"
 
 
-	.global gUnknown_0842C8C8
-gUnknown_0842C8C8:
+	.global gGfx4bppCourtScroll02
+gGfx4bppCourtScroll02:
 	.incbin "graphics/court_scrolls/court_scroll02.4bpp"
 
 
-	.global gUnknown_084313C8
-gUnknown_084313C8:
+	.global gGfxPalCourtScroll03
+gGfxPalCourtScroll03:
 	.incbin "graphics/court_scrolls/court_scroll03.gbapal"
 
 
-	.global gUnknown_084313E8
-gUnknown_084313E8:
+	.global gGfx4bppCourtScroll03
+gGfx4bppCourtScroll03:
 	.incbin "graphics/court_scrolls/court_scroll03.4bpp"
 
 
-	.global gUnknown_08435EE8
-gUnknown_08435EE8:
+	.global gGfxPalCourtScroll04
+gGfxPalCourtScroll04:
 	.incbin "graphics/court_scrolls/court_scroll04.gbapal"
 
 
-	.global gUnknown_08435F08
-gUnknown_08435F08:
+	.global gGfx4bppCourtScroll04
+gGfx4bppCourtScroll04:
 	.incbin "graphics/court_scrolls/court_scroll04.4bpp"
 
 
-	.global gUnknown_0843AA08
-gUnknown_0843AA08:
+	.global gGfxPalCourtScroll05
+gGfxPalCourtScroll05:
 	.incbin "graphics/court_scrolls/court_scroll05.gbapal"
 
 
-	.global gUnknown_0843AA28
-gUnknown_0843AA28:
+	.global gGfx4bppCourtScroll05
+gGfx4bppCourtScroll05:
 	.incbin "graphics/court_scrolls/court_scroll05.4bpp"
 
 
-	.global gUnknown_0843F528
-gUnknown_0843F528:
+	.global gGfxPalCourtScroll06
+gGfxPalCourtScroll06:
 	.incbin "graphics/court_scrolls/court_scroll06.gbapal"
 
 
-	.global gUnknown_0843F548
-gUnknown_0843F548:
+	.global gGfx4bppCourtScroll06
+gGfx4bppCourtScroll06:
 	.incbin "graphics/court_scrolls/court_scroll06.4bpp"
 
 
-	.global gUnknown_08444048
-gUnknown_08444048:
+	.global gGfxPalCourtScroll07
+gGfxPalCourtScroll07:
 	.incbin "graphics/court_scrolls/court_scroll07.gbapal"
 
 
-	.global gUnknown_08444068
-gUnknown_08444068:
+	.global gGfx4bppCourtScroll07
+gGfx4bppCourtScroll07:
 	.incbin "graphics/court_scrolls/court_scroll07.4bpp"
 
 
-	.global gUnknown_08448B68
-gUnknown_08448B68:
+	.global gGfxPalCourtScroll08
+gGfxPalCourtScroll08:
 	.incbin "graphics/court_scrolls/court_scroll08.gbapal"
 
 
-	.global gUnknown_08448B88
-gUnknown_08448B88:
+	.global gGfx4bppCourtScroll08
+gGfx4bppCourtScroll08:
 	.incbin "graphics/court_scrolls/court_scroll08.4bpp"
 
 
-	.global gUnknown_0844D688
-gUnknown_0844D688:
+	.global gGfxPalCourtScroll09
+gGfxPalCourtScroll09:
 	.incbin "graphics/court_scrolls/court_scroll09.gbapal"
 
 
-	.global gUnknown_0844D6A8
-gUnknown_0844D6A8:
+	.global gGfx4bppCourtScroll09
+gGfx4bppCourtScroll09:
 	.incbin "graphics/court_scrolls/court_scroll09.4bpp"
 
 
-	.global gUnknown_084521A8
-gUnknown_084521A8:
+	.global gGfxPalCourtScroll10
+gGfxPalCourtScroll10:
 	.incbin "graphics/court_scrolls/court_scroll10.gbapal"
 
 
-	.global gUnknown_084521C8
-gUnknown_084521C8:
+	.global gGfx4bppCourtScroll10
+gGfx4bppCourtScroll10:
 	.incbin "graphics/court_scrolls/court_scroll10.4bpp"
 
 
-	.global gUnknown_08456CC8
-gUnknown_08456CC8:
+	.global gGfxPalCourtScroll11
+gGfxPalCourtScroll11:
 	.incbin "graphics/court_scrolls/court_scroll11.gbapal"
 
 
-	.global gUnknown_08456CE8
-gUnknown_08456CE8:
+	.global gGfx4bppCourtScroll11
+gGfx4bppCourtScroll11:
 	.incbin "graphics/court_scrolls/court_scroll11.4bpp"
 
 
-	.global gUnknown_0845B7E8
-gUnknown_0845B7E8:
+	.global gGfxPalCourtScroll12
+gGfxPalCourtScroll12:
 	.incbin "graphics/court_scrolls/court_scroll12.gbapal"
 
 
-	.global gUnknown_0845B808
-gUnknown_0845B808:
+	.global gGfx4bppCourtScroll12
+gGfx4bppCourtScroll12:
 	.incbin "graphics/court_scrolls/court_scroll12.4bpp"
 
 
-	.global gUnknown_08460308
-gUnknown_08460308:
+	.global gGfxPalCourtScroll13
+gGfxPalCourtScroll13:
 	.incbin "graphics/court_scrolls/court_scroll13.gbapal"
 
 
-	.global gUnknown_08460328
-gUnknown_08460328:
+	.global gGfx4bppCourtScroll13
+gGfx4bppCourtScroll13:
 	.incbin "graphics/court_scrolls/court_scroll13.4bpp"
 
 
-	.global gUnknown_08464E28
-gUnknown_08464E28:
+	.global gGfxPalCourtScroll14
+gGfxPalCourtScroll14:
 	.incbin "graphics/court_scrolls/court_scroll14.gbapal"
 
 
-	.global gUnknown_08464E48
-gUnknown_08464E48:
+	.global gGfx4bppCourtScroll14
+gGfx4bppCourtScroll14:
 	.incbin "graphics/court_scrolls/court_scroll14.4bpp"
 
 
-	.global gUnknown_08469948
-gUnknown_08469948:
+	.global gGfxPalCourtScroll15
+gGfxPalCourtScroll15:
 	.incbin "graphics/court_scrolls/court_scroll15.gbapal"
 
 
-	.global gUnknown_08469968
-gUnknown_08469968:
+	.global gGfx4bppCourtScroll15
+gGfx4bppCourtScroll15:
 	.incbin "graphics/court_scrolls/court_scroll15.4bpp"
 
 
-	.global gUnknown_0846E468
-gUnknown_0846E468:
+	.global gGfxPalCourtScroll16
+gGfxPalCourtScroll16:
 	.incbin "graphics/court_scrolls/court_scroll16.gbapal"
 
 
-	.global gUnknown_0846E488
-gUnknown_0846E488:
+	.global gGfx4bppCourtScroll16
+gGfx4bppCourtScroll16:
 	.incbin "graphics/court_scrolls/court_scroll16.4bpp"
 
 @ scroll right to left
 
-	.global gUnknown_08472F88
-gUnknown_08472F88:
+	.global gGfxPalCourtScroll17
+gGfxPalCourtScroll17:
 	.incbin "graphics/court_scrolls/court_scroll17.gbapal"
 
 
-	.global gUnknown_08472FA8
-gUnknown_08472FA8:
+	.global gGfx4bppCourtScroll17
+gGfx4bppCourtScroll17:
 	.incbin "graphics/court_scrolls/court_scroll17.4bpp"
 
 
-	.global gUnknown_08477AA8
-gUnknown_08477AA8:
+	.global gGfxPalCourtScroll18
+gGfxPalCourtScroll18:
 	.incbin "graphics/court_scrolls/court_scroll18.gbapal"
 
 
-	.global gUnknown_08477AC8
-gUnknown_08477AC8:
+	.global gGfx4bppCourtScroll18
+gGfx4bppCourtScroll18:
 	.incbin "graphics/court_scrolls/court_scroll18.4bpp"
 
 
-	.global gUnknown_0847C5C8
-gUnknown_0847C5C8:
+	.global gGfxPalCourtScroll19
+gGfxPalCourtScroll19:
 	.incbin "graphics/court_scrolls/court_scroll19.gbapal"
 
 
-	.global gUnknown_0847C5E8
-gUnknown_0847C5E8:
+	.global gGfx4bppCourtScroll19
+gGfx4bppCourtScroll19:
 	.incbin "graphics/court_scrolls/court_scroll19.4bpp"
 
 
-	.global gUnknown_084810E8
-gUnknown_084810E8:
+	.global gGfxPalCourtScroll20
+gGfxPalCourtScroll20:
 	.incbin "graphics/court_scrolls/court_scroll20.gbapal"
 
 
-	.global gUnknown_08481108
-gUnknown_08481108:
+	.global gGfx4bppCourtScroll20
+gGfx4bppCourtScroll20:
 	.incbin "graphics/court_scrolls/court_scroll20.4bpp"
 
 
-	.global gUnknown_08485C08
-gUnknown_08485C08:
+	.global gGfxPalCourtScroll21
+gGfxPalCourtScroll21:
 	.incbin "graphics/court_scrolls/court_scroll21.gbapal"
 
 
-	.global gUnknown_08485C28
-gUnknown_08485C28:
+	.global gGfx4bppCourtScroll21
+gGfx4bppCourtScroll21:
 	.incbin "graphics/court_scrolls/court_scroll21.4bpp"
 
 
-	.global gUnknown_0848A728
-gUnknown_0848A728:
+	.global gGfxPalCourtScroll22
+gGfxPalCourtScroll22:
 	.incbin "graphics/court_scrolls/court_scroll22.gbapal"
 
 
-	.global gUnknown_0848A748
-gUnknown_0848A748:
+	.global gGfx4bppCourtScroll22
+gGfx4bppCourtScroll22:
 	.incbin "graphics/court_scrolls/court_scroll22.4bpp"
 
 
-	.global gUnknown_0848F248
-gUnknown_0848F248:
+	.global gGfxPalCourtScroll23
+gGfxPalCourtScroll23:
 	.incbin "graphics/court_scrolls/court_scroll23.gbapal"
 
 
-	.global gUnknown_0848F268
-gUnknown_0848F268:
+	.global gGfx4bppCourtScroll23
+gGfx4bppCourtScroll23:
 	.incbin "graphics/court_scrolls/court_scroll23.4bpp"
 
 
-	.global gUnknown_08493D68
-gUnknown_08493D68:
+	.global gGfxPalCourtScroll24
+gGfxPalCourtScroll24:
 	.incbin "graphics/court_scrolls/court_scroll24.gbapal"
 
 
-	.global gUnknown_08493D88
-gUnknown_08493D88:
+	.global gGfx4bppCourtScroll24
+gGfx4bppCourtScroll24:
 	.incbin "graphics/court_scrolls/court_scroll24.4bpp"
 
 
-	.global gUnknown_08498888
-gUnknown_08498888:
+	.global gGfxPalCourtScroll25
+gGfxPalCourtScroll25:
 	.incbin "graphics/court_scrolls/court_scroll25.gbapal"
 
 
-	.global gUnknown_084988A8
-gUnknown_084988A8:
+	.global gGfx4bppCourtScroll25
+gGfx4bppCourtScroll25:
 	.incbin "graphics/court_scrolls/court_scroll25.4bpp"
 
 
-	.global gUnknown_0849D3A8
-gUnknown_0849D3A8:
+	.global gGfxPalCourtScroll26
+gGfxPalCourtScroll26:
 	.incbin "graphics/court_scrolls/court_scroll26.gbapal"
 
 
-	.global gUnknown_0849D3C8
-gUnknown_0849D3C8:
+	.global gGfx4bppCourtScroll26
+gGfx4bppCourtScroll26:
 	.incbin "graphics/court_scrolls/court_scroll26.4bpp"
 
 
-	.global gUnknown_084A1EC8
-gUnknown_084A1EC8:
+	.global gGfxPalCourtScroll27
+gGfxPalCourtScroll27:
 	.incbin "graphics/court_scrolls/court_scroll27.gbapal"
 
 
-	.global gUnknown_084A1EE8
-gUnknown_084A1EE8:
+	.global gGfx4bppCourtScroll27
+gGfx4bppCourtScroll27:
 	.incbin "graphics/court_scrolls/court_scroll27.4bpp"
 
 
-	.global gUnknown_084A69E8
-gUnknown_084A69E8:
+	.global gGfxPalCourtScroll28
+gGfxPalCourtScroll28:
 	.incbin "graphics/court_scrolls/court_scroll28.gbapal"
 
 
-	.global gUnknown_084A6A08
-gUnknown_084A6A08:
+	.global gGfx4bppCourtScroll28
+gGfx4bppCourtScroll28:
 	.incbin "graphics/court_scrolls/court_scroll28.4bpp"
 
 
-	.global gUnknown_084AB508
-gUnknown_084AB508:
+	.global gGfxPalCourtScroll29
+gGfxPalCourtScroll29:
 	.incbin "graphics/court_scrolls/court_scroll29.gbapal"
 
 
-	.global gUnknown_084AB528
-gUnknown_084AB528:
+	.global gGfx4bppCourtScroll29
+gGfx4bppCourtScroll29:
 	.incbin "graphics/court_scrolls/court_scroll29.4bpp"
 
 
-	.global gUnknown_084B0028
-gUnknown_084B0028:
+	.global gGfxPalCourtScroll30
+gGfxPalCourtScroll30:
 	.incbin "graphics/court_scrolls/court_scroll30.gbapal"
 
 
-	.global gUnknown_084B0048
-gUnknown_084B0048:
+	.global gGfx4bppCourtScroll30
+gGfx4bppCourtScroll30:
 	.incbin "graphics/court_scrolls/court_scroll30.4bpp"
 
 
-	.global gUnknown_084B4B48
-gUnknown_084B4B48:
+	.global gGfxPalCourtScroll31
+gGfxPalCourtScroll31:
 	.incbin "graphics/court_scrolls/court_scroll31.gbapal"
 
 
-	.global gUnknown_084B4B68
-gUnknown_084B4B68:
+	.global gGfx4bppCourtScroll31
+gGfx4bppCourtScroll31:
 	.incbin "graphics/court_scrolls/court_scroll31.4bpp"
 
 
-	.global gUnknown_084B9668
-gUnknown_084B9668:
+	.global gGfxPalCourtScroll32
+gGfxPalCourtScroll32:
 	.incbin "graphics/court_scrolls/court_scroll32.gbapal"
 
 
-	.global gUnknown_084B9688
-gUnknown_084B9688:
+	.global gGfx4bppCourtScroll32
+gGfx4bppCourtScroll32:
 	.incbin "graphics/court_scrolls/court_scroll32.4bpp"
 
 @ scroll right to center
 
-	.global gUnknown_084BE188
-gUnknown_084BE188:
+	.global gGfxPalCourtScroll33
+gGfxPalCourtScroll33:
 	.incbin "graphics/court_scrolls/court_scroll33.gbapal"
 
 
-	.global gUnknown_084BE1A8
-gUnknown_084BE1A8:
+	.global gGfx4bppCourtScroll33
+gGfx4bppCourtScroll33:
 	.incbin "graphics/court_scrolls/court_scroll33.4bpp"
 
 
-	.global gUnknown_084C2CA8
-gUnknown_084C2CA8:
+	.global gGfxPalCourtScroll34
+gGfxPalCourtScroll34:
 	.incbin "graphics/court_scrolls/court_scroll34.gbapal"
 
 
-	.global gUnknown_084C2CC8
-gUnknown_084C2CC8:
+	.global gGfx4bppCourtScroll34
+gGfx4bppCourtScroll34:
 	.incbin "graphics/court_scrolls/court_scroll34.4bpp"
 
 
-	.global gUnknown_084C77C8
-gUnknown_084C77C8:
+	.global gGfxPalCourtScroll35
+gGfxPalCourtScroll35:
 	.incbin "graphics/court_scrolls/court_scroll35.gbapal"
 
 
-	.global gUnknown_084C77E8
-gUnknown_084C77E8:
+	.global gGfx4bppCourtScroll35
+gGfx4bppCourtScroll35:
 	.incbin "graphics/court_scrolls/court_scroll35.4bpp"
 
 
-	.global gUnknown_084CC2E8
-gUnknown_084CC2E8:
+	.global gGfxPalCourtScroll36
+gGfxPalCourtScroll36:
 	.incbin "graphics/court_scrolls/court_scroll36.gbapal"
 
 
-	.global gUnknown_084CC308
-gUnknown_084CC308:
+	.global gGfx4bppCourtScroll36
+gGfx4bppCourtScroll36:
 	.incbin "graphics/court_scrolls/court_scroll36.4bpp"
 
 
-	.global gUnknown_084D0E08
-gUnknown_084D0E08:
+	.global gGfxPalCourtScroll37
+gGfxPalCourtScroll37:
 	.incbin "graphics/court_scrolls/court_scroll37.gbapal"
 
 
-	.global gUnknown_084D0E28
-gUnknown_084D0E28:
+	.global gGfx4bppCourtScroll37
+gGfx4bppCourtScroll37:
 	.incbin "graphics/court_scrolls/court_scroll37.4bpp"
 
 
-	.global gUnknown_084D5928
-gUnknown_084D5928:
+	.global gGfxPalCourtScroll38
+gGfxPalCourtScroll38:
 	.incbin "graphics/court_scrolls/court_scroll38.gbapal"
 
 
-	.global gUnknown_084D5948
-gUnknown_084D5948:
+	.global gGfx4bppCourtScroll38
+gGfx4bppCourtScroll38:
 	.incbin "graphics/court_scrolls/court_scroll38.4bpp"
 
 
-	.global gUnknown_084DA448
-gUnknown_084DA448:
+	.global gGfxPalCourtScroll39
+gGfxPalCourtScroll39:
 	.incbin "graphics/court_scrolls/court_scroll39.gbapal"
 
 
-	.global gUnknown_084DA468
-gUnknown_084DA468:
+	.global gGfx4bppCourtScroll39
+gGfx4bppCourtScroll39:
 	.incbin "graphics/court_scrolls/court_scroll39.4bpp"
 
 
-	.global gUnknown_084DEF68
-gUnknown_084DEF68:
+	.global gGfxPalCourtScroll40
+gGfxPalCourtScroll40:
 	.incbin "graphics/court_scrolls/court_scroll40.gbapal"
 
 
-	.global gUnknown_084DEF88
-gUnknown_084DEF88:
+	.global gGfx4bppCourtScroll40
+gGfx4bppCourtScroll40:
 	.incbin "graphics/court_scrolls/court_scroll40.4bpp"
 
 
-	.global gUnknown_084E3A88
-gUnknown_084E3A88:
+	.global gGfxPalCourtScroll41
+gGfxPalCourtScroll41:
 	.incbin "graphics/court_scrolls/court_scroll41.gbapal"
 
 
-	.global gUnknown_084E3AA8
-gUnknown_084E3AA8:
+	.global gGfx4bppCourtScroll41
+gGfx4bppCourtScroll41:
 	.incbin "graphics/court_scrolls/court_scroll41.4bpp"
 
 
-	.global gUnknown_084E85A8
-gUnknown_084E85A8:
+	.global gGfxPalCourtScroll42
+gGfxPalCourtScroll42:
 	.incbin "graphics/court_scrolls/court_scroll42.gbapal"
 
 
-	.global gUnknown_084E85C8
-gUnknown_084E85C8:
+	.global gGfx4bppCourtScroll42
+gGfx4bppCourtScroll42:
 	.incbin "graphics/court_scrolls/court_scroll42.4bpp"
 
 
-	.global gUnknown_084ED0C8
-gUnknown_084ED0C8:
+	.global gGfxPalCourtScroll43
+gGfxPalCourtScroll43:
 	.incbin "graphics/court_scrolls/court_scroll43.gbapal"
 
 
-	.global gUnknown_084ED0E8
-gUnknown_084ED0E8:
+	.global gGfx4bppCourtScroll43
+gGfx4bppCourtScroll43:
 	.incbin "graphics/court_scrolls/court_scroll43.4bpp"
 
 
-	.global gUnknown_084F1BE8
-gUnknown_084F1BE8:
+	.global gGfxPalCourtScroll44
+gGfxPalCourtScroll44:
 	.incbin "graphics/court_scrolls/court_scroll44.gbapal"
 
 
-	.global gUnknown_084F1C08
-gUnknown_084F1C08:
+	.global gGfx4bppCourtScroll44
+gGfx4bppCourtScroll44:
 	.incbin "graphics/court_scrolls/court_scroll44.4bpp"
 
 
-	.global gUnknown_084F6708
-gUnknown_084F6708:
+	.global gGfxPalCourtScroll45
+gGfxPalCourtScroll45:
 	.incbin "graphics/court_scrolls/court_scroll45.gbapal"
 
 
-	.global gUnknown_084F6728
-gUnknown_084F6728:
+	.global gGfx4bppCourtScroll45
+gGfx4bppCourtScroll45:
 	.incbin "graphics/court_scrolls/court_scroll45.4bpp"
 
 
-	.global gUnknown_084FB228
-gUnknown_084FB228:
+	.global gGfxPalCourtScroll46
+gGfxPalCourtScroll46:
 	.incbin "graphics/court_scrolls/court_scroll46.gbapal"
 
 
-	.global gUnknown_084FB248
-gUnknown_084FB248:
+	.global gGfx4bppCourtScroll46
+gGfx4bppCourtScroll46:
 	.incbin "graphics/court_scrolls/court_scroll46.4bpp"
 
 
-	.global gUnknown_084FFD48
-gUnknown_084FFD48:
+	.global gGfxPalCourtScroll47
+gGfxPalCourtScroll47:
 	.incbin "graphics/court_scrolls/court_scroll47.gbapal"
 
 
-	.global gUnknown_084FFD68
-gUnknown_084FFD68:
+	.global gGfx4bppCourtScroll47
+gGfx4bppCourtScroll47:
 	.incbin "graphics/court_scrolls/court_scroll47.4bpp"
 
 
-	.global gUnknown_08504868
-gUnknown_08504868:
+	.global gGfxPalCourtScroll48
+gGfxPalCourtScroll48:
 	.incbin "graphics/court_scrolls/court_scroll48.gbapal"
 
 
-	.global gUnknown_08504888
-gUnknown_08504888:
+	.global gGfx4bppCourtScroll48
+gGfx4bppCourtScroll48:
 	.incbin "graphics/court_scrolls/court_scroll48.4bpp"
 
 @ END COURT SCROLLS
 
 @ BEGIN CHARACTER ANIMATION GRAPHICS PACKAGES AND SEQUENCES
 
-	.global gUnknown_08509388
-gUnknown_08509388:
+	.global gGfxPixAnimationChar01
+gGfxPixAnimationChar01:
 	.incbin "graphics/animations/characters/animation01.pix"
 
 
-	.global gUnknown_08532B84
-gUnknown_08532B84:
+	.global gGfxSeqAnimationChar01
+gGfxSeqAnimationChar01:
 	.incbin "graphics/animations/characters/animation01.seq"
 
 
-	.global gUnknown_08536720
-gUnknown_08536720:
+	.global gGfxPixAnimationChar02
+gGfxPixAnimationChar02:
 	.incbin "graphics/animations/characters/animation02.pix"
 
 
-	.global gUnknown_08555EF4
-gUnknown_08555EF4:
+	.global gGfxSeqAnimationChar02
+gGfxSeqAnimationChar02:
 	.incbin "graphics/animations/characters/animation02.seq"
 
 
-	.global gUnknown_0855DCE4
-gUnknown_0855DCE4:
+	.global gGfxPixAnimationChar03
+gGfxPixAnimationChar03:
 	.incbin "graphics/animations/characters/animation03.pix"
 
 
-	.global gUnknown_08569D8C
-gUnknown_08569D8C:
+	.global gGfxSeqAnimationChar03
+gGfxSeqAnimationChar03:
 	.incbin "graphics/animations/characters/animation03.seq"
 
 
-	.global gUnknown_0856C438
-gUnknown_0856C438:
+	.global gGfxPixAnimationChar04
+gGfxPixAnimationChar04:
 	.incbin "graphics/animations/characters/animation04.pix"
 
 
-	.global gUnknown_08575EC0
-gUnknown_08575EC0:
+	.global gGfxSeqAnimationChar04
+gGfxSeqAnimationChar04:
 	.incbin "graphics/animations/characters/animation04.seq"
 
 
-	.global gUnknown_08577ADC
-gUnknown_08577ADC:
+	.global gGfxPixAnimationChar05
+gGfxPixAnimationChar05:
 	.incbin "graphics/animations/characters/animation05.pix"
 
 
-	.global gUnknown_0857CA00
-gUnknown_0857CA00:
+	.global gGfxSeqAnimationChar05
+gGfxSeqAnimationChar05:
 	.incbin "graphics/animations/characters/animation05.seq"
 
 
-	.global gUnknown_0857D794
-gUnknown_0857D794:
+	.global gGfxPixAnimationChar06
+gGfxPixAnimationChar06:
 	.incbin "graphics/animations/characters/animation06.pix"
 
 
-	.global gUnknown_085B76BC
-gUnknown_085B76BC:
+	.global gGfxSeqAnimationChar06
+gGfxSeqAnimationChar06:
 	.incbin "graphics/animations/characters/animation06.seq"
 
 
-	.global gUnknown_085C2C94
-gUnknown_085C2C94:
+	.global gGfxPixAnimationChar07
+gGfxPixAnimationChar07:
 	.incbin "graphics/animations/characters/animation07.pix"
 
 
-	.global gUnknown_085E3388
-gUnknown_085E3388:
+	.global gGfxSeqAnimationChar07
+gGfxSeqAnimationChar07:
 	.incbin "graphics/animations/characters/animation07.seq"
 
 
-	.global gUnknown_085E8A48
-gUnknown_085E8A48:
+	.global gGfxPixAnimationChar08
+gGfxPixAnimationChar08:
 	.incbin "graphics/animations/characters/animation08.pix"
 
 
-	.global gUnknown_0860EF60
-gUnknown_0860EF60:
+	.global gGfxSeqAnimationChar08
+gGfxSeqAnimationChar08:
 	.incbin "graphics/animations/characters/animation08.seq"
 
 
-	.global gUnknown_08612014
-gUnknown_08612014:
+	.global gGfxPixAnimationChar09
+gGfxPixAnimationChar09:
 	.incbin "graphics/animations/characters/animation09.pix"
 
 
-	.global gUnknown_0862057C
-gUnknown_0862057C:
+	.global gGfxSeqAnimationChar09
+gGfxSeqAnimationChar09:
 	.incbin "graphics/animations/characters/animation09.seq"
 
 
-	.global gUnknown_08622F20
-gUnknown_08622F20:
+	.global gGfxPixAnimationChar10
+gGfxPixAnimationChar10:
+	.incbin "graphics/animations/characters/animation10.pix"
+
+
+	.global gGfxSeqAnimationChar10
+gGfxSeqAnimationChar10:
+	.incbin "graphics/animations/characters/animation10.seq"
+
+
+	.global gGfxPixAnimationChar11
+gGfxPixAnimationChar11:
 	.incbin "graphics/animations/characters/animation11.pix"
 
 
-	.global gUnknown_08626564
-gUnknown_08626564:
+	.global gGfxSeqAnimationChar11
+gGfxSeqAnimationChar11:
 	.incbin "graphics/animations/characters/animation11.seq"
 
 
-	.global gUnknown_08626AD0
-gUnknown_08626AD0:
+	.global gGfxPixAnimationChar12
+gGfxPixAnimationChar12:
 	.incbin "graphics/animations/characters/animation12.pix"
 
 
-	.global gUnknown_0862ADB4
-gUnknown_0862ADB4:
+	.global gGfxSeqAnimationChar12
+gGfxSeqAnimationChar12:
 	.incbin "graphics/animations/characters/animation12.seq"
 
 
-	.global gUnknown_0862BA68
-gUnknown_0862BA68:
+	.global gGfxPixAnimationChar13
+gGfxPixAnimationChar13:
 	.incbin "graphics/animations/characters/animation13.pix"
 
 
-	.global gUnknown_08651F00
-gUnknown_08651F00:
+	.global gGfxSeqAnimationChar13
+gGfxSeqAnimationChar13:
 	.incbin "graphics/animations/characters/animation13.seq"
 
 
-	.global gUnknown_0865787C
-gUnknown_0865787C:
+	.global gGfxPixAnimationChar14
+gGfxPixAnimationChar14:
 	.incbin "graphics/animations/characters/animation14.pix"
 
 
-	.global gUnknown_0866E26C
-gUnknown_0866E26C:
+	.global gGfxSeqAnimationChar14
+gGfxSeqAnimationChar14:
 	.incbin "graphics/animations/characters/animation14.seq"
 
 
-	.global gUnknown_08670494
-gUnknown_08670494:
+	.global gGfxPixAnimationChar15
+gGfxPixAnimationChar15:
 	.incbin "graphics/animations/characters/animation15.pix"
 
 
-	.global gUnknown_08675038
-gUnknown_08675038:
+	.global gGfxSeqAnimationChar15
+gGfxSeqAnimationChar15:
 	.incbin "graphics/animations/characters/animation15.seq"
 
 
-	.global gUnknown_086758CC
-gUnknown_086758CC:
+	.global gGfxPixAnimationChar16
+gGfxPixAnimationChar16:
 	.incbin "graphics/animations/characters/animation16.pix"
 
 
-	.global gUnknown_0867EAB4
-gUnknown_0867EAB4:
+	.global gGfxSeqAnimationChar16
+gGfxSeqAnimationChar16:
 	.incbin "graphics/animations/characters/animation16.seq"
 
 
-	.global gUnknown_086812FC
-gUnknown_086812FC:
+	.global gGfxPixAnimationChar17
+gGfxPixAnimationChar17:
 	.incbin "graphics/animations/characters/animation17.pix"
 
 
-	.global gUnknown_086851E0
-gUnknown_086851E0:
+	.global gGfxSeqAnimationChar17
+gGfxSeqAnimationChar17:
 	.incbin "graphics/animations/characters/animation17.seq"
 
 
-	.global gUnknown_08685AEC
-gUnknown_08685AEC:
+	.global gGfxPixAnimationChar18
+gGfxPixAnimationChar18:
 	.incbin "graphics/animations/characters/animation18.pix"
 
 
-	.global gUnknown_0868FCF4
-gUnknown_0868FCF4:
+	.global gGfxSeqAnimationChar18
+gGfxSeqAnimationChar18:
 	.incbin "graphics/animations/characters/animation18.seq"
 
 
-	.global gUnknown_08691040
-gUnknown_08691040:
+	.global gGfxPixAnimationChar19
+gGfxPixAnimationChar19:
 	.incbin "graphics/animations/characters/animation19.pix"
 
 
-	.global gUnknown_086A146C
-gUnknown_086A146C:
+	.global gGfxSeqAnimationChar19
+gGfxSeqAnimationChar19:
 	.incbin "graphics/animations/characters/animation19.seq"
 
 
-	.global gUnknown_086A3A80
-gUnknown_086A3A80:
+	.global gGfxPixAnimationChar20
+gGfxPixAnimationChar20:
+	.incbin "graphics/animations/characters/animation20.pix"
+
+
+	.global gGfxSeqAnimationChar20
+gGfxSeqAnimationChar20:
+	.incbin "graphics/animations/characters/animation20.seq"
+
+
+	.global gGfxPixAnimationChar21
+gGfxPixAnimationChar21:
 	.incbin "graphics/animations/characters/animation21.pix"
 
 
-	.global gUnknown_086B0EA8
-gUnknown_086B0EA8:
+	.global gGfxSeqAnimationChar21
+gGfxSeqAnimationChar21:
 	.incbin "graphics/animations/characters/animation21.seq"
 
 
-	.global gUnknown_086B4504
-gUnknown_086B4504:
+	.global gGfxPixAnimationChar22
+gGfxPixAnimationChar22:
 	.incbin "graphics/animations/characters/animation22.pix"
 
 
-	.global gUnknown_086C4B90
-gUnknown_086C4B90:
+	.global gGfxSeqAnimationChar22
+gGfxSeqAnimationChar22:
 	.incbin "graphics/animations/characters/animation22.seq"
 
 
-	.global gUnknown_086C7128
-gUnknown_086C7128:
+	.global gGfxPixAnimationChar23
+gGfxPixAnimationChar23:
 	.incbin "graphics/animations/characters/animation23.pix"
 
 
-	.global gUnknown_086C9ECC
-gUnknown_086C9ECC:
+	.global gGfxSeqAnimationChar23
+gGfxSeqAnimationChar23:
 	.incbin "graphics/animations/characters/animation23.seq"
 
 
-	.global gUnknown_086CA0FC
-gUnknown_086CA0FC:
+	.global gGfxPixAnimationChar24
+gGfxPixAnimationChar24:
 	.incbin "graphics/animations/characters/animation24.pix"
 
 
-	.global gUnknown_086CCA60
-gUnknown_086CCA60:
+	.global gGfxSeqAnimationChar24
+gGfxSeqAnimationChar24:
 	.incbin "graphics/animations/characters/animation24.seq"
 
 
-	.global gUnknown_086CCD04
-gUnknown_086CCD04:
+	.global gGfxPixAnimationChar25
+gGfxPixAnimationChar25:
 	.incbin "graphics/animations/characters/animation25.pix"
 
 
-	.global gUnknown_086D7AEC
-gUnknown_086D7AEC:
+	.global gGfxSeqAnimationChar25
+gGfxSeqAnimationChar25:
 	.incbin "graphics/animations/characters/animation25.seq"
 
 
-	.global gUnknown_086DA640
-gUnknown_086DA640:
+	.global gGfxPixAnimationChar26
+gGfxPixAnimationChar26:
 	.incbin "graphics/animations/characters/animation26.pix"
 
 
-	.global gUnknown_086EF710
-gUnknown_086EF710:
+	.global gGfxSeqAnimationChar26
+gGfxSeqAnimationChar26:
 	.incbin "graphics/animations/characters/animation26.seq"
-
-
-	.global gUnknown_086F328C
-gUnknown_086F328C:
-	.incbin "graphics/animations/characters/animation27.pix"
-
-
-	.global gUnknown_087195C8
-gUnknown_087195C8:
-	.incbin "graphics/animations/characters/animation27.seq"
-
-
-	.global gUnknown_0871CF30
-gUnknown_0871CF30:
-	.incbin "graphics/animations/characters/animation28.pix"
-
-
-	.global gUnknown_0871E9F4
-gUnknown_0871E9F4:
-	.incbin "graphics/animations/characters/animation28.seq"
 
 @ END CHARACTER ANIMATION GRAPHICS PACKAGES AND SEQUENCES
 
 @ BEGIN ANIMATION GRAPHICS PACKAGES AND SEQUENCES
 
-	.global gUnknown_0871EBBC
-gUnknown_0871EBBC:
+	.global gGfxPixAnimationTileset01
+gGfxPixAnimationTileset01:
 	.incbin "graphics/animations/tileset01.pix"
 
 
-	.global gUnknown_0871FCF4
-gUnknown_0871FCF4:
+	.global gGfxSeqAnimation01
+gGfxSeqAnimation01:
 	.incbin "graphics/animations/animation01.seq"
 
 
-	.global gUnknown_0871FD14
-gUnknown_0871FD14:
+	.global gGfxSeqAnimation02
+gGfxSeqAnimation02:
 	.incbin "graphics/animations/animation02.seq"
 
 
-	.global gUnknown_0871FD60
-gUnknown_0871FD60:
+	.global gGfxSeqAnimation03
+gGfxSeqAnimation03:
 	.incbin "graphics/animations/animation03.seq"
 
 
-	.global gUnknown_0871FD80
-gUnknown_0871FD80:
+	.global gGfxSeqAnimation04
+gGfxSeqAnimation04:
 	.incbin "graphics/animations/animation04.seq"
 
 
-	.global gUnknown_0871FDAC
-gUnknown_0871FDAC:
+	.global gGfxSeqAnimation05
+gGfxSeqAnimation05:
 	.incbin "graphics/animations/animation05.seq"
 
 
-	.global gUnknown_0871FDD0
-gUnknown_0871FDD0:
+	.global gGfxSeqAnimation06
+gGfxSeqAnimation06:
 	.incbin "graphics/animations/animation06.seq"
 
 
-	.global gUnknown_0871FDF8
-gUnknown_0871FDF8:
+	.global gGfxPixAnimationTileset02
+gGfxPixAnimationTileset02:
 	.incbin "graphics/animations/tileset02.pix"
 
 
-	.global gUnknown_08748218
-gUnknown_08748218:
+	.global gGfxSeqAnimation07
+gGfxSeqAnimation07:
 	.incbin "graphics/animations/animation07.seq"
 
 
-	.global gUnknown_08748340
-gUnknown_08748340:
+	.global gGfxSeqAnimation08
+gGfxSeqAnimation08:
 	.incbin "graphics/animations/animation08.seq"
 
 
-	.global gUnknown_08748468
-gUnknown_08748468:
+	.global gGfxSeqAnimation09
+gGfxSeqAnimation09:
 	.incbin "graphics/animations/animation09.seq"
 
 
-	.global gUnknown_08748488
-gUnknown_08748488:
+	.global gGfxSeqAnimation10
+gGfxSeqAnimation10:
 	.incbin "graphics/animations/animation10.seq"
 
 
-	.global gUnknown_087484A8
-gUnknown_087484A8:
+	.global gGfxSeqAnimation11
+gGfxSeqAnimation11:
 	.incbin "graphics/animations/animation11.seq"
 
 
-	.global gUnknown_087484C8
-gUnknown_087484C8:
+	.global gGfxSeqAnimation12
+gGfxSeqAnimation12:
 	.incbin "graphics/animations/animation12.seq"
 
 
-	.global gUnknown_087484E8
-gUnknown_087484E8:
+	.global gGfxSeqAnimation13
+gGfxSeqAnimation13:
 	.incbin "graphics/animations/animation13.seq"
 
 
-	.global gUnknown_08748520
-gUnknown_08748520:
+	.global gGfxSeqAnimation14
+gGfxSeqAnimation14:
 	.incbin "graphics/animations/animation14.seq"
 
 
-	.global gUnknown_08748558
-gUnknown_08748558:
+	.global gGfxSeqAnimation15
+gGfxSeqAnimation15:
 	.incbin "graphics/animations/animation15.seq"
 
 
-	.global gUnknown_08748590
-gUnknown_08748590:
+	.global gGfxSeqAnimation16
+gGfxSeqAnimation16:
 	.incbin "graphics/animations/animation16.seq"
 
 
-	.global gUnknown_087485C0
-gUnknown_087485C0:
+	.global gGfxSeqAnimation17
+gGfxSeqAnimation17:
 	.incbin "graphics/animations/animation17.seq"
 
 
-	.global gUnknown_087485F4
-gUnknown_087485F4:
+	.global gGfxSeqAnimation18
+gGfxSeqAnimation18:
 	.incbin "graphics/animations/animation18.seq"
 
 
-	.global gUnknown_08748684
-gUnknown_08748684:
+	.global gGfxSeqAnimation19
+gGfxSeqAnimation19:
 	.incbin "graphics/animations/animation19.seq"
 
 
-	.global gUnknown_08748774
-gUnknown_08748774:
+	.global gGfxSeqAnimation20
+gGfxSeqAnimation20:
 	.incbin "graphics/animations/animation20.seq"
 
 
-	.global gUnknown_08748AB4
-gUnknown_08748AB4:
+	.global gGfxSeqAnimation21
+gGfxSeqAnimation21:
 	.incbin "graphics/animations/animation21.seq"
 
 
-	.global gUnknown_08748AEC
-gUnknown_08748AEC:
+	.global gGfxSeqAnimation22
+gGfxSeqAnimation22:
 	.incbin "graphics/animations/animation22.seq"
 
 
-	.global gUnknown_08748B24
-gUnknown_08748B24:
+	.global gGfxSeqAnimation23
+gGfxSeqAnimation23:
 	.incbin "graphics/animations/animation23.seq"
 
 
-	.global gUnknown_08748C38
-gUnknown_08748C38:
+	.global gGfxSeqAnimation24
+gGfxSeqAnimation24:
 	.incbin "graphics/animations/animation24.seq"
 
 
-	.global gUnknown_08748CA0
-gUnknown_08748CA0:
+	.global gGfxSeqAnimation25
+gGfxSeqAnimation25:
 	.incbin "graphics/animations/animation25.seq"
 
 
-	.global gUnknown_08748D74
-gUnknown_08748D74:
+	.global gGfxSeqAnimation26
+gGfxSeqAnimation26:
 	.incbin "graphics/animations/animation26.seq"
 
 
-	.global gUnknown_08748D98
-gUnknown_08748D98:
+	.global gGfxSeqAnimation27
+gGfxSeqAnimation27:
 	.incbin "graphics/animations/animation27.seq"
 
 
-	.global gUnknown_08748DB8
-gUnknown_08748DB8:
+	.global gGfxSeqAnimation28
+gGfxSeqAnimation28:
 	.incbin "graphics/animations/animation28.seq"
 
 
-	.global gUnknown_08748E0C
-gUnknown_08748E0C:
+	.global gGfxSeqAnimation29
+gGfxSeqAnimation29:
 	.incbin "graphics/animations/animation29.seq"
 
 
-	.global gUnknown_08748EE4
-gUnknown_08748EE4:
+	.global gGfxSeqAnimation30
+gGfxSeqAnimation30:
 	.incbin "graphics/animations/animation30.seq"
 
 
-	.global gUnknown_08748F44
-gUnknown_08748F44:
+	.global gGfxSeqAnimation31
+gGfxSeqAnimation31:
 	.incbin "graphics/animations/animation31.seq"
 
 
-	.global gUnknown_08748F80
-gUnknown_08748F80:
+	.global gGfxSeqAnimation32
+gGfxSeqAnimation32:
 	.incbin "graphics/animations/animation32.seq"
 
 
-	.global gUnknown_08748FA4
-gUnknown_08748FA4:
+	.global gGfxSeqAnimation33
+gGfxSeqAnimation33:
 	.incbin "graphics/animations/animation33.seq"
 
 
-	.global gUnknown_08748FDC
-gUnknown_08748FDC:
+	.global gGfxSeqAnimation34
+gGfxSeqAnimation34:
 	.incbin "graphics/animations/animation34.seq"
 
 
-	.global gUnknown_08749000
-gUnknown_08749000:
+	.global gGfxSeqAnimation35
+gGfxSeqAnimation35:
 	.incbin "graphics/animations/animation35.seq"
 
 
-	.global gUnknown_08749044
-gUnknown_08749044:
+	.global gGfxSeqAnimation36
+gGfxSeqAnimation36:
 	.incbin "graphics/animations/animation36.seq"
 
 
-	.global gUnknown_087490B0
-gUnknown_087490B0:
+	.global gGfxSeqAnimation37
+gGfxSeqAnimation37:
 	.incbin "graphics/animations/animation37.seq"
 
 
-	.global gUnknown_0874911C
-gUnknown_0874911C:
+	.global gGfxSeqAnimation38
+gGfxSeqAnimation38:
 	.incbin "graphics/animations/animation38.seq"
 
 
-	.global gUnknown_08749158
-gUnknown_08749158:
+	.global gGfxSeqAnimation39
+gGfxSeqAnimation39:
 	.incbin "graphics/animations/animation39.seq"
 
 
-	.global gUnknown_08749194
-gUnknown_08749194:
+	.global gGfxSeqAnimation40
+gGfxSeqAnimation40:
 	.incbin "graphics/animations/animation40.seq"
 
 
-	.global gUnknown_087491C4
-gUnknown_087491C4:
+	.global gGfxSeqAnimation41
+gGfxSeqAnimation41:
 	.incbin "graphics/animations/animation41.seq"
 
 
-	.global gUnknown_087491EC
-gUnknown_087491EC:
+	.global gGfxSeqAnimation42
+gGfxSeqAnimation42:
 	.incbin "graphics/animations/animation42.seq"
 
 
-	.global gUnknown_08749210
-gUnknown_08749210:
+	.global gGfxSeqAnimation43
+gGfxSeqAnimation43:
 	.incbin "graphics/animations/animation43.seq"
 
 
-	.global gUnknown_08749240
-gUnknown_08749240:
+	.global gGfxSeqAnimation44
+gGfxSeqAnimation44:
 	.incbin "graphics/animations/animation44.seq"
 
 
-	.global gUnknown_08749268
-gUnknown_08749268:
+	.global gGfxSeqAnimation45
+gGfxSeqAnimation45:
 	.incbin "graphics/animations/animation45.seq"
 
 
-	.global gUnknown_08749290
-gUnknown_08749290:
+	.global gGfxSeqAnimation46
+gGfxSeqAnimation46:
 	.incbin "graphics/animations/animation46.seq"
 
 
-	.global gUnknown_087492C0
-gUnknown_087492C0:
+	.global gGfxSeqAnimation47
+gGfxSeqAnimation47:
 	.incbin "graphics/animations/animation47.seq"
 
 
-	.global gUnknown_08749314
-gUnknown_08749314:
+	.global gGfxSeqAnimation48
+gGfxSeqAnimation48:
 	.incbin "graphics/animations/animation48.seq"
 
 
-	.global gUnknown_08749334
-gUnknown_08749334:
+	.global gGfxSeqAnimation49
+gGfxSeqAnimation49:
 	.incbin "graphics/animations/animation49.seq"
 
 
-	.global gUnknown_08749360
-gUnknown_08749360:
+	.global gGfxSeqAnimation50
+gGfxSeqAnimation50:
 	.incbin "graphics/animations/animation50.seq"
 
 
-	.global gUnknown_08749384
-gUnknown_08749384:
+	.global gGfxSeqAnimation51
+gGfxSeqAnimation51:
 	.incbin "graphics/animations/animation51.seq"
 
 
-	.global gUnknown_087493A8
-gUnknown_087493A8:
+	.global gGfxSeqAnimation52
+gGfxSeqAnimation52:
 	.incbin "graphics/animations/animation52.seq"
 
 
-	.global gUnknown_087493D4
-gUnknown_087493D4:
+	.global gGfxSeqAnimation53
+gGfxSeqAnimation53:
 	.incbin "graphics/animations/animation53.seq"
 
 
-	.global gUnknown_08749404
-gUnknown_08749404:
+	.global gGfxSeqAnimation54
+gGfxSeqAnimation54:
 	.incbin "graphics/animations/animation54.seq"
 
 @ END ANIMATION GRAPHICS PACKAGES AND SEQUENCES

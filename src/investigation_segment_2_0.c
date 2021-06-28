@@ -5,340 +5,344 @@
 #include "sound.h"
 #include "animation.h"
 
-const u8 gUnknown_08015870[6] = {
-	0x0d, 0x0e, 0x0f, 0xfe, 0x17, 0xff
+const u8 gCourtRecordInitialItems_2_0[6] = {
+	0x0d, 0x0e, 0x0f, 0xfe,	// profiles
+	0x17, 0xff		// evidence
 };
 
-const u8 gUnknown_08015876[14] = {
-	0x0d, 0x0e, 0x0f, 0x2a, 0x2b, 0x2c, 0x2d, 0xfe, 0x17, 0x32, 0x36, 0x33, 0x34, 0xff
+const u8 gCourtRecordInitialItems_2_1[14] = {
+	0x0d, 0x0e, 0x0f, 0x2a, 0x2b, 0x2c, 0x2d, 0xfe,	// profiles
+	0x17, 0x32, 0x36, 0x33, 0x34, 0xff		// evidence
 };
 
-const u8 gUnknown_08015884[15] = {
-	0x0d, 0x0e, 0x0f, 0x2a, 0x2b, 0x2c, 0x2d, 0xfe, 0x17, 0x32, 0x33, 0x35, 0x36, 0x38, 0xff
+const u8 gCourtRecordInitialItems_2_2[15] = {
+	0x0d, 0x0e, 0x0f, 0x2a, 0x2b, 0x2c, 0x2d, 0xfe,	// profiles
+	0x17, 0x32, 0x33, 0x35, 0x36, 0x38, 0xff	// evidence
 };
 
-const u8 gUnknown_08015893[20] = {
-	0x0d, 0x0e, 0x0f, 0x2a, 0x2b, 0x2c, 0x30, 0x2d, 0x2e, 0x2f, 0xfe, 0x17, 0x32, 0x35, 0x36, 0x38,
-	0x39, 0x3d, 0x40, 0xff
+const u8 gCourtRecordInitialItems_2_3[20] = {
+	0x0d, 0x0e, 0x0f, 0x2a, 0x2b, 0x2c, 0x30, 0x2d, 0x2e, 0x2f, 0xfe,	// profiles
+	0x17, 0x32, 0x35, 0x36, 0x38, 0x39, 0x3d, 0x40, 0xff			// evidence
 };
 
-const u8 gUnknown_080158A7[20] = {
-	0x0d, 0x0e, 0x0f, 0x2a, 0x2b, 0x2c, 0x30, 0x2d, 0x2e, 0x2f, 0xfe, 0x17, 0x32, 0x35, 0x36, 0x38,
-	0x3d, 0x40, 0x41, 0xff
+const u8 gCourtRecordInitialItems_2_4[20] = {
+	0x0d, 0x0e, 0x0f, 0x2a, 0x2b, 0x2c, 0x30, 0x2d, 0x2e, 0x2f, 0xfe,	// profiles
+	0x17, 0x32, 0x35, 0x36, 0x38, 0x3d, 0x40, 0x41, 0xff			// evidence
 };
 
-const u8 gUnknown_080158BB[25] = {
-	0x0d, 0x0e, 0x0f, 0x2a, 0x2b, 0x2c, 0x30, 0x2d, 0x2e, 0x2f, 0xfe, 0x17, 0x32, 0x35, 0x36, 0x38,
-	0x3d, 0x40, 0x41, 0x44, 0x43, 0x42, 0xff, 0x00, 0x00
+const u8 gCourtRecordInitialItems_2_5[25] = {
+	0x0d, 0x0e, 0x0f, 0x2a, 0x2b, 0x2c, 0x30, 0x2d, 0x2e, 0x2f, 0xfe,	// profiles
+	0x17, 0x32, 0x35, 0x36, 0x38, 0x3d, 0x40, 0x41, 0x44, 0x43, 0x42, 0xff,	// evidence
+	0x00, 0x00
 };
 
 
 const struct Struct811DC54 gUnknown_080158D4[9] = {
 	{
-		.unk0 = 0x8A,
-		.unk2 = 0x34,
+		.scriptSection = 0x8A,
+		.evidenceId = 0x34,
 		.unk4 = 0x95,
-		.unk6 = 0xFF,
+		.flagId = 0xFF,
 		.unk7 = 0x0,
 	},
 	{
-		.unk0 = 0x8B,
-		.unk2 = 0x34,
+		.scriptSection = 0x8B,
+		.evidenceId = 0x34,
 		.unk4 = 0x95,
-		.unk6 = 0xFF,
+		.flagId = 0xFF,
 		.unk7 = 0x0,
 	},
 	{
-		.unk0 = 0xAB,
-		.unk2 = 0x35,
+		.scriptSection = 0xAB,
+		.evidenceId = 0x35,
 		.unk4 = 0xB3,
-		.unk6 = 0xFF,
+		.flagId = 0xFF,
 		.unk7 = 0x0,
 	},
 	{
-		.unk0 = 0xAC,
-		.unk2 = 0x35,
+		.scriptSection = 0xAC,
+		.evidenceId = 0x35,
 		.unk4 = 0xB3,
-		.unk6 = 0xFF,
+		.flagId = 0xFF,
 		.unk7 = 0x0,
 	},
 	{
-		.unk0 = 0xAD,
-		.unk2 = 0x35,
+		.scriptSection = 0xAD,
+		.evidenceId = 0x35,
 		.unk4 = 0xB3,
-		.unk6 = 0xFF,
+		.flagId = 0xFF,
 		.unk7 = 0x0,
 	},
 	{
-		.unk0 = 0xC6,
-		.unk2 = 0x33,
+		.scriptSection = 0xC6,
+		.evidenceId = 0x33,
 		.unk4 = 0xCA,
-		.unk6 = 0xFF,
+		.flagId = 0xFF,
 		.unk7 = 0xFF,
 	},
 	{
-		.unk0 = 0xC6,
-		.unk2 = 0x38,
+		.scriptSection = 0xC6,
+		.evidenceId = 0x38,
 		.unk4 = 0xC8,
-		.unk6 = 0xFF,
+		.flagId = 0xFF,
 		.unk7 = 0xFF,
 	},
 	{
-		.unk0 = 0xC6,
-		.unk2 = 0x35,
+		.scriptSection = 0xC6,
+		.evidenceId = 0x35,
 		.unk4 = 0xC8,
-		.unk6 = 0xFF,
+		.flagId = 0xFF,
 		.unk7 = 0xFF,
 	},
 	{
-		.unk0 = 0xFFFF,
-		.unk2 = 0xFFFF,
+		.scriptSection = 0xFFFF,
+		.evidenceId = 0xFFFF,
 		.unk4 = 0xFFFF,
-		.unk6 = 0xFF,
+		.flagId = 0xFF,
 		.unk7 = 0xFF,
 	},
 };
 
 const struct Struct811DC54 gUnknown_0801591C[5] = {
 	{
-		.unk0 = 0xAC,
-		.unk2 = 0x41,
+		.scriptSection = 0xAC,
+		.evidenceId = 0x41,
 		.unk4 = 0xB7,
-		.unk6 = 0xFF,
+		.flagId = 0xFF,
 		.unk7 = 0xFF,
 	},
 	{
-		.unk0 = 0xC9,
-		.unk2 = 0x41,
+		.scriptSection = 0xC9,
+		.evidenceId = 0x41,
 		.unk4 = 0xCB,
-		.unk6 = 0xFF,
+		.flagId = 0xFF,
 		.unk7 = 0xFF,
 	},
 	{
-		.unk0 = 0xD0,
-		.unk2 = 0x40,
+		.scriptSection = 0xD0,
+		.evidenceId = 0x40,
 		.unk4 = 0xDA,
-		.unk6 = 0xF,
+		.flagId = 0xF,
 		.unk7 = 0xFF,
 	},
 	{
-		.unk0 = 0xF3,
-		.unk2 = 0x39,
+		.scriptSection = 0xF3,
+		.evidenceId = 0x39,
 		.unk4 = 0xF6,
-		.unk6 = 0xFF,
+		.flagId = 0xFF,
 		.unk7 = 0xFF,
 	},
 	{
-		.unk0 = 0xFFFF,
-		.unk2 = 0xFFFF,
+		.scriptSection = 0xFFFF,
+		.evidenceId = 0xFFFF,
 		.unk4 = 0xFFFF,
-		.unk6 = 0xFF,
+		.flagId = 0xFF,
 		.unk7 = 0xFF,
 	},
 };
 
 const struct Struct811DC54 gUnknown_08015944[6] = {
 	{
-		.unk0 = 0xA6,
-		.unk2 = 0x43,
+		.scriptSection = 0xA6,
+		.evidenceId = 0x43,
 		.unk4 = 0xA8,
-		.unk6 = 0xFF,
+		.flagId = 0xFF,
 		.unk7 = 0xFF,
 	},
 	{
-		.unk0 = 0xAD,
-		.unk2 = 0x43,
+		.scriptSection = 0xAD,
+		.evidenceId = 0x43,
 		.unk4 = 0xAF,
-		.unk6 = 0xFF,
+		.flagId = 0xFF,
 		.unk7 = 0xFF,
 	},
 	{
-		.unk0 = 0xA6,
-		.unk2 = 0x42,
+		.scriptSection = 0xA6,
+		.evidenceId = 0x42,
 		.unk4 = 0xAC,
-		.unk6 = 0xFF,
+		.flagId = 0xFF,
 		.unk7 = 0xFF,
 	},
 	{
-		.unk0 = 0xA9,
-		.unk2 = 0x42,
+		.scriptSection = 0xA9,
+		.evidenceId = 0x42,
 		.unk4 = 0xAB,
-		.unk6 = 0xFF,
+		.flagId = 0xFF,
 		.unk7 = 0xFF,
 	},
 	{
-		.unk0 = 0xD7,
-		.unk2 = 0x40,
+		.scriptSection = 0xD7,
+		.evidenceId = 0x40,
 		.unk4 = 0xD9,
-		.unk6 = 0xFF,
+		.flagId = 0xFF,
 		.unk7 = 0xFF,
 	},
 	{
-		.unk0 = 0xFFFF,
-		.unk2 = 0xFFFF,
+		.scriptSection = 0xFFFF,
+		.evidenceId = 0xFFFF,
 		.unk4 = 0xFFFF,
-		.unk6 = 0xFF,
+		.flagId = 0xFF,
 		.unk7 = 0xFF,
 	},
 };
 
 const struct Struct811DC54 gUnknown_08015974[10] = {
 	{
-		.unk0 = 0x86,
-		.unk2 = 0x42,
+		.scriptSection = 0x86,
+		.evidenceId = 0x42,
 		.unk4 = 0x8E,
-		.unk6 = 0xFF,
+		.flagId = 0xFF,
 		.unk7 = 0xFF,
 	},
 	{
-		.unk0 = 0x9A,
-		.unk2 = 0x38,
+		.scriptSection = 0x9A,
+		.evidenceId = 0x38,
 		.unk4 = 0x9C,
-		.unk6 = 0xFF,
+		.flagId = 0xFF,
 		.unk7 = 0xFF,
 	},
 	{
-		.unk0 = 0xA0,
-		.unk2 = 0x44,
+		.scriptSection = 0xA0,
+		.evidenceId = 0x44,
 		.unk4 = 0xA2,
-		.unk6 = 0xFF,
+		.flagId = 0xFF,
 		.unk7 = 0xFF,
 	},
 	{
-		.unk0 = 0xA7,
-		.unk2 = 0x45,
+		.scriptSection = 0xA7,
+		.evidenceId = 0x45,
 		.unk4 = 0xA9,
-		.unk6 = 0xFF,
+		.flagId = 0xFF,
 		.unk7 = 0x0,
 	},
 	{
-		.unk0 = 0xB7,
-		.unk2 = 0x35,
+		.scriptSection = 0xB7,
+		.evidenceId = 0x35,
 		.unk4 = 0xCB,
-		.unk6 = 0x13,
+		.flagId = 0x13,
 		.unk7 = 0xFF,
 	},
 	{
-		.unk0 = 0xD1,
-		.unk2 = 0x44,
+		.scriptSection = 0xD1,
+		.evidenceId = 0x44,
 		.unk4 = 0xD3,
-		.unk6 = 0xFF,
+		.flagId = 0xFF,
 		.unk7 = 0xFF,
 	},
 	{
-		.unk0 = 0xD6,
-		.unk2 = 0xFFFF,
+		.scriptSection = 0xD6,
+		.evidenceId = 0xFFFF,
 		.unk4 = 0xFFFF,
-		.unk6 = 0xFF,
+		.flagId = 0xFF,
 		.unk7 = 0xFF,
 	},
 	{
-		.unk0 = 0xDB,
-		.unk2 = 0x35,
+		.scriptSection = 0xDB,
+		.evidenceId = 0x35,
 		.unk4 = 0xDD,
-		.unk6 = 0xFF,
+		.flagId = 0xFF,
 		.unk7 = 0xFF,
 	},
 	{
-		.unk0 = 0xDB,
-		.unk2 = 0x40,
+		.scriptSection = 0xDB,
+		.evidenceId = 0x40,
 		.unk4 = 0xDD,
-		.unk6 = 0xFF,
+		.flagId = 0xFF,
 		.unk7 = 0xFF,
 	},
 	{
-		.unk0 = 0xFFFF,
-		.unk2 = 0xFFFF,
+		.scriptSection = 0xFFFF,
+		.evidenceId = 0xFFFF,
 		.unk4 = 0xFFFF,
-		.unk6 = 0xFF,
+		.flagId = 0xFF,
 		.unk7 = 0xFF,
 	},
 };
 
 const struct Struct811DC98 gUnknown_080159C4[11] = {
 	{
-		.unk0 = 0x6,
-		.unk1 = 0x17,
+		.roomId = 0x6,
+		.evidenceId = 0x17,
 		.unk2 = 0x4,
 		.unk3 = 0x0,
 		.unk4 = 0x89,
 		.unk6 = 0x8B,
 	},
 	{
-		.unk0 = 0x6,
-		.unk1 = 0x31,
+		.roomId = 0x6,
+		.evidenceId = 0x31,
 		.unk2 = 0x4,
 		.unk3 = 0x0,
 		.unk4 = 0x8A,
 		.unk6 = 0x8B,
 	},
 	{
-		.unk0 = 0x6,
-		.unk1 = 0x33,
+		.roomId = 0x6,
+		.evidenceId = 0x33,
 		.unk2 = 0x4,
 		.unk3 = 0x0,
 		.unk4 = 0x8F,
 		.unk6 = 0x8B,
 	},
 	{
-		.unk0 = 0x2,
-		.unk1 = 0x17,
+		.roomId = 0x2,
+		.evidenceId = 0x17,
 		.unk2 = 0x1B,
 		.unk3 = 0x0,
 		.unk4 = 0x97,
 		.unk6 = 0x98,
 	},
 	{
-		.unk0 = 0x2,
-		.unk1 = 0x31,
+		.roomId = 0x2,
+		.evidenceId = 0x31,
 		.unk2 = 0x1B,
 		.unk3 = 0x0,
 		.unk4 = 0x9E,
 		.unk6 = 0x98,
 	},
 	{
-		.unk0 = 0x7,
-		.unk1 = 0x31,
+		.roomId = 0x7,
+		.evidenceId = 0x31,
 		.unk2 = 0x11,
 		.unk3 = 0x0,
 		.unk4 = 0xAC,
 		.unk6 = 0xAD,
 	},
 	{
-		.unk0 = 0x7,
-		.unk1 = 0x33,
+		.roomId = 0x7,
+		.evidenceId = 0x33,
 		.unk2 = 0x11,
 		.unk3 = 0x0,
 		.unk4 = 0xB3,
 		.unk6 = 0xAD,
 	},
 	{
-		.unk0 = 0xA,
-		.unk1 = 0x17,
+		.roomId = 0xA,
+		.evidenceId = 0x17,
 		.unk2 = 0x14,
 		.unk3 = 0x0,
 		.unk4 = 0xE0,
 		.unk6 = 0xE2,
 	},
 	{
-		.unk0 = 0xA,
-		.unk1 = 0x33,
+		.roomId = 0xA,
+		.evidenceId = 0x33,
 		.unk2 = 0x14,
 		.unk3 = 0x0,
 		.unk4 = 0xE1,
 		.unk6 = 0xE2,
 	},
 	{
-		.unk0 = 0xB,
-		.unk1 = 0xFF,
+		.roomId = 0xB,
+		.evidenceId = 0xFF,
 		.unk2 = 0x10,
 		.unk3 = 0x0,
 		.unk4 = 0xE1,
 		.unk6 = 0xF9,
 	},
 	{
-		.unk0 = 0xFF,
-		.unk1 = 0xFF,
+		.roomId = 0xFF,
+		.evidenceId = 0xFF,
 		.unk2 = 0xFF,
 		.unk3 = 0xFF,
 		.unk4 = 0xFFFF,
@@ -348,7 +352,7 @@ const struct Struct811DC98 gUnknown_080159C4[11] = {
 
 
 // talk data
-const struct TalkData gUnknown_08015A1C[17] = {
+const struct TalkData gTalkData_2_0[17] = {
 	{
 		.roomId = 0x6,
 		.personId = 0x4,
@@ -505,7 +509,7 @@ const struct TalkData gUnknown_08015A1C[17] = {
 };
 
 // room data
-const u8 gUnknown_08015B70[12][8] = {
+const u8 gRoomData_2_0[12][8] = {
 	{ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
 	{ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
 	{ 0x1E, 0xFF, 0xFF, 0xFF, 0x06, 0xFF, 0xFF, 0xFF},
@@ -993,29 +997,29 @@ const struct ExaminationData gUnknown_08015E8C[6] = {
 	},
 };
 
-void sub_8003594(struct Main *main)
+void InvestigationSegmentSetup_2_0(struct Main *main)
 {
-    DmaCopy16(3, gUnknown_08015B70, gMain.roomData, sizeof(gUnknown_08015B70));
-    DmaCopy16(3, gUnknown_08015A1C, gTalkData, sizeof(gUnknown_08015A1C));
+    DmaCopy16(3, gRoomData_2_0, gMain.roomData, sizeof(gRoomData_2_0));
+    DmaCopy16(3, gTalkData_2_0, gTalkData, sizeof(gTalkData_2_0));
     main->currentRoomId = 6;
 }
 
-void sub_80035D8(struct Main *main)
+void InvestigationRoomSetup_2_0(struct Main *main)
 {
     DmaFill16(3, 0xFFFF, gExaminationData, sizeof(gExaminationData));
     switch(main->currentRoomId) {
         case 6: {
             if(GetFlag(0, 0xA0)) {
                 if(!GetFlag(0, 0x95)) {
-                    sub_8002CCC(0x8C, 0x95);
+                    InvestigationSetScriptSectionAndFlag(0x8C, 0x95);
                 }
                 else {
-                    sub_8002C98(4, 0x510, 0x510);
+                    InvestigationSetPersonAnimation(4, 0x510, 0x510);
                     PlayBGM(6);
                 }
             }
             else if(GetFlag(0, 0x94)) {
-                sub_8002C98(4, 0x510, 0x510);
+                InvestigationSetPersonAnimation(4, 0x510, 0x510);
                 PlayBGM(6);
             }
             LOADEXAMDATA(gUnknown_08015BD0);
@@ -1024,23 +1028,23 @@ void sub_80035D8(struct Main *main)
         case 2: {
             if (GetFlag(0, 0xA0)) {
                 if (!GetFlag(0, 0x92)) {
-                    sub_8002CCC(0x9F, 0x92);
+                    InvestigationSetScriptSectionAndFlag(0x9F, 0x92);
                 }
             }
             else if(GetFlag(0, 0x9A)) {
                 if(!GetFlag(0, 0x91)) {
-                    sub_8002CCC(0x99, 0x91);
+                    InvestigationSetScriptSectionAndFlag(0x99, 0x91);
                 }
                 else {
-                    sub_8002C98(0x1B, 0, 0);
+                    InvestigationSetPersonAnimation(0x1B, 0, 0);
                     PlayBGM(0);
                 }
             }
             else if(!GetFlag(0, 0x90)) {
-                sub_8002CCC(0x90, 0x90);
+                InvestigationSetScriptSectionAndFlag(0x90, 0x90);
             }
             else {
-                sub_8002C98(0x1B, 0, 0);
+                InvestigationSetPersonAnimation(0x1B, 0, 0);
                 PlayBGM(0);
             }
             LOADEXAMDATA(gUnknown_08015C34);
@@ -1049,30 +1053,30 @@ void sub_80035D8(struct Main *main)
         case 7: {
             if(GetFlag(0, 0xA8)) {
                 if(!GetFlag(0, 0xA9)) {
-                    sub_8002CCC(0xB4, 0xA9);
+                    InvestigationSetScriptSectionAndFlag(0xB4, 0xA9);
                 }
                 else if(GetFlag(0, 0xAA)) {
                     PlayBGM(0x1F);
                 }
                 else {
-                    sub_8002C98(0x11, 0, 0);
+                    InvestigationSetPersonAnimation(0x11, 0, 0);
                     PlayBGM(0x19);
                 }
             }
             else if(GetFlag(0, 0xA0)) {
                 if(!GetFlag(0, 0xA1)) {
-                    sub_8002CCC(0xAE, 0xA1);
+                    InvestigationSetScriptSectionAndFlag(0xAE, 0xA1);
                 }
                 else {
-                    sub_8002C98(0x11, 0, 0);
+                    InvestigationSetPersonAnimation(0x11, 0, 0);
                     PlayBGM(0x19);
                 }
             }
             else if(!GetFlag(0, 0x93)) {
-                sub_8002CCC(0xA1, 0x93);
+                InvestigationSetScriptSectionAndFlag(0xA1, 0x93);
             }
             else {
-                sub_8002C98(0x11, 0, 0);
+                InvestigationSetPersonAnimation(0x11, 0, 0);
                 PlayBGM(0x19);
             }
             LOADEXAMDATA(gUnknown_08015C5C);
@@ -1080,24 +1084,24 @@ void sub_80035D8(struct Main *main)
         }
         case 8: {
             if(!GetFlag(0, 0x9D)) {
-                sub_8002CCC(0xBE, 0x9D);
+                InvestigationSetScriptSectionAndFlag(0xBE, 0x9D);
             }
             LOADEXAMDATA(gUnknown_08015CC0);
             break;
         }
         case 9: {
             if(!GetFlag(0, 0xA2)) {
-                sub_8002CCC(0xC9, 0xA2);
+                InvestigationSetScriptSectionAndFlag(0xC9, 0xA2);
             }
             LOADEXAMDATA(gUnknown_08015D88);
             break;
         }
         case 10: {
             if(!GetFlag(0, 0x9C)) {
-                sub_8002CCC(0xD2, 0x9C);
+                InvestigationSetScriptSectionAndFlag(0xD2, 0x9C);
             }
             else {
-                sub_8002C98(0x14, 0, 0);
+                InvestigationSetPersonAnimation(0x14, 0, 0);
                 PlayBGM(1);
             }
             LOADEXAMDATA(gUnknown_08015E14);
@@ -1106,15 +1110,15 @@ void sub_80035D8(struct Main *main)
         case 11: {
             if(GetFlag(0, 0xAA)) {
                 if(!GetFlag(0, 0xAB)) {
-                    sub_8002CCC(0xFA, 0xAB);
+                    InvestigationSetScriptSectionAndFlag(0xFA, 0xAB);
                 }
             }
             else if(!GetFlag(0, 0xA4)) {
-                sub_8002CCC(0xED, 0xA4);
+                InvestigationSetScriptSectionAndFlag(0xED, 0xA4);
             }
             else {
                 if(GetFlag(0, 0xA5)) {
-                    sub_8002C98(0x10, 0, 0);
+                    InvestigationSetPersonAnimation(0x10, 0, 0);
                 }
                 PlayBGM(0x19);
             }
@@ -1124,5 +1128,5 @@ void sub_80035D8(struct Main *main)
     }
 }
 
-void nullsub_8(struct Main *main) {
+void InvestigationRoomUpdate_2_0(struct Main *main) {
 }

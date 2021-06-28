@@ -47,24 +47,24 @@ const u16 gCaseGameoverSections[] = {
     0xF7
 };
 
-const u8 * gUnknown_0811DC10[17] = {
-	gUnknown_08014DA4,
-	gUnknown_08014E0C,
-	gUnknown_08014E10,
-	gUnknown_08014E20,
-	gUnknown_08014E32,
-	gUnknown_08015870,
-	gUnknown_08015876,
-	gUnknown_08015884,
-	gUnknown_08015893,
-	gUnknown_080158A7,
-	gUnknown_080158BB,
-	gUnknown_08017168,
-	gUnknown_0801716E,
-	gUnknown_0801717F,
-	gUnknown_08017195,
-	gUnknown_080171B1,
-	gUnknown_080171CD,
+const u8 * gCourtRecordInitialItemLists[17] = {
+	gCourtRecordInitialItems_0_0,
+	gCourtRecordInitialItems_1_0,
+	gCourtRecordInitialItems_1_1,
+	gCourtRecordInitialItems_1_2,
+	gCourtRecordInitialItems_1_3,
+	gCourtRecordInitialItems_2_0,
+	gCourtRecordInitialItems_2_1,
+	gCourtRecordInitialItems_2_2,
+	gCourtRecordInitialItems_2_3,
+	gCourtRecordInitialItems_2_4,
+	gCourtRecordInitialItems_2_5,
+	gCourtRecordInitialItems_3_0,
+	gCourtRecordInitialItems_3_1,
+	gCourtRecordInitialItems_3_2,
+	gCourtRecordInitialItems_3_3,
+	gCourtRecordInitialItems_3_4,
+	gCourtRecordInitialItems_3_5,
 };
 
 const struct Struct811DC54 * gUnknown_0811DC54[17] = {
@@ -107,67 +107,67 @@ const struct Struct811DC98 * gUnknown_0811DC98[17] = {
 	gUnknown_080172E8,
 };
 
-void (*gUnknown_0811DCDC[17])(struct Main *) = {
-	InvestigationSegmentDummy,
-	sub_8002D70,
-	InvestigationSegmentDummy,
-	sub_800318C,
-	InvestigationSegmentDummy,
-	sub_8003594,
-	InvestigationSegmentDummy,
-	sub_8003924,
-	InvestigationSegmentDummy,
-	sub_80040A4,
-	InvestigationSegmentDummy,
-	sub_80044D0,
-	InvestigationSegmentDummy,
-	sub_80049F8,
-	InvestigationSegmentDummy,
-	sub_8005034,
-	InvestigationSegmentDummy,
+void (*gInvestigationSegmentSetupFunctions[17])(struct Main *) = {
+	InvestigationDummy,
+	InvestigationSegmentSetup_1_0,
+	InvestigationDummy,
+	InvestigationSegmentSetup_1_2,
+	InvestigationDummy,
+	InvestigationSegmentSetup_2_0,
+	InvestigationDummy,
+	InvestigationSegmentSetup_2_2,
+	InvestigationDummy,
+	InvestigationSegmentSetup_2_4,
+	InvestigationDummy,
+	InvestigationSegmentSetup_3_0,
+	InvestigationDummy,
+	InvestigationSegmentSetup_3_2,
+	InvestigationDummy,
+	InvestigationSegmentSetup_3_4,
+	InvestigationDummy,
 };
 
-void (*gUnknown_0811DD20[17])(struct Main *) = {
-	InvestigationSegmentDummy,
-	sub_8002DB4,
-	InvestigationSegmentDummy,
-	sub_80031D0,
-	InvestigationSegmentDummy,
-	sub_80035D8,
-	InvestigationSegmentDummy,
-	sub_8003968,
-	InvestigationSegmentDummy,
-	sub_80040E8,
-	InvestigationSegmentDummy,
-	sub_8004514,
-	InvestigationSegmentDummy,
-	sub_8004A3C,
-	InvestigationSegmentDummy,
-	sub_8005078,
-	InvestigationSegmentDummy,
+void (*gInvestigationRoomSetupFunctions[17])(struct Main *) = {
+	InvestigationDummy,
+	InvestigationRoomSetup_1_0,
+	InvestigationDummy,
+	InvestigationRoomSetup_1_2,
+	InvestigationDummy,
+	InvestigationRoomSetup_2_0,
+	InvestigationDummy,
+	InvestigationRoomSetup_2_2,
+	InvestigationDummy,
+	InvestigationRoomSetup_2_4,
+	InvestigationDummy,
+	InvestigationRoomSetup_3_0,
+	InvestigationDummy,
+	InvestigationRoomSetup_3_2,
+	InvestigationDummy,
+	InvestigationRoomSetup_3_4,
+	InvestigationDummy,
 };
 
-void (*gUnknown_0811DD64[17])(struct Main *) = {
-	InvestigationSegmentDummy,
-	nullsub_7,
-	InvestigationSegmentDummy,
-	sub_8003544,
-	InvestigationSegmentDummy,
-	nullsub_8,
-	InvestigationSegmentDummy,
-	nullsub_9,
-	InvestigationSegmentDummy,
-	sub_8004488,
-	InvestigationSegmentDummy,
-	nullsub_10,
-	InvestigationSegmentDummy,
-	nullsub_11,
-	InvestigationSegmentDummy,
-	nullsub_37,
-	InvestigationSegmentDummy,
+void (*gInvestigationRoomUpdateFunctions[17])(struct Main *) = {
+	InvestigationDummy,
+	InvestigationRoomUpdate_1_0,
+	InvestigationDummy,
+	InvestigationRoomUpdate_1_2,
+	InvestigationDummy,
+	InvestigationRoomUpdate_2_0,
+	InvestigationDummy,
+	InvestigationRoomUpdate_2_2,
+	InvestigationDummy,
+	InvestigationRoomUpdate_2_4,
+	InvestigationDummy,
+	InvestigationRoomUpdate_3_0,
+	InvestigationDummy,
+	InvestigationRoomUpdate_3_2,
+	InvestigationDummy,
+	InvestigationRoomUpdate_3_4,
+	InvestigationDummy,
 };
 
-void sub_8002C98(u32 arg0, u32 arg1, u32 arg2) // Set_char
+void InvestigationSetPersonAnimation(u32 arg0, u32 arg1, u32 arg2) // Set_char
 {
     struct Main * main = &gMain;
     main->talkingAnimationOffset = arg1;
@@ -177,7 +177,7 @@ void sub_8002C98(u32 arg0, u32 arg1, u32 arg2) // Set_char
     sub_800B7A8(&gInvestigation, 0xF);
 }
 
-void sub_8002CCC(u32 section, u32 flagId) // Set_event
+void InvestigationSetScriptSectionAndFlag(u32 section, u32 flagId) // Set_event
 {
     ChangeFlag(0, flagId, TRUE);
     ChangeScriptSection(section);
@@ -205,6 +205,6 @@ void sub_8002CF0(u32 section, u32 flagId) // unused? Set_event2?
     gInvestigation.unkE = 0x40;
 }
 
-void InvestigationSegmentDummy(struct Main *main)
+void InvestigationDummy(struct Main *main)
 {
 }

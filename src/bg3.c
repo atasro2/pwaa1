@@ -612,7 +612,7 @@ void sub_80018F8()
     u32 * ptr;
     u32 stripeSize;
     u32 i, j;
-    bgPtr = gUnknown_08369890;
+    bgPtr = gGfx_BG069;
     bgPtr+=0x28;
     DmaCopy16(3, bgPtr, PLTT+0x40, 0x20);
     ioRegs->lcd_bg3cnt &= ~BGCNT_256COLOR;
@@ -744,10 +744,10 @@ void sub_8001A9C(u32 bgId)
         DmaCopy16(3, bgData, BG_PLTT+0x40, 0x20);
         if(gBackgroundTable[bgId].controlBits & BG_MODE_SPECIAL_SPEEDLINE)
         {
-            src = gUnknown_08360834;
+            src = gGfx_BG064;
             dst = (void*)BG_PLTT+0x1C0;
             DmaCopy16(3, src, dst, 0x20);
-            src = gUnknown_08362524;
+            src = gGfx_BG065;
             dst = (void*)BG_PLTT+0x1E0;
             DmaCopy16(3, src, dst, 0x20);
             src = eBGDecompBuffer + 0x4B00;

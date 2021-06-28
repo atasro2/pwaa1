@@ -11,6 +11,7 @@
 #include "case_data.h"
 #include "investigation.h"
 #include "graphics.h"
+#include "constants/court_record.h"
 #include "constants/script.h"
 
 
@@ -18,549 +19,549 @@ struct EvidenceProfileData
 {
     /* +0x00 */ u8 * descriptionTiles;
     /* +0x04 */ u16 evidenceImageId;
-    /* +0x06 */ u16 unk6;
+    /* +0x06 */ u16 evidenceDetailId;
 };
 
-static const struct EvidenceProfileData gUnknown_08018A6C[] = {
+static const struct EvidenceProfileData gEvidenceProfileData[] = {
 	{
 		.descriptionTiles = gUnknown_08196CA8,
 		.evidenceImageId = 18,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081970DC,
 		.evidenceImageId = 23,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_08197514,
 		.evidenceImageId = 19,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_08197928,
 		.evidenceImageId = 20,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_08197D18,
 		.evidenceImageId = 21,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081981A0,
 		.evidenceImageId = 22,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081985D8,
 		.evidenceImageId = 16,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_08198A84,
 		.evidenceImageId = 14,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_08198E5C,
 		.evidenceImageId = 15,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_08199228,
 		.evidenceImageId = 17,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_08199690,
 		.evidenceImageId = 18,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_08199AEC,
 		.evidenceImageId = 23,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_08199EC8,
 		.evidenceImageId = 23,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_0819A2E4,
 		.evidenceImageId = 23,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_0819A700,
 		.evidenceImageId = 30,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_0819ABBC,
 		.evidenceImageId = 10,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_0819B028,
 		.evidenceImageId = 11,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_0819B428,
 		.evidenceImageId = 11,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_0819B868,
 		.evidenceImageId = 11,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_0819BCE4,
 		.evidenceImageId = 13,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_0819C0D8,
 		.evidenceImageId = 12,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_0819C434,
 		.evidenceImageId = 12,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_0819C810,
 		.evidenceImageId = 29,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_0819CC44,
 		.evidenceImageId = 6,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_0819D028,
 		.evidenceImageId = 16,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_0819D4C8,
 		.evidenceImageId = 7,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_0819D90C,
 		.evidenceImageId = 3,
-		.unk6 = 2,
+		.evidenceDetailId = 2,
 	},
 	{
 		.descriptionTiles = gUnknown_0819DDAC,
 		.evidenceImageId = 26,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_0819E18C,
 		.evidenceImageId = 14,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_0819E5A0,
 		.evidenceImageId = 14,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_0819E9D8,
 		.evidenceImageId = 24,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_0819EDF0,
 		.evidenceImageId = 8,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_0819F208,
 		.evidenceImageId = 2,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_0819F5C0,
 		.evidenceImageId = 17,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_0819F9E8,
 		.evidenceImageId = 28,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_0819FD84,
 		.evidenceImageId = 13,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A0120,
 		.evidenceImageId = 27,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A0580,
 		.evidenceImageId = 9,
-		.unk6 = 1,
+		.evidenceDetailId = 1,
 	},
 	{
 		.descriptionTiles = gUnknown_081A09E4,
 		.evidenceImageId = 17,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A0E58,
 		.evidenceImageId = 16,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A1324,
 		.evidenceImageId = 7,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A1728,
 		.evidenceImageId = 1,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A1A10,
 		.evidenceImageId = 43,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A1E1C,
 		.evidenceImageId = 48,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A22A4,
 		.evidenceImageId = 47,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A26BC,
 		.evidenceImageId = 45,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A2AE4,
 		.evidenceImageId = 46,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A2EE4,
 		.evidenceImageId = 44,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A3330,
 		.evidenceImageId = 42,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A3714,
 		.evidenceImageId = 17,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A3B44,
 		.evidenceImageId = 16,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A3FF8,
 		.evidenceImageId = 37,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A439C,
 		.evidenceImageId = 9,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A47D4,
 		.evidenceImageId = 9,
-		.unk6 = 3,
+		.evidenceDetailId = 3,
 	},
 	{
 		.descriptionTiles = gUnknown_081A4BD4,
 		.evidenceImageId = 9,
-		.unk6 = 4,
+		.evidenceDetailId = 4,
 	},
 	{
 		.descriptionTiles = gUnknown_081A4FF0,
 		.evidenceImageId = 25,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A541C,
 		.evidenceImageId = 25,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A5828,
 		.evidenceImageId = 33,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A5BF4,
 		.evidenceImageId = 38,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A5FA4,
 		.evidenceImageId = 7,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A639C,
 		.evidenceImageId = 34,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A675C,
 		.evidenceImageId = 39,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A6B88,
 		.evidenceImageId = 31,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A6F68,
 		.evidenceImageId = 32,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A7310,
 		.evidenceImageId = 40,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A775C,
 		.evidenceImageId = 35,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A7B68,
 		.evidenceImageId = 36,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A7FA4,
 		.evidenceImageId = 33,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A83C4,
 		.evidenceImageId = 9,
-		.unk6 = 5,
+		.evidenceDetailId = 5,
 	},
 	{
 		.descriptionTiles = gUnknown_081A8828,
 		.evidenceImageId = 41,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A8C30,
 		.evidenceImageId = 0,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A8F4C,
 		.evidenceImageId = 30,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A9380,
 		.evidenceImageId = 58,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A97CC,
 		.evidenceImageId = 58,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081A9BC8,
 		.evidenceImageId = 19,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081AA054,
 		.evidenceImageId = 61,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081AA458,
 		.evidenceImageId = 28,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081AA894,
 		.evidenceImageId = 59,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081AACDC,
 		.evidenceImageId = 60,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081AB178,
 		.evidenceImageId = 62,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081AB574,
 		.evidenceImageId = 62,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081AB9FC,
 		.evidenceImageId = 49,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081ABE00,
 		.evidenceImageId = 16,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081AC2B0,
 		.evidenceImageId = 16,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081AC75C,
 		.evidenceImageId = 16,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081ACBFC,
 		.evidenceImageId = 1,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081AD02C,
 		.evidenceImageId = 9,
-		.unk6 = 6,
+		.evidenceDetailId = 6,
 	},
 	{
 		.descriptionTiles = gUnknown_081AD448,
 		.evidenceImageId = 9,
-		.unk6 = 7,
+		.evidenceDetailId = 7,
 	},
 	{
 		.descriptionTiles = gUnknown_081AD864,
 		.evidenceImageId = 9,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081ADCD4,
 		.evidenceImageId = 28,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081AE0DC,
 		.evidenceImageId = 4,
-		.unk6 = 11,
+		.evidenceDetailId = 11,
 	},
 	{
 		.descriptionTiles = gUnknown_081AE4FC,
 		.evidenceImageId = 17,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081AE938,
 		.evidenceImageId = 9,
-		.unk6 = 8,
+		.evidenceDetailId = 8,
 	},
 	{
 		.descriptionTiles = gUnknown_081AED3C,
 		.evidenceImageId = 5,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081AF15C,
 		.evidenceImageId = 5,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081AF5A8,
 		.evidenceImageId = 50,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081AF9DC,
 		.evidenceImageId = 17,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081AFE0C,
 		.evidenceImageId = 51,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081B01D0,
 		.evidenceImageId = 53,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081B0594,
 		.evidenceImageId = 56,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081B0984,
 		.evidenceImageId = 52,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081B0DC4,
 		.evidenceImageId = 57,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081B1150,
 		.evidenceImageId = 63,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081B14EC,
 		.evidenceImageId = 16,
-		.unk6 = 9,
+		.evidenceDetailId = 9,
 	},
 	{
 		.descriptionTiles = gUnknown_081B18C0,
 		.evidenceImageId = 9,
-		.unk6 = 10,
+		.evidenceDetailId = 10,
 	},
 	{
 		.descriptionTiles = gUnknown_081B1CBC,
 		.evidenceImageId = 7,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081B2150,
 		.evidenceImageId = 55,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 	{
 		.descriptionTiles = gUnknown_081B25F0,
 		.evidenceImageId = 54,
-		.unk6 = 0,
+		.evidenceDetailId = 0,
 	},
 };
 
@@ -584,29 +585,29 @@ void (*gProcess8ProcessStates[3])(struct Main *, struct CourtRecord *) = {
 	sub_800E828
 };
 
-void sub_800D77C(struct Main * main, struct CourtRecord * courtRecord)
+void InitializeCourtRecordForScenario(struct Main * main, struct CourtRecord * courtRecord)
 {
     const u8 * recordIds;
     u32 i;
 
     for(i = 0; i < 32; i++)
         courtRecord->profileList[i] |= 0xFF;
-    courtRecord->unk11 = 0;
+    courtRecord->profileCount = 0;
     for(i = 0; i < 32; i++)
         courtRecord->evidenceList[i] |= 0xFF;
-    courtRecord->unk10 = 0;
-    recordIds = gUnknown_0811DC10[main->scenarioIdx];
+    courtRecord->evidenceCount = 0;
+    recordIds = gCourtRecordInitialItemLists[main->scenarioIdx];
     for(i = 0; *recordIds != 0xFE; i++)
     {
         courtRecord->profileList[i] = *recordIds;
-        courtRecord->unk11++;
+        courtRecord->profileCount++;
         recordIds++;
     }
     recordIds++;
     for(i = 0; *recordIds != 0xFF; i++)
     {
         courtRecord->evidenceList[i] = *recordIds;
-        courtRecord->unk10++;
+        courtRecord->evidenceCount++;
         recordIds++;
     }
 }
@@ -662,13 +663,13 @@ void sub_800D880(struct Main * main, struct CourtRecord * courtRecord)
     io->lcd_dispcnt |= DISPCNT_BG2_ON;
     io->lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_WRAP | BGCNT_TXT256x256;
     main->tilemapUpdateBits |= 0x4;
-    courtRecord->unkC = 0;
-    courtRecord->unkD = 0;
-    courtRecord->unk12 = 0;
-    courtRecord->unkE = courtRecord->unk10;
-    courtRecord->unk14 = courtRecord->evidenceList;
+    courtRecord->flags = 0;
+    courtRecord->selectedItem = 0;
+    courtRecord->selectedItemBackup = 0;
+    courtRecord->displayItemCount = courtRecord->evidenceCount;
+    courtRecord->displayItemList = courtRecord->evidenceList;
     sub_800E914();
-    sub_800EA80(courtRecord->unk14[courtRecord->unkD]);
+    sub_800EA80(courtRecord->displayItemList[courtRecord->selectedItem]);
     if(main->process[GAME_PROCESSUNK3] == 1)
         sub_80024C8(2, 0xC);
     courtRecord->unkF = 1;
@@ -684,8 +685,8 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
 
     if(joypad->pressedKeys & L_BUTTON)
     {
-        u32 evidenceId = courtRecord->unk14[courtRecord->unkD];
-        if(gUnknown_08018A6C[evidenceId].unk6)
+        u32 evidenceId = courtRecord->displayItemList[courtRecord->selectedItem];
+        if(gEvidenceProfileData[evidenceId].evidenceDetailId)
         {
             PauseBGM();
             PlaySE(0x2B);
@@ -696,16 +697,16 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
         }
     }
     
-    if(joypad->heldKeys & DPAD_RIGHT && courtRecord->unkE > 1)
+    if(joypad->heldKeys & DPAD_RIGHT && courtRecord->displayItemCount > 1)
     {
         sub_80024C8(1, 0xC);
-        if(--courtRecord->unkD > courtRecord->unkE)
-            courtRecord->unkD = courtRecord->unkE-1;
+        if(--courtRecord->selectedItem > courtRecord->displayItemCount)
+            courtRecord->selectedItem = courtRecord->displayItemCount-1;
         goto tailMerge; // compiler can do this but the if(main->process[GAME_PROCESSUNK3] == 1) fucks up
         /*
         PlaySE(0x36);
         courtRecord->unkF = 1;
-        courtRecord->unkC |= 2;
+        courtRecord->flags |= 2;
         DmaCopy16(3, OBJ_VRAM0+0x3C00, VRAM+0x1400, 0x1C00);
         DmaCopy16(3, OBJ_PLTT+0x20, PLTT+0x20, 0x20);
         sub_800EAF8(courtRecord);
@@ -738,15 +739,15 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
         }
         */
     }
-    else if (joypad->heldKeys & DPAD_LEFT && courtRecord->unkE > 1)
+    else if (joypad->heldKeys & DPAD_LEFT && courtRecord->displayItemCount > 1)
     {
         sub_80024C8(2, 0xC);
-        if(++courtRecord->unkD >= courtRecord->unkE)
-            courtRecord->unkD = 0;
+        if(++courtRecord->selectedItem >= courtRecord->displayItemCount)
+            courtRecord->selectedItem = 0;
         tailMerge:
         PlaySE(0x36);
         courtRecord->unkF = 1;
-        courtRecord->unkC |= 2;
+        courtRecord->flags |= 2;
         DmaCopy16(3, OBJ_VRAM0+0x3C00, VRAM+0x1400, 0x1C00);
         DmaCopy16(3, OBJ_PLTT+0x20, PLTT+0x20, 0x20);
         sub_800EAF8(courtRecord);
@@ -817,7 +818,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
             main->gameStateFlags |= 1;
             gIORegisters.lcd_dispcnt &= ~DISPCNT_BG2_ON;
             sub_800EB6C(courtRecord);
-            section = sub_800EE20(gScriptContext.currentSection, courtRecord->unk14[courtRecord->unkD]);
+            section = sub_800EE20(gScriptContext.currentSection, courtRecord->displayItemList[courtRecord->selectedItem]);
             if(section != 0)
             {
                 StopBGM();
@@ -900,7 +901,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
         if(joypad->pressedKeys & A_BUTTON)
         {
             PlaySE(0x2B);
-            section = sub_800EEA4(main, courtRecord->unk14[courtRecord->unkD]);
+            section = sub_800EEA4(main, courtRecord->displayItemList[courtRecord->selectedItem]);
             ChangeScriptSection(section);
             sub_800244C(1);
             sub_800EB6C(courtRecord);
@@ -963,8 +964,8 @@ void sub_800DD88(struct Main * main, struct CourtRecord * courtRecord)
     sub_800E9D4(courtRecord);
     if(courtRecord->unk1 == 0)
     {
-        courtRecord->unkC |= 4;
-        courtRecord->unkC &= ~2;
+        courtRecord->flags |= 4;
+        courtRecord->flags &= ~2;
         if(main->process[GAME_PROCESSUNK3] == 0 && !(gScriptContext.flags & SCRIPT_FULLSCREEN))
         {
             gBG1MapBuffer[622] = 0x20;
@@ -992,8 +993,8 @@ void sub_800DE28(struct Main * main, struct CourtRecord * courtRecord)
     sub_800E9D4(courtRecord);
     if(courtRecord->unk1 == 0)
     {
-        courtRecord->unkC |= 4;
-        courtRecord->unkC &= ~2;
+        courtRecord->flags |= 4;
+        courtRecord->flags &= ~2;
         main->process[GAME_PROCESS_STATE] = courtRecord->unkF;
     }
 }
@@ -1005,29 +1006,29 @@ void sub_800DE8C(struct Main * main, struct CourtRecord * courtRecord)
     if(courtRecord->unk1 == 0)
     {
         u32 temp;
-        courtRecord->unkC &= ~2;
+        courtRecord->flags &= ~2;
         sub_80024C8(2, 0xC);
         courtRecord->unkF = 1;
         main->process[GAME_PROCESS_STATE] = 3;
-        temp = courtRecord->unkD;
-        courtRecord->unkD = courtRecord->unk12;
-        courtRecord->unk12 = temp;
-        if(courtRecord->unkC & 1)
+        temp = courtRecord->selectedItem;
+        courtRecord->selectedItem = courtRecord->selectedItemBackup;
+        courtRecord->selectedItemBackup = temp;
+        if(courtRecord->flags & COURT_RECORD_VIEW_PROFILES)
         {
-            courtRecord->unkC &= ~1;
+            courtRecord->flags &= ~COURT_RECORD_VIEW_PROFILES;
             DmaCopy16(3, gUnknown_081906C0, OBJ_VRAM0+0x3500, TILE_SIZE_4BPP*16);
-            courtRecord->unkE = courtRecord->unk10;
-            courtRecord->unk14 = courtRecord->evidenceList;
+            courtRecord->displayItemCount = courtRecord->evidenceCount;
+            courtRecord->displayItemList = courtRecord->evidenceList;
         }
         else
         {
-            courtRecord->unkC |= 1;
+            courtRecord->flags |= COURT_RECORD_VIEW_PROFILES;
             DmaCopy16(3, gUnknown_081908C0, OBJ_VRAM0+0x3500, 0x200);
-            courtRecord->unkE = courtRecord->unk11;
-            courtRecord->unk14 = courtRecord->profileList;
+            courtRecord->displayItemCount = courtRecord->profileCount;
+            courtRecord->displayItemList = courtRecord->profileList;
         }
 
-        sub_800EA80(courtRecord->unk14[courtRecord->unkD]);
+        sub_800EA80(courtRecord->displayItemList[courtRecord->selectedItem]);
     }
 }
 
@@ -1050,10 +1051,10 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
             
             if(main->blendMode != 0)
                 break;
-            courtRecord->unk13 = 0;
-            evidenceId = courtRecord->unk14[courtRecord->unkD];
+            courtRecord->fullScreenPage = 0;
+            evidenceId = courtRecord->displayItemList[courtRecord->selectedItem];
             DmaCopy16(3, &gMain, &gSaveDataBuffer.main, sizeof(struct Main));
-            switch(gUnknown_08018A6C[evidenceId].unk6)
+            switch(gEvidenceProfileData[evidenceId].evidenceDetailId)
             {
                 case 0:
                     break;
@@ -1158,13 +1159,13 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
             }
             else if(gJoypad.pressedKeys & (DPAD_DOWN | A_BUTTON))
             {
-                evidenceId = courtRecord->unk14[courtRecord->unkD];
-                if(gUnknown_08018A6C[evidenceId].unk6 == 9 || gUnknown_08018A6C[evidenceId].unk6 == 2)
+                evidenceId = courtRecord->displayItemList[courtRecord->selectedItem];
+                if(gEvidenceProfileData[evidenceId].evidenceDetailId == 9 || gEvidenceProfileData[evidenceId].evidenceDetailId == 2)
                 {
                     PlaySE(0x2B);
-                    courtRecord->unk13++;
-                    if(courtRecord->unk13 > 2)
-                        courtRecord->unk13 = 0;
+                    courtRecord->fullScreenPage++;
+                    if(courtRecord->fullScreenPage > 2)
+                        courtRecord->fullScreenPage = 0;
                     StartHardwareBlend(2, 1, 2, 0x1F);
                     main->process[GAME_PROCESSUNK2] = 6;
                 }
@@ -1232,10 +1233,10 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
         {
             if(main->blendMode != 0)
                 break;
-            evidenceId = courtRecord->unk14[courtRecord->unkD];
-            if(gUnknown_08018A6C[evidenceId].unk6 == 2)
+            evidenceId = courtRecord->displayItemList[courtRecord->selectedItem];
+            if(gEvidenceProfileData[evidenceId].evidenceDetailId == 2)
             {
-                switch(courtRecord->unk13)
+                switch(courtRecord->fullScreenPage)
                 {
                     case 0:
                         main->currentBG = 0x2D;
@@ -1250,7 +1251,7 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
             }
             else
             {
-                switch(courtRecord->unk13)
+                switch(courtRecord->fullScreenPage)
                 {
                     case 0:
                         main->currentBG = 0x52;
@@ -1276,7 +1277,7 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
 
 void sub_800E488(struct Main * main, struct CourtRecord * courtRecord)
 {
-    sub_800EA80(courtRecord->unk14[courtRecord->unkD]);
+    sub_800EA80(courtRecord->displayItemList[courtRecord->selectedItem]);
     main->process[GAME_PROCESS_STATE] = 3;
 }
 
@@ -1297,8 +1298,8 @@ void sub_800E4A4(struct Main * main, struct CourtRecord * courtRecord)
                 PlayAnimation(4);
                 PlaySE(0x37);
                 gTestimony.unk1 = 6;
-                evidenceId = courtRecord->unk14[courtRecord->unkD];
-                offset = gUnknown_08018A6C[evidenceId].evidenceImageId * (TILE_SIZE_4BPP * 64 + 0x20);
+                evidenceId = courtRecord->displayItemList[courtRecord->selectedItem];
+                offset = gEvidenceProfileData[evidenceId].evidenceImageId * (TILE_SIZE_4BPP * 64 + 0x20);
                 temp = (uintptr_t)gUnknown_081B290C + offset; //! Evil, uses a u32 for this pointer keep in mind and also global define
                 DmaCopy16(3, temp, OBJ_PLTT+0x20, 0x20);
                 temp = (uintptr_t)gUnknown_081B290C + offset + 0x20;
@@ -1336,7 +1337,7 @@ void sub_800E4A4(struct Main * main, struct CourtRecord * courtRecord)
                 gIORegisters.lcd_dispcnt |= DISPCNT_BG1_ON;
                 main->advanceScriptContext = TRUE;
                 main->showTextboxCharacters = TRUE;
-                section = sub_800EE20(gScriptContext.currentSection, courtRecord->unk14[courtRecord->unkD]);
+                section = sub_800EE20(gScriptContext.currentSection, courtRecord->displayItemList[courtRecord->selectedItem]);
                 if(section)
                 {
                     ChangeScriptSection(section);
@@ -1463,40 +1464,40 @@ void sub_800E8A0(struct CourtRecord * courtRecord)
         courtRecord->unk9 = 0;
         courtRecord->unk8++;
         courtRecord->unk8 &= 3;
-        DmaCopy16(3, gUnknown_0818BD40 + sCourtRecordLeftArrowTileIndexes[courtRecord->unk8] * 32, OBJ_VRAM0+0x3400, TILE_SIZE_4BPP*4);
-        DmaCopy16(3, gUnknown_0818BD40 + sCourtRecordRightArrowTileIndexes[courtRecord->unk8] * 32, OBJ_VRAM0+0x3480, TILE_SIZE_4BPP*4);
+        DmaCopy16(3, gGfx4bppTestimonyArrows + sCourtRecordLeftArrowTileIndexes[courtRecord->unk8] * 32, OBJ_VRAM0+0x3400, TILE_SIZE_4BPP*4);
+        DmaCopy16(3, gGfx4bppTestimonyArrows + sCourtRecordRightArrowTileIndexes[courtRecord->unk8] * 32, OBJ_VRAM0+0x3480, TILE_SIZE_4BPP*4);
     }
 }
 
 void sub_800E914()
 {
     sub_80024C8(1, 0xC);
-    DmaCopy16(3, gUnknown_0818BD40, OBJ_VRAM0+0x3400, TILE_SIZE_4BPP*4);
-    DmaCopy16(3, gUnknown_0818BD40 + TILE_SIZE_4BPP*4 * 3, OBJ_VRAM0+0x3480, TILE_SIZE_4BPP*4);
-    DmaCopy16(3, gUnknown_0818F4C0, OBJ_VRAM0+0x3800, TILE_SIZE_4BPP*16);
+    DmaCopy16(3, gGfx4bppTestimonyArrows, OBJ_VRAM0+0x3400, TILE_SIZE_4BPP*4);
+    DmaCopy16(3, gGfx4bppTestimonyArrows + TILE_SIZE_4BPP*4 * 3, OBJ_VRAM0+0x3480, TILE_SIZE_4BPP*4);
+    DmaCopy16(3, gGfx4bppControllerButtons, OBJ_VRAM0+0x3800, TILE_SIZE_4BPP*16);
     DmaCopy16(3, gUnknown_081904C0, OBJ_VRAM0+0x3A00, TILE_SIZE_4BPP*16);
     DmaCopy16(3, gUnknown_081906C0, OBJ_VRAM0+0x3500, TILE_SIZE_4BPP*16);
     DmaCopy16(3, gUnknown_081940E0, OBJ_PLTT+0x60, 0x20);
     DmaCopy16(3, gUnknown_08194240, OBJ_PLTT+0x80, 0x20);
-    DmaCopy16(3, gUnknown_08186520, OBJ_PLTT+0x40, 0x20);
+    DmaCopy16(3, gGfxPalEvidenceProfileDesc, OBJ_PLTT+0x40, 0x20);
 }
 
 void sub_800E9D4(struct CourtRecord * courtRecord)
 {
     struct OamAttrs * oam;
     sub_800EAF8(courtRecord);
-    if(courtRecord->unkC & 4)
+    if(courtRecord->flags & 4)
     {
         sub_800E8A0(courtRecord);
         oam = gOamObjects;
-        if(courtRecord->unkE > 1)
+        if(courtRecord->displayItemCount > 1)
             oam->attr0 = SPRITE_ATTR0(48, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
         else
             oam->attr0 = SPRITE_ATTR0_CLEAR;
         oam->attr1 = SPRITE_ATTR1_NONAFFINE(0, FALSE, FALSE, 1);
         oam->attr2 = SPRITE_ATTR2(0x1A0, 0, 3);
         oam++;
-        if(courtRecord->unkE > 1)
+        if(courtRecord->displayItemCount > 1)
             oam->attr0 = SPRITE_ATTR0(48, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
         else
             oam->attr0 = SPRITE_ATTR0_CLEAR;
@@ -1526,12 +1527,12 @@ void sub_800EA80(u32 evidenceId)
     u32 offset;
     u8 * src;
 
-    offset = gUnknown_08018A6C[evidenceId].evidenceImageId * (TILE_SIZE_4BPP * 64 + 0x20);
+    offset = gEvidenceProfileData[evidenceId].evidenceImageId * (TILE_SIZE_4BPP * 64 + 0x20);
     src = gUnknown_081B290C + offset;
     DmaCopy16(3, src, OBJ_PLTT+0x20, 0x20);
     src = gUnknown_081B290C + offset + 0x20;
     DmaCopy16(3, src, OBJ_VRAM0+0x5000, TILE_SIZE_4BPP * 64);
-    src = gUnknown_08018A6C[evidenceId].descriptionTiles;
+    src = gEvidenceProfileData[evidenceId].descriptionTiles;
     LZ77UnCompWram(src, eUnknown_0200AFC0);
     DmaCopy16(3, eUnknown_0200AFC0, (void *)OBJ_VRAM0+0x3C00, TILE_SIZE_4BPP * 160);
 }
@@ -1686,12 +1687,12 @@ s32 FindEvidenceInCourtRecord(u32 isProfile, u32 evidenceId)
     if(isProfile)
     {
         list = gCourtRecord.profileList;
-        evidenceCount = gCourtRecord.unk11;
+        evidenceCount = gCourtRecord.profileCount;
     }
     else
     {
         list = gCourtRecord.evidenceList;
-        evidenceCount = gCourtRecord.unk10;
+        evidenceCount = gCourtRecord.evidenceCount;
     }
     for(i = 0; i < evidenceCount; i++, list++)
     {
@@ -1722,24 +1723,24 @@ void SortCourtRecordAndSyncListCount(struct CourtRecord * courtRecord)
 
     DmaCopy16(3, courtRecord->profileList, ewram, 0x20);
     DmaFill16(3, 0xFFFF, courtRecord->profileList, 0x20);
-    courtRecord->unk11 = 0;
+    courtRecord->profileCount = 0;
     for(i = 0; i < 0x20; i++)
     {
         if(ewram[i] != 0xFF)
         {
-            courtRecord->profileList[courtRecord->unk11] = ewram[i];
-            courtRecord->unk11++;
+            courtRecord->profileList[courtRecord->profileCount] = ewram[i];
+            courtRecord->profileCount++;
         }
     }
     DmaCopy16(3, courtRecord->evidenceList, ewram, 0x20);
     DmaFill16(3, 0xFFFF, courtRecord->evidenceList, 0x20);
-    courtRecord->unk10 = 0;
+    courtRecord->evidenceCount = 0;
     for(i = 0; i < 0x20; i++)
     {
         if(ewram[i] != 0xFF)
         {
-            courtRecord->evidenceList[courtRecord->unk10] = ewram[i];
-            courtRecord->unk10++;
+            courtRecord->evidenceList[courtRecord->evidenceCount] = ewram[i];
+            courtRecord->evidenceCount++;
         }
     }
 }
@@ -1748,14 +1749,14 @@ u32 sub_800EE20(u32 section, u32 evidenceId)
 {
     const struct Struct811DC54 * struct811DC54p;
     struct811DC54p = gUnknown_0811DC54[gMain.scenarioIdx];
-    for(; struct811DC54p->unk0 != 0xFFFF; struct811DC54p++)
+    for(; struct811DC54p->scriptSection != 0xFFFF; struct811DC54p++)
     {
-        if(struct811DC54p->unk6 != 0xFF)
+        if(struct811DC54p->flagId != 0xFF)
         {
-            if(!GetFlag(0, struct811DC54p->unk6))
+            if(!GetFlag(0, struct811DC54p->flagId))
                 continue;
         }
-        if(struct811DC54p->unk0 == section && struct811DC54p->unk2 == evidenceId)
+        if(struct811DC54p->scriptSection == section && struct811DC54p->evidenceId == evidenceId)
         {
             if(struct811DC54p->unk7)
                 gScriptContext.unk33 = 0;
@@ -1777,12 +1778,12 @@ u32 sub_800EEA4(struct Main * main, u32 evidenceId)
     retVal = struct811DC98p->unk6;
     for(; struct811DC98p->unk3 != 0xFF; struct811DC98p++)
     {
-        if(gAnimation[1].unkC.unk2[0] == struct811DC98p->unk2)
+        if(gAnimation[1].unkC.personId == struct811DC98p->unk2)
         {
-            if(main->currentRoomId == struct811DC98p->unk0)
+            if(main->currentRoomId == struct811DC98p->roomId)
             {
                 retVal = struct811DC98p->unk6;
-                if(evidenceId == struct811DC98p->unk1)
+                if(evidenceId == struct811DC98p->evidenceId)
                     return struct811DC98p->unk4;
             }
         }
@@ -1881,7 +1882,7 @@ void sub_800F0E0(struct Main * main)
     u32 offset;
     u8 * src;
 
-    offset = gUnknown_08018A6C[main->unk7C].evidenceImageId * (TILE_SIZE_4BPP * 64 + 0x20);
+    offset = gEvidenceProfileData[main->unk7C].evidenceImageId * (TILE_SIZE_4BPP * 64 + 0x20);
     src = gUnknown_081B290C + offset;
     DmaCopy16(3, src, OBJ_PLTT+0x20, 0x20);
     src = gUnknown_081B290C + offset + 0x20;

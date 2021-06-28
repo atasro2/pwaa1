@@ -16,7 +16,8 @@ struct AnimationFrame
 struct AnimationStructFieldC
 {
     /* +0x00 */ u16 animId;
-    /* +0x02 */ u8 unk2[2];
+    /* +0x02 */ u8 personId;
+    /* +0x03 */ u8 unk3;
     /* +0x04 */ s16 xOrigin;
     /* +0x06 */ s16 yOrigin;
     /* +0x08 */ u8 *volatile animFrameDataStartPtr; // !! THESE 4 POINTERS ARE VOLATILE TO MATCH MoveAnimationTilesToRam AND THAT COULD BE INCORRECT
@@ -44,10 +45,10 @@ struct AnimationStruct
     /* +0x28 */ s16 frameDurationCounter;
     /* +0x2A */ u8 unk2A; 
     /* +0x2B */ u8 unk2B; 
-    /* +0x2C */ u8 unk2C;
-    /* +0x2D */ u8 unk2D;
+    /* +0x2C */ u8 bgId;
+    /* +0x2D */ u8 roomId;
     /* +0x2E */ s16 unk2E;
-    /* +0x30 */ struct SpriteTemplate * unk30;
+    /* +0x30 */ struct SpriteTemplate * spriteData;
     /* +0x34 */ struct AnimationFrame * frameData;
     /* +0x38 */ u16 tileNum;
     /* +0x3A */ u8 animtionOamStartIdx;
@@ -59,16 +60,16 @@ struct AnimationStruct
 struct AnimationBackupStruct
 {
     /* +0x00 */ u16 animId;
-    /* +0x02 */ u8 unk2; // unkC.unk2[0]
-    /* +0x03 */ u8 unk3; // unkC.unk2[1]
+    /* +0x02 */ u8 personId;
+    /* +0x03 */ u8 unk3; // unkC.unk3
     /* +0x04 */ s16 xOrigin;
     /* +0x06 */ s16 yOrigin;
     /* +0x08 */ u8 * animFrameDataStartPtr;
     /* +0x0C */ u16 frameDurationCounter;
     /* +0x0E */ u8 unkE; // unk2A
     /* +0x0F */ u8 unkF; // unk2B
-    /* +0x10 */ u8 unk10; // unk2C
-    /* +0x11 */ u8 unk11; // unk2D
+    /* +0x10 */ u8 bgId;
+    /* +0x11 */ u8 roomId;
     /* +0x12 */ u16 unk12; // unk2E
     /* +0x14 */ u32 flags;
     /* +0x18 */ struct AnimationFrame * frameData;
@@ -103,20 +104,9 @@ struct SpriteSizeData {
 
 extern struct AnimationStruct gAnimation[32];
 
-//~ gUnknown_0811DFD0:
-void sub_8011130(struct AnimationStruct *);
-void sub_8011130(struct AnimationStruct *);
-void sub_8011130(struct AnimationStruct *);
 void sub_8011130(struct AnimationStruct *);
 void sub_80111A0(struct AnimationStruct *);
-void sub_80111A0(struct AnimationStruct *);
-void sub_80111A0(struct AnimationStruct *);
-void sub_80111A0(struct AnimationStruct *);
-void sub_80111A0(struct AnimationStruct *);
-void sub_8011130(struct AnimationStruct *);
-void sub_8011130(struct AnimationStruct *);
 
-//~ gUnknown_0811DFFC:
 void sub_8011068(struct AnimationStruct *, struct CourtScroll *);
 void sub_80110A8(struct AnimationStruct *, struct CourtScroll *);
 void sub_8010F68(struct AnimationStruct *, struct CourtScroll *);

@@ -70,14 +70,14 @@ void sub_800A3EC(struct Main * main)
     DmaCopy16(3, gUnusedAsciiCharSet, VRAM + 0x3800, 0x800);
     DmaCopy16(3, gUnknown_08186540, VRAM, 0x1000);
     DmaCopy16(3, &gUnknown_081942C0[0], OBJ_PLTT+0x100, 0x20);
-    DmaCopy16(3, gUnknown_0818C040, OBJ_VRAM0 + 0x3780, 0x80);
+    DmaCopy16(3, gGfx4bppTrialLifeAndUnused, OBJ_VRAM0 + 0x3780, 0x80);
     DmaCopy16(3, gUnknown_081940E0, OBJ_PLTT+0x60, 0x20);
     sub_8001830(1);
     sub_8001A9C(1);
     sub_8001A9C(0xFF);
     ioRegs->lcd_bg1vofs = ~80; // ??????
     ioRegs->lcd_dispcnt &= ~DISPCNT_BG1_ON; // what the fuck is this doing
-    sub_800D77C(main, &gCourtRecord);
+    InitializeCourtRecordForScenario(main, &gCourtRecord);
     DmaFill32(3, 0, main->unk94, sizeof(main->unk94));
     if(main->scenarioIdx > 1)
        ChangeFlag(0, 0x41, TRUE); 
@@ -229,7 +229,7 @@ void GameProcess05(struct Main * main)
 
 void sub_800A894(struct Main * main)
 {
-    DmaCopy16(3, gUnknown_0818F8C0, OBJ_VRAM0+0x3000, 0x800);
+    DmaCopy16(3, gGfx4bppTestimonyTextTiles, OBJ_VRAM0+0x3000, 0x800);
     DmaCopy16(3, gUnknown_08194280, OBJ_PLTT+0xA0, 0x20);
     gTestimony.unk1 = 0;
     main->process[GAME_PROCESS_STATE] = 3;
@@ -360,12 +360,12 @@ void GameProcess06(struct Main * main)
 
 void sub_800AB58(struct Main * main)
 {
-    DmaCopy16(3, gUnknown_0818C040, OBJ_VRAM0+0x3780, 0x80);
+    DmaCopy16(3, gGfx4bppTrialLifeAndUnused, OBJ_VRAM0+0x3780, 0x80);
     DmaCopy16(3, gUnknown_081940E0, OBJ_PLTT+0x60, 0x20);
     DmaCopy16(3, gUnknown_081900C0, OBJ_VRAM0+0x3000, 0x400);
     DmaCopy16(3, gUnknown_081942A0, OBJ_PLTT+0xA0, 0x20);
-    DmaCopy16(3, gUnknown_0818BD40, 0x1A0, 0x80); // WHAT, HOW
-    DmaCopy16(3, gUnknown_0818BD40 + 12 * TILE_SIZE_4BPP, 0x220, 0x80); // WHAT, HOW
+    DmaCopy16(3, gGfx4bppTestimonyArrows, 0x1A0, 0x80); // WHAT, HOW
+    DmaCopy16(3, gGfx4bppTestimonyArrows + 12 * TILE_SIZE_4BPP, 0x220, 0x80); // WHAT, HOW
     main->unk18 = gScriptContext.currentSection;
     gCourtRecord.unk9 = 0;
     gCourtRecord.unk8++;
@@ -866,7 +866,7 @@ void sub_800B638(struct Main * main, struct TestimonyStruct * testimony)
                 main->unk89 = 0;
                 if(main->unk88 <= 8)
                 {
-                    u8 * ptr = gUnknown_0818C040 + main->unk88 * 0x80;
+                    u8 * ptr = gGfx4bppTrialLifeAndUnused + main->unk88 * 0x80;
                     DmaCopy16(3, ptr, OBJ_VRAM0+0x3700, 0x80);
                     main->unk88++;
                 }

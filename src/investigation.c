@@ -43,7 +43,7 @@ void sub_800B7A8(struct InvestigationStruct * investigation, u32 arg1)
 void GameProcess04(struct Main * main)
 {
     if(main->process[GAME_PROCESS_STATE] != 5)
-        gUnknown_0811DD64[main->scenarioIdx](main);
+        gInvestigationRoomUpdateFunctions[main->scenarioIdx](main);
     gInvestigationProcessStates[main->process[GAME_PROCESS_STATE]](main, &gInvestigation);
     sub_800D3C8(&gInvestigation);
 }
@@ -67,13 +67,13 @@ void sub_800B808(struct Main * main, struct InvestigationStruct * investigation)
     ioRegs->lcd_bg3cnt = BGCNT_PRIORITY(3) | BGCNT_CHARBASE(1) | BGCNT_SCREENBASE(31) | BGCNT_MOSAIC | BGCNT_256COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
     DmaCopy16(3, gUnusedAsciiCharSet, VRAM + 0x3800, 0x800);
     DmaCopy16(3, gUnknown_08186540, VRAM, 0x1000);
-    DmaCopy16(3, gUnknown_0818E4C0, OBJ_VRAM0 + 0x2000, 0x1000);
+    DmaCopy16(3, gGfx4bppInvestigationActions, OBJ_VRAM0 + 0x2000, 0x1000);
     DmaCopy16(3, gUnknown_08194200, OBJ_PLTT+0xA0, 0x40);
-    DmaCopy16(3, gUnknown_0818F6C0, OBJ_VRAM0 + 0x3000, 0x200);
+    DmaCopy16(3, gGfx4bppInvestigationScrollButton, OBJ_VRAM0 + 0x3000, 0x200);
     DmaCopy16(3, gUnknown_08194260, OBJ_PLTT+0xE0, 0x20);
     DmaCopy16(3, gUnknown_08190AC0, OBJ_VRAM0 + 0x3200, 0x200);
     DmaCopy16(3, gUnknown_081942C0, OBJ_PLTT+0x100, 0x20);
-    DmaCopy16(3, gUnknown_081FD92C, OBJ_PLTT+0x120, 0x40);
+    DmaCopy16(3, gGfxPalChoiceSelected, OBJ_PLTT+0x120, 0x40);
     oam = &gOamObjects[49];
     for(i = 0; i < 4; i++)
     {
@@ -88,14 +88,14 @@ void sub_800B808(struct Main * main, struct InvestigationStruct * investigation)
     investigation->unkF = 8;
     investigation->unkA = 0;
     investigation->unkB = 0;
-    gUnknown_0811DCDC[main->scenarioIdx](main);
+    gInvestigationSegmentSetupFunctions[main->scenarioIdx](main);
     bgId = main->roomData[main->currentRoomId][0];
     sub_8001830(bgId);
     sub_8001A9C(bgId);
     sub_8001A9C(0xFF);
     ioRegs->lcd_bg1vofs = ~80;
     ioRegs->lcd_dispcnt &= ~DISPCNT_BG1_ON;
-    sub_800D77C(main, &gCourtRecord);
+    InitializeCourtRecordForScenario(main, &gCourtRecord);
     DmaFill32(3, 0, main->unk94, sizeof(main->unk94));
     if(main->scenarioIdx > 1)
        ChangeFlag(0, 0x41, TRUE); 
@@ -106,7 +106,7 @@ void sub_800B808(struct Main * main, struct InvestigationStruct * investigation)
     gScriptContext.currentSection = 0xFFFF;
     ChangeScriptSection(0x80);
     sub_800244C(1);
-    gUnknown_0811DD20[main->scenarioIdx](main);
+    gInvestigationRoomSetupFunctions[main->scenarioIdx](main);
     sub_800D530(main, 0);
     SetCurrentEpisodeBit();
     SetTimedKeysAndDelay(DPAD_RIGHT | DPAD_LEFT, 15);
@@ -388,7 +388,7 @@ void sub_800BE7C(struct Main * main, struct InvestigationStruct * investigation)
     gInvestigation.unk5 = 0;
     sub_800B7A8(&gInvestigation, 0xF);
     
-    gUnknown_0811DD20[main->scenarioIdx](main);
+    gInvestigationRoomSetupFunctions[main->scenarioIdx](main);
     sub_800D530(main, 0);
     StartHardwareBlend(1, 1, 1, 0x1F);
     SET_PROCESS_PTR(4, 1, 0, 0, main);
@@ -886,7 +886,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
             for(talkData = gTalkData; talkData->roomId != 0xFF; talkData++)
             {
                 if(main->currentRoomId == talkData->roomId
-                && gAnimation[1].unkC.unk2[0] == talkData->personId
+                && gAnimation[1].unkC.personId == talkData->personId
                 && talkData->enableFlag == TRUE)
                     break;
             }
@@ -965,7 +965,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
             for(talkData = gTalkData; talkData->roomId != 0xFF; talkData++)
             {
                 if(main->currentRoomId == talkData->roomId
-                && gAnimation[1].unkC.unk2[0] == talkData->personId
+                && gAnimation[1].unkC.personId == talkData->personId
                 && talkData->enableFlag == TRUE)
                     break;
             }
@@ -1205,7 +1205,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                 for(talkData = gTalkData; talkData->roomId != 0xFF; talkData++)
                 {
                     if(main->currentRoomId == talkData->roomId
-                    && gAnimation[1].unkC.unk2[0] == talkData->personId
+                    && gAnimation[1].unkC.personId == talkData->personId
                     && talkData->enableFlag == TRUE)
                         break;
                 }
@@ -1273,7 +1273,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
             for(talkData = gTalkData; talkData->roomId != 0xFF; talkData++)
             {
                 if(main->currentRoomId == talkData->roomId
-                && gAnimation[1].unkC.unk2[0] == talkData->personId
+                && gAnimation[1].unkC.personId == talkData->personId
                 && talkData->enableFlag == TRUE)
                     break;
             }
@@ -2845,7 +2845,7 @@ void sub_800D6C8(void)
     {
         if(gMain.currentRoomId == talkdata->roomId)
 	    {
-            if(gAnimation[1].unkC.unk2[0] == talkdata->personId)
+            if(gAnimation[1].unkC.personId == talkdata->personId)
 	        {
                 if(talkdata->enableFlag == 1)
 		            break;

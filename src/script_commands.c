@@ -578,12 +578,12 @@ bool32 Command17(struct ScriptContext * scriptCtx)
             if(isProfile)
             {
                 gCourtRecord.profileList[evidenceSlot] = evidenceId;
-                gCourtRecord.unk11++;
+                gCourtRecord.profileCount++;
             }
             else
             {
                 gCourtRecord.evidenceList[evidenceSlot] = evidenceId;
-                gCourtRecord.unk10++;
+                gCourtRecord.evidenceCount++;
             }
             
             if(*scriptCtx->scriptPtr & 0x4000) // should play animation for getting evidence
