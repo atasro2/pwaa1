@@ -24,7 +24,7 @@ void SetCurrentEpisodeBit()
         case 2:
         case 3:
         case 4:
-            main->unk8E |= 2;
+            main->caseEnabledFlags |= 2;
             break;
         case 5:
         case 6:
@@ -32,7 +32,7 @@ void SetCurrentEpisodeBit()
         case 8:
         case 9:
         case 10:
-            main->unk8E |= 4;
+            main->caseEnabledFlags |= 4;
             break;
         case 11:
         case 12:
@@ -40,11 +40,11 @@ void SetCurrentEpisodeBit()
         case 14:
         case 15:
         case 16:
-            main->unk8E |= 8;
+            main->caseEnabledFlags |= 8;
             break;
         case 0:
         default:
-            main->unk8E |= 1;
+            main->caseEnabledFlags |= 1;
     }
 }
 
@@ -70,7 +70,7 @@ void sub_800A3EC(struct Main * main)
     DmaCopy16(3, gUnusedAsciiCharSet, VRAM + 0x3800, 0x800);
     DmaCopy16(3, gUnknown_08186540, VRAM, 0x1000);
     DmaCopy16(3, &gUnknown_081942C0[0], OBJ_PLTT+0x100, 0x20);
-    DmaCopy16(3, gGfx4bppTrialLifeAndUnused, OBJ_VRAM0 + 0x3780, 0x80);
+    DmaCopy16(3, gGfx4bppTrialLife, OBJ_VRAM0 + 0x3780, 0x80);
     DmaCopy16(3, gUnknown_081940E0, OBJ_PLTT+0x60, 0x20);
     sub_8001830(1);
     sub_8001A9C(1);
@@ -78,7 +78,7 @@ void sub_800A3EC(struct Main * main)
     ioRegs->lcd_bg1vofs = ~80; // ??????
     ioRegs->lcd_dispcnt &= ~DISPCNT_BG1_ON; // what the fuck is this doing
     InitializeCourtRecordForScenario(main, &gCourtRecord);
-    DmaFill32(3, 0, main->unk94, sizeof(main->unk94));
+    DmaFill32(3, 0, main->scriptFlags, sizeof(main->scriptFlags));
     if(main->scenarioIdx > 1)
        ChangeFlag(0, 0x41, TRUE); 
     main->gameStateFlags = 0;
@@ -135,17 +135,17 @@ void sub_800A6AC(struct Main * main)
     SET_PROCESS_PTR(0xA, 0, 0, 1, main);
     if(main->scenarioIdx == 1)
     {
-        if(!(main->unk8E & 2))
+        if(!(main->caseEnabledFlags & 2))
             SET_PROCESS_PTR(0xB, 0, 0, 1, main);
     }
     else if(main->scenarioIdx == 5)
     {
-        if(!(main->unk8E & 4))
+        if(!(main->caseEnabledFlags & 4))
             SET_PROCESS_PTR(0xB, 0, 0, 2, main);
     }
     else if(main->scenarioIdx == 11)
     {
-        if(!(main->unk8E & 8))
+        if(!(main->caseEnabledFlags & 8))
             SET_PROCESS_PTR(0xB, 0, 0, 3, main);
     }
 }
@@ -360,13 +360,13 @@ void GameProcess06(struct Main * main)
 
 void sub_800AB58(struct Main * main)
 {
-    DmaCopy16(3, gGfx4bppTrialLifeAndUnused, OBJ_VRAM0+0x3780, 0x80);
+    DmaCopy16(3, gGfx4bppTrialLife, OBJ_VRAM0+0x3780, 0x80);
     DmaCopy16(3, gUnknown_081940E0, OBJ_PLTT+0x60, 0x20);
     DmaCopy16(3, gUnknown_081900C0, OBJ_VRAM0+0x3000, 0x400);
     DmaCopy16(3, gUnknown_081942A0, OBJ_PLTT+0xA0, 0x20);
     DmaCopy16(3, gGfx4bppTestimonyArrows, 0x1A0, 0x80); // WHAT, HOW
     DmaCopy16(3, gGfx4bppTestimonyArrows + 12 * TILE_SIZE_4BPP, 0x220, 0x80); // WHAT, HOW
-    main->unk18 = gScriptContext.currentSection;
+    main->testimonyBeginningSection = gScriptContext.currentSection;
     gCourtRecord.unk9 = 0;
     gCourtRecord.unk8++;
     gTestimony.unk4 = 0xF0;
@@ -407,7 +407,7 @@ void sub_800AC1C(struct Main * main)
         }
         else if(gJoypad.pressedKeys & (B_BUTTON | DPAD_LEFT))
         {
-            if(gScriptContext.currentSection-1 != main->unk18)
+            if(gScriptContext.currentSection-1 != main->testimonyBeginningSection)
             {
                 section = gScriptContext.currentSection-1;
                 PlaySE(0x2B);
@@ -461,7 +461,7 @@ void sub_800AC1C(struct Main * main)
     oam = gOamObjects;
     if(gScriptContext.flags & SCRIPT_LOOP)
     {
-        if(gScriptContext.currentSection-1 != main->unk18)
+        if(gScriptContext.currentSection-1 != main->testimonyBeginningSection)
             oam->attr0 = SPRITE_ATTR0(128, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
         else
             oam->attr0 = SPRITE_ATTR0_CLEAR;
@@ -595,8 +595,8 @@ void GameProcess09(struct Main * main)
     struct OamAttrs *oam = &gOamObjects[49];
     switch(main->process[GAME_PROCESS_STATE]) {
         case 0: { // B088
-            gMain.unk84 -= 0x10;
-            if(gMain.unk84 <= 0x100) 
+            gMain.affineScale -= 0x10;
+            if(gMain.affineScale <= 0x100) 
             {
                 temp = fix_inverse(0x100);
                 gOamObjects[0].attr3 = fix_mul(_Cos(0), temp);
@@ -609,7 +609,7 @@ void GameProcess09(struct Main * main)
                 main->process[GAME_PROCESSUNK2] = 0;
             }
             else {
-                temp = fix_inverse(main->unk84);
+                temp = fix_inverse(main->affineScale);
                 gOamObjects[0].attr3 = fix_mul(_Cos(0), temp);
                 gOamObjects[1].attr3 = fix_mul(_Sin(0), temp);
                 gOamObjects[2].attr3 = fix_mul(-_Sin(0), temp);
@@ -619,12 +619,12 @@ void GameProcess09(struct Main * main)
         }
         case 1: { // B164
             if(main->process[GAME_PROCESSUNK2]++ > 40) {
-                gMain.unk84 = 0x100 * 2.5; // 2.5 times scale
+                gMain.affineScale = 0x100 * 2.5; // 2.5 times scale
                 oam++;
                 oam->attr0 = SPRITE_ATTR0(255-16, ST_OAM_AFFINE_DOUBLE, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
                 oam->attr1 = SPRITE_ATTR1_AFFINE(128, 1, 3);
                 oam->attr2 = SPRITE_ATTR2(0x1E0, 0, 5);
-                temp = fix_inverse(main->unk84);
+                temp = fix_inverse(main->affineScale);
                 gOamObjects[4].attr3 = fix_mul(_Cos(0), temp);
                 gOamObjects[5].attr3 = fix_mul(_Sin(0), temp);
                 gOamObjects[6].attr3 = fix_mul(-_Sin(0), temp);
@@ -634,8 +634,8 @@ void GameProcess09(struct Main * main)
             break;
         }
         case 2: { // B1FC
-            gMain.unk84 -= 0x10;
-            if(gMain.unk84 <= 0x100) {
+            gMain.affineScale -= 0x10;
+            if(gMain.affineScale <= 0x100) {
                 temp = fix_inverse(0x100);
                 gOamObjects[4].attr3 = fix_mul(_Cos(0), temp);
                 gOamObjects[5].attr3 = fix_mul(_Sin(0), temp);
@@ -643,12 +643,12 @@ void GameProcess09(struct Main * main)
                 gOamObjects[7].attr3 = fix_mul(_Cos(0), temp);
                 StartHardwareBlend(3, 1, 4, 0x1F);
                 PlaySE(0x56);
-                gMain.unk84 = 0x100;
+                gMain.affineScale = 0x100;
                 main->process[GAME_PROCESS_STATE]++;
                 main->process[GAME_PROCESSUNK2] = 0;
             }
             else {
-                temp = fix_inverse(main->unk84);
+                temp = fix_inverse(main->affineScale);
                 gOamObjects[4].attr3 = fix_mul(_Cos(0), temp);
                 gOamObjects[5].attr3 = fix_mul(_Sin(0), temp);
                 gOamObjects[6].attr3 = fix_mul(-_Sin(0), temp);
@@ -676,8 +676,8 @@ void GameProcess09(struct Main * main)
                 RESTORE_PROCESS_PTR(main);
             }
             else {
-                main->unk84 += 8;
-                temp = fix_inverse(main->unk84);
+                main->affineScale += 8;
+                temp = fix_inverse(main->affineScale);
                 gOamObjects[0].attr3 = fix_mul(_Cos(0), temp);
                 gOamObjects[1].attr3 = fix_mul(_Sin(0), temp);
                 gOamObjects[2].attr3 = fix_mul(-_Sin(0), temp);
@@ -860,26 +860,26 @@ void sub_800B638(struct Main * main, struct TestimonyStruct * testimony)
             gOamObjects[1].attr3 = fix_mul(0, scale);
             gOamObjects[2].attr3 = fix_mul(0, scale);
             gOamObjects[3].attr3 = fix_mul(0x100, scale);
-            main->unk89++; // doing pre increment in the if here doesn't match, hilarious
-            if(main->unk89 > 2)
+            main->damageFrameTimer++; // doing pre increment in the if here doesn't match, hilarious
+            if(main->damageFrameTimer > 2)
             {
-                main->unk89 = 0;
-                if(main->unk88 <= 8)
+                main->damageFrameTimer = 0;
+                if(main->damageFrame <= 8)
                 {
-                    u8 * ptr = gGfx4bppTrialLifeAndUnused + main->unk88 * 0x80;
+                    u8 * ptr = gGfx4bppTrialLife + main->damageFrame * 0x80;
                     DmaCopy16(3, ptr, OBJ_VRAM0+0x3700, 0x80);
-                    main->unk88++;
+                    main->damageFrame++;
                 }
                 else
                     main->previousHealth = 0xFF;
             }
-            if(main->unk88 > 4)
+            if(main->damageFrame > 4)
                 oam->attr0 = SPRITE_ATTR0(8, ST_OAM_AFFINE_DOUBLE, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
             else
                 oam->attr0 = SPRITE_ATTR0(16, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
-            if(main->unk88 <= 8)
+            if(main->damageFrame <= 8)
             {
-                if(main->unk88 > 4)
+                if(main->damageFrame > 4)
                     oam->attr1 = SPRITE_ATTR1_AFFINE(0, 0, 1) + testimony->unk4 + i * 0x10 - 8;
                 else
                     oam->attr1 = SPRITE_ATTR1_NONAFFINE(0, FALSE, FALSE, 1) + testimony->unk4 + i * 0x10;

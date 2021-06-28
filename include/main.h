@@ -28,71 +28,71 @@ struct Main
     /* +0x00F */ s8 shakeAmountY; // unity: Quake_y
     /* +0x010 */ u16 shakeTimer; // unity: Quake_timer
     /* +0x012 */ u8 shakeIntensity; // unity: Quake_power
-    /* +0x013 */ u8 selectedButton; // unity: Cursol? not sure also engrish
+    /* +0x013 */ u8 selectedButton; // unity: Cursol
     /* +0x014 */ bool8 advanceScriptContext; // unity: Mess_move_flag
-    /* +0x015 */ bool8 showTextboxCharacters; // unity: message_active_window?
+    /* +0x015 */ bool8 showTextboxCharacters; // unity: message_active_window
     /* +0x016 */ u8 tilemapUpdateBits;
-    /* +0x017 */ u8 unk17;
-    /* +0x018 */ u16 unk18; // unity: bk_start_mess
+    /* +0x017 */ u8 saveContinueFlags;
+    /* +0x018 */ u16 testimonyBeginningSection; // unity: bk_start_mess
     /* +0x01A */ s16 bgmFadeVolume; // unity: bgm_vol_next?
     /* +0x01C */ u8 soundStatus; // unity: sound_status, comes after currentPlayingBgm in unity?
     /* +0x01D */ u8 currentPlayingBgm; // unity: bgm_now
-    /* +0x01E */ u8 unk1E; // unity: Obj_plt_use_flag
-    /* +0x01F */ u8 unk1F; // unity: Obj_flag
+    /* +0x01E */ u8 allocatedObjPltts; // unity: Obj_plt_use_flag
+    /* +0x01F */ u8 animationFlags; // unity: Obj_flag
     /* +0x020 */ s16 bgmFadeAmount; // unity: bgm_fade_time?
     /* +0x022 */ s16 bgmVolume; // unity: bgm_vol
     /* +0x024 */ u16 rngSeed; // unity: Random_seed
-    /* +0x026 */ u8 unk26; // unity: get_note_file
-    /* +0x027 */ u8 unk27; // unity: get_note_id
+    /* +0x026 */ u8 gottenEvidenceType; // unity: get_note_file / only written to 
+    /* +0x027 */ u8 gottenEvidenceId; // unity: get_note_id
     /* +0x028 */ u16 currentBG; // BG related code not in GlobalWork struct, this might be another struct on its own but i'm not sure
     /* +0x02A */ s16 previousBG; // probably wrong
-    /* +0x02C */ s8 unk2C;
-    /* +0x02D */ u8 unk2D; // unused field
-    /* +0x02E */ bool8 isBGScrolling;
-    /* +0x02F */ u8 unk2F;
-    /* +0x030 */ s16 unk30;
-    /* +0x032 */ s16 unk32;
-    /* +0x034 */ s16 unk34;
-    /* +0x036 */ s16 unk36;
-    /* +0x038 */ s16 unk38;
-    /* +0x03A */ s16 unk3A; 
-    /* +0x03C */ s8 horizontolBGScrollSpeed;
-    /* +0x03D */ s8 verticalBGScrollSpeed;
-    /* +0x03E */ s8 unk3E;
-    /* +0x03F */ s8 unk3F;
-    /* +0x040 */ u8 * unk40;
-    /* +0x044 */ u32 unk44[12];
+    /* +0x02C */ s8 currentBgStripe; // maybe Bg256_rno_0?
+    /* +0x02D */ u8 unk2D; // unused field maybe Bg256_SP_Flag?
+    /* +0x02E */ bool8 isBGScrolling; // unity AA4: Bg256_scroll_flag
+    /* +0x02F */ u8 Bg256_stop_line; // unity AA4: Bg256_stop_line
+    /* +0x030 */ s16 Bg256_scroll_x; // unity AA4: Bg256_scroll_x
+    /* +0x032 */ s16 Bg256_scroll_y; // unity AA4: Bg256_scroll_y
+    /* +0x034 */ s16 Bg256_pos_x; // unity AA4: Bg256_pos_x
+    /* +0x036 */ s16 Bg256_pos_y; // unity AA4: Bg256_pos_y
+    /* +0x038 */ u16 unk38; // unity AA4: Bg256_add? unused but is background related 100%
+    /* +0x03A */ s16 Bg256_dir; // unity AA4: Bg256_dir
+    /* +0x03C */ s8 horizontolBGScrollSpeed; // unity AA4: Bg256_scroll_speed_x
+    /* +0x03D */ s8 verticalBGScrollSpeed; // unity AA4: Bg256_scroll_speed_y
+    /* +0x03E */ s8 Bg256_next_line; // unity AA4: Bg256_next_line
+    /* +0x03F */ s8 Bg256_buff_pos; // unity AA4: Bg256_buff_pos
+    /* +0x040 */ u8 * bgStripeDestPtr; // unity AA4: Bg256_buff_adr
+    /* +0x044 */ u32 bgStripeOffsets[12]; // unity AA4: Bg256_offset
     /* +0x074 */ u16 blendTarget; // unity: Fade_object
     /* +0x076 */ u16 blendMode; // unity: Fade_status
     /* +0x078 */ u16 blendCounter; // unity: Fade_timer
     /* +0x07A */ u8 blendDelay; // unity: fade_time
     /* +0x07B */ u8 blendDeltaY; // unity: fade_speed
-    /* +0x07C */ u8 unk7C;
-    /* +0x07D */ u8 unk7D;
-    /* +0x07E */ u8 unk7E;
-    /* +0x07F */ u8 unk7F;
-    /* +0x080 */ s8 unk80;
-    /* +0x081 */ u8 unk81;
-    /* +0x082 */ u8 unk82;
-    /* +0x083 */ u8 filler83[0x1]; // filler?
-    /* +0x084 */ s16 unk84;
-    /* +0x086 */ u16 unk86;
-    /* +0x088 */ u8 unk88; // unity: Rest_type
-    /* +0x089 */ u8 unk89; // unity: Rest_timer
+    /* +0x07C */ u8 itemPlateEvidenceId;
+    /* +0x07D */ u8 itemPlateState;
+    /* +0x07E */ u8 itemPlateSide;
+    /* +0x07F */ u8 itemPlateRotation; // used in Take That animation to spin the evidence around
+    /* +0x080 */ s8 itemPlateSize;
+    /* +0x081 */ u8 itemPlateCounter; // counter which was most likely used to slow down the speed which the item plate changes size 
+    /* +0x082 */ u8 itemPlateAction;
+    /* +0x083 */ u8 filler83[0x1]; // filler? might be related to itemPlateCounter
+    /* +0x084 */ s16 affineScale; // used for the scale of oam sprites in court record, deliver judgement, episode unlocked
+    /* +0x086 */ u16 xPosCounter; // used in episode selection menu
+    /* +0x088 */ u8 damageFrame; // unity: Rest_type
+    /* +0x089 */ u8 damageFrameTimer; // unity: Rest_timer
     /* +0x08A */ u8 previousHealth; // unity: rest_old
-    /* +0x08B */ u8 unk8B; // unused?
+    /* +0x08B */ u8 unk8B; // unused
     /* +0x08C */ u8 currentRoomId; // unity: Room? uint in unity
     /* +0x08D */ u8 scenarioIdx; // unity: scenario, actually the script you're running
-    /* +0x08E */ u8 unk8E; // unity: Scenario_enable, whetever a case is enabled or not, unity names suck
+    /* +0x08E */ u8 caseEnabledFlags; // unity: Scenario_enable, whetever a case is enabled or not, unity names suck
     /* +0x08F */ s8 health; // unity: rest
     /* +0x090 */ u16 talkingAnimationOffset; // unity: Def_talk_foa
     /* +0x092 */ u16 idleAnimationOffset; // unity: Def_wait_foa
-    /* +0x094 */ u32 unk94[8]; // unity: sce_flag matches debug menu
+    /* +0x094 */ u32 scriptFlags[8]; // unity: sce_flag matches debug menu
     /* +0x0B4 */ u32 gameStateFlags; // unity: status_flag matches debug menu
-    /* +0x0B8 */ u32 unkB8[8]; // unity: talk_end_flag
+    /* +0x0B8 */ u32 talkEndFlags[8]; // unity: talk_end_flag
     /* +0x0D8 */ u8 roomData[24][8]; // unity: Map_data //TODO: first size might be wrong
     /* +0x198 */ u32 soundFlags;
-    /* +0x19C */ u32 unk19C;
+    /* +0x19C */ u32 unk19C; // only used once, only bit 2 is set
 };
 
 struct IORegisters

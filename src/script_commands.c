@@ -517,9 +517,9 @@ bool32 Command12(struct ScriptContext * scriptCtx)
 bool32 Command13(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
-    gMain.unk7D = 3;
-    gMain.unk7C = *scriptCtx->scriptPtr;
-    gMain.unk7E = *scriptCtx->scriptPtr >> 8;
+    gMain.itemPlateState = 3;
+    gMain.itemPlateEvidenceId = *scriptCtx->scriptPtr;
+    gMain.itemPlateSide = *scriptCtx->scriptPtr >> 8;
     scriptCtx->scriptPtr++;
     PlaySE(51);
     return 0;
@@ -528,7 +528,7 @@ bool32 Command13(struct ScriptContext * scriptCtx)
 bool32 Command14(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
-    gMain.unk7D = 1;
+    gMain.itemPlateState = 1;
     PlaySE(51);
     return 0;
 } 
@@ -588,8 +588,8 @@ bool32 Command17(struct ScriptContext * scriptCtx)
             
             if(*scriptCtx->scriptPtr & 0x4000) // should play animation for getting evidence
             {
-                gMain.unk26 = isProfile;
-                gMain.unk27 = evidenceId;
+                gMain.gottenEvidenceType = isProfile;
+                gMain.gottenEvidenceId = evidenceId;
                 BACKUP_PROCESS();
                 SET_PROCESS(8, 0, 0, 0);
             }
@@ -648,8 +648,8 @@ bool32 Command19(struct ScriptContext * scriptCtx)
         }
         if(*scriptCtx->scriptPtr & 0x4000) // should play animation for getting evidence
         {
-            gMain.unk26 = isProfile;
-            gMain.unk27 = evidenceId;
+            gMain.gottenEvidenceType = isProfile;
+            gMain.gottenEvidenceId = evidenceId;
             BACKUP_PROCESS();
             SET_PROCESS(8, 0, 0, 0);
         }
@@ -689,7 +689,7 @@ u32 Command1B(struct ScriptContext * scriptCtx) // ! probably fakematch
         changeBG:
         gMain.previousBG = gMain.currentBG;
         gMain.currentBG = *scriptCtx->scriptPtr;
-        gMain.unk2C = 1;
+        gMain.currentBgStripe = 1;
         scriptCtx->scriptPtr++;
         return 1;
     }

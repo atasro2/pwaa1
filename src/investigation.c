@@ -96,7 +96,7 @@ void sub_800B808(struct Main * main, struct InvestigationStruct * investigation)
     ioRegs->lcd_bg1vofs = ~80;
     ioRegs->lcd_dispcnt &= ~DISPCNT_BG1_ON;
     InitializeCourtRecordForScenario(main, &gCourtRecord);
-    DmaFill32(3, 0, main->unk94, sizeof(main->unk94));
+    DmaFill32(3, 0, main->scriptFlags, sizeof(main->scriptFlags));
     if(main->scenarioIdx > 1)
        ChangeFlag(0, 0x41, TRUE); 
     main->gameStateFlags = 0;
@@ -256,15 +256,15 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
         if((bgBits & 1 || bgBits & 2) && 
         gJoypad.pressedKeys & L_BUTTON)
         {
-            if(main->unk34 == 0 || 
-            main->unk34 == 120 ||
-            main->unk34 == 240)
+            if(main->Bg256_pos_x == 0 || 
+            main->Bg256_pos_x == 120 ||
+            main->Bg256_pos_x == 240)
             {
                 PlaySE(43);
                 main->isBGScrolling = TRUE;
-                if(main->unk34 == 0)
+                if(main->Bg256_pos_x == 0)
                     main->horizontolBGScrollSpeed = 6;
-                else if(main->unk34 == 120 || main->unk34 == 240)
+                else if(main->Bg256_pos_x == 120 || main->Bg256_pos_x == 240)
                     main->horizontolBGScrollSpeed = -6;
                 main->process[GAME_PROCESS_STATE] = 3;
                 main->process[GAME_PROCESSUNK3] = 0;
@@ -287,17 +287,17 @@ void sub_800BD74(struct Main * main, struct InvestigationStruct * investigation)
     SET_PROCESS_PTR(10, 0, 0, 1, main);
     if(main->scenarioIdx == 1)
     {
-        if(!(main->unk8E & 2))
+        if(!(main->caseEnabledFlags & 2))
             SET_PROCESS_PTR(11, 0, 0, 1, main);
     }
     else if(main->scenarioIdx == 5)
     {
-        if(!(main->unk8E & 4))
+        if(!(main->caseEnabledFlags & 4))
             SET_PROCESS_PTR(11, 0, 0, 2, main);
     }
     else if(main->scenarioIdx == 11)
     {
-        if(!(main->unk8E & 8))
+        if(!(main->caseEnabledFlags & 8))
             SET_PROCESS_PTR(11, 0, 0, 3, main);
     }
 }
@@ -310,14 +310,14 @@ void sub_800BDF8(struct Main * main, struct InvestigationStruct * investigation)
     {
         if(GetBGControlBits(main->currentBG) & 1)
         {
-            if(main->unk34 == 0 || main->unk34 == 240)
+            if(main->Bg256_pos_x == 0 || main->Bg256_pos_x == 240)
                 flag = TRUE;
             else
                 flag = FALSE;
         }
         else 
         {
-            if(main->unk34 == 0 || main->unk34 == 120)
+            if(main->Bg256_pos_x == 0 || main->Bg256_pos_x == 120)
                 flag = TRUE;
             else
                 flag = FALSE;
@@ -2772,13 +2772,13 @@ void sub_800D530(struct Main * main, u32 show)
     if(show && gScriptContext.unk38 == 1 
     && GetBGControlBits(main->currentBG) & (BG_MODE_SIZE_480x160 | BG_MODE_SIZE_360x160))
     {
-        if(gMain.unk34 == 0) // ! inconsistent use of global vs pointer
+        if(gMain.Bg256_pos_x == 0) // ! inconsistent use of global vs pointer
         {
             oam->attr0 = 0x4020;
             oam->attr1 = 0x80D0;
             oam->attr2 = 0x7188;
         }
-        else if(main->unk34 == 240 || main->unk34 == 120)
+        else if(main->Bg256_pos_x == 240 || main->Bg256_pos_x == 120)
         {
             oam->attr0 = 0x4020;
             oam->attr1 = 0x8000;
@@ -2793,10 +2793,10 @@ u32 sub_800D5B0(struct InvestigationStruct * investigation)
     u32 animId;
     struct ExaminationData * examData;
     if(investigation->unk0 < 120)
-        rect.x = gMain.unk34 + investigation->unk0;
+        rect.x = gMain.Bg256_pos_x + investigation->unk0;
     else
-        rect.x = gMain.unk34 + investigation->unk0 + 12;
-    rect.y = gMain.unk36 + investigation->unk2;
+        rect.x = gMain.Bg256_pos_x + investigation->unk0 + 12;
+    rect.y = gMain.Bg256_pos_y + investigation->unk2;
     rect.w = 4;
     rect.h = 16;
     if(GetFlag(0, 0x41) == FALSE)

@@ -18,7 +18,7 @@
 #define gUnknown_08186540 ((u8*)(ROM_START + 0x186540))
 #define gGfx4bppNametags ((u8*)(ROM_START + 0x187540))
 #define gGfx4bppTestimonyArrows ((u8*)(GFX_BASE_ADDR + 0xBD40))
-#define gGfx4bppTrialLifeAndUnused ((u8*)(GFX_BASE_ADDR + 0xC040))
+#define gGfx4bppTrialLife ((u8*)(GFX_BASE_ADDR + 0xC040))
 #define gGfx4bppInvestigationActions ((u8*)(ROM_START + 0x18E4C0))
 #define gGfx4bppControllerButtons ((u8*)(GFX_BASE_ADDR + 0xF4C0))
 #define gGfx4bppInvestigationScrollButton ((u8*)(ROM_START + 0x18F6C0))
@@ -670,7 +670,7 @@ extern u8 gGfxPalEvidenceProfileDesc[];
 extern u8 gUnknown_08186540[];
 extern u8 gGfx4bppNametags[];
 extern u8 gGfx4bppTestimonyArrows[];
-extern u8 gGfx4bppTrialLifeAndUnused[];
+extern u8 gGfx4bppTrialLife[];
 extern u8 gGfx4bppInvestigationActions[];
 extern u8 gGfx4bppControllerButtons[];
 extern u8 gGfx4bppInvestigationScrollButton[];

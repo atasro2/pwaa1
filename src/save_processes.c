@@ -28,7 +28,7 @@ void (*gSaveGameProcessStates[])(struct Main *) = {
 
 u32 SaveGameData()
 {
-    gSaveDataBuffer.main.unk17 |= 0x10;
+    gSaveDataBuffer.main.saveContinueFlags |= 0x10;
     DmaCopy16(3, gSaveVersion, gSaveDataBuffer.saveDataVer, sizeof(gSaveVersion));
     CalculateSaveChecksum();
     return WriteSramEx((void*)&gSaveDataBuffer, SRAM_START, sizeof(gSaveDataBuffer));
@@ -44,18 +44,18 @@ u32 LoadSaveData()
     {
         if(gSaveVersion[i] != *sramVer)
         {
-            gMain.unk17 = 0;
+            gMain.saveContinueFlags = 0;
             return 2;
         }
         sramVer++;
     }
-    gMain.unk8E = gSaveDataBuffer.main.unk8E;
+    gMain.caseEnabledFlags = gSaveDataBuffer.main.caseEnabledFlags;
     if(CheckSaveChecksum() == FALSE)
     {
-        gMain.unk17 = 0;
+        gMain.saveContinueFlags = 0;
         return 1;
     }
-    gMain.unk17 = 0x10;
+    gMain.saveContinueFlags = 0x10;
     return 0;
 }
 
@@ -261,7 +261,7 @@ void SaveGameInit2(struct Main *main)
     DmaCopy16(3, gGfxPalChoiceSelected, OBJ_PLTT + 0x120, 0x40);
     sub_8001830(0x43);
     sub_8001A9C(0x43);
-    main->unk1F &= ~3;
+    main->animationFlags &= ~3;
     oam = gOamObjects;
     for(i = 0; i < MAX_OAM_OBJ_COUNT; i++)
     {
@@ -336,9 +336,9 @@ void SaveGameWaitForInput(struct Main *main)
             if(main->selectedButton == 0)
             {
                 if(main->sIsEpisodePartOver)
-                    gSaveDataBuffer.main.unk17 &= 0xF0;
+                    gSaveDataBuffer.main.saveContinueFlags &= 0xF0;
                 else
-                    gSaveDataBuffer.main.unk17 |= 0x1;
+                    gSaveDataBuffer.main.saveContinueFlags |= 0x1;
                 if(SaveGameData())
                 {
                     gScriptContext.currentSection = 0xFFFF;
@@ -419,23 +419,23 @@ void SaveGameExitSaveScreen(struct Main *main)
     }
     main->currentBG = gSaveDataBuffer.main.currentBG;
     main->previousBG = gSaveDataBuffer.main.previousBG;
-    main->unk2C = gSaveDataBuffer.main.unk2C;
+    main->currentBgStripe = gSaveDataBuffer.main.currentBgStripe;
     main->isBGScrolling = gSaveDataBuffer.main.isBGScrolling;
-    main->unk2F = gSaveDataBuffer.main.unk2F;
-    main->unk30 = gSaveDataBuffer.main.unk30;
-    main->unk32 = gSaveDataBuffer.main.unk32;
-    main->unk34 = gSaveDataBuffer.main.unk34;
-    main->unk36 = gSaveDataBuffer.main.unk36;
+    main->Bg256_stop_line = gSaveDataBuffer.main.Bg256_stop_line;
+    main->Bg256_scroll_x = gSaveDataBuffer.main.Bg256_scroll_x;
+    main->Bg256_scroll_y = gSaveDataBuffer.main.Bg256_scroll_y;
+    main->Bg256_pos_x = gSaveDataBuffer.main.Bg256_pos_x;
+    main->Bg256_pos_y = gSaveDataBuffer.main.Bg256_pos_y;
     main->unk38 = gSaveDataBuffer.main.unk38;
-    main->unk3A = gSaveDataBuffer.main.unk3A;
+    main->Bg256_dir = gSaveDataBuffer.main.Bg256_dir;
     main->horizontolBGScrollSpeed = gSaveDataBuffer.main.horizontolBGScrollSpeed;
     main->verticalBGScrollSpeed = gSaveDataBuffer.main.verticalBGScrollSpeed;
-    main->unk3E = gSaveDataBuffer.main.unk3E;
-    main->unk3F = gSaveDataBuffer.main.unk3F;
-    main->unk40 = gSaveDataBuffer.main.unk40;
+    main->Bg256_next_line = gSaveDataBuffer.main.Bg256_next_line;
+    main->Bg256_buff_pos = gSaveDataBuffer.main.Bg256_buff_pos;
+    main->bgStripeDestPtr = gSaveDataBuffer.main.bgStripeDestPtr;
     for(i = 0; i < 12; i++)
     {
-        main->unk44[i] = gSaveDataBuffer.main.unk44[i];
+        main->bgStripeOffsets[i] = gSaveDataBuffer.main.bgStripeOffsets[i];
     }
     sub_8001830(main->currentBG);
     sub_80020B0(main->currentBG);
@@ -452,7 +452,7 @@ void SaveGameExitSaveScreen(struct Main *main)
     main->shakeTimer = gSaveDataBuffer.main.shakeTimer;
     main->tilemapUpdateBits = gSaveDataBuffer.main.tilemapUpdateBits;
     RestoreAnimationsFromBuffer(gSaveDataBuffer.backupAnimations);
-    gMain.unk1F |= 3;
+    gMain.animationFlags |= 3;
     DmaCopy16(3, gSaveDataBuffer.oam, gOamObjects, sizeof(gOamObjects));
     DmaCopy16(3, &gUnknown_081942C0[0], OBJ_PLTT+0x100, 0x20);
     RESTORE_PROCESS_PTR(main);

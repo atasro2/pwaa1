@@ -428,9 +428,9 @@ u8 Random()
 }
 
 u32 * gFlagPtrs[] = {
-    gMain.unk94,
+    gMain.scriptFlags,
     &gMain.gameStateFlags,
-    gMain.unkB8
+    gMain.talkEndFlags
 };
 
 void ChangeFlag(u32 flagType, u32 id, bool32 set)

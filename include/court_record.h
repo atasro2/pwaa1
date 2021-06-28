@@ -58,9 +58,9 @@ s32 FindFirstEmptySlotInCourtRecord(u32);
 void SortCourtRecordAndSyncListCount(struct CourtRecord *);
 u32 sub_800EE20(u32, u32);
 u32 sub_800EEA4(struct Main *, u32);
-void sub_800EEFC(struct Main *);
-void sub_800F0E0(struct Main *);
-void sub_800F134(struct Main *);
+void UpdateItemPlate(struct Main *);
+void LoadItemPlateGfx(struct Main *);
+void DrawItemPlate(struct Main *);
 
 void CourtRecordProcess(struct Main *);
 void GameProcess08(struct Main *);

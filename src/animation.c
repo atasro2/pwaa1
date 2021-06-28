@@ -986,7 +986,7 @@ void ResetAnimationSystem()
 {
     struct AnimationStruct *animation = gAnimation;
     DmaFill16(3, 0, gAnimation, sizeof(gAnimation));
-    gMain.unk1F |= 3;
+    gMain.animationFlags |= 3;
     animation = &gAnimation[1];
     animation->unkC.animId = 0xFF;
     animation->unkC.personId = 0;
@@ -1712,9 +1712,9 @@ struct AnimationStruct *PlayPersonAnimation(u32 arg0, u32 arg1, u32 talkingAnimO
 {
     u32 xOrigin = 120;
     struct Main *main = &gMain;
-    if (arg0 & 0x8000 && main->unk3A & 0x10)
+    if (arg0 & 0x8000 && main->Bg256_dir & 0x10)
         xOrigin -= DISPLAY_WIDTH;
-    if (arg0 & 0x4000 && main->unk3A & 0x20)
+    if (arg0 & 0x4000 && main->Bg256_dir & 0x20)
         xOrigin += DISPLAY_WIDTH;
     if (arg0 & 0x2000)
         arg1 |= 1;
@@ -1794,7 +1794,7 @@ struct AnimationStruct *PlayAnimation(u32 arg0)
     const struct AnimationData *ptr = &gAnimationData[arg0];
     xOrigin = ptr->xOrigin;
     yOrigin = ptr->yOrigin;
-    if (main->unk3A & 0x10 && arg0 > 0xB)
+    if (main->Bg256_dir & 0x10 && arg0 > 0xB)
         xOrigin -= DISPLAY_WIDTH;
     return PlayAnimationAtCustomOrigin(arg0, xOrigin, yOrigin);
 }
@@ -1821,12 +1821,12 @@ struct AnimationStruct *PlayAnimationAtCustomOrigin(u32 arg0, s32 xOrigin, s32 y
     animationStruct = sub_8010468(&animationStructFieldC, arg0, animData->flags);
     var0 = animationStruct->unkC.paletteSlot - 6;
     var1 = (1 << var0);
-    if (!(main->unk1E & var1) && animationStruct->unkC.paletteSlot < 10)
+    if (!(main->allocatedObjPltts & var1) && animationStruct->unkC.paletteSlot < 10)
     {
         void *dest;
         u32 size;
 		
-        main->unk1E |= var1;
+        main->allocatedObjPltts |= var1;
         var1 = OBJ_PLTT;
         var1 += animationStruct->unkC.paletteSlot * 0x20;
         dest = gObjPaletteBuffer[var0];
@@ -2166,7 +2166,7 @@ void DestroyAnimation(struct AnimationStruct *animation)
         u32 size;
         for (oam = &gOamObjects[animation->animtionOamStartIdx]; oam < &gOamObjects[animation->animtionOamEndIdx]; oam++)
             oam->attr0 = SPRITE_ATTR0_CLEAR;
-        main->unk1F |= 4;
+        main->animationFlags |= 4;
         animation->flags = 0;
         animation->prevAnimation->nextAnimation = animation->nextAnimation;
         animation->nextAnimation->prevAnimation = animation->prevAnimation;
@@ -2176,7 +2176,7 @@ void DestroyAnimation(struct AnimationStruct *animation)
             return;
         var0 = animation->unkC.paletteSlot - 6;
         var1 = 1 << var0;
-        main->unk1E &= ~var1;
+        main->allocatedObjPltts &= ~var1;
         var1 = (uintptr_t)gObjPaletteBuffer[var0];
         dst = (void*)OBJ_PLTT;
         dst += animation->unkC.paletteSlot * 0x20;
@@ -2196,7 +2196,7 @@ static void UpdateAllAnimationSprites()
         if ((animation->flags & ANIM_ALLOCATED) == 0)
             continue;
         animation->animtionOamEndIdx = var0;
-        if ((gMain.unk1F & 2) && (animation->flags & ANIM_ACTIVE))
+        if ((gMain.animationFlags & 2) && (animation->flags & ANIM_ACTIVE))
         {
             void *ptr = (void *)animation->spriteData;
             struct SpriteTemplate *spriteTemplates = animation->spriteData;
@@ -2354,7 +2354,7 @@ void UpdateAnimations(u32 arg0)
     struct Main * main = &gMain;
     struct AnimationStruct *animation2 = gAnimation;
     struct CourtScroll * courtScroll = &gCourtScroll;
-    if(main->unk1F & 1)
+    if(main->animationFlags & 1)
     {
         struct AnimationStruct *animation;
         for (animation = animation2->nextAnimation; animation != NULL; animation = animation->nextAnimation)
@@ -2373,7 +2373,7 @@ void UpdateAnimations(u32 arg0)
                 {
                     if(!(animation->flags & ANIM_ACTIVE))
                     {
-                        if(main->unk2C == 0)
+                        if(main->currentBgStripe == 0)
                         {
                             PlayAnimation(animation->unkC.animId);
                             sub_800FA74(animation, 1);
@@ -2417,9 +2417,9 @@ void UpdateAnimations(u32 arg0)
             }
         }
     }
-    if(main->unk1F & 0x4)
+    if(main->animationFlags & 0x4)
     {
-        main->unk1F &= ~0x4;
+        main->animationFlags &= ~0x4;
         ClearAllAnimationSprites();
     }
     UpdateAllAnimationSprites();
