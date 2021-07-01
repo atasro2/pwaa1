@@ -36,15 +36,15 @@ extern struct CourtScroll gCourtScroll;
 
 void InitBGs();
 void InitBG3();
-void sub_80013EC();
-void sub_8001744(u32);
+void UpdateBackgroundControl();
+void DecompressCurrentBGStripe(u32);
 void sub_8001830(u32);
 void sub_8001A9C(u32);
 u32 GetBGControlBits(u32);
 u8 * GetBGPalettePtr(u32);
 void sub_80020B0(u32);
 void sub_8002244(u32);
-void sub_800232C();
+void UpdateTextbox();
 void sub_800244C(u32);
 void sub_80024C8(u32, u32);
 void sub_8002878(struct CourtRecord *);

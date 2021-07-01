@@ -290,13 +290,13 @@ void sub_8002244(u32 unk0)
         {
             *map = gUnknown_08013B70[i];
         }
-        scriptCtx->unk38 = 0;
+        scriptCtx->textboxState = 0;
         sub_80028B4(scriptCtx->textboxNameId & 0x7F, (u8)(scriptCtx->textboxNameId & 0x80));
         break;
     case 1:
         scriptCtx->unk3A = 0;
-        scriptCtx->unk3B = 0xE;
-        scriptCtx->unk38 = 2;
+        scriptCtx->textboxYPos = 14;
+        scriptCtx->textboxState = 2;
         sub_80028B4(0, FALSE);
         break;
     case 2:
@@ -315,19 +315,19 @@ void sub_8002244(u32 unk0)
         {
             *map = gUnknown_08013B70[i];
         }
-        scriptCtx->unk38 = 0;
+        scriptCtx->textboxState = 0;
         break;
     default:
         break;
     }
 }
 
-void sub_800232C()
+void UpdateTextbox()
 {
     struct ScriptContext * scriptCtx = &gScriptContext;
     u32 tiley;
     u32 i;
-    switch(scriptCtx->unk38)
+    switch(scriptCtx->textboxState)
     {
     case 0:
     case 1:
@@ -337,7 +337,7 @@ void sub_800232C()
         if(scriptCtx->unk3A < 2)
             break;
         scriptCtx->unk3A = 0;
-        tiley = scriptCtx->unk3B * 32;
+        tiley = scriptCtx->textboxYPos * 32;
         for(i = 0; i < 32; i++)
         {
             u16 * dest = &gBG1MapBuffer[tiley - 32 + i];
@@ -350,11 +350,11 @@ void sub_800232C()
             u16 * src = &gBG1MapBuffer[tiley + 32 + i];
             *dest = *src;
         }
-        scriptCtx->unk3B--;
-        if(scriptCtx->unk3B == 0)
+        scriptCtx->textboxYPos--;
+        if(scriptCtx->textboxYPos == 0)
         {
             gMain.showTextboxCharacters = TRUE;
-            scriptCtx->unk38 = 0;
+            scriptCtx->textboxState = 0;
         }
         break;
     case 3:
@@ -364,7 +364,7 @@ void sub_800232C()
             gMain.advanceScriptContext = TRUE;
             gMain.showTextboxCharacters = TRUE;
             gIORegisters.lcd_bg1vofs = 0;
-            scriptCtx->unk38 = 0;
+            scriptCtx->textboxState = 0;
         }
         break;
     case 4:
@@ -372,7 +372,7 @@ void sub_800232C()
         if(gIORegisters.lcd_bg1vofs < (u16)-80u)
         {
             gIORegisters.lcd_dispcnt &= ~DISPCNT_BG1_ON;
-            scriptCtx->unk38 = 1;
+            scriptCtx->textboxState = 1;
         }
         break;
     }
@@ -385,7 +385,7 @@ void sub_800244C(u32 unk0)
     sub_80028B4(0, FALSE);
     if(unk0)
     {
-        gScriptContext.unk38 = 3;
+        gScriptContext.textboxState = 3;
         gInvestigation.unkC = 3;
         gIORegisters.lcd_dispcnt |= DISPCNT_BG1_ON;
         gBG1MapBuffer[622] = 9;
@@ -393,7 +393,7 @@ void sub_800244C(u32 unk0)
     }
     else
     {
-        gScriptContext.unk38 = 4;
+        gScriptContext.textboxState = 4;
         gInvestigation.unkC = 1;
     }
 }

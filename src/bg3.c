@@ -388,7 +388,7 @@ void sub_80012C0(struct Main * main, u32 arg0)
 }
 
 
-void sub_80013EC()
+void UpdateBackgroundControl()
 {
     struct Main * main = &gMain;
     struct IORegisters * ioRegs = &gIORegisters;
@@ -517,7 +517,7 @@ void sub_80013EC()
     ioRegs->lcd_bg3hofs = main->Bg256_scroll_x + 8;
 }
 
-void sub_8001744(u32 bgId)
+void DecompressCurrentBGStripe(u32 bgId)
 {
     u32 i;
     u32 size;
@@ -587,6 +587,7 @@ void sub_8001830(u32 bgId)
         size = 0xF00;
     if(flags & BG_MODE_4BPP)
         size /= 2;
+
     if(flags & BG_MODE_4BPP)
         bgData += 0x20;
     else
@@ -790,7 +791,7 @@ void sub_8001A9C(u32 bgId)
     }
     else
     {
-        if(tempBgCtrl & (BG_MODE_SIZE_240x320 | BG_MODE_SIZE_UNK))
+        if(tempBgCtrl & (BG_MODE_SIZE_240x320 | BG_MODE_SIZE_240x240))
         {
             if(tempBgCtrl & BG_MODE_VSCROLL_TOP)
             {

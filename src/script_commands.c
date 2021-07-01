@@ -90,9 +90,9 @@ bool32 Command02(struct ScriptContext * scriptCtx)
         if(scriptCtx->flags & 1)
             if(gJoypad.pressedKeys & A_BUTTON)
                 scriptCtx->flags |= 2;
-        if(scriptCtx->unk14 > 0)
-            scriptCtx->unk14--;
-        if(gJoypad.heldKeys & B_BUTTON && scriptCtx->unk13 != 0 && scriptCtx->unk14 == 0)
+        if(scriptCtx->paragraphSkipDelayCounter > 0)
+            scriptCtx->paragraphSkipDelayCounter--;
+        if(gJoypad.heldKeys & B_BUTTON && scriptCtx->textSkip != 0 && scriptCtx->paragraphSkipDelayCounter == 0)
             scriptCtx->flags |= 2;
     }
     if(scriptCtx->flags & 2)
@@ -101,21 +101,21 @@ bool32 Command02(struct ScriptContext * scriptCtx)
         gBG1MapBuffer[622] = 9;
         gBG1MapBuffer[623] = 9;
         scriptCtx->flags &= ~(2 | 1);
-        if(scriptCtx->unk13 > 0)
+        if(scriptCtx->textSkip > 0)
         {
             scriptCtx->textSpeed = 3;
-            scriptCtx->unk13 = 1;
+            scriptCtx->textSkip = 1;
         }
-        scriptCtx->unk14 = 8;
+        scriptCtx->paragraphSkipDelayCounter = 8;
         if(scriptCtx->currentToken == 7)
         {
             scriptCtx->scriptPtr++;
             DmaCopy16(3, &gCharSet[226*0x80], OBJ_VRAM0 + 0x1F80, 0x80);
-            scriptCtx->unk39 = 0;
+            scriptCtx->fullscreenCursorPos = 0;
             scriptCtx->flags |= SCRIPT_FULLSCREEN;
-            scriptCtx->unk26 = scriptCtx->textSpeed;
+            scriptCtx->prevTextSpeed = scriptCtx->textSpeed;
             scriptCtx->textSpeed = 0;
-            scriptCtx->unk35 = 0x18;
+            scriptCtx->fullscreenInputDelayCounter = 0x18;
             scriptCtx->textYOffset = 0x14;
             scriptCtx->textX = 0;
             scriptCtx->textY = 2;
@@ -130,7 +130,7 @@ bool32 Command02(struct ScriptContext * scriptCtx)
             }
             return 0;
         }
-        scriptCtx->unk32 = 0xA;
+        scriptCtx->unk32 = 10;
         scriptCtx->flags |= 0x20;
         if(scriptCtx->currentToken == 0xA) // if script cmd is 0xA ?
         {
@@ -139,8 +139,8 @@ bool32 Command02(struct ScriptContext * scriptCtx)
         }
         else
         {
-            scriptCtx->unk36 = 0;
-            scriptCtx->unk37 = 0;
+            scriptCtx->textboxDownArrowIndex = 0;
+            scriptCtx->textboxDownArrowDelayCounter = 0;
         }
         scriptCtx->textX = 0;
         scriptCtx->textY = 0;
@@ -160,29 +160,29 @@ bool32 Command02(struct ScriptContext * scriptCtx)
         }
         if(gMain.process[GAME_PROCESS] != 9)
         {
-            scriptCtx->unk37++;
-            if(scriptCtx->unk37 > 1)
+            scriptCtx->textboxDownArrowDelayCounter++;
+            if(scriptCtx->textboxDownArrowDelayCounter > 1)
             {
-                scriptCtx->unk37 = 0;
-                if(scriptCtx->unk36 == 0 && gMain.process[GAME_PROCESS] == 7)
+                scriptCtx->textboxDownArrowDelayCounter = 0;
+                if(scriptCtx->textboxDownArrowIndex == 0 && gMain.process[GAME_PROCESS] == 7)
                 {
-                    scriptCtx->unk36 = scriptCtx->unk37;
+                    scriptCtx->textboxDownArrowIndex = 0;
                 }
                 else
                 {
-                    scriptCtx->unk36++;
-                    if(scriptCtx->unk36 > 5)
+                    scriptCtx->textboxDownArrowIndex++;
+                    if(scriptCtx->textboxDownArrowIndex > 5)
                     {
-                        scriptCtx->unk36 = 0;
+                        scriptCtx->textboxDownArrowIndex = 0;
                     }
                 }
             }
-            gBG1MapBuffer[622] = gTextboxDownArrowTileIndexes[scriptCtx->unk36];
-            gBG1MapBuffer[623] = gTextboxDownArrowTileIndexes[scriptCtx->unk36]+1;
+            gBG1MapBuffer[622] = gTextboxDownArrowTileIndexes[scriptCtx->textboxDownArrowIndex];
+            gBG1MapBuffer[623] = gTextboxDownArrowTileIndexes[scriptCtx->textboxDownArrowIndex]+1;
             return 1;
         }
-        scriptCtx->unk36 = 0;
-        scriptCtx->unk37 = 0;
+        scriptCtx->textboxDownArrowIndex = 0;
+        scriptCtx->textboxDownArrowDelayCounter = 0;
         gBG1MapBuffer[622] = 9;
         gBG1MapBuffer[623] = 9;
     }
@@ -255,9 +255,9 @@ bool32 Command08(struct ScriptContext * scriptCtx)
         gOamObjects[88].attr0 = SPRITE_ATTR0_CLEAR;
         return TRUE;
     }
-    if(scriptCtx->unk35 > 0)
+    if(scriptCtx->fullscreenInputDelayCounter > 0)
     {
-        scriptCtx->unk35--;
+        scriptCtx->fullscreenInputDelayCounter--;
         return TRUE;
     }
 
@@ -268,19 +268,19 @@ bool32 Command08(struct ScriptContext * scriptCtx)
         if(gJoypad.pressedKeys & DPAD_UP)
         {
             PlaySE(0x2A);
-            scriptCtx->unk39--;
-            if(scriptCtx->unk39 > 1)
+            scriptCtx->fullscreenCursorPos--;
+            if(scriptCtx->fullscreenCursorPos > 1)
             {
-                scriptCtx->unk39 = 1;
+                scriptCtx->fullscreenCursorPos = 1;
             }
         }
         else if(gJoypad.pressedKeys & DPAD_DOWN)
         {
             PlaySE(0x2A);
-            scriptCtx->unk39++;
-            if(scriptCtx->unk39 > 1)
+            scriptCtx->fullscreenCursorPos++;
+            if(scriptCtx->fullscreenCursorPos > 1)
             {
-                scriptCtx->unk39 = 0;
+                scriptCtx->fullscreenCursorPos = 0;
             }
         }
         else if(gJoypad.pressedKeys & A_BUTTON)
@@ -288,7 +288,7 @@ bool32 Command08(struct ScriptContext * scriptCtx)
             PlaySE(0x2B);
             scriptCtx->unk32 = 10;
             scriptCtx->flags |= 0x20;
-            if(scriptCtx->unk39 == 0)
+            if(scriptCtx->fullscreenCursorPos == 0)
                 scriptCtx->nextSection = *(scriptCtx->scriptPtr+1);
             else
                 scriptCtx->nextSection = *(scriptCtx->scriptPtr+2);
@@ -296,7 +296,7 @@ bool32 Command08(struct ScriptContext * scriptCtx)
             scriptCtx->textY = 0;
             scriptCtx->flags &= ~SCRIPT_FULLSCREEN;
             scriptCtx->textYOffset = 0x74;
-            scriptCtx->textSpeed = scriptCtx->unk26;
+            scriptCtx->textSpeed = scriptCtx->prevTextSpeed;
             scriptCtx->textboxNameId = 0;
             sub_8002244(0);
             for(i = 0; i < 32; i++)
@@ -307,8 +307,8 @@ bool32 Command08(struct ScriptContext * scriptCtx)
             return FALSE;
         }
     }
-    gOamObjects[88].attr0 = SPRITE_ATTR0(scriptCtx->unk39*20 + scriptCtx->unk2A, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
-    gOamObjects[88].attr1 = SPRITE_ATTR1_NONAFFINE(scriptCtx->unk28-13, FALSE, FALSE, 1);
+    gOamObjects[88].attr0 = SPRITE_ATTR0(scriptCtx->fullscreenCursorPos*20 + scriptCtx->fullscreenTextYOffset, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
+    gOamObjects[88].attr1 = SPRITE_ATTR1_NONAFFINE(scriptCtx->fullscreenTextXOffset-13, FALSE, FALSE, 1);
     gOamObjects[88].attr2 = SPRITE_ATTR2(0xFC, 1, 0);
     return TRUE;
 }
@@ -333,9 +333,9 @@ bool32 Command09(struct ScriptContext * scriptCtx)
         gOamObjects[88].attr0 = SPRITE_ATTR0_CLEAR;
         return TRUE;
     }
-    if(scriptCtx->unk35 > 0)
+    if(scriptCtx->fullscreenInputDelayCounter > 0)
     {
-        scriptCtx->unk35--;
+        scriptCtx->fullscreenInputDelayCounter--;
         return TRUE;
     }
     
@@ -346,19 +346,19 @@ bool32 Command09(struct ScriptContext * scriptCtx)
         if(gJoypad.pressedKeys & DPAD_UP)
         {
             PlaySE(0x2A);
-            scriptCtx->unk39--;
-            if(scriptCtx->unk39 > 2)
+            scriptCtx->fullscreenCursorPos--;
+            if(scriptCtx->fullscreenCursorPos > 2)
             {
-                scriptCtx->unk39 = 2;
+                scriptCtx->fullscreenCursorPos = 2;
             }
         }
         else if(gJoypad.pressedKeys & DPAD_DOWN)
         {
             PlaySE(0x2A);
-            scriptCtx->unk39++;
-            if(scriptCtx->unk39 > 2)
+            scriptCtx->fullscreenCursorPos++;
+            if(scriptCtx->fullscreenCursorPos > 2)
             {
-                scriptCtx->unk39 = 0;
+                scriptCtx->fullscreenCursorPos = 0;
             }
         }
         else if(gJoypad.pressedKeys & A_BUTTON)
@@ -366,9 +366,9 @@ bool32 Command09(struct ScriptContext * scriptCtx)
             PlaySE(0x2B);
             scriptCtx->unk32 = 10;
             scriptCtx->flags |= 0x20;
-            if(scriptCtx->unk39 == 0)
+            if(scriptCtx->fullscreenCursorPos == 0)
                 scriptCtx->nextSection = *(scriptCtx->scriptPtr+1);
-            else if (scriptCtx->unk39 == 1)
+            else if (scriptCtx->fullscreenCursorPos == 1)
                 scriptCtx->nextSection = *(scriptCtx->scriptPtr+2);
             else
                 scriptCtx->nextSection = *(scriptCtx->scriptPtr+3);
@@ -376,7 +376,7 @@ bool32 Command09(struct ScriptContext * scriptCtx)
             scriptCtx->textY = 0;
             scriptCtx->flags &= ~SCRIPT_FULLSCREEN;
             scriptCtx->textYOffset = 0x74;
-            scriptCtx->textSpeed = scriptCtx->unk26;
+            scriptCtx->textSpeed = scriptCtx->prevTextSpeed;
             scriptCtx->textboxNameId = 0;
             sub_8002244(0);
             for(i = 0; i < 32; i++)
@@ -387,8 +387,8 @@ bool32 Command09(struct ScriptContext * scriptCtx)
             return FALSE;
         }
     }
-    gOamObjects[88].attr0 = SPRITE_ATTR0(scriptCtx->unk39*20 + scriptCtx->unk2A, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
-    gOamObjects[88].attr1 = SPRITE_ATTR1_NONAFFINE(scriptCtx->unk28-13, FALSE, FALSE, 1);
+    gOamObjects[88].attr0 = SPRITE_ATTR0(scriptCtx->fullscreenCursorPos*20 + scriptCtx->fullscreenTextYOffset, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
+    gOamObjects[88].attr1 = SPRITE_ATTR1_NONAFFINE(scriptCtx->fullscreenTextXOffset-13, FALSE, FALSE, 1);
     gOamObjects[88].attr2 = SPRITE_ATTR2(0xFC, 1, 0);
     return TRUE;
 }
@@ -401,7 +401,7 @@ bool32 Command0B(struct ScriptContext * scriptCtx)
     {
         scriptCtx->textSpeed = 3;
     }
-    if(scriptCtx->unk13 > 1)
+    if(scriptCtx->textSkip > 1)
     {
         scriptCtx->textSpeed = 0;
     }
@@ -411,7 +411,7 @@ bool32 Command0B(struct ScriptContext * scriptCtx)
 
 bool32 Command0C(struct ScriptContext * scriptCtx)
 {
-    if(!gMain.blendMode != 0 && scriptCtx->unk13 > 1)
+    if(!gMain.blendMode != 0 && scriptCtx->textSkip > 1)
     {
         scriptCtx->scriptPtr++;
         scriptCtx->waitTimer = *scriptCtx->scriptPtr;

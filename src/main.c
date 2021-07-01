@@ -96,7 +96,7 @@ void AgbMain()
         if (gMain.currentBgStripe == 0)
         {
             gMain.unk0++;
-            sub_80013EC();
+            UpdateBackgroundControl();
             UpdateBGTilemaps();
             MoveAnimationTilesToRam(0);
             MoveSpritesToOAM();
@@ -109,7 +109,7 @@ void AgbMain()
         }
         if (gMain.currentBgStripe == 0 && (RunScriptContext(), gMain.currentBgStripe == 0))
         {
-            sub_800232C();
+            UpdateTextbox();
             UpdateItemPlate(&gMain);
             DoGameProcess();
             UpdateAnimations(gMain.previousBG);
@@ -117,7 +117,7 @@ void AgbMain()
         }
         else
         {
-            sub_8001744(gMain.currentBG);
+            DecompressCurrentBGStripe(gMain.currentBG);
         }
         UpdateBGMFade();
         m4aSoundMain();

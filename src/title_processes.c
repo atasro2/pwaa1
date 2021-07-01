@@ -101,7 +101,7 @@ void TitleScreenProcess(struct Main *main)
         if(gJoypad.pressedKeys & (A_BUTTON | START_BUTTON))
         {
             PlaySE(0x3A);
-            gScriptContext.unk2A = 0;
+            gScriptContext.fullscreenTextYOffset = 0;
             SET_PROCESS_PTR(1, 3, 0, 0, main); // ? main->process[GAME_PROCESS_STATE]++; hello?
         }
         else if(main->saveContinueFlags & 0xF0 && gJoypad.pressedKeys & (DPAD_DOWN | DPAD_UP))
@@ -194,12 +194,12 @@ void TitleScreenProcess(struct Main *main)
             {
                 if((oam->attr0 & 0xFF) <= DISPLAY_WIDTH - 16)
                 {
-                    oam->attr0 += gScriptContext.unk2A;
+                    oam->attr0 += gScriptContext.fullscreenTextYOffset;
                 }
                 oam++;
                 if((oam->attr0 & 0xFF) <= DISPLAY_WIDTH - 16)
                 {
-                    oam->attr0 += gScriptContext.unk2A;
+                    oam->attr0 += gScriptContext.fullscreenTextYOffset;
                 }
             }
         }
@@ -208,12 +208,12 @@ void TitleScreenProcess(struct Main *main)
             oam = &gOamObjects[49];
             if((oam->attr0 & 0xFF) <= DISPLAY_WIDTH - 16)
             {
-                oam->attr0 += gScriptContext.unk2A;
+                oam->attr0 += gScriptContext.fullscreenTextYOffset;
             }
             oam++;
             if((oam->attr0 & 0xFF) <= DISPLAY_WIDTH - 16)
             {
-                oam->attr0 += gScriptContext.unk2A;
+                oam->attr0 += gScriptContext.fullscreenTextYOffset;
             }
             oam++;
             if(main->saveContinueFlags & 0xF0)
@@ -243,7 +243,7 @@ void TitleScreenProcess(struct Main *main)
                 }
             }
         }
-        gScriptContext.unk2A++;
+        gScriptContext.fullscreenTextYOffset++;
         break;
     default:
         break;

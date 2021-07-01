@@ -171,7 +171,7 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
             }
         }
     }
-    if(gScriptContext.unk38 != 1 || 
+    if(gScriptContext.textboxState != 1 || 
     main->advanceScriptContext || 
     main->showTextboxCharacters)
     {
@@ -338,7 +338,7 @@ void sub_800BDF8(struct Main * main, struct InvestigationStruct * investigation)
 void sub_800BE58(struct Main * main, struct InvestigationStruct * investigation)
 {
     sub_800D530(main, 0);
-    if(gScriptContext.unk38 == 0)
+    if(gScriptContext.textboxState == 0)
         SET_PROCESS_PTR(4, 1, 0, 0, main);
 }
 
@@ -348,7 +348,7 @@ void sub_800BE7C(struct Main * main, struct InvestigationStruct * investigation)
     u8 * roomData;
     struct OamAttrs * oam;
 
-    if(gScriptContext.unk38 != 1)
+    if(gScriptContext.textboxState != 1)
         return;
     if(main->blendMode)
         return;
@@ -413,7 +413,7 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
         goto r;
     else if(investigation->unk6)
         return;
-    else if(gScriptContext.unk38 != 1)
+    else if(gScriptContext.textboxState != 1)
         return;
     else if(!(main->advanceScriptContext == FALSE && main->showTextboxCharacters == FALSE))
         return;
@@ -1044,10 +1044,10 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                     ChangeScriptSection(temp);
                     sub_800244C(1);
                     if(GetFlag(2, talkData->talkFlagId[investigation->unk4]))
-                        gScriptContext.unk13 = 1;
+                        gScriptContext.textSkip = 1;
                     else
                     {
-                        gScriptContext.unk13 = 0;
+                        gScriptContext.textSkip = 0;
                         ChangeFlag(2, talkData->talkFlagId[investigation->unk4], TRUE);
                     }
                     sub_800B7A8(investigation, 4);
@@ -1198,7 +1198,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                 }
                 main->process[GAME_PROCESSUNK3]++;
             }
-            if(gScriptContext.unk38 == 1)
+            if(gScriptContext.textboxState == 1)
             {
                 oam = &gOamObjects[51];
                 oam->attr1 &= ~0x1FF;
@@ -2637,7 +2637,7 @@ void sub_800D2B0(struct Main * main, struct InvestigationStruct * investigation)
             break;
         case 2:
             if(investigation->unkD == 0xE0
-            && !gScriptContext.unk38)
+            && !gScriptContext.textboxState)
             {
                 oam = &gOamObjects[49];
                 for(i = 0; i < 4; i++)
@@ -2769,7 +2769,7 @@ void sub_800D530(struct Main * main, u32 show)
     struct OamAttrs * oam = &gOamObjects[53];
     u32 r6 = 0; // ! UNUSED, This is present in the assembly for this function somehow
     oam->attr0 = SPRITE_ATTR0_CLEAR;
-    if(show && gScriptContext.unk38 == 1 
+    if(show && gScriptContext.textboxState == 1 
     && GetBGControlBits(main->currentBG) & (BG_MODE_SIZE_480x160 | BG_MODE_SIZE_360x160))
     {
         if(gMain.Bg256_pos_x == 0) // ! inconsistent use of global vs pointer

@@ -509,7 +509,7 @@ void sub_800AE58(struct Main * main)
                 gMain.advanceScriptContext = TRUE;
                 gMain.showTextboxCharacters = TRUE;
                 gIORegisters.lcd_bg1vofs = 0;
-                gScriptContext.unk38 = 0;
+                gScriptContext.textboxState = 0;
             }
             else
                 sub_800244C(1);
@@ -572,7 +572,7 @@ void sub_800AF2C(struct Main * main)
                     gMain.advanceScriptContext = TRUE;
                     gMain.showTextboxCharacters = TRUE;
                     gIORegisters.lcd_bg1vofs = 0;
-                    gScriptContext.unk38 = 0;
+                    gScriptContext.textboxState = 0;
                 }
                 else
                     sub_800244C(1);

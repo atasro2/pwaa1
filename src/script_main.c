@@ -171,9 +171,9 @@ void InitScriptSection(struct ScriptContext *scriptCtx)
     scriptCtx->textX = 0;
     scriptCtx->textY = 0;
     if (gMain.process[GAME_PROCESS] != 4 || gMain.process[GAME_PROCESS_STATE] != 8)
-        scriptCtx->unk13 = 0;
+        scriptCtx->textSkip = 0;
     scriptCtx->unk15 = 0;
-    scriptCtx->unk14 = 8;
+    scriptCtx->paragraphSkipDelayCounter = 8;
     scriptCtx->soundCueSkip = 1;
     scriptCtx->currentSoundCue = 0;
     scriptCtx->textXOffset = 9;
@@ -182,16 +182,16 @@ void InitScriptSection(struct ScriptContext *scriptCtx)
     scriptCtx->holdItSection = 0;
     scriptCtx->holdItFlag = 0;
     scriptCtx->textboxNameId = 0;
-    scriptCtx->unk36 = 0;
-    scriptCtx->unk37 = 0;
+    scriptCtx->textboxDownArrowIndex = 0;
+    scriptCtx->textboxDownArrowDelayCounter = 0;
     scriptCtx->flags = 0;
     scriptCtx->waitTimer = 0;
     scriptCtx->textColor = 0;
     scriptCtx->textSpeed = 3;
-    scriptCtx->unk26 = 3;
+    scriptCtx->prevTextSpeed = 3;
     scriptCtx->textDelayTimer = 0;
-    scriptCtx->unk28 = 0x18;
-    scriptCtx->unk2A = 0x56;
+    scriptCtx->fullscreenTextXOffset = 0x18;
+    scriptCtx->fullscreenTextYOffset = 0x56;
     {
         const void *r1;
         const u32 *r0;
@@ -212,7 +212,7 @@ void InitScriptSection(struct ScriptContext *scriptCtx)
             scriptCtx->scriptHeaderSize = *(u16*)r1;
         }
     }
-    scriptCtx->unk3C = (void*)(VRAM + 0x11800);
+    scriptCtx->mapMarkerVramPtr = (void*)(VRAM + 0x11800);
     for (i = 0; i < ARRAY_COUNT(gMapMarker); i++)
     {
         gMapMarker[i].id |= 0xFF;
@@ -224,8 +224,8 @@ void InitScriptSection(struct ScriptContext *scriptCtx)
 
 static void AdvanceScriptContext(struct ScriptContext * scriptCtx)
 {
-    if(scriptCtx->unk13 > 0 && (gJoypad.pressedKeys & A_BUTTON || gJoypad.heldKeys & B_BUTTON)) // text skip
-        scriptCtx->unk13 = 2;
+    if(scriptCtx->textSkip > 0 && (gJoypad.pressedKeys & A_BUTTON || gJoypad.heldKeys & B_BUTTON)) // text skip
+        scriptCtx->textSkip = 2;
     
     continueScript:
     scriptCtx->currentToken = *scriptCtx->scriptPtr;
@@ -236,7 +236,7 @@ static void AdvanceScriptContext(struct ScriptContext * scriptCtx)
         else
             goto continueScript;
     }
-    if(scriptCtx->unk13 > 1)
+    if(scriptCtx->textSkip > 1)
     {
         scriptCtx->textSpeed = 0;
     }
@@ -461,8 +461,8 @@ static void DrawTextAndMapMarkers(struct ScriptContext * scriptCtx)
             {
                 if(gTextBoxCharacters[i].state & 0x8000)
                 {
-                    oam->attr0 = SPRITE_ATTR0(gTextBoxCharacters[i].y + scriptCtx->unk2A, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
-                    oam->attr1 = SPRITE_ATTR1_NONAFFINE(gTextBoxCharacters[i].x + scriptCtx->unk28, FALSE, FALSE, 1);
+                    oam->attr0 = SPRITE_ATTR0(gTextBoxCharacters[i].y + scriptCtx->fullscreenTextYOffset, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
+                    oam->attr1 = SPRITE_ATTR1_NONAFFINE(gTextBoxCharacters[i].x + scriptCtx->fullscreenTextXOffset, FALSE, FALSE, 1);
                     oam->attr2 = gTextBoxCharacters[i].objAttr2;
                 }
                 else
