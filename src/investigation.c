@@ -553,7 +553,7 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
                 if(investigation->unkC == 0)
                 {
                     oam->attr0 = SPRITE_ATTR0_CLEAR;
-                    sub_800FA74(&gAnimation[1], TRUE);
+                    ChangeAnimationActivity(&gAnimation[1], TRUE);
                     StartAnimationBlend(1, 1);
                     SET_PROCESS_PTR(4, 1, 0, 0, main);
                     investigation->unk7 += 1 << investigation->unkA;
@@ -886,7 +886,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
             for(talkData = gTalkData; talkData->roomId != 0xFF; talkData++)
             {
                 if(main->currentRoomId == talkData->roomId
-                && gAnimation[1].unkC.personId == talkData->personId
+                && gAnimation[1].animationInfo.personId == talkData->personId
                 && talkData->enableFlag == TRUE)
                     break;
             }
@@ -965,7 +965,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
             for(talkData = gTalkData; talkData->roomId != 0xFF; talkData++)
             {
                 if(main->currentRoomId == talkData->roomId
-                && gAnimation[1].unkC.personId == talkData->personId
+                && gAnimation[1].animationInfo.personId == talkData->personId
                 && talkData->enableFlag == TRUE)
                     break;
             }
@@ -1052,7 +1052,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                     }
                     sub_800B7A8(investigation, 4);
                     investigation->unkD = 0xF0;
-                    investigation->unkC = 3;
+                    investigation->animationInfo = 3;
                     main->process[GAME_PROCESSUNK2] = 6;
                     main->process[GAME_PROCESSUNK3] = 0;
                     showTalkTick = FALSE;
@@ -1118,7 +1118,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
             {
                 oam->attr1 = 120;
                 sub_800B7A8(investigation, 0xB);
-                investigation->unkC = 2;
+                investigation->animationInfo = 2;
                 investigation->unkD = 0xE0;
                 investigation->unkE = 0x10;
                 investigation->unkF = 0;
@@ -1143,7 +1143,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
             }
             if(investigation->unkE > 8)
                 investigation->unkE--;
-            if(investigation->unkC == 0 && main->process[GAME_PROCESSUNK3] > 12)
+            if(investigation->animationInfo == 0 && main->process[GAME_PROCESSUNK3] > 12)
             {
                 SET_PROCESS_PTR(4, 1, 0, 0, main);
                 investigation->unk7 += 1 << investigation->unkA;
@@ -1205,7 +1205,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                 for(talkData = gTalkData; talkData->roomId != 0xFF; talkData++)
                 {
                     if(main->currentRoomId == talkData->roomId
-                    && gAnimation[1].unkC.personId == talkData->personId
+                    && gAnimation[1].animationInfo.personId == talkData->personId
                     && talkData->enableFlag == TRUE)
                         break;
                 }
@@ -1240,7 +1240,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                     icons++;
                 }
                 sub_800B7A8(investigation, 4);
-                investigation->unkC = 1;
+                investigation->animationInfo = 1;
                 investigation->unkE = 0;
                 investigation->unkF = 0;
                 main->process[GAME_PROCESSUNK2]++;
@@ -1261,7 +1261,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                 }
                 main->process[GAME_PROCESSUNK3]++;
             }
-            if(investigation->unkC == 0 && main->process[GAME_PROCESSUNK3] > 12)
+            if(investigation->animationInfo == 0 && main->process[GAME_PROCESSUNK3] > 12)
             {
                 main->process[GAME_PROCESSUNK2] = 3;
                 main->process[GAME_PROCESSUNK3] = 0;
@@ -1273,7 +1273,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
             for(talkData = gTalkData; talkData->roomId != 0xFF; talkData++)
             {
                 if(main->currentRoomId == talkData->roomId
-                && gAnimation[1].unkC.personId == talkData->personId
+                && gAnimation[1].animationInfo.personId == talkData->personId
                 && talkData->enableFlag == TRUE)
                     break;
             }
@@ -2845,7 +2845,7 @@ void sub_800D6C8(void)
     {
         if(gMain.currentRoomId == talkdata->roomId)
 	    {
-            if(gAnimation[1].unkC.personId == talkdata->personId)
+            if(gAnimation[1].animationInfo.personId == talkdata->personId)
 	        {
                 if(talkdata->enableFlag == 1)
 		            break;

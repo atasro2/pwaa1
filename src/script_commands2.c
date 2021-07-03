@@ -856,11 +856,11 @@ bool32 Command38(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     if(*scriptCtx->scriptPtr)
     {
-        sub_800FA74(&gAnimation[1], 1);
+        ChangeAnimationActivity(&gAnimation[1], 1);
     }
     else
     {
-        sub_800FA74(&gAnimation[1], 0);
+        ChangeAnimationActivity(&gAnimation[1], 0);
     }
     scriptCtx->scriptPtr++;
     return 0;

@@ -159,9 +159,9 @@ void (*gProcess5ProcessStates[])(struct Main *) = {
 
 void sub_800A730(struct Main * main)
 {
-    struct AnimationStruct * animation;
-    struct AnimationStruct * animation2;
-    struct AnimationStruct * animation3;
+    struct AnimationListEntry * animation;
+    struct AnimationListEntry * animation2;
+    struct AnimationListEntry * animation3;
     switch(main->process[GAME_PROCESSUNK2])
     {
         case 0:
@@ -174,11 +174,11 @@ void sub_800A730(struct Main * main)
         case 1:
             animation = FindAnimationFromAnimId(0x13);
             animation2 = FindAnimationFromAnimId(0x14);
-            animation->unkC.xOrigin += 10;
+            animation->animationInfo.xOrigin += 10;
             animation->flags |= ANIM_ACTIVE;
-            animation2->unkC.xOrigin -= 10;
+            animation2->animationInfo.xOrigin -= 10;
             animation2->flags |= ANIM_ACTIVE;
-            if(animation->unkC.xOrigin >= 120)
+            if(animation->animationInfo.xOrigin >= 120)
             {
                 StartHardwareBlend(3, 1, 8, 0x1F);
                 DestroyAnimation(animation);
@@ -204,14 +204,14 @@ void sub_800A730(struct Main * main)
         case 4:
             animation = FindAnimationFromAnimId(0x13);
             animation2 = FindAnimationFromAnimId(0x14);
-            animation->unkC.xOrigin += gTestimony.unk6;
+            animation->animationInfo.xOrigin += gTestimony.unk6;
             animation->flags |= ANIM_ACTIVE;
-            animation2->unkC.xOrigin -= gTestimony.unk6;
+            animation2->animationInfo.xOrigin -= gTestimony.unk6;
             animation2->flags |= ANIM_ACTIVE;
             gTestimony.unk6++;
             if(gTestimony.unk6 > 12)
                 gTestimony.unk6 = 12;
-            if(animation->unkC.xOrigin > 300)
+            if(animation->animationInfo.xOrigin > 300)
             {
                 DestroyAnimation(animation);
                 DestroyAnimation(animation2);
@@ -292,9 +292,9 @@ void (*gProcess6ProcessStates[])(struct Main *) = {
 
 void sub_800AA10(struct Main * main)
 {
-    struct AnimationStruct * animation;
-    struct AnimationStruct * animation2;
-    struct AnimationStruct * animation3;
+    struct AnimationListEntry * animation;
+    struct AnimationListEntry * animation2;
+    struct AnimationListEntry * animation3;
     switch(main->process[GAME_PROCESSUNK2])
     {
         case 0:
@@ -307,11 +307,11 @@ void sub_800AA10(struct Main * main)
         case 1:
             animation = FindAnimationFromAnimId(0x15);
             animation2 = FindAnimationFromAnimId(0x16);
-            animation->unkC.xOrigin += 10;
+            animation->animationInfo.xOrigin += 10;
             animation->flags |= ANIM_ACTIVE;
-            animation2->unkC.xOrigin -= 10;
+            animation2->animationInfo.xOrigin -= 10;
             animation2->flags |= ANIM_ACTIVE;
-            if(animation->unkC.xOrigin >= 120)
+            if(animation->animationInfo.xOrigin >= 120)
             {
                 StartHardwareBlend(3, 1, 8, 0x1F);
                 DestroyAnimation(animation);
@@ -337,11 +337,11 @@ void sub_800AA10(struct Main * main)
         case 4:
             animation = FindAnimationFromAnimId(0x15);
             animation2 = FindAnimationFromAnimId(0x16);
-            animation->unkC.yOrigin -= 7;
+            animation->animationInfo.yOrigin -= 7;
             animation->flags |= ANIM_ACTIVE;
-            animation2->unkC.yOrigin += 7;
+            animation2->animationInfo.yOrigin += 7;
             animation2->flags |= ANIM_ACTIVE;
-            if(animation->unkC.yOrigin < -60)
+            if(animation->animationInfo.yOrigin < -60)
             {
                 DestroyAnimation(animation);
                 DestroyAnimation(animation2);
