@@ -3,27 +3,27 @@
 
 struct CourtRecord
 {
-    /* +0x00 */ s8 unk0;
-    /* +0x01 */ s8 unk1;
-    /* +0x02 */ u8 unk2;
-    /* +0x03 */ u8 unk3;
-    /* +0x04 */ u16 unk4;
-    /* +0x06 */ u16 unk6;
-    /* +0x08 */ u8 unk8;
-    /* +0x09 */ u8 unk9;
-    /* +0x0A */ bool8 isSaveScreen;
-    /* +0x0B */ u8 unkB;
-    /* +0x0C */ u8 flags;
-    /* +0x0D */ u8 selectedItem;
-    /* +0x0E */ u8 displayItemCount;
-    /* +0x0F */ u8 unkF;
-    /* +0x10 */ u8 evidenceCount;
-    /* +0x11 */ u8 profileCount;
-    /* +0x12 */ u8 selectedItemBackup;
-    /* +0x13 */ u8 fullScreenPage;
-    /* +0x14 */ u8 * displayItemList;
-    /* +0x18 */ u8 evidenceList[0x20];
-    /* +0x38 */ u8 profileList[0x20];
+    /* +0x00 */ s8 unk0; // unity AA4: bg_x_add
+    /* +0x01 */ s8 unk1; // unity AA4: bg_x_speed
+    /* +0x02 */ u8 unk2; // unity AA4: bg_x_level
+    /* +0x03 */ u8 unk3; // unity AA4: bg_x_status
+    /* +0x04 */ u16 unk4; // unity AA4: bg_x_pos
+    /* +0x06 */ u16 unk6; // unity AA4: bg_x_pos_old
+    /* +0x08 */ u8 unk8; // unity AA4: arrow_type
+    /* +0x09 */ u8 unk9; // unity AA4: arrow_timer
+    /* +0x0A */ bool8 isSaveScreen; // unity AA4: win_flag
+    /* +0x0B */ u8 unkB; // unity AA4: win_type
+    /* +0x0C */ u8 flags; // unity AA4: page_status
+    /* +0x0D */ u8 selectedItem; // unity AA4: page_now
+    /* +0x0E */ u8 displayItemCount; // unity AA4: page_now_max
+    /* +0x0F */ u8 unkF; // unity AA4: page_set_rno1
+    /* +0x10 */ u8 evidenceCount; // unity AA4: item_page_max
+    /* +0x11 */ u8 profileCount; // unity AA4: name_page_max
+    /* +0x12 */ u8 selectedItemBackup; // unity AA4: page_now_bk
+    /* +0x13 */ u8 fullScreenPage; // unity AA4: exception_page
+    /* +0x14 */ u8 * displayItemList; // unity AA4: now_file
+    /* +0x18 */ u8 evidenceList[0x20]; // unity AA4: item_file
+    /* +0x38 */ u8 profileList[0x20]; // unity AA4: name_file
 };
 
 extern struct CourtRecord gCourtRecord;
