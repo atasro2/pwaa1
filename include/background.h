@@ -36,7 +36,7 @@ extern struct CourtScroll gCourtScroll;
 
 void InitBGs();
 void InitBG3();
-void UpdateBackgroundControl();
+void UpdateBackground();
 void DecompressCurrentBGStripe(u32);
 void sub_8001830(u32);
 void sub_8001A9C(u32);

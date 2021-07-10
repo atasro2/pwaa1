@@ -45,7 +45,7 @@ void InitBG3()
     DmaFill16(3, 0, VRAM + 0xDD80, 0x40); // empty 8bpp tile
 }
 
-void sub_8000A28(struct Main * main, u32 sp0) // holy shit my braincells
+void bg256_right_scroll_end(struct Main * main, u32 sp0) // holy shit my braincells
 {
     u32 i;
     u32 r8; //r8
@@ -93,7 +93,7 @@ void sub_8000A28(struct Main * main, u32 sp0) // holy shit my braincells
     main->Bg256_scroll_x = 0;
 }
 
-void sub_8000B7C(struct Main * main, u32 sp0)
+void bg256_right_scroll(struct Main * main, u32 sp0)
 {
     u32 i;
     u32 sp4; // sp4
@@ -134,7 +134,7 @@ void sub_8000B7C(struct Main * main, u32 sp0)
             main->Bg256_next_line = 59;
         if(main->Bg256_next_line == main->Bg256_stop_line)
         {
-            sub_8000A28(main, sp10);
+            bg256_right_scroll_end(main, sp10);
             break;
         }
     }
@@ -142,7 +142,7 @@ void sub_8000B7C(struct Main * main, u32 sp0)
     main->Bg256_scroll_x %= 8;
 }
 
-void sub_8000CE4(struct Main * main, u32 r6)
+void bg256_left_scroll_end(struct Main * main, u32 r6)
 {
     u32 i;
     u32 sl;
@@ -193,7 +193,7 @@ void sub_8000CE4(struct Main * main, u32 r6)
     main->Bg256_scroll_x = 0;
 }
 
-void sub_8000E44(struct Main * main, u32 sp0)
+void bg256_left_scroll(struct Main * main, u32 sp0)
 {
     u32 i;
     u32 sp4;
@@ -233,7 +233,7 @@ void sub_8000E44(struct Main * main, u32 sp0)
             main->Bg256_next_line = 0;
         if(main->Bg256_next_line == main->Bg256_stop_line)
         {
-            sub_8000CE4(main, sp10);
+            bg256_left_scroll_end(main, sp10);
             break;
         }
     }
@@ -241,7 +241,7 @@ void sub_8000E44(struct Main * main, u32 sp0)
     main->Bg256_scroll_x %= 8;
 }
 
-void sub_8000FAC(struct Main * main, u32 r1)
+void bg256_down_scroll_end(struct Main * main, u32 r1)
 {
     u32 i;
     u32 r5;
@@ -276,7 +276,7 @@ void sub_8000FAC(struct Main * main, u32 r1)
     main->Bg256_scroll_y = 0;
 }
 
-void sub_80010AC(struct Main * main, u32 sp0)
+void bg256_down_scroll(struct Main * main, u32 sp0)
 {
     u32 i;
     u32 r8;
@@ -303,7 +303,7 @@ void sub_80010AC(struct Main * main, u32 sp0)
             main->Bg256_next_line = 39;
         if(main->Bg256_next_line == main->Bg256_stop_line)
         {
-            sub_8000FAC(main, sp0);
+            bg256_down_scroll_end(main, sp0);
             break;
         }
     }
@@ -311,7 +311,7 @@ void sub_80010AC(struct Main * main, u32 sp0)
     main->Bg256_scroll_y %= 8;
 }
 
-void sub_80011D0(struct Main * main, u32 r4)
+void bg256_up_scroll_end(struct Main * main, u32 r4)
 {
     u32 r5;
     void * buf;
@@ -346,7 +346,7 @@ void sub_80011D0(struct Main * main, u32 r4)
     main->Bg256_scroll_y = 0;
 }
 
-void sub_80012C0(struct Main * main, u32 arg0)
+void bg256_up_scroll(struct Main * main, u32 arg0)
 {
     u32 i;
     u32 sp0;
@@ -379,7 +379,7 @@ void sub_80012C0(struct Main * main, u32 arg0)
             main->Bg256_next_line = 0;
         if(main->Bg256_next_line == main->Bg256_stop_line)
         {
-            sub_80011D0(main, sp0);
+            bg256_up_scroll_end(main, sp0);
             break;
         }
     }
@@ -388,7 +388,7 @@ void sub_80012C0(struct Main * main, u32 arg0)
 }
 
 
-void UpdateBackgroundControl()
+void UpdateBackground() // BG256_main
 {
     struct Main * main = &gMain;
     struct IORegisters * ioRegs = &gIORegisters;
@@ -438,12 +438,12 @@ void UpdateBackgroundControl()
         unk1 = gBackgroundTable[main->currentBG].controlBits & 0x80000000;
         unk0 |= unk1;
         if(main->Bg256_scroll_x <= -8)
-            sub_8000B7C(main, unk0);
+            bg256_right_scroll(main, unk0);
         else if(main->Bg256_pos_x < 0)
         {
             if(--main->Bg256_buff_pos < 0)
                 main->Bg256_buff_pos = 30;
-            sub_8000A28(main, unk0);
+            bg256_right_scroll_end(main, unk0);
         }
         OffsetAllAnimations(-main->horizontolBGScrollSpeed, 0);
     }
@@ -460,12 +460,12 @@ void UpdateBackgroundControl()
         unk1 = gBackgroundTable[main->currentBG].controlBits & 0x80000000;
         unk0 |= unk1;
         if(main->Bg256_scroll_x >= 8)
-            sub_8000E44(main, unk0);
+            bg256_left_scroll(main, unk0);
         if(main->Bg256_pos_x > unk0/2)
         {
             if(++main->Bg256_buff_pos > 30)
                 main->Bg256_buff_pos = 0;
-            sub_8000CE4(main, unk0);
+            bg256_left_scroll_end(main, unk0);
         }
         OffsetAllAnimations(-main->horizontolBGScrollSpeed, 0);
     }
@@ -482,12 +482,12 @@ void UpdateBackgroundControl()
         unk1 = gBackgroundTable[main->currentBG].controlBits & 0x80000000;
         unk0 |= unk1;
         if(main->Bg256_scroll_y <= -8)
-            sub_80010AC(main, unk0);
+            bg256_down_scroll(main, unk0);
         else if(main->Bg256_pos_y <= 0)
         {
             if(--main->Bg256_buff_pos < 0)
                 main->Bg256_buff_pos = 20;
-            sub_8000FAC(main, unk0);
+            bg256_down_scroll_end(main, unk0);
         }
         OffsetAllAnimations(0, -main->verticalBGScrollSpeed);
     }
@@ -504,12 +504,12 @@ void UpdateBackgroundControl()
         unk1 = gBackgroundTable[main->currentBG].controlBits & 0x80000000;
         unk0 |= unk1;
         if(main->Bg256_scroll_y >= 8)
-            sub_80012C0(main, unk0);
+            bg256_up_scroll(main, unk0);
         else if(main->Bg256_pos_y > unk0/2)
         {
             if(++main->Bg256_buff_pos > 20)
                 main->Bg256_buff_pos = 0;
-            sub_80011D0(main, unk0*2);
+            bg256_up_scroll_end(main, unk0*2);
         }
         OffsetAllAnimations(0, -main->verticalBGScrollSpeed);
     }
@@ -618,7 +618,7 @@ void sub_80018F8()
     DmaCopy16(3, bgPtr, PLTT+0x40, 0x20);
     ioRegs->lcd_bg3cnt &= ~BGCNT_256COLOR;
     *(u16*)&REG_BG3CNT &= ~BGCNT_256COLOR; // volatile causes code diff lol
-    bgPtr = gUnknown_083899C4;
+    bgPtr = gGfx_BG074;
     ptr = bgPtr;
     stripeSize = 0xF00;
     stripeSize /= 2;
@@ -632,10 +632,10 @@ void sub_80018F8()
     for(i = 2; i < 11; i++)
     {
         main->bgStripeDestPtr += stripeSize;
-        bgPtr = gUnknown_083899C4 + main->bgStripeOffsets[i]; 
+        bgPtr = gGfx_BG074 + main->bgStripeOffsets[i]; 
         LZ77UnCompWram(bgPtr, main->bgStripeDestPtr);
     }
-    bgPtr = gUnknown_083899C4;
+    bgPtr = gGfx_BG074;
     bgPtr += 0x28;
     DmaCopy16(3, bgPtr, PLTT+0x60, 0x20);
     gIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(2) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP;
@@ -671,7 +671,7 @@ void sub_8001A9C(u32 bgId)
     u32 tempSize;
     u32 i, j;
 
-    if(bgId >= 0x4A && bgId <= 0x4B)
+    if(bgId >= 74 && bgId <= 75)
     {
         sub_80018F8();
         return;
@@ -919,7 +919,7 @@ void sub_80020B0(u32 bgId)
             unk0 |= 480;
         else
             unk0 |= 360;
-        sub_8000B7C(main, unk0);
+        bg256_right_scroll(main, unk0);
     }
     else if(main->Bg256_scroll_x < 0)
     {
@@ -929,7 +929,7 @@ void sub_80020B0(u32 bgId)
             unk0 |= 480;
         else
             unk0 |= 360;
-        sub_8000E44(main, unk0);
+        bg256_left_scroll(main, unk0);
     }
     else if(main->Bg256_scroll_y > 0)
     {
@@ -939,7 +939,7 @@ void sub_80020B0(u32 bgId)
             unk0 |= 320;
         else
             unk0 |= 240;
-        sub_80010AC(main, unk0);
+        bg256_down_scroll(main, unk0);
     }
     else if(main->Bg256_scroll_y < 0)
     {
@@ -949,7 +949,7 @@ void sub_80020B0(u32 bgId)
             unk0 |= 320;
         else
             unk0 |= 240;
-        sub_80012C0(main, unk0);
+        bg256_up_scroll(main, unk0);
     }
 }
 

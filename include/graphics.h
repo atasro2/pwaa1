@@ -411,8 +411,8 @@
 #define gGfx_BG071 ((u8*)(ROM_START + 0x372D2C))
 #define gGfx_BG072 ((u8*)(ROM_START + 0x37920C))
 #define gGfx_BG073 ((u8*)(ROM_START + 0x37E52C))
-#define gUnknown_083899C4 ((u8*)(GFX_BASE_ADDR + 0x2099C4))
-#define gUnknown_0838A6F4 ((u8*)(ROM_START + 0x38A6F4))
+#define gGfx_BG074 ((u8*)(GFX_BASE_ADDR + 0x2099C4))
+#define gGfx_BG075 ((u8*)(ROM_START + 0x38A6F4))
 #define gGfx_BG076 ((u8*)(ROM_START + 0x38B364))
 #define gGfx_BG077 ((u8*)(ROM_START + 0x38D370))
 #define gGfx_BG078 ((u8*)(ROM_START + 0x392118))
@@ -1187,8 +1187,8 @@ extern u8 gGfx_BG070[];
 extern u8 gGfx_BG071[];
 extern u8 gGfx_BG072[];
 extern u8 gGfx_BG073[];
-extern u8 gUnknown_083899C4[];
-extern u8 gUnknown_0838A6F4[];
+extern u8 gGfx_BG074[];
+extern u8 gGfx_BG075[];
 extern u8 gGfx_BG076[];
 extern u8 gGfx_BG077[];
 extern u8 gGfx_BG078[];

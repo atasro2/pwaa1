@@ -96,7 +96,7 @@ void AgbMain()
         if (gMain.currentBgStripe == 0)
         {
             gMain.unk0++;
-            UpdateBackgroundControl();
+            UpdateBackground();
             UpdateBGTilemaps();
             MoveAnimationTilesToRam(0);
             MoveSpritesToOAM();
