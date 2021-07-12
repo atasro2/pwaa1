@@ -18,13 +18,9 @@ jobs:
           git clone https://github.com/luckytyphlosion/agbcc.git -b new_layout_with_libs
           cd agbcc && make -j${nproc} && make install prefix=$GITHUB_WORKSPACE
         
-      - name: Build tools and baserom
+      - name: Build tools
         run: |
           make tools
-          head -c 8388608 /dev/zero > tmp.bin
-          make ips_patch -C tools/br_ips
-          tools/br_ips/ips_patch tmp.bin baserom.ips baserom.gba
-          rm tmp.bin
         
       - name: Build via Makefile
         run: |
