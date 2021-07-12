@@ -113,7 +113,7 @@ gUnknown_081940A0:
 
 	.global gUnknown_081940E0
 gUnknown_081940E0:
-	.incbin "graphics/ui/message_box/unk_1940E0.gbapal"
+	.incbin "graphics/ui/message_box/unk_1940e0.gbapal"
 	.incbin "graphics/unk_194100.gbapal"
 
 	.global gUnknown_08194200
