@@ -16,13 +16,6 @@ It builds the following ROMs:
 
 * Clone this repository and go into the root folder of it.
 
-* **Note (until further notice):** If this is your first time building Gyakuten Saiban 1 (Rev 0), an unmodified copy of the game is required in the project root under the name `baserom.gba`. To generate this, you should run the following commands:
-```
-make ips_patch -C tools/br_ips
-head -c 8388608 /dev/zero > tmp.bin
-tools/br_ips/ips_patch tmp.bin baserom.ips baserom.gba
-```
-
 * Then compile agbcc using the following command:
 ```
 git clone https://github.com/luckytyphlosion/agbcc -b new_layout_with_libs
@@ -31,6 +24,6 @@ make
 make install prefix=../
 make install-sdk prefix=../
 ```
-* Compile the tools by running the `build_tools.sh` script
+* Compile the tools by running `make tools`
 
 * You can then build GS1 using `make` in your linux/wsl terminal.
