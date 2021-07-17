@@ -48,7 +48,7 @@ gGfx4bppInvestigationActions:
 
 	.global gGfx4bppControllerButtons
 gGfx4bppControllerButtons:
-	.incbin "graphics/ui/controller_buttons.4bpp"
+	.incbin "graphics/ui/court_record/controller_buttons.4bpp"
 
 	.global gGfx4bppInvestigationScrollButton
 gGfx4bppInvestigationScrollButton:
@@ -113,17 +113,17 @@ gUnknown_081940A0:
 
 	.global gUnknown_081940E0
 gUnknown_081940E0:
-	.incbin "graphics/ui/message_box/unk_1940e0.gbapal"
+	.incbin "graphics/ui/cross_examination_ui.gbapal"
 	.incbin "graphics/unk_194100.gbapal"
 
 	.global gUnknown_08194200
 gUnknown_08194200:
-	.incbin "graphics/unk_194200_0.gbapal"
-	.incbin "graphics/unk_194200_1.gbapal"
+	.incbin "graphics/ui/investigation/action_buttons_0.gbapal"
+	.incbin "graphics/ui/investigation/action_buttons_1.gbapal"
 
 	.global gUnknown_08194240
 gUnknown_08194240:
-	.incbin "graphics/unk_194240.gbapal"
+	.incbin "graphics/ui/court_record/controls_blurb.gbapal"
 
 	.global gUnknown_08194260
 gUnknown_08194260:
@@ -131,7 +131,7 @@ gUnknown_08194260:
 
 	.global gUnknown_08194280
 gUnknown_08194280:
-	.incbin "graphics/unk_194280.gbapal"
+	.incbin "graphics/ui/trial/testimony_text_tiles.gbapal"
 
 	.global gUnknown_081942A0
 gUnknown_081942A0:
@@ -139,23 +139,23 @@ gUnknown_081942A0:
 
 	.global gUnknown_081942C0
 gUnknown_081942C0:
-	.incbin "graphics/unk_1942C0_00.gbapal"
-	.incbin "graphics/unk_1942C0_01.gbapal"
-	.incbin "graphics/unk_1942C0_02.gbapal"
-	.incbin "graphics/unk_1942C0_03.gbapal"
-	.incbin "graphics/unk_1942C0_04.gbapal"
-	.incbin "graphics/unk_1942C0_05.gbapal"
-	.incbin "graphics/unk_1942C0_06.gbapal"
-	.incbin "graphics/unk_1942C0_07.gbapal"
-	.incbin "graphics/unk_1942C0_08.gbapal"
-	.incbin "graphics/unk_1942C0_09.gbapal"
-	.incbin "graphics/unk_1942C0_10.gbapal"
-	.incbin "graphics/unk_1942C0_11.gbapal"
-	.incbin "graphics/unk_1942C0_12.gbapal"
-	.incbin "graphics/unk_1942C0_13.gbapal"
-	.incbin "graphics/unk_1942C0_14.gbapal"
-	.incbin "graphics/unk_1942C0_15.gbapal"
-	.incbin "graphics/unk_1942C0_16.gbapal"
+	.incbin "graphics/ui/investigation/examine_cursor_00.gbapal"
+	.incbin "graphics/ui/investigation/examine_cursor_01.gbapal"
+	.incbin "graphics/ui/investigation/examine_cursor_02.gbapal"
+	.incbin "graphics/ui/investigation/examine_cursor_03.gbapal"
+	.incbin "graphics/ui/investigation/examine_cursor_04.gbapal"
+	.incbin "graphics/ui/investigation/examine_cursor_05.gbapal"
+	.incbin "graphics/ui/investigation/examine_cursor_06.gbapal"
+	.incbin "graphics/ui/investigation/examine_cursor_07.gbapal"
+	.incbin "graphics/ui/investigation/examine_cursor_08.gbapal"
+	.incbin "graphics/ui/investigation/examine_cursor_09.gbapal"
+	.incbin "graphics/ui/investigation/examine_cursor_10.gbapal"
+	.incbin "graphics/ui/investigation/examine_cursor_11.gbapal"
+	.incbin "graphics/ui/investigation/examine_cursor_12.gbapal"
+	.incbin "graphics/ui/investigation/examine_cursor_13.gbapal"
+	.incbin "graphics/ui/investigation/examine_cursor_14.gbapal"
+	.incbin "graphics/ui/investigation/examine_cursor_15.gbapal"
+	.incbin "graphics/ui/investigation/examine_cursor_16.gbapal"
 
 	.global gUnknown_081944E0
 gUnknown_081944E0:
