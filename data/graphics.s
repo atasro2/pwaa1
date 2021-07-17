@@ -38,9 +38,12 @@ gGfx4bppTestimonyArrows:
 	.incbin "graphics/ui/left_arrow.4bpp"
 	.incbin "graphics/ui/right_arrow.4bpp"
 
-	.global gGfx4bppTrialLifeAndUnused
-gGfx4bppTrialLifeAndUnused:
+	.global gGfx4bppTrialLife
+gGfx4bppTrialLife:
 	.incbin "graphics/ui/trial/exclamation_point.4bpp"
+
+	.global gGfx4bppUnusedTestimonyCharacters
+gGfx4bppUnusedTestimonyCharacters:
 	.incbin "graphics/ui/trial/unused_testimony_characters.4bpp"
 
 	.global gGfx4bppInvestigationActions
@@ -2139,13 +2142,13 @@ gGfx_BG073:
 	.incbin "graphics/striped_images/gourd_lake_beach.8bpp.striped"
 
 
-	.global gUnknown_083899C4
-gUnknown_083899C4:
+	.global gGfx_BG074
+gGfx_BG074:
 	.incbin "graphics/striped_images/case3_intro_grass.4bpp.striped"
 
 
-	.global gUnknown_0838A6F4
-gUnknown_0838A6F4:
+	.global gGfx_BG075
+gGfx_BG075:
 	.incbin "graphics/striped_images/case3_intro_trees.4bpp.striped"
 
 

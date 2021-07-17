@@ -18,7 +18,7 @@
 #define gUnknown_08186540 ((u8*)(ROM_START + 0x186540))
 #define gGfx4bppNametags ((u8*)(ROM_START + 0x187540))
 #define gGfx4bppTestimonyArrows ((u8*)(GFX_BASE_ADDR + 0xBD40))
-#define gGfx4bppTrialLifeAndUnused ((u8*)(GFX_BASE_ADDR + 0xC040))
+#define gGfx4bppTrialLife ((u8*)(GFX_BASE_ADDR + 0xC040))
 #define gGfx4bppInvestigationActions ((u8*)(ROM_START + 0x18E4C0))
 #define gGfx4bppControllerButtons ((u8*)(GFX_BASE_ADDR + 0xF4C0))
 #define gGfx4bppInvestigationScrollButton ((u8*)(ROM_START + 0x18F6C0))
@@ -411,8 +411,8 @@
 #define gGfx_BG071 ((u8*)(ROM_START + 0x372D2C))
 #define gGfx_BG072 ((u8*)(ROM_START + 0x37920C))
 #define gGfx_BG073 ((u8*)(ROM_START + 0x37E52C))
-#define gUnknown_083899C4 ((u8*)(GFX_BASE_ADDR + 0x2099C4))
-#define gUnknown_0838A6F4 ((u8*)(ROM_START + 0x38A6F4))
+#define gGfx_BG074 ((u8*)(GFX_BASE_ADDR + 0x2099C4))
+#define gGfx_BG075 ((u8*)(ROM_START + 0x38A6F4))
 #define gGfx_BG076 ((u8*)(ROM_START + 0x38B364))
 #define gGfx_BG077 ((u8*)(ROM_START + 0x38D370))
 #define gGfx_BG078 ((u8*)(ROM_START + 0x392118))
@@ -670,7 +670,7 @@ extern u8 gGfxPalEvidenceProfileDesc[];
 extern u8 gUnknown_08186540[];
 extern u8 gGfx4bppNametags[];
 extern u8 gGfx4bppTestimonyArrows[];
-extern u8 gGfx4bppTrialLifeAndUnused[];
+extern u8 gGfx4bppTrialLife[];
 extern u8 gGfx4bppInvestigationActions[];
 extern u8 gGfx4bppControllerButtons[];
 extern u8 gGfx4bppInvestigationScrollButton[];
@@ -1187,8 +1187,8 @@ extern u8 gGfx_BG070[];
 extern u8 gGfx_BG071[];
 extern u8 gGfx_BG072[];
 extern u8 gGfx_BG073[];
-extern u8 gUnknown_083899C4[];
-extern u8 gUnknown_0838A6F4[];
+extern u8 gGfx_BG074[];
+extern u8 gGfx_BG075[];
 extern u8 gGfx_BG076[];
 extern u8 gGfx_BG077[];
 extern u8 gGfx_BG078[];

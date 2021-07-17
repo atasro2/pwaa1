@@ -93,31 +93,31 @@ void AgbMain()
         waitForVblank:
         if(gMain.vblankWaitCounter != gMain.vblankWaitAmount) goto waitForVblank;
 
-        if (gMain.unk2C == 0)
+        if (gMain.currentBgStripe == 0)
         {
             gMain.unk0++;
-            sub_80013EC();
+            UpdateBackground();
             UpdateBGTilemaps();
             MoveAnimationTilesToRam(0);
             MoveSpritesToOAM();
             SetLCDIORegs();
         }
-        if (gMain.unk2C > 10)
+        if (gMain.currentBgStripe > 10)
         {
-            gMain.unk2C = 0;
+            gMain.currentBgStripe = 0;
             sub_8001A9C(gMain.currentBG);
         }
-        if (gMain.unk2C == 0 && (RunScriptContext(), gMain.unk2C == 0))
+        if (gMain.currentBgStripe == 0 && (RunScriptContext(), gMain.currentBgStripe == 0))
         {
-            sub_800232C();
-            sub_800EEFC(&gMain);
+            UpdateTextbox();
+            UpdateItemPlate(&gMain);
             DoGameProcess();
             UpdateAnimations(gMain.previousBG);
             UpdateHardwareBlend();
         }
         else
         {
-            sub_8001744(gMain.currentBG);
+            DecompressCurrentBGStripe(gMain.currentBG);
         }
         UpdateBGMFade();
         m4aSoundMain();
@@ -252,7 +252,7 @@ void ResetGameState()
     DmaFill16(3, 0, &gSaveDataBuffer, sizeof(gSaveDataBuffer));
     main->rngSeed = 3383;
     main->scenarioIdx = 0;
-    main->unk8E = 1;
+    main->caseEnabledFlags = 1;
     ioRegsp->lcd_bg0cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(28) | BGCNT_16COLOR | BGCNT_WRAP;                 // TODO: add TXT/AFF macro once known which one is used
     ioRegsp->lcd_bg1cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(29) | BGCNT_16COLOR | BGCNT_WRAP;                 // TODO: add TXT/AFF macro once known which one is used
     ioRegsp->lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP;                 // TODO: add TXT/AFF macro once known which one is used
@@ -344,7 +344,7 @@ void SetTimedKeysAndDelay(u32 keyBits, u32 delay)
 u32 ReadKeysAndTestResetCombo()
 {
     struct Joypad *joypadCtrl = &gJoypad;
-    if (gMain.unk2C == 0)
+    if (gMain.currentBgStripe == 0)
     {
         ReadKeys();
     }

@@ -649,8 +649,8 @@ bool32 Command2B(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     gMain.previousHealth = gMain.health;
     gMain.health--;
-    gMain.unk88 = 1; // damage related
-    gMain.unk89 = 3; // damage related
+    gMain.damageFrame = 1; // damage related
+    gMain.damageFrameTimer = 3; // damage related
     PlaySE(0x4C);
     if(gMain.health <= 0)
         scriptCtx->nextSection = gCaseGameoverSections[gMain.scenarioIdx];
@@ -682,8 +682,8 @@ bool32 Command2E(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     scriptCtx->textX = 0;
     scriptCtx->textY = 0;
-    scriptCtx->unk36 = 0;
-    scriptCtx->unk37 = 0;
+    scriptCtx->textboxDownArrowIndex = 0;
+    scriptCtx->textboxDownArrowDelayCounter = 0;
     for(i = 0; i < ARRAY_COUNT(gTextBoxCharacters); i++)
     {
         gTextBoxCharacters[i].state &= ~0x8000;
@@ -856,11 +856,11 @@ bool32 Command38(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     if(*scriptCtx->scriptPtr)
     {
-        sub_800FA74(&gAnimation[1], 1);
+        ChangeAnimationActivity(&gAnimation[1], 1);
     }
     else
     {
-        sub_800FA74(&gAnimation[1], 0);
+        ChangeAnimationActivity(&gAnimation[1], 0);
     }
     scriptCtx->scriptPtr++;
     return 0;
@@ -884,7 +884,7 @@ bool32 Command39(struct ScriptContext * scriptCtx)
             mapMarker = &gMapMarker[oamIdx];
             oamIdx += 0x39;
             mapMarker->id = id;
-            mapMarker->vramPtr = scriptCtx->unk3C;
+            mapMarker->vramPtr = scriptCtx->mapMarkerVramPtr;
             DmaCopy16(3, sMapMarkerSprites[id].tiles, mapMarker->vramPtr, size = sMapMarkerSprites[id].size); // weird shit going on here
             DmaCopy16(3, gUnknown_0824696C, OBJ_PLTT + 0xC0, 0x20);
             mapMarker->oamIdx = oamIdx;
@@ -901,7 +901,7 @@ bool32 Command39(struct ScriptContext * scriptCtx)
             oamObject->attr2 = SPRITE_ATTR2(oamIdx + 0xC0, 2, 6);
             mapMarker->attr2 = oamObject->attr2;
 
-            scriptCtx->unk3C += size;
+            scriptCtx->mapMarkerVramPtr += size;
         }
         else
         {
@@ -1080,8 +1080,8 @@ bool32 Command3F(struct ScriptContext *scriptCtx)
         if(gJoypad.pressedKeys & A_BUTTON)
         {
             scriptCtx->flags &= ~(SCRIPT_SPOTSELECT_INPUT | SCRIPT_LOOP);
-            rect.x = gMain.unk34 + investigation->unk0 + 12;
-            rect.y = gMain.unk36 + investigation->unk2;
+            rect.x = gMain.Bg256_pos_x + investigation->unk0 + 12;
+            rect.y = gMain.Bg256_pos_y + investigation->unk2;
             rect.w = 4;
             rect.h = 4;
             if(CheckRectCollisionWithArea(&rect, &struct8018870p->firstArea))

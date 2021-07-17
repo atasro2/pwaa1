@@ -3,9 +3,9 @@
 
 #define BG_MODE_SIZE_240x160 0x0
 #define BG_MODE_SIZE_480x160 (1 << 0)
-#define BG_MODE_SIZE_360x160 (1 << 1) // unused based on unity constant
+#define BG_MODE_SIZE_360x160 (1 << 1)
 #define BG_MODE_SIZE_240x320 (1 << 2)
-#define BG_MODE_SIZE_UNK (1 << 3) // unused it was probably 480x320
+#define BG_MODE_SIZE_240x240 (1 << 3)
 #define BG_MODE_SIZE_MASK 0xF
 
 #define BG_MODE_NO_SCROLL 0x0

@@ -26,7 +26,7 @@ void sub_8008E18(struct Main * main)
     DmaCopy16(3, gUnknown_08186540, VRAM, 0x1000);
     sub_8001830(0x43);
     sub_8001A9C(0x43);
-    gMain.unk1F &= ~3;
+    gMain.animationFlags &= ~3;
     oam = gOamObjects;
     for(i = 0; i < ARRAY_COUNT(gOamObjects); i++)
         oam++->attr0 = SPRITE_ATTR0_CLEAR;
@@ -39,14 +39,14 @@ void sub_8008E18(struct Main * main)
         for(j = 0; j < 2; j++)
         {
             oam->attr0 = SPRITE_ATTR0(i*32, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, 1);
-            if((main->unk8E >> i) & 1)
+            if((main->caseEnabledFlags >> i) & 1)
                 oam->attr2 = SPRITE_ATTR2(0x1E0, 0, 9) + j*0x20 + i*0x40; // increases tileNum outside macro ajfjshdfjshdf
             else
                 oam->attr2 = SPRITE_ATTR2(0x1A0, 0, 9) + j*0x20; 
             oam++;
         }
     }
-    main->unk86 = 0;
+    main->xPosCounter = 0;
     PlaySE(0x31);
     StartHardwareBlend(1, 0, 1, 0x1F);
     main->process[GAME_PROCESS_STATE]++;
@@ -57,21 +57,21 @@ void sub_8008F68(struct Main * main)
     struct OamAttrs * oam;
     u32 i, j;
     
-    main->unk86 += 6;
-    main->unk86 &= 0x1FF;
+    main->xPosCounter += 6;
+    main->xPosCounter &= 0x1FF;
     oam = &gOamObjects[38];
     for(i = 0; i < 4; i++)
     {
         for(j = 0; j < 2; j++)
         {
             u16 x;
-            x = main->unk86 + 0x170;
+            x = main->xPosCounter + 0x170;
             x &= 0x1FF;
             oam->attr1 = SPRITE_ATTR1_AFFINE(x, 0, 3) + j * 0x40;
             oam++;
         }
     }
-    if(main->unk86 > 0x97)
+    if(main->xPosCounter >= 152)
     {
         oam = &gOamObjects[38];
         oam->attr1 = SPRITE_ATTR1_AFFINE(8, 0, 3);
@@ -86,21 +86,21 @@ void sub_8008FE8(struct Main * main)
     struct OamAttrs * oam;
     u32 i, j;
     
-    main->unk86 += 6;
-    main->unk86 &= 0x1FF;
+    main->xPosCounter += 6;
+    main->xPosCounter &= 0x1FF;
     oam = &gOamObjects[40];
     for(i = 1; i < 4; i++)
     {
         for(j = 0; j < 2; j++)
         {
             u16 x;
-            x = main->unk86 + 0x170;
+            x = main->xPosCounter + 0x170;
             x &= 0x1FF;
             oam->attr1 = SPRITE_ATTR1_AFFINE(x, 0, 3) + j * 0x40;
             oam++;
         }
     }
-    if(main->unk86 > 0xB7)
+    if(main->xPosCounter >= 184)
     {
         oam = &gOamObjects[40];
         oam->attr1 = SPRITE_ATTR1_AFFINE(40, 0, 3);
@@ -115,21 +115,21 @@ void sub_8009068(struct Main * main)
     struct OamAttrs * oam;
     u32 i, j;
     
-    main->unk86 += 6;
-    main->unk86 &= 0x1FF;
+    main->xPosCounter += 6;
+    main->xPosCounter &= 0x1FF;
     oam = &gOamObjects[42];
     for(i = 2; i < 4; i++)
     {
         for(j = 0; j < 2; j++)
         {
             u16 x;
-            x = main->unk86 + 0x170;
+            x = main->xPosCounter + 0x170;
             x &= 0x1FF;
             oam->attr1 = SPRITE_ATTR1_AFFINE(x, 0, 3) + j * 0x40;
             oam++;
         }
     }
-    if(main->unk86 > 0xD7)
+    if(main->xPosCounter >= 216)
     {
         oam = &gOamObjects[42];
         oam->attr1 = SPRITE_ATTR1_AFFINE(72, 0, 3);
@@ -153,17 +153,17 @@ void EpisodeClearedProcess(struct Main * main)
             if(main->blendMode != 0)
                 break;
             sub_8008E18(main);
-            if(gMain.unk17 & 0xF0)
+            if(gMain.saveContinueFlags & 0xF0)
             {
                 ReadSram(SRAM_START, (void*)&gSaveDataBuffer, sizeof(gSaveDataBuffer));
-                gSaveDataBuffer.main.unk8E |= 1 << main->process[GAME_PROCESSUNK3];
+                gSaveDataBuffer.main.caseEnabledFlags |= 1 << main->process[GAME_PROCESSUNK3];
                 SaveGameData();
             }
             else
             {
                 DmaCopy16(3, gSaveVersion, gSaveDataBuffer.saveDataVer, sizeof(gSaveVersion));
                 gSaveDataBuffer.magic = 0;
-                gSaveDataBuffer.main.unk8E |= 1 << main->process[GAME_PROCESSUNK3];
+                gSaveDataBuffer.main.caseEnabledFlags |= 1 << main->process[GAME_PROCESSUNK3];
                 WriteSramEx((void*)&gSaveDataBuffer, SRAM_START, sizeof(gSaveDataBuffer));
             }
             break;
@@ -177,40 +177,40 @@ void EpisodeClearedProcess(struct Main * main)
             sub_8009068(main);
             break;
         case 5:
-            main->unk86 += 6;
-            main->unk86 &= 0x1FF;
+            main->xPosCounter += 6;
+            main->xPosCounter &= 0x1FF;
             oam = &gOamObjects[44];
             for(i = 3; i < 4; i++)
             {
                 for(j = 0; j < 2; j++)
                 {
-                    temp = main->unk86 + 0x170;
+                    temp = main->xPosCounter + 0x170;
                     temp &= 0x1FF;
                     oam->attr1 = (0xC000 + temp + j * 0x40);
                     oam++;
                 }
             }
-            if(main->unk86 >= 248)
+            if(main->xPosCounter >= 248)
             {
                 oam = &gOamObjects[44];
                 oam->attr1 = SPRITE_ATTR1_AFFINE(104, 0, 3);
                 oam++;
                 oam->attr1 = SPRITE_ATTR1_AFFINE(168, 0, 3);
-                main->unk8E |= 1 << main->process[GAME_PROCESSUNK3];
-                main->unk84 = 0x100;
+                main->caseEnabledFlags |= 1 << main->process[GAME_PROCESSUNK3];
+                main->affineScale = 0x100;
                 main->process[GAME_PROCESS_STATE]++;
             }
             break;
         case 6:
-            main->unk84 -= 0x10;
+            main->affineScale -= 0x10;
             oam = &gOamObjects[38];
             oam += main->process[GAME_PROCESSUNK3]*2;
-            if(main->unk84 != 0)
+            if(main->affineScale != 0)
             {
                 gOamObjects[0].attr3 = fix_mul(_Cos(0), fix_inverse(0x100));
                 gOamObjects[1].attr3 = fix_mul(_Sin(0), fix_inverse(0x100));
-                gOamObjects[2].attr3 = fix_mul(-_Sin(0), fix_inverse(main->unk84));
-                gOamObjects[3].attr3 = fix_mul(_Cos(0), fix_inverse(main->unk84));
+                gOamObjects[2].attr3 = fix_mul(-_Sin(0), fix_inverse(main->affineScale));
+                gOamObjects[3].attr3 = fix_mul(_Cos(0), fix_inverse(main->affineScale));
                 for(i = 3; i < 4; i++) // copy paste intensifies
                 {
                     for(j = 0; j < 2; j++)
@@ -235,8 +235,8 @@ void EpisodeClearedProcess(struct Main * main)
         case 7:
             oam = &gOamObjects[38];
             oam += main->process[GAME_PROCESSUNK3]*2;
-            main->unk84 += 0x10;
-            if(main->unk84 > 0xFF)
+            main->affineScale += 0x10;
+            if(main->affineScale >= 0x100)
             {
                 main->advanceScriptContext = TRUE;
                 main->showTextboxCharacters = TRUE;
@@ -253,12 +253,12 @@ void EpisodeClearedProcess(struct Main * main)
             {
                 gOamObjects[0].attr3 = fix_mul(_Cos(0), fix_inverse(0x100));
                 gOamObjects[1].attr3 = fix_mul(_Sin(0), fix_inverse(0x100));
-                gOamObjects[2].attr3 = fix_mul(-_Sin(0), fix_inverse(main->unk84));
-                gOamObjects[3].attr3 = fix_mul(_Cos(0), fix_inverse(main->unk84));
+                gOamObjects[2].attr3 = fix_mul(-_Sin(0), fix_inverse(main->affineScale));
+                gOamObjects[3].attr3 = fix_mul(_Cos(0), fix_inverse(main->affineScale));
                 for(j = 0; j < 2; j++)
                 {
                     oam->attr0 = SPRITE_ATTR0(main->process[GAME_PROCESSUNK3]*32, ST_OAM_AFFINE_NORMAL, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, 1);
-                    temp = main->unk8E >> main->process[GAME_PROCESSUNK3];
+                    temp = main->caseEnabledFlags >> main->process[GAME_PROCESSUNK3];
                     if(temp & 1)
                         oam->attr2 = SPRITE_ATTR2(0x1E0, 0, 9) + j*0x20 + main->process[GAME_PROCESSUNK3]*0x40; // increases tileNum outside macro ajfjshdfjshdf
                     else
@@ -275,7 +275,7 @@ void EpisodeClearedProcess(struct Main * main)
                     PauseBGM();
                     PlaySE(0x2B);
                     gSaveDataBuffer.main.scenarioIdx = main->scenarioIdx;
-                    gSaveDataBuffer.main.unk8E = main->unk8E;
+                    gSaveDataBuffer.main.caseEnabledFlags = main->caseEnabledFlags;
                     SET_PROCESS_PTR(10, 0, 0, 1, main);
                 }
             }
@@ -300,13 +300,13 @@ void SelectEpisodeProcess(struct Main * main)
             if(main->blendMode)
                 return;
             sub_8008E18(main);
-            if(main->unk17 & 0xF0)
-                main->unk8E = gSaveDataBuffer.main.unk8E;
+            if(main->saveContinueFlags & 0xF0)
+                main->caseEnabledFlags = gSaveDataBuffer.main.caseEnabledFlags;
             main->selectedButton = main->process[GAME_PROCESSUNK3];
             oam = &gOamObjects[38];
             for(i = 0; i < 4; i++)
             {
-                buttonEnabled = main->unk8E >> i;
+                buttonEnabled = main->caseEnabledFlags >> i;
                 for(j = 0; j < 2; j++)
                 {
                     if(main->selectedButton == i)
@@ -329,21 +329,21 @@ void SelectEpisodeProcess(struct Main * main)
             sub_8009068(main);
             break;
         case 5: // _080095FC
-            main->unk86 += 6;
-            main->unk86 &= 0x1FF;
+            main->xPosCounter += 6;
+            main->xPosCounter &= 0x1FF;
             oam = &gOamObjects[44];
             for(i = 3; i < 4; i++)
             {
                 for(j = 0; j < 2; j++)
                 {
                     u32 attr1 = 0xC000 + j * 64;
-                    temp = main->unk86 + 0x170;
+                    temp = main->xPosCounter + 0x170;
                     temp &= 0x1FF;
                     oam->attr1 = temp + attr1;
                     oam++;
                 }
             }
-            if(main->unk86 >= 0xF8)
+            if(main->xPosCounter >= 248)
             {
                 oam = &gOamObjects[44];
                 oam->attr1 = 0xC068;
@@ -367,7 +367,7 @@ void SelectEpisodeProcess(struct Main * main)
                     {
                         main->selectedButton--;
                         main->selectedButton &= 3;
-                        temp = main->unk8E >> main->selectedButton;
+                        temp = main->caseEnabledFlags >> main->selectedButton;
                         if(temp & 1)
                         {
                             if(!(j == main->selectedButton))
@@ -385,7 +385,7 @@ void SelectEpisodeProcess(struct Main * main)
                     {
                         main->selectedButton++;
                         main->selectedButton &= 3;
-                        temp = main->unk8E >> main->selectedButton;
+                        temp = main->caseEnabledFlags >> main->selectedButton;
                         if(temp & 1)
                         {
                             if(!(j == main->selectedButton))
@@ -399,7 +399,7 @@ void SelectEpisodeProcess(struct Main * main)
                 else if(gJoypad.pressedKeys & A_BUTTON)
                 {
                     PlaySE(0x2B);
-                    main->unk86 = 0;
+                    main->xPosCounter = 0;
                     main->advanceScriptContext = FALSE;
                     main->showTextboxCharacters = FALSE;
                     gIORegisters.lcd_dispcnt &= ~DISPCNT_BG1_ON;
@@ -422,7 +422,7 @@ void SelectEpisodeProcess(struct Main * main)
                 {
                     for(j = 0; j < 2; j++)
                     {
-                        temp = main->unk8E >> i; 
+                        temp = main->caseEnabledFlags >> i; 
                         if(temp & 1)
                             oam->attr2 = j * 0x20 + 0x91E0 + i * 0x40;
                         else
@@ -434,7 +434,7 @@ void SelectEpisodeProcess(struct Main * main)
                 {
                     for(j = 0; j < 2; j++)
                     {
-                        temp = main->unk8E >> i; 
+                        temp = main->caseEnabledFlags >> i; 
                         if(temp & 1)
                             oam->attr2 = j * 0x20 + 0xA1E0 + i * 0x40;
                         else
@@ -448,7 +448,7 @@ void SelectEpisodeProcess(struct Main * main)
             main->process[GAME_PROCESSUNK2]++;
             if(main->process[GAME_PROCESSUNK2] > 0x28)
             {
-                main->unk86 = 0;
+                main->xPosCounter = 0;
                 main->process[GAME_PROCESS_STATE]++;
                 main->process[GAME_PROCESSUNK3] = 0;   
                 main->process[GAME_PROCESSUNK2] = 0;
@@ -483,7 +483,7 @@ void SelectEpisodeProcess(struct Main * main)
                     {
                         temp = oam->attr1 & 0x1FF;
                         oam->attr1 &= ~0x1FF;
-                        temp += main->unk86;
+                        temp += main->xPosCounter;
                         temp &= 0x1FF;
                         if(temp > 0xF0)
                             oam->attr0 = SPRITE_ATTR0_CLEAR;
@@ -493,8 +493,8 @@ void SelectEpisodeProcess(struct Main * main)
                     oam++;
                 }
             }
-            if(main->unk86 < 8)
-                main->unk86++;
+            if(main->xPosCounter < 8)
+                main->xPosCounter++;
             break;
         case 8: // _080098D8
             oam = &gOamObjects[38];
@@ -520,8 +520,8 @@ void SelectEpisodeProcess(struct Main * main)
                     oam++;
                 }
             }
-            if(main->unk86 < 8)
-                main->unk86++;
+            if(main->xPosCounter < 8)
+                main->xPosCounter++;
             break;
         case 9: // _0800994C
             main->process[GAME_PROCESSUNK2]++;
@@ -606,14 +606,14 @@ void ContinueSaveProcess(struct Main * main) {
             break;
         case 1: // 9AB6
             if (main->blendMode == 0) {
-                main->unk17 = gSaveDataBuffer.main.unk17;
+                main->saveContinueFlags = gSaveDataBuffer.main.saveContinueFlags;
                 main->scenarioIdx = gSaveDataBuffer.main.scenarioIdx;
                 DmaCopy16(3, gUnknown_08186540, BG_CHAR_ADDR(0), 0x1000);
                 DmaCopy16(3, gUnknown_081954A8, OBJ_VRAM0 + 0x3400, 0x1000);
                 DmaCopy16(3, gGfxPalChoiceSelected, OBJ_PLTT + 0x120, 0x40);
                 sub_8001830(0x43);
                 sub_8001A9C(0x43);
-                main->unk1F &= 0xFC;
+                main->animationFlags &= ~3;
                 oam = gOamObjects;
                 for (i = 0; i < 128; ++i) {
                     oam->attr0 = 0x200;
@@ -651,14 +651,14 @@ void ContinueSaveProcess(struct Main * main) {
             break;
         case 3: // 9C14
             if (gScriptContext.flags & 8) {
-                if (main->unk17 & 1 && gJoypad.pressedKeys & 0xC0) {
+                if (main->saveContinueFlags & 1 && gJoypad.pressedKeys & 0xC0) {
                     PlaySE(42);
                     main->selectedButton ^= 1;
                 } else /* 9C50 */ if (gJoypad.pressedKeys & 1) {
                     PlaySE(43);
                     main->advanceScriptContext = FALSE;
                     main->showTextboxCharacters = TRUE;
-                    if ((main->unk17 & 1) == 0) {
+                    if ((main->saveContinueFlags & 1) == 0) {
                         StartHardwareBlend(2, 0, 1, 0x1F);
                         main->process[1] = 5;
                     } else {
@@ -676,7 +676,7 @@ void ContinueSaveProcess(struct Main * main) {
                 }
             }
             // 9CBC
-            if (main->unk17 & 1) {
+            if (main->saveContinueFlags & 1) {
                 oam = gOamObjects + 38;
                 // sl = r3 = 0xA1A0
                 // sb = r4 = 0xC038
@@ -752,7 +752,7 @@ void ContinueSaveProcess(struct Main * main) {
                 }
             } else {
                 // 9F0E
-                DmaCopy16(3, gGfx4bppTrialLifeAndUnused, OBJ_VRAM0 + 0x3780, 0x80);
+                DmaCopy16(3, gGfx4bppTrialLife, OBJ_VRAM0 + 0x3780, 0x80);
                 DmaCopy16(3, gUnknown_081940E0, OBJ_PLTT + 0x60, 0x20);
                 DmaCopy16(3, gUnknown_0824696C, OBJ_PLTT + 0xC0, 0x20);
                 if (main->process[0] == 5) {
@@ -760,7 +760,7 @@ void ContinueSaveProcess(struct Main * main) {
                     DmaCopy16(3, gUnknown_08194280, OBJ_PLTT + 0xA0, 0x20);
                 } else /* 9F84 */ if (main->process[0] == 6) {
                     // thonk
-                    DmaCopy16(3, gGfx4bppTrialLifeAndUnused, OBJ_VRAM0 + 0x3780, 0x80);
+                    DmaCopy16(3, gGfx4bppTrialLife, OBJ_VRAM0 + 0x3780, 0x80);
                     // double thonk
                     DmaCopy16(3, gUnknown_081940E0, OBJ_PLTT + 0x60, 0x20);
                     DmaCopy16(3, gUnknown_081900C0, OBJ_VRAM0 + 0x3000, 0x400);
@@ -799,8 +799,8 @@ void ContinueSaveProcess(struct Main * main) {
             DmaCopy16(3, gSaveDataBuffer.oam, gOamObjects, sizeof(gOamObjects));
             gJoypad.heldKeys = gJoypad.pressedKeys = gJoypad.previousHeldKeys = gJoypad.previousPressedKeys = 0;
             SetTimedKeysAndDelay(0x30, 0xF);
-            if (main->unk7D > 3) {
-                sub_800F0E0(main);
+            if (main->itemPlateState > 3) {
+                LoadItemPlateGfx(main);
             }
             // A112
             FadeInBGM(20, main->currentPlayingBgm);
@@ -840,7 +840,7 @@ void ContinueSaveProcess(struct Main * main) {
                 }
                 StartHardwareBlend(2, 0, 1, 0x1F);
                 break;
-            } else /* A244 */ if (main->unk17 & 1) {
+            } else /* A244 */ if (main->saveContinueFlags & 1) {
                 oam = gOamObjects + 38;
                 for (i = 0; i < 2; ++i) {
                     // A252

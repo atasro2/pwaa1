@@ -1132,7 +1132,7 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
             main->showTextboxCharacters = FALSE;
             gIORegisters.lcd_dispcnt &= ~DISPCNT_BG1_ON;
             gIORegisters.lcd_dispcnt &= ~DISPCNT_BG2_ON;
-            main->unk1F &= ~(2 | 1);
+            main->animationFlags &= ~(2 | 1);
             sub_800EB6C(courtRecord);
             sub_800EB88(0);
             sub_800ECA8(1);
@@ -1178,23 +1178,23 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
                 break;
             main->currentBG = gSaveDataBuffer.main.currentBG;
             main->previousBG = gSaveDataBuffer.main.previousBG;
-            main->unk2C = gSaveDataBuffer.main.unk2C;
+            main->currentBgStripe = gSaveDataBuffer.main.currentBgStripe;
             main->isBGScrolling = gSaveDataBuffer.main.isBGScrolling;
-            main->unk2F = gSaveDataBuffer.main.unk2F;
-            main->unk30 = gSaveDataBuffer.main.unk30;
-            main->unk32 = gSaveDataBuffer.main.unk32;
-            main->unk34 = gSaveDataBuffer.main.unk34;
-            main->unk36 = gSaveDataBuffer.main.unk36;
+            main->Bg256_stop_line = gSaveDataBuffer.main.Bg256_stop_line;
+            main->Bg256_scroll_x = gSaveDataBuffer.main.Bg256_scroll_x;
+            main->Bg256_scroll_y = gSaveDataBuffer.main.Bg256_scroll_y;
+            main->Bg256_pos_x = gSaveDataBuffer.main.Bg256_pos_x;
+            main->Bg256_pos_y = gSaveDataBuffer.main.Bg256_pos_y;
             main->unk38 = gSaveDataBuffer.main.unk38;
-            main->unk3A = gSaveDataBuffer.main.unk3A;
+            main->Bg256_dir = gSaveDataBuffer.main.Bg256_dir;
             main->horizontolBGScrollSpeed = gSaveDataBuffer.main.horizontolBGScrollSpeed;
             main->verticalBGScrollSpeed = gSaveDataBuffer.main.verticalBGScrollSpeed;
-            main->unk3E = gSaveDataBuffer.main.unk3E;
-            main->unk3F = gSaveDataBuffer.main.unk3F;
-            main->unk40 = gSaveDataBuffer.main.unk40;
+            main->Bg256_next_line = gSaveDataBuffer.main.Bg256_next_line;
+            main->Bg256_buff_pos = gSaveDataBuffer.main.Bg256_buff_pos;
+            main->bgStripeDestPtr = gSaveDataBuffer.main.bgStripeDestPtr;
             for(i = 0; i < 12; i++)
             {
-                main->unk44[i] = gSaveDataBuffer.main.unk44[i];
+                main->bgStripeOffsets[i] = gSaveDataBuffer.main.bgStripeOffsets[i];
             }
             sub_8001830(main->currentBG);
             sub_80020B0(main->currentBG);
@@ -1206,7 +1206,7 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
             sub_80074E8();
             if(main->processCopy[GAME_PROCESS] == 5)
                 gTestimony.unk1 = 0;
-            main->unk1F |= (2 | 1);
+            main->animationFlags |= (2 | 1);
             sub_8002878(&gCourtRecord);
             sub_800E9D4(&gCourtRecord);
             main->process[GAME_PROCESSUNK2]++;
@@ -1290,7 +1290,7 @@ void sub_800E4A4(struct Main * main, struct CourtRecord * courtRecord)
     switch(main->process[GAME_PROCESSUNK2])
     {
         case 0:
-            main->unk84 = 0;
+            main->affineScale = 0;
             oam->attr0 = SPRITE_ATTR0_CLEAR;
             if(courtRecord->unk1 == 0)
             {
@@ -1307,8 +1307,8 @@ void sub_800E4A4(struct Main * main, struct CourtRecord * courtRecord)
                 oam->attr0 = SPRITE_ATTR0(16, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
                 oam->attr1 = SPRITE_ATTR1_NONAFFINE(88, FALSE, FALSE, 3);
                 oam->attr2 = SPRITE_ATTR2(0x80, 0, 1);
-                main->unk7F = 0;
-                main->unk84 = 0x100;
+                main->itemPlateRotation = 0;
+                main->affineScale = 0x100;
                 gIORegisters.lcd_dispcnt &= ~DISPCNT_BG1_ON;
                 main->advanceScriptContext = FALSE;
                 main->showTextboxCharacters = FALSE;
@@ -1377,22 +1377,22 @@ void sub_800E4A4(struct Main * main, struct CourtRecord * courtRecord)
                 return;
             }
             main->process[GAME_PROCESSUNK3]++;
-            main->unk7F += 12;
-            main->unk84 -= 8;
+            main->itemPlateRotation += 12;
+            main->affineScale -= 8;
             break;
         default:
             break;
     }
-    if(main->unk84 <= 4)
+    if(main->affineScale <= 4)
         oam->attr0 = SPRITE_ATTR0_CLEAR;
     else
     {
         s32 scale;
-        scale = fix_inverse(main->unk84);
-        gOamObjects[0].attr3 = fix_mul(_Cos(main->unk7F), scale);
-        gOamObjects[1].attr3 = fix_mul(_Sin(main->unk7F), scale);
-        gOamObjects[2].attr3 = fix_mul(-_Sin(main->unk7F), scale);
-        gOamObjects[3].attr3 = fix_mul(_Cos(main->unk7F), scale);
+        scale = fix_inverse(main->affineScale);
+        gOamObjects[0].attr3 = fix_mul(_Cos(main->itemPlateRotation), scale);
+        gOamObjects[1].attr3 = fix_mul(_Sin(main->itemPlateRotation), scale);
+        gOamObjects[2].attr3 = fix_mul(-_Sin(main->itemPlateRotation), scale);
+        gOamObjects[3].attr3 = fix_mul(_Cos(main->itemPlateRotation), scale);
         oam->attr0 = SPRITE_ATTR0(16, ST_OAM_AFFINE_NORMAL, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
         oam->attr1 = SPRITE_ATTR1_AFFINE(88, 0, 3);
         oam->attr2 = SPRITE_ATTR2(0x80, 0, 1);
@@ -1409,7 +1409,7 @@ void sub_800E75C(struct Main * main, struct CourtRecord * courtRecord)
         *map = 0;
     gIORegisters.lcd_dispcnt |= DISPCNT_BG2_ON;
     sub_800E914();
-    sub_800EA80(main->unk27);
+    sub_800EA80(main->gottenEvidenceId);
     SetBGMVolume(main->bgmVolume >> 1, 4);
     PlaySE(0xF);
     main->process[GAME_PROCESS_STATE]++;
@@ -1778,7 +1778,7 @@ u32 sub_800EEA4(struct Main * main, u32 evidenceId)
     retVal = struct811DC98p->unk6;
     for(; struct811DC98p->unk3 != 0xFF; struct811DC98p++)
     {
-        if(gAnimation[1].unkC.personId == struct811DC98p->unk2)
+        if(gAnimation[1].animationInfo.personId == struct811DC98p->unk2)
         {
             if(main->currentRoomId == struct811DC98p->roomId)
             {
@@ -1792,10 +1792,10 @@ u32 sub_800EEA4(struct Main * main, u32 evidenceId)
     return retVal;
 }
 
-void sub_800EEFC(struct Main * main)
+void UpdateItemPlate(struct Main * main)
 {
     struct OamAttrs * oam = &gOamObjects[88];
-    switch(main->unk7D)
+    switch(main->itemPlateState)
     {
         case 0:
         default:
@@ -1803,14 +1803,14 @@ void sub_800EEFC(struct Main * main)
         case 1:
             oam->attr0 = SPRITE_ATTR0_CLEAR;
             DmaCopy16(3, &gOamObjects[88], OAM+88*8, 0x8);
-            if(main->unk7E == 0)
-                main->unk82 = 4;
+            if(main->itemPlateSide == 0)
+                main->itemPlateAction = 4;
             else
-                main->unk82 = 6;
-            main->unk7D++;
+                main->itemPlateAction = 6;
+            main->itemPlateState++;
         case 2: // fallthrough
-            sub_800F134(main);
-            if(main->unk82 == 2)
+            DrawItemPlate(main);
+            if(main->itemPlateAction == 2)
             {
                 gBG0MapBuffer[GET_MAP_TILE_INDEX(1, 1, 0, 0)] = 0;
                 gBG0MapBuffer[GET_MAP_TILE_INDEX(1, 2, 0, 0)] = 0;
@@ -1820,32 +1820,32 @@ void sub_800EEFC(struct Main * main)
                 gBG0MapBuffer[GET_MAP_TILE_INDEX(1, 27, 0, 0)] = 0;
                 gBG0MapBuffer[GET_MAP_TILE_INDEX(2, 28, 0, 0)] = 0;
                 gBG0MapBuffer[GET_MAP_TILE_INDEX(2, 27, 0, 0)] = 0;
-                main->unk7D = 0;
+                main->itemPlateState = 0;
             }
             break;
         case 3:
-            sub_800F0E0(main);
-            if(main->unk7E == 0)
+            LoadItemPlateGfx(main);
+            if(main->itemPlateSide == 0)
             {
                 oam->attr1 = SPRITE_ATTR1_NONAFFINE(16, FALSE, FALSE, 3);
-                main->unk82 = 3;
+                main->itemPlateAction = 3;
             }
             else
             {
                 oam->attr1 = SPRITE_ATTR1_NONAFFINE(160, FALSE, FALSE, 3);
-                main->unk82 = 5;
+                main->itemPlateAction = 5;
             }
             oam->attr0 = SPRITE_ATTR0_CLEAR;
             oam->attr2 = SPRITE_ATTR2(0x80, 0, 1);
-            main->unk7D++;
+            main->itemPlateState++;
         case 4: // fallthrough
             if(main->process[GAME_PROCESS] == 0xA)
             {
-                main->unk7D = 6;
+                main->itemPlateState = 6;
                 return;
             }    
-            sub_800F134(main);
-            if(main->unk82 == 1)
+            DrawItemPlate(main);
+            if(main->itemPlateAction == 1)
                 oam->attr0 = SPRITE_ATTR0(16, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
             
             if(main->process[GAME_PROCESS] > 6)
@@ -1853,54 +1853,54 @@ void sub_800EEFC(struct Main * main)
                 oam->attr0 = SPRITE_ATTR0_CLEAR;
                 DmaCopy16(3, &gOamObjects[88], OAM+88*8, 0x8);
                 gIORegisters.lcd_dispcnt &= ~DISPCNT_BG0_ON;
-                main->unk7D++;
+                main->itemPlateState++;
             }
             break;
         case 5:
             if(main->process[GAME_PROCESS] <= 6)
             {
-                sub_800F0E0(main);
+                LoadItemPlateGfx(main);
                 oam->attr0 = SPRITE_ATTR0(16, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
-                if(main->unk7E == 0)
+                if(main->itemPlateSide == 0)
                     oam->attr1 = SPRITE_ATTR1_NONAFFINE(16, FALSE, FALSE, 3);
                 else
                     oam->attr1 = SPRITE_ATTR1_NONAFFINE(160, FALSE, FALSE, 3);
                 oam->attr2 = SPRITE_ATTR2(0x80, 0, 1);
                 gIORegisters.lcd_dispcnt |= DISPCNT_BG0_ON;
-                main->unk7D = 4;
+                main->itemPlateState = 4;
             }
             break;
         case 6:
             if(main->process[GAME_PROCESS] != 0xA)
-                main->unk7D = 5;
+                main->itemPlateState = 5;
             break;
     }
 }
 
-void sub_800F0E0(struct Main * main)
+void LoadItemPlateGfx(struct Main * main)
 {
     u32 offset;
     u8 * src;
 
-    offset = gEvidenceProfileData[main->unk7C].evidenceImageId * (TILE_SIZE_4BPP * 64 + 0x20);
+    offset = gEvidenceProfileData[main->itemPlateEvidenceId].evidenceImageId * (TILE_SIZE_4BPP * 64 + 0x20);
     src = gUnknown_081B290C + offset;
     DmaCopy16(3, src, OBJ_PLTT+0x20, 0x20);
     src = gUnknown_081B290C + offset + 0x20;
     DmaCopy16(3, src, OBJ_VRAM0+0x1000, TILE_SIZE_4BPP * 64);
 }
 
-void sub_800F134(struct Main * main) // how did i match this
+void DrawItemPlate(struct Main * main) // how did i match this
 {
     u16 * map;
     u32 i;
 
-    if(main->unk82 > 2)
+    if(main->itemPlateAction > 2)
     {
         map = gBG0MapBuffer+32; // start at y 1
         for(i = 0; i < 0x140; i++, map++)
             *map = 0;
     }
-    switch(main->unk82)
+    switch(main->itemPlateAction)
     {
         case 0:
         case 1:
@@ -1911,30 +1911,30 @@ void sub_800F134(struct Main * main) // how did i match this
         case 4:
             map = gBG0MapBuffer+32+1;
             map++;
-            for(i = 0; i < main->unk80+1; i++)
+            for(i = 0; i < main->itemPlateSize+1; i++)
             {
                 u32 j;
-                for(j = 0; j < main->unk80; j++)
+                for(j = 0; j < main->itemPlateSize; j++)
                     *map++ = 0x38;
-                map += (0x20 - main->unk80);
+                map += (0x20 - main->itemPlateSize);
             }
             map = gBG0MapBuffer+32+1;
             *map++ = 0x30;
-            for(i = 0; i < main->unk80; i++)
+            for(i = 0; i < main->itemPlateSize; i++)
                 *map++ = 0x31;
             *map++ = 0x32;
             map = gBG0MapBuffer+32+1; 
-            map += main->unk80*32 + 32;
+            map += main->itemPlateSize*32 + 32;
             *map++ = 0x35;
-            for(i = 0; i < main->unk80; i++)
+            for(i = 0; i < main->itemPlateSize; i++)
                 *map++ = 0x36;
             *map++ = 0x37;
             map = gBG0MapBuffer+32+1;
             map += 32;
-            for(i = 0; i < main->unk80; i++)
+            for(i = 0; i < main->itemPlateSize; i++)
             {
                 *map = 0x33;
-                map[main->unk80+1] = 0x34;
+                map[main->itemPlateSize+1] = 0x34;
                 map += 32;
             }
             break;
@@ -1942,55 +1942,55 @@ void sub_800F134(struct Main * main) // how did i match this
         case 6:
             map = gBG0MapBuffer+32+28;
             map--;
-            for(i = 0; i < main->unk80+1; i++)
+            for(i = 0; i < main->itemPlateSize+1; i++)
             {
                 u32 j;
-                for(j = 0; j < main->unk80; j++)
+                for(j = 0; j < main->itemPlateSize; j++)
                     *map-- = 0x38;
-                map += (0x20 + main->unk80);
+                map += (0x20 + main->itemPlateSize);
             }
             map = gBG0MapBuffer+32+28;
             *map-- = 0x32;
-            for(i = 0; i < main->unk80; i++)
+            for(i = 0; i < main->itemPlateSize; i++)
                 *map-- = 0x31;
             *map-- = 0x30;
             map = gBG0MapBuffer+32+28;
-            map += main->unk80*32 + 32;
+            map += main->itemPlateSize*32 + 32;
             *map-- = 0x37;
-            for(i = 0; i < main->unk80; i++)
+            for(i = 0; i < main->itemPlateSize; i++)
                 *map-- = 0x36;
             *map-- = 0x35;
             map = gBG0MapBuffer+32+28;
             map += 32;
-            for(i = 0; i < main->unk80; i++)
+            for(i = 0; i < main->itemPlateSize; i++)
             {
                 *map = 0x34;
-                map[-main->unk80-1] = 0x33;
+                map[-main->itemPlateSize-1] = 0x33;
                 map += 32;
             }
         break;
     }
-    main->unk81++;
-    if(main->unk81 > 0)
+    main->itemPlateCounter++;
+    if(main->itemPlateCounter > 0)
     {
-        main->unk81 = 0;
-        if(main->unk82 == 4 || main->unk82 == 6)
+        main->itemPlateCounter = 0;
+        if(main->itemPlateAction == 4 || main->itemPlateAction == 6)
         {
-            if(main->unk80 > 0)
+            if(main->itemPlateSize > 0)
             {
-                main->unk80--;
+                main->itemPlateSize--;
                 return;
             }
-            main->unk82 = 2;
+            main->itemPlateAction = 2;
         }
         else
         {
-            if(main->unk80 < 8)
+            if(main->itemPlateSize < 8)
             {
-                main->unk80++;
+                main->itemPlateSize++;
                 return;
             }
-            main->unk82 = 1;
+            main->itemPlateAction = 1;
         }
     }
 }

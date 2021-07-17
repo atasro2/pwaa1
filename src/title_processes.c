@@ -78,7 +78,7 @@ void TitleScreenProcess(struct Main *main)
         oam->attr1 = SPRITE_ATTR1_NONAFFINE(120, FALSE, FALSE, 2);
         oam->attr2 = SPRITE_ATTR2(0x28, 1, 2);
         oam++;
-        if(main->unk17 & 0xF0)
+        if(main->saveContinueFlags & 0xF0)
         {
             oam->attr0 = SPRITE_ATTR0(132, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
             oam->attr1 = SPRITE_ATTR1_NONAFFINE(88, FALSE, FALSE, 2);
@@ -101,10 +101,10 @@ void TitleScreenProcess(struct Main *main)
         if(gJoypad.pressedKeys & (A_BUTTON | START_BUTTON))
         {
             PlaySE(0x3A);
-            gScriptContext.unk2A = 0;
+            gScriptContext.fullscreenTextYOffset = 0;
             SET_PROCESS_PTR(1, 3, 0, 0, main); // ? main->process[GAME_PROCESS_STATE]++; hello?
         }
-        else if(main->unk17 & 0xF0 && gJoypad.pressedKeys & (DPAD_DOWN | DPAD_UP))
+        else if(main->saveContinueFlags & 0xF0 && gJoypad.pressedKeys & (DPAD_DOWN | DPAD_UP))
         {
             gInvestigation.unk15 = 0;
             gInvestigation.unk14 = 2;
@@ -128,7 +128,7 @@ void TitleScreenProcess(struct Main *main)
             oam++;
             oam->attr2 = SPRITE_ATTR2(0x28, 1, gInvestigation.unk14);
             oam++;
-            if(main->unk17 & 0xF0)
+            if(main->saveContinueFlags & 0xF0)
             {
                 oam->attr2 = SPRITE_ATTR2(0x30, 0, 5);
                 oam++;
@@ -142,7 +142,7 @@ void TitleScreenProcess(struct Main *main)
             oam++;
             oam->attr2 = SPRITE_ATTR2(0x28, 1, 5);
             oam++;
-            if(main->unk17 & 0xF0)
+            if(main->saveContinueFlags & 0xF0)
             {
                 oam->attr2 = SPRITE_ATTR2(0x30, 0, gInvestigation.unk14);
                 oam++;
@@ -190,16 +190,16 @@ void TitleScreenProcess(struct Main *main)
                 oam->attr2 = SPRITE_ATTR2(0x28, 0, 2);
                 oam++;
             }
-            if(main->unk17 & 0xF0)
+            if(main->saveContinueFlags & 0xF0)
             {
                 if((oam->attr0 & 0xFF) <= DISPLAY_WIDTH - 16)
                 {
-                    oam->attr0 += gScriptContext.unk2A;
+                    oam->attr0 += gScriptContext.fullscreenTextYOffset;
                 }
                 oam++;
                 if((oam->attr0 & 0xFF) <= DISPLAY_WIDTH - 16)
                 {
-                    oam->attr0 += gScriptContext.unk2A;
+                    oam->attr0 += gScriptContext.fullscreenTextYOffset;
                 }
             }
         }
@@ -208,15 +208,15 @@ void TitleScreenProcess(struct Main *main)
             oam = &gOamObjects[49];
             if((oam->attr0 & 0xFF) <= DISPLAY_WIDTH - 16)
             {
-                oam->attr0 += gScriptContext.unk2A;
+                oam->attr0 += gScriptContext.fullscreenTextYOffset;
             }
             oam++;
             if((oam->attr0 & 0xFF) <= DISPLAY_WIDTH - 16)
             {
-                oam->attr0 += gScriptContext.unk2A;
+                oam->attr0 += gScriptContext.fullscreenTextYOffset;
             }
             oam++;
-            if(main->unk17 & 0xF0)
+            if(main->saveContinueFlags & 0xF0)
             {
                 main->process[GAME_PROCESSUNK2]++;
                 if(main->process[GAME_PROCESSUNK2] > 4)
@@ -243,7 +243,7 @@ void TitleScreenProcess(struct Main *main)
                 }
             }
         }
-        gScriptContext.unk2A++;
+        gScriptContext.fullscreenTextYOffset++;
         break;
     default:
         break;

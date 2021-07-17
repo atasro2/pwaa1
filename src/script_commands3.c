@@ -88,7 +88,7 @@ bool32 Command44(struct ScriptContext * scriptCtx)
     struct OamAttrs *oam;
     oam = &gOamObjects[49];
     scriptCtx->scriptPtr++;
-    gMain.unk84 = 0x280;
+    gMain.affineScale = 0x280;
     BACKUP_PROCESS();
     if(*scriptCtx->scriptPtr) 
     {

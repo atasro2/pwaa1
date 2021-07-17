@@ -96,7 +96,7 @@ void sub_800B808(struct Main * main, struct InvestigationStruct * investigation)
     ioRegs->lcd_bg1vofs = ~80;
     ioRegs->lcd_dispcnt &= ~DISPCNT_BG1_ON;
     InitializeCourtRecordForScenario(main, &gCourtRecord);
-    DmaFill32(3, 0, main->unk94, sizeof(main->unk94));
+    DmaFill32(3, 0, main->scriptFlags, sizeof(main->scriptFlags));
     if(main->scenarioIdx > 1)
        ChangeFlag(0, 0x41, TRUE); 
     main->gameStateFlags = 0;
@@ -171,7 +171,7 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
             }
         }
     }
-    if(gScriptContext.unk38 != 1 || 
+    if(gScriptContext.textboxState != 1 || 
     main->advanceScriptContext || 
     main->showTextboxCharacters)
     {
@@ -256,15 +256,15 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
         if((bgBits & 1 || bgBits & 2) && 
         gJoypad.pressedKeys & L_BUTTON)
         {
-            if(main->unk34 == 0 || 
-            main->unk34 == 120 ||
-            main->unk34 == 240)
+            if(main->Bg256_pos_x == 0 || 
+            main->Bg256_pos_x == 120 ||
+            main->Bg256_pos_x == 240)
             {
                 PlaySE(43);
                 main->isBGScrolling = TRUE;
-                if(main->unk34 == 0)
+                if(main->Bg256_pos_x == 0)
                     main->horizontolBGScrollSpeed = 6;
-                else if(main->unk34 == 120 || main->unk34 == 240)
+                else if(main->Bg256_pos_x == 120 || main->Bg256_pos_x == 240)
                     main->horizontolBGScrollSpeed = -6;
                 main->process[GAME_PROCESS_STATE] = 3;
                 main->process[GAME_PROCESSUNK3] = 0;
@@ -287,17 +287,17 @@ void sub_800BD74(struct Main * main, struct InvestigationStruct * investigation)
     SET_PROCESS_PTR(10, 0, 0, 1, main);
     if(main->scenarioIdx == 1)
     {
-        if(!(main->unk8E & 2))
+        if(!(main->caseEnabledFlags & 2))
             SET_PROCESS_PTR(11, 0, 0, 1, main);
     }
     else if(main->scenarioIdx == 5)
     {
-        if(!(main->unk8E & 4))
+        if(!(main->caseEnabledFlags & 4))
             SET_PROCESS_PTR(11, 0, 0, 2, main);
     }
     else if(main->scenarioIdx == 11)
     {
-        if(!(main->unk8E & 8))
+        if(!(main->caseEnabledFlags & 8))
             SET_PROCESS_PTR(11, 0, 0, 3, main);
     }
 }
@@ -310,14 +310,14 @@ void sub_800BDF8(struct Main * main, struct InvestigationStruct * investigation)
     {
         if(GetBGControlBits(main->currentBG) & 1)
         {
-            if(main->unk34 == 0 || main->unk34 == 240)
+            if(main->Bg256_pos_x == 0 || main->Bg256_pos_x == 240)
                 flag = TRUE;
             else
                 flag = FALSE;
         }
         else 
         {
-            if(main->unk34 == 0 || main->unk34 == 120)
+            if(main->Bg256_pos_x == 0 || main->Bg256_pos_x == 120)
                 flag = TRUE;
             else
                 flag = FALSE;
@@ -338,7 +338,7 @@ void sub_800BDF8(struct Main * main, struct InvestigationStruct * investigation)
 void sub_800BE58(struct Main * main, struct InvestigationStruct * investigation)
 {
     sub_800D530(main, 0);
-    if(gScriptContext.unk38 == 0)
+    if(gScriptContext.textboxState == 0)
         SET_PROCESS_PTR(4, 1, 0, 0, main);
 }
 
@@ -348,7 +348,7 @@ void sub_800BE7C(struct Main * main, struct InvestigationStruct * investigation)
     u8 * roomData;
     struct OamAttrs * oam;
 
-    if(gScriptContext.unk38 != 1)
+    if(gScriptContext.textboxState != 1)
         return;
     if(main->blendMode)
         return;
@@ -413,7 +413,7 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
         goto r;
     else if(investigation->unk6)
         return;
-    else if(gScriptContext.unk38 != 1)
+    else if(gScriptContext.textboxState != 1)
         return;
     else if(!(main->advanceScriptContext == FALSE && main->showTextboxCharacters == FALSE))
         return;
@@ -553,7 +553,7 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
                 if(investigation->unkC == 0)
                 {
                     oam->attr0 = SPRITE_ATTR0_CLEAR;
-                    sub_800FA74(&gAnimation[1], TRUE);
+                    ChangeAnimationActivity(&gAnimation[1], TRUE);
                     StartAnimationBlend(1, 1);
                     SET_PROCESS_PTR(4, 1, 0, 0, main);
                     investigation->unk7 += 1 << investigation->unkA;
@@ -886,7 +886,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
             for(talkData = gTalkData; talkData->roomId != 0xFF; talkData++)
             {
                 if(main->currentRoomId == talkData->roomId
-                && gAnimation[1].unkC.personId == talkData->personId
+                && gAnimation[1].animationInfo.personId == talkData->personId
                 && talkData->enableFlag == TRUE)
                     break;
             }
@@ -965,7 +965,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
             for(talkData = gTalkData; talkData->roomId != 0xFF; talkData++)
             {
                 if(main->currentRoomId == talkData->roomId
-                && gAnimation[1].unkC.personId == talkData->personId
+                && gAnimation[1].animationInfo.personId == talkData->personId
                 && talkData->enableFlag == TRUE)
                     break;
             }
@@ -1044,15 +1044,15 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                     ChangeScriptSection(temp);
                     sub_800244C(1);
                     if(GetFlag(2, talkData->talkFlagId[investigation->unk4]))
-                        gScriptContext.unk13 = 1;
+                        gScriptContext.textSkip = 1;
                     else
                     {
-                        gScriptContext.unk13 = 0;
+                        gScriptContext.textSkip = 0;
                         ChangeFlag(2, talkData->talkFlagId[investigation->unk4], TRUE);
                     }
                     sub_800B7A8(investigation, 4);
                     investigation->unkD = 0xF0;
-                    investigation->unkC = 3;
+                    investigation->animationInfo = 3;
                     main->process[GAME_PROCESSUNK2] = 6;
                     main->process[GAME_PROCESSUNK3] = 0;
                     showTalkTick = FALSE;
@@ -1118,7 +1118,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
             {
                 oam->attr1 = 120;
                 sub_800B7A8(investigation, 0xB);
-                investigation->unkC = 2;
+                investigation->animationInfo = 2;
                 investigation->unkD = 0xE0;
                 investigation->unkE = 0x10;
                 investigation->unkF = 0;
@@ -1143,7 +1143,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
             }
             if(investigation->unkE > 8)
                 investigation->unkE--;
-            if(investigation->unkC == 0 && main->process[GAME_PROCESSUNK3] > 12)
+            if(investigation->animationInfo == 0 && main->process[GAME_PROCESSUNK3] > 12)
             {
                 SET_PROCESS_PTR(4, 1, 0, 0, main);
                 investigation->unk7 += 1 << investigation->unkA;
@@ -1198,14 +1198,14 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                 }
                 main->process[GAME_PROCESSUNK3]++;
             }
-            if(gScriptContext.unk38 == 1)
+            if(gScriptContext.textboxState == 1)
             {
                 oam = &gOamObjects[51];
                 oam->attr1 &= ~0x1FF;
                 for(talkData = gTalkData; talkData->roomId != 0xFF; talkData++)
                 {
                     if(main->currentRoomId == talkData->roomId
-                    && gAnimation[1].unkC.personId == talkData->personId
+                    && gAnimation[1].animationInfo.personId == talkData->personId
                     && talkData->enableFlag == TRUE)
                         break;
                 }
@@ -1240,7 +1240,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                     icons++;
                 }
                 sub_800B7A8(investigation, 4);
-                investigation->unkC = 1;
+                investigation->animationInfo = 1;
                 investigation->unkE = 0;
                 investigation->unkF = 0;
                 main->process[GAME_PROCESSUNK2]++;
@@ -1261,7 +1261,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                 }
                 main->process[GAME_PROCESSUNK3]++;
             }
-            if(investigation->unkC == 0 && main->process[GAME_PROCESSUNK3] > 12)
+            if(investigation->animationInfo == 0 && main->process[GAME_PROCESSUNK3] > 12)
             {
                 main->process[GAME_PROCESSUNK2] = 3;
                 main->process[GAME_PROCESSUNK3] = 0;
@@ -1273,7 +1273,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
             for(talkData = gTalkData; talkData->roomId != 0xFF; talkData++)
             {
                 if(main->currentRoomId == talkData->roomId
-                && gAnimation[1].unkC.personId == talkData->personId
+                && gAnimation[1].animationInfo.personId == talkData->personId
                 && talkData->enableFlag == TRUE)
                     break;
             }
@@ -2637,7 +2637,7 @@ void sub_800D2B0(struct Main * main, struct InvestigationStruct * investigation)
             break;
         case 2:
             if(investigation->unkD == 0xE0
-            && !gScriptContext.unk38)
+            && !gScriptContext.textboxState)
             {
                 oam = &gOamObjects[49];
                 for(i = 0; i < 4; i++)
@@ -2769,16 +2769,16 @@ void sub_800D530(struct Main * main, u32 show)
     struct OamAttrs * oam = &gOamObjects[53];
     u32 r6 = 0; // ! UNUSED, This is present in the assembly for this function somehow
     oam->attr0 = SPRITE_ATTR0_CLEAR;
-    if(show && gScriptContext.unk38 == 1 
+    if(show && gScriptContext.textboxState == 1 
     && GetBGControlBits(main->currentBG) & (BG_MODE_SIZE_480x160 | BG_MODE_SIZE_360x160))
     {
-        if(gMain.unk34 == 0) // ! inconsistent use of global vs pointer
+        if(gMain.Bg256_pos_x == 0) // ! inconsistent use of global vs pointer
         {
             oam->attr0 = 0x4020;
             oam->attr1 = 0x80D0;
             oam->attr2 = 0x7188;
         }
-        else if(main->unk34 == 240 || main->unk34 == 120)
+        else if(main->Bg256_pos_x == 240 || main->Bg256_pos_x == 120)
         {
             oam->attr0 = 0x4020;
             oam->attr1 = 0x8000;
@@ -2793,10 +2793,10 @@ u32 sub_800D5B0(struct InvestigationStruct * investigation)
     u32 animId;
     struct ExaminationData * examData;
     if(investigation->unk0 < 120)
-        rect.x = gMain.unk34 + investigation->unk0;
+        rect.x = gMain.Bg256_pos_x + investigation->unk0;
     else
-        rect.x = gMain.unk34 + investigation->unk0 + 12;
-    rect.y = gMain.unk36 + investigation->unk2;
+        rect.x = gMain.Bg256_pos_x + investigation->unk0 + 12;
+    rect.y = gMain.Bg256_pos_y + investigation->unk2;
     rect.w = 4;
     rect.h = 16;
     if(GetFlag(0, 0x41) == FALSE)
@@ -2845,7 +2845,7 @@ void sub_800D6C8(void)
     {
         if(gMain.currentRoomId == talkdata->roomId)
 	    {
-            if(gAnimation[1].unkC.personId == talkdata->personId)
+            if(gAnimation[1].animationInfo.personId == talkdata->personId)
 	        {
                 if(talkdata->enableFlag == 1)
 		            break;
