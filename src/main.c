@@ -105,7 +105,7 @@ void AgbMain()
         if (gMain.currentBgStripe > 10)
         {
             gMain.currentBgStripe = 0;
-            sub_8001A9C(gMain.currentBG);
+            CopyBGDataToVram(gMain.currentBG);
         }
         if (gMain.currentBgStripe == 0 && (RunScriptContext(), gMain.currentBgStripe == 0))
         {
@@ -360,10 +360,10 @@ u32 ReadKeysAndTestResetCombo()
 
 void InitCourtScroll(u8 * arg0, u32 arg1, u32 arg2, u32 arg3)
 {
-    gCourtScroll.unk0 = arg0;
+    gCourtScroll.frameDataPtr = arg0;
     gCourtScroll.state = arg3;
-    gCourtScroll.unkC = arg1;
-    gCourtScroll.unkE = arg2;
+    gCourtScroll.frameCounter = arg1;
+    gCourtScroll.endFrame = arg2;
     gMain.isBGScrolling = 0;
 }
 
@@ -371,16 +371,16 @@ static void UpdateCourtScroll(struct CourtScroll * courtScroll)
 {
     if (courtScroll->state & 1)
     {
-        courtScroll->unkC--;
-        if (courtScroll->unkC < 0)
+        courtScroll->frameCounter--;
+        if (courtScroll->frameCounter < 0)
         {
             courtScroll->state = 0;
         }
     }
     else
     {
-        courtScroll->unkC++;
-        if (courtScroll->unkC >= courtScroll->unkE)
+        courtScroll->frameCounter++;
+        if (courtScroll->frameCounter >= courtScroll->endFrame)
         {
             courtScroll->state &= 1;
         }

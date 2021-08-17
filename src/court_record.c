@@ -671,7 +671,7 @@ void sub_800D880(struct Main * main, struct CourtRecord * courtRecord)
     sub_800E914();
     sub_800EA80(courtRecord->displayItemList[courtRecord->selectedItem]);
     if(main->process[GAME_PROCESSUNK3] == 1)
-        sub_80024C8(2, 0xC);
+        SlideInBG2Window(2, 0xC);
     courtRecord->unkF = 1;
     main->process[GAME_PROCESS_STATE] = 3;
 }
@@ -699,7 +699,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
     
     if(joypad->heldKeys & DPAD_RIGHT && courtRecord->displayItemCount > 1)
     {
-        sub_80024C8(1, 0xC);
+        SlideInBG2Window(1, 0xC);
         if(--courtRecord->selectedItem > courtRecord->displayItemCount)
             courtRecord->selectedItem = courtRecord->displayItemCount-1;
         goto tailMerge; // compiler can do this but the if(main->process[GAME_PROCESSUNK3] == 1) fucks up
@@ -741,7 +741,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
     }
     else if (joypad->heldKeys & DPAD_LEFT && courtRecord->displayItemCount > 1)
     {
-        sub_80024C8(2, 0xC);
+        SlideInBG2Window(2, 0xC);
         if(++courtRecord->selectedItem >= courtRecord->displayItemCount)
             courtRecord->selectedItem = 0;
         tailMerge:
@@ -792,9 +792,9 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
             oam->attr0 = SPRITE_ATTR0_CLEAR;
             if(main->gameStateFlags & 0x200)
             {
-                sub_80024C8(4, 0x12);
+                SlideInBG2Window(4, 0x12);
                 SET_PROCESS_PTR(7, 7, 0, 0, main);
-                sub_80028B4(0, FALSE);
+                SetTextboxNametag(0, FALSE);
                 main->gameStateFlags &= ~0x300;
                 return;
             }
@@ -861,7 +861,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
                 SET_PROCESS_BACKUP_PTR(6, 1, 0, 0, main);
             }
             SET_PROCESS_PTR(6, 5, 0, 0, main);
-            sub_80028B4(0, FALSE);
+            SetTextboxNametag(0, FALSE);
             main->gameStateFlags &= ~0x300;
             return;
         }
@@ -870,7 +870,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
             if(joypad->pressedKeys & B_BUTTON)
             {
                 PlaySE(0x2C);
-                sub_80024C8(4, 0xC);
+                SlideInBG2Window(4, 0xC);
                 main->process[GAME_PROCESS_STATE] = 2;
             }
         }
@@ -903,7 +903,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
             PlaySE(0x2B);
             section = sub_800EEA4(main, courtRecord->displayItemList[courtRecord->selectedItem]);
             ChangeScriptSection(section);
-            sub_800244C(1);
+            SlideTextbox(1);
             sub_800EB6C(courtRecord);
             sub_800EB88(0);
             sub_800EBF0(0);
@@ -921,7 +921,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
         else if(joypad->pressedKeys & B_BUTTON)
         {
             PlaySE(0x2C);
-            sub_80024C8(3, 0xC);
+            SlideInBG2Window(3, 0xC);
             SET_PROCESS_BACKUP_PTR(4, 9, 3, 0, main);
             main->process[GAME_PROCESS_STATE] = 2;
         }
@@ -931,18 +931,18 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
         if(joypad->pressedKeys & R_BUTTON)
         {
             PlaySE(0x34);
-            sub_80024C8(0x3, 0xC);
+            SlideInBG2Window(0x3, 0xC);
             courtRecord->unkF = 4;
             main->process[GAME_PROCESS_STATE] = 4;
         }
         else if(joypad->pressedKeys & B_BUTTON)
         {
             PlaySE(0x2C);
-            sub_80024C8(0x3, 0xC);
+            SlideInBG2Window(0x3, 0xC);
             main->process[GAME_PROCESS_STATE] = 2;
         }
     }
-    sub_8002878(&gCourtRecord);
+    UpdateBG2Window(&gCourtRecord);
     sub_800E9D4(&gCourtRecord);
 }
 
@@ -960,7 +960,7 @@ void sub_800DD88(struct Main * main, struct CourtRecord * courtRecord)
             oam->attr1 = 0xB4;
         oam->attr1 |= attr1;
     }
-    sub_8002878(courtRecord);
+    UpdateBG2Window(courtRecord);
     sub_800E9D4(courtRecord);
     if(courtRecord->unk1 == 0)
     {
@@ -989,7 +989,7 @@ void sub_800DE28(struct Main * main, struct CourtRecord * courtRecord)
             oam->attr1 = 0;
         oam->attr1 |= attr1;
     }
-    sub_8002878(courtRecord);
+    UpdateBG2Window(courtRecord);
     sub_800E9D4(courtRecord);
     if(courtRecord->unk1 == 0)
     {
@@ -1001,13 +1001,13 @@ void sub_800DE28(struct Main * main, struct CourtRecord * courtRecord)
 
 void sub_800DE8C(struct Main * main, struct CourtRecord * courtRecord)
 {
-    sub_8002878(courtRecord);
+    UpdateBG2Window(courtRecord);
     sub_800E9D4(courtRecord);
     if(courtRecord->unk1 == 0)
     {
         u32 temp;
         courtRecord->flags &= ~2;
-        sub_80024C8(2, 0xC);
+        SlideInBG2Window(2, 0xC);
         courtRecord->unkF = 1;
         main->process[GAME_PROCESS_STATE] = 3;
         temp = courtRecord->selectedItem;
@@ -1094,7 +1094,7 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
                 default: 
                     break;
             }
-            sub_8001830(main->currentBG);
+            DecompressBackgroundIntoBuffer(main->currentBG);
             DmaCopy16(3, gOamObjects, gSaveDataBuffer.oam, sizeof(gOamObjects));
             DmaCopy16(3, gMapMarker, gSaveDataBuffer.mapMarker, sizeof(gMapMarker));
             for(i = 0; i < 8; i++)
@@ -1144,7 +1144,7 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
             break;
         }
         case 1:
-            sub_8001A9C(main->currentBG);
+            CopyBGDataToVram(main->currentBG);
             StartHardwareBlend(1, 1, 2, 0x1F);
             main->process[GAME_PROCESSUNK2]++;
             break;
@@ -1196,24 +1196,24 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
             {
                 main->bgStripeOffsets[i] = gSaveDataBuffer.main.bgStripeOffsets[i];
             }
-            sub_8001830(main->currentBG);
-            sub_80020B0(main->currentBG);
+            DecompressBackgroundIntoBuffer(main->currentBG);
+            CopyBGDataToVramAndScrollBG(main->currentBG);
             main->showTextboxCharacters = gSaveDataBuffer.main.showTextboxCharacters;
             gIORegisters.lcd_dispcnt |= DISPCNT_BG1_ON;
             gIORegisters.lcd_dispcnt |= DISPCNT_BG2_ON;
             DmaCopy16(3, gSaveDataBuffer.oam, gOamObjects, sizeof(gOamObjects));
             DmaCopy16(3, gSaveDataBuffer.mapMarker, gMapMarker, sizeof(gMapMarker));
-            sub_80074E8();
+            MakeMapMarkerSprites();
             if(main->processCopy[GAME_PROCESS] == 5)
                 gTestimony.unk1 = 0;
             main->animationFlags |= (2 | 1);
-            sub_8002878(&gCourtRecord);
+            UpdateBG2Window(&gCourtRecord);
             sub_800E9D4(&gCourtRecord);
             main->process[GAME_PROCESSUNK2]++;
             break;
         }
         case 4:
-            sub_80020B0(main->currentBG);
+            CopyBGDataToVramAndScrollBG(main->currentBG);
             StartHardwareBlend(1, 1, 2, 0x1F);
             main->process[GAME_PROCESSUNK2]++;
             break;
@@ -1225,7 +1225,7 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
                 main->process[GAME_PROCESS_STATE] = 1;
                 main->process[GAME_PROCESSUNK2] = 0;
             }
-            sub_8002878(&gCourtRecord);
+            UpdateBG2Window(&gCourtRecord);
             sub_800E9D4(&gCourtRecord);
             break;
         }
@@ -1264,8 +1264,8 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
                         break;
                 }
             }
-            sub_8001830(main->currentBG);
-            sub_8001A9C(main->currentBG);
+            DecompressBackgroundIntoBuffer(main->currentBG);
+            CopyBGDataToVram(main->currentBG);
             StartHardwareBlend(1, 1, 2, 0x1F);
             main->process[GAME_PROCESSUNK2] = 1;
             break;
@@ -1397,7 +1397,7 @@ void sub_800E4A4(struct Main * main, struct CourtRecord * courtRecord)
         oam->attr1 = SPRITE_ATTR1_AFFINE(88, 0, 3);
         oam->attr2 = SPRITE_ATTR2(0x80, 0, 1);
     }
-    sub_8002878(&gCourtRecord);
+    UpdateBG2Window(&gCourtRecord);
     sub_800E9D4(&gCourtRecord);
 }
 
@@ -1418,7 +1418,7 @@ void sub_800E75C(struct Main * main, struct CourtRecord * courtRecord)
 
 void sub_800E7C0(struct Main * main, struct CourtRecord * courtRecord)
 {
-    sub_8002878(courtRecord);
+    UpdateBG2Window(courtRecord);
     sub_800EAF8(courtRecord);
     if(courtRecord->unk1 == 0 && gScriptContext.flags & 1)
     {
@@ -1430,7 +1430,7 @@ void sub_800E7C0(struct Main * main, struct CourtRecord * courtRecord)
         if(gJoypad.pressedKeys & (A_BUTTON|B_BUTTON))
         {
             PlaySE(0x2B);
-            sub_80024C8(3, 0xE);
+            SlideInBG2Window(3, 0xE);
             main->process[GAME_PROCESS_STATE] = 2; //! ADD 1 IDIOT
         }
     }
@@ -1438,7 +1438,7 @@ void sub_800E7C0(struct Main * main, struct CourtRecord * courtRecord)
 
 void sub_800E828(struct Main * main, struct CourtRecord * courtRecord)
 {
-    sub_8002878(courtRecord);
+    UpdateBG2Window(courtRecord);
     sub_800EAF8(courtRecord);
     if(courtRecord->unk1 == 0)
     {
@@ -1471,7 +1471,7 @@ void sub_800E8A0(struct CourtRecord * courtRecord)
 
 void sub_800E914()
 {
-    sub_80024C8(1, 0xC);
+    SlideInBG2Window(1, 0xC);
     DmaCopy16(3, gGfx4bppTestimonyArrows, OBJ_VRAM0+0x3400, TILE_SIZE_4BPP*4);
     DmaCopy16(3, gGfx4bppTestimonyArrows + TILE_SIZE_4BPP*4 * 3, OBJ_VRAM0+0x3480, TILE_SIZE_4BPP*4);
     DmaCopy16(3, gGfx4bppControllerButtons, OBJ_VRAM0+0x3800, TILE_SIZE_4BPP*16);

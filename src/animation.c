@@ -950,9 +950,9 @@ const s8 gUnknown_080194CA[31] = {
 extern u16 gObjPaletteBuffer[16][16];
 
 static struct AnimationListEntry * CreateAnimationFromAnimationInfo(struct AnimationInfo *animationFieldC, u32 arg1, u32 flags);
-static void sub_80110E4(struct AnimationListEntry * animation);
+static void UpdatePersonAnimationForCourtScroll(struct AnimationListEntry * animation);
 
-void (*gUnknown_0811DFD0[11])(struct AnimationListEntry *) = {
+void (*gSpecialAnimationEffectFunctions[11])(struct AnimationListEntry *) = { // Table is used for Objection bubble shake and animation movement for the opening of case 3
 	sub_8011130,
 	sub_8011130,
 	sub_8011130,
@@ -966,7 +966,7 @@ void (*gUnknown_0811DFD0[11])(struct AnimationListEntry *) = {
 	sub_8011130
 };
 
-void (*gUnknown_0811DFFC[6])(struct AnimationListEntry *, struct CourtScroll *) = {
+void (*gCourtScrollPersonAnimationUpdateFuncs[6])(struct AnimationListEntry *, struct CourtScroll *) = {
 	sub_8011068,
 	sub_80110A8,
 	sub_8010F68,
@@ -2409,11 +2409,11 @@ void UpdateAnimations(u32 arg0)
                 }
             }
             if(animation->animationInfo.animId <= 0xB)
-                gUnknown_0811DFD0[animation->animationInfo.animId - 1](animation);
+                gSpecialAnimationEffectFunctions[animation->animationInfo.animId - 1](animation);
             if(courtScroll->state)
             {
                 if(animation->animationInfo.animId == 0xFF)
-                    sub_80110E4(animation);
+                    UpdatePersonAnimationForCourtScroll(animation);
             }
         }
     }
@@ -2427,59 +2427,59 @@ void UpdateAnimations(u32 arg0)
 
 void sub_8010F68(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
 {
-    animation->animationInfo.xOrigin += gUnknown_0801948C[courtScroll->unkC];
-    if(courtScroll->unkC == 0xF)
-        PlayPersonAnimationAtCustomOrigin(courtScroll->unk8, courtScroll->unkA, -110, 80, 0);
+    animation->animationInfo.xOrigin += gUnknown_0801948C[courtScroll->frameCounter];
+    if(courtScroll->frameCounter == 0xF)
+        PlayPersonAnimationAtCustomOrigin(courtScroll->scrollingPersonAnimId, courtScroll->animOffset, -110, 80, 0);
 }
 
 void sub_8010FA8(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
 {
-    animation->animationInfo.xOrigin -= gUnknown_0801948C[0x1E - courtScroll->unkC];
-    if(courtScroll->unkC == 0xF)
-        PlayPersonAnimationAtCustomOrigin(courtScroll->unk8, courtScroll->unkA, 350, 80, 0);
+    animation->animationInfo.xOrigin -= gUnknown_0801948C[0x1E - courtScroll->frameCounter];
+    if(courtScroll->frameCounter == 0xF)
+        PlayPersonAnimationAtCustomOrigin(courtScroll->scrollingPersonAnimId, courtScroll->animOffset, 350, 80, 0);
 }
 
 void sub_8010FEC(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
 {
-    animation->animationInfo.xOrigin += gUnknown_080194AB[courtScroll->unkC];
-    if(courtScroll->unkC == 0xE)
-        PlayPersonAnimationAtCustomOrigin(courtScroll->unk8, courtScroll->unkA, -84, 80, 0);
+    animation->animationInfo.xOrigin += gUnknown_080194AB[courtScroll->frameCounter];
+    if(courtScroll->frameCounter == 0xE)
+        PlayPersonAnimationAtCustomOrigin(courtScroll->scrollingPersonAnimId, courtScroll->animOffset, -84, 80, 0);
 }
 
 void sub_801102C(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
 {
-    animation->animationInfo.xOrigin -= gUnknown_080194CA[courtScroll->unkC];
-    if(courtScroll->unkC == 0xE)
-        PlayPersonAnimationAtCustomOrigin(courtScroll->unk8, courtScroll->unkA, 220, 80, 0);
+    animation->animationInfo.xOrigin -= gUnknown_080194CA[courtScroll->frameCounter];
+    if(courtScroll->frameCounter == 0xE)
+        PlayPersonAnimationAtCustomOrigin(courtScroll->scrollingPersonAnimId, courtScroll->animOffset, 220, 80, 0);
 }
 
 void sub_8011068(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
 {
-    animation->animationInfo.xOrigin -= gUnknown_080194AB[courtScroll->unkC];
-    if(courtScroll->unkC == 0xE)
-        PlayPersonAnimationAtCustomOrigin(courtScroll->unk8, courtScroll->unkA, 324, 80, 0);
+    animation->animationInfo.xOrigin -= gUnknown_080194AB[courtScroll->frameCounter];
+    if(courtScroll->frameCounter == 0xE)
+        PlayPersonAnimationAtCustomOrigin(courtScroll->scrollingPersonAnimId, courtScroll->animOffset, 324, 80, 0);
 }
 
 void sub_80110A8(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
 {
-    animation->animationInfo.xOrigin += gUnknown_080194CA[courtScroll->unkC];
-    if(courtScroll->unkC == 0xE)
-        PlayPersonAnimationAtCustomOrigin(courtScroll->unk8, courtScroll->unkA, 20, 80, 0);
+    animation->animationInfo.xOrigin += gUnknown_080194CA[courtScroll->frameCounter];
+    if(courtScroll->frameCounter == 0xE)
+        PlayPersonAnimationAtCustomOrigin(courtScroll->scrollingPersonAnimId, courtScroll->animOffset, 20, 80, 0);
 }
 
-static void sub_80110E4(struct AnimationListEntry * animation)
+static void UpdatePersonAnimationForCourtScroll(struct AnimationListEntry * animation)
 {
     struct CourtScroll * courtScroll = &gCourtScroll;
-    gUnknown_0811DFFC[courtScroll->unk6](&gAnimation[1], courtScroll);
+    gCourtScrollPersonAnimationUpdateFuncs[courtScroll->scrollMode](&gAnimation[1], courtScroll);
 }
 
-void sub_8011108(u32 arg0, u32 arg1, u32 arg2, u32 arg3)
+void SetCourtScrollPersonAnim(u32 arg0, u32 arg1, u32 arg2, u32 arg3)
 {
-    gCourtScroll.unk6 = arg0 * 2;
+    gCourtScroll.scrollMode = arg0 * 2;
     if(arg1 & 1)
-        gCourtScroll.unk6++;
-    gCourtScroll.unk8 = arg2;
-    gCourtScroll.unkA = arg3;
+        gCourtScroll.scrollMode++;
+    gCourtScroll.scrollingPersonAnimId = arg2;
+    gCourtScroll.animOffset = arg3;
 }
 
 void sub_8011130(struct AnimationListEntry * animation)

@@ -112,13 +112,13 @@ void ClearSaveProcess(struct Main *main)
         gIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
         i = BGCNT_PRIORITY(3) | BGCNT_CHARBASE(1) | BGCNT_SCREENBASE(31) | BGCNT_MOSAIC | BGCNT_256COLOR | BGCNT_WRAP | BGCNT_TXT256x256; // scrub scrub CC!!11
         gIORegisters.lcd_bg3cnt = i;
-        sub_8001830(0x43);
-        sub_8001A9C(0x43);
+        DecompressBackgroundIntoBuffer(0x43);
+        CopyBGDataToVram(0x43);
         for(i = 0; i < 0x400; i++)
         {
             gBG2MapBuffer[i] = 0;
         }
-        sub_80024C8(6, 8);
+        SlideInBG2Window(6, 8);
         gIORegisters.lcd_dispcnt = DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON;
         main->tilemapUpdateBits = 0xC;
         gIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
@@ -130,7 +130,7 @@ void ClearSaveProcess(struct Main *main)
     case 1:
         if(main->blendMode == 0)
         {
-            sub_8002878(&gCourtRecord);
+            UpdateBG2Window(&gCourtRecord);
             if(gCourtRecord.unk1 == 0)
             {
                 main->advanceScriptContext = TRUE;
@@ -259,8 +259,8 @@ void SaveGameInit2(struct Main *main)
     DmaCopy16(3, gUnknown_08194580, OBJ_PLTT + 0x100, 0xC0);
     DmaCopy16(3, gUnknown_081964A8, OBJ_VRAM0 + 0x3C00, 0x800);
     DmaCopy16(3, gGfxPalChoiceSelected, OBJ_PLTT + 0x120, 0x40);
-    sub_8001830(0x43);
-    sub_8001A9C(0x43);
+    DecompressBackgroundIntoBuffer(0x43);
+    CopyBGDataToVram(0x43);
     main->animationFlags &= ~3;
     oam = gOamObjects;
     for(i = 0; i < MAX_OAM_OBJ_COUNT; i++)
@@ -271,7 +271,7 @@ void SaveGameInit2(struct Main *main)
     {
         gBG2MapBuffer[i] = 0;
     }
-    sub_80024C8(6, 8);
+    SlideInBG2Window(6, 8);
     gIORegisters.lcd_dispcnt = DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON;
     main->tilemapUpdateBits = 0xC;
     gIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
@@ -287,7 +287,7 @@ void SaveGameInit2(struct Main *main)
 void SaveGameInitButtons(struct Main *main)
 {
     struct OamAttrs * oam;
-    sub_8002878(&gCourtRecord);
+    UpdateBG2Window(&gCourtRecord);
     if(gCourtRecord.unk1 == 0) // ?
     {
         main->advanceScriptContext = TRUE;
@@ -437,8 +437,8 @@ void SaveGameExitSaveScreen(struct Main *main)
     {
         main->bgStripeOffsets[i] = gSaveDataBuffer.main.bgStripeOffsets[i];
     }
-    sub_8001830(main->currentBG);
-    sub_80020B0(main->currentBG);
+    DecompressBackgroundIntoBuffer(main->currentBG);
+    CopyBGDataToVramAndScrollBG(main->currentBG);
     DmaCopy16(3, gSaveDataBuffer.bg2Map, gBG2MapBuffer, sizeof(gBG2MapBuffer));
     DmaCopy16(3, gSaveDataBuffer.textBoxCharacters, gTextBoxCharacters, sizeof(gTextBoxCharacters));
     RedrawTextboxCharacters();

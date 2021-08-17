@@ -90,9 +90,9 @@ void sub_800B808(struct Main * main, struct InvestigationStruct * investigation)
     investigation->unkB = 0;
     gInvestigationSegmentSetupFunctions[main->scenarioIdx](main);
     bgId = main->roomData[main->currentRoomId][0];
-    sub_8001830(bgId);
-    sub_8001A9C(bgId);
-    sub_8001A9C(0xFF);
+    DecompressBackgroundIntoBuffer(bgId);
+    CopyBGDataToVram(bgId);
+    CopyBGDataToVram(0xFF);
     ioRegs->lcd_bg1vofs = ~80;
     ioRegs->lcd_dispcnt &= ~DISPCNT_BG1_ON;
     InitializeCourtRecordForScenario(main, &gCourtRecord);
@@ -105,7 +105,7 @@ void sub_800B808(struct Main * main, struct InvestigationStruct * investigation)
     main->showTextboxCharacters = TRUE;
     gScriptContext.currentSection = 0xFFFF;
     ChangeScriptSection(0x80);
-    sub_800244C(1);
+    SlideTextbox(1);
     gInvestigationRoomSetupFunctions[main->scenarioIdx](main);
     sub_800D530(main, 0);
     SetCurrentEpisodeBit();
@@ -356,11 +356,11 @@ void sub_800BE7C(struct Main * main, struct InvestigationStruct * investigation)
     if(main->process[GAME_PROCESSUNK2] == 0)
     {
         ResetSoundControl();
-        sub_8001830(roomData[0]);
+        DecompressBackgroundIntoBuffer(roomData[0]);
         main->process[GAME_PROCESSUNK2] = 1;
         return;
     }
-    sub_8001A9C(roomData[0]);
+    CopyBGDataToVram(roomData[0]);
     oam = &gOamObjects[38];
     for(i = 0; i < 4; i++)
     {
@@ -461,7 +461,7 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
                     oam->attr0 = SPRITE_ATTR0_CLEAR;
                     temp = sub_800D5B0(investigation);
                     ChangeScriptSection(temp);
-                    sub_800244C(1);
+                    SlideTextbox(1);
                     investigation->unk6 = 1;
                     investigation->unk14 = 0;
                     investigation->unk15 = 0;
@@ -1042,7 +1042,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                     PlaySE(43);
                     temp = talkData->talkSection[investigation->unk4];
                     ChangeScriptSection(temp);
-                    sub_800244C(1);
+                    SlideTextbox(1);
                     if(GetFlag(2, talkData->talkFlagId[investigation->unk4]))
                         gScriptContext.textSkip = 1;
                     else
@@ -1841,7 +1841,7 @@ _0800CC9C:\n\
 	adds r0, r5, #0\n\
 	bl ChangeScriptSection\n\
 	movs r0, #1\n\
-	bl sub_800244C\n\
+	bl SlideTextbox\n\
 	mov r4, r8\n\
 	adds r4, #8\n\
 	ldr r5, [sp]\n\

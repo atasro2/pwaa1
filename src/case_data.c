@@ -181,7 +181,7 @@ void InvestigationSetScriptSectionAndFlag(u32 section, u32 flagId) // Set_event
 {
     ChangeFlag(0, flagId, TRUE);
     ChangeScriptSection(section);
-    sub_800244C(1);
+    SlideTextbox(1);
     PauseBGM();
 }
 
@@ -200,7 +200,7 @@ void sub_8002CF0(u32 section, u32 flagId) // unused? Set_event2?
     SET_PROCESS(4, 1, 0, 0);
     ChangeFlag(0, flagId, TRUE);
     ChangeScriptSection(section);
-    sub_800244C(1);
+    SlideTextbox(1);
     sub_800B7A8(&gInvestigation, 0xF);
     gInvestigation.unkE = 0x40;
 }

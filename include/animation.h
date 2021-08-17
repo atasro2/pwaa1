@@ -139,6 +139,6 @@ void StartAnimationBlend(u32 arg0, u32 arg1);
 void DestroyAnimation(struct AnimationListEntry * animation);
 void MoveAnimationTilesToRam(bool32 arg0);
 void UpdateAnimations(u32 arg0);
-void sub_8011108(u32 arg0, u32 arg1, u32 arg2, u32 arg3);
+void SetCourtScrollPersonAnim(u32 arg0, u32 arg1, u32 arg2, u32 arg3);
 
 #endif//GUARD_ANIMATION_H

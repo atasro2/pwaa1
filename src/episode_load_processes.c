@@ -24,15 +24,15 @@ void sub_8008E18(struct Main * main)
     DmaCopy16(3, eBGDecompBuffer, OBJ_VRAM0+0x3400, 0x2800);
     DmaCopy16(3, gGfxPalChoiceSelected, OBJ_PLTT+0x120, 0x40);
     DmaCopy16(3, gUnknown_08186540, VRAM, 0x1000);
-    sub_8001830(0x43);
-    sub_8001A9C(0x43);
+    DecompressBackgroundIntoBuffer(0x43);
+    CopyBGDataToVram(0x43);
     gMain.animationFlags &= ~3;
     oam = gOamObjects;
     for(i = 0; i < ARRAY_COUNT(gOamObjects); i++)
         oam++->attr0 = SPRITE_ATTR0_CLEAR;
     gIORegisters.lcd_dispcnt = DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG1_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON; 
     main->tilemapUpdateBits = 0xA;
-    sub_8002244(2);
+    SetTextboxSize(2);
     oam = &gOamObjects[38];
     for(i = 0; i < 4; i++)
     {
@@ -611,8 +611,8 @@ void ContinueSaveProcess(struct Main * main) {
                 DmaCopy16(3, gUnknown_08186540, BG_CHAR_ADDR(0), 0x1000);
                 DmaCopy16(3, gUnknown_081954A8, OBJ_VRAM0 + 0x3400, 0x1000);
                 DmaCopy16(3, gGfxPalChoiceSelected, OBJ_PLTT + 0x120, 0x40);
-                sub_8001830(0x43);
-                sub_8001A9C(0x43);
+                DecompressBackgroundIntoBuffer(0x43);
+                CopyBGDataToVram(0x43);
                 main->animationFlags &= ~3;
                 oam = gOamObjects;
                 for (i = 0; i < 128; ++i) {
@@ -622,7 +622,7 @@ void ContinueSaveProcess(struct Main * main) {
                 for (i = 0; i < 0x400; ++i) {
                     gBG2MapBuffer[i] = 0;
                 }
-                sub_80024C8(5, 8);
+                SlideInBG2Window(5, 8);
                 PlaySE(49);
                 gIORegisters.lcd_dispcnt = 0x1C40;
                 main->tilemapUpdateBits = 0xC;
@@ -633,7 +633,7 @@ void ContinueSaveProcess(struct Main * main) {
             }
             break;
         case 2: // 9BA8
-            sub_8002878(&gCourtRecord);
+            UpdateBG2Window(&gCourtRecord);
             if (gCourtRecord.unk1 == 0) { // 9BBA
                 main->advanceScriptContext = TRUE;
                 main->showTextboxCharacters = TRUE;
@@ -782,12 +782,12 @@ void ContinueSaveProcess(struct Main * main) {
             DmaCopy16(3, &gSaveDataBuffer.courtScroll, &gCourtScroll, sizeof(gCourtScroll));
             DmaCopy16(3, gSaveDataBuffer.examinationData, gExaminationData, sizeof(gExaminationData));
             DmaCopy16(3, gSaveDataBuffer.mapMarker, gMapMarker, sizeof(gMapMarker));
-            sub_80074E8();
-            sub_80028B4(gScriptContext.textboxNameId & 0x7F, gScriptContext.textboxNameId & 0x80);
+            MakeMapMarkerSprites();
+            SetTextboxNametag(gScriptContext.textboxNameId & 0x7F, gScriptContext.textboxNameId & 0x80);
             DmaCopy16(3, gSaveDataBuffer.bg1Map, gBG1MapBuffer, sizeof(gBG1MapBuffer));
             DmaCopy16(3, gSaveDataBuffer.bg0Map, gBG0MapBuffer, sizeof(gBG0MapBuffer));
-            sub_8001830(main->currentBG);
-            sub_80020B0(main->currentBG);
+            DecompressBackgroundIntoBuffer(main->currentBG);
+            CopyBGDataToVramAndScrollBG(main->currentBG);
             if (gScriptContext.flags & 4) {
                 DmaCopy16(3, gCharSet + 0x7100, OBJ_VRAM0 + 0x1F80, 0x80);
             }

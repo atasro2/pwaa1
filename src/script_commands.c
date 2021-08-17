@@ -42,7 +42,7 @@ bool32 CommandDummy(struct ScriptContext * scriptCtx)
 bool32 Command00(struct ScriptContext * scriptCtx)
 {
     InitScriptSection(scriptCtx);
-    sub_80028B4(0, FALSE);
+    SetTextboxNametag(0, FALSE);
     scriptCtx->scriptPtr++;
     return 0;
 }
@@ -123,7 +123,7 @@ bool32 Command02(struct ScriptContext * scriptCtx)
             scriptCtx->fullscreenTextY = 2;
             scriptCtx->fullscreenTextX = 0;
             gMain.showTextboxCharacters = FALSE;
-            sub_8002244(1);
+            SetTextboxSize(1);
             for (i = 0; i < ARRAY_COUNT(gMapMarker); i++)
             {
                 gMapMarker[i].id |= 0xFF;
@@ -298,7 +298,7 @@ bool32 Command08(struct ScriptContext * scriptCtx)
             scriptCtx->textYOffset = 0x74;
             scriptCtx->textSpeed = scriptCtx->prevTextSpeed;
             scriptCtx->textboxNameId = 0;
-            sub_8002244(0);
+            SetTextboxSize(0);
             for(i = 0; i < 32; i++)
                 gTextBoxCharacters[i].state &= ~0x8000;
             for(i = 57; i < 88; i++)
@@ -378,7 +378,7 @@ bool32 Command09(struct ScriptContext * scriptCtx)
             scriptCtx->textYOffset = 0x74;
             scriptCtx->textSpeed = scriptCtx->prevTextSpeed;
             scriptCtx->textboxNameId = 0;
-            sub_8002244(0);
+            SetTextboxSize(0);
             for(i = 0; i < 32; i++)
                 gTextBoxCharacters[i].state &= ~0x8000;
             for(i = 57; i < 88; i++)
@@ -446,7 +446,7 @@ bool32 Command0E(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     scriptCtx->textboxNameId = (*scriptCtx->scriptPtr >> 8);
     scriptCtx->textboxNameId &= ~0x80; // side bit
-    sub_80028B4(scriptCtx->textboxNameId, *scriptCtx->scriptPtr & 0xFF);
+    SetTextboxNametag(scriptCtx->textboxNameId, *scriptCtx->scriptPtr & 0xFF);
     soundCue = gSoundCueTable[scriptCtx->textboxNameId];
     scriptCtx->currentSoundCue = soundCue;
     if(soundCue == 2)
@@ -673,7 +673,7 @@ u32 Command1A(struct ScriptContext * scriptCtx)
     var2 = *scriptCtx->scriptPtr;
     scriptCtx->scriptPtr++;
     
-    sub_8011108(var0, var1, var2, *scriptCtx->scriptPtr);
+    SetCourtScrollPersonAnim(var0, var1, var2, *scriptCtx->scriptPtr);
     var0 = (u32)gCourtScrollGfxPointers[var0];
     var2 = var1 & 1 ? 30 : 0;
     InitCourtScroll((u8 *)var0, var2, 31, var1);
@@ -726,7 +726,7 @@ u32 Command1C(struct ScriptContext * scriptCtx)
                 gInvestigation.unk5 = 0;
                 sub_800B7A8(&gInvestigation, 15);
             }
-            sub_800244C(1);
+            SlideTextbox(1);
             break;
         case 3:
             if(gMain.process[GAME_PROCESS] == 3)
@@ -735,7 +735,7 @@ u32 Command1C(struct ScriptContext * scriptCtx)
                 gInvestigation.unk5 = 0;
                 sub_800B7A8(&gInvestigation, 15);
             }
-            sub_800244C(0);
+            SlideTextbox(0);
             if(gMain.process[GAME_PROCESS] == 4)
             {
                 gInvestigation.unkE = 0;

@@ -17,8 +17,8 @@ void CapcomLogoProcess(struct Main *main)
         ioRegsp->lcd_bg1cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(29) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
         ioRegsp->lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
         ioRegsp->lcd_bg3cnt = BGCNT_PRIORITY(3) | BGCNT_CHARBASE(1) | BGCNT_SCREENBASE(31) | BGCNT_MOSAIC | BGCNT_256COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
-        sub_8001830(0x44);
-        sub_8001A9C(0x44);
+        DecompressBackgroundIntoBuffer(0x44);
+        CopyBGDataToVram(0x44);
         ioRegsp->lcd_dispcnt = DISPCNT_MODE_0 | DISPCNT_BG3_ON;
         ioRegsp->lcd_bldy = 0x10;
         StartHardwareBlend(1, 1, 1, 0x1F);

@@ -1115,7 +1115,7 @@ bool32 Command3F(struct ScriptContext *scriptCtx)
     return 1;
 }
 
-void sub_80074E8()
+void MakeMapMarkerSprites()
 {
     u32 i = 0;
     u32 id; 

@@ -1,7 +1,7 @@
 . = 0x00000000; gBG2MapBuffer = .;
 . = 0x00000800; gAnimation = .;
 . = 0x00001000; gBG3MapBuffer = .;
-. = 0x00001800; gBG3MapBufferCopy = .;
+. = 0x00001800; gTilemapBuffer = .;
 . = 0x00002000; gBG1MapBuffer = .;
 . = 0x00002800; gIntrTable = .;
 . = 0x00002840; gCourtRecord = .;

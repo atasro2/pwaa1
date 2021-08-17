@@ -117,11 +117,11 @@ void bg256_right_scroll(struct Main * main, u32 sp0)
             void * ptr1;
             void * ptr2;
             ptr1 = &gBG3MapBuffer[i*32];
-            ptr2 = &gBG3MapBufferCopy[i*32];
+            ptr2 = &gTilemapBuffer[i*32];
             DmaCopy16(3, ptr1, ptr2, 30*2); // copy row of tiles to buffer copy
             ptr2 = &gBG3MapBuffer[i*32+30];
             DmaCopy16(3, ptr2, ptr1, 2); // stop with the size 2 dmacopies
-            ptr1 = &gBG3MapBufferCopy[i*32];
+            ptr1 = &gTilemapBuffer[i*32];
             ptr2 = &gBG3MapBuffer[i*32+1];
             DmaCopy16(3, ptr1, ptr2, 30*2);
             ptr1 = (void*)BG_CHAR_ADDR(1) + (main->Bg256_buff_pos * spC) + (i-1) * sp8;
@@ -217,7 +217,7 @@ void bg256_left_scroll(struct Main * main, u32 sp0)
             void * ptr1;
             void * ptr2;
             ptr1 = &gBG3MapBuffer[i*32+1];
-            ptr2 = &gBG3MapBufferCopy[i*32];
+            ptr2 = &gTilemapBuffer[i*32];
             DmaCopy16(3, ptr1, ptr2, 62);
             ptr1 = &gBG3MapBuffer[i*32];
             DmaCopy16(3, ptr2, ptr1, 62);
@@ -289,9 +289,9 @@ void bg256_down_scroll(struct Main * main, u32 sp0)
     {
         void * ptr;
         void * buf;
-        DmaCopy16(3, gBG3MapBuffer, gBG3MapBufferCopy, 0x540);
+        DmaCopy16(3, gBG3MapBuffer, gTilemapBuffer, 0x540);
         ptr = gBG3MapBuffer + 0x20;
-        DmaCopy16(3, gBG3MapBufferCopy, ptr, 0x540);;
+        DmaCopy16(3, gTilemapBuffer, ptr, 0x540);;
         DmaCopy16(3, gBG3MapBuffer + 0x2A0, gBG3MapBuffer, 0x40);
         buf = eBGDecompBuffer;
         buf += main->Bg256_next_line * r6;
@@ -365,8 +365,8 @@ void bg256_up_scroll(struct Main * main, u32 arg0)
         ptr1 = gBG3MapBuffer + 0x20;
         ptr2 = gBG3MapBuffer + 0x2C0;
         DmaCopy16(3, ptr1, ptr2, 0x40);
-        DmaCopy16(3, gBG3MapBuffer, gBG3MapBufferCopy, 0x5C0);
-        ptr2 = gBG3MapBufferCopy + 0x20;
+        DmaCopy16(3, gBG3MapBuffer, gTilemapBuffer, 0x5C0);
+        ptr2 = gTilemapBuffer + 0x20;
         do{}while(0); // TODO: find actual match, gBG3MapBuffer gets loaded from the pool instead of ptr1 - 0x40
         DmaCopy16(3, ptr2, gBG3MapBuffer, 0x580);
         buf = eBGDecompBuffer;
@@ -395,11 +395,11 @@ void UpdateBackground() // BG256_main
     u32 unk0;
     u32 unk1;
 
-    if(gCourtScroll.state != 0 && (gCourtScroll.unkC & 1) == 0) // unkC divisible by 2?
+    if(gCourtScroll.state != 0 && (gCourtScroll.frameCounter & 1) == 0) // frameCounter divisible by 2?
     {
-        u8 * ptr = gCourtScroll.unk0;
+        u8 * ptr = gCourtScroll.frameDataPtr;
         ioRegs->lcd_bg3cnt &= ~BGCNT_256COLOR;
-        ptr += gCourtScroll.unkC / 2 * (0x4B00 + 0x20);
+        ptr += gCourtScroll.frameCounter / 2 * (0x4B00 + 0x20);
         DmaCopy16(3, ptr, PLTT+0x40, 0x20);
         ptr += 0x20;
         DmaCopy16(3, ptr, BG_CHAR_ADDR(1), 0x4B00);
@@ -563,7 +563,7 @@ void DecompressCurrentBGStripe(u32 bgId)
     gMain.currentBgStripe++;
 }
 
-void sub_8001830(u32 bgId)
+void DecompressBackgroundIntoBuffer(u32 bgId)
 {
     u32 i;
     u32 size;
@@ -604,7 +604,7 @@ void sub_8001830(u32 bgId)
     }
 }
 
-void sub_80018F8()
+void LoadCase3IntroBackgrounds()
 {
     struct Main * main = &gMain;
     struct IORegisters * ioRegs = &gIORegisters;
@@ -658,7 +658,7 @@ void sub_80018F8()
     gMain.isBGScrolling = TRUE;
 }
 
-void sub_8001A9C(u32 bgId)
+void CopyBGDataToVram(u32 bgId)
 {
     struct Main * main = &gMain; // r8
     struct IORegisters * ioReg = &gIORegisters; // r9 sb
@@ -673,7 +673,7 @@ void sub_8001A9C(u32 bgId)
 
     if(bgId >= 74 && bgId <= 75)
     {
-        sub_80018F8();
+        LoadCase3IntroBackgrounds();
         return;
     }
     MoveAnimationTilesToRam(0);
@@ -890,7 +890,7 @@ void sub_8001A9C(u32 bgId)
     }
 }
 
-void sub_80020B0(u32 bgId)
+void CopyBGDataToVramAndScrollBG(u32 bgId)
 {
     struct Main * main = &gMain;
     u16 sp0 = main->previousBG;
@@ -900,7 +900,7 @@ void sub_80020B0(u32 bgId)
     u8 r6 = main->horizontolBGScrollSpeed;
     u8 r5 = main->verticalBGScrollSpeed;
     u32 unk0;
-    sub_8001A9C(bgId);
+    CopyBGDataToVram(bgId);
     main->previousBG = sp0;
     main->isBGScrolling = r8;
     main->horizontolBGScrollSpeed = r6;

@@ -275,9 +275,7 @@ const u16 gUnknown_08014570[0x2C0] = {
 
 };
 
-
-
-void sub_8002244(u32 unk0)
+void SetTextboxSize(u32 unk0)
 {
     struct ScriptContext * scriptCtx = &gScriptContext;
     u16 * map;
@@ -291,13 +289,13 @@ void sub_8002244(u32 unk0)
             *map = gUnknown_08013B70[i];
         }
         scriptCtx->textboxState = 0;
-        sub_80028B4(scriptCtx->textboxNameId & 0x7F, (u8)(scriptCtx->textboxNameId & 0x80));
+        SetTextboxNametag(scriptCtx->textboxNameId & 0x7F, (u8)(scriptCtx->textboxNameId & 0x80));
         break;
     case 1:
         scriptCtx->unk3A = 0;
         scriptCtx->textboxYPos = 14;
         scriptCtx->textboxState = 2;
-        sub_80028B4(0, FALSE);
+        SetTextboxNametag(0, FALSE);
         break;
     case 2:
         map = gBG1MapBuffer;
@@ -378,12 +376,12 @@ void UpdateTextbox()
     }
 }
 
-void sub_800244C(u32 unk0)
+void SlideTextbox(u32 slideUp)
 {
     gMain.advanceScriptContext = 0;
     gMain.showTextboxCharacters = 0;
-    sub_80028B4(0, FALSE);
-    if(unk0)
+    SetTextboxNametag(0, FALSE);
+    if(slideUp)
     {
         gScriptContext.textboxState = 3;
         gInvestigation.unkC = 3;
@@ -398,7 +396,7 @@ void sub_800244C(u32 unk0)
     }
 }
 
-void sub_80024C8(u32 mode, u32 speed)
+void SlideInBG2Window(u32 mode, u32 speed)
 {
     struct CourtRecord * courtRecord = &gCourtRecord;
     if(mode > 4) // is for save screens
@@ -465,8 +463,8 @@ void sub_800254C(struct CourtRecord * courtRecord)
         }
         for(i = 2; i < 12; i++)
         {
-            DmaCopy16(3, &gBG2MapBuffer[i*0x20], gBG3MapBufferCopy, 0x40);
-            DmaCopy16(3, gBG3MapBufferCopy+1, &gBG2MapBuffer[i*0x20], 0x3E);
+            DmaCopy16(3, &gBG2MapBuffer[i*0x20], gTilemapBuffer, 0x40);
+            DmaCopy16(3, gTilemapBuffer+1, &gBG2MapBuffer[i*0x20], 0x3E);
         }
         if(courtRecord->isSaveScreen)
         {
@@ -496,8 +494,8 @@ void sub_800254C(struct CourtRecord * courtRecord)
         }
         for(i = 2; i < 12; i++)
         {
-            DmaCopy16(3, &gBG2MapBuffer[i*0x20], gBG3MapBufferCopy, 0x40);
-            DmaCopy16(3, gBG3MapBufferCopy, &gBG2MapBuffer[i*0x20+1], 0x3E);
+            DmaCopy16(3, &gBG2MapBuffer[i*0x20], gTilemapBuffer, 0x40);
+            DmaCopy16(3, gTilemapBuffer, &gBG2MapBuffer[i*0x20+1], 0x3E);
         }
         if(courtRecord->isSaveScreen)
         {
@@ -534,8 +532,8 @@ void sub_8002734(struct CourtRecord * courtRecord)
         }
         for(i = 2; i < 12; i++)
         {
-            DmaCopy16(3, &gBG2MapBuffer[i*0x20], gBG3MapBufferCopy, 0x40);
-            DmaCopy16(3, gBG3MapBufferCopy+1, &gBG2MapBuffer[i*0x20], 0x3E);
+            DmaCopy16(3, &gBG2MapBuffer[i*0x20], gTilemapBuffer, 0x40);
+            DmaCopy16(3, gTilemapBuffer+1, &gBG2MapBuffer[i*0x20], 0x3E);
         }
         for(i = 0x40; i < 0x180; i += 0x20)
         {
@@ -554,8 +552,8 @@ void sub_8002734(struct CourtRecord * courtRecord)
         }
         for(i = 2; i < 12; i++)
         {
-            DmaCopy16(3, &gBG2MapBuffer[i*0x20], gBG3MapBufferCopy, 0x40);
-            DmaCopy16(3, gBG3MapBufferCopy, &gBG2MapBuffer[i*0x20+1], 0x3E);
+            DmaCopy16(3, &gBG2MapBuffer[i*0x20], gTilemapBuffer, 0x40);
+            DmaCopy16(3, gTilemapBuffer, &gBG2MapBuffer[i*0x20+1], 0x3E);
         }
         for(i = 0x40; i < 0x180; i += 0x20)
         {
@@ -572,7 +570,7 @@ void (*gUnknown_0811DBF0[])(struct CourtRecord *) = {
 	sub_8002734,
 };
 
-void sub_8002878(struct CourtRecord * courtRecord)
+void UpdateBG2Window(struct CourtRecord * courtRecord)
 {
     if(gMain.blendMode == 0)
     {
@@ -581,36 +579,41 @@ void sub_8002878(struct CourtRecord * courtRecord)
     }
 }
 
-void sub_80028B4(u32 arg0, u32 arg1)
+void SetTextboxNametag(u32 nametagId, u32 rightSide)
 {
     u32 i;
     u32 j;
     void * tiles;
     const u8 * tileId;
     u16 * map;
-    if(arg0 == 0)
+    u32 offset = rightSide;
+    
+    if(nametagId == 0)
     {
         for(i = 0x180; i < 0x1E0; i++)
             gBG1MapBuffer[i] = gUnknown_08013B70[i];
         return;
     }
-    i = (arg0 / 5);
-    j = (arg0 % 5);
+    i = (nametagId / 5);
+    j = (nametagId % 5);
     i *= 0x800;
     j *= 0xC0;
     tiles = gGfx4bppNametags + j + i;
     DmaCopy16(3, tiles, VRAM+0xA80, 0xC0);
     DmaCopy16(3, tiles+0x400, VRAM+0xB40, 0xC0);
-    if(arg1)
+    if(rightSide)
     {
-        arg1 = 24;
+        offset = 24;
         tileId = gUnknown_08013B64+0x6;
     }
     else
+    {
+        offset = 0;
         tileId = gUnknown_08013B64;
+    }
 
     map = gBG1MapBuffer + 0x1C0;
-    map += arg1;
+    map += offset;
     for(i = 0; i < 6; i++)
     {
         *map = *tileId;
@@ -618,7 +621,7 @@ void sub_80028B4(u32 arg0, u32 arg1)
         tileId++;
     }
     map = gBG1MapBuffer + 0x180;
-    map += arg1;
+    map += offset;
     tileId = gUnknown_08013B58;
     for(i = 0; i < 6; i++)
     {
@@ -627,7 +630,7 @@ void sub_80028B4(u32 arg0, u32 arg1)
         tileId++;
     }
     map = gBG1MapBuffer + 0x1A0;
-    map += arg1;
+    map += offset;
     tileId = gUnknown_08013B58+6;
     for(i = 0; i < 6; i++)
     {

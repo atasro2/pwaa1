@@ -72,9 +72,9 @@ void sub_800A3EC(struct Main * main)
     DmaCopy16(3, &gUnknown_081942C0[0], OBJ_PLTT+0x100, 0x20);
     DmaCopy16(3, gGfx4bppTrialLife, OBJ_VRAM0 + 0x3780, 0x80);
     DmaCopy16(3, gUnknown_081940E0, OBJ_PLTT+0x60, 0x20);
-    sub_8001830(1);
-    sub_8001A9C(1);
-    sub_8001A9C(0xFF);
+    DecompressBackgroundIntoBuffer(1);
+    CopyBGDataToVram(1);
+    CopyBGDataToVram(0xFF);
     ioRegs->lcd_bg1vofs = ~80; // ??????
     ioRegs->lcd_dispcnt &= ~DISPCNT_BG1_ON; // what the fuck is this doing
     InitializeCourtRecordForScenario(main, &gCourtRecord);
@@ -429,7 +429,7 @@ void sub_800AC1C(struct Main * main)
                 gIORegisters.lcd_dispcnt &= ~DISPCNT_BG1_ON;
                 main->advanceScriptContext = FALSE;
                 main->showTextboxCharacters = FALSE;
-                sub_80028B4(0, 0);
+                SetTextboxNametag(0, 0);
                 main->process[GAME_PROCESS_STATE] = 4;
                 main->process[GAME_PROCESSUNK2] = 0;
                 return;
@@ -492,9 +492,9 @@ void sub_800AE58(struct Main * main)
         case 0:
             if(gTestimony.unk1 == 0)
             {
-                sub_8011108(0, 1, 2, 0);
+                SetCourtScrollPersonAnim(0, 1, 2, 0);
                 InitCourtScroll(gUnknown_08427D88, 0x1E, 0x1F, 1);
-                sub_800244C(0);
+                SlideTextbox(0);
                 main->process[GAME_PROCESSUNK2]++;
                 break;
             }
@@ -512,7 +512,7 @@ void sub_800AE58(struct Main * main)
                 gScriptContext.textboxState = 0;
             }
             else
-                sub_800244C(1);
+                SlideTextbox(1);
             ChangeScriptSection(gScriptContext.holdItSection);
             gTestimony.unk4 = 0xF0;
             gTestimony.unk2 = 0xE0;
@@ -546,9 +546,9 @@ void sub_800AF2C(struct Main * main)
         case 1:
             if(gTestimony.unk1 == 0)
             {
-                sub_8011108(0, 1, 2, 0x18D0);
+                SetCourtScrollPersonAnim(0, 1, 2, 0x18D0);
                 InitCourtScroll(gUnknown_08427D88, 0x1E, 0x1F, 1);
-                sub_800244C(0);
+                SlideTextbox(0);
                 main->process[GAME_PROCESSUNK2]++;
                 break;
             }
@@ -575,7 +575,7 @@ void sub_800AF2C(struct Main * main)
                     gScriptContext.textboxState = 0;
                 }
                 else
-                    sub_800244C(1);
+                    SlideTextbox(1);
                 RESTORE_PROCESS_PTR(main);
                 break;
             } 
