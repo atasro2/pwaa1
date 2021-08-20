@@ -1242,7 +1242,7 @@ u32 CheckRectCollisionWithAnim(struct Rect *p)
     u32 spriteCount; // sp08
     u32 i;
 
-    for(animation = gAnimation[0].nextAnimation; animation != NULL; animation = animation->nextAnimation)
+    for(animation = gAnimation[0].next; animation != NULL; animation = animation->next)
     {
         struct SpriteTemplate * spriteTemplate;
         struct SpriteSizeData * spriteSizePtr;

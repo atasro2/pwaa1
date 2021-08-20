@@ -2364,487 +2364,154 @@ gUnknown_08427608:
 	
 @ BEGIN COURT SCROLLS
 
-@ scroll left to center
-
-	.global gGfxPalCourtScroll01
-gGfxPalCourtScroll01:
+	.global gGfxCourtscroll01
+gGfxCourtscroll01:
 	.incbin "graphics/court_scrolls/court_scroll01.gbapal"
-
-
-	.global gGfx4bppCourtScroll01
-gGfx4bppCourtScroll01:
 	.incbin "graphics/court_scrolls/court_scroll01.4bpp"
 
-
-	.global gGfxPalCourtScroll02
-gGfxPalCourtScroll02:
 	.incbin "graphics/court_scrolls/court_scroll02.gbapal"
-
-
-	.global gGfx4bppCourtScroll02
-gGfx4bppCourtScroll02:
 	.incbin "graphics/court_scrolls/court_scroll02.4bpp"
 
-
-	.global gGfxPalCourtScroll03
-gGfxPalCourtScroll03:
 	.incbin "graphics/court_scrolls/court_scroll03.gbapal"
-
-
-	.global gGfx4bppCourtScroll03
-gGfx4bppCourtScroll03:
 	.incbin "graphics/court_scrolls/court_scroll03.4bpp"
 
-
-	.global gGfxPalCourtScroll04
-gGfxPalCourtScroll04:
 	.incbin "graphics/court_scrolls/court_scroll04.gbapal"
-
-
-	.global gGfx4bppCourtScroll04
-gGfx4bppCourtScroll04:
 	.incbin "graphics/court_scrolls/court_scroll04.4bpp"
 
-
-	.global gGfxPalCourtScroll05
-gGfxPalCourtScroll05:
 	.incbin "graphics/court_scrolls/court_scroll05.gbapal"
-
-
-	.global gGfx4bppCourtScroll05
-gGfx4bppCourtScroll05:
 	.incbin "graphics/court_scrolls/court_scroll05.4bpp"
 
-
-	.global gGfxPalCourtScroll06
-gGfxPalCourtScroll06:
 	.incbin "graphics/court_scrolls/court_scroll06.gbapal"
-
-
-	.global gGfx4bppCourtScroll06
-gGfx4bppCourtScroll06:
 	.incbin "graphics/court_scrolls/court_scroll06.4bpp"
 
-
-	.global gGfxPalCourtScroll07
-gGfxPalCourtScroll07:
 	.incbin "graphics/court_scrolls/court_scroll07.gbapal"
-
-
-	.global gGfx4bppCourtScroll07
-gGfx4bppCourtScroll07:
 	.incbin "graphics/court_scrolls/court_scroll07.4bpp"
 
-
-	.global gGfxPalCourtScroll08
-gGfxPalCourtScroll08:
 	.incbin "graphics/court_scrolls/court_scroll08.gbapal"
-
-
-	.global gGfx4bppCourtScroll08
-gGfx4bppCourtScroll08:
 	.incbin "graphics/court_scrolls/court_scroll08.4bpp"
 
-
-	.global gGfxPalCourtScroll09
-gGfxPalCourtScroll09:
 	.incbin "graphics/court_scrolls/court_scroll09.gbapal"
-
-
-	.global gGfx4bppCourtScroll09
-gGfx4bppCourtScroll09:
 	.incbin "graphics/court_scrolls/court_scroll09.4bpp"
 
-
-	.global gGfxPalCourtScroll10
-gGfxPalCourtScroll10:
 	.incbin "graphics/court_scrolls/court_scroll10.gbapal"
-
-
-	.global gGfx4bppCourtScroll10
-gGfx4bppCourtScroll10:
 	.incbin "graphics/court_scrolls/court_scroll10.4bpp"
 
-
-	.global gGfxPalCourtScroll11
-gGfxPalCourtScroll11:
 	.incbin "graphics/court_scrolls/court_scroll11.gbapal"
-
-
-	.global gGfx4bppCourtScroll11
-gGfx4bppCourtScroll11:
 	.incbin "graphics/court_scrolls/court_scroll11.4bpp"
 
-
-	.global gGfxPalCourtScroll12
-gGfxPalCourtScroll12:
 	.incbin "graphics/court_scrolls/court_scroll12.gbapal"
-
-
-	.global gGfx4bppCourtScroll12
-gGfx4bppCourtScroll12:
 	.incbin "graphics/court_scrolls/court_scroll12.4bpp"
 
-
-	.global gGfxPalCourtScroll13
-gGfxPalCourtScroll13:
 	.incbin "graphics/court_scrolls/court_scroll13.gbapal"
-
-
-	.global gGfx4bppCourtScroll13
-gGfx4bppCourtScroll13:
 	.incbin "graphics/court_scrolls/court_scroll13.4bpp"
 
-
-	.global gGfxPalCourtScroll14
-gGfxPalCourtScroll14:
 	.incbin "graphics/court_scrolls/court_scroll14.gbapal"
-
-
-	.global gGfx4bppCourtScroll14
-gGfx4bppCourtScroll14:
 	.incbin "graphics/court_scrolls/court_scroll14.4bpp"
 
-
-	.global gGfxPalCourtScroll15
-gGfxPalCourtScroll15:
 	.incbin "graphics/court_scrolls/court_scroll15.gbapal"
-
-
-	.global gGfx4bppCourtScroll15
-gGfx4bppCourtScroll15:
 	.incbin "graphics/court_scrolls/court_scroll15.4bpp"
 
-
-	.global gGfxPalCourtScroll16
-gGfxPalCourtScroll16:
 	.incbin "graphics/court_scrolls/court_scroll16.gbapal"
-
-
-	.global gGfx4bppCourtScroll16
-gGfx4bppCourtScroll16:
 	.incbin "graphics/court_scrolls/court_scroll16.4bpp"
 
-@ scroll right to left
-
-	.global gGfxPalCourtScroll17
-gGfxPalCourtScroll17:
+	.global gGfxCourtscroll02
+gGfxCourtscroll02:
 	.incbin "graphics/court_scrolls/court_scroll17.gbapal"
-
-
-	.global gGfx4bppCourtScroll17
-gGfx4bppCourtScroll17:
 	.incbin "graphics/court_scrolls/court_scroll17.4bpp"
 
-
-	.global gGfxPalCourtScroll18
-gGfxPalCourtScroll18:
 	.incbin "graphics/court_scrolls/court_scroll18.gbapal"
-
-
-	.global gGfx4bppCourtScroll18
-gGfx4bppCourtScroll18:
 	.incbin "graphics/court_scrolls/court_scroll18.4bpp"
 
-
-	.global gGfxPalCourtScroll19
-gGfxPalCourtScroll19:
 	.incbin "graphics/court_scrolls/court_scroll19.gbapal"
-
-
-	.global gGfx4bppCourtScroll19
-gGfx4bppCourtScroll19:
 	.incbin "graphics/court_scrolls/court_scroll19.4bpp"
 
-
-	.global gGfxPalCourtScroll20
-gGfxPalCourtScroll20:
 	.incbin "graphics/court_scrolls/court_scroll20.gbapal"
-
-
-	.global gGfx4bppCourtScroll20
-gGfx4bppCourtScroll20:
 	.incbin "graphics/court_scrolls/court_scroll20.4bpp"
 
-
-	.global gGfxPalCourtScroll21
-gGfxPalCourtScroll21:
 	.incbin "graphics/court_scrolls/court_scroll21.gbapal"
-
-
-	.global gGfx4bppCourtScroll21
-gGfx4bppCourtScroll21:
 	.incbin "graphics/court_scrolls/court_scroll21.4bpp"
 
-
-	.global gGfxPalCourtScroll22
-gGfxPalCourtScroll22:
 	.incbin "graphics/court_scrolls/court_scroll22.gbapal"
-
-
-	.global gGfx4bppCourtScroll22
-gGfx4bppCourtScroll22:
 	.incbin "graphics/court_scrolls/court_scroll22.4bpp"
 
-
-	.global gGfxPalCourtScroll23
-gGfxPalCourtScroll23:
 	.incbin "graphics/court_scrolls/court_scroll23.gbapal"
-
-
-	.global gGfx4bppCourtScroll23
-gGfx4bppCourtScroll23:
 	.incbin "graphics/court_scrolls/court_scroll23.4bpp"
 
-
-	.global gGfxPalCourtScroll24
-gGfxPalCourtScroll24:
 	.incbin "graphics/court_scrolls/court_scroll24.gbapal"
-
-
-	.global gGfx4bppCourtScroll24
-gGfx4bppCourtScroll24:
 	.incbin "graphics/court_scrolls/court_scroll24.4bpp"
 
-
-	.global gGfxPalCourtScroll25
-gGfxPalCourtScroll25:
 	.incbin "graphics/court_scrolls/court_scroll25.gbapal"
-
-
-	.global gGfx4bppCourtScroll25
-gGfx4bppCourtScroll25:
 	.incbin "graphics/court_scrolls/court_scroll25.4bpp"
 
-
-	.global gGfxPalCourtScroll26
-gGfxPalCourtScroll26:
 	.incbin "graphics/court_scrolls/court_scroll26.gbapal"
-
-
-	.global gGfx4bppCourtScroll26
-gGfx4bppCourtScroll26:
 	.incbin "graphics/court_scrolls/court_scroll26.4bpp"
 
-
-	.global gGfxPalCourtScroll27
-gGfxPalCourtScroll27:
 	.incbin "graphics/court_scrolls/court_scroll27.gbapal"
-
-
-	.global gGfx4bppCourtScroll27
-gGfx4bppCourtScroll27:
 	.incbin "graphics/court_scrolls/court_scroll27.4bpp"
 
-
-	.global gGfxPalCourtScroll28
-gGfxPalCourtScroll28:
 	.incbin "graphics/court_scrolls/court_scroll28.gbapal"
-
-
-	.global gGfx4bppCourtScroll28
-gGfx4bppCourtScroll28:
 	.incbin "graphics/court_scrolls/court_scroll28.4bpp"
 
-
-	.global gGfxPalCourtScroll29
-gGfxPalCourtScroll29:
 	.incbin "graphics/court_scrolls/court_scroll29.gbapal"
-
-
-	.global gGfx4bppCourtScroll29
-gGfx4bppCourtScroll29:
 	.incbin "graphics/court_scrolls/court_scroll29.4bpp"
 
-
-	.global gGfxPalCourtScroll30
-gGfxPalCourtScroll30:
 	.incbin "graphics/court_scrolls/court_scroll30.gbapal"
-
-
-	.global gGfx4bppCourtScroll30
-gGfx4bppCourtScroll30:
 	.incbin "graphics/court_scrolls/court_scroll30.4bpp"
 
-
-	.global gGfxPalCourtScroll31
-gGfxPalCourtScroll31:
 	.incbin "graphics/court_scrolls/court_scroll31.gbapal"
-
-
-	.global gGfx4bppCourtScroll31
-gGfx4bppCourtScroll31:
 	.incbin "graphics/court_scrolls/court_scroll31.4bpp"
 
-
-	.global gGfxPalCourtScroll32
-gGfxPalCourtScroll32:
 	.incbin "graphics/court_scrolls/court_scroll32.gbapal"
-
-
-	.global gGfx4bppCourtScroll32
-gGfx4bppCourtScroll32:
 	.incbin "graphics/court_scrolls/court_scroll32.4bpp"
 
-@ scroll right to center
-
-	.global gGfxPalCourtScroll33
-gGfxPalCourtScroll33:
+	.global gGfxCourtscroll03
+gGfxCourtscroll03:
 	.incbin "graphics/court_scrolls/court_scroll33.gbapal"
-
-
-	.global gGfx4bppCourtScroll33
-gGfx4bppCourtScroll33:
 	.incbin "graphics/court_scrolls/court_scroll33.4bpp"
 
-
-	.global gGfxPalCourtScroll34
-gGfxPalCourtScroll34:
 	.incbin "graphics/court_scrolls/court_scroll34.gbapal"
-
-
-	.global gGfx4bppCourtScroll34
-gGfx4bppCourtScroll34:
 	.incbin "graphics/court_scrolls/court_scroll34.4bpp"
 
-
-	.global gGfxPalCourtScroll35
-gGfxPalCourtScroll35:
 	.incbin "graphics/court_scrolls/court_scroll35.gbapal"
-
-
-	.global gGfx4bppCourtScroll35
-gGfx4bppCourtScroll35:
 	.incbin "graphics/court_scrolls/court_scroll35.4bpp"
 
-
-	.global gGfxPalCourtScroll36
-gGfxPalCourtScroll36:
 	.incbin "graphics/court_scrolls/court_scroll36.gbapal"
-
-
-	.global gGfx4bppCourtScroll36
-gGfx4bppCourtScroll36:
 	.incbin "graphics/court_scrolls/court_scroll36.4bpp"
 
-
-	.global gGfxPalCourtScroll37
-gGfxPalCourtScroll37:
 	.incbin "graphics/court_scrolls/court_scroll37.gbapal"
-
-
-	.global gGfx4bppCourtScroll37
-gGfx4bppCourtScroll37:
 	.incbin "graphics/court_scrolls/court_scroll37.4bpp"
 
-
-	.global gGfxPalCourtScroll38
-gGfxPalCourtScroll38:
 	.incbin "graphics/court_scrolls/court_scroll38.gbapal"
-
-
-	.global gGfx4bppCourtScroll38
-gGfx4bppCourtScroll38:
 	.incbin "graphics/court_scrolls/court_scroll38.4bpp"
 
-
-	.global gGfxPalCourtScroll39
-gGfxPalCourtScroll39:
 	.incbin "graphics/court_scrolls/court_scroll39.gbapal"
-
-
-	.global gGfx4bppCourtScroll39
-gGfx4bppCourtScroll39:
 	.incbin "graphics/court_scrolls/court_scroll39.4bpp"
 
-
-	.global gGfxPalCourtScroll40
-gGfxPalCourtScroll40:
 	.incbin "graphics/court_scrolls/court_scroll40.gbapal"
-
-
-	.global gGfx4bppCourtScroll40
-gGfx4bppCourtScroll40:
 	.incbin "graphics/court_scrolls/court_scroll40.4bpp"
 
-
-	.global gGfxPalCourtScroll41
-gGfxPalCourtScroll41:
 	.incbin "graphics/court_scrolls/court_scroll41.gbapal"
-
-
-	.global gGfx4bppCourtScroll41
-gGfx4bppCourtScroll41:
 	.incbin "graphics/court_scrolls/court_scroll41.4bpp"
 
-
-	.global gGfxPalCourtScroll42
-gGfxPalCourtScroll42:
 	.incbin "graphics/court_scrolls/court_scroll42.gbapal"
-
-
-	.global gGfx4bppCourtScroll42
-gGfx4bppCourtScroll42:
 	.incbin "graphics/court_scrolls/court_scroll42.4bpp"
 
-
-	.global gGfxPalCourtScroll43
-gGfxPalCourtScroll43:
 	.incbin "graphics/court_scrolls/court_scroll43.gbapal"
-
-
-	.global gGfx4bppCourtScroll43
-gGfx4bppCourtScroll43:
 	.incbin "graphics/court_scrolls/court_scroll43.4bpp"
 
-
-	.global gGfxPalCourtScroll44
-gGfxPalCourtScroll44:
 	.incbin "graphics/court_scrolls/court_scroll44.gbapal"
-
-
-	.global gGfx4bppCourtScroll44
-gGfx4bppCourtScroll44:
 	.incbin "graphics/court_scrolls/court_scroll44.4bpp"
 
-
-	.global gGfxPalCourtScroll45
-gGfxPalCourtScroll45:
 	.incbin "graphics/court_scrolls/court_scroll45.gbapal"
-
-
-	.global gGfx4bppCourtScroll45
-gGfx4bppCourtScroll45:
 	.incbin "graphics/court_scrolls/court_scroll45.4bpp"
 
-
-	.global gGfxPalCourtScroll46
-gGfxPalCourtScroll46:
 	.incbin "graphics/court_scrolls/court_scroll46.gbapal"
-
-
-	.global gGfx4bppCourtScroll46
-gGfx4bppCourtScroll46:
 	.incbin "graphics/court_scrolls/court_scroll46.4bpp"
 
-
-	.global gGfxPalCourtScroll47
-gGfxPalCourtScroll47:
 	.incbin "graphics/court_scrolls/court_scroll47.gbapal"
-
-
-	.global gGfx4bppCourtScroll47
-gGfx4bppCourtScroll47:
 	.incbin "graphics/court_scrolls/court_scroll47.4bpp"
 
-
-	.global gGfxPalCourtScroll48
-gGfxPalCourtScroll48:
 	.incbin "graphics/court_scrolls/court_scroll48.gbapal"
-
-
-	.global gGfx4bppCourtScroll48
-gGfx4bppCourtScroll48:
 	.incbin "graphics/court_scrolls/court_scroll48.4bpp"
 
 @ END COURT SCROLLS

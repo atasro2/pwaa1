@@ -574,7 +574,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
     #ifndef NONMATCHING
     register u8 * moveButtonTiles asm("r5"); // ! fakematch
     #else
-    u8 * moveButtonTiles
+    u8 * moveButtonTiles;
     #endif
     u8 * vram;
     struct OamAttrs * oam;
@@ -1052,7 +1052,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                     }
                     sub_800B7A8(investigation, 4);
                     investigation->unkD = 0xF0;
-                    investigation->animationInfo = 3;
+                    investigation->unkC = 3;
                     main->process[GAME_PROCESSUNK2] = 6;
                     main->process[GAME_PROCESSUNK3] = 0;
                     showTalkTick = FALSE;
@@ -1118,7 +1118,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
             {
                 oam->attr1 = 120;
                 sub_800B7A8(investigation, 0xB);
-                investigation->animationInfo = 2;
+                investigation->unkC = 2;
                 investigation->unkD = 0xE0;
                 investigation->unkE = 0x10;
                 investigation->unkF = 0;
@@ -1143,7 +1143,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
             }
             if(investigation->unkE > 8)
                 investigation->unkE--;
-            if(investigation->animationInfo == 0 && main->process[GAME_PROCESSUNK3] > 12)
+            if(investigation->unkC == 0 && main->process[GAME_PROCESSUNK3] > 12)
             {
                 SET_PROCESS_PTR(4, 1, 0, 0, main);
                 investigation->unk7 += 1 << investigation->unkA;
@@ -1240,7 +1240,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                     icons++;
                 }
                 sub_800B7A8(investigation, 4);
-                investigation->animationInfo = 1;
+                investigation->unkC = 1;
                 investigation->unkE = 0;
                 investigation->unkF = 0;
                 main->process[GAME_PROCESSUNK2]++;
@@ -1261,7 +1261,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                 }
                 main->process[GAME_PROCESSUNK3]++;
             }
-            if(investigation->animationInfo == 0 && main->process[GAME_PROCESSUNK3] > 12)
+            if(investigation->unkC == 0 && main->process[GAME_PROCESSUNK3] > 12)
             {
                 main->process[GAME_PROCESSUNK2] = 3;
                 main->process[GAME_PROCESSUNK3] = 0;

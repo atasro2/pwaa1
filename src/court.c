@@ -493,7 +493,7 @@ void sub_800AE58(struct Main * main)
             if(gTestimony.unk1 == 0)
             {
                 SetCourtScrollPersonAnim(0, 1, 2, 0);
-                InitCourtScroll(gUnknown_08427D88, 0x1E, 0x1F, 1);
+                InitCourtScroll(gGfxCourtscroll01, 0x1E, 0x1F, 1);
                 SlideTextbox(0);
                 main->process[GAME_PROCESSUNK2]++;
                 break;
@@ -547,7 +547,7 @@ void sub_800AF2C(struct Main * main)
             if(gTestimony.unk1 == 0)
             {
                 SetCourtScrollPersonAnim(0, 1, 2, 0x18D0);
-                InitCourtScroll(gUnknown_08427D88, 0x1E, 0x1F, 1);
+                InitCourtScroll(gGfxCourtscroll01, 0x1E, 0x1F, 1);
                 SlideTextbox(0);
                 main->process[GAME_PROCESSUNK2]++;
                 break;

@@ -24,9 +24,9 @@ const u8 gSoundCueTable[] = {
 };
 
 u8 * const gCourtScrollGfxPointers[] = {
-    gUnknown_08427D88,
-    gUnknown_08472F88,
-    gUnknown_084BE188,
+    gGfxCourtscroll01,
+    gGfxCourtscroll02,
+    gGfxCourtscroll03,
 };
 
 const u8 gTextboxDownArrowTileIndexes[] = {
