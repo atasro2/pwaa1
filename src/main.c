@@ -107,7 +107,11 @@ void AgbMain()
             gMain.currentBgStripe = 0;
             CopyBGDataToVram(gMain.currentBG);
         }
-        if (gMain.currentBgStripe == 0 && (RunScriptContext(), gMain.currentBgStripe == 0))
+
+        if (gMain.currentBgStripe == 0)
+            RunScriptContext();
+
+        if(gMain.currentBgStripe == 0)
         {
             UpdateTextbox();
             UpdateItemPlate(&gMain);
