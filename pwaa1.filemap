@@ -1,0 +1,809 @@
+// Palettes first, so we can apply them to the images
+180000 0 "graphics/title_screen.gbapal" 200
+180000 0 "graphics/common.gbapal" 20
+180020 0 "graphics/common2.gbapal" 20
+182D08 0 "graphics/title_screen_demo.gbapal" 200
+186520 0 "graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal" 20
+186520 5 "graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal" 20
+1940C0 5 "graphics/unk_1940C0.gbapal" 20
+1940E0 5 "graphics/ui/cross_examination_ui.gbapal" 20
+194100 5 "graphics/unk_194100.gbapal" 100
+194200 5 "graphics/ui/investigation/action_buttons_0.gbapal" 20
+194220 5 "graphics/ui/investigation/action_buttons_1.gbapal" 20
+194240 5 "graphics/ui/court_record/controls_blurb.gbapal" 20
+194260 0 "graphics/ui/investigation/scroll_prompt.gbapal" 20
+194280 0 "graphics/ui/trial/testimony_text_tiles.gbapal" 20
+1942A0 0 "graphics/ui/trial/press_present_buttons.gbapal" 20
+1942C0 5 "graphics/ui/investigation/examine_cursor_00.gbapal" 20
+1942E0 5 "graphics/ui/investigation/examine_cursor_01.gbapal" 20
+194300 5 "graphics/ui/investigation/examine_cursor_02.gbapal" 20
+194320 5 "graphics/ui/investigation/examine_cursor_03.gbapal" 20
+194340 5 "graphics/ui/investigation/examine_cursor_04.gbapal" 20
+194360 5 "graphics/ui/investigation/examine_cursor_05.gbapal" 20
+194380 5 "graphics/ui/investigation/examine_cursor_06.gbapal" 20
+1943A0 5 "graphics/ui/investigation/examine_cursor_07.gbapal" 20
+1943C0 5 "graphics/ui/investigation/examine_cursor_08.gbapal" 20
+1943E0 5 "graphics/ui/investigation/examine_cursor_09.gbapal" 20
+194400 5 "graphics/ui/investigation/examine_cursor_10.gbapal" 20
+194420 5 "graphics/ui/investigation/examine_cursor_11.gbapal" 20
+194440 5 "graphics/ui/investigation/examine_cursor_12.gbapal" 20
+194460 5 "graphics/ui/investigation/examine_cursor_13.gbapal" 20
+194480 5 "graphics/ui/investigation/examine_cursor_14.gbapal" 20
+1944A0 5 "graphics/ui/investigation/examine_cursor_15.gbapal" 20
+1944C0 5 "graphics/ui/investigation/examine_cursor_16.gbapal" 20
+1944E0 0 "graphics/ui/investigation/checkmark.gbapal" 20
+194500 0 "graphics/ui/trial/game_over_doors.gbapal" 20
+194520 5 "graphics/ui/trial/guilty.gbapal" 20
+194540 5 "graphics/ui/trial/not_guilty.gbapal" 20
+194560 0 "graphics/ui/trial/game_over_text.gbapal" 20
+194580 5 "graphics/ui/new_game_continue_0.gbapal" 20
+1945A0 5 "graphics/ui/new_game_continue_1.gbapal" 20
+1945C0 5 "graphics/ui/new_game_continue_2.gbapal" 20
+1945E0 5 "graphics/ui/new_game_continue_3.gbapal" 20
+194600 5 "graphics/ui/new_game_continue_4.gbapal" 20
+194620 5 "graphics/ui/new_game_continue_5.gbapal" 20
+194640 5 "graphics/ui/trial/confetti_0.gbapal" 20
+194660 5 "graphics/ui/trial/confetti_1.gbapal" 20
+194680 5 "graphics/ui/trial/confetti_2.gbapal" 20
+1946A0 5 "graphics/ui/trial/confetti_3.gbapal" 20
+1B290C 0 "graphics/evidence_profile_pictures/001B290C.gbapal" 20
+1B312C 0 "graphics/evidence_profile_pictures/001B312C.gbapal" 20
+1B394C 0 "graphics/evidence_profile_pictures/001B394C.gbapal" 20
+1B416C 0 "graphics/evidence_profile_pictures/001B416C.gbapal" 20
+1B498C 0 "graphics/evidence_profile_pictures/001B498C.gbapal" 20
+1B51AC 0 "graphics/evidence_profile_pictures/001B51AC.gbapal" 20
+1B59CC 0 "graphics/evidence_profile_pictures/001B59CC.gbapal" 20
+1B61EC 0 "graphics/evidence_profile_pictures/001B61EC.gbapal" 20
+1B6A0C 0 "graphics/evidence_profile_pictures/001B6A0C.gbapal" 20
+1B722C 0 "graphics/evidence_profile_pictures/001B722C.gbapal" 20
+1B7A4C 0 "graphics/evidence_profile_pictures/001B7A4C.gbapal" 20
+1B826C 0 "graphics/evidence_profile_pictures/001B826C.gbapal" 20
+1B8A8C 0 "graphics/evidence_profile_pictures/001B8A8C.gbapal" 20
+1B92AC 0 "graphics/evidence_profile_pictures/001B92AC.gbapal" 20
+1B9ACC 0 "graphics/evidence_profile_pictures/001B9ACC.gbapal" 20
+1BA2EC 0 "graphics/evidence_profile_pictures/001BA2EC.gbapal" 20
+1BAB0C 0 "graphics/evidence_profile_pictures/001BAB0C.gbapal" 20
+1BB32C 0 "graphics/evidence_profile_pictures/001BB32C.gbapal" 20
+1BBB4C 0 "graphics/evidence_profile_pictures/001BBB4C.gbapal" 20
+1BC36C 0 "graphics/evidence_profile_pictures/001BC36C.gbapal" 20
+1BCB8C 0 "graphics/evidence_profile_pictures/001BCB8C.gbapal" 20
+1BD3AC 0 "graphics/evidence_profile_pictures/001BD3AC.gbapal" 20
+1BDBCC 0 "graphics/evidence_profile_pictures/001BDBCC.gbapal" 20
+1BE3EC 0 "graphics/evidence_profile_pictures/001BE3EC.gbapal" 20
+1BEC0C 0 "graphics/evidence_profile_pictures/001BEC0C.gbapal" 20
+1BF42C 0 "graphics/evidence_profile_pictures/001BF42C.gbapal" 20
+1BFC4C 0 "graphics/evidence_profile_pictures/001BFC4C.gbapal" 20
+1C046C 0 "graphics/evidence_profile_pictures/001C046C.gbapal" 20
+1C0C8C 0 "graphics/evidence_profile_pictures/001C0C8C.gbapal" 20
+1C14AC 0 "graphics/evidence_profile_pictures/001C14AC.gbapal" 20
+1C1CCC 0 "graphics/evidence_profile_pictures/001C1CCC.gbapal" 20
+1C24EC 0 "graphics/evidence_profile_pictures/001C24EC.gbapal" 20
+1C2D0C 0 "graphics/evidence_profile_pictures/001C2D0C.gbapal" 20
+1C352C 0 "graphics/evidence_profile_pictures/001C352C.gbapal" 20
+1C3D4C 0 "graphics/evidence_profile_pictures/001C3D4C.gbapal" 20
+1C456C 0 "graphics/evidence_profile_pictures/001C456C.gbapal" 20
+1C4D8C 0 "graphics/evidence_profile_pictures/001C4D8C.gbapal" 20
+1C55AC 0 "graphics/evidence_profile_pictures/001C55AC.gbapal" 20
+1C5DCC 0 "graphics/evidence_profile_pictures/001C5DCC.gbapal" 20
+1C65EC 0 "graphics/evidence_profile_pictures/001C65EC.gbapal" 20
+1C6E0C 0 "graphics/evidence_profile_pictures/001C6E0C.gbapal" 20
+1C762C 0 "graphics/evidence_profile_pictures/001C762C.gbapal" 20
+1C7E4C 0 "graphics/evidence_profile_pictures/001C7E4C.gbapal" 20
+1C866C 0 "graphics/evidence_profile_pictures/001C866C.gbapal" 20
+1C8E8C 0 "graphics/evidence_profile_pictures/001C8E8C.gbapal" 20
+1C96AC 0 "graphics/evidence_profile_pictures/001C96AC.gbapal" 20
+1C9ECC 0 "graphics/evidence_profile_pictures/001C9ECC.gbapal" 20
+1CA6EC 0 "graphics/evidence_profile_pictures/001CA6EC.gbapal" 20
+1CAF0C 0 "graphics/evidence_profile_pictures/001CAF0C.gbapal" 20
+1CB72C 0 "graphics/evidence_profile_pictures/001CB72C.gbapal" 20
+1CBF4C 0 "graphics/evidence_profile_pictures/001CBF4C.gbapal" 20
+1CC76C 0 "graphics/evidence_profile_pictures/001CC76C.gbapal" 20
+1CCF8C 0 "graphics/evidence_profile_pictures/001CCF8C.gbapal" 20
+1CD7AC 0 "graphics/evidence_profile_pictures/001CD7AC.gbapal" 20
+1CDFCC 0 "graphics/evidence_profile_pictures/001CDFCC.gbapal" 20
+1CE7EC 0 "graphics/evidence_profile_pictures/001CE7EC.gbapal" 20
+1CF00C 0 "graphics/evidence_profile_pictures/001CF00C.gbapal" 20
+1CF82C 0 "graphics/evidence_profile_pictures/001CF82C.gbapal" 20
+1D004C 0 "graphics/evidence_profile_pictures/001D004C.gbapal" 20
+1D086C 0 "graphics/evidence_profile_pictures/001D086C.gbapal" 20
+1D108C 0 "graphics/evidence_profile_pictures/001D108C.gbapal" 20
+1D18AC 0 "graphics/evidence_profile_pictures/001D18AC.gbapal" 20
+1D20CC 0 "graphics/evidence_profile_pictures/001D20CC.gbapal" 20
+1D28EC 0 "graphics/evidence_profile_pictures/001D28EC.gbapal" 20
+1D310C 0 "graphics/charset.gbapal" 20
+1FD92C 5 "graphics/talk_location_choices/choice_selected.gbapal" 20
+1FD94C 5 "graphics/talk_location_choices/choice_greyed_out.gbapal" 20
+24696C 5 "graphics/map_markers/palette.gbapal" 20
+360834 0 "graphics/bustup_phoenix.gbapal" 20
+362524 0 "graphics/bustup_edgeworth.gbapal" 20
+3647BC 0 "graphics/speedlines.gbapal" 20
+427D88 0 "graphics/court_scrolls/court_scroll01.gbapal" 20
+42C8A8 0 "graphics/court_scrolls/court_scroll02.gbapal" 20
+4313C8 0 "graphics/court_scrolls/court_scroll03.gbapal" 20
+435EE8 0 "graphics/court_scrolls/court_scroll04.gbapal" 20
+43AA08 0 "graphics/court_scrolls/court_scroll05.gbapal" 20
+43F528 0 "graphics/court_scrolls/court_scroll06.gbapal" 20
+444048 0 "graphics/court_scrolls/court_scroll07.gbapal" 20
+448B68 0 "graphics/court_scrolls/court_scroll08.gbapal" 20
+44D688 0 "graphics/court_scrolls/court_scroll09.gbapal" 20
+4521A8 0 "graphics/court_scrolls/court_scroll10.gbapal" 20
+456CC8 0 "graphics/court_scrolls/court_scroll11.gbapal" 20
+45B7E8 0 "graphics/court_scrolls/court_scroll12.gbapal" 20
+460308 0 "graphics/court_scrolls/court_scroll13.gbapal" 20
+464E28 0 "graphics/court_scrolls/court_scroll14.gbapal" 20
+469948 0 "graphics/court_scrolls/court_scroll15.gbapal" 20
+46E468 0 "graphics/court_scrolls/court_scroll16.gbapal" 20
+472F88 0 "graphics/court_scrolls/court_scroll17.gbapal" 20
+477AA8 0 "graphics/court_scrolls/court_scroll18.gbapal" 20
+47C5C8 0 "graphics/court_scrolls/court_scroll19.gbapal" 20
+4810E8 0 "graphics/court_scrolls/court_scroll20.gbapal" 20
+485C08 0 "graphics/court_scrolls/court_scroll21.gbapal" 20
+48A728 0 "graphics/court_scrolls/court_scroll22.gbapal" 20
+48F248 0 "graphics/court_scrolls/court_scroll23.gbapal" 20
+493D68 0 "graphics/court_scrolls/court_scroll24.gbapal" 20
+498888 0 "graphics/court_scrolls/court_scroll25.gbapal" 20
+49D3A8 0 "graphics/court_scrolls/court_scroll26.gbapal" 20
+4A1EC8 0 "graphics/court_scrolls/court_scroll27.gbapal" 20
+4A69E8 0 "graphics/court_scrolls/court_scroll28.gbapal" 20
+4AB508 0 "graphics/court_scrolls/court_scroll29.gbapal" 20
+4B0028 0 "graphics/court_scrolls/court_scroll30.gbapal" 20
+4B4B48 0 "graphics/court_scrolls/court_scroll31.gbapal" 20
+4B9668 0 "graphics/court_scrolls/court_scroll32.gbapal" 20
+4BE188 0 "graphics/court_scrolls/court_scroll33.gbapal" 20
+4C2CA8 0 "graphics/court_scrolls/court_scroll34.gbapal" 20
+4C77C8 0 "graphics/court_scrolls/court_scroll35.gbapal" 20
+4CC2E8 0 "graphics/court_scrolls/court_scroll36.gbapal" 20
+4D0E08 0 "graphics/court_scrolls/court_scroll37.gbapal" 20
+4D5928 0 "graphics/court_scrolls/court_scroll38.gbapal" 20
+4DA448 0 "graphics/court_scrolls/court_scroll39.gbapal" 20
+4DEF68 0 "graphics/court_scrolls/court_scroll40.gbapal" 20
+4E3A88 0 "graphics/court_scrolls/court_scroll41.gbapal" 20
+4E85A8 0 "graphics/court_scrolls/court_scroll42.gbapal" 20
+4ED0C8 0 "graphics/court_scrolls/court_scroll43.gbapal" 20
+4F1BE8 0 "graphics/court_scrolls/court_scroll44.gbapal" 20
+4F6708 0 "graphics/court_scrolls/court_scroll45.gbapal" 20
+4FB228 0 "graphics/court_scrolls/court_scroll46.gbapal" 20
+4FFD48 0 "graphics/court_scrolls/court_scroll47.gbapal" 20
+504868 0 "graphics/court_scrolls/court_scroll48.gbapal" 20
+
+// Everything else (type 5 = autodetect and use gbagfx, size explicit, type 6 = compressed gfx)
+180200 6 "graphics/title_screen.8bpp.lz" 2B08 "-palette graphics/title_screen.gbapal -width 30"
+182F08 6 "graphics/title_screen_demo.8bpp.lz" 2E18 "-palette graphics/title_screen_demo.gbapal -width 30"
+185D20 5 "graphics/unused_ascii_charset.4bpp" 800 "-palette graphics/common.gbapal -width 8"
+186540 5 "graphics/ui/message_box/unk_186540.4bpp" 1000 "-palette graphics/common.gbapal -width 4"
+187540 5 "graphics/ui/message_box/nametags.4bpp" 4800 "-palette graphics/common.gbapal -width 32"
+18BD40 5 "graphics/ui/left_right_arrows.4bpp" 300 "-palette graphics/ui/cross_examination_ui.gbapal -width 2"
+18C040 5 "graphics/ui/trial/exclamation_point.4bpp" 480 "-palette graphics/ui/cross_examination_ui.gbapal -width 2"
+18C4C0 5 "graphics/ui/trial/unused_testimony_characters.4bpp" 2000 "-width 32 -mwidth 2 -mheight 2"
+18E4C0 5 "graphics/ui/investigation/action_buttons.4bpp" 1000 "-palette graphics/ui/investigation/action_buttons_1.gbapal -width 8"
+18F4C0 5 "graphics/ui/court_record/controller_buttons.4bpp" 200 "-palette graphics/ui/court_record/controls_blurb.gbapal -width 2"
+18F6C0 5 "graphics/ui/investigation/scroll_prompt.4bpp" 200 "-palette graphics/ui/investigation/scroll_prompt.gbapal -width 4"
+18F8C0 5 "graphics/ui/trial/testimony_text_tiles.4bpp" 800 "-palette graphics/ui/trial/testimony_text_tiles.gbapal -width 8"
+1900C0 5 "graphics/ui/trial/press_present_buttons.4bpp" 400 "-palette graphics/ui/trial/press_present_buttons.gbapal -width 8 -mwidth 4 -mheight 2"
+1904C0 5 "graphics/ui/court_record/present_back_text.4bpp" 200 "-palette graphics/ui/court_record/controls_blurb.gbapal -width 4"
+1906C0 5 "graphics/ui/court_record/profiles_text.4bpp" 200 "-palette graphics/ui/court_record/controls_blurb.gbapal -width 8 -mwidth 4 -mheight 2"
+1908C0 5 "graphics/ui/court_record/evidence_text.4bpp" 200 "-palette graphics/ui/court_record/controls_blurb.gbapal -width 8 -mwidth 4 -mheight 2"
+190AC0 5 "graphics/ui/investigation/examine_cursor.4bpp" 500 "-palette graphics/ui/investigation/examine_cursor_00.gbapal -width 2"
+190FC0 5 "graphics/ui/investigation/checkmark.4bpp" 200 "-palette graphics/ui/investigation/checkmark.gbapal -width 4"
+1911C0 5 "graphics/ui/trial/game_over_doors.4bpp" 2E0 "-palette graphics/ui/trial/game_over_doors.gbapal"
+1914A0 5 "graphics/ui/trial/not_guilty1.4bpp" 800 "-palette graphics/ui/trial/not_guilty.gbapal -width 8"
+191CA0 5 "graphics/ui/trial/guilty1.4bpp" 800 "-palette graphics/ui/trial/guilty.gbapal -width 8"
+1924A0 5 "graphics/ui/trial/guilty_not_guilty2.4bpp" 800 "-palette graphics/ui/trial/guilty.gbapal -width 8"
+192CA0 5 "graphics/ui/trial/game_over_text.4bpp" 1000 "-palette graphics/ui/trial/game_over_text.gbapal -width 16 -mwidth 8 -mheight 8"
+193CA0 5 "graphics/ui/new_game_continue.4bpp" 400 "-palette graphics/ui/new_game_continue_0.gbapal -width 8 -mwidth 4 -mheight 2"
+1940A0 5 "graphics/ui/trial/confetti.4bpp" 20 "-palette graphics/ui/trial/confetti_0.gbapal"
+1946C0 6 "graphics/episode_select_options.4bpp.lz" DE8 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+1954A8 5 "graphics/from_save_or_beginning_options.4bpp" 1000 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+1964A8 5 "graphics/save_yes_no.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 8"
+196CA8 6 "graphics/evidence_profile_descriptions/00196CA8.4bpp.lz" 434 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1970DC 6 "graphics/evidence_profile_descriptions/001970DC.4bpp.lz" 438 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+197514 6 "graphics/evidence_profile_descriptions/00197514.4bpp.lz" 414 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+197928 6 "graphics/evidence_profile_descriptions/00197928.4bpp.lz" 3F0 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+197D18 6 "graphics/evidence_profile_descriptions/00197D18.4bpp.lz" 488 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1981A0 6 "graphics/evidence_profile_descriptions/001981A0.4bpp.lz" 438 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1985D8 6 "graphics/evidence_profile_descriptions/001985D8.4bpp.lz" 4AC "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+198A84 6 "graphics/evidence_profile_descriptions/00198A84.4bpp.lz" 3D8 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+198E5C 6 "graphics/evidence_profile_descriptions/00198E5C.4bpp.lz" 3CC "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+199228 6 "graphics/evidence_profile_descriptions/00199228.4bpp.lz" 468 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+199690 6 "graphics/evidence_profile_descriptions/00199690.4bpp.lz" 45C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+199AEC 6 "graphics/evidence_profile_descriptions/00199AEC.4bpp.lz" 3DC "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+199EC8 6 "graphics/evidence_profile_descriptions/00199EC8.4bpp.lz" 41C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+19A2E4 6 "graphics/evidence_profile_descriptions/0019A2E4.4bpp.lz" 41C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+19A700 6 "graphics/evidence_profile_descriptions/0019A700.4bpp.lz" 4BC "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+19ABBC 6 "graphics/evidence_profile_descriptions/0019ABBC.4bpp.lz" 46C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+19B028 6 "graphics/evidence_profile_descriptions/0019B028.4bpp.lz" 400 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+19B428 6 "graphics/evidence_profile_descriptions/0019B428.4bpp.lz" 440 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+19B868 6 "graphics/evidence_profile_descriptions/0019B868.4bpp.lz" 47C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+19BCE4 6 "graphics/evidence_profile_descriptions/0019BCE4.4bpp.lz" 3F4 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+19C0D8 6 "graphics/evidence_profile_descriptions/0019C0D8.4bpp.lz" 35C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+19C434 6 "graphics/evidence_profile_descriptions/0019C434.4bpp.lz" 3DC "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+19C810 6 "graphics/evidence_profile_descriptions/0019C810.4bpp.lz" 434 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+19CC44 6 "graphics/evidence_profile_descriptions/0019CC44.4bpp.lz" 3E4 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+19D028 6 "graphics/evidence_profile_descriptions/0019D028.4bpp.lz" 4A0 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+19D4C8 6 "graphics/evidence_profile_descriptions/0019D4C8.4bpp.lz" 444 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+19D90C 6 "graphics/evidence_profile_descriptions/0019D90C.4bpp.lz" 4A0 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+19DDAC 6 "graphics/evidence_profile_descriptions/0019DDAC.4bpp.lz" 3E0 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+19E18C 6 "graphics/evidence_profile_descriptions/0019E18C.4bpp.lz" 414 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+19E5A0 6 "graphics/evidence_profile_descriptions/0019E5A0.4bpp.lz" 438 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+19E9D8 6 "graphics/evidence_profile_descriptions/0019E9D8.4bpp.lz" 418 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+19EDF0 6 "graphics/evidence_profile_descriptions/0019EDF0.4bpp.lz" 418 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+19F208 6 "graphics/evidence_profile_descriptions/0019F208.4bpp.lz" 3B8 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+19F5C0 6 "graphics/evidence_profile_descriptions/0019F5C0.4bpp.lz" 428 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+19F9E8 6 "graphics/evidence_profile_descriptions/0019F9E8.4bpp.lz" 39C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+19FD84 6 "graphics/evidence_profile_descriptions/0019FD84.4bpp.lz" 39C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A0120 6 "graphics/evidence_profile_descriptions/001A0120.4bpp.lz" 460 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A0580 6 "graphics/evidence_profile_descriptions/001A0580.4bpp.lz" 464 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A09E4 6 "graphics/evidence_profile_descriptions/001A09E4.4bpp.lz" 474 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A0E58 6 "graphics/evidence_profile_descriptions/001A0E58.4bpp.lz" 4CC "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A1324 6 "graphics/evidence_profile_descriptions/001A1324.4bpp.lz" 404 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A1728 6 "graphics/evidence_profile_descriptions/001A1728.4bpp.lz" 2E8 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A1A10 6 "graphics/evidence_profile_descriptions/001A1A10.4bpp.lz" 40C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A1E1C 6 "graphics/evidence_profile_descriptions/001A1E1C.4bpp.lz" 488 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A22A4 6 "graphics/evidence_profile_descriptions/001A22A4.4bpp.lz" 418 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A26BC 6 "graphics/evidence_profile_descriptions/001A26BC.4bpp.lz" 428 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A2AE4 6 "graphics/evidence_profile_descriptions/001A2AE4.4bpp.lz" 400 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A2EE4 6 "graphics/evidence_profile_descriptions/001A2EE4.4bpp.lz" 44C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A3330 6 "graphics/evidence_profile_descriptions/001A3330.4bpp.lz" 3E4 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A3714 6 "graphics/evidence_profile_descriptions/001A3714.4bpp.lz" 430 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A3B44 6 "graphics/evidence_profile_descriptions/001A3B44.4bpp.lz" 4B4 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A3FF8 6 "graphics/evidence_profile_descriptions/001A3FF8.4bpp.lz" 3A4 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A439C 6 "graphics/evidence_profile_descriptions/001A439C.4bpp.lz" 438 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A47D4 6 "graphics/evidence_profile_descriptions/001A47D4.4bpp.lz" 400 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A4BD4 6 "graphics/evidence_profile_descriptions/001A4BD4.4bpp.lz" 41C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A4FF0 6 "graphics/evidence_profile_descriptions/001A4FF0.4bpp.lz" 42C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A541C 6 "graphics/evidence_profile_descriptions/001A541C.4bpp.lz" 40C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A5828 6 "graphics/evidence_profile_descriptions/001A5828.4bpp.lz" 3CC "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A5BF4 6 "graphics/evidence_profile_descriptions/001A5BF4.4bpp.lz" 3B0 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A5FA4 6 "graphics/evidence_profile_descriptions/001A5FA4.4bpp.lz" 3F8 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A639C 6 "graphics/evidence_profile_descriptions/001A639C.4bpp.lz" 3C0 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A675C 6 "graphics/evidence_profile_descriptions/001A675C.4bpp.lz" 42C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A6B88 6 "graphics/evidence_profile_descriptions/001A6B88.4bpp.lz" 3E0 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A6F68 6 "graphics/evidence_profile_descriptions/001A6F68.4bpp.lz" 3A8 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A7310 6 "graphics/evidence_profile_descriptions/001A7310.4bpp.lz" 44C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A775C 6 "graphics/evidence_profile_descriptions/001A775C.4bpp.lz" 40C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A7B68 6 "graphics/evidence_profile_descriptions/001A7B68.4bpp.lz" 43C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A7FA4 6 "graphics/evidence_profile_descriptions/001A7FA4.4bpp.lz" 420 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A83C4 6 "graphics/evidence_profile_descriptions/001A83C4.4bpp.lz" 464 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A8828 6 "graphics/evidence_profile_descriptions/001A8828.4bpp.lz" 408 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A8C30 6 "graphics/evidence_profile_descriptions/001A8C30.4bpp.lz" 31C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A8F4C 6 "graphics/evidence_profile_descriptions/001A8F4C.4bpp.lz" 434 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A9380 6 "graphics/evidence_profile_descriptions/001A9380.4bpp.lz" 44C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A97CC 6 "graphics/evidence_profile_descriptions/001A97CC.4bpp.lz" 3FC "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1A9BC8 6 "graphics/evidence_profile_descriptions/001A9BC8.4bpp.lz" 48C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1AA054 6 "graphics/evidence_profile_descriptions/001AA054.4bpp.lz" 404 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1AA458 6 "graphics/evidence_profile_descriptions/001AA458.4bpp.lz" 43C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1AA894 6 "graphics/evidence_profile_descriptions/001AA894.4bpp.lz" 448 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1AACDC 6 "graphics/evidence_profile_descriptions/001AACDC.4bpp.lz" 49C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1AB178 6 "graphics/evidence_profile_descriptions/001AB178.4bpp.lz" 3FC "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1AB574 6 "graphics/evidence_profile_descriptions/001AB574.4bpp.lz" 488 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1AB9FC 6 "graphics/evidence_profile_descriptions/001AB9FC.4bpp.lz" 404 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1ABE00 6 "graphics/evidence_profile_descriptions/001ABE00.4bpp.lz" 4B0 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1AC2B0 6 "graphics/evidence_profile_descriptions/001AC2B0.4bpp.lz" 4AC "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1AC75C 6 "graphics/evidence_profile_descriptions/001AC75C.4bpp.lz" 4A0 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1ACBFC 6 "graphics/evidence_profile_descriptions/001ACBFC.4bpp.lz" 430 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1AD02C 6 "graphics/evidence_profile_descriptions/001AD02C.4bpp.lz" 41C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1AD448 6 "graphics/evidence_profile_descriptions/001AD448.4bpp.lz" 41C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1AD864 6 "graphics/evidence_profile_descriptions/001AD864.4bpp.lz" 470 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1ADCD4 6 "graphics/evidence_profile_descriptions/001ADCD4.4bpp.lz" 408 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1AE0DC 6 "graphics/evidence_profile_descriptions/001AE0DC.4bpp.lz" 420 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1AE4FC 6 "graphics/evidence_profile_descriptions/001AE4FC.4bpp.lz" 43C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1AE938 6 "graphics/evidence_profile_descriptions/001AE938.4bpp.lz" 404 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1AED3C 6 "graphics/evidence_profile_descriptions/001AED3C.4bpp.lz" 420 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1AF15C 6 "graphics/evidence_profile_descriptions/001AF15C.4bpp.lz" 44C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1AF5A8 6 "graphics/evidence_profile_descriptions/001AF5A8.4bpp.lz" 434 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1AF9DC 6 "graphics/evidence_profile_descriptions/001AF9DC.4bpp.lz" 430 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1AFE0C 6 "graphics/evidence_profile_descriptions/001AFE0C.4bpp.lz" 3C4 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1B01D0 6 "graphics/evidence_profile_descriptions/001B01D0.4bpp.lz" 3C4 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1B0594 6 "graphics/evidence_profile_descriptions/001B0594.4bpp.lz" 3F0 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1B0984 6 "graphics/evidence_profile_descriptions/001B0984.4bpp.lz" 440 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1B0DC4 6 "graphics/evidence_profile_descriptions/001B0DC4.4bpp.lz" 38C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1B1150 6 "graphics/evidence_profile_descriptions/001B1150.4bpp.lz" 39C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1B14EC 6 "graphics/evidence_profile_descriptions/001B14EC.4bpp.lz" 3D4 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1B18C0 6 "graphics/evidence_profile_descriptions/001B18C0.4bpp.lz" 3FC "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1B1CBC 6 "graphics/evidence_profile_descriptions/001B1CBC.4bpp.lz" 494 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1B2150 6 "graphics/evidence_profile_descriptions/001B2150.4bpp.lz" 4A0 "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1B25F0 6 "graphics/evidence_profile_descriptions/001B25F0.4bpp.lz" 31C "-palette graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal -width 20 -mwidth 4 -mheight 4"
+1B292C 5 "graphics/evidence_profile_pictures/001B290C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001B290C.gbapal -width 8"
+1B314C 5 "graphics/evidence_profile_pictures/001B312C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001B312C.gbapal -width 8"
+1B396C 5 "graphics/evidence_profile_pictures/001B394C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001B394C.gbapal -width 8"
+1B418C 5 "graphics/evidence_profile_pictures/001B416C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001B416C.gbapal -width 8"
+1B49AC 5 "graphics/evidence_profile_pictures/001B498C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001B498C.gbapal -width 8"
+1B51CC 5 "graphics/evidence_profile_pictures/001B51AC.4bpp" 800 "-palette graphics/evidence_profile_pictures/001B51AC.gbapal -width 8"
+1B59EC 5 "graphics/evidence_profile_pictures/001B59CC.4bpp" 800 "-palette graphics/evidence_profile_pictures/001B59CC.gbapal -width 8"
+1B620C 5 "graphics/evidence_profile_pictures/001B61EC.4bpp" 800 "-palette graphics/evidence_profile_pictures/001B61EC.gbapal -width 8"
+1B6A2C 5 "graphics/evidence_profile_pictures/001B6A0C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001B6A0C.gbapal -width 8"
+1B724C 5 "graphics/evidence_profile_pictures/001B722C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001B722C.gbapal -width 8"
+1B7A6C 5 "graphics/evidence_profile_pictures/001B7A4C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001B7A4C.gbapal -width 8"
+1B828C 5 "graphics/evidence_profile_pictures/001B826C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001B826C.gbapal -width 8"
+1B8AAC 5 "graphics/evidence_profile_pictures/001B8A8C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001B8A8C.gbapal -width 8"
+1B92CC 5 "graphics/evidence_profile_pictures/001B92AC.4bpp" 800 "-palette graphics/evidence_profile_pictures/001B92AC.gbapal -width 8"
+1B9AEC 5 "graphics/evidence_profile_pictures/001B9ACC.4bpp" 800 "-palette graphics/evidence_profile_pictures/001B9ACC.gbapal -width 8"
+1BA30C 5 "graphics/evidence_profile_pictures/001BA2EC.4bpp" 800 "-palette graphics/evidence_profile_pictures/001BA2EC.gbapal -width 8"
+1BAB2C 5 "graphics/evidence_profile_pictures/001BAB0C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001BAB0C.gbapal -width 8"
+1BB34C 5 "graphics/evidence_profile_pictures/001BB32C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001BB32C.gbapal -width 8"
+1BBB6C 5 "graphics/evidence_profile_pictures/001BBB4C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001BBB4C.gbapal -width 8"
+1BC38C 5 "graphics/evidence_profile_pictures/001BC36C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001BC36C.gbapal -width 8"
+1BCBAC 5 "graphics/evidence_profile_pictures/001BCB8C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001BCB8C.gbapal -width 8"
+1BD3CC 5 "graphics/evidence_profile_pictures/001BD3AC.4bpp" 800 "-palette graphics/evidence_profile_pictures/001BD3AC.gbapal -width 8"
+1BDBEC 5 "graphics/evidence_profile_pictures/001BDBCC.4bpp" 800 "-palette graphics/evidence_profile_pictures/001BDBCC.gbapal -width 8"
+1BE40C 5 "graphics/evidence_profile_pictures/001BE3EC.4bpp" 800 "-palette graphics/evidence_profile_pictures/001BE3EC.gbapal -width 8"
+1BEC2C 5 "graphics/evidence_profile_pictures/001BEC0C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001BEC0C.gbapal -width 8"
+1BF44C 5 "graphics/evidence_profile_pictures/001BF42C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001BF42C.gbapal -width 8"
+1BFC6C 5 "graphics/evidence_profile_pictures/001BFC4C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001BFC4C.gbapal -width 8"
+1C048C 5 "graphics/evidence_profile_pictures/001C046C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001C046C.gbapal -width 8"
+1C0CAC 5 "graphics/evidence_profile_pictures/001C0C8C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001C0C8C.gbapal -width 8"
+1C14CC 5 "graphics/evidence_profile_pictures/001C14AC.4bpp" 800 "-palette graphics/evidence_profile_pictures/001C14AC.gbapal -width 8"
+1C1CEC 5 "graphics/evidence_profile_pictures/001C1CCC.4bpp" 800 "-palette graphics/evidence_profile_pictures/001C1CCC.gbapal -width 8"
+1C250C 5 "graphics/evidence_profile_pictures/001C24EC.4bpp" 800 "-palette graphics/evidence_profile_pictures/001C24EC.gbapal -width 8"
+1C2D2C 5 "graphics/evidence_profile_pictures/001C2D0C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001C2D0C.gbapal -width 8"
+1C354C 5 "graphics/evidence_profile_pictures/001C352C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001C352C.gbapal -width 8"
+1C3D6C 5 "graphics/evidence_profile_pictures/001C3D4C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001C3D4C.gbapal -width 8"
+1C458C 5 "graphics/evidence_profile_pictures/001C456C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001C456C.gbapal -width 8"
+1C4DAC 5 "graphics/evidence_profile_pictures/001C4D8C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001C4D8C.gbapal -width 8"
+1C55CC 5 "graphics/evidence_profile_pictures/001C55AC.4bpp" 800 "-palette graphics/evidence_profile_pictures/001C55AC.gbapal -width 8"
+1C5DEC 5 "graphics/evidence_profile_pictures/001C5DCC.4bpp" 800 "-palette graphics/evidence_profile_pictures/001C5DCC.gbapal -width 8"
+1C660C 5 "graphics/evidence_profile_pictures/001C65EC.4bpp" 800 "-palette graphics/evidence_profile_pictures/001C65EC.gbapal -width 8"
+1C6E2C 5 "graphics/evidence_profile_pictures/001C6E0C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001C6E0C.gbapal -width 8"
+1C764C 5 "graphics/evidence_profile_pictures/001C762C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001C762C.gbapal -width 8"
+1C7E6C 5 "graphics/evidence_profile_pictures/001C7E4C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001C7E4C.gbapal -width 8"
+1C868C 5 "graphics/evidence_profile_pictures/001C866C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001C866C.gbapal -width 8"
+1C8EAC 5 "graphics/evidence_profile_pictures/001C8E8C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001C8E8C.gbapal -width 8"
+1C96CC 5 "graphics/evidence_profile_pictures/001C96AC.4bpp" 800 "-palette graphics/evidence_profile_pictures/001C96AC.gbapal -width 8"
+1C9EEC 5 "graphics/evidence_profile_pictures/001C9ECC.4bpp" 800 "-palette graphics/evidence_profile_pictures/001C9ECC.gbapal -width 8"
+1CA70C 5 "graphics/evidence_profile_pictures/001CA6EC.4bpp" 800 "-palette graphics/evidence_profile_pictures/001CA6EC.gbapal -width 8"
+1CAF2C 5 "graphics/evidence_profile_pictures/001CAF0C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001CAF0C.gbapal -width 8"
+1CB74C 5 "graphics/evidence_profile_pictures/001CB72C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001CB72C.gbapal -width 8"
+1CBF6C 5 "graphics/evidence_profile_pictures/001CBF4C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001CBF4C.gbapal -width 8"
+1CC78C 5 "graphics/evidence_profile_pictures/001CC76C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001CC76C.gbapal -width 8"
+1CCFAC 5 "graphics/evidence_profile_pictures/001CCF8C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001CCF8C.gbapal -width 8"
+1CD7CC 5 "graphics/evidence_profile_pictures/001CD7AC.4bpp" 800 "-palette graphics/evidence_profile_pictures/001CD7AC.gbapal -width 8"
+1CDFEC 5 "graphics/evidence_profile_pictures/001CDFCC.4bpp" 800 "-palette graphics/evidence_profile_pictures/001CDFCC.gbapal -width 8"
+1CE80C 5 "graphics/evidence_profile_pictures/001CE7EC.4bpp" 800 "-palette graphics/evidence_profile_pictures/001CE7EC.gbapal -width 8"
+1CF02C 5 "graphics/evidence_profile_pictures/001CF00C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001CF00C.gbapal -width 8"
+1CF84C 5 "graphics/evidence_profile_pictures/001CF82C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001CF82C.gbapal -width 8"
+1D006C 5 "graphics/evidence_profile_pictures/001D004C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001D004C.gbapal -width 8"
+1D088C 5 "graphics/evidence_profile_pictures/001D086C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001D086C.gbapal -width 8"
+1D10AC 5 "graphics/evidence_profile_pictures/001D108C.4bpp" 800 "-palette graphics/evidence_profile_pictures/001D108C.gbapal -width 8"
+1D18CC 5 "graphics/evidence_profile_pictures/001D18AC.4bpp" 800 "-palette graphics/evidence_profile_pictures/001D18AC.gbapal -width 8"
+1D20EC 5 "graphics/evidence_profile_pictures/001D20CC.4bpp" 800 "-palette graphics/evidence_profile_pictures/001D20CC.gbapal -width 8"
+1D290C 5 "graphics/evidence_profile_pictures/001D28EC.4bpp" 800 "-palette graphics/evidence_profile_pictures/001D28EC.gbapal -width 8"
+1D312C 5 "graphics/charset.4bpp" 2A800 "-palette graphics/charset.gbapal -width 16 -mwidth 2 -mheight 2"
+// Show me your MOVEs
+// "graphics/talk_location_choices/
+1FD96C 5 "graphics/talk_location_choices/001FD96C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+1FE16C 5 "graphics/talk_location_choices/001FE16C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+1FE96C 5 "graphics/talk_location_choices/001FE96C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+1FF16C 5 "graphics/talk_location_choices/001FF16C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+1FF96C 5 "graphics/talk_location_choices/001FF96C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20016C 5 "graphics/talk_location_choices/0020016C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20096C 5 "graphics/talk_location_choices/0020096C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20116C 5 "graphics/talk_location_choices/0020116C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20196C 5 "graphics/talk_location_choices/0020196C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20216C 5 "graphics/talk_location_choices/0020216C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20296C 5 "graphics/talk_location_choices/0020296C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20316C 5 "graphics/talk_location_choices/0020316C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20396C 5 "graphics/talk_location_choices/0020396C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20416C 5 "graphics/talk_location_choices/0020416C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20496C 5 "graphics/talk_location_choices/0020496C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20516C 5 "graphics/talk_location_choices/0020516C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20596C 5 "graphics/talk_location_choices/0020596C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20616C 5 "graphics/talk_location_choices/0020616C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20696C 5 "graphics/talk_location_choices/0020696C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20716C 5 "graphics/talk_location_choices/0020716C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20796C 5 "graphics/talk_location_choices/0020796C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+// Talk options
+20816C 5 "graphics/talk_location_choices/0020816C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20896C 5 "graphics/talk_location_choices/0020896C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20916C 5 "graphics/talk_location_choices/0020916C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20996C 5 "graphics/talk_location_choices/0020996C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20A16C 5 "graphics/talk_location_choices/0020A16C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20A96C 5 "graphics/talk_location_choices/0020A96C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20B16C 5 "graphics/talk_location_choices/0020B16C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20B96C 5 "graphics/talk_location_choices/0020B96C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20C16C 5 "graphics/talk_location_choices/0020C16C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20C96C 5 "graphics/talk_location_choices/0020C96C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20D16C 5 "graphics/talk_location_choices/0020D16C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20D96C 5 "graphics/talk_location_choices/0020D96C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20E16C 5 "graphics/talk_location_choices/0020E16C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20E96C 5 "graphics/talk_location_choices/0020E96C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20F16C 5 "graphics/talk_location_choices/0020F16C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+20F96C 5 "graphics/talk_location_choices/0020F96C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21016C 5 "graphics/talk_location_choices/0021016C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21096C 5 "graphics/talk_location_choices/0021096C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21116C 5 "graphics/talk_location_choices/0021116C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21196C 5 "graphics/talk_location_choices/0021196C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21216C 5 "graphics/talk_location_choices/0021216C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21296C 5 "graphics/talk_location_choices/0021296C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21316C 5 "graphics/talk_location_choices/0021316C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21396C 5 "graphics/talk_location_choices/0021396C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21416C 5 "graphics/talk_location_choices/0021416C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21496C 5 "graphics/talk_location_choices/0021496C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21516C 5 "graphics/talk_location_choices/0021516C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21596C 5 "graphics/talk_location_choices/0021596C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21616C 5 "graphics/talk_location_choices/0021616C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21696C 5 "graphics/talk_location_choices/0021696C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21716C 5 "graphics/talk_location_choices/0021716C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21796C 5 "graphics/talk_location_choices/0021796C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21816C 5 "graphics/talk_location_choices/0021816C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21896C 5 "graphics/talk_location_choices/0021896C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21916C 5 "graphics/talk_location_choices/0021916C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21996C 5 "graphics/talk_location_choices/0021996C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21A16C 5 "graphics/talk_location_choices/0021A16C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21A96C 5 "graphics/talk_location_choices/0021A96C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21B16C 5 "graphics/talk_location_choices/0021B16C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21B96C 5 "graphics/talk_location_choices/0021B96C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21C16C 5 "graphics/talk_location_choices/0021C16C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21C96C 5 "graphics/talk_location_choices/0021C96C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21D16C 5 "graphics/talk_location_choices/0021D16C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21D96C 5 "graphics/talk_location_choices/0021D96C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21E16C 5 "graphics/talk_location_choices/0021E16C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21E96C 5 "graphics/talk_location_choices/0021E96C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21F16C 5 "graphics/talk_location_choices/0021F16C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+21F96C 5 "graphics/talk_location_choices/0021F96C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22016C 5 "graphics/talk_location_choices/0022016C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22096C 5 "graphics/talk_location_choices/0022096C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22116C 5 "graphics/talk_location_choices/0022116C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22196C 5 "graphics/talk_location_choices/0022196C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22216C 5 "graphics/talk_location_choices/0022216C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22296C 5 "graphics/talk_location_choices/0022296C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22316C 5 "graphics/talk_location_choices/0022316C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22396C 5 "graphics/talk_location_choices/0022396C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22416C 5 "graphics/talk_location_choices/0022416C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22496C 5 "graphics/talk_location_choices/0022496C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22516C 5 "graphics/talk_location_choices/0022516C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22596C 5 "graphics/talk_location_choices/0022596C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22616C 5 "graphics/talk_location_choices/0022616C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22696C 5 "graphics/talk_location_choices/0022696C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22716C 5 "graphics/talk_location_choices/0022716C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22796C 5 "graphics/talk_location_choices/0022796C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22816C 5 "graphics/talk_location_choices/0022816C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22896C 5 "graphics/talk_location_choices/0022896C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22916C 5 "graphics/talk_location_choices/0022916C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22996C 5 "graphics/talk_location_choices/0022996C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22A16C 5 "graphics/talk_location_choices/0022A16C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22A96C 5 "graphics/talk_location_choices/0022A96C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22B16C 5 "graphics/talk_location_choices/0022B16C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22B96C 5 "graphics/talk_location_choices/0022B96C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22C16C 5 "graphics/talk_location_choices/0022C16C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22C96C 5 "graphics/talk_location_choices/0022C96C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22D16C 5 "graphics/talk_location_choices/0022D16C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22D96C 5 "graphics/talk_location_choices/0022D96C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22E16C 5 "graphics/talk_location_choices/0022E16C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22E96C 5 "graphics/talk_location_choices/0022E96C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22F16C 5 "graphics/talk_location_choices/0022F16C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+22F96C 5 "graphics/talk_location_choices/0022F96C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23016C 5 "graphics/talk_location_choices/0023016C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23096C 5 "graphics/talk_location_choices/0023096C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23116C 5 "graphics/talk_location_choices/0023116C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23196C 5 "graphics/talk_location_choices/0023196C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23216C 5 "graphics/talk_location_choices/0023216C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23296C 5 "graphics/talk_location_choices/0023296C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23316C 5 "graphics/talk_location_choices/0023316C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23396C 5 "graphics/talk_location_choices/0023396C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23416C 5 "graphics/talk_location_choices/0023416C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23496C 5 "graphics/talk_location_choices/0023496C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23516C 5 "graphics/talk_location_choices/0023516C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23596C 5 "graphics/talk_location_choices/0023596C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23616C 5 "graphics/talk_location_choices/0023616C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23696C 5 "graphics/talk_location_choices/0023696C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23716C 5 "graphics/talk_location_choices/0023716C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23796C 5 "graphics/talk_location_choices/0023796C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23816C 5 "graphics/talk_location_choices/0023816C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23896C 5 "graphics/talk_location_choices/0023896C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23916C 5 "graphics/talk_location_choices/0023916C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23996C 5 "graphics/talk_location_choices/0023996C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23A16C 5 "graphics/talk_location_choices/0023A16C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23A96C 5 "graphics/talk_location_choices/0023A96C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23B16C 5 "graphics/talk_location_choices/0023B16C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23B96C 5 "graphics/talk_location_choices/0023B96C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23C16C 5 "graphics/talk_location_choices/0023C16C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23C96C 5 "graphics/talk_location_choices/0023C96C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23D16C 5 "graphics/talk_location_choices/0023D16C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23D96C 5 "graphics/talk_location_choices/0023D96C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23E16C 5 "graphics/talk_location_choices/0023E16C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23E96C 5 "graphics/talk_location_choices/0023E96C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23F16C 5 "graphics/talk_location_choices/0023F16C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+23F96C 5 "graphics/talk_location_choices/0023F96C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+24016C 5 "graphics/talk_location_choices/0024016C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+24096C 5 "graphics/talk_location_choices/0024096C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+24116C 5 "graphics/talk_location_choices/0024116C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+24196C 5 "graphics/talk_location_choices/0024196C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+24216C 5 "graphics/talk_location_choices/0024216C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+24296C 5 "graphics/talk_location_choices/0024296C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+24316C 5 "graphics/talk_location_choices/0024316C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+24396C 5 "graphics/talk_location_choices/0024396C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+24416C 5 "graphics/talk_location_choices/0024416C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+24496C 5 "graphics/talk_location_choices/0024496C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+24516C 5 "graphics/talk_location_choices/0024516C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+24596C 5 "graphics/talk_location_choices/0024596C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+24616C 5 "graphics/talk_location_choices/0024616C.4bpp" 800 "-palette graphics/talk_location_choices/choice_selected.gbapal -width 16 -mwidth 8 -mheight 4"
+24698C 5 "graphics/map_markers/killer.4bpp" 80 "-palette graphics/map_markers/palette.gbapal -width 2"
+246A0C 5 "graphics/map_markers/victim.4bpp" 80 "-palette graphics/map_markers/palette.gbapal -width 2"
+246A8C 5 "graphics/map_markers/case2_mia_body.4bpp" 400 "-palette graphics/map_markers/palette.gbapal -width 4"
+246E8C 5 "graphics/map_markers/case2_thinker.4bpp" 40 "-palette graphics/map_markers/palette.gbapal"
+246ECC 5 "graphics/map_markers/case3_studio_1.4bpp" 800 "-palette graphics/map_markers/palette.gbapal -width 8"
+2476CC 5 "graphics/map_markers/case3_studio_2.4bpp" 800 "-palette graphics/map_markers/palette.gbapal -width 8"
+247ECC 5 "graphics/map_markers/case3_employee_area.4bpp" 800 "-palette graphics/map_markers/palette.gbapal -width 8"
+2486CC 5 "graphics/map_markers/case3_gate.4bpp" 80 "-palette graphics/map_markers/palette.gbapal"
+24874C 5 "graphics/map_markers/case3_main_gate.4bpp" 100 "-palette graphics/map_markers/palette.gbapal -width 4"
+24884C 5 "graphics/map_markers/green.4bpp" 80 "-palette graphics/map_markers/palette.gbapal -width 2"
+2488CC 5 "graphics/map_markers/case4_boat_horizontal.4bpp" 40 "-palette graphics/map_markers/palette.gbapal -width 2"
+24890C 5 "graphics/map_markers/case4_boat_rental_shop.4bpp" 200 "-palette graphics/map_markers/palette.gbapal -width 4"
+248B0C 5 "graphics/map_markers/case4_lotta_suv.4bpp" 100 "-palette graphics/map_markers/palette.gbapal -width 4"
+248C0C 5 "graphics/map_markers/case4_boat_vertical.4bpp" 40 "-palette graphics/map_markers/palette.gbapal"
+// Script/room backgrounds "graphics/striped_images/ "graphics/striped_images/backgrounds/
+248C4C 5 "graphics/striped_images/backgrounds/wright_co_law_offices/fey_co_murder_night.8bpp.striped" 9BC0 "-width 60"
+25280C 5 "graphics/striped_images/backgrounds/wright_co_law_offices/office_day.8bpp.striped" 571C "-width 30"
+257F28 5 "graphics/striped_images/backgrounds/court/defendant_lobby.8bpp.striped" 4DA4 "-width 30"
+25CCCC 5 "graphics/striped_images/backgrounds/court/defense_bench.4bpp.striped" 2298 "-width 30"
+25EF64 5 "graphics/striped_images/backgrounds/court/prosecution_bench.4bpp.striped" 218C "-width 30"
+2610F0 5 "graphics/striped_images/backgrounds/court/witness_stand.4bpp.striped" 27A8 "-width 30"
+263898 5 "graphics/striped_images/backgrounds/court/court_room.8bpp.striped" 7E44 "-width 30"
+26B6DC 5 "graphics/striped_images/backgrounds/court/co_counsel.8bpp.striped" 670C "-width 30"
+271DE8 5 "graphics/striped_images/backgrounds/court/judge_seat.8bpp.striped" 6A3C "-width 30"
+278824 5 "graphics/striped_images/backgrounds/wright_co_law_offices/office_entry_night.8bpp.striped" 46C8 "-width 30"
+27CEEC 5 "graphics/striped_images/backgrounds/cutscenes/case2/maya_seeing_dead_mia.8bpp.striped" 5984 "-width 30"
+282870 5 "graphics/striped_images/backgrounds/global_studios/studio_path.8bpp.striped" 6270 "-width 30"
+288AE0 5 "graphics/striped_images/backgrounds/global_studios/staff_area.8bpp.striped" 8FFC "-width 60"
+291ADC 5 "graphics/striped_images/backgrounds/witness_account/mia_dodging_right.4bpp.striped" 22E4 "-width 30"
+293DC0 5 "graphics/striped_images/backgrounds/witness_account/mia_dodging_left.4bpp.striped" 2378 "-width 30"
+296138 5 "graphics/striped_images/backgrounds/evidence/fey_co_diagram.4bpp.striped" CF0 "-width 30"
+296E28 5 "graphics/striped_images/backgrounds/witness_account/april_getting_room_service.4bpp.striped" 3414 "-width 30"
+29A23C 5 "graphics/striped_images/backgrounds/wright_co_law_offices/mia_dead_on_ground.8bpp.striped" 4568 "-width 30"
+29E7A4 5 "graphics/striped_images/backgrounds/cutscenes/case2/phoenix_maya_mia.8bpp.striped" 5404 "-width 30"
+2A3BA8 5 "graphics/striped_images/backgrounds/global_studios/studio_2_trailer.8bpp.striped" 5294 "-width 30"
+2A8E3C 5 "graphics/striped_images/backgrounds/cutscenes/case2/april_calling_police.8bpp.striped" 553C "-width 30"
+2AE378 5 "graphics/striped_images/backgrounds/cutscenes/case2/redd_hitting_mia.8bpp.striped" 8800 "-width 30"
+2B6B78 5 "graphics/striped_images/backgrounds/cutscenes/case2/mia_being_attacked.8bpp.striped" 7110 "-width 30"
+2BDC88 5 "graphics/striped_images/backgrounds/cutscenes/case2/redd_holding_thinker.4bpp.striped" 1F9C "-width 30"
+2BFC24 5 "graphics/striped_images/backgrounds/global_studios/will_power_dressing_room.8bpp.striped" 53FC "-width 30"
+2C5020 5 "graphics/striped_images/backgrounds/global_studios/front_gate.8bpp.striped" 45E0 "-width 30"
+2C9600 5 "graphics/striped_images/backgrounds/global_studios/studio_1.8bpp.striped" 4D08 "-width 30"
+2CE308 5 "graphics/striped_images/backgrounds/gavel/2.8bpp.striped" 3788 "-width 30"
+2D1A90 5 "graphics/striped_images/backgrounds/gavel/3.8bpp.striped" 5F5C "-width 30"
+2D79EC 5 "graphics/striped_images/backgrounds/evidence/fey_co_diagram_light.4bpp.striped" F88 "-width 30"
+2D8974 5 "graphics/striped_images/backgrounds/detention_center.8bpp.striped" 3814 "-width 30"
+2DC188 5 "graphics/striped_images/backgrounds/bluecorp_ceo_office.8bpp.striped" 5E1C "-width 30"
+2E1FA4 5 "graphics/striped_images/backgrounds/gatewater_hotelroom.8bpp.striped" 4C18 "-width 30"
+2E6BBC 5 "graphics/striped_images/backgrounds/cutscenes/case1/frank_holding_thinker.8bpp.striped" 46FC "-width 30"
+2EB2B8 5 "graphics/striped_images/backgrounds/cutscenes/case1/cindy_dead_on_floor.8bpp.striped" 464C "-width 30"
+2EF904 5 "graphics/striped_images/backgrounds/cutscenes/case1/cindy_and_frank.8bpp.striped" 8448 "-width 30"
+2F7D4C 5 "graphics/striped_images/backgrounds/cutscenes/case1/frank_closeup_1.8bpp.striped" 31F8 "-width 30"
+2FAF44 5 "graphics/striped_images/backgrounds/cutscenes/case1/frank_closeup_2.8bpp.striped" 36CC "-width 30"
+2FE610 5 "graphics/striped_images/backgrounds/cutscenes/case1/frank_closeup_3.8bpp.striped" 3CE0 "-width 30"
+3022F0 5 "graphics/striped_images/backgrounds/grossberg_law_offices/grossberg_law_offices_painting.8bpp.striped" 5EF4 "-width 30"
+3081E4 5 "graphics/striped_images/backgrounds/grossberg_law_offices/grossberg_law_offices_no_painting.8bpp.striped" 50F4 "-width 30"
+30D2D8 5 "graphics/striped_images/backgrounds/witness_account/cindy_finding_frank.4bpp.striped" 2D54 "-width 30"
+31002C 5 "graphics/striped_images/backgrounds/witness_account/frank_witnessing_larry.4bpp.striped" 2638 "-width 30"
+312664 5 "graphics/striped_images/backgrounds/witness_account/frank_finding_cindy.4bpp.striped" 2928 "-width 30"
+314F8C 5 "graphics/striped_images/backgrounds/global_studios/studio_2.8bpp.striped" 9954 "-width 60"
+31E8E0 5 "graphics/striped_images/backgrounds/evidence/maya_phone_call_page_1.4bpp.striped" D44 "-width 30"
+31F624 5 "graphics/striped_images/backgrounds/evidence/maya_phone_call_page_2.4bpp.striped" D04 "-width 30"
+320328 5 "graphics/striped_images/backgrounds/gavel/1.8bpp.striped" 2D98 "-width 30"
+3230C0 5 "graphics/striped_images/backgrounds/evidence/maya_phone_call_page_3.4bpp.striped" E1C "-width 30"
+323EDC 5 "graphics/striped_images/backgrounds/witness_account/jack_at_gate_photo.4bpp.striped" 3198 "-width 30"
+327074 5 "graphics/striped_images/backgrounds/witness_account/jack_dead_at_studio_1.4bpp.striped" 3F44 "-width 30"
+32AFB8 5 "graphics/striped_images/backgrounds/witness_account/jack_wearing_samurai_suit.4bpp.striped" 37F8 "-width 30"
+32E7B0 5 "graphics/striped_images/backgrounds/witness_account/vasquez_pushing_jack_aftermath.4bpp.striped" 3388 "-width 30" 
+331B38 5 "graphics/striped_images/backgrounds/witness_account/staff_eating_lunch.4bpp.striped" 3F20 "-width 30"
+335A58 5 "graphics/striped_images/backgrounds/witness_account/studio_2_jack_and_vasquez.4bpp.striped" 36EC "-width 30"
+339144 5 "graphics/striped_images/backgrounds/witness_account/cody_witnessing_samurai.4bpp.striped" 4AC8 "-width 30"
+33DC0C 5 "graphics/striped_images/backgrounds/witness_account/samurai_at_studio_2_photo.4bpp.striped" 1B14 "-width 30"
+33F720 5 "graphics/striped_images/backgrounds/witness_account/5_year_old_photo.4bpp.striped" 31E8 "-width 30"
+342908 5 "graphics/striped_images/backgrounds/global_studios/studio_2_trailer_mafia.8bpp.striped" 5D34 "-width 30"
+34863C 5 "graphics/striped_images/backgrounds/cutscenes/case3/pink_princess.8bpp.striped" 6BDC "-width 30"
+34F218 5 "graphics/striped_images/backgrounds/global_studios/monkey_on_studio_2_path.8bpp.striped" 7784 "-width 30"
+35699C 5 "graphics/striped_images/backgrounds/evidence/global_studio_diagram.4bpp.striped" ED4 "-width 30"
+357870 5 "graphics/striped_images/backgrounds/witness_account/will_power_injury.4bpp.striped" 3368 "-width 30"
+35ABD8 5 "graphics/striped_images/backgrounds/cutscenes/case3/steel_samurai.8bpp.striped" 5C5C "-width 30"
+360854 0 "graphics/bustup_phoenix.bin" 4B0
+360D04 5 "graphics/bustup_phoenix.4bpp" 1820 "-palette graphics/bustup_phoenix.gbapal"
+362544 0 "graphics/bustup_edgeworth.bin" 4B0
+3629F4 5 "graphics/bustup_edgeworth.4bpp" 1DA0 "-palette graphics/bustup_edgeworth.gbapal"
+364794 5 "graphics/striped_images/speedlines.4bpp.striped" EAC "-width 30"
+365640 5 "graphics/striped_images/courtroom_background.4bpp.striped" 3584 "-width 30"
+368BC4 5 "graphics/striped_images/capcom_screen.4bpp.striped" CCC "-width 30"
+369890 5 "graphics/striped_images/steel_samurai_night.4bpp.striped" 2094 "-width 30"
+36B924 5 "graphics/striped_images/gourd_lake_entrance.8bpp.striped" 7408 "-width 30"
+372D2C 5 "graphics/striped_images/gourd_lake_park.8bpp.striped" 64E0 "-width 30"
+37920C 5 "graphics/striped_images/gourd_lake_park_no_balloon.8bpp.striped" 5320 "-width 30"
+37E52C 5 "graphics/striped_images/gourd_lake_beach.8bpp.striped" B498 "-width 60"
+3899C4 5 "graphics/striped_images/case3_intro_grass.4bpp.striped" D30 "-width 30"
+38A6F4 5 "graphics/striped_images/case3_intro_trees.4bpp.striped" C70 "-width 30"
+38B364 5 "graphics/striped_images/case3_intro_steel_samurai_posing.4bpp.striped" 200C "-width 30"
+38D370 5 "graphics/striped_images/gourd_lake_boat_rental.8bpp.striped" 4DA8 "-width 30"
+392118 5 "graphics/striped_images/gourd_lake_boat_rental_house.8bpp.striped" 4D98 "-width 30"
+396EB0 5 "graphics/striped_images/police_station_lobby.8bpp.striped" 5E54 "-width 30"
+39CD04 5 "graphics/striped_images/police_station_evidence_storage.8bpp.striped" 6800 "-width 30"
+3A3504 5 "graphics/striped_images/case3_intro_faceoff.4bpp.striped" 3430 "-width 30"
+3A6934 5 "graphics/striped_images/3A6934.4bpp.striped" E5C "-width 30"
+3A7790 5 "graphics/striped_images/3A7790.4bpp.striped" EB8 "-width 30"
+3A8648 5 "graphics/striped_images/3A8648.4bpp.striped" ECC "-width 30"
+3A9514 5 "graphics/striped_images/case4_train_station.8bpp.striped" 67B4 "-width 30"
+3AFCC8 5 "graphics/striped_images/case4_gourd_lake_map.4bpp.striped" DCC "-width 30"
+3B0A94 5 "graphics/striped_images/case4_lottas_photo_zoomed.4bpp.striped" 2C90 "-width 30"
+3B3724 5 "graphics/striped_images/case4_elevator_photo.4bpp.striped" 3568 "-width 30"
+3B6C8C 5 "graphics/striped_images/case4_newspaper.8bpp.striped" 8530 "-width 30"
+3BF1BC 5 "graphics/striped_images/case4_balloon_launching.4bpp.striped" 4568 "-width 30"
+3C3724 5 "graphics/striped_images/case4_balloon_landing_in_lake.4bpp.striped" 3F30 "-width 30"
+3C7654 5 "graphics/striped_images/case4_larry_searching_lake.4bpp.striped" 3A68 "-width 30"
+3CB0BC 5 "graphics/striped_images/case4_class_trial.8bpp.striped" 76EC "-width 30"
+3D27A8 5 "graphics/striped_images/case4_lottas_photo_far.4bpp.striped" 36BC "-width 30"
+3D5E64 5 "graphics/striped_images/case4_class_trial_phoenix.8bpp.striped" 4C5C "-width 30"
+3DAAC0 5 "graphics/striped_images/case4_class_trial_edgeworth.8bpp.striped" 6A54 "-width 30"
+3E1514 5 "graphics/striped_images/case4_class_trial_larry.8bpp.striped" 5FD4 "-width 30"
+3E74E8 5 "graphics/striped_images/case4_yanni_threatening.4bpp.striped" 369C "-width 30"
+3EAB84 5 "graphics/striped_images/case4_shoot_water_from_boat.4bpp.striped" 3F3C "-width 30"
+3EEAC0 5 "graphics/striped_images/case4_elevator_suffocating.4bpp.striped" 40E4 "-width 30"
+3F2BA4 5 "graphics/striped_images/case4_elevator_edgeworth_throw.4bpp.striped" 40A4 "-width 30"
+3F6C48 5 "graphics/striped_images/case4_elevator_vonkarma_shot.4bpp.striped" 458C "-width 30"
+3FB1D4 5 "graphics/striped_images/case4_elevator_vonkarma_in_door.4bpp.striped" 2700 "-width 30"
+3FD8D4 5 "graphics/striped_images/case4_train_station_maya_leaving.8bpp.striped" 5F24 "-width 30"
+4037F8 5 "graphics/striped_images/trial_won.8bpp.striped" 7444 "-width 30"
+40AC3C 5 "graphics/striped_images/case4_intro_lake_one_in_boat.4bpp.striped" 278C "-width 30"
+40D3C8 5 "graphics/striped_images/case4_intro_threatened_to_shoot.4bpp.striped" 24F8 "-width 30"
+40F8C0 5 "graphics/striped_images/case4_intro_edgeworth_picks_gun_up.8bpp.striped" B834 "-width 30"
+41B0F4 5 "graphics/striped_images/capcom_screen_bw.4bpp.striped" C88 "-width 30"
+41BD7C 5 "graphics/striped_images/title_screen_demo.8bpp.striped" 3248 "-width 30"
+41EFC4 5 "graphics/striped_images/coming_soon_screen.8bpp.striped" 8644 "-width 30"
+// Speedlines, and... something else
+427608 5 "graphics/speedlines_first_and_last_columns.4bpp" 780 "-palette graphics/speedlines.gbapal -width 3 -mwidth 1 -mheight 20"
+// Wide panning shots in the courtroom
+427DA8 5 "graphics/court_scrolls/court_scroll01.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll01.gbapal -width 30"
+42C8C8 5 "graphics/court_scrolls/court_scroll02.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll02.gbapal -width 30"
+4313E8 5 "graphics/court_scrolls/court_scroll03.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll03.gbapal -width 30"
+435F08 5 "graphics/court_scrolls/court_scroll04.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll04.gbapal -width 30"
+43AA28 5 "graphics/court_scrolls/court_scroll05.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll05.gbapal -width 30"
+43F548 5 "graphics/court_scrolls/court_scroll06.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll06.gbapal -width 30"
+444068 5 "graphics/court_scrolls/court_scroll07.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll07.gbapal -width 30"
+448B88 5 "graphics/court_scrolls/court_scroll08.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll08.gbapal -width 30"
+44D6A8 5 "graphics/court_scrolls/court_scroll09.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll09.gbapal -width 30"
+4521C8 5 "graphics/court_scrolls/court_scroll10.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll10.gbapal -width 30"
+456CE8 5 "graphics/court_scrolls/court_scroll11.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll11.gbapal -width 30"
+45B808 5 "graphics/court_scrolls/court_scroll12.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll12.gbapal -width 30"
+460328 5 "graphics/court_scrolls/court_scroll13.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll13.gbapal -width 30"
+464E48 5 "graphics/court_scrolls/court_scroll14.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll14.gbapal -width 30"
+469968 5 "graphics/court_scrolls/court_scroll15.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll15.gbapal -width 30"
+46E488 5 "graphics/court_scrolls/court_scroll16.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll16.gbapal -width 30"
+472FA8 5 "graphics/court_scrolls/court_scroll17.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll17.gbapal -width 30"
+477AC8 5 "graphics/court_scrolls/court_scroll18.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll18.gbapal -width 30"
+47C5E8 5 "graphics/court_scrolls/court_scroll19.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll19.gbapal -width 30"
+481108 5 "graphics/court_scrolls/court_scroll20.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll20.gbapal -width 30"
+485C28 5 "graphics/court_scrolls/court_scroll21.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll21.gbapal -width 30"
+48A748 5 "graphics/court_scrolls/court_scroll22.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll22.gbapal -width 30"
+48F268 5 "graphics/court_scrolls/court_scroll23.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll23.gbapal -width 30"
+493D88 5 "graphics/court_scrolls/court_scroll24.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll24.gbapal -width 30"
+4988A8 5 "graphics/court_scrolls/court_scroll25.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll25.gbapal -width 30"
+49D3C8 5 "graphics/court_scrolls/court_scroll26.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll26.gbapal -width 30"
+4A1EE8 5 "graphics/court_scrolls/court_scroll27.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll27.gbapal -width 30"
+4A6A08 5 "graphics/court_scrolls/court_scroll28.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll28.gbapal -width 30"
+4AB528 5 "graphics/court_scrolls/court_scroll29.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll29.gbapal -width 30"
+4B0048 5 "graphics/court_scrolls/court_scroll30.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll30.gbapal -width 30"
+4B4B68 5 "graphics/court_scrolls/court_scroll31.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll31.gbapal -width 30"
+4B9688 5 "graphics/court_scrolls/court_scroll32.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll32.gbapal -width 30"
+4BE1A8 5 "graphics/court_scrolls/court_scroll33.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll33.gbapal -width 30"
+4C2CC8 5 "graphics/court_scrolls/court_scroll34.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll34.gbapal -width 30"
+4C77E8 5 "graphics/court_scrolls/court_scroll35.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll35.gbapal -width 30"
+4CC308 5 "graphics/court_scrolls/court_scroll36.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll36.gbapal -width 30"
+4D0E28 5 "graphics/court_scrolls/court_scroll37.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll37.gbapal -width 30"
+4D5948 5 "graphics/court_scrolls/court_scroll38.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll38.gbapal -width 30"
+4DA468 5 "graphics/court_scrolls/court_scroll39.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll39.gbapal -width 30"
+4DEF88 5 "graphics/court_scrolls/court_scroll40.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll40.gbapal -width 30"
+4E3AA8 5 "graphics/court_scrolls/court_scroll41.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll41.gbapal -width 30"
+4E85C8 5 "graphics/court_scrolls/court_scroll42.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll42.gbapal -width 30"
+4ED0E8 5 "graphics/court_scrolls/court_scroll43.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll43.gbapal -width 30"
+4F1C08 5 "graphics/court_scrolls/court_scroll44.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll44.gbapal -width 30"
+4F6728 5 "graphics/court_scrolls/court_scroll45.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll45.gbapal -width 30"
+4FB248 5 "graphics/court_scrolls/court_scroll46.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll46.gbapal -width 30"
+4FFD68 5 "graphics/court_scrolls/court_scroll47.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll47.gbapal -width 30"
+504888 5 "graphics/court_scrolls/court_scroll48.4bpp" 4B00 "-palette graphics/court_scrolls/court_scroll48.gbapal -width 30"
+// Person animations "graphics/animations/characters/animation
+509388 0 "graphics/animations/characters/animation01.pix" 297FC
+532B84 0 "graphics/animations/characters/animation01.seq" 3B9C
+536720 0 "graphics/animations/characters/animation02.pix" 1F7D4
+555EF4 0 "graphics/animations/characters/animation02.seq" 7DF0
+55DCE4 0 "graphics/animations/characters/animation03.pix" C0A8
+569D8C 0 "graphics/animations/characters/animation03.seq" 26AC
+56C438 0 "graphics/animations/characters/animation04.pix" 9A88
+575EC0 0 "graphics/animations/characters/animation04.seq" 1C1C
+577ADC 0 "graphics/animations/characters/animation05.pix" 4F24
+57CA00 0 "graphics/animations/characters/animation05.seq" D94
+57D794 0 "graphics/animations/characters/animation06.pix" 39F28
+5B76BC 0 "graphics/animations/characters/animation06.seq" B5D8
+5C2C94 0 "graphics/animations/characters/animation07.pix" 206F4
+5E3388 0 "graphics/animations/characters/animation07.seq" 56C0
+5E8A48 0 "graphics/animations/characters/animation08.pix" 26518
+60EF60 0 "graphics/animations/characters/animation08.seq" 30B4
+612014 0 "graphics/animations/characters/animation09.pix" E568
+62057C 0 "graphics/animations/characters/animation09.seq" 29A4
+622F20 0 "graphics/animations/characters/animation10.pix" 3644
+626564 0 "graphics/animations/characters/animation10.seq" 56C
+626AD0 0 "graphics/animations/characters/animation11.pix" 42E4
+62ADB4 0 "graphics/animations/characters/animation11.seq" CB4
+62BA68 0 "graphics/animations/characters/animation12.pix" 26498
+651F00 0 "graphics/animations/characters/animation12.seq" 597C
+65787C 0 "graphics/animations/characters/animation13.pix" 169F0
+66E26C 0 "graphics/animations/characters/animation13.seq" 2228
+670494 0 "graphics/animations/characters/animation14.pix" 4BA4
+675038 0 "graphics/animations/characters/animation14.seq" 894
+6758CC 0 "graphics/animations/characters/animation15.pix" 91E8
+67EAB4 0 "graphics/animations/characters/animation15.seq" 2848
+6812FC 0 "graphics/animations/characters/animation16.pix" 3EE4
+6851E0 0 "graphics/animations/characters/animation16.seq" 90C
+685AEC 0 "graphics/animations/characters/animation17.pix" A208
+68FCF4 0 "graphics/animations/characters/animation17.seq" 134C
+691040 0 "graphics/animations/characters/animation18.pix" 1042C
+6A146C 0 "graphics/animations/characters/animation18.seq" 2614
+6A3A80 0 "graphics/animations/characters/animation19.pix" D428
+6B0EA8 0 "graphics/animations/characters/animation19.seq" 365C
+6B4504 0 "graphics/animations/characters/animation20.pix" 1068C
+6C4B90 0 "graphics/animations/characters/animation20.seq" 2598
+6C7128 0 "graphics/animations/characters/animation21.pix" 2DA4
+6C9ECC 0 "graphics/animations/characters/animation21.seq" 230
+6CA0FC 0 "graphics/animations/characters/animation22.pix" 2964
+6CCA60 0 "graphics/animations/characters/animation22.seq" 2A4
+6CCD04 0 "graphics/animations/characters/animation23.pix" ADE8
+6D7AEC 0 "graphics/animations/characters/animation23.seq" 2B54
+6DA640 0 "graphics/animations/characters/animation24.pix" 150D0
+6EF710 0 "graphics/animations/characters/animation24.seq" 3B7C
+6F328C 0 "graphics/animations/characters/animation25.pix" 2633C
+7195C8 0 "graphics/animations/characters/animation25.seq" 3968
+71CF30 0 "graphics/animations/characters/animation26.pix" 1AC4
+71E9F4 0 "graphics/animations/characters/animation26.seq" 1C8
+// General animations "graphics/animations/animation
+71EBBC 0 "graphics/animations/tileset01.pix" 1138
+71FCF4 0 "graphics/animations/animation01.seq" 20
+71FD14 0 "graphics/animations/animation02.seq" 4C
+71FD60 0 "graphics/animations/animation03.seq" 20
+71FD80 0 "graphics/animations/animation04.seq" 2C
+71FDAC 0 "graphics/animations/animation05.seq" 24
+71FDD0 0 "graphics/animations/animation06.seq" 28
+71FDF8 0 "graphics/animations/tileset02.pix" 28420
+748218 0 "graphics/animations/animation07.seq" 128
+748340 0 "graphics/animations/animation08.seq" 128
+748468 0 "graphics/animations/animation09.seq" 20
+748488 0 "graphics/animations/animation10.seq" 20
+7484A8 0 "graphics/animations/animation11.seq" 20
+7484C8 0 "graphics/animations/animation12.seq" 20
+7484E8 0 "graphics/animations/animation13.seq" 38
+748520 0 "graphics/animations/animation14.seq" 38
+748558 0 "graphics/animations/animation15.seq" 38
+748590 0 "graphics/animations/animation16.seq" 30
+7485C0 0 "graphics/animations/animation17.seq" 34
+7485F4 0 "graphics/animations/animation18.seq" 90
+748684 0 "graphics/animations/animation19.seq" F0
+748774 0 "graphics/animations/animation20.seq" 340
+748AB4 0 "graphics/animations/animation21.seq" 38
+748AEC 0 "graphics/animations/animation22.seq" 38
+748B24 0 "graphics/animations/animation23.seq" 114
+748C38 0 "graphics/animations/animation24.seq" 68
+748CA0 0 "graphics/animations/animation25.seq" D4
+748D74 0 "graphics/animations/animation26.seq" 24
+748D98 0 "graphics/animations/animation27.seq" 20
+748DB8 0 "graphics/animations/animation28.seq" 54
+748E0C 0 "graphics/animations/animation29.seq" D8
+748EE4 0 "graphics/animations/animation30.seq" 60
+748F44 0 "graphics/animations/animation31.seq" 3C
+748F80 0 "graphics/animations/animation32.seq" 24
+748FA4 0 "graphics/animations/animation33.seq" 38
+748FDC 0 "graphics/animations/animation34.seq" 24
+749000 0 "graphics/animations/animation35.seq" 44
+749044 0 "graphics/animations/animation36.seq" 6C
+7490B0 0 "graphics/animations/animation37.seq" 6C
+74911C 0 "graphics/animations/animation38.seq" 3C
+749158 0 "graphics/animations/animation39.seq" 3C
+749194 0 "graphics/animations/animation40.seq" 30
+7491C4 0 "graphics/animations/animation41.seq" 28
+7491EC 0 "graphics/animations/animation42.seq" 24
+749210 0 "graphics/animations/animation43.seq" 30
+749240 0 "graphics/animations/animation44.seq" 28
+749268 0 "graphics/animations/animation45.seq" 28
+749290 0 "graphics/animations/animation46.seq" 30
+7492C0 0 "graphics/animations/animation47.seq" 54
+749314 0 "graphics/animations/animation48.seq" 20
+749334 0 "graphics/animations/animation49.seq" 2C
+749360 0 "graphics/animations/animation50.seq" 24
+749384 0 "graphics/animations/animation51.seq" 24
+7493A8 0 "graphics/animations/animation52.seq" 2C
+7493D4 0 "graphics/animations/animation53.seq" 30
+749404 0 "graphics/animations/animation54.seq" 24
