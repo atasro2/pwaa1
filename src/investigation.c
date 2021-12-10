@@ -40,7 +40,7 @@ void sub_800B7A8(struct InvestigationStruct * investigation, u32 arg1)
         investigation->unk7 &= ~0xC;
 }
 
-void GameProcess04(struct Main * main)
+void InvestigationProcess(struct Main * main)
 {
     if(main->process[GAME_PROCESS_STATE] != 5)
         gInvestigationRoomUpdateFunctions[main->scenarioIdx](main);

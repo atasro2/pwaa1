@@ -1127,7 +1127,7 @@ void ChangeAnimationActivity(struct AnimationListEntry *animation, bool32 activa
         }
         if (animation->animationInfo.animId == 0xff && animation->animationInfo.personId == 0x16)
         {
-            if ((animation = FindAnimationFromAnimId(0x17)) != NULL || (animation = FindAnimationFromAnimId(0x18)) != NULL)
+            if ((animation = FindAnimationFromAnimId(ANIM_APRIL_MAY_ABDOMEN_1)) != NULL || (animation = FindAnimationFromAnimId(ANIM_APRIL_MAY_ABDOMEN_2)) != NULL)
             {
                 if (activate)
                 {
@@ -1766,18 +1766,18 @@ struct AnimationListEntry *PlayPersonAnimationAtCustomOrigin(u32 arg0, u32 talki
         case 0x4A0:
         case 0x184:
         case 0:
-            ptr = FindAnimationFromAnimId(0x18);
+            ptr = FindAnimationFromAnimId(ANIM_APRIL_MAY_ABDOMEN_2);
             if (ptr != NULL)
                 DestroyAnimation(ptr);
-            ptr = PlayAnimation(0x17);
+            ptr = PlayAnimation(ANIM_APRIL_MAY_ABDOMEN_1);
             ptr->flags |= var0;
             break;
         case 0x1060:
         case 0xF38:
-            ptr = FindAnimationFromAnimId(0x17);
+            ptr = FindAnimationFromAnimId(ANIM_APRIL_MAY_ABDOMEN_1);
             if (ptr != NULL)
                 DestroyAnimation(ptr);
-            ptr = PlayAnimation(0x18);
+            ptr = PlayAnimation(ANIM_APRIL_MAY_ABDOMEN_2);
             ptr->flags |= var0;
             break;
         default:
@@ -2029,9 +2029,9 @@ void StartAnimationBlend(u32 arg0, u32 arg1)
 
     if (animation2->animationInfo.personId == 0x16)
     {
-        animation = FindAnimationFromAnimId(0x17);
+        animation = FindAnimationFromAnimId(ANIM_APRIL_MAY_ABDOMEN_1);
         if (animation == NULL)
-            animation = FindAnimationFromAnimId(0x18);
+            animation = FindAnimationFromAnimId(ANIM_APRIL_MAY_ABDOMEN_2);
     }
 
     if (arg0 & 1)
@@ -2084,9 +2084,9 @@ static void UpdateAnimationBlend(struct AnimationListEntry *animation)
 
     if (animation->animationInfo.personId == 0x16)
     {
-        animation2 = FindAnimationFromAnimId(0x17);
+        animation2 = FindAnimationFromAnimId(ANIM_APRIL_MAY_ABDOMEN_1);
         if (animation2 == NULL)
-            animation2 = FindAnimationFromAnimId(0x18);
+            animation2 = FindAnimationFromAnimId(ANIM_APRIL_MAY_ABDOMEN_2);
     }
 
     if (++main->blendCounter >= main->blendDelay)
@@ -2153,10 +2153,10 @@ void DestroyAnimation(struct AnimationListEntry *animation)
 
     if (animation->animationInfo.animId == 0xFF && animation->animationInfo.personId == 0x16)
     {
-        animation2 = FindAnimationFromAnimId(0x17);
+        animation2 = FindAnimationFromAnimId(ANIM_APRIL_MAY_ABDOMEN_1);
         if (animation2 != NULL)
             DestroyAnimation(animation2);
-        animation2 = FindAnimationFromAnimId(0x18);
+        animation2 = FindAnimationFromAnimId(ANIM_APRIL_MAY_ABDOMEN_2);
         if (animation2 != NULL)
             DestroyAnimation(animation2);
     }

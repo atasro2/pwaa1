@@ -4,6 +4,7 @@
 #include "investigation.h"
 #include "sound.h"
 #include "animation.h"
+#include "constants/animation.h"
 
 const u8 gCourtRecordInitialItems_0_0[8] = {
 	0x00, 0x02, 0x03, 0xfe,	// profiles
@@ -1064,13 +1065,13 @@ void InvestigationRoomSetup_1_0(struct Main *main)
         case 1: {
             if(!GetFlag(0, 0x41)) {
                 InvestigationSetScriptSectionAndFlag(0xB3, 0x41);
-                PlayAnimation(0x1B);
+                PlayAnimation(ANIM_CRYING_MAYA);
             }
             else {
                 PlayBGM(0xC);
             }
             if(GetFlag(0, 0x49)) {
-                PlayAnimation(0xC);
+                PlayAnimation(ANIM_MAYA_NOTE);
             }
             LOADEXAMDATA(gUnknown_080151DC);
             break;

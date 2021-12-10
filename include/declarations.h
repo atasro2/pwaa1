@@ -3,7 +3,7 @@
 
 /* numbered processes for now */
 
-//~ gProcess3ProcessStates:
+//~ gCourtProcessStates:
 void sub_800A3EC(struct Main *);
 void sub_800A5B0(struct Main *);
 void sub_800A6AC(struct Main *);

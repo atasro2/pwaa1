@@ -4,6 +4,7 @@
 #include "investigation.h"
 #include "sound.h"
 #include "animation.h"
+#include "constants/animation.h"
 
 const u8 gCourtRecordInitialItems_3_0[6] = {
 	0x0d, 0x0e, 0x0f, 0xfe,	// profiles
@@ -1332,7 +1333,7 @@ void InvestigationRoomSetup_3_0(struct Main *main)
                     PlayBGM(0x1F);
                 }
                 if(!GetFlag(0, 0xA0)) {
-                    PlayAnimation(0x10);
+                    PlayAnimation(ANIM_PARTY_POPPERS);
                 }
                 LOADEXAMDATA(gUnknown_08017714);
             }

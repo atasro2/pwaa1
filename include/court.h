@@ -17,7 +17,7 @@ extern struct TestimonyStruct gTestimony;
 void sub_800B51C(struct Main *, struct TestimonyStruct *, u32);
 void sub_800B638(struct Main *, struct TestimonyStruct *);
 
-void GameProcess03(struct Main *);
+void CourtProcess(struct Main *);
 void GameProcess05(struct Main *);
 void GameProcess06(struct Main *);
 extern void GameProcess09(struct Main *);

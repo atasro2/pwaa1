@@ -3,6 +3,21 @@
 #include "background.h"
 #include "utils.h"
 
+#define ANIM_DESTROY 0xFD
+#define ANIM_STOP 0xFE
+#define ANIM_LOOP 0xFF
+
+#define ANIM_ENABLE_XFLIP	0x1
+#define ANIM_ENABLE_ROTATION	0x100000
+#define ANIM_QUEUED_PAL_UPLOAD	0x1000000
+#define ANIM_BLEND_ACTIVE	0x2000000
+#define ANIM_INACTIVE		0x8000000
+#define ANIM_ALLOCATED		0x10000000
+#define ANIM_ACTIVE		0x20000000
+#define ANIM_QUEUED_TILE_UPLOAD	0x40000000
+// called HasMove in unity, set when PlayAnimation() is called
+#define ANIM_PLAYING		0x80000000
+
 struct AnimationFrame
 {
     /* +0x00 */ u16 spriteDataOffset;

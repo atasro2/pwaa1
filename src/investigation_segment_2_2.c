@@ -4,6 +4,7 @@
 #include "investigation.h"
 #include "sound.h"
 #include "animation.h"
+#include "constants/animation.h"
 
 const struct Struct811DC98 gUnknown_08015F04[36] = {
 	{
@@ -1889,7 +1890,7 @@ void InvestigationRoomSetup_2_2(struct Main *main)
             }
             else {
                 if(!GetFlag(0, 0xB8)) {
-                    PlayAnimation(0xE);
+                    PlayAnimation(ANIM_MANHOLE_COVER);
                 }
                 if(!GetFlag(0, 0xB3)) {
                     InvestigationSetScriptSectionAndFlag(0xBF, 0xB3);

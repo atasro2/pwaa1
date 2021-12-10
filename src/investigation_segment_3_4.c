@@ -4,6 +4,7 @@
 #include "investigation.h"
 #include "sound.h"
 #include "animation.h"
+#include "constants/animation.h"
 
 const struct Struct811DC98 gUnknown_080181E4[13] = {
 	{
@@ -868,7 +869,7 @@ void InvestigationRoomSetup_3_4(struct Main *main)
                 }
                 PlayBGM(0xC);
             }
-            PlayAnimation(0xF);
+            PlayAnimation(ANIM_RECORDS_ROOM_DRAWER);
             LOADEXAMDATA(gUnknown_08018678);
             break;
         }

@@ -9,7 +9,7 @@
 #include "constants/script.h"
 #include "constants/animation.h"
 
-void (*gProcess3ProcessStates[])(struct Main *) = {
+void (*gCourtProcessStates[])(struct Main *) = {
 	sub_800A3EC,
 	sub_800A5B0,
 	sub_800A6AC
@@ -48,9 +48,9 @@ void SetCurrentEpisodeBit()
     }
 }
 
-void GameProcess03(struct Main * main)
+void CourtProcess(struct Main * main)
 {
-    gProcess3ProcessStates[main->process[GAME_PROCESS_STATE]](main);
+    gCourtProcessStates[main->process[GAME_PROCESS_STATE]](main);
 }
 
 void sub_800A3EC(struct Main * main)
@@ -165,15 +165,15 @@ void sub_800A730(struct Main * main)
     switch(main->process[GAME_PROCESSUNK2])
     {
         case 0:
-            PlayAnimation(0x13);
-            PlayAnimation(0x14);
+            PlayAnimation(ANIM_TESTIMONY_START_LEFT);
+            PlayAnimation(ANIM_TESTIMONY_START_RIGHT);
             PlaySE(0x53);
             gTestimony.unk6 = 0;
             main->process[GAME_PROCESSUNK2]++;
             break;
         case 1:
-            animation = FindAnimationFromAnimId(0x13);
-            animation2 = FindAnimationFromAnimId(0x14);
+            animation = FindAnimationFromAnimId(ANIM_TESTIMONY_START_LEFT);
+            animation2 = FindAnimationFromAnimId(ANIM_TESTIMONY_START_RIGHT);
             animation->animationInfo.xOrigin += 10;
             animation->flags |= ANIM_ACTIVE;
             animation2->animationInfo.xOrigin -= 10;
@@ -183,7 +183,7 @@ void sub_800A730(struct Main * main)
                 StartHardwareBlend(3, 1, 8, 0x1F);
                 DestroyAnimation(animation);
                 DestroyAnimation(animation2);
-                PlayAnimation(0x11);
+                PlayAnimation(ANIM_TESTIMONY_START);
                 main->process[GAME_PROCESSUNK2]++;
             }
             break;
@@ -192,7 +192,7 @@ void sub_800A730(struct Main * main)
                 main->process[GAME_PROCESSUNK2]++;
             break;
         case 3:
-            animation3 = FindAnimationFromAnimId(0x11);
+            animation3 = FindAnimationFromAnimId(ANIM_TESTIMONY_START);
             if(!(animation3->flags & ANIM_PLAYING))
             {
                 DestroyAnimation(animation3);
@@ -202,8 +202,8 @@ void sub_800A730(struct Main * main)
             }
             break;
         case 4:
-            animation = FindAnimationFromAnimId(0x13);
-            animation2 = FindAnimationFromAnimId(0x14);
+            animation = FindAnimationFromAnimId(ANIM_TESTIMONY_START_LEFT);
+            animation2 = FindAnimationFromAnimId(ANIM_TESTIMONY_START_RIGHT);
             animation->animationInfo.xOrigin += gTestimony.unk6;
             animation->flags |= ANIM_ACTIVE;
             animation2->animationInfo.xOrigin -= gTestimony.unk6;
@@ -298,15 +298,14 @@ void sub_800AA10(struct Main * main)
     switch(main->process[GAME_PROCESSUNK2])
     {
         case 0:
-            PlayAnimation(0x15);
-            PlayAnimation(0x16);
+            PlayAnimation(ANIM_CROSS_EXAMINATION_START_LEFT);
+            PlayAnimation(ANIM_CROSS_EXAMINATION_START_RIGHT);
             PlaySE(0x53);
-            //gTestimony.unk6 = 0;
             main->process[GAME_PROCESSUNK2]++;
             break;
         case 1:
-            animation = FindAnimationFromAnimId(0x15);
-            animation2 = FindAnimationFromAnimId(0x16);
+            animation = FindAnimationFromAnimId(ANIM_CROSS_EXAMINATION_START_LEFT);
+            animation2 = FindAnimationFromAnimId(ANIM_CROSS_EXAMINATION_START_RIGHT);
             animation->animationInfo.xOrigin += 10;
             animation->flags |= ANIM_ACTIVE;
             animation2->animationInfo.xOrigin -= 10;
@@ -316,7 +315,7 @@ void sub_800AA10(struct Main * main)
                 StartHardwareBlend(3, 1, 8, 0x1F);
                 DestroyAnimation(animation);
                 DestroyAnimation(animation2);
-                PlayAnimation(0x12);
+                PlayAnimation(ANIM_CROSS_EXAMINATION_START);
                 main->process[GAME_PROCESSUNK2]++;
             }
             break;
@@ -325,7 +324,7 @@ void sub_800AA10(struct Main * main)
                 main->process[GAME_PROCESSUNK2]++;
             break;
         case 3:
-            animation3 = FindAnimationFromAnimId(0x12);
+            animation3 = FindAnimationFromAnimId(ANIM_CROSS_EXAMINATION_START);
             if(!(animation3->flags & ANIM_PLAYING))
             {
                 DestroyAnimation(animation3);
@@ -335,8 +334,8 @@ void sub_800AA10(struct Main * main)
             }
             break;
         case 4:
-            animation = FindAnimationFromAnimId(0x15);
-            animation2 = FindAnimationFromAnimId(0x16);
+            animation = FindAnimationFromAnimId(ANIM_CROSS_EXAMINATION_START_LEFT);
+            animation2 = FindAnimationFromAnimId(ANIM_CROSS_EXAMINATION_START_RIGHT);
             animation->animationInfo.yOrigin -= 7;
             animation->flags |= ANIM_ACTIVE;
             animation2->animationInfo.yOrigin += 7;
@@ -419,7 +418,7 @@ void sub_800AC1C(struct Main * main)
         {
             if(gScriptContext.holdItSection != 0)
             {
-                PlayAnimation(1);
+                PlayAnimation(ANIM_HOLDIT_LEFT);
                 PlaySE(0x47);
                 StartHardwareBlend(3, 1, 4, 0x1F);
                 gTestimony.unk1 = 0x40;

@@ -13,6 +13,7 @@
 #include "graphics.h"
 #include "constants/court_record.h"
 #include "constants/script.h"
+#include "constants/animation.h"
 
 
 struct EvidenceProfileData
@@ -800,12 +801,12 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
             }
             if(main->gameStateFlags & 0x100)
             {
-                PlayAnimation(4);
+                PlayAnimation(ANIM_TAKETHAT_LEFT);
                 PlaySE(0x37);
             }
             else
             {
-                PlayAnimation(2);
+                PlayAnimation(ANIM_OBJECTION_LEFT);
                 PlaySE(0x51);
             }
             StartHardwareBlend(3, 1, 4, 0x1F);
@@ -1295,7 +1296,7 @@ void sub_800E4A4(struct Main * main, struct CourtRecord * courtRecord)
             if(courtRecord->unk1 == 0)
             {
                 u32 offset;
-                PlayAnimation(4);
+                PlayAnimation(ANIM_TAKETHAT_LEFT);
                 PlaySE(0x37);
                 gTestimony.unk1 = 6;
                 evidenceId = courtRecord->displayItemList[courtRecord->selectedItem];

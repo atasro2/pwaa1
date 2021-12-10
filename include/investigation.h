@@ -232,6 +232,6 @@ void InvestigationRoomUpdate_3_4(struct Main *main);
 
 void InvestigationDummy(struct Main *main);
 
-void GameProcess04(struct Main *);
+void InvestigationProcess(struct Main *);
 
 #endif//GUARD_INVESTIGATION_H
