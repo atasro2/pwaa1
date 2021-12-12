@@ -7,6 +7,7 @@
 #include "investigation.h"
 #include "graphics.h"
 #include "constants/script.h"
+#include "constants/process.h"
 
 bool32 Command40(struct ScriptContext * scriptCtx)
 {
@@ -197,7 +198,7 @@ bool32 Command4A(struct ScriptContext *scriptCtx)
     scriptCtx->scriptPtr++;
     if(*scriptCtx->scriptPtr) 
     {
-        if(gMain.process[GAME_PROCESS_STATE] == 8) 
+        if(gMain.process[GAME_PROCESS_STATE] == VERDICT_STATE_NOTGUILTY_EXIT) 
         {
             scriptCtx->scriptPtr++;
             return 0;
@@ -205,7 +206,7 @@ bool32 Command4A(struct ScriptContext *scriptCtx)
     }
     else 
     {
-        if(gMain.process[GAME_PROCESS_STATE] == 6) 
+        if(gMain.process[GAME_PROCESS_STATE] == VERDICT_STATE_DRAW_CONFETTI) 
         {
             scriptCtx->scriptPtr++;
             return 0;

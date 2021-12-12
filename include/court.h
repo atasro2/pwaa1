@@ -20,6 +20,6 @@ void sub_800B638(struct Main *, struct TestimonyStruct *);
 void CourtProcess(struct Main *);
 void GameProcess05(struct Main *);
 void GameProcess06(struct Main *);
-extern void GameProcess09(struct Main *);
+extern void VerdictProcess(struct Main *);
 
 #endif//GUARD_COURT_H

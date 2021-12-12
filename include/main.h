@@ -152,8 +152,8 @@ extern struct OamAttrs gOamObjects[128];
 
 #define GAME_PROCESS 0
 #define GAME_PROCESS_STATE 1
-#define GAME_PROCESSUNK2 2
-#define GAME_PROCESSUNK3 3
+#define GAME_PROCESS_VAR1 2
+#define GAME_PROCESS_VAR2 3
 
 #define SET_PROCESS_PTR(no_0, no_1, no_2, no_3, main) (*(u32*)main->process = ((no_0) | ((no_1) << 8) | ((no_2) << 16) | ((no_3) << 24)))
 #define SET_PROCESS(no_0, no_1, no_2, no_3) (*(u32*)gMain.process = ((no_0) | ((no_1) << 8) | ((no_2) << 16) | ((no_3) << 24)))

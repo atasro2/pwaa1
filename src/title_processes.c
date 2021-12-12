@@ -24,14 +24,14 @@ void CapcomLogoProcess(struct Main *main)
         StartHardwareBlend(1, 1, 1, 0x1F);
         main->tilemapUpdateBits = 8;
         main->process[GAME_PROCESS_STATE]++;
-        main->process[GAME_PROCESSUNK3] = 120; // 2 second timer for showing Capcom logo
+        main->process[GAME_PROCESS_VAR2] = 120; // 2 second timer for showing Capcom logo
         break;
     case 1:
         if (main->blendMode == 0)
         {
-            if (main->process[GAME_PROCESSUNK3] != 0)
+            if (main->process[GAME_PROCESS_VAR2] != 0)
             {
-                main->process[GAME_PROCESSUNK3]--;
+                main->process[GAME_PROCESS_VAR2]--;
                 break;
             }
             StartHardwareBlend(2, 1, 1, 0x1F);
@@ -151,8 +151,8 @@ void TitleScreenProcess(struct Main *main)
         }
         break;
     case 3:
-        main->process[GAME_PROCESSUNK3]++;
-        if(main->process[GAME_PROCESSUNK3] >= 40)
+        main->process[GAME_PROCESS_VAR2]++;
+        if(main->process[GAME_PROCESS_VAR2] >= 40)
         {
             if(main->selectedButton == 0)
             {
@@ -165,8 +165,8 @@ void TitleScreenProcess(struct Main *main)
         }
         if(main->selectedButton == 0)
         {
-            main->process[GAME_PROCESSUNK2]++;
-            if(main->process[GAME_PROCESSUNK2] > 4)
+            main->process[GAME_PROCESS_VAR1]++;
+            if(main->process[GAME_PROCESS_VAR1] > 4)
             {
                 oam = &gOamObjects[49];
                 oam->attr0 = SPRITE_ATTR0_CLEAR;
@@ -175,9 +175,9 @@ void TitleScreenProcess(struct Main *main)
                 oam->attr0 = SPRITE_ATTR0_CLEAR;
                 oam->attr2 = SPRITE_ATTR2(0x28, 0, 2);
                 oam++;
-                if(main->process[GAME_PROCESSUNK2] > 8)
+                if(main->process[GAME_PROCESS_VAR1] > 8)
                 {
-                    main->process[GAME_PROCESSUNK2] = 0;
+                    main->process[GAME_PROCESS_VAR1] = 0;
                 }
             }
             else
@@ -218,8 +218,8 @@ void TitleScreenProcess(struct Main *main)
             oam++;
             if(main->saveContinueFlags & 0xF0)
             {
-                main->process[GAME_PROCESSUNK2]++;
-                if(main->process[GAME_PROCESSUNK2] > 4)
+                main->process[GAME_PROCESS_VAR1]++;
+                if(main->process[GAME_PROCESS_VAR1] > 4)
                 {
                     oam->attr0 = SPRITE_ATTR0_CLEAR;
                     oam->attr2 = SPRITE_ATTR2(0x30, 0, 2);
@@ -227,9 +227,9 @@ void TitleScreenProcess(struct Main *main)
                     oam->attr0 = SPRITE_ATTR0_CLEAR;
                     oam->attr2 = SPRITE_ATTR2(0x38, 0, 2);
                     oam++;
-                    if(main->process[GAME_PROCESSUNK2] > 8)
+                    if(main->process[GAME_PROCESS_VAR1] > 8)
                     {
-                        main->process[GAME_PROCESSUNK2] = 0;
+                        main->process[GAME_PROCESS_VAR1] = 0;
                     }
                 }
                 else
