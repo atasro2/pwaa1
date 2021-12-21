@@ -1,6 +1,13 @@
 #ifndef GUARD_SCRIPT_H
 #define GUARD_SCRIPT_H
 
+#define SCRIPT_FULLSCREEN 0x4
+#define SCRIPT_LOOP 0x8
+#define SCRIPT_SPOTSELECT_MOVE_TO_START 0x80
+#define SCRIPT_SPOTSELECT_INPUT 0x100
+#define SCRIPT_SPOTSELECT_PLAY_SPAWN_SOUND 0x200
+#define SCRIPT_SPOTSELECT_SELECTION_MADE 0x400
+
 struct ScriptContext
 {
     /* +0x00 */ u16 flags; // message status, flags

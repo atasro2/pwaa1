@@ -5,6 +5,7 @@
 #include "ewram.h"
 #include "graphics.h"
 #include "constants/script.h"
+#include "constants/songs.h"
 
 static void AdvanceScriptContext(struct ScriptContext *);
 static void DrawTextAndMapMarkers(struct ScriptContext *);
@@ -272,15 +273,15 @@ static void AdvanceScriptContext(struct ScriptContext * scriptCtx)
                     {
                         if (scriptCtx->currentSoundCue == 2)
                         {
-                            PlaySE(68);
+                            PlaySE(SE01A_TEXT_TYPEWRITER_LOW);
                         }
                         else if (scriptCtx->currentSoundCue == 1)
                         {
-                            PlaySE(46);
+                            PlaySE(SE004_TEXT_BLIP_FEMALE);
                         }
                         else
                         {
-                            PlaySE(45);
+                            PlaySE(SE003_TEXT_BLIP_MALE);
                         }
                     }
                 }

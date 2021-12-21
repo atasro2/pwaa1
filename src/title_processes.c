@@ -6,6 +6,7 @@
 #include "save.h"
 #include "sound.h"
 #include "graphics.h"
+#include "constants/songs.h"
 
 void CapcomLogoProcess(struct Main *main)
 {
@@ -100,7 +101,7 @@ void TitleScreenProcess(struct Main *main)
     case 2:
         if(gJoypad.pressedKeys & (A_BUTTON | START_BUTTON))
         {
-            PlaySE(0x3A);
+            PlaySE(SE010_GAVEL_SLAM);
             gScriptContext.fullscreenTextYOffset = 0;
             SET_PROCESS_PTR(1, 3, 0, 0, main); // ? main->process[GAME_PROCESS_STATE]++; hello?
         }
@@ -109,7 +110,7 @@ void TitleScreenProcess(struct Main *main)
             gInvestigation.unk15 = 0;
             gInvestigation.unk14 = 2;
             main->selectedButton ^= 1; // selected button on title screen
-            PlaySE(0x2A);
+            PlaySE(SE000_MENU_CHANGE);
         }
         gInvestigation.unk15++;
         if(gInvestigation.unk15 > 7)

@@ -9,6 +9,7 @@
 #include "constants/script.h"
 #include "constants/animation.h"
 #include "constants/process.h"
+#include "constants/songs.h"
 
 void (*gCourtProcessStates[])(struct Main *) = {
 	sub_800A3EC,
@@ -109,7 +110,7 @@ void sub_800A5B0(struct Main * main)
         PauseBGM();
         DmaCopy16(3, gOamObjects, gSaveDataBuffer.oam, sizeof(gOamObjects));
         DmaCopy16(3, &gMain, &gSaveDataBuffer.main, sizeof(gMain));
-        PlaySE(49);
+        PlaySE(SE007_MENU_OPEN_SUBMENU);
         main->gameStateFlags &= -2; // -2??
         BACKUP_PROCESS_PTR(main);
         SET_PROCESS_PTR(0xA, 0, 0, 0, main);
@@ -118,7 +119,7 @@ void sub_800A5B0(struct Main * main)
     !(main->gameStateFlags & 0x10) &&
     gScriptContext.flags & (SCRIPT_FULLSCREEN | 1))
     {
-        PlaySE(49);
+        PlaySE(SE007_MENU_OPEN_SUBMENU);
         BACKUP_PROCESS_PTR(main);
         SET_PROCESS_PTR(7, 0, 0, 0, main);
     }
@@ -168,7 +169,7 @@ void sub_800A730(struct Main * main)
         case 0:
             PlayAnimation(ANIM_TESTIMONY_START_LEFT);
             PlayAnimation(ANIM_TESTIMONY_START_RIGHT);
-            PlaySE(0x53);
+            PlaySE(SE029_BEGIN_QUESTIONING);
             gTestimony.unk6 = 0;
             main->process[GAME_PROCESS_VAR1]++;
             break;
@@ -248,7 +249,7 @@ void sub_800A8E0(struct Main * main)
         PauseBGM();
         DmaCopy16(3, gOamObjects, gSaveDataBuffer.oam, sizeof(gOamObjects));
         DmaCopy16(3, &gMain, &gSaveDataBuffer.main, sizeof(gMain));
-        PlaySE(49);
+        PlaySE(SE007_MENU_OPEN_SUBMENU);
         main->gameStateFlags &= -2; // -2??
         BACKUP_PROCESS_PTR(main);
         SET_PROCESS_PTR(0xA, 0, 0, 0, main);
@@ -257,7 +258,7 @@ void sub_800A8E0(struct Main * main)
     !(main->gameStateFlags & 0x10) &&
     gScriptContext.flags & (SCRIPT_FULLSCREEN | 1))
     {
-        PlaySE(49);
+        PlaySE(SE007_MENU_OPEN_SUBMENU);
         BACKUP_PROCESS_PTR(main);
         SET_PROCESS_PTR(7, 0, 0, 0, main);
     }
@@ -301,7 +302,7 @@ void sub_800AA10(struct Main * main)
         case 0:
             PlayAnimation(ANIM_CROSS_EXAMINATION_START_LEFT);
             PlayAnimation(ANIM_CROSS_EXAMINATION_START_RIGHT);
-            PlaySE(0x53);
+            PlaySE(SE029_BEGIN_QUESTIONING);
             main->process[GAME_PROCESS_VAR1]++;
             break;
         case 1:
@@ -389,7 +390,7 @@ void sub_800AC1C(struct Main * main)
             PauseBGM();
             DmaCopy16(3, gOamObjects, gSaveDataBuffer.oam, sizeof(gOamObjects));
             DmaCopy16(3, &gMain, &gSaveDataBuffer.main, sizeof(gMain));
-            PlaySE(49);
+            PlaySE(SE007_MENU_OPEN_SUBMENU);
             main->gameStateFlags &= -2; // -2??
             BACKUP_PROCESS_PTR(main);
             SET_PROCESS_PTR(0xA, 0, 0, 0, main);
@@ -401,7 +402,7 @@ void sub_800AC1C(struct Main * main)
         if(gJoypad.pressedKeys & (A_BUTTON | DPAD_RIGHT))
         {
             section = gScriptContext.nextSection;
-            PlaySE(0x2B);
+            PlaySE(SE001_MENU_CONFIRM);
             ChangeScriptSection(section);
             RunScriptContext();
         }
@@ -410,7 +411,7 @@ void sub_800AC1C(struct Main * main)
             if(gScriptContext.currentSection-1 != main->testimonyBeginningSection)
             {
                 section = gScriptContext.currentSection-1;
-                PlaySE(0x2B);
+                PlaySE(SE001_MENU_CONFIRM);
                 ChangeScriptSection(section);
                 RunScriptContext();
             }
@@ -420,7 +421,7 @@ void sub_800AC1C(struct Main * main)
             if(gScriptContext.holdItSection != 0)
             {
                 PlayAnimation(ANIM_HOLDIT_LEFT);
-                PlaySE(0x47);
+                PlaySE(SE01D_VOICE_PHOENIX_HOLD_IT_JP);
                 StartHardwareBlend(3, 1, 4, 0x1F);
                 gTestimony.unk1 = 0x40;
                 gTestimony.unk4 = 0xF0;
@@ -437,7 +438,7 @@ void sub_800AC1C(struct Main * main)
         }
         else if(gJoypad.pressedKeys & R_BUTTON)
         {
-            PlaySE(0x31);
+            PlaySE(SE007_MENU_OPEN_SUBMENU);
             BACKUP_PROCESS_PTR(main);
             SET_PROCESS_PTR(7, 0, 0, 1, main);
         }
@@ -446,7 +447,7 @@ void sub_800AC1C(struct Main * main)
     !(main->gameStateFlags & 0x10) &&
     gScriptContext.flags & (SCRIPT_FULLSCREEN | 1))
     {
-        PlaySE(0x31);
+        PlaySE(SE007_MENU_OPEN_SUBMENU);
         BACKUP_PROCESS_PTR(main);
         SET_PROCESS_PTR(7, 0, 0, 0, main);
     }
@@ -604,7 +605,7 @@ void VerdictProcess(struct Main * main)
                 gOamObjects[2].attr3 = fix_mul(-_Sin(0), temp);
                 gOamObjects[3].attr3 = fix_mul(_Cos(0), temp);
                 StartHardwareBlend(3, 1, 4, 0x1F);
-                PlaySE(0x56);
+                PlaySE(SE02C_GAME_OVER);
                 main->process[GAME_PROCESS_STATE]++;
                 main->process[GAME_PROCESS_VAR1] = 0;
             }
@@ -642,7 +643,7 @@ void VerdictProcess(struct Main * main)
                 gOamObjects[6].attr3 = fix_mul(-_Sin(0), temp);
                 gOamObjects[7].attr3 = fix_mul(_Cos(0), temp);
                 StartHardwareBlend(3, 1, 4, 0x1F);
-                PlaySE(0x56);
+                PlaySE(SE02C_GAME_OVER);
                 gMain.affineScale = Q_8_8(1.0);
                 main->process[GAME_PROCESS_STATE]++;
                 main->process[GAME_PROCESS_VAR1] = 0;
@@ -715,7 +716,7 @@ void VerdictProcess(struct Main * main)
                 oam->attr2 = temp2 + 0xFC + (1 << 10); // random palette + tile 0xFC + priority
                 oam++;
             }
-            PlaySE(0x66);
+            PlaySE(SE03C_COURTROOM_AUDIENCE_VICTORY);
             main->process[GAME_PROCESS_STATE]++;
             break;
         }
