@@ -4,6 +4,7 @@
 #include "investigation.h"
 #include "sound.h"
 #include "animation.h"
+#include "constants/persons.h"
 
 const struct Struct811DC98 gUnknown_08016ABC[22] = {
 	{
@@ -1053,7 +1054,7 @@ void InvestigationRoomSetup_2_4(struct Main *main)
                 if(GetFlag(0, 0xE4)) {
                     gMain.talkingAnimationOffset = 0;
                     gMain.idleAnimationOffset = 0;
-                    PlayPersonAnimation(0x8014, 0, 0, 0);
+                    PlayPersonAnimation(PERSON_ANIM_GUMSHOE | 0x8000, 0, 0, 0);
                     gInvestigation.unk5 = 1;
                     sub_800B7A8(&gInvestigation, 0xF);
                 }
