@@ -6,6 +6,7 @@
 #include "save.h"
 #include "graphics.h"
 #include "constants/script.h"
+#include "constants/songs.h"
 
 void sub_8008DF4(struct Main * main)
 {
@@ -47,7 +48,7 @@ void sub_8008E18(struct Main * main)
         }
     }
     main->xPosCounter = 0;
-    PlaySE(0x31);
+    PlaySE(SE007_MENU_OPEN_SUBMENU);
     StartHardwareBlend(1, 0, 1, 0x1F);
     main->process[GAME_PROCESS_STATE]++;
 }
@@ -273,7 +274,7 @@ void EpisodeClearedProcess(struct Main * main)
                 if(gJoypad.pressedKeys & (A_BUTTON|B_BUTTON|SELECT_BUTTON|START_BUTTON))
                 {
                     PauseBGM();
-                    PlaySE(0x2B);
+                    PlaySE(SE001_MENU_CONFIRM);
                     gSaveDataBuffer.main.scenarioIdx = main->scenarioIdx;
                     gSaveDataBuffer.main.caseEnabledFlags = main->caseEnabledFlags;
                     SET_PROCESS_PTR(10, 0, 0, 1, main);
@@ -372,7 +373,7 @@ void SelectEpisodeProcess(struct Main * main)
                         {
                             if(!(j == main->selectedButton))
                             {
-                                PlaySE(0x2A);
+                                PlaySE(SE000_MENU_CHANGE);
                                 break;
                             }
                         }
@@ -390,7 +391,7 @@ void SelectEpisodeProcess(struct Main * main)
                         {
                             if(!(j == main->selectedButton))
                             {
-                                PlaySE(0x2A);
+                                PlaySE(SE000_MENU_CHANGE);
                                 break;
                             }
                         }
@@ -398,7 +399,7 @@ void SelectEpisodeProcess(struct Main * main)
                 }
                 else if(gJoypad.pressedKeys & A_BUTTON)
                 {
-                    PlaySE(0x2B);
+                    PlaySE(SE001_MENU_CONFIRM);
                     main->xPosCounter = 0;
                     main->advanceScriptContext = FALSE;
                     main->showTextboxCharacters = FALSE;
@@ -410,7 +411,7 @@ void SelectEpisodeProcess(struct Main * main)
                 }
                 else if(gJoypad.pressedKeys & B_BUTTON)
                 {
-                    PlaySE(0x2C);
+                    PlaySE(SE002_MENU_CANCEL);
                     StartHardwareBlend(2, 0, 1, 0x1F);
                     main->process[GAME_PROCESS_STATE] = 12;
                 }
@@ -623,7 +624,7 @@ void ContinueSaveProcess(struct Main * main) {
                     gBG2MapBuffer[i] = 0;
                 }
                 SlideInBG2Window(5, 8);
-                PlaySE(49);
+                PlaySE(SE007_MENU_OPEN_SUBMENU);
                 gIORegisters.lcd_dispcnt = 0x1C40;
                 main->tilemapUpdateBits = 0xC;
                 gIORegisters.lcd_bg2cnt = 0x3E01;
@@ -652,10 +653,10 @@ void ContinueSaveProcess(struct Main * main) {
         case 3: // 9C14
             if (gScriptContext.flags & 8) {
                 if (main->saveContinueFlags & 1 && gJoypad.pressedKeys & 0xC0) {
-                    PlaySE(42);
+                    PlaySE(SE000_MENU_CHANGE);
                     main->selectedButton ^= 1;
                 } else /* 9C50 */ if (gJoypad.pressedKeys & 1) {
-                    PlaySE(43);
+                    PlaySE(SE001_MENU_CONFIRM);
                     main->advanceScriptContext = FALSE;
                     main->showTextboxCharacters = TRUE;
                     if ((main->saveContinueFlags & 1) == 0) {
@@ -670,7 +671,7 @@ void ContinueSaveProcess(struct Main * main) {
                         main->process[2] = 0;
                     }
                 } else /* 9C9C */ if (gJoypad.pressedKeys & 2) {
-                    PlaySE(44);
+                    PlaySE(SE002_MENU_CANCEL);
                     StartHardwareBlend(2, 0, 1, 0x1F);
                     main->process[1] += 3;
                 }

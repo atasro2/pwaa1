@@ -10,6 +10,7 @@
 #include "investigation.h"
 #include "graphics.h"
 #include "constants/script.h"
+#include "constants/songs.h"
 
 struct MapMarkerSprite
 {
@@ -499,7 +500,7 @@ u32 Command20(struct ScriptContext * scriptCtx)
 bool32 Command21(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
-    PlaySE(0x31);
+    PlaySE(SE007_MENU_OPEN_SUBMENU);
     scriptCtx->flags |= 0x10;
     gMain.gameStateFlags |= 0x300;
     BACKUP_PROCESS();
@@ -651,7 +652,7 @@ bool32 Command2B(struct ScriptContext * scriptCtx)
     gMain.health--;
     gMain.damageFrame = 1; // damage related
     gMain.damageFrameTimer = 3; // damage related
-    PlaySE(0x4C);
+    PlaySE(SE022_LOST_A_TRY);
     if(gMain.health <= 0)
         scriptCtx->nextSection = gCaseGameoverSections[gMain.scenarioIdx];
     return 0;
@@ -1038,7 +1039,7 @@ bool32 Command3F(struct ScriptContext *scriptCtx)
         }
         if(scriptCtx->flags & SCRIPT_SPOTSELECT_PLAY_SPAWN_SOUND)
         {
-            PlaySE(49);
+            PlaySE(SE007_MENU_OPEN_SUBMENU);
             scriptCtx->flags &= ~SCRIPT_SPOTSELECT_PLAY_SPAWN_SOUND;
         }
     }
@@ -1092,7 +1093,7 @@ bool32 Command3F(struct ScriptContext *scriptCtx)
                 ChangeScriptSection(struct8018870p->defaultSection);
             scriptCtx->flags |= SCRIPT_SPOTSELECT_SELECTION_MADE;
             DmaCopy16(3, &gUnknown_081942C0[0], OBJ_PLTT+0x100, 0x20);
-            PlaySE(43);
+            PlaySE(SE001_MENU_CONFIRM);
             scriptCtx->flags |= SCRIPT_SPOTSELECT_SELECTION_MADE;
             gOamObjects[88].attr0 = SPRITE_ATTR0(investigation->unk2, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
             gOamObjects[88].attr1 = SPRITE_ATTR1_NONAFFINE(investigation->unk0, FALSE, FALSE, 1);

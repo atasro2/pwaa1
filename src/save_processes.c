@@ -12,6 +12,7 @@
 #include "investigation.h"
 #include "graphics.h"
 #include "constants/script.h"
+#include "constants/songs.h"
 
 const char gSaveVersion[0x30] = "2001 CAPCOM GBA GYAKUTEN-SAIBAN 06/15 Ver 1.000-";
 
@@ -161,12 +162,12 @@ void ClearSaveProcess(struct Main *main)
         {
             if(gJoypad.pressedKeys & (DPAD_RIGHT|DPAD_LEFT))
             {
-                PlaySE(0x2A);
+                PlaySE(SE000_MENU_CHANGE);
                 main->selectedButton ^= 1;
             }
             else if(gJoypad.pressedKeys & A_BUTTON)
             {
-                PlaySE(0x2B);
+                PlaySE(SE001_MENU_CONFIRM);
                 StartHardwareBlend(2, 1, 1, 0x1F);
                 main->tilemapUpdateBits = 0;
                 main->process[GAME_PROCESS_STATE]++;
@@ -328,11 +329,11 @@ void SaveGameWaitForInput(struct Main *main)
         if(gJoypad.pressedKeys & (DPAD_RIGHT | DPAD_LEFT))
         {
             main->selectedButton ^= 1;
-            PlaySE(0x2A);
+            PlaySE(SE000_MENU_CHANGE);
         }
         else if(gJoypad.pressedKeys & A_BUTTON)
         {
-            PlaySE(0x40);
+            PlaySE(SE016_CONFIRM_SAVE);
             if(main->selectedButton == 0)
             {
                 if(main->sIsEpisodePartOver)
@@ -364,7 +365,7 @@ void SaveGameWaitForInput(struct Main *main)
         }
         else if(!main->sIsEpisodePartOver && gJoypad.pressedKeys & B_BUTTON)
         {
-            PlaySE(0x2C);
+            PlaySE(SE002_MENU_CANCEL);
             main->selectedButton = 1;
             StartHardwareBlend(2, 0, 1, 0x1F);
             main->process[GAME_PROCESS_STATE] = 4;

@@ -12,7 +12,7 @@
 #include "graphics.h"
 #include "constants/bg.h"
 #include "constants/script.h"
-
+#include "constants/songs.h"
 
 const u8 gSoundCueTable[] = {
     0, 0, 0, 0, 1, 1, 1, 1,
@@ -97,7 +97,7 @@ bool32 Command02(struct ScriptContext * scriptCtx)
     }
     if(scriptCtx->flags & 2)
     {
-        PlaySE(47);
+        PlaySE(SE005_TEXT_ADVANCE);
         gBG1MapBuffer[622] = 9;
         gBG1MapBuffer[623] = 9;
         scriptCtx->flags &= ~(2 | 1);
@@ -267,7 +267,7 @@ bool32 Command08(struct ScriptContext * scriptCtx)
     {
         if(gJoypad.pressedKeys & DPAD_UP)
         {
-            PlaySE(0x2A);
+            PlaySE(SE000_MENU_CHANGE);
             scriptCtx->fullscreenCursorPos--;
             if(scriptCtx->fullscreenCursorPos > 1)
             {
@@ -276,7 +276,7 @@ bool32 Command08(struct ScriptContext * scriptCtx)
         }
         else if(gJoypad.pressedKeys & DPAD_DOWN)
         {
-            PlaySE(0x2A);
+            PlaySE(SE000_MENU_CHANGE);
             scriptCtx->fullscreenCursorPos++;
             if(scriptCtx->fullscreenCursorPos > 1)
             {
@@ -285,7 +285,7 @@ bool32 Command08(struct ScriptContext * scriptCtx)
         }
         else if(gJoypad.pressedKeys & A_BUTTON)
         {
-            PlaySE(0x2B);
+            PlaySE(SE001_MENU_CONFIRM);
             scriptCtx->unk32 = 10;
             scriptCtx->flags |= 0x20;
             if(scriptCtx->fullscreenCursorPos == 0)
@@ -345,7 +345,7 @@ bool32 Command09(struct ScriptContext * scriptCtx)
     {
         if(gJoypad.pressedKeys & DPAD_UP)
         {
-            PlaySE(0x2A);
+            PlaySE(SE000_MENU_CHANGE);
             scriptCtx->fullscreenCursorPos--;
             if(scriptCtx->fullscreenCursorPos > 2)
             {
@@ -354,7 +354,7 @@ bool32 Command09(struct ScriptContext * scriptCtx)
         }
         else if(gJoypad.pressedKeys & DPAD_DOWN)
         {
-            PlaySE(0x2A);
+            PlaySE(SE000_MENU_CHANGE);
             scriptCtx->fullscreenCursorPos++;
             if(scriptCtx->fullscreenCursorPos > 2)
             {
@@ -363,7 +363,7 @@ bool32 Command09(struct ScriptContext * scriptCtx)
         }
         else if(gJoypad.pressedKeys & A_BUTTON)
         {
-            PlaySE(0x2B);
+            PlaySE(SE001_MENU_CONFIRM);
             scriptCtx->unk32 = 10;
             scriptCtx->flags |= 0x20;
             if(scriptCtx->fullscreenCursorPos == 0)
@@ -491,7 +491,7 @@ bool32 Command10(struct ScriptContext * scriptCtx)
 bool32 Command11(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
-    PlaySE(49);
+    PlaySE(SE007_MENU_OPEN_SUBMENU);
     scriptCtx->flags |= 0x10;
     gMain.gameStateFlags |= 0x100;
     BACKUP_PROCESS();
@@ -521,7 +521,7 @@ bool32 Command13(struct ScriptContext * scriptCtx)
     gMain.itemPlateEvidenceId = *scriptCtx->scriptPtr;
     gMain.itemPlateSide = *scriptCtx->scriptPtr >> 8;
     scriptCtx->scriptPtr++;
-    PlaySE(51);
+    PlaySE(SE009_DISPLAY_EVIDENCE);
     return 0;
 }
 
@@ -529,7 +529,7 @@ bool32 Command14(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
     gMain.itemPlateState = 1;
-    PlaySE(51);
+    PlaySE(SE009_DISPLAY_EVIDENCE);
     return 0;
 } 
 

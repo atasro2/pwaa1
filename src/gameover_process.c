@@ -4,6 +4,7 @@
 #include "script.h"
 #include "sound.h"
 #include "graphics.h"
+#include "constants/songs.h"
 
 const u8 gUnknown_080189A4[152] = {
 	0x01, 0x02, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x04, 0x05, 0x06, 0x07, 0x01,
@@ -88,7 +89,7 @@ void GameOverScreenProcess(struct Main *main)
         }
         else
         {
-            PlaySE(0x56);
+            PlaySE(SE02C_GAME_OVER);
             main->process[GAME_PROCESS_STATE]++;
             main->process[GAME_PROCESS_VAR1] = 0;
         }

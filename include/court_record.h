@@ -1,6 +1,8 @@
 #ifndef GUARD_COURT_RECORD_H
 #define GUARD_COURT_RECORD_H
 
+#define COURT_RECORD_VIEW_PROFILES 0x1
+
 struct CourtRecord
 {
     /* +0x00 */ s8 unk0; // unity AA4: bg_x_add
