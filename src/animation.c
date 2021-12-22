@@ -7,171 +7,172 @@
 #include "background.h"
 #include "graphics.h"
 #include "constants/animation.h"
+#include "constants/persons.h"
 
 #define DUMMYPERSON { .gfxData = 0, .frameData = 0, .spriteCount = 0, .unkA = 0 }
 #define DUMMYANIMATION { .gfxData = 0, .vramPtr = 0, .frameData = 0, .xOrigin = 0, .yOrigin = 0, .paletteSlot = 0, .spriteCount = 0, .priority = 0, .flags = 0x0, }
 
 const struct PersonAnimationData gPersonAnimData[] = {
-	[0] = DUMMYPERSON,
-	[1] = DUMMYPERSON,
-	[2] = {
+	[PERSON_ANIM_NONE] = DUMMYPERSON,
+	[PERSON_ANIM_DUMMY01] = DUMMYPERSON,
+	[PERSON_ANIM_PHOENIX] = {
 		.gfxData = gGfxPixAnimationChar01,
 		.frameData = gGfxSeqAnimationChar01,
 		.spriteCount = 37,
 		.unkA = 0x0,
 	},
-	[3] = DUMMYPERSON,
-	[4] = {
+	[PERSON_ANIM_DUMMY03] = DUMMYPERSON,
+	[PERSON_ANIM_MAYA] = {
 		.gfxData = gGfxPixAnimationChar02,
 		.frameData = gGfxSeqAnimationChar02,
 		.spriteCount = 28,
 		.unkA = 0x0,
 	},
-	[5] = {
+	[PERSON_ANIM_SUMMONED_MIA] = {
 		.gfxData = gGfxPixAnimationChar03,
 		.frameData = gGfxSeqAnimationChar03,
 		.spriteCount = 28,
 		.unkA = 0x0,
 	},
-	[6] = DUMMYPERSON,
-	[7] = {
+	[PERSON_ANIM_DUMMY06] = DUMMYPERSON,
+	[PERSON_ANIM_MIA] = {
 		.gfxData = gGfxPixAnimationChar04,
 		.frameData = gGfxSeqAnimationChar04,
 		.spriteCount = 28,
 		.unkA = 0x0,
 	},
-	[8] = {
+	[PERSON_ANIM_JUDGE] = {
 		.gfxData = gGfxPixAnimationChar05,
 		.frameData = gGfxSeqAnimationChar05,
 		.spriteCount = 19,
 		.unkA = 0x0,
 	},
-	[9] = {
+	[PERSON_ANIM_EDGEWORTH] = {
 		.gfxData = gGfxPixAnimationChar06,
 		.frameData = gGfxSeqAnimationChar06,
 		.spriteCount = 38,
 		.unkA = 0x0,
 	},
-	[10] = {
+	[PERSON_ANIM_WINSTON_PAYNE] = {
 		.gfxData = gGfxPixAnimationChar10,
 		.frameData = gGfxSeqAnimationChar10,
 		.spriteCount = 23,
 		.unkA = 0x0,
 	},
-	[11] = DUMMYPERSON,
-	[12] = {
+	[PERSON_ANIM_DUMMY11] = DUMMYPERSON,
+	[PERSON_ANIM_MARVIN_GROSSBERG] = {
 		.gfxData = gGfxPixAnimationChar14,
 		.frameData = gGfxSeqAnimationChar14,
 		.spriteCount = 33,
 		.unkA = 0x0,
 	},
-	[13] = DUMMYPERSON,
-	[14] = DUMMYPERSON,
-	[15] = DUMMYPERSON,
-	[16] = {
+	[PERSON_ANIM_DUMMY13] = DUMMYPERSON,
+	[PERSON_ANIM_DUMMY14] = DUMMYPERSON,
+	[PERSON_ANIM_DUMMY15] = DUMMYPERSON,
+	[PERSON_ANIM_PENNY_NICHOLS] = {
 		.gfxData = gGfxPixAnimationChar16,
 		.frameData = gGfxSeqAnimationChar16,
 		.spriteCount = 14,
 		.unkA = 0x0,
 	},
-	[17] = {
+	[PERSON_ANIM_WENDY_OLDBAG] = {
 		.gfxData = gGfxPixAnimationChar15,
 		.frameData = gGfxSeqAnimationChar15,
 		.spriteCount = 29,
 		.unkA = 0x0,
 	},
-	[18] = {
+	[PERSON_ANIM_SAL_MANELLA] = {
 		.gfxData = gGfxPixAnimationChar18,
 		.frameData = gGfxSeqAnimationChar18,
 		.spriteCount = 39,
 		.unkA = 0x0,
 	},
-	[19] = DUMMYPERSON,
-	[20] = {
+	[PERSON_ANIM_DUMMY19] = DUMMYPERSON,
+	[PERSON_ANIM_GUMSHOE] = {
 		.gfxData = gGfxPixAnimationChar07,
 		.frameData = gGfxSeqAnimationChar07,
 		.spriteCount = 39,
 		.unkA = 0x0,
 	},
-	[21] = {
+	[PERSON_ANIM_REDD_WHITE] = {
 		.gfxData = gGfxPixAnimationChar08,
 		.frameData = gGfxSeqAnimationChar08,
 		.spriteCount = 36,
 		.unkA = 0x0,
 	},
-	[22] = {
+	[PERSON_ANIM_APRIL_MAY] = {
 		.gfxData = gGfxPixAnimationChar09,
 		.frameData = gGfxSeqAnimationChar09,
 		.spriteCount = 30,
 		.unkA = 0x0,
 	},
-	[23] = {
+	[PERSON_ANIM_BELLBOY] = {
 		.gfxData = gGfxPixAnimationChar11,
 		.frameData = gGfxSeqAnimationChar11,
 		.spriteCount = 35,
 		.unkA = 0x0,
 	},
-	[24] = {
+	[PERSON_ANIM_DEE_VASQUEZ] = {
 		.gfxData = gGfxPixAnimationChar19,
 		.frameData = gGfxSeqAnimationChar19,
 		.spriteCount = 29,
 		.unkA = 0x0,
 	},
-	[25] = {
+	[PERSON_ANIM_LARRY_BUTZ] = {
 		.gfxData = gGfxPixAnimationChar12,
 		.frameData = gGfxSeqAnimationChar12,
 		.spriteCount = 39,
 		.unkA = 0x0,
 	},
-	[26] = {
+	[PERSON_ANIM_FRANK_SAWHIT] = {
 		.gfxData = gGfxPixAnimationChar13,
 		.frameData = gGfxSeqAnimationChar13,
 		.spriteCount = 38,
 		.unkA = 0x0,
 	},
-	[27] = {
+	[PERSON_ANIM_WILL_POWERS] = {
 		.gfxData = gGfxPixAnimationChar17,
 		.frameData = gGfxSeqAnimationChar17,
 		.spriteCount = 39,
 		.unkA = 0x0,
 	},
-	[28] = {
+	[PERSON_ANIM_CODY_HACKINS] = {
 		.gfxData = gGfxPixAnimationChar20,
 		.frameData = gGfxSeqAnimationChar20,
 		.spriteCount = 18,
 		.unkA = 0x0,
 	},
-	[29] = {
+	[PERSON_ANIM_BUSTUP_PHOENIX] = {
 		.gfxData = gGfxPixAnimationChar21,
 		.frameData = gGfxSeqAnimationChar21,
 		.spriteCount = 7,
 		.unkA = 0x0,
 	},
-	[30] = {
+	[PERSON_ANIM_BUSTUP_EDGEWORTH] = {
 		.gfxData = gGfxPixAnimationChar22,
 		.frameData = gGfxSeqAnimationChar22,
 		.spriteCount = 10,
 		.unkA = 0x0,
 	},
-	[31] = {
+	[PERSON_ANIM_LOTTA_HART] = {
 		.gfxData = gGfxPixAnimationChar23,
 		.frameData = gGfxSeqAnimationChar23,
 		.spriteCount = 24,
 		.unkA = 0x0,
 	},
-	[32] = {
+	[PERSON_ANIM_YANNI_YOGI] = {
 		.gfxData = gGfxPixAnimationChar24,
 		.frameData = gGfxSeqAnimationChar24,
 		.spriteCount = 29,
 		.unkA = 0x0,
 	},
-	[33] = {
+	[PERSON_ANIM_MANFRED_VONKARMA] = {
 		.gfxData = gGfxPixAnimationChar25,
 		.frameData = gGfxSeqAnimationChar25,
 		.spriteCount = 36,
 		.unkA = 0x0,
 	},
-	[34] = {
+	[PERSON_ANIM_POLLY] = {
 		.gfxData = gGfxPixAnimationChar26,
 		.frameData = gGfxSeqAnimationChar26,
 		.spriteCount = 10,
