@@ -773,7 +773,7 @@ void ContinueSaveProcess(struct Main * main) {
             // 9FD0
             // sizeof(gTextBoxCharacters) != sizeof(gSaveDataBuffer.textBoxCharacters)
             DmaCopy16(3, gSaveDataBuffer.textBoxCharacters, gTextBoxCharacters, sizeof(gTextBoxCharacters));
-            RedrawVwfChars();
+            RedrawVWFCharactersFromSave();
             DmaCopy16(3, &gSaveDataBuffer.scriptCtx, &gScriptContext, sizeof(gScriptContext));
             DmaCopy16(3, &gSaveDataBuffer.ioRegs, &gIORegisters, sizeof(gIORegisters));
             DmaCopy16(3, &gSaveDataBuffer.courtRecord, &gCourtRecord, sizeof(gCourtRecord));

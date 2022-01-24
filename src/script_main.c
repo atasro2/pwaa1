@@ -247,19 +247,19 @@ static void AdvanceScriptContext(struct ScriptContext * scriptCtx)
         scriptCtx->currentToken -= 0x80;
         if (scriptCtx->flags & SCRIPT_FULLSCREEN)
         {
-            PutVwfCharInTextbox(scriptCxt->currentToken, scriptCxt->fullscreenTextY, scriptCxt->fullscreenCharCount);
-            scriptCxt->fullscreenCharCount++;
-            scriptCxt->fullscreenTextX++;
+            PutVwfCharInTextbox(scriptCtx->currentToken, scriptCtx->fullscreenTextY, scriptCtx->fullscreenCharCount);
+            scriptCtx->fullscreenCharCount++;
+            scriptCtx->fullscreenTextX++;
         }
         else
         {
-            PutVwfCharInTextbox(scriptCxt->currentToken, scriptCxt->textY, scriptCxt->textX);
-            scriptCxt->textX++;
+            PutVwfCharInTextbox(scriptCtx->currentToken, scriptCtx->textY, scriptCtx->textX);
+            scriptCtx->textX++;
         }
 
         scriptCtx->scriptPtr++;
         
-        if (!(scriptCtx->currentSection == 0x80 && gMain.scenarioIdx == 0) && scriptCtx->currentToken != 0xFF)
+        if (scriptCtx->currentToken != 0xFF)
         {
             if ( scriptCtx->textSpeed > 0)
             {

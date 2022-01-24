@@ -1,11 +1,14 @@
 #include "global.h"
 #include "script.h"
 #include "ewram.h"
+#include "save.h"
+#include "graphics.h"
 #include "mgba.h"
 
 #define VWF_RENDERER ((struct FontRenderData *)(EWRAM_START+0x5000))
 #define VWF_CHARDATA (struct NewTextBoxCharacter *)(EWRAM_START+0x5080)
 
+extern u8 gTextColorTileBuffer[0x80];
 static const u8 sCharCodeArgCount[] =
 {
 	0, 0, 0, 1, 1, 2, 1, 0,
@@ -20,6 +23,155 @@ static const u8 sCharCodeArgCount[] =
 	2, 0, 1, 1, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 1, 0, 0
+};
+
+const s8 gPersianForms[127][4] = {
+	{0x0, -1, -1, -1},
+ 	{0x1, -1, -1, -1},
+	{0x2, -1, -1, -1},
+	{0x3, -1, -1, -1},
+	{0x4, -1, -1, -1},
+	{0x5, -1, -1, -1},
+	{0x6, -1, -1, -1},
+	{0x7, -1, -1, -1},
+	{0x8, -1, -1, -1},
+	{0x9, -1, -1, -1},
+	{0xA, -1, -1, -1},
+	{0xB, 0xB, 0xB, 0xB},
+	{0xC, -1, -1, -1},
+	{0xD, -1, -1, -1},
+	{-1, 0xE, 0xE, -1},
+	{0xF, -1, -1, -1},
+	{0x10, -1, -1, 0x11},
+	{0x12, 0x13, 0x13, 0x12},
+	{0x14, 0x15, 0x15, 0x14},
+	{0x16, 0x17, 0x17, 0x16},
+	{0x18, 0x19, 0x19, 0x18},
+	{0x1A, 0x1B, 0x1B, 0x1A},
+	{0x1C, 0x1D, 0x1D, 0x1C},
+	{0x1E, 0x1F, 0x1F, 0x1F},
+	{0x20, 0x21, 0x21, 0x20},
+	{0x22, -1, -1, 0x22},
+	{0x23, -1, -1, 0x23},
+	{0x24, -1, -1, 0x24},
+	{0x25, -1, -1, 0x25},
+	{0x26, -1, -1, 0x26},
+	{0x27, 0x28, 0x28, 0x27},
+	{0x29, 0x2A, 0x2A, 0x29},
+	{0x2B, 0x2C, 0x2C, 0x2B},
+	{0x2D, 0x2E, 0x2E, 0x2D},
+	{0x2F, 0x2F, 0x2F, 0x2F},
+	{0x30, 0x30, 0x30, 0x30},
+	{0x31, 0x34, 0x33, 0x32},
+	{0x35, 0x38, 0x37, 0x36},
+	{0x39, 0x3A, 0x3A, 0x39},
+	{0x3B, 0x3C, 0x3C, 0x3B},
+	{0x3D, 0x3E, 0x3E, 0x3D},
+	{0x3F, 0x40, 0x40, 0x3F},
+	{0x41, 0x43, 0x43, 0x41},
+	{0x42, -1, -1, 0x42},
+	{0x44, 0x45, 0x45, 0x44},
+	{0x46, 0x47, 0x47, 0x46},
+	{0x48, -1, -1, 0x48},
+	{0x49, 0x4B, 0x4A, 0x49},
+	{0x4D, 0x4E, 0x4E, 0x4C},
+	{0x0, 0x0, 0x0, 0x0},
+	{0x0, 0x0, 0x0, 0x0},
+	{0x0, 0x0, 0x0, 0x0},
+	{0x0, 0x0, 0x0, 0x0},
+	{0x0, 0x0, 0x0, 0x0},
+	{0x0, 0x0, 0x0, 0x0},
+	{0x0, 0x0, 0x0, 0x0},
+	{0x0, 0x0, 0x0, 0x0},
+	{0x0, 0x0, 0x0, 0x0},
+	{0x0, 0x0, 0x0, 0x0},
+	{0x0, 0x0, 0x0, 0x0},
+	{0x0, 0x0, 0x0, 0x0},
+	{0x0, 0x0, 0x0, 0x0},
+	{0x0, 0x0, 0x0, 0x0},
+	{0x0, 0x0, 0x0, 0x0},
+};
+
+const u8 gPersianGlyphAdvance[128] = {
+    3,
+    3,
+    6,
+    7,
+    8,
+    8,
+    7,
+    8,
+    8,
+    6,
+    3,
+    4,
+    7,
+    5,
+    4,
+    6,
+    2,
+    4,
+    9,
+    4,
+    9,
+    4,
+    9,
+    4,
+    9,
+    4,
+    9,
+    8,
+    9,
+    8,
+    9,
+    8,
+    9,
+    8,
+    5,
+    5,
+    6,
+    6,
+    6,
+    15,
+    9,
+    15,
+    9,
+    16,
+    11,
+    16,
+    11,
+    8,
+    8,
+    8,
+    7,
+    6,
+    6,
+    8,
+    7,
+    6,
+    6,
+    11,
+    5,
+    9,
+    5,
+    9,
+    5,
+    9,
+    5,
+    8,
+    6,
+    4,
+    7,
+    7,
+    9,
+    4,
+    6,
+    6,
+    8,
+    9,
+    9,
+    10,
+    4
 };
 
 #define PRINT_DEBUG
@@ -57,6 +209,8 @@ struct FontRenderData {
 	bool8 fsUsed;
 	
 	u8 soundCueCounter;
+	u8 oldLetter;
+	u8 oldLetterForm;
 	// ScriptContext *gameRamBase3; -- this is a pointer to gScriptContext
 };
 
@@ -92,6 +246,21 @@ u32 profile_stop()
 {
    REG_TM2CNT_H = 0;
    return (REG_TM3CNT_L<<16)|REG_TM2CNT_L;
+}
+
+u32 IsLineEndingToken(u32 token) {
+	return(token == 1 //newline
+		|| token == 2 //pagebreak
+		|| token == 7 //fullscreen page
+		|| token == 8 //fullscreen input 2
+		|| token == 9 //fullscreen input 3
+		|| token == 10 //pagebreak change section
+		|| token == 13 //next section
+		|| token == 21 //give player control
+		|| token == 42 //next section ifelse
+		|| token == 45 //page break no talk anim
+		|| token == 46 
+		|| token == 69); //give player control no idle anim
 }
 
 void SaveVWFCharacters(void)
@@ -140,7 +309,7 @@ void RedrawVWFCharactersFromSave(void)
 		if(ptr[9] == 0 && ptr[10] == 0 && ptr[11] == 0)
 			return;
 	}
-    if(gScriptContext.unk0 & 4)
+    if(gScriptContext.flags & 4)
 		gScriptContext.fullscreenTextX = 0;
 	#ifdef PRINT_DEBUG
 	profile_start();
@@ -149,11 +318,11 @@ void RedrawVWFCharactersFromSave(void)
     {
 		if(nCharacters->xPos == 0 || oldY != nCharacters->yPos)
 		{
-			if(gSaveDataBuffer.scriptCtx.unk0 & 0x8000 || nCharacters->shouldCenter)
+			if(gSaveDataBuffer.scriptCtx.flags & 0x8000 || nCharacters->shouldCenter)
 			{
 				u32 stringWidth = 0;
 				struct NewTextBoxCharacter * oldnCharacters = nCharacters;
-				gScriptContext.unk0 |= 0x8000;
+				gScriptContext.flags |= 0x8000;
 				*(u32*)0x03007000 = 0x69696969;
 				oldY = nCharacters->yPos;
 				while(1)
@@ -169,13 +338,13 @@ void RedrawVWFCharactersFromSave(void)
 					nCharacters++;
 				}
 				*(u32*)0x03007000 = stringWidth | 0x69000000;
-				VWF_RENDERER->xOffset = (DISPLAY_WIDTH/2) - DivRoundNearest(stringWidth, 2) - ((nCharacters->yPos >= 2) ? (gSaveDataBuffer.scriptCtx.unk28 + 4) : gSaveDataBuffer.scriptCtx.textXOffset);
+				VWF_RENDERER->xOffset = (DISPLAY_WIDTH/2) - DivRoundNearest(stringWidth, 2) - ((nCharacters->yPos >= 2) ? (gSaveDataBuffer.scriptCtx.fullscreenTextXOffset + 4) : gSaveDataBuffer.scriptCtx.textXOffset);
 				nCharacters = oldnCharacters;
 				oldY = nCharacters->yPos;
 			}
 			else
 			{
-				gScriptContext.unk0 &= ~0x8000;
+				gScriptContext.flags &= ~0x8000;
 				VWF_RENDERER->xOffset = 0;
 			}
 		}
@@ -213,7 +382,6 @@ void RedrawVWFCharactersFromSave(void)
 	u32 profiling = profile_stop();
 	u32 xBGPos = 29;
 	u32 remaining = totalScanLines;
-	gMain.unk1F = 0xFF;
 	while (remaining > 0) {
 		u32 digit = remaining % 10;
 		u32 ascii = 464 + digit;
@@ -258,12 +426,12 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 	if(!renderer->isReloading && (renderer->xCol == 0 || (renderer->yRow >= 2 && lineHasChanged)))
 	{
 		u32 charCode2;
-		u16 * oldScriptPtr; 
+		const u16 * oldScriptPtr; 
 		u32 stringWidth = 0;
 		//*(u32*)0x03007000 = renderer->yRow;
 		//*(u32*)0x03007004 = renderer->xCol;
 
-		if(ctx->unk0 & 0x8000)
+		if(ctx->flags & 0x8000)
 		{
 			oldScriptPtr = ctx->scriptPtr;
 			while(1)
@@ -284,7 +452,7 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 				else
 					ctx->scriptPtr += sCharCodeArgCount[token]; // skip command
 			}
-			renderer->xOffset = (DISPLAY_WIDTH/2) - DivRoundNearest(stringWidth, 2) - ((renderer->yRow >= 2) ? (ctx->unk28 + 4) : ctx->textXOffset);
+			renderer->xOffset = (DISPLAY_WIDTH/2) - DivRoundNearest(stringWidth, 2) - ((renderer->yRow >= 2) ? (ctx->fullscreenTextXOffset + 4) : ctx->textXOffset);
 			ctx->scriptPtr = oldScriptPtr;
 		}
 		else
@@ -301,7 +469,7 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 				renderer->saveCharCounter = newTBC;
 			}
 		}
-		renderer->saveCharCounter->shouldCenter = !!(ctx->unk0 & 0x8000);
+		renderer->saveCharCounter->shouldCenter = !!(ctx->flags & 0x8000);
 		if (renderer->yRow == 2) {
 			renderer->fsUsed = 1;
 			renderer->fsBaseTile = 128;
@@ -317,16 +485,65 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 	}
     
 	renderer->oamNecessary = 0;
-	if (charCode >= 0x600) 
+	if (charCode >= 0x700) 
 	{
-		renderer->arialGlyphsAddr = &gArialGlyphs4bpp[processedCharCode];
-		characterWidth = gArialGlyphWidths[processedCharCode];
+		const u16 * ptr = gScriptContext.scriptPtr+1;
+		int form = 0;
+		int glyphId;
+		while (1) 
+		{
+			int token = *ptr++;
+			if(token == 0x80+0xFF) {
+				if((renderer->oldLetterForm == 1 
+				|| renderer->oldLetterForm == 2)) { // previous was medial or initial forms
+					form = 3; // final form
+				} else {
+					form = 0; // isolated
+				}
+				break;
+			}
+			if(token >= 0x700+0x80) {
+				if(renderer->oldLetterForm == 0 
+				|| renderer->oldLetterForm == 3) { // previous was final or isolated forms
+					if((gPersianForms[token-0x700-0x80][2] > 0 || gPersianForms[token-0x700-0x80][3] > 0) && gPersianForms[charCode-0x700][1] > 0) // next has final or medial forms
+						form = 1; // initial form
+					else
+						form = 0; // isolated form
+				} else { // previous was medial or initial forms
+					if((gPersianForms[token-0x700-0x80][2] > 0 || gPersianForms[token-0x700-0x80][3] > 0) && gPersianForms[charCode-0x700][2] > 0)
+						form = 2; // medial form
+					else
+						form = 3; // final form
+				}
+				break;
+			}
+			if(IsLineEndingToken(token)) {
+				if((renderer->oldLetterForm == 1 
+				|| renderer->oldLetterForm == 2)) { // previous was medial or initial forms
+					form = 3; // final form
+				} else {
+					form = 0; // isolated
+				}
+				break;
+			}
+		}
+		//if(renderer->oldLetter == 42
+		//&& charCode-0x700 == 16)
+		//glyphId = 0x42;
+		//else
+		
+		glyphId = gPersianForms[charCode-0x700][form];
+		renderer->oldLetterForm = form;
+		renderer->oldLetter = charCode-0x700;
+		renderer->arialGlyphsAddr = &gArialGlyphs4bpp[glyphId];
+		characterWidth += gPersianGlyphAdvance[glyphId];
 	}
 	else
 	{
-		renderer->arialGlyphsAddr = (const Glyph *)&gCharSet[charCode];
-		characterWidth = 14;
+		renderer->arialGlyphsAddr = (const Glyph *)gCharSet+charCode;
+		characterWidth = 2;
 	}
+	
 	if (isCharSaveNeeded) {
 		renderer->saveCharCounter->charCode = renderer->characterCode;
 		renderer->saveCharCounter->xPos = renderer->xCol;
@@ -483,7 +700,8 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 			r0 += 4;
 		}
 		r0 += (r2 & 0xF) << 4;
-		oamProxy->x = r0 + renderer->xOffset; 
+		oamProxy->x = DISPLAY_WIDTH - 32 - r0 - renderer->xOffset;
+		oamProxy->x |= 0x1000; 
 		
 		// r2 = renderer->yRow;
 		r0 = (renderer->yRow - (renderer->yRow >= 2 ? 2 : 0)) * 18;

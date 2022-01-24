@@ -364,9 +364,9 @@ bool32 Command5D(struct ScriptContext *scriptCtx)
 {
     scriptCtx->scriptPtr++;
     if(*scriptCtx->scriptPtr)
-        scriptCtx->unk0 |= 0x8000;
+        scriptCtx->flags |= 0x8000;
     else
-        scriptCtx->unk0 &= ~0x8000;
+        scriptCtx->flags &= ~0x8000;
     scriptCtx->scriptPtr++;
     return 0;
 }

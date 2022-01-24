@@ -107,6 +107,7 @@ void RunScriptContext();
 void InitScriptSection(struct ScriptContext *scriptCtx);
 void RedrawTextboxCharacters();
 
+void RedrawVWFCharactersFromSave();
 void PutVwfCharInTextbox();
 
 void MakeMapMarkerSprites();
