@@ -6,7 +6,7 @@
 #include "main.h"
 #include "declarations.h"
 
-#define NONMATCHING
+//#define NONMATCHING
 
 // Prevent cross-jump optimization.
 #define BLOCK_CROSS_JUMP asm("");

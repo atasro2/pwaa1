@@ -4,6 +4,7 @@
 #include "save.h"
 #include "graphics.h"
 #include "mgba.h"
+#include "constants/script.h"
 
 #define VWF_RENDERER ((struct FontRenderData *)(EWRAM_START+0x5000))
 #define VWF_CHARDATA (struct NewTextBoxCharacter *)(EWRAM_START+0x5080)
@@ -225,6 +226,7 @@ struct NewTextBoxCharacter {
 extern Glyph const gArialGlyphs[0xE0];
 extern u32 const gArialGlyphWidths[0xE0];
 extern Glyph const gArialGlyphs4bpp[0xE0];
+extern Glyph const gPersianGlyphs4bpp[0xE0];
 
 #define DivRoundNearest(divisor, dividend) (((divisor) + ((dividend)/2)) / (dividend))
 #define DivRoundCeil(divisor, dividend) (((divisor) + ((dividend)-1)) / (dividend))
@@ -412,7 +414,7 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 	struct NewTextBoxCharacter *newTBC = VWF_CHARDATA;
     bool32 lineHasChanged = renderer->yRow != y;
     u32 processedCharCode;
-    u32 characterWidth;
+    s32 characterWidth = 0;
 	bool32 isCharSaveNeeded;
 
 	if(renderer->saveCharCounter == NULL)
@@ -485,7 +487,14 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 	}
     
 	renderer->oamNecessary = 0;
-	if (charCode >= 0x700) 
+	
+	if (charCode < 0x800 && charCode >= 0x600) {
+		renderer->oldLetterForm = 0;
+		renderer->oldLetter = charCode;
+		renderer->arialGlyphsAddr = &gArialGlyphs4bpp[charCode-0x6A0];
+		characterWidth += gArialGlyphWidths[charCode-0x6A0];
+	}
+	else if (charCode >= 0x800)
 	{
 		const u16 * ptr = gScriptContext.scriptPtr+1;
 		int form = 0;
@@ -493,7 +502,7 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 		while (1) 
 		{
 			int token = *ptr++;
-			if(token == 0x80+0xFF) {
+			if(token < 0x800+0x80 && token >= 0x6A0+0x80) {
 				if((renderer->oldLetterForm == 1 
 				|| renderer->oldLetterForm == 2)) { // previous was medial or initial forms
 					form = 3; // final form
@@ -502,15 +511,15 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 				}
 				break;
 			}
-			if(token >= 0x700+0x80) {
+			if(token >= 0x800+0x80) {
 				if(renderer->oldLetterForm == 0 
 				|| renderer->oldLetterForm == 3) { // previous was final or isolated forms
-					if((gPersianForms[token-0x700-0x80][2] > 0 || gPersianForms[token-0x700-0x80][3] > 0) && gPersianForms[charCode-0x700][1] > 0) // next has final or medial forms
+					if((gPersianForms[token-0x800-0x80][2] > 0 || gPersianForms[token-0x800-0x80][3] > 0) && gPersianForms[charCode-0x800][1] > 0) // next has final or medial forms
 						form = 1; // initial form
 					else
 						form = 0; // isolated form
 				} else { // previous was medial or initial forms
-					if((gPersianForms[token-0x700-0x80][2] > 0 || gPersianForms[token-0x700-0x80][3] > 0) && gPersianForms[charCode-0x700][2] > 0)
+					if((gPersianForms[token-0x800-0x80][2] > 0 || gPersianForms[token-0x800-0x80][3] > 0) && gPersianForms[charCode-0x800][2] > 0)
 						form = 2; // medial form
 					else
 						form = 3; // final form
@@ -532,16 +541,18 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 		//glyphId = 0x42;
 		//else
 		
-		glyphId = gPersianForms[charCode-0x700][form];
+		glyphId = gPersianForms[charCode-0x800][form];
 		renderer->oldLetterForm = form;
-		renderer->oldLetter = charCode-0x700;
-		renderer->arialGlyphsAddr = &gArialGlyphs4bpp[glyphId];
+		renderer->oldLetter = charCode;
+		renderer->arialGlyphsAddr = &gPersianGlyphs4bpp[glyphId];
 		characterWidth += gPersianGlyphAdvance[glyphId];
 	}
 	else
 	{
+		renderer->oldLetterForm = 0;
+		renderer->oldLetter = charCode;
 		renderer->arialGlyphsAddr = (const Glyph *)gCharSet+charCode;
-		characterWidth = 2;
+		characterWidth = 14;
 	}
 	
 	if (isCharSaveNeeded) {
@@ -690,6 +701,7 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 		struct TextBoxCharacter *oamProxy = &gTextBoxCharacters[renderer->oamNum];
 		int r0 = 0;
 		int r2;
+		int textOffset;
 		oamProxy->state = 0x8000;
 		oamProxy->objAttr2 = renderer->oamBaseTile | 0x400;
 		
@@ -700,7 +712,8 @@ void PutVwfCharInTextbox(u32 charCode, u32 y, u32 x) {
 			r0 += 4;
 		}
 		r0 += (r2 & 0xF) << 4;
-		oamProxy->x = DISPLAY_WIDTH - 32 - r0 - renderer->xOffset;
+		textOffset = DISPLAY_WIDTH - 16 - (gScriptContext.flags & SCRIPT_FULLSCREEN ? gScriptContext.fullscreenTextXOffset : gScriptContext.textXOffset) * 2 - renderer->xOffset;
+		oamProxy->x = textOffset - r0;
 		oamProxy->x |= 0x1000; 
 		
 		// r2 = renderer->yRow;

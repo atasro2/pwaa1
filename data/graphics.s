@@ -3073,4 +3073,8 @@ gArialGlyphWidths:
 	.align 4
 	.global gArialGlyphs4bpp
 gArialGlyphs4bpp:
+	.incbin "data/arialglyphs.4bpp"
+	.align 4
+	.global gPersianGlyphs4bpp
+gPersianGlyphs4bpp:
 	.incbin "data/persian1616.4bpp"

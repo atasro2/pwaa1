@@ -93,10 +93,12 @@ void AgbMain()
             goto reset; // tfw no SoftReset
         }
 
-        gMain.vblankWaitCounter = 0;
+        //gMain.vblankWaitCounter = 0;
 
-        waitForVblank:
-        if(gMain.vblankWaitCounter != gMain.vblankWaitAmount) goto waitForVblank;
+        //waitForVblank:
+        //if(gMain.vblankWaitCounter != gMain.vblankWaitAmount) goto waitForVblank;
+
+        asm("swi 0x2");
 
         if (gMain.currentBgStripe == 0)
         {
