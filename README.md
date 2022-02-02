@@ -1,6 +1,6 @@
 # Gyakuten Saiban (Japan)
 
-This is a disassembly of Gyakuten Saiban (Japan)
+This is a decompilation of Gyakuten Saiban (Japan)
 
 It builds the following ROMs:
 * pwaa1.gba `sha1: 15C0E3389709BB275C42E99ED25212D09E49E361`
