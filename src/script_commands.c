@@ -557,7 +557,7 @@ bool32 Command16(struct ScriptContext * scriptCtx)
     gInvestigation.unkA = 0;
     gInvestigation.unkB = 0;
     main->scenarioIdx++;
-    PlayBGM(16);
+    PlayBGM(BGM016_JINGLE_SAVE);
     return 1;
 }
 

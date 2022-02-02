@@ -10,6 +10,7 @@
 #include "constants/animation.h"
 #include "constants/process.h"
 #include "constants/songs.h"
+#include "constants/persons.h"
 
 void (*gCourtProcessStates[])(struct Main *) = {
 	sub_800A3EC,
@@ -198,8 +199,8 @@ void sub_800A730(struct Main * main)
             if(!(animation3->flags & ANIM_PLAYING))
             {
                 DestroyAnimation(animation3);
-                PlayAnimationAtCustomOrigin(0x13, 120, 60);
-                PlayAnimationAtCustomOrigin(0x14, 120, 60);
+                PlayAnimationAtCustomOrigin(ANIM_TESTIMONY_START_LEFT, 120, 60);
+                PlayAnimationAtCustomOrigin(ANIM_TESTIMONY_START_RIGHT, 120, 60);
                 main->process[GAME_PROCESS_VAR1]++;
             }
             break;
@@ -330,8 +331,8 @@ void sub_800AA10(struct Main * main)
             if(!(animation3->flags & ANIM_PLAYING))
             {
                 DestroyAnimation(animation3);
-                PlayAnimationAtCustomOrigin(0x15, 120, 60);
-                PlayAnimationAtCustomOrigin(0x16, 120, 60);
+                PlayAnimationAtCustomOrigin(ANIM_CROSS_EXAMINATION_START_LEFT, 120, 60);
+                PlayAnimationAtCustomOrigin(ANIM_CROSS_EXAMINATION_START_RIGHT, 120, 60);
                 main->process[GAME_PROCESS_VAR1]++;
             }
             break;
@@ -493,7 +494,7 @@ void sub_800AE58(struct Main * main)
         case 0:
             if(gTestimony.unk1 == 0)
             {
-                SetCourtScrollPersonAnim(0, 1, 2, 0);
+                SetCourtScrollPersonAnim(0, 1, PERSON_ANIM_PHOENIX, 0);
                 InitCourtScroll(gGfxCourtscroll01, 0x1E, 0x1F, 1);
                 SlideTextbox(0);
                 main->process[GAME_PROCESS_VAR1]++;
@@ -547,7 +548,7 @@ void sub_800AF2C(struct Main * main)
         case 1:
             if(gTestimony.unk1 == 0)
             {
-                SetCourtScrollPersonAnim(0, 1, 2, 0x18D0);
+                SetCourtScrollPersonAnim(0, 1, PERSON_ANIM_PHOENIX, 0x18D0);
                 InitCourtScroll(gGfxCourtscroll01, 0x1E, 0x1F, 1);
                 SlideTextbox(0);
                 main->process[GAME_PROCESS_VAR1]++;

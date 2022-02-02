@@ -1780,7 +1780,7 @@ u32 sub_800EEA4(struct Main * main, u32 evidenceId)
     retVal = struct811DC98p->unk6;
     for(; struct811DC98p->unk3 != 0xFF; struct811DC98p++)
     {
-        if(gAnimation[1].animationInfo.personId == struct811DC98p->unk2)
+        if(gAnimation[1].animationInfo.personId == struct811DC98p->personId)
         {
             if(main->currentRoomId == struct811DC98p->roomId)
             {
