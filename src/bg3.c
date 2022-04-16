@@ -12,7 +12,6 @@ void InitBGs()
     u32 i;
     u16 *temp;
     DmaFill16(3, 0, &gBG0MapBuffer, sizeof(gBG0MapBuffer));
-	//Capcom plz use DmaCopy16 or smth kthxbye
     for (temp = gBG1MapBuffer, i = 0; i < ARRAY_COUNT(gUnknown_08013B70); i++, temp++)
     {
         (*temp) = gUnknown_08013B70[i];

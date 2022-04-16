@@ -8,6 +8,9 @@
 #include "graphics.h"
 #include "constants/script.h"
 #include "constants/animation.h"
+#include "constants/process.h"
+#include "constants/songs.h"
+#include "constants/persons.h"
 
 void (*gCourtProcessStates[])(struct Main *) = {
 	sub_800A3EC,
@@ -108,7 +111,7 @@ void sub_800A5B0(struct Main * main)
         PauseBGM();
         DmaCopy16(3, gOamObjects, gSaveDataBuffer.oam, sizeof(gOamObjects));
         DmaCopy16(3, &gMain, &gSaveDataBuffer.main, sizeof(gMain));
-        PlaySE(49);
+        PlaySE(SE007_MENU_OPEN_SUBMENU);
         main->gameStateFlags &= -2; // -2??
         BACKUP_PROCESS_PTR(main);
         SET_PROCESS_PTR(0xA, 0, 0, 0, main);
@@ -117,7 +120,7 @@ void sub_800A5B0(struct Main * main)
     !(main->gameStateFlags & 0x10) &&
     gScriptContext.flags & (SCRIPT_FULLSCREEN | 1))
     {
-        PlaySE(49);
+        PlaySE(SE007_MENU_OPEN_SUBMENU);
         BACKUP_PROCESS_PTR(main);
         SET_PROCESS_PTR(7, 0, 0, 0, main);
     }
@@ -162,14 +165,14 @@ void sub_800A730(struct Main * main)
     struct AnimationListEntry * animation;
     struct AnimationListEntry * animation2;
     struct AnimationListEntry * animation3;
-    switch(main->process[GAME_PROCESSUNK2])
+    switch(main->process[GAME_PROCESS_VAR1])
     {
         case 0:
             PlayAnimation(ANIM_TESTIMONY_START_LEFT);
             PlayAnimation(ANIM_TESTIMONY_START_RIGHT);
-            PlaySE(0x53);
+            PlaySE(SE029_BEGIN_QUESTIONING);
             gTestimony.unk6 = 0;
-            main->process[GAME_PROCESSUNK2]++;
+            main->process[GAME_PROCESS_VAR1]++;
             break;
         case 1:
             animation = FindAnimationFromAnimId(ANIM_TESTIMONY_START_LEFT);
@@ -184,21 +187,21 @@ void sub_800A730(struct Main * main)
                 DestroyAnimation(animation);
                 DestroyAnimation(animation2);
                 PlayAnimation(ANIM_TESTIMONY_START);
-                main->process[GAME_PROCESSUNK2]++;
+                main->process[GAME_PROCESS_VAR1]++;
             }
             break;
         case 2: // why not just do it in the next case like please
             if(main->blendMode == 0)
-                main->process[GAME_PROCESSUNK2]++;
+                main->process[GAME_PROCESS_VAR1]++;
             break;
         case 3:
             animation3 = FindAnimationFromAnimId(ANIM_TESTIMONY_START);
             if(!(animation3->flags & ANIM_PLAYING))
             {
                 DestroyAnimation(animation3);
-                PlayAnimationAtCustomOrigin(0x13, 120, 60);
-                PlayAnimationAtCustomOrigin(0x14, 120, 60);
-                main->process[GAME_PROCESSUNK2]++;
+                PlayAnimationAtCustomOrigin(ANIM_TESTIMONY_START_LEFT, 120, 60);
+                PlayAnimationAtCustomOrigin(ANIM_TESTIMONY_START_RIGHT, 120, 60);
+                main->process[GAME_PROCESS_VAR1]++;
             }
             break;
         case 4:
@@ -247,7 +250,7 @@ void sub_800A8E0(struct Main * main)
         PauseBGM();
         DmaCopy16(3, gOamObjects, gSaveDataBuffer.oam, sizeof(gOamObjects));
         DmaCopy16(3, &gMain, &gSaveDataBuffer.main, sizeof(gMain));
-        PlaySE(49);
+        PlaySE(SE007_MENU_OPEN_SUBMENU);
         main->gameStateFlags &= -2; // -2??
         BACKUP_PROCESS_PTR(main);
         SET_PROCESS_PTR(0xA, 0, 0, 0, main);
@@ -256,7 +259,7 @@ void sub_800A8E0(struct Main * main)
     !(main->gameStateFlags & 0x10) &&
     gScriptContext.flags & (SCRIPT_FULLSCREEN | 1))
     {
-        PlaySE(49);
+        PlaySE(SE007_MENU_OPEN_SUBMENU);
         BACKUP_PROCESS_PTR(main);
         SET_PROCESS_PTR(7, 0, 0, 0, main);
     }
@@ -295,13 +298,13 @@ void sub_800AA10(struct Main * main)
     struct AnimationListEntry * animation;
     struct AnimationListEntry * animation2;
     struct AnimationListEntry * animation3;
-    switch(main->process[GAME_PROCESSUNK2])
+    switch(main->process[GAME_PROCESS_VAR1])
     {
         case 0:
             PlayAnimation(ANIM_CROSS_EXAMINATION_START_LEFT);
             PlayAnimation(ANIM_CROSS_EXAMINATION_START_RIGHT);
-            PlaySE(0x53);
-            main->process[GAME_PROCESSUNK2]++;
+            PlaySE(SE029_BEGIN_QUESTIONING);
+            main->process[GAME_PROCESS_VAR1]++;
             break;
         case 1:
             animation = FindAnimationFromAnimId(ANIM_CROSS_EXAMINATION_START_LEFT);
@@ -316,21 +319,21 @@ void sub_800AA10(struct Main * main)
                 DestroyAnimation(animation);
                 DestroyAnimation(animation2);
                 PlayAnimation(ANIM_CROSS_EXAMINATION_START);
-                main->process[GAME_PROCESSUNK2]++;
+                main->process[GAME_PROCESS_VAR1]++;
             }
             break;
         case 2: // why not just do it in the next case like please
             if(main->blendMode == 0)
-                main->process[GAME_PROCESSUNK2]++;
+                main->process[GAME_PROCESS_VAR1]++;
             break;
         case 3:
             animation3 = FindAnimationFromAnimId(ANIM_CROSS_EXAMINATION_START);
             if(!(animation3->flags & ANIM_PLAYING))
             {
                 DestroyAnimation(animation3);
-                PlayAnimationAtCustomOrigin(0x15, 120, 60);
-                PlayAnimationAtCustomOrigin(0x16, 120, 60);
-                main->process[GAME_PROCESSUNK2]++;
+                PlayAnimationAtCustomOrigin(ANIM_CROSS_EXAMINATION_START_LEFT, 120, 60);
+                PlayAnimationAtCustomOrigin(ANIM_CROSS_EXAMINATION_START_RIGHT, 120, 60);
+                main->process[GAME_PROCESS_VAR1]++;
             }
             break;
         case 4:
@@ -345,7 +348,7 @@ void sub_800AA10(struct Main * main)
                 DestroyAnimation(animation);
                 DestroyAnimation(animation2);
                 main->process[GAME_PROCESS_STATE] = 1;
-                main->process[GAME_PROCESSUNK2] = 0;
+                main->process[GAME_PROCESS_VAR1] = 0;
             }
         default:
             break;
@@ -388,7 +391,7 @@ void sub_800AC1C(struct Main * main)
             PauseBGM();
             DmaCopy16(3, gOamObjects, gSaveDataBuffer.oam, sizeof(gOamObjects));
             DmaCopy16(3, &gMain, &gSaveDataBuffer.main, sizeof(gMain));
-            PlaySE(49);
+            PlaySE(SE007_MENU_OPEN_SUBMENU);
             main->gameStateFlags &= -2; // -2??
             BACKUP_PROCESS_PTR(main);
             SET_PROCESS_PTR(0xA, 0, 0, 0, main);
@@ -400,7 +403,7 @@ void sub_800AC1C(struct Main * main)
         if(gJoypad.pressedKeys & (A_BUTTON | DPAD_RIGHT))
         {
             section = gScriptContext.nextSection;
-            PlaySE(0x2B);
+            PlaySE(SE001_MENU_CONFIRM);
             ChangeScriptSection(section);
             RunScriptContext();
         }
@@ -409,7 +412,7 @@ void sub_800AC1C(struct Main * main)
             if(gScriptContext.currentSection-1 != main->testimonyBeginningSection)
             {
                 section = gScriptContext.currentSection-1;
-                PlaySE(0x2B);
+                PlaySE(SE001_MENU_CONFIRM);
                 ChangeScriptSection(section);
                 RunScriptContext();
             }
@@ -419,7 +422,7 @@ void sub_800AC1C(struct Main * main)
             if(gScriptContext.holdItSection != 0)
             {
                 PlayAnimation(ANIM_HOLDIT_LEFT);
-                PlaySE(0x47);
+                PlaySE(SE01D_VOICE_PHOENIX_HOLD_IT_JP);
                 StartHardwareBlend(3, 1, 4, 0x1F);
                 gTestimony.unk1 = 0x40;
                 gTestimony.unk4 = 0xF0;
@@ -430,13 +433,13 @@ void sub_800AC1C(struct Main * main)
                 main->showTextboxCharacters = FALSE;
                 SetTextboxNametag(0, 0);
                 main->process[GAME_PROCESS_STATE] = 4;
-                main->process[GAME_PROCESSUNK2] = 0;
+                main->process[GAME_PROCESS_VAR1] = 0;
                 return;
             }
         }
         else if(gJoypad.pressedKeys & R_BUTTON)
         {
-            PlaySE(0x31);
+            PlaySE(SE007_MENU_OPEN_SUBMENU);
             BACKUP_PROCESS_PTR(main);
             SET_PROCESS_PTR(7, 0, 0, 1, main);
         }
@@ -445,7 +448,7 @@ void sub_800AC1C(struct Main * main)
     !(main->gameStateFlags & 0x10) &&
     gScriptContext.flags & (SCRIPT_FULLSCREEN | 1))
     {
-        PlaySE(0x31);
+        PlaySE(SE007_MENU_OPEN_SUBMENU);
         BACKUP_PROCESS_PTR(main);
         SET_PROCESS_PTR(7, 0, 0, 0, main);
     }
@@ -486,15 +489,15 @@ void nullsub_32(struct Main * main)
 
 void sub_800AE58(struct Main * main)
 {
-    switch(main->process[GAME_PROCESSUNK2])
+    switch(main->process[GAME_PROCESS_VAR1])
     {
         case 0:
             if(gTestimony.unk1 == 0)
             {
-                SetCourtScrollPersonAnim(0, 1, 2, 0);
+                SetCourtScrollPersonAnim(0, 1, PERSON_ANIM_PHOENIX, 0);
                 InitCourtScroll(gGfxCourtscroll01, 0x1E, 0x1F, 1);
                 SlideTextbox(0);
-                main->process[GAME_PROCESSUNK2]++;
+                main->process[GAME_PROCESS_VAR1]++;
                 break;
             }
             gTestimony.unk1--;
@@ -518,7 +521,7 @@ void sub_800AE58(struct Main * main)
             gTestimony.unk3 = 0xE0;
             gTestimony.unk0 = 0;
             main->process[GAME_PROCESS_STATE] = 1;
-            main->process[GAME_PROCESSUNK2] = 0;
+            main->process[GAME_PROCESS_VAR1] = 0;
             break;
         default:
             break;
@@ -530,14 +533,14 @@ void sub_800AE58(struct Main * main)
 
 void sub_800AF2C(struct Main * main)
 {
-    switch(main->process[GAME_PROCESSUNK2])
+    switch(main->process[GAME_PROCESS_VAR1])
     {
         case 0:
             if(gTestimony.unk1 == 0)
             {
                 StartHardwareBlend(3, 1, 4, 0x1F);
                 gTestimony.unk1 = 0x40;
-                main->process[GAME_PROCESSUNK2]++;
+                main->process[GAME_PROCESS_VAR1]++;
                 break;
             }
             gTestimony.unk1--;
@@ -545,10 +548,10 @@ void sub_800AF2C(struct Main * main)
         case 1:
             if(gTestimony.unk1 == 0)
             {
-                SetCourtScrollPersonAnim(0, 1, 2, 0x18D0);
+                SetCourtScrollPersonAnim(0, 1, PERSON_ANIM_PHOENIX, 0x18D0);
                 InitCourtScroll(gGfxCourtscroll01, 0x1E, 0x1F, 1);
                 SlideTextbox(0);
-                main->process[GAME_PROCESSUNK2]++;
+                main->process[GAME_PROCESS_VAR1]++;
                 break;
             }
             gTestimony.unk1--;
@@ -557,7 +560,7 @@ void sub_800AF2C(struct Main * main)
             if(gCourtScroll.state)
                 break;
             gTestimony.unk1 = 0x14;
-            main->process[GAME_PROCESSUNK2]++;
+            main->process[GAME_PROCESS_VAR1]++;
             break;
         case 3:
             if(gTestimony.unk1 == 0)
@@ -586,26 +589,26 @@ void sub_800AF2C(struct Main * main)
     sub_800B51C(main, &gTestimony, 0);
 }
 
-void GameProcess09(struct Main * main)
+void VerdictProcess(struct Main * main)
 {
     u32 i;
     s16 temp;
     u32 temp2;
     struct OamAttrs *oam = &gOamObjects[49];
     switch(main->process[GAME_PROCESS_STATE]) {
-        case 0: { // B088
-            gMain.affineScale -= 0x10;
-            if(gMain.affineScale <= 0x100) 
+        case VERDICT_STATE_SHRINK_KANJI1: { // B088
+            gMain.affineScale -= 0x10; // 1/16 steps 
+            if(gMain.affineScale <= Q_8_8(1.0)) 
             {
-                temp = fix_inverse(0x100);
+                temp = fix_inverse(Q_8_8(1.0));
                 gOamObjects[0].attr3 = fix_mul(_Cos(0), temp);
                 gOamObjects[1].attr3 = fix_mul(_Sin(0), temp);
                 gOamObjects[2].attr3 = fix_mul(-_Sin(0), temp);
                 gOamObjects[3].attr3 = fix_mul(_Cos(0), temp);
                 StartHardwareBlend(3, 1, 4, 0x1F);
-                PlaySE(0x56);
+                PlaySE(SE02C_GAME_OVER);
                 main->process[GAME_PROCESS_STATE]++;
-                main->process[GAME_PROCESSUNK2] = 0;
+                main->process[GAME_PROCESS_VAR1] = 0;
             }
             else {
                 temp = fix_inverse(main->affineScale);
@@ -616,9 +619,9 @@ void GameProcess09(struct Main * main)
             }
             break;
         }
-        case 1: { // B164
-            if(main->process[GAME_PROCESSUNK2]++ > 40) {
-                gMain.affineScale = 0x100 * 2.5; // 2.5 times scale
+        case VERDICT_STATE_WAIT_INIT_KANJI2: { // B164
+            if(main->process[GAME_PROCESS_VAR1]++ > 40) {
+                gMain.affineScale = Q_8_8(2.5); // 2.5 times scale
                 oam++;
                 oam->attr0 = SPRITE_ATTR0(255-16, ST_OAM_AFFINE_DOUBLE, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
                 oam->attr1 = SPRITE_ATTR1_AFFINE(128, 1, 3);
@@ -632,19 +635,19 @@ void GameProcess09(struct Main * main)
             }
             break;
         }
-        case 2: { // B1FC
-            gMain.affineScale -= 0x10;
-            if(gMain.affineScale <= 0x100) {
-                temp = fix_inverse(0x100);
+        case VERDICT_STATE_SHRINK_KANJI2: { // B1FC
+            gMain.affineScale -= 0x10; // 1/16 steps
+            if(gMain.affineScale <= Q_8_8(1.0)) {
+                temp = fix_inverse(Q_8_8(1.0));
                 gOamObjects[4].attr3 = fix_mul(_Cos(0), temp);
                 gOamObjects[5].attr3 = fix_mul(_Sin(0), temp);
                 gOamObjects[6].attr3 = fix_mul(-_Sin(0), temp);
                 gOamObjects[7].attr3 = fix_mul(_Cos(0), temp);
                 StartHardwareBlend(3, 1, 4, 0x1F);
-                PlaySE(0x56);
-                gMain.affineScale = 0x100;
+                PlaySE(SE02C_GAME_OVER);
+                gMain.affineScale = Q_8_8(1.0);
                 main->process[GAME_PROCESS_STATE]++;
-                main->process[GAME_PROCESSUNK2] = 0;
+                main->process[GAME_PROCESS_VAR1] = 0;
             }
             else {
                 temp = fix_inverse(main->affineScale);
@@ -655,27 +658,27 @@ void GameProcess09(struct Main * main)
             }
             break;
         }
-        case 3: { // B2E4
-            if(main->process[GAME_PROCESSUNK2]++ > 64) {
+        case VERDICT_STATE_WAIT: { // B2E4
+            if(main->process[GAME_PROCESS_VAR1]++ > 64) {
                 main->process[GAME_PROCESS_STATE]++;
-                main->process[GAME_PROCESSUNK2] = 0;
+                main->process[GAME_PROCESS_VAR1] = 0;
             }
             break;
         }
-        case 4: { // B300
-            if(main->process[GAME_PROCESSUNK2]++ > 32) {
+        case VERDICT_STATE_GROW_KANJI_GUILTY_EXIT: { // B300
+            if(main->process[GAME_PROCESS_VAR1]++ > 32) {
                 oam->attr0 = SPRITE_ATTR0_CLEAR;
                 oam++;
                 oam->attr0 = SPRITE_ATTR0_CLEAR;
-                if(main->process[GAME_PROCESSUNK3]) {
+                if(main->process[GAME_PROCESS_VAR2]) {
                     main->process[GAME_PROCESS_STATE]++;
-                    main->process[GAME_PROCESSUNK2] = 0;
+                    main->process[GAME_PROCESS_VAR1] = 0;
                     break;
                 }
                 RESTORE_PROCESS_PTR(main);
             }
             else {
-                main->affineScale += 8;
+                main->affineScale += 8; // 1/32 steps
                 temp = fix_inverse(main->affineScale);
                 gOamObjects[0].attr3 = fix_mul(_Cos(0), temp);
                 gOamObjects[1].attr3 = fix_mul(_Sin(0), temp);
@@ -691,13 +694,13 @@ void GameProcess09(struct Main * main)
             }
             break;
         }
-        case 5: { // B3C8
+        case VERDICT_STATE_INIT_CONFETTI: { // B3C8
             DmaCopy16(3, gUnknown_081940A0, OBJ_VRAM0+0x1F80, 0x20);
             DmaCopy16(3, gUnknown_08194640, OBJ_PLTT+0xA0, 0x80);
             main->process[GAME_PROCESS_STATE]++;
             break;
         }
-        case 6: { // B404
+        case VERDICT_STATE_DRAW_CONFETTI: { // B404
             oam = &gOamObjects[57];
             for(i = 0; i < 0x1F; i++) 
             {
@@ -714,13 +717,13 @@ void GameProcess09(struct Main * main)
                 oam->attr2 = temp2 + 0xFC + (1 << 10); // random palette + tile 0xFC + priority
                 oam++;
             }
-            PlaySE(0x66);
+            PlaySE(SE03C_COURTROOM_AUDIENCE_VICTORY);
             main->process[GAME_PROCESS_STATE]++;
             break;
         }
-        case 7: { // B460
+        case VERDICT_STATE_ANIMATE_CONFETTI: { // B460
             oam = &gOamObjects[57];
-            if(main->process[GAME_PROCESSUNK2]++ < 240)
+            if(main->process[GAME_PROCESS_VAR1]++ < 240)
             {
                 for(i = 0; i < 0x1F; i++)
                 {
@@ -754,7 +757,7 @@ void GameProcess09(struct Main * main)
             }
             break;
         }
-        case 8: { // B504
+        case VERDICT_STATE_NOTGUILTY_EXIT: { // B504
             RESTORE_PROCESS_PTR(main);
             break;
         }

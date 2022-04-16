@@ -14,7 +14,7 @@ struct Struct811DC98
 {
     /* +0x00 */ u8 roomId;
     /* +0x01 */ u8 evidenceId;
-    /* +0x02 */ u8 unk2;
+    /* +0x02 */ u8 personId;
     /* +0x03 */ u8 unk3;
     /* +0x04 */ u16 unk4;
     /* +0x06 */ u16 unk6;

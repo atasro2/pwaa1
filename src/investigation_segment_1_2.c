@@ -5,12 +5,14 @@
 #include "sound.h"
 #include "animation.h"
 #include "constants/animation.h"
+#include "constants/persons.h"
+#include "constants/songs.h"
 
 const struct Struct811DC98 gUnknown_080153BC[12] = {
 	{
 		.roomId = 0x2,
 		.evidenceId = 0x23,
-		.unk2 = 0x16,
+		.personId = PERSON_ANIM_APRIL_MAY,
 		.unk3 = 0x0,
 		.unk4 = 0xAA,
 		.unk6 = 0xA1,
@@ -18,7 +20,7 @@ const struct Struct811DC98 gUnknown_080153BC[12] = {
 	{
 		.roomId = 0x2,
 		.evidenceId = 0x22,
-		.unk2 = 0x16,
+		.personId = PERSON_ANIM_APRIL_MAY,
 		.unk3 = 0x0,
 		.unk4 = 0xA9,
 		.unk6 = 0xA1,
@@ -26,7 +28,7 @@ const struct Struct811DC98 gUnknown_080153BC[12] = {
 	{
 		.roomId = 0x2,
 		.evidenceId = 0x21,
-		.unk2 = 0x16,
+		.personId = PERSON_ANIM_APRIL_MAY,
 		.unk3 = 0x0,
 		.unk4 = 0xAC,
 		.unk6 = 0xA1,
@@ -34,7 +36,7 @@ const struct Struct811DC98 gUnknown_080153BC[12] = {
 	{
 		.roomId = 0x3,
 		.evidenceId = 0x24,
-		.unk2 = 0xC,
+		.personId = PERSON_ANIM_MARVIN_GROSSBERG,
 		.unk3 = 0x0,
 		.unk4 = 0xFE,
 		.unk6 = 0xE3,
@@ -42,7 +44,7 @@ const struct Struct811DC98 gUnknown_080153BC[12] = {
 	{
 		.roomId = 0x3,
 		.evidenceId = 0x23,
-		.unk2 = 0xC,
+		.personId = PERSON_ANIM_MARVIN_GROSSBERG,
 		.unk3 = 0x0,
 		.unk4 = 0xE1,
 		.unk6 = 0xE3,
@@ -50,7 +52,7 @@ const struct Struct811DC98 gUnknown_080153BC[12] = {
 	{
 		.roomId = 0x4,
 		.evidenceId = 0x20,
-		.unk2 = 0x15,
+		.personId = PERSON_ANIM_REDD_WHITE,
 		.unk3 = 0x0,
 		.unk4 = 0x129,
 		.unk6 = 0x12B,
@@ -58,7 +60,7 @@ const struct Struct811DC98 gUnknown_080153BC[12] = {
 	{
 		.roomId = 0x4,
 		.evidenceId = 0x23,
-		.unk2 = 0x15,
+		.personId = PERSON_ANIM_REDD_WHITE,
 		.unk3 = 0x0,
 		.unk4 = 0x12A,
 		.unk6 = 0x12B,
@@ -66,7 +68,7 @@ const struct Struct811DC98 gUnknown_080153BC[12] = {
 	{
 		.roomId = 0x4,
 		.evidenceId = 0x24,
-		.unk2 = 0x15,
+		.personId = PERSON_ANIM_REDD_WHITE,
 		.unk3 = 0x0,
 		.unk4 = 0x139,
 		.unk6 = 0x12B,
@@ -74,7 +76,7 @@ const struct Struct811DC98 gUnknown_080153BC[12] = {
 	{
 		.roomId = 0x5,
 		.evidenceId = 0x23,
-		.unk2 = 0x17,
+		.personId = PERSON_ANIM_BELLBOY,
 		.unk3 = 0x0,
 		.unk4 = 0x10C,
 		.unk6 = 0x111,
@@ -82,7 +84,7 @@ const struct Struct811DC98 gUnknown_080153BC[12] = {
 	{
 		.roomId = 0x5,
 		.evidenceId = 0x22,
-		.unk2 = 0x17,
+		.personId = PERSON_ANIM_BELLBOY,
 		.unk3 = 0x0,
 		.unk4 = 0x10B,
 		.unk6 = 0x111,
@@ -90,7 +92,7 @@ const struct Struct811DC98 gUnknown_080153BC[12] = {
 	{
 		.roomId = 0x5,
 		.evidenceId = 0x21,
-		.unk2 = 0x17,
+		.personId = PERSON_ANIM_BELLBOY,
 		.unk3 = 0x0,
 		.unk4 = 0x110,
 		.unk6 = 0x111,
@@ -98,7 +100,7 @@ const struct Struct811DC98 gUnknown_080153BC[12] = {
 	{
 		.roomId = 0xFF,
 		.evidenceId = 0xFF,
-		.unk2 = 0xFF,
+		.personId = 0xFF,
 		.unk3 = 0xFF,
 		.unk4 = 0xFFFF,
 		.unk6 = 0xFFFF,
@@ -110,7 +112,7 @@ const struct Struct811DC98 gUnknown_080153BC[12] = {
 const struct TalkData gTalkData_1_2[13] = {
 	{
 		.roomId = 0x2,
-		.personId = 0x16,
+		.personId = PERSON_ANIM_APRIL_MAY,
 		.unk2 = 0xFF,
 		.enableFlag = 0x1,
 		.iconId = { 0x11, 0x12, 0x13, 0xFF },
@@ -119,7 +121,7 @@ const struct TalkData gTalkData_1_2[13] = {
 	},
 	{
 		.roomId = 0x2,
-		.personId = 0x16,
+		.personId = PERSON_ANIM_APRIL_MAY,
 		.unk2 = 0xFF,
 		.enableFlag = 0x0,
 		.iconId = { 0x11, 0x12, 0x13, 0xFF },
@@ -128,7 +130,7 @@ const struct TalkData gTalkData_1_2[13] = {
 	},
 	{
 		.roomId = 0x2,
-		.personId = 0x16,
+		.personId = PERSON_ANIM_APRIL_MAY,
 		.unk2 = 0xFF,
 		.enableFlag = 0x0,
 		.iconId = { 0x12, 0x13, 0xFF, 0xFF },
@@ -137,7 +139,7 @@ const struct TalkData gTalkData_1_2[13] = {
 	},
 	{
 		.roomId = 0x3,
-		.personId = 0xC,
+		.personId = PERSON_ANIM_MARVIN_GROSSBERG,
 		.unk2 = 0xFF,
 		.enableFlag = 0x1,
 		.iconId = { 0x14, 0x15, 0x16, 0xFF },
@@ -146,7 +148,7 @@ const struct TalkData gTalkData_1_2[13] = {
 	},
 	{
 		.roomId = 0x3,
-		.personId = 0xC,
+		.personId = PERSON_ANIM_MARVIN_GROSSBERG,
 		.unk2 = 0xFF,
 		.enableFlag = 0x1,
 		.iconId = { 0x14, 0x15, 0x16, 0xFF },
@@ -155,7 +157,7 @@ const struct TalkData gTalkData_1_2[13] = {
 	},
 	{
 		.roomId = 0x3,
-		.personId = 0xC,
+		.personId = PERSON_ANIM_MARVIN_GROSSBERG,
 		.unk2 = 0xFF,
 		.enableFlag = 0x0,
 		.iconId = { 0x14, 0x15, 0x17, 0xFF },
@@ -164,7 +166,7 @@ const struct TalkData gTalkData_1_2[13] = {
 	},
 	{
 		.roomId = 0x3,
-		.personId = 0xC,
+		.personId = PERSON_ANIM_MARVIN_GROSSBERG,
 		.unk2 = 0xFF,
 		.enableFlag = 0x0,
 		.iconId = { 0x14, 0x15, 0x18, 0x19 },
@@ -173,7 +175,7 @@ const struct TalkData gTalkData_1_2[13] = {
 	},
 	{
 		.roomId = 0x4,
-		.personId = 0x15,
+		.personId = PERSON_ANIM_REDD_WHITE,
 		.unk2 = 0xFF,
 		.enableFlag = 0x1,
 		.iconId = { 0x1A, 0x1D, 0x1E, 0xFF },
@@ -182,7 +184,7 @@ const struct TalkData gTalkData_1_2[13] = {
 	},
 	{
 		.roomId = 0x4,
-		.personId = 0x15,
+		.personId = PERSON_ANIM_REDD_WHITE,
 		.unk2 = 0xFF,
 		.enableFlag = 0x0,
 		.iconId = { 0x1A, 0x1D, 0x1E, 0x16 },
@@ -191,7 +193,7 @@ const struct TalkData gTalkData_1_2[13] = {
 	},
 	{
 		.roomId = 0x4,
-		.personId = 0x15,
+		.personId = PERSON_ANIM_REDD_WHITE,
 		.unk2 = 0xFF,
 		.enableFlag = 0x0,
 		.iconId = { 0x1A, 0x1D, 0x1E, 0x16 },
@@ -200,7 +202,7 @@ const struct TalkData gTalkData_1_2[13] = {
 	},
 	{
 		.roomId = 0x4,
-		.personId = 0x15,
+		.personId = PERSON_ANIM_REDD_WHITE,
 		.unk2 = 0xFF,
 		.enableFlag = 0x0,
 		.iconId = { 0x1A, 0x1D, 0x1F, 0xFF },
@@ -209,7 +211,7 @@ const struct TalkData gTalkData_1_2[13] = {
 	},
 	{
 		.roomId = 0x5,
-		.personId = 0x17,
+		.personId = PERSON_ANIM_BELLBOY,
 		.unk2 = 0xFF,
 		.enableFlag = 0x1,
 		.iconId = { 0x1A, 0x1B, 0x1C, 0xFF },
@@ -725,10 +727,10 @@ void InvestigationRoomSetup_1_2(struct Main *main)
                     InvestigationSetScriptSectionAndFlag(0x87, 0x7C);
                 }
                 else if(GetFlag(0, 0x75)) {
-                    PlayBGM(0xC);
+                    PlayBGM(BGM012_INVESTIGATION_CORE);
                 }
                 else {
-                    PlayBGM(0x19);
+                    PlayBGM(BGM025_INVESTIGATION_OPENING);
                 }
                 LOADEXAMDATA(gUnknown_080155B4);
             }
@@ -741,8 +743,8 @@ void InvestigationRoomSetup_1_2(struct Main *main)
                     InvestigationSetScriptSectionAndFlag(0x9A, 0x7D);
                 }
                 else {
-                    InvestigationSetPersonAnimation(0x16, 0x1D0C, 0x1D0C);
-                    PlayBGM(0x16);
+                    InvestigationSetPersonAnimation(PERSON_ANIM_APRIL_MAY, 0x1D0C, 0x1D0C);
+                    PlayBGM(BGM022_HAPPY_PEOPLE);
                 }
             }
             else if(!GetFlag(0, 0x70)) {
@@ -750,8 +752,8 @@ void InvestigationRoomSetup_1_2(struct Main *main)
                     InvestigationSetScriptSectionAndFlag(0xA2, 0x7E);
                 }
                 else {
-                    InvestigationSetPersonAnimation(0x16, 0x1D0C, 0x1D0C);
-                    PlayBGM(0x16);
+                    InvestigationSetPersonAnimation(PERSON_ANIM_APRIL_MAY, 0x1D0C, 0x1D0C);
+                    PlayBGM(BGM022_HAPPY_PEOPLE);
                 }
             }
             else if(!GetFlag(0, 0x7F)) {
@@ -777,20 +779,20 @@ void InvestigationRoomSetup_1_2(struct Main *main)
                     InvestigationSetScriptSectionAndFlag(0xD4, 0x83);
                 }
                 else {
-                    InvestigationSetPersonAnimation(0xC, 0x2C8, 0x2C8);
-                    PlayBGM(0x1A);
+                    InvestigationSetPersonAnimation(PERSON_ANIM_MARVIN_GROSSBERG, 0x2C8, 0x2C8);
+                    PlayBGM(BGM026_GROSSBERGS_THEME);
                 }
             }
             else if(!GetFlag(0, 0x82)) {
                 InvestigationSetScriptSectionAndFlag(0xE4, 0x82);
             }
             else {
-                InvestigationSetPersonAnimation(0xC, 0x2C8, 0x2C8);
+                InvestigationSetPersonAnimation(PERSON_ANIM_MARVIN_GROSSBERG, 0x2C8, 0x2C8);
                 if(GetFlag(0, 0x88)) {
-                    PlayBGM(0xC);
+                    PlayBGM(BGM012_INVESTIGATION_CORE);
                 }
                 else {
-                    PlayBGM(0x1A);
+                    PlayBGM(BGM026_GROSSBERGS_THEME);
                 }
             }
             break;
@@ -801,8 +803,8 @@ void InvestigationRoomSetup_1_2(struct Main *main)
                     InvestigationSetScriptSectionAndFlag(0x11A, 0x84);
                 }
                 else {
-                    InvestigationSetPersonAnimation(0x15, 0x2564, 0x2564);
-                    PlayBGM(0xC);
+                    InvestigationSetPersonAnimation(PERSON_ANIM_REDD_WHITE, 0x2564, 0x2564);
+                    PlayBGM(BGM012_INVESTIGATION_CORE);
                 }
                 LOADEXAMDATA(gUnknown_080156B8);
             }
@@ -811,8 +813,8 @@ void InvestigationRoomSetup_1_2(struct Main *main)
                     InvestigationSetScriptSectionAndFlag(0x12C, 0x85);
                 }
                 else {
-                    InvestigationSetPersonAnimation(0x15, 0x2564, 0x2564);
-                    PlayBGM(0xC);
+                    InvestigationSetPersonAnimation(PERSON_ANIM_REDD_WHITE, 0x2564, 0x2564);
+                    PlayBGM(BGM012_INVESTIGATION_CORE);
                 }
                 LOADEXAMDATA(gUnknown_0801571C);
             }
@@ -824,8 +826,8 @@ void InvestigationRoomSetup_1_2(struct Main *main)
                     InvestigationSetScriptSectionAndFlag(0x100, 0x86);
                 }
                 else {
-                    InvestigationSetPersonAnimation(0x17, 0x894, 0x894);
-                    PlayBGM(0x19);
+                    InvestigationSetPersonAnimation(PERSON_ANIM_BELLBOY, 0x894, 0x894);
+                    PlayBGM(BGM025_INVESTIGATION_OPENING);
                 }
                 LOADEXAMDATA(gUnknown_08015780);
             }

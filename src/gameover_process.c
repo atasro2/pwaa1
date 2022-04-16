@@ -4,6 +4,7 @@
 #include "script.h"
 #include "sound.h"
 #include "graphics.h"
+#include "constants/songs.h"
 
 const u8 gUnknown_080189A4[152] = {
 	0x01, 0x02, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x04, 0x05, 0x06, 0x07, 0x01,
@@ -48,7 +49,7 @@ void GameOverScreenProcess(struct Main *main)
         ioRegsp->lcd_dispcnt = DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG0_ON | DISPCNT_BG2_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON;
         main->tilemapUpdateBits = 13;
         main->process[GAME_PROCESS_STATE]++;
-        main->process[GAME_PROCESSUNK2] = 0;
+        main->process[GAME_PROCESS_VAR1] = 0;
         break;
     case 1:
         temp = oam->attr1 & 0x1FF;
@@ -61,8 +62,8 @@ void GameOverScreenProcess(struct Main *main)
         for(i = 0; i < 10; i++)
         {
             u16 * ptr2 = &gBG2MapBuffer[i*32];
-            ptr2 += main->process[GAME_PROCESSUNK2];
-            for(j = 0; j < main->process[GAME_PROCESSUNK2]; j++)
+            ptr2 += main->process[GAME_PROCESS_VAR1];
+            for(j = 0; j < main->process[GAME_PROCESS_VAR1]; j++)
             {
                 temp = gUnknown_080189A4[0xE - j + i * 0xF] + 0x10A0;
                 *ptr2 = temp;
@@ -73,8 +74,8 @@ void GameOverScreenProcess(struct Main *main)
         for(i = 0; i < 10; i++)
         {
             u16 * ptr2 = &gBG2MapBuffer[i*32];
-            ptr2 += 0x1F-main->process[GAME_PROCESSUNK2];
-            for(j = 0; j < main->process[GAME_PROCESSUNK2]; j++)
+            ptr2 += 0x1F-main->process[GAME_PROCESS_VAR1];
+            for(j = 0; j < main->process[GAME_PROCESS_VAR1]; j++)
             {
                 temp = gUnknown_080189A4[0xE - j + i * 0xF] + 0x14A0;
                 *ptr2 = temp;
@@ -82,26 +83,26 @@ void GameOverScreenProcess(struct Main *main)
                 ptr2++;
             }
         }
-        if(main->process[GAME_PROCESSUNK2] < 0xF)
+        if(main->process[GAME_PROCESS_VAR1] < 0xF)
         {
-            main->process[GAME_PROCESSUNK2]++;
+            main->process[GAME_PROCESS_VAR1]++;
         }
         else
         {
-            PlaySE(0x56);
+            PlaySE(SE02C_GAME_OVER);
             main->process[GAME_PROCESS_STATE]++;
-            main->process[GAME_PROCESSUNK2] = 0;
+            main->process[GAME_PROCESS_VAR1] = 0;
         }
         break;
     case 2:
-        if(main->process[GAME_PROCESSUNK2] >= 120) // 2 seconds?
+        if(main->process[GAME_PROCESS_VAR1] >= 120) // 2 seconds?
         {
             StartHardwareBlend(2, 3, 1, 0x1F);
             main->process[GAME_PROCESS_STATE]++;
         }
         else
         {
-            main->process[GAME_PROCESSUNK2]++;
+            main->process[GAME_PROCESS_VAR1]++;
         }
         break;
     case 3:

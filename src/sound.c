@@ -1,6 +1,5 @@
 #include "global.h"
 #include "sound.h"
-#include "constants/sound.h"
 #include "m4a.h"
 
 extern struct MusicPlayerInfo gMPlayInfo_BGM;

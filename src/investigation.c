@@ -15,6 +15,7 @@
 #include "constants/animation.h"
 #include "constants/script.h"
 #include "constants/bg.h"
+#include "constants/songs.h"
 
 void (*gInvestigationProcessStates[])(struct Main *, struct InvestigationStruct *) = {
 	sub_800B808,
@@ -140,7 +141,7 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
                 PauseBGM();
                 DmaCopy16(3, gOamObjects, gSaveDataBuffer.oam, sizeof(gOamObjects));
                 DmaCopy16(3, &gMain, &gSaveDataBuffer.main, sizeof(gMain));
-                PlaySE(49);
+                PlaySE(SE007_MENU_OPEN_SUBMENU);
                 main->gameStateFlags &= ~1;
                 BACKUP_PROCESS_PTR(main);
                 SET_PROCESS_PTR(10, 0, 0, 0, main);
@@ -158,7 +159,7 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
             if(gScriptContext.flags & (SCRIPT_FULLSCREEN | 1))
             {
                 /*
-                PlaySE(49);
+                PlaySE(SE007_MENU_OPEN_SUBMENU);
                 BACKUP_PROCESS_PTR(main);
                 SET_PROCESS_PTR(7, 0, 0, 0, main);
                 sub_800D530(main, 0);
@@ -187,7 +188,7 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
             PauseBGM();
             DmaCopy16(3, gOamObjects, gSaveDataBuffer.oam, sizeof(gOamObjects));
             DmaCopy16(3, &gMain, &gSaveDataBuffer.main, sizeof(gMain));
-            PlaySE(49);
+            PlaySE(SE007_MENU_OPEN_SUBMENU);
             main->gameStateFlags &= ~1;
             BACKUP_PROCESS_PTR(main);
             SET_PROCESS_PTR(10, 0, 0, 0, main);
@@ -200,7 +201,7 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
         if(!(main->gameStateFlags & 0x10))
         {
             r:
-            PlaySE(49);
+            PlaySE(SE007_MENU_OPEN_SUBMENU);
             BACKUP_PROCESS_PTR(main);
             SET_PROCESS_PTR(7, 0, 0, 0, main);
             sub_800D530(main, 0);
@@ -221,13 +222,13 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
             investigation->unkA &= 1;
         else
             investigation->unkA &= 3;
-        PlaySE(42);
+        PlaySE(SE000_MENU_CHANGE);
         investigation->unkE = 0;
         investigation->unkF = 8;
     }
     else if(gJoypad.pressedKeys & A_BUTTON)
     {
-        PlaySE(43);
+        PlaySE(SE001_MENU_CONFIRM);
         investigation->unk0 = 120;
         investigation->unk2 = 50;
         sub_800B7A8(investigation, 0xF);
@@ -246,8 +247,8 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
             DmaCopy16(3, gUnknown_081942C0, OBJ_PLTT+0x100, 0x20);
         }
         main->process[GAME_PROCESS_STATE] = investigation->unkA+6;
-        main->process[GAME_PROCESSUNK3] = 0;
-        main->process[GAME_PROCESSUNK2] = 0;
+        main->process[GAME_PROCESS_VAR2] = 0;
+        main->process[GAME_PROCESS_VAR1] = 0;
         return;
     }
     else
@@ -260,15 +261,15 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
             main->Bg256_pos_x == 120 ||
             main->Bg256_pos_x == 240)
             {
-                PlaySE(43);
+                PlaySE(SE001_MENU_CONFIRM);
                 main->isBGScrolling = TRUE;
                 if(main->Bg256_pos_x == 0)
                     main->horizontolBGScrollSpeed = 6;
                 else if(main->Bg256_pos_x == 120 || main->Bg256_pos_x == 240)
                     main->horizontolBGScrollSpeed = -6;
                 main->process[GAME_PROCESS_STATE] = 3;
-                main->process[GAME_PROCESSUNK3] = 0;
-                main->process[GAME_PROCESSUNK2] = 0;
+                main->process[GAME_PROCESS_VAR2] = 0;
+                main->process[GAME_PROCESS_VAR1] = 0;
                 investigation->unkC = 3;
                 sub_800B7A8(investigation, 0xF);
             }
@@ -306,7 +307,7 @@ void sub_800BDF8(struct Main * main, struct InvestigationStruct * investigation)
 {
     bool32 flag; // TODO: find a name for this
     sub_800D530(main, 0);
-    if(main->process[GAME_PROCESSUNK2] == 0)
+    if(main->process[GAME_PROCESS_VAR1] == 0)
     {
         if(GetBGControlBits(main->currentBG) & 1)
         {
@@ -327,7 +328,7 @@ void sub_800BDF8(struct Main * main, struct InvestigationStruct * investigation)
             investigation->unkE = 0;
             investigation->unkF = 0;
             investigation->unkC = 1;
-            main->process[GAME_PROCESSUNK2]++;
+            main->process[GAME_PROCESS_VAR1]++;
         }
         return;
     }
@@ -353,11 +354,11 @@ void sub_800BE7C(struct Main * main, struct InvestigationStruct * investigation)
     if(main->blendMode)
         return;
     roomData = main->roomData[main->currentRoomId];
-    if(main->process[GAME_PROCESSUNK2] == 0)
+    if(main->process[GAME_PROCESS_VAR1] == 0)
     {
         ResetSoundControl();
         DecompressBackgroundIntoBuffer(roomData[0]);
-        main->process[GAME_PROCESSUNK2] = 1;
+        main->process[GAME_PROCESS_VAR1] = 1;
         return;
     }
     CopyBGDataToVram(roomData[0]);
@@ -419,7 +420,7 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
         return;
     else
     {
-        switch(main->process[GAME_PROCESSUNK2])
+        switch(main->process[GAME_PROCESS_VAR1])
         {
             default:
                 break;
@@ -428,7 +429,7 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
                     investigation->unkE++;
                 investigation->unkF = 0;
                 if (investigation->unkE > 0xF)
-                    main->process[GAME_PROCESSUNK2]++;
+                    main->process[GAME_PROCESS_VAR1]++;
                 break;
             case 1:
                 temp = 3;
@@ -439,7 +440,7 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
                     PauseBGM();
                     DmaCopy16(3, gOamObjects, gSaveDataBuffer.oam, sizeof(gOamObjects));
                     DmaCopy16(3, &gMain, &gSaveDataBuffer.main, sizeof(gMain));
-                    PlaySE(49);
+                    PlaySE(SE007_MENU_OPEN_SUBMENU);
                     main->gameStateFlags &= ~1;
                     BACKUP_PROCESS_PTR(main);
                     SET_PROCESS_PTR(10, 0, 0, 0, main);
@@ -449,7 +450,7 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
                 && !(main->gameStateFlags & 0x10))
                 {
                     r:
-                    PlaySE(49);
+                    PlaySE(SE007_MENU_OPEN_SUBMENU);
                     BACKUP_PROCESS_PTR(main);
                     SET_PROCESS_PTR(7, 0, 0, 0, main);
                     oam->attr0 = SPRITE_ATTR0_CLEAR;
@@ -457,7 +458,7 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
                 }
                 if(gJoypad.pressedKeys & A_BUTTON)
                 {
-                    PlaySE(43);
+                    PlaySE(SE001_MENU_CONFIRM);
                     oam->attr0 = SPRITE_ATTR0_CLEAR;
                     temp = sub_800D5B0(investigation);
                     ChangeScriptSection(temp);
@@ -474,8 +475,8 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
                 }
                 if(gJoypad.pressedKeys & B_BUTTON)
                 {
-                    PlaySE(44);
-                    main->process[GAME_PROCESSUNK2] = 2;
+                    PlaySE(SE002_MENU_CANCEL);
+                    main->process[GAME_PROCESS_VAR1] = 2;
                     sub_800B7A8(investigation, 0xE);
                     investigation->unkC = 2;
                     investigation->unkD = 0xE0;
@@ -579,7 +580,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
     u8 * vram;
     struct OamAttrs * oam;
     struct OamAttrs * oam2;
-    switch(main->process[GAME_PROCESSUNK2])
+    switch(main->process[GAME_PROCESS_VAR1])
     {
         default:
             break;
@@ -588,7 +589,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                 investigation->unkE++;
             investigation->unkF = 0;
             if (investigation->unkE >= 16)
-                main->process[GAME_PROCESSUNK2]++;
+                main->process[GAME_PROCESS_VAR1]++;
             break;
         case 1: // _0800C39C
             oam = &gOamObjects[38];
@@ -623,12 +624,12 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                 moveLocations++;
             }
             investigation->unk4 = 0;
-            main->process[GAME_PROCESSUNK2]++;
-            main->process[GAME_PROCESSUNK3] = 0;
+            main->process[GAME_PROCESS_VAR1]++;
+            main->process[GAME_PROCESS_VAR2] = 0;
             break;
         case 2: // _0800C464
             oam2 = &gOamObjects[50];
-            if(main->process[GAME_PROCESSUNK3] <= 12)
+            if(main->process[GAME_PROCESS_VAR2] <= 12)
             {
                 oam = &gOamObjects[38];
                 for(i = 0; i < 4; i++)
@@ -639,7 +640,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                         oam++;
                     }
                 }
-                main->process[GAME_PROCESSUNK3]++;
+                main->process[GAME_PROCESS_VAR2]++;
             }
             oam = oam2;
             attr1 = oam->attr1 & ~0x1ff;
@@ -647,10 +648,10 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
             oam->attr1 &= 0x1FF;
             if(oam->attr1 >= 0x100)
                 oam->attr1 = 0;
-            if(oam->attr1 == 0 && main->process[GAME_PROCESSUNK3] > 0xC)
+            if(oam->attr1 == 0 && main->process[GAME_PROCESS_VAR2] > 0xC)
             {
-                main->process[GAME_PROCESSUNK2]++;
-                main->process[GAME_PROCESSUNK3] = 0;
+                main->process[GAME_PROCESS_VAR1]++;
+                main->process[GAME_PROCESS_VAR2] = 0;
             }
             oam->attr1 |= attr1;
             break;
@@ -664,7 +665,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                     PauseBGM();
                     DmaCopy16(3, gOamObjects, gSaveDataBuffer.oam, sizeof(gOamObjects));
                     DmaCopy16(3, &gMain, &gSaveDataBuffer.main, sizeof(gMain));
-                    PlaySE(49);
+                    PlaySE(SE007_MENU_OPEN_SUBMENU);
                     main->gameStateFlags &= ~1;
                     BACKUP_PROCESS_PTR(main);
                     SET_PROCESS_PTR(10, 0, 0, 0, main);
@@ -675,8 +676,8 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
             {
                 if(!(main->gameStateFlags & 0x10))
                 {
-                    PlaySE(49);
-                    main->process[GAME_PROCESSUNK2] = 6; //! tries opening court record from switch case 6 but fails spectacularly
+                    PlaySE(SE007_MENU_OPEN_SUBMENU);
+                    main->process[GAME_PROCESS_VAR1] = 6; //! tries opening court record from switch case 6 but fails spectacularly
                     BACKUP_PROCESS_PTR(main);
                     SET_PROCESS_PTR(7, 0, 0, 0, main);
                     oam = &gOamObjects[38];
@@ -703,7 +704,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                 }
                 while(++i < 4);
                 if(temp != investigation->unk4)
-                    PlaySE(42);
+                    PlaySE(SE000_MENU_CHANGE);
                 break;
             }
             else if(gJoypad.pressedKeys & DPAD_DOWN)
@@ -724,13 +725,13 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                 }
                 while(++i < 4);
                 if(temp != investigation->unk4)
-                    PlaySE(42);
+                    PlaySE(SE000_MENU_CHANGE);
                 break;
             }
             else if(gJoypad.pressedKeys & A_BUTTON)
             {
                 u32 roomId;
-                PlaySE(43);
+                PlaySE(SE001_MENU_CONFIRM);
                 roomId = main->currentRoomId;
                 j = investigation->unk4+4;
                 main->currentRoomId = main->roomData[roomId][j];
@@ -741,15 +742,15 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
             }
             else if(gJoypad.pressedKeys & B_BUTTON)
             {
-                PlaySE(44);
-                main->process[GAME_PROCESSUNK2]++;
-                main->process[GAME_PROCESSUNK3] = 0;
+                PlaySE(SE002_MENU_CANCEL);
+                main->process[GAME_PROCESS_VAR1]++;
+                main->process[GAME_PROCESS_VAR2] = 0;
                 break;
             }
             break;
         case 4: // _0800C690
             oam2 = &gOamObjects[50];
-            if(main->process[GAME_PROCESSUNK3] <= 12)
+            if(main->process[GAME_PROCESS_VAR2] <= 12)
             {
                 oam = &gOamObjects[38];
                 for(i = 0; i < 4; i++)
@@ -760,7 +761,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                         oam++;
                     }
                 }
-                main->process[GAME_PROCESSUNK3]++;
+                main->process[GAME_PROCESS_VAR2]++;
             }
             oam = oam2;
             attr1 = oam->attr1 & ~0x1ff;
@@ -774,12 +775,12 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                 investigation->unkD = 0xE0;
                 investigation->unkE = 0x10;
                 investigation->unkF = 0;
-                main->process[GAME_PROCESSUNK2]++;
+                main->process[GAME_PROCESS_VAR1]++;
             }
             oam->attr1 |= attr1;
             break;
         case 5: // _0800C714
-            if(main->process[GAME_PROCESSUNK3] <= 12)
+            if(main->process[GAME_PROCESS_VAR2] <= 12)
             {
                 oam = &gOamObjects[38];
                 for(i = 0; i < 4; i++)
@@ -790,11 +791,11 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                         oam++;
                     }
                 }
-                main->process[GAME_PROCESSUNK3]++;
+                main->process[GAME_PROCESS_VAR2]++;
             }
             if(investigation->unkE > 8)
                 investigation->unkE--;
-            if(investigation->unkC == 0 && main->process[GAME_PROCESSUNK3] > 12)
+            if(investigation->unkC == 0 && main->process[GAME_PROCESS_VAR2] > 12)
             {
                 SET_PROCESS_PTR(4, 1, 0, 0, main);
                 investigation->unk7 += 1 << investigation->unkA;
@@ -834,7 +835,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                 }
                 moveLocations++;
             }
-            main->process[GAME_PROCESSUNK2] = 3;
+            main->process[GAME_PROCESS_VAR1] = 3;
             break;
     }
     oam = &gOamObjects[38];
@@ -872,14 +873,14 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
     uintptr_t temp;
     u8 * vram;
     struct TalkData * talkData;
-    switch(main->process[GAME_PROCESSUNK2])
+    switch(main->process[GAME_PROCESS_VAR1])
     {
         case 0:
             if(investigation->unkE < 16)
                 investigation->unkE++;
             investigation->unkF = 0;
             if(investigation->unkE >= 16)
-                main->process[GAME_PROCESSUNK2]++;
+                main->process[GAME_PROCESS_VAR1]++;
             break;
         case 1:
         {
@@ -923,14 +924,14 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
             DmaCopy16(3, gUnknown_08190FC0, OBJ_VRAM0+0x5400, 0x200);
             DmaCopy16(3, gUnknown_081944E0, PLTT+0x360, 0x20);
             investigation->unk4 = 0;
-            main->process[GAME_PROCESSUNK2]++;
-            main->process[GAME_PROCESSUNK3] = 0;
+            main->process[GAME_PROCESS_VAR1]++;
+            main->process[GAME_PROCESS_VAR2] = 0;
             break;
         }
         case 2:
         {
             struct OamAttrs * oam2 = &gOamObjects[51];
-            if(main->process[GAME_PROCESSUNK3] <= 12)
+            if(main->process[GAME_PROCESS_VAR2] <= 12)
             {
                 oam = &gOamObjects[38];
                 for(i = 0; i < 4; i++)
@@ -941,7 +942,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                         oam++;
                     }
                 }
-                main->process[GAME_PROCESSUNK3]++;
+                main->process[GAME_PROCESS_VAR2]++;
             }
             oam = oam2;
             attr1 = oam->attr1 & ~0x1ff;
@@ -949,10 +950,10 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
             oam->attr1 &= 0x1FF;
             if(oam->attr1 >= 256)
                 oam->attr1 = 0;
-            if(oam->attr1 == 0 && main->process[GAME_PROCESSUNK3] > 12)
+            if(oam->attr1 == 0 && main->process[GAME_PROCESS_VAR2] > 12)
             {
-                main->process[GAME_PROCESSUNK2]++;
-                main->process[GAME_PROCESSUNK3] = 0;
+                main->process[GAME_PROCESS_VAR1]++;
+                main->process[GAME_PROCESS_VAR2] = 0;
             }
             oam->attr1 |= attr1;
             break;
@@ -979,7 +980,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                         PauseBGM();
                         DmaCopy16(3, gOamObjects, gSaveDataBuffer.oam, sizeof(gOamObjects));
                         DmaCopy16(3, &gMain, &gSaveDataBuffer.main, sizeof(gMain));
-                        PlaySE(49);
+                        PlaySE(SE007_MENU_OPEN_SUBMENU);
                         main->gameStateFlags &= ~1;
                         BACKUP_PROCESS_PTR(main);
                         SET_PROCESS_PTR(0xA, 0, 0, 0, main);
@@ -989,8 +990,8 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                 {
                     if(!(main->gameStateFlags & 0x10))
                     {
-                        PlaySE(49);
-                        main->process[GAME_PROCESSUNK2] = 8;
+                        PlaySE(SE007_MENU_OPEN_SUBMENU);
+                        main->process[GAME_PROCESS_VAR1] = 8;
                         BACKUP_PROCESS_PTR(main);
                         SET_PROCESS_PTR(7, 0, 0, 0, main);
                         oam = &gOamObjects[38];
@@ -1016,7 +1017,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                     }
                     while(++i < 4);
                     if(temp != investigation->unk4)
-                        PlaySE(42);
+                        PlaySE(SE000_MENU_CHANGE);
                 }
                 else if(gJoypad.pressedKeys & DPAD_DOWN)
                 {
@@ -1035,11 +1036,11 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                     }
                     while(++i < 4);
                     if(temp != investigation->unk4)
-                        PlaySE(42);
+                        PlaySE(SE000_MENU_CHANGE);
                 }
                 else if(gJoypad.pressedKeys & A_BUTTON)
                 {
-                    PlaySE(43);
+                    PlaySE(SE001_MENU_CONFIRM);
                     temp = talkData->talkSection[investigation->unk4];
                     ChangeScriptSection(temp);
                     SlideTextbox(1);
@@ -1053,15 +1054,15 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                     sub_800B7A8(investigation, 4);
                     investigation->unkD = 0xF0;
                     investigation->unkC = 3;
-                    main->process[GAME_PROCESSUNK2] = 6;
-                    main->process[GAME_PROCESSUNK3] = 0;
+                    main->process[GAME_PROCESS_VAR1] = 6;
+                    main->process[GAME_PROCESS_VAR2] = 0;
                     showTalkTick = FALSE;
                 }
                 else if(gJoypad.pressedKeys & B_BUTTON)
                 {
-                    PlaySE(44);
-                    main->process[GAME_PROCESSUNK2]++;
-                    main->process[GAME_PROCESSUNK3] = 0;
+                    PlaySE(SE002_MENU_CANCEL);
+                    main->process[GAME_PROCESS_VAR1]++;
+                    main->process[GAME_PROCESS_VAR2] = 0;
                     showTalkTick = FALSE;
                 }
                 oam = &gOamObjects[34];
@@ -1097,7 +1098,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
         case 4:
         {
             struct OamAttrs * oam2 = &gOamObjects[51];
-            if(main->process[GAME_PROCESSUNK3] <= 12)
+            if(main->process[GAME_PROCESS_VAR2] <= 12)
             {
                 oam = &gOamObjects[38];
                 for(i = 0; i < 4; i++)
@@ -1108,7 +1109,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                         oam++;
                     }
                 }
-                main->process[GAME_PROCESSUNK3]++;
+                main->process[GAME_PROCESS_VAR2]++;
             }
             oam = oam2;
             attr1 = oam->attr1 & ~0x1ff;
@@ -1122,13 +1123,13 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                 investigation->unkD = 0xE0;
                 investigation->unkE = 0x10;
                 investigation->unkF = 0;
-                main->process[GAME_PROCESSUNK2]++;
+                main->process[GAME_PROCESS_VAR1]++;
             }
             oam->attr1 |= attr1;
             break;
         }
         case 5:
-            if(main->process[GAME_PROCESSUNK3] <= 12)
+            if(main->process[GAME_PROCESS_VAR2] <= 12)
             {
                 oam = &gOamObjects[38];
                 for(i = 0; i < 4; i++)
@@ -1139,11 +1140,11 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                         oam++;
                     }
                 }
-                main->process[GAME_PROCESSUNK3]++;
+                main->process[GAME_PROCESS_VAR2]++;
             }
             if(investigation->unkE > 8)
                 investigation->unkE--;
-            if(investigation->unkC == 0 && main->process[GAME_PROCESSUNK3] > 12)
+            if(investigation->unkC == 0 && main->process[GAME_PROCESS_VAR2] > 12)
             {
                 SET_PROCESS_PTR(4, 1, 0, 0, main);
                 investigation->unk7 += 1 << investigation->unkA;
@@ -1163,7 +1164,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                         PauseBGM();
                         DmaCopy16(3, gOamObjects, gSaveDataBuffer.oam, sizeof(gOamObjects));
                         DmaCopy16(3, &gMain, &gSaveDataBuffer.main, sizeof(gMain));
-                        PlaySE(49);
+                        PlaySE(SE007_MENU_OPEN_SUBMENU);
                         main->gameStateFlags &= ~1;
                         BACKUP_PROCESS_PTR(main);
                         SET_PROCESS_PTR(0xA, 0, 0, 0, main);
@@ -1177,7 +1178,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                 {
                     if(gScriptContext.flags & (SCRIPT_FULLSCREEN | 1))
                     {
-                        PlaySE(49);
+                        PlaySE(SE007_MENU_OPEN_SUBMENU);
                         BACKUP_PROCESS_PTR(main);
                         SET_PROCESS_PTR(7, 0, 0, 0, main);
                         return;
@@ -1185,7 +1186,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                 }
             }
             oam2 = &gOamObjects[38];
-            if(main->process[GAME_PROCESSUNK3] <= 12)
+            if(main->process[GAME_PROCESS_VAR2] <= 12)
             {
                 oam = oam2;
                 for(i = 0; i < 4; i++)
@@ -1196,7 +1197,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                         oam++;
                     }
                 }
-                main->process[GAME_PROCESSUNK3]++;
+                main->process[GAME_PROCESS_VAR2]++;
             }
             if(gScriptContext.textboxState == 1)
             {
@@ -1243,12 +1244,12 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                 investigation->unkC = 1;
                 investigation->unkE = 0;
                 investigation->unkF = 0;
-                main->process[GAME_PROCESSUNK2]++;
-                main->process[GAME_PROCESSUNK3] = 0;
+                main->process[GAME_PROCESS_VAR1]++;
+                main->process[GAME_PROCESS_VAR2] = 0;
             }
             break;
         case 7:
-            if(main->process[GAME_PROCESSUNK3] <= 12)
+            if(main->process[GAME_PROCESS_VAR2] <= 12)
             {
                 oam = &gOamObjects[38];
                 for(i = 0; i < 4; i++)
@@ -1259,12 +1260,12 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                         oam++;
                     }
                 }
-                main->process[GAME_PROCESSUNK3]++;
+                main->process[GAME_PROCESS_VAR2]++;
             }
-            if(investigation->unkC == 0 && main->process[GAME_PROCESSUNK3] > 12)
+            if(investigation->unkC == 0 && main->process[GAME_PROCESS_VAR2] > 12)
             {
-                main->process[GAME_PROCESSUNK2] = 3;
-                main->process[GAME_PROCESSUNK3] = 0;
+                main->process[GAME_PROCESS_VAR1] = 3;
+                main->process[GAME_PROCESS_VAR2] = 0;
             }
             break;
         case 8:
@@ -1307,7 +1308,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                 }
                 icons++;
             }
-            main->process[GAME_PROCESSUNK2] = 3;
+            main->process[GAME_PROCESS_VAR1] = 3;
             break;
         }
     }
@@ -2618,19 +2619,19 @@ void sub_800D2B0(struct Main * main, struct InvestigationStruct * investigation)
     struct OamAttrs * oam;
     u32 i;
 
-    switch(main->process[GAME_PROCESSUNK2])
+    switch(main->process[GAME_PROCESS_VAR1])
     {
         case 0:
             if(investigation->unkE < 16)
                 investigation->unkE++;
             investigation->unkF = 0;
             if (investigation->unkE >= 16)
-                main->process[GAME_PROCESSUNK2]++;
+                main->process[GAME_PROCESS_VAR1]++;
             break;
         case 1:
             if(investigation->unkD == 0xE0)
             {
-                main->process[GAME_PROCESSUNK2]++;
+                main->process[GAME_PROCESS_VAR1]++;
                 BACKUP_PROCESS_PTR(main);
                 SET_PROCESS_PTR(7, 0, 0, 2, main);
             }
@@ -2662,7 +2663,7 @@ void sub_800D2B0(struct Main * main, struct InvestigationStruct * investigation)
             investigation->unkD = 0xE0;
             investigation->unkE = 0x10;
             investigation->unkF = 0;
-            main->process[GAME_PROCESSUNK2]++;
+            main->process[GAME_PROCESS_VAR1]++;
             break;
         case 4:
             if(investigation->unkE > 8)

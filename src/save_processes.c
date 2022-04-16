@@ -12,6 +12,7 @@
 #include "investigation.h"
 #include "graphics.h"
 #include "constants/script.h"
+#include "constants/songs.h"
 
 const char gSaveVersion[0x30] = "2001 CAPCOM GBA GYAKUTEN-SAIBAN 06/15 Ver 1.000-";
 
@@ -161,12 +162,12 @@ void ClearSaveProcess(struct Main *main)
         {
             if(gJoypad.pressedKeys & (DPAD_RIGHT|DPAD_LEFT))
             {
-                PlaySE(0x2A);
+                PlaySE(SE000_MENU_CHANGE);
                 main->selectedButton ^= 1;
             }
             else if(gJoypad.pressedKeys & A_BUTTON)
             {
-                PlaySE(0x2B);
+                PlaySE(SE001_MENU_CONFIRM);
                 StartHardwareBlend(2, 1, 1, 0x1F);
                 main->tilemapUpdateBits = 0;
                 main->process[GAME_PROCESS_STATE]++;
@@ -328,11 +329,11 @@ void SaveGameWaitForInput(struct Main *main)
         if(gJoypad.pressedKeys & (DPAD_RIGHT | DPAD_LEFT))
         {
             main->selectedButton ^= 1;
-            PlaySE(0x2A);
+            PlaySE(SE000_MENU_CHANGE);
         }
         else if(gJoypad.pressedKeys & A_BUTTON)
         {
-            PlaySE(0x40);
+            PlaySE(SE016_CONFIRM_SAVE);
             if(main->selectedButton == 0)
             {
                 if(main->sIsEpisodePartOver)
@@ -360,11 +361,11 @@ void SaveGameWaitForInput(struct Main *main)
                 }
             }
             main->process[GAME_PROCESS_STATE] = 7;
-            main->process[GAME_PROCESSUNK2] = 0;
+            main->process[GAME_PROCESS_VAR1] = 0;
         }
         else if(!main->sIsEpisodePartOver && gJoypad.pressedKeys & B_BUTTON)
         {
-            PlaySE(0x2C);
+            PlaySE(SE002_MENU_CANCEL);
             main->selectedButton = 1;
             StartHardwareBlend(2, 0, 1, 0x1F);
             main->process[GAME_PROCESS_STATE] = 4;
@@ -456,7 +457,7 @@ void SaveGameExitSaveScreen(struct Main *main)
     DmaCopy16(3, gSaveDataBuffer.oam, gOamObjects, sizeof(gOamObjects));
     DmaCopy16(3, &gUnknown_081942C0[0], OBJ_PLTT+0x100, 0x20);
     RESTORE_PROCESS_PTR(main);
-    if(main->process[GAME_PROCESS] == 4 && main->process[GAME_PROCESSUNK2] == 3)
+    if(main->process[GAME_PROCESS] == 4 && main->process[GAME_PROCESS_VAR1] == 3)
     {
         if(main->process[GAME_PROCESS_STATE] == 7)
             sub_800D674();
@@ -540,15 +541,15 @@ void sub_8008CC0(struct Main * main)
 void sub_8008D68(struct Main * main)
 {
     struct OamAttrs * oam;
-    main->process[GAME_PROCESSUNK2]++;
-    if(main->process[GAME_PROCESSUNK2] >= 60) // 1 second delay
+    main->process[GAME_PROCESS_VAR1]++;
+    if(main->process[GAME_PROCESS_VAR1] >= 60) // 1 second delay
     {
         StartHardwareBlend(2, 1, 1, 0x1F);
         if(main->sIsEpisodePartOver)
             main->process[GAME_PROCESS_STATE] = 5;
         else
             main->process[GAME_PROCESS_STATE] = 4;
-        main->process[GAME_PROCESSUNK2] = 0;
+        main->process[GAME_PROCESS_VAR1] = 0;
         oam = &gOamObjects[40];
         oam->attr0 = SPRITE_ATTR0_CLEAR;
         oam++;
