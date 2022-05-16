@@ -723,7 +723,7 @@ u32 Command1C(struct ScriptContext * scriptCtx)
             if(gMain.process[GAME_PROCESS] == 3)
             {
                 DestroyAnimation(&gAnimation[1]);
-                gInvestigation.unk5 = 0;
+                gInvestigation.personActive = 0;
                 sub_800B7A8(&gInvestigation, 15);
             }
             SlideTextbox(1);
@@ -732,7 +732,7 @@ u32 Command1C(struct ScriptContext * scriptCtx)
             if(gMain.process[GAME_PROCESS] == 3)
             {
                 DestroyAnimation(&gAnimation[1]);
-                gInvestigation.unk5 = 0;
+                gInvestigation.personActive = 0;
                 sub_800B7A8(&gInvestigation, 15);
             }
             SlideTextbox(0);
@@ -810,13 +810,13 @@ u32 Command1E(struct ScriptContext * scriptCtx)
     if(var0 != 0)
     {
         PlayPersonAnimation(var0, 0, var1, 0);
-        gInvestigation.unk5 = 1;
+        gInvestigation.personActive = 1;
         sub_800B7A8(&gInvestigation, 15);
     }
     else
     {
         DestroyAnimation(&gAnimation[1]);
-        gInvestigation.unk5 = 0;
+        gInvestigation.personActive = 0;
         sub_800B7A8(&gInvestigation, 15);
     }
     return 0;

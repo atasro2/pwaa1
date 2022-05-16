@@ -25,14 +25,14 @@ struct ExaminationData
 
 struct InvestigationStruct // unity: tantei_work_
 {
-    /* +0x00 */ u16 unk0; // unity AA4: finger_pos_x
-    /* +0x02 */ u16 unk2; // unity AA4: finger_pos_y
-    /* +0x04 */ u8 unk4; // unity AA4: sel_place
-    /* +0x05 */ u8 unk5; // unity: person_flag // is person in current room?
+    /* +0x00 */ u16 pointer_x; // unity AA4: finger_pos_x
+    /* +0x02 */ u16 pointer_y; // unity AA4: finger_pos_y
+    /* +0x04 */ u8 selectedOption; // unity AA4: sel_place
+    /* +0x05 */ bool8 personActive; // unity: person_flag // is person in current room?
     /* +0x06 */ u8 unk6; // unity AA4: ckeck_no_flag
     /* +0x07 */ u8 unk7; // unity AA4: menu_mv_be_flag
-    /* +0x08 */ u8 unk8; // unity AA4: finger_speed_x
-    /* +0x09 */ u8 unk9; // unity: siteki_no // 指摘 in japanese meaning "Pointed out" used for spot selection minigame, it's the collision it has to load for the minigame
+    /* +0x08 */ u8 spotselectStartCounter; // unity AA4: finger_speed_x
+    /* +0x09 */ u8 spotselectId; // unity: siteki_no // 指摘 in japanese meaning "Pointed out" used for spot selection minigame, it's the collision it has to load for the minigame
     /* +0x0A */ u8 unkA; // unity: menu // selected investigation button, why menu?
     /* +0x0B */ u8 unkB; // unity AA4: menu_old
     /* +0x0C */ u8 unkC; // unity AA4: menu_rno
@@ -40,10 +40,10 @@ struct InvestigationStruct // unity: tantei_work_
     /* +0x0E */ u8 unkE; // unity AA4: menu_add
     /* +0x0F */ u8 unkF; // unity AA4: menu_add_old
     /* +0x10 */ bool8 unk10[4]; // unity AA4: sel_place_be Which buttons for moving are active
-    /* +0x14 */ u8 unk14; // unity AA4: yubi_no
-    /* +0x15 */ u8 unk15; // unity AA4: yubi_timer
-    /* +0x16 */ u8 unk16; // unity AA4: yubi_col_no
-    /* +0x17 */ u8 unk17; // unity AA4: yubi_col_timer
+    /* +0x14 */ u8 pointerFrame; // unity AA4: yubi_no
+    /* +0x15 */ u8 pointerFrameCounter; // unity AA4: yubi_timer
+    /* +0x16 */ u8 pointerColor; // unity AA4: yubi_col_no
+    /* +0x17 */ u8 pointerColorCounter; // unity AA4: yubi_col_timer
 };
 
 extern struct TalkData gTalkData[32];

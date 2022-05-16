@@ -173,7 +173,7 @@ void InvestigationSetPersonAnimation(u32 arg0, u32 arg1, u32 arg2) // Set_char
     main->talkingAnimationOffset = arg1;
     main->idleAnimationOffset = arg2;
     PlayPersonAnimation(arg0, 0, arg1, 0);
-    gInvestigation.unk5 = 1;
+    gInvestigation.personActive = 1;
     sub_800B7A8(&gInvestigation, 0xF);
 }
 

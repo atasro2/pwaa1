@@ -37,7 +37,7 @@ extern void sub_800D3C8(struct InvestigationStruct *);
 void sub_800B7A8(struct InvestigationStruct * investigation, u32 arg1)
 {
     investigation->unk7 = arg1;
-    if(investigation->unk5 == 0)
+    if(investigation->personActive == 0)
         investigation->unk7 &= ~0xC;
 }
 
@@ -218,7 +218,7 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
             investigation->unkA--;
         else
             investigation->unkA++;
-        if(investigation->unk5 == 0)
+        if(investigation->personActive == 0)
             investigation->unkA &= 1;
         else
             investigation->unkA &= 3;
@@ -229,8 +229,8 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
     else if(gJoypad.pressedKeys & A_BUTTON)
     {
         PlaySE(SE001_MENU_CONFIRM);
-        investigation->unk0 = 120;
-        investigation->unk2 = 50;
+        investigation->pointer_x = 120;
+        investigation->pointer_y = 50;
         sub_800B7A8(investigation, 0xF);
         investigation->unk7 -= 1 << investigation->unkA;
         investigation->unkD = 240;
@@ -242,8 +242,8 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
         if(investigation->unkA == 0)
         {
             StartAnimationBlend(0xC, 1);
-            investigation->unk17 = 0;
-            investigation->unk16 = 0;
+            investigation->pointerColorCounter = 0;
+            investigation->pointerColor = 0;
             DmaCopy16(3, gUnknown_081942C0, OBJ_PLTT+0x100, 0x20);
         }
         main->process[GAME_PROCESS_STATE] = investigation->unkA+6;
@@ -386,7 +386,7 @@ void sub_800BE7C(struct Main * main, struct InvestigationStruct * investigation)
     ClearAllAnimationSprites();
     //TODO: MACROS BITCH!!! these exact 3 lines exist elsewhere in the code so this is 100% a macro in the original code considering it doesn't use the investigation struct ptr 
     DestroyAnimation(&gAnimation[1]);
-    gInvestigation.unk5 = 0;
+    gInvestigation.personActive = 0;
     sub_800B7A8(&gInvestigation, 0xF);
     
     gInvestigationRoomSetupFunctions[main->scenarioIdx](main);
@@ -464,8 +464,8 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
                     ChangeScriptSection(temp);
                     SlideTextbox(1);
                     investigation->unk6 = 1;
-                    investigation->unk14 = 0;
-                    investigation->unk15 = 0;
+                    investigation->pointerFrame = 0;
+                    investigation->pointerFrameCounter = 0;
                     investigation->unk7 = 1;
                     investigation->unkC = 3;
                     investigation->unkD = 0xF0;
@@ -487,65 +487,65 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
                 
                 if(gJoypad.heldKeys & DPAD_LEFT)
                 {
-                    investigation->unk0 -= temp;
-                    if(investigation->unk2 < 16 && investigation->unk0 < 60)
-                        investigation->unk0 = 60;
-                    if(investigation->unk0 > 224)
-                        investigation->unk0 = 0;
+                    investigation->pointer_x -= temp;
+                    if(investigation->pointer_y < 16 && investigation->pointer_x < 60)
+                        investigation->pointer_x = 60;
+                    if(investigation->pointer_x > 224)
+                        investigation->pointer_x = 0;
                 }
                 if(gJoypad.heldKeys & DPAD_RIGHT)
                 {
-                    investigation->unk0 += temp;
-                    if(investigation->unk2 < 16 && investigation->unk0 < 60)
-                        investigation->unk0 = 60;
-                    if(investigation->unk0 > 224)
-                        investigation->unk0 = 224;
+                    investigation->pointer_x += temp;
+                    if(investigation->pointer_y < 16 && investigation->pointer_x < 60)
+                        investigation->pointer_x = 60;
+                    if(investigation->pointer_x > 224)
+                        investigation->pointer_x = 224;
                 }
                 if(gJoypad.heldKeys & DPAD_UP)
                 {
-                    investigation->unk2 -= temp;
-                    if(investigation->unk0 < 60 && investigation->unk2 < 16)
-                        investigation->unk2 = 16;
-                    if(investigation->unk2 > 144)
-                        investigation->unk2 = 0;
+                    investigation->pointer_y -= temp;
+                    if(investigation->pointer_x < 60 && investigation->pointer_y < 16)
+                        investigation->pointer_y = 16;
+                    if(investigation->pointer_y > 144)
+                        investigation->pointer_y = 0;
                 }
                 if(gJoypad.heldKeys & DPAD_DOWN)
                 {
-                    investigation->unk2 += temp;
-                    if(investigation->unk0 < 60 && investigation->unk2 < 16)
-                        investigation->unk2 = 16;
-                    if(investigation->unk2 > 144)
-                        investigation->unk2 = 144;
+                    investigation->pointer_y += temp;
+                    if(investigation->pointer_x < 60 && investigation->pointer_y < 16)
+                        investigation->pointer_y = 16;
+                    if(investigation->pointer_y > 144)
+                        investigation->pointer_y = 144;
                 }
                 temp = sub_800D5B0(investigation);
                 if(temp >= 0x18 && temp <= 0x19) // ! come one just a little more hardcoding please :(
                 {
-                    investigation->unk14 = 0;
-                    investigation->unk15 = 0;
+                    investigation->pointerFrame = 0;
+                    investigation->pointerFrameCounter = 0;
                 }
                 else
                 {
-                    investigation->unk15++;
-                    if(investigation->unk15 > 8)
+                    investigation->pointerFrameCounter++;
+                    if(investigation->pointerFrameCounter > 8)
                     {
-                        investigation->unk15 = 0;
-                        investigation->unk14 += 4;
-                        investigation->unk14 &= 0xF;
+                        investigation->pointerFrameCounter = 0;
+                        investigation->pointerFrame += 4;
+                        investigation->pointerFrame &= 0xF;
                     }
                 }
-                oam->attr0 = SPRITE_ATTR0(investigation->unk2, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
-                if(investigation->unk0 < 120)
-                    oam->attr1 = SPRITE_ATTR1_NONAFFINE(investigation->unk0, TRUE, FALSE, 1);
+                oam->attr0 = SPRITE_ATTR0(investigation->pointer_y, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
+                if(investigation->pointer_x < 120)
+                    oam->attr1 = SPRITE_ATTR1_NONAFFINE(investigation->pointer_x, TRUE, FALSE, 1);
                 else
-                    oam->attr1 = SPRITE_ATTR1_NONAFFINE(investigation->unk0, FALSE, FALSE, 1);
-                oam->attr2 = SPRITE_ATTR2(0x190+investigation->unk14, 0, 8);
-                investigation->unk17++;
-                if(investigation->unk17 > 1)
+                    oam->attr1 = SPRITE_ATTR1_NONAFFINE(investigation->pointer_x, FALSE, FALSE, 1);
+                oam->attr2 = SPRITE_ATTR2(0x190+investigation->pointerFrame, 0, 8);
+                investigation->pointerColorCounter++;
+                if(investigation->pointerColorCounter > 1)
                 {
-                    investigation->unk17 = 0;
-                    investigation->unk16 += 1;
-                    investigation->unk16 &= 0xF;
-                    DmaCopy16(3, gUnknown_081942C0+investigation->unk16*32, OBJ_PLTT+0x100, 0x20);
+                    investigation->pointerColorCounter = 0;
+                    investigation->pointerColor += 1;
+                    investigation->pointerColor &= 0xF;
+                    DmaCopy16(3, gUnknown_081942C0+investigation->pointerColor*32, OBJ_PLTT+0x100, 0x20);
                 }
                 break;
             case 2:
@@ -623,7 +623,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                 }
                 moveLocations++;
             }
-            investigation->unk4 = 0;
+            investigation->selectedOption = 0;
             main->process[GAME_PROCESS_VAR1]++;
             main->process[GAME_PROCESS_VAR2] = 0;
             break;
@@ -690,20 +690,20 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
             {
                 u32 temp;
                 i = 0;
-                j = investigation->unk4-1;
-                temp = investigation->unk4;
+                j = investigation->selectedOption-1;
+                temp = investigation->selectedOption;
                 do
                 {
                     j &= 3;
                     if(investigation->unk10[j] != FALSE)
                     {
-                        investigation->unk4 = j;
+                        investigation->selectedOption = j;
                         break;                    
                     }
                     j--;
                 }
                 while(++i < 4);
-                if(temp != investigation->unk4)
+                if(temp != investigation->selectedOption)
                     PlaySE(SE000_MENU_CHANGE);
                 break;
             }
@@ -711,20 +711,20 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
             {
                 u32 temp;
                 i = 0;
-                j = investigation->unk4+1;
-                temp = investigation->unk4;
+                j = investigation->selectedOption+1;
+                temp = investigation->selectedOption;
                 do
                 {
                     j &= 3;
                     if(investigation->unk10[j] != FALSE)
                     {
-                        investigation->unk4 = j;
+                        investigation->selectedOption = j;
                         break;                    
                     }
                     j++;
                 }
                 while(++i < 4);
-                if(temp != investigation->unk4)
+                if(temp != investigation->selectedOption)
                     PlaySE(SE000_MENU_CHANGE);
                 break;
             }
@@ -733,7 +733,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                 u32 roomId;
                 PlaySE(SE001_MENU_CONFIRM);
                 roomId = main->currentRoomId;
-                j = investigation->unk4+4;
+                j = investigation->selectedOption+4;
                 main->currentRoomId = main->roomData[roomId][j];
                 FadeOutBGM(20);
                 StartHardwareBlend(2, 1, 1, 0x1F);
@@ -841,7 +841,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
     oam = &gOamObjects[38];
     for(i = 0; i < 4; i++)
     {
-        if(i == investigation->unk4)
+        if(i == investigation->selectedOption)
         {
             for(j = 0; j < 2; j++)
             {
@@ -923,7 +923,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
             }
             DmaCopy16(3, gUnknown_08190FC0, OBJ_VRAM0+0x5400, 0x200);
             DmaCopy16(3, gUnknown_081944E0, PLTT+0x360, 0x20);
-            investigation->unk4 = 0;
+            investigation->selectedOption = 0;
             main->process[GAME_PROCESS_VAR1]++;
             main->process[GAME_PROCESS_VAR2] = 0;
             break;
@@ -1003,53 +1003,53 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                 else if(gJoypad.pressedKeys & DPAD_UP)
                 {
                     i = 0;
-                    j = investigation->unk4-1;
-                    temp = investigation->unk4;
+                    j = investigation->selectedOption-1;
+                    temp = investigation->selectedOption;
                     do
                     {
                         j &= 3;
                         if(investigation->unk10[j] != FALSE)
                         {
-                            investigation->unk4 = j;
+                            investigation->selectedOption = j;
                             break;                    
                         }
                         j--;
                     }
                     while(++i < 4);
-                    if(temp != investigation->unk4)
+                    if(temp != investigation->selectedOption)
                         PlaySE(SE000_MENU_CHANGE);
                 }
                 else if(gJoypad.pressedKeys & DPAD_DOWN)
                 {
                     i = 0;
-                    j = investigation->unk4+1;
-                    temp = investigation->unk4;
+                    j = investigation->selectedOption+1;
+                    temp = investigation->selectedOption;
                     do
                     {
                         j &= 3;
                         if(investigation->unk10[j] != FALSE)
                         {
-                            investigation->unk4 = j;
+                            investigation->selectedOption = j;
                             break;                    
                         }
                         j++;
                     }
                     while(++i < 4);
-                    if(temp != investigation->unk4)
+                    if(temp != investigation->selectedOption)
                         PlaySE(SE000_MENU_CHANGE);
                 }
                 else if(gJoypad.pressedKeys & A_BUTTON)
                 {
                     PlaySE(SE001_MENU_CONFIRM);
-                    temp = talkData->talkSection[investigation->unk4];
+                    temp = talkData->talkSection[investigation->selectedOption];
                     ChangeScriptSection(temp);
                     SlideTextbox(1);
-                    if(GetFlag(2, talkData->talkFlagId[investigation->unk4]))
+                    if(GetFlag(2, talkData->talkFlagId[investigation->selectedOption]))
                         gScriptContext.textSkip = 1;
                     else
                     {
                         gScriptContext.textSkip = 0;
-                        ChangeFlag(2, talkData->talkFlagId[investigation->unk4], TRUE);
+                        ChangeFlag(2, talkData->talkFlagId[investigation->selectedOption], TRUE);
                     }
                     sub_800B7A8(investigation, 4);
                     investigation->unkD = 0xF0;
@@ -1315,7 +1315,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
     oam = &gOamObjects[38];
     for(i = 0; i < 4; i++)
     {
-        if(i == investigation->unk4)
+        if(i == investigation->selectedOption)
         {
             for(j = 0; j < 2; j++)
             {
@@ -2793,11 +2793,11 @@ u32 sub_800D5B0(struct InvestigationStruct * investigation)
     struct Rect rect;
     u32 animId;
     struct ExaminationData * examData;
-    if(investigation->unk0 < 120)
-        rect.x = gMain.Bg256_pos_x + investigation->unk0;
+    if(investigation->pointer_x < 120)
+        rect.x = gMain.Bg256_pos_x + investigation->pointer_x;
     else
-        rect.x = gMain.Bg256_pos_x + investigation->unk0 + 12;
-    rect.y = gMain.Bg256_pos_y + investigation->unk2;
+        rect.x = gMain.Bg256_pos_x + investigation->pointer_x + 12;
+    rect.y = gMain.Bg256_pos_y + investigation->pointer_y;
     rect.w = 4;
     rect.h = 16;
     if(GetFlag(0, 0x41) == FALSE)
