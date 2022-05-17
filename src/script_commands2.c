@@ -969,8 +969,8 @@ bool32 Command3E(struct ScriptContext *scriptCtx)
     scriptCtx->scriptPtr++;
     DmaCopy16(3, gUnknown_08190AC0, OBJ_VRAM0 + 0x1F80, 0x80);
     DmaCopy16(3, &gUnknown_081942C0[0], OBJ_PLTT + 0x100, 0x20);
-    gInvestigation.pointer_x = 0xF0;
-    gInvestigation.pointer_y = 0x30;
+    gInvestigation.pointerX = 0xF0;
+    gInvestigation.pointerY = 0x30;
     gInvestigation.pointerColorCounter = 0;
     gInvestigation.pointerColor = 8;
     gInvestigation.spotselectStartCounter = 0xF;
@@ -988,8 +988,8 @@ bool32 Command3F(struct ScriptContext *scriptCtx)
 
     if (scriptCtx->flags & SCRIPT_SPOTSELECT_MOVE_TO_START)
     {
-        investigation->pointer_x += investigation->spotselectStartCounter;
-        investigation->pointer_x &= 0xFF;
+        investigation->pointerX += investigation->spotselectStartCounter;
+        investigation->pointerX &= 0xFF;
         investigation->spotselectStartCounter--;
         if (investigation->spotselectStartCounter == 0)
         {
@@ -1007,41 +1007,41 @@ bool32 Command3F(struct ScriptContext *scriptCtx)
         struct8018870p = &gUnknown_08018870[investigation->spotselectId];
         if (gJoypad.heldKeys & DPAD_LEFT)
         {
-            investigation->pointer_x -= 3;
-            if (investigation->pointer_x < struct8018870p->left)
-                investigation->pointer_x = struct8018870p->left;
-            if (investigation->pointer_x > DISPLAY_WIDTH - 16)
-                investigation->pointer_x = 0;
+            investigation->pointerX -= 3;
+            if (investigation->pointerX < struct8018870p->left)
+                investigation->pointerX = struct8018870p->left;
+            if (investigation->pointerX > DISPLAY_WIDTH - 16)
+                investigation->pointerX = 0;
         }
         if (gJoypad.heldKeys & DPAD_RIGHT)
         {
-            investigation->pointer_x += 3;
-            if (investigation->pointer_x > struct8018870p->right)
-                investigation->pointer_x = struct8018870p->right;
-            if (investigation->pointer_x > DISPLAY_WIDTH - 16)
-                investigation->pointer_x = DISPLAY_WIDTH - 16;
+            investigation->pointerX += 3;
+            if (investigation->pointerX > struct8018870p->right)
+                investigation->pointerX = struct8018870p->right;
+            if (investigation->pointerX > DISPLAY_WIDTH - 16)
+                investigation->pointerX = DISPLAY_WIDTH - 16;
         }
         if (gJoypad.heldKeys & DPAD_UP)
         {
-            investigation->pointer_y -= 3;
-            if (investigation->pointer_y < struct8018870p->top)
-                investigation->pointer_y = struct8018870p->top;
-            if (investigation->pointer_y > DISPLAY_HEIGHT - 16)
-                investigation->pointer_y = 0;
+            investigation->pointerY -= 3;
+            if (investigation->pointerY < struct8018870p->top)
+                investigation->pointerY = struct8018870p->top;
+            if (investigation->pointerY > DISPLAY_HEIGHT - 16)
+                investigation->pointerY = 0;
         }
         if (gJoypad.heldKeys & DPAD_DOWN)
         {
-            investigation->pointer_y += 3;
-            if (investigation->pointer_y > struct8018870p->bottom)
-                investigation->pointer_y = struct8018870p->bottom;
-            if (investigation->pointer_y > DISPLAY_HEIGHT - 16)
-                investigation->pointer_y = DISPLAY_HEIGHT - 16;
+            investigation->pointerY += 3;
+            if (investigation->pointerY > struct8018870p->bottom)
+                investigation->pointerY = struct8018870p->bottom;
+            if (investigation->pointerY > DISPLAY_HEIGHT - 16)
+                investigation->pointerY = DISPLAY_HEIGHT - 16;
         }
         if (gJoypad.pressedKeys & A_BUTTON)
         {
             scriptCtx->flags &= ~(SCRIPT_SPOTSELECT_INPUT | SCRIPT_LOOP);
-            rect.x = gMain.Bg256_pos_x + investigation->pointer_x + 12;
-            rect.y = gMain.Bg256_pos_y + investigation->pointer_y;
+            rect.x = gMain.Bg256_pos_x + investigation->pointerX + 12;
+            rect.y = gMain.Bg256_pos_y + investigation->pointerY;
             rect.w = 4;
             rect.h = 4;
             if (CheckRectCollisionWithArea(&rect, &struct8018870p->firstArea))
@@ -1054,8 +1054,8 @@ bool32 Command3F(struct ScriptContext *scriptCtx)
             DmaCopy16(3, &gUnknown_081942C0[0], OBJ_PLTT + 0x100, 0x20);
             PlaySE(SE001_MENU_CONFIRM);
             scriptCtx->flags |= SCRIPT_SPOTSELECT_SELECTION_MADE;
-            gOamObjects[88].attr0 = SPRITE_ATTR0(investigation->pointer_y, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
-            gOamObjects[88].attr1 = SPRITE_ATTR1_NONAFFINE(investigation->pointer_x, FALSE, FALSE, 1);
+            gOamObjects[88].attr0 = SPRITE_ATTR0(investigation->pointerY, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
+            gOamObjects[88].attr1 = SPRITE_ATTR1_NONAFFINE(investigation->pointerX, FALSE, FALSE, 1);
             gOamObjects[88].attr2 = SPRITE_ATTR2(0xFC, 1, 8);
             return 0;
         }
@@ -1069,8 +1069,8 @@ bool32 Command3F(struct ScriptContext *scriptCtx)
         }
     }
     scriptCtx->flags |= SCRIPT_SPOTSELECT_SELECTION_MADE;
-    gOamObjects[88].attr0 = SPRITE_ATTR0(investigation->pointer_y, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
-    gOamObjects[88].attr1 = SPRITE_ATTR1_NONAFFINE(investigation->pointer_x, FALSE, FALSE, 1);
+    gOamObjects[88].attr0 = SPRITE_ATTR0(investigation->pointerY, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
+    gOamObjects[88].attr1 = SPRITE_ATTR1_NONAFFINE(investigation->pointerX, FALSE, FALSE, 1);
     gOamObjects[88].attr2 = SPRITE_ATTR2(0xFC, 1, 8);
     return 1;
 }

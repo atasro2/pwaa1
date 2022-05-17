@@ -33,11 +33,11 @@ bool32 Command41(struct ScriptContext * scriptCtx)
         oam++;
     }
     sub_800B7A8(&gInvestigation, 0xF);
-    gInvestigation.unkD = 0xE0;
-    gInvestigation.unkE = 0;
-    gInvestigation.unkF = 8;
-    gInvestigation.unkA = 0;
-    gInvestigation.unkB = 0;
+    gInvestigation.inactiveActionButtonY = 0xE0;
+    gInvestigation.selectedActionYOffset = 0;
+    gInvestigation.lastActionYOffset = 8;
+    gInvestigation.selectedAction = 0;
+    gInvestigation.lastAction = 0;
     
     SET_PROCESS(4,1,0,0);
     return 0;

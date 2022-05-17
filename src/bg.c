@@ -384,7 +384,7 @@ void SlideTextbox(u32 slideUp)
     if(slideUp)
     {
         gScriptContext.textboxState = 3;
-        gInvestigation.unkC = 3;
+        gInvestigation.actionState = 3;
         gIORegisters.lcd_dispcnt |= DISPCNT_BG1_ON;
         gBG1MapBuffer[622] = 9;
         gBG1MapBuffer[623] = 9;
@@ -392,7 +392,7 @@ void SlideTextbox(u32 slideUp)
     else
     {
         gScriptContext.textboxState = 4;
-        gInvestigation.unkC = 1;
+        gInvestigation.actionState = 1;
     }
 }
 

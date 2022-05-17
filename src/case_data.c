@@ -202,7 +202,7 @@ void sub_8002CF0(u32 section, u32 flagId) // unused? Set_event2?
     ChangeScriptSection(section);
     SlideTextbox(1);
     sub_800B7A8(&gInvestigation, 0xF);
-    gInvestigation.unkE = 0x40;
+    gInvestigation.selectedActionYOffset = 0x40;
 }
 
 void InvestigationDummy(struct Main *main)

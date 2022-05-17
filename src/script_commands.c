@@ -554,8 +554,8 @@ bool32 Command16(struct ScriptContext * scriptCtx)
     main->advanceScriptContext = FALSE;
     main->showTextboxCharacters = FALSE;
     SET_PROCESS(3, 2, 0, 0);
-    gInvestigation.unkA = 0;
-    gInvestigation.unkB = 0;
+    gInvestigation.selectedAction = 0;
+    gInvestigation.lastAction = 0;
     main->scenarioIdx++;
     PlayBGM(BGM016_JINGLE_SAVE);
     return 1;
@@ -738,7 +738,7 @@ u32 Command1C(struct ScriptContext * scriptCtx)
             SlideTextbox(0);
             if(gMain.process[GAME_PROCESS] == 4)
             {
-                gInvestigation.unkE = 0;
+                gInvestigation.selectedActionYOffset = 0;
                 if(gMain.process[GAME_PROCESS_STATE] == 6)
                 {
                     sub_800B7A8(&gInvestigation, 1);
@@ -746,8 +746,8 @@ u32 Command1C(struct ScriptContext * scriptCtx)
                 if(gMain.process[GAME_PROCESS_STATE] == 8)
                 {
                     sub_800B7A8(&gInvestigation, 4);
-                    gInvestigation.unkC = 4;
-                    gInvestigation.unkD = 0xE0;
+                    gInvestigation.actionState = 4;
+                    gInvestigation.inactiveActionButtonY = 0xE0;
                 }
                 if(gMain.process[GAME_PROCESS_STATE] == 9)
                 {

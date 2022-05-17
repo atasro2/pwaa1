@@ -914,9 +914,9 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
             oam->attr0 = SPRITE_ATTR0_CLEAR;
             oam++;
             oam->attr0 = SPRITE_ATTR0_CLEAR;
-            gInvestigation.unkC = 3;
+            gInvestigation.actionState = 3;
             gInvestigation.unk7 = 8;
-            gInvestigation.unkD = 0xF0;
+            gInvestigation.inactiveActionButtonY = 0xF0;
             RESTORE_PROCESS_PTR(main);
             return;
         }
@@ -1334,8 +1334,8 @@ void sub_800E4A4(struct Main * main, struct CourtRecord * courtRecord)
             {
                 u32 section;
                 oam->attr0 = SPRITE_ATTR0_CLEAR;
-                gInvestigation.unkE = 0;
-                gInvestigation.unkF = 8;
+                gInvestigation.selectedActionYOffset = 0;
+                gInvestigation.lastActionYOffset = 8;
                 gIORegisters.lcd_dispcnt |= DISPCNT_BG1_ON;
                 main->advanceScriptContext = TRUE;
                 main->showTextboxCharacters = TRUE;

@@ -84,11 +84,11 @@ void sub_800B808(struct Main * main, struct InvestigationStruct * investigation)
         oam++;
     }
     sub_800B7A8(investigation, 0xF);
-    investigation->unkD = 0xE0;
-    investigation->unkE = 0;
-    investigation->unkF = 8;
-    investigation->unkA = 0;
-    investigation->unkB = 0;
+    investigation->inactiveActionButtonY = 0xE0;
+    investigation->selectedActionYOffset = 0;
+    investigation->lastActionYOffset = 8;
+    investigation->selectedAction = 0;
+    investigation->lastAction = 0;
     gInvestigationSegmentSetupFunctions[main->scenarioIdx](main);
     bgId = main->roomData[main->currentRoomId][0];
     DecompressBackgroundIntoBuffer(bgId);
@@ -163,9 +163,9 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
                 BACKUP_PROCESS_PTR(main);
                 SET_PROCESS_PTR(7, 0, 0, 0, main);
                 sub_800D530(main, 0);
-                investigation->unkE = 0;
-                investigation->unkF = 8;
-                investigation->unkB = investigation->unkA;
+                investigation->selectedActionYOffset = 0;
+                investigation->lastActionYOffset = 8;
+                investigation->lastAction = investigation->selectedAction;
                 return;
                 */
                 goto r;
@@ -205,48 +205,48 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
             BACKUP_PROCESS_PTR(main);
             SET_PROCESS_PTR(7, 0, 0, 0, main);
             sub_800D530(main, 0);
-            investigation->unkE = 0;
-            investigation->unkF = 8;
-            investigation->unkB = investigation->unkA;
+            investigation->selectedActionYOffset = 0;
+            investigation->lastActionYOffset = 8;
+            investigation->lastAction = investigation->selectedAction;
             return;
         }
     }
     else if(gJoypad.activeTimedKeys & (DPAD_RIGHT | DPAD_LEFT))
     {
-        investigation->unkB = investigation->unkA;
+        investigation->lastAction = investigation->selectedAction;
         if(gJoypad.activeTimedKeys & DPAD_LEFT)
-            investigation->unkA--;
+            investigation->selectedAction--;
         else
-            investigation->unkA++;
+            investigation->selectedAction++;
         if(investigation->personActive == 0)
-            investigation->unkA &= 1;
+            investigation->selectedAction &= 1;
         else
-            investigation->unkA &= 3;
+            investigation->selectedAction &= 3;
         PlaySE(SE000_MENU_CHANGE);
-        investigation->unkE = 0;
-        investigation->unkF = 8;
+        investigation->selectedActionYOffset = 0;
+        investigation->lastActionYOffset = 8;
     }
     else if(gJoypad.pressedKeys & A_BUTTON)
     {
         PlaySE(SE001_MENU_CONFIRM);
-        investigation->pointer_x = 120;
-        investigation->pointer_y = 50;
+        investigation->pointerX = 120;
+        investigation->pointerY = 50;
         sub_800B7A8(investigation, 0xF);
-        investigation->unk7 -= 1 << investigation->unkA;
-        investigation->unkD = 240;
-        investigation->unkE = 8;
-        investigation->unkF = 0;
-        investigation->unkB = investigation->unkA;
-        investigation->unkC = 3;
+        investigation->unk7 -= 1 << investigation->selectedAction;
+        investigation->inactiveActionButtonY = 240;
+        investigation->selectedActionYOffset = 8;
+        investigation->lastActionYOffset = 0;
+        investigation->lastAction = investigation->selectedAction;
+        investigation->actionState = 3;
         sub_800D530(main, 0);
-        if(investigation->unkA == 0)
+        if(investigation->selectedAction == 0)
         {
             StartAnimationBlend(0xC, 1);
             investigation->pointerColorCounter = 0;
             investigation->pointerColor = 0;
             DmaCopy16(3, gUnknown_081942C0, OBJ_PLTT+0x100, 0x20);
         }
-        main->process[GAME_PROCESS_STATE] = investigation->unkA+6;
+        main->process[GAME_PROCESS_STATE] = investigation->selectedAction+6;
         main->process[GAME_PROCESS_VAR2] = 0;
         main->process[GAME_PROCESS_VAR1] = 0;
         return;
@@ -270,15 +270,15 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
                 main->process[GAME_PROCESS_STATE] = 3;
                 main->process[GAME_PROCESS_VAR2] = 0;
                 main->process[GAME_PROCESS_VAR1] = 0;
-                investigation->unkC = 3;
+                investigation->actionState = 3;
                 sub_800B7A8(investigation, 0xF);
             }
         }
     }
-    if(investigation->unkE < 8)
-        investigation->unkE++;
-    if(investigation->unkF > 0)
-        investigation->unkF--;
+    if(investigation->selectedActionYOffset < 8)
+        investigation->selectedActionYOffset++;
+    if(investigation->lastActionYOffset > 0)
+        investigation->lastActionYOffset--;
 }
 
 // ! same as sub_800A6AC, thanks capcom
@@ -325,14 +325,14 @@ void sub_800BDF8(struct Main * main, struct InvestigationStruct * investigation)
         }
         if(flag)
         {
-            investigation->unkE = 0;
-            investigation->unkF = 0;
-            investigation->unkC = 1;
+            investigation->selectedActionYOffset = 0;
+            investigation->lastActionYOffset = 0;
+            investigation->actionState = 1;
             main->process[GAME_PROCESS_VAR1]++;
         }
         return;
     }
-    if(investigation->unkC == 0)
+    if(investigation->actionState == 0)
         SET_PROCESS_PTR(4, 1, 0, 0, main);
 }
 
@@ -377,12 +377,12 @@ void sub_800BE7C(struct Main * main, struct InvestigationStruct * investigation)
         oam++;
     }
     sub_800B7A8(investigation, 0xF);
-    investigation->unkD = 0xE0;
-    investigation->unkE = 0;
-    investigation->unkF = 8;
-    investigation->unkA = 0;
-    investigation->unkB = 0;
-    investigation->unkC = 1;
+    investigation->inactiveActionButtonY = 0xE0;
+    investigation->selectedActionYOffset = 0;
+    investigation->lastActionYOffset = 8;
+    investigation->selectedAction = 0;
+    investigation->lastAction = 0;
+    investigation->actionState = 1;
     ClearAllAnimationSprites();
     //TODO: MACROS BITCH!!! these exact 3 lines exist elsewhere in the code so this is 100% a macro in the original code considering it doesn't use the investigation struct ptr 
     DestroyAnimation(&gAnimation[1]);
@@ -425,10 +425,10 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
             default:
                 break;
             case 0:
-                if(investigation->unkE <= 0xF)
-                    investigation->unkE++;
-                investigation->unkF = 0;
-                if (investigation->unkE > 0xF)
+                if(investigation->selectedActionYOffset <= 0xF)
+                    investigation->selectedActionYOffset++;
+                investigation->lastActionYOffset = 0;
+                if (investigation->selectedActionYOffset > 0xF)
                     main->process[GAME_PROCESS_VAR1]++;
                 break;
             case 1:
@@ -467,10 +467,10 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
                     investigation->pointerFrame = 0;
                     investigation->pointerFrameCounter = 0;
                     investigation->unk7 = 1;
-                    investigation->unkC = 3;
-                    investigation->unkD = 0xF0;
-                    investigation->unkE = 0;
-                    investigation->unkF = 0;
+                    investigation->actionState = 3;
+                    investigation->inactiveActionButtonY = 0xF0;
+                    investigation->selectedActionYOffset = 0;
+                    investigation->lastActionYOffset = 0;
                     return;
                 }
                 if(gJoypad.pressedKeys & B_BUTTON)
@@ -478,44 +478,44 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
                     PlaySE(SE002_MENU_CANCEL);
                     main->process[GAME_PROCESS_VAR1] = 2;
                     sub_800B7A8(investigation, 0xE);
-                    investigation->unkC = 2;
-                    investigation->unkD = 0xE0;
-                    investigation->unkE = 0x10;
-                    investigation->unkF = 0;
+                    investigation->actionState = 2;
+                    investigation->inactiveActionButtonY = 0xE0;
+                    investigation->selectedActionYOffset = 0x10;
+                    investigation->lastActionYOffset = 0;
                     return;
                 }
                 
                 if(gJoypad.heldKeys & DPAD_LEFT)
                 {
-                    investigation->pointer_x -= temp;
-                    if(investigation->pointer_y < 16 && investigation->pointer_x < 60)
-                        investigation->pointer_x = 60;
-                    if(investigation->pointer_x > 224)
-                        investigation->pointer_x = 0;
+                    investigation->pointerX -= temp;
+                    if(investigation->pointerY < 16 && investigation->pointerX < 60)
+                        investigation->pointerX = 60;
+                    if(investigation->pointerX > 224)
+                        investigation->pointerX = 0;
                 }
                 if(gJoypad.heldKeys & DPAD_RIGHT)
                 {
-                    investigation->pointer_x += temp;
-                    if(investigation->pointer_y < 16 && investigation->pointer_x < 60)
-                        investigation->pointer_x = 60;
-                    if(investigation->pointer_x > 224)
-                        investigation->pointer_x = 224;
+                    investigation->pointerX += temp;
+                    if(investigation->pointerY < 16 && investigation->pointerX < 60)
+                        investigation->pointerX = 60;
+                    if(investigation->pointerX > 224)
+                        investigation->pointerX = 224;
                 }
                 if(gJoypad.heldKeys & DPAD_UP)
                 {
-                    investigation->pointer_y -= temp;
-                    if(investigation->pointer_x < 60 && investigation->pointer_y < 16)
-                        investigation->pointer_y = 16;
-                    if(investigation->pointer_y > 144)
-                        investigation->pointer_y = 0;
+                    investigation->pointerY -= temp;
+                    if(investigation->pointerX < 60 && investigation->pointerY < 16)
+                        investigation->pointerY = 16;
+                    if(investigation->pointerY > 144)
+                        investigation->pointerY = 0;
                 }
                 if(gJoypad.heldKeys & DPAD_DOWN)
                 {
-                    investigation->pointer_y += temp;
-                    if(investigation->pointer_x < 60 && investigation->pointer_y < 16)
-                        investigation->pointer_y = 16;
-                    if(investigation->pointer_y > 144)
-                        investigation->pointer_y = 144;
+                    investigation->pointerY += temp;
+                    if(investigation->pointerX < 60 && investigation->pointerY < 16)
+                        investigation->pointerY = 16;
+                    if(investigation->pointerY > 144)
+                        investigation->pointerY = 144;
                 }
                 temp = sub_800D5B0(investigation);
                 if(temp >= 0x18 && temp <= 0x19) // ! come one just a little more hardcoding please :(
@@ -533,11 +533,11 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
                         investigation->pointerFrame &= 0xF;
                     }
                 }
-                oam->attr0 = SPRITE_ATTR0(investigation->pointer_y, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
-                if(investigation->pointer_x < 120)
-                    oam->attr1 = SPRITE_ATTR1_NONAFFINE(investigation->pointer_x, TRUE, FALSE, 1);
+                oam->attr0 = SPRITE_ATTR0(investigation->pointerY, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
+                if(investigation->pointerX < 120)
+                    oam->attr1 = SPRITE_ATTR1_NONAFFINE(investigation->pointerX, TRUE, FALSE, 1);
                 else
-                    oam->attr1 = SPRITE_ATTR1_NONAFFINE(investigation->pointer_x, FALSE, FALSE, 1);
+                    oam->attr1 = SPRITE_ATTR1_NONAFFINE(investigation->pointerX, FALSE, FALSE, 1);
                 oam->attr2 = SPRITE_ATTR2(0x190+investigation->pointerFrame, 0, 8);
                 investigation->pointerColorCounter++;
                 if(investigation->pointerColorCounter > 1)
@@ -549,17 +549,17 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
                 }
                 break;
             case 2:
-                if(investigation->unkE > 8)
-                    investigation->unkE--;
-                if(investigation->unkC == 0)
+                if(investigation->selectedActionYOffset > 8)
+                    investigation->selectedActionYOffset--;
+                if(investigation->actionState == 0)
                 {
                     oam->attr0 = SPRITE_ATTR0_CLEAR;
                     ChangeAnimationActivity(&gAnimation[1], TRUE);
                     StartAnimationBlend(1, 1);
                     SET_PROCESS_PTR(4, 1, 0, 0, main);
-                    investigation->unk7 += 1 << investigation->unkA;
-                    investigation->unkE = 8;
-                    investigation->unkF = 0;
+                    investigation->unk7 += 1 << investigation->selectedAction;
+                    investigation->selectedActionYOffset = 8;
+                    investigation->lastActionYOffset = 0;
                 }
                 break;
         }
@@ -585,10 +585,10 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
         default:
             break;
         case 0:
-            if(investigation->unkE < 16)
-                investigation->unkE++;
-            investigation->unkF = 0;
-            if (investigation->unkE >= 16)
+            if(investigation->selectedActionYOffset < 16)
+                investigation->selectedActionYOffset++;
+            investigation->lastActionYOffset = 0;
+            if (investigation->selectedActionYOffset >= 16)
                 main->process[GAME_PROCESS_VAR1]++;
             break;
         case 1: // _0800C39C
@@ -601,7 +601,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                 vram += i * 0x800;
                 if(*moveLocations != 0xFF)
                 {
-                    investigation->unk10[i] = TRUE;
+                    investigation->activeOptions[i] = TRUE;
                     moveButtonTiles = gUnknown_081FD96C+*moveLocations*0x800; //TODO: label vs value?
                     DmaCopy16(3, moveButtonTiles, vram, 0x800);
                     for(j = 0; j < 2; j++)
@@ -615,7 +615,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                 }
                 else
                 {
-                    investigation->unk10[i] = FALSE;
+                    investigation->activeOptions[i] = FALSE;
                     oam->attr1 = SPRITE_ATTR1_NONAFFINE(DISPLAY_WIDTH+60, FALSE, FALSE, 0);
                     oam++;
                     oam->attr1 = SPRITE_ATTR1_NONAFFINE(DISPLAY_WIDTH+60, FALSE, FALSE, 0);
@@ -695,7 +695,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                 do
                 {
                     j &= 3;
-                    if(investigation->unk10[j] != FALSE)
+                    if(investigation->activeOptions[j] != FALSE)
                     {
                         investigation->selectedOption = j;
                         break;                    
@@ -716,7 +716,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                 do
                 {
                     j &= 3;
-                    if(investigation->unk10[j] != FALSE)
+                    if(investigation->activeOptions[j] != FALSE)
                     {
                         investigation->selectedOption = j;
                         break;                    
@@ -771,10 +771,10 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
             {
                 oam->attr1 = 60;
                 sub_800B7A8(investigation, 13);
-                investigation->unkC = 2;
-                investigation->unkD = 0xE0;
-                investigation->unkE = 0x10;
-                investigation->unkF = 0;
+                investigation->actionState = 2;
+                investigation->inactiveActionButtonY = 0xE0;
+                investigation->selectedActionYOffset = 0x10;
+                investigation->lastActionYOffset = 0;
                 main->process[GAME_PROCESS_VAR1]++;
             }
             oam->attr1 |= attr1;
@@ -793,14 +793,14 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                 }
                 main->process[GAME_PROCESS_VAR2]++;
             }
-            if(investigation->unkE > 8)
-                investigation->unkE--;
-            if(investigation->unkC == 0 && main->process[GAME_PROCESS_VAR2] > 12)
+            if(investigation->selectedActionYOffset > 8)
+                investigation->selectedActionYOffset--;
+            if(investigation->actionState == 0 && main->process[GAME_PROCESS_VAR2] > 12)
             {
                 SET_PROCESS_PTR(4, 1, 0, 0, main);
-                investigation->unk7 += 1 << investigation->unkA;
-                investigation->unkE = 8;
-                investigation->unkF = 0;
+                investigation->unk7 += 1 << investigation->selectedAction;
+                investigation->selectedActionYOffset = 8;
+                investigation->lastActionYOffset = 0;
             }
             break;
         case 6: // _0800C784
@@ -813,7 +813,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                 vram += i * 0x800;
                 if(*moveLocations != 0xFF)
                 {
-                    investigation->unk10[i] = TRUE;
+                    investigation->activeOptions[i] = TRUE;
                     moveButtonTiles = gUnknown_081FD96C+*moveLocations*0x800; //TODO: label vs value?
                     DmaCopy16(3, moveButtonTiles, vram, 0x800);
                     for(j = 0; j < 2; j++)
@@ -827,7 +827,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                 }
                 else
                 {
-                    investigation->unk10[i] = FALSE;
+                    investigation->activeOptions[i] = FALSE;
                     oam->attr1 = SPRITE_ATTR1_NONAFFINE(DISPLAY_WIDTH+60, FALSE, FALSE, 0);
                     oam++;
                     oam->attr1 = SPRITE_ATTR1_NONAFFINE(DISPLAY_WIDTH+60, FALSE, FALSE, 0);
@@ -876,10 +876,10 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
     switch(main->process[GAME_PROCESS_VAR1])
     {
         case 0:
-            if(investigation->unkE < 16)
-                investigation->unkE++;
-            investigation->unkF = 0;
-            if(investigation->unkE >= 16)
+            if(investigation->selectedActionYOffset < 16)
+                investigation->selectedActionYOffset++;
+            investigation->lastActionYOffset = 0;
+            if(investigation->selectedActionYOffset >= 16)
                 main->process[GAME_PROCESS_VAR1]++;
             break;
         case 1:
@@ -899,7 +899,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                 vram += i * 0x800;
                 if(*icons != 0xFF)
                 {
-                    investigation->unk10[i] = TRUE;
+                    investigation->activeOptions[i] = TRUE;
                     temp = (uintptr_t)gUnknown_0820816C + *icons * 0x800;
                     DmaCopy16(3, temp, vram, 0x800);
                     for(j = 0; j < 2; j++)
@@ -913,7 +913,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                 }
                 else
                 {
-                    investigation->unk10[i] = FALSE;
+                    investigation->activeOptions[i] = FALSE;
                     oam->attr1 = SPRITE_ATTR1_NONAFFINE(DISPLAY_WIDTH+60, FALSE, FALSE, 0);
                     oam++;
                     oam->attr1 = SPRITE_ATTR1_NONAFFINE(DISPLAY_WIDTH+60, FALSE, FALSE, 0);
@@ -1008,7 +1008,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                     do
                     {
                         j &= 3;
-                        if(investigation->unk10[j] != FALSE)
+                        if(investigation->activeOptions[j] != FALSE)
                         {
                             investigation->selectedOption = j;
                             break;                    
@@ -1027,7 +1027,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                     do
                     {
                         j &= 3;
-                        if(investigation->unk10[j] != FALSE)
+                        if(investigation->activeOptions[j] != FALSE)
                         {
                             investigation->selectedOption = j;
                             break;                    
@@ -1052,8 +1052,8 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                         ChangeFlag(2, talkData->talkFlagId[investigation->selectedOption], TRUE);
                     }
                     sub_800B7A8(investigation, 4);
-                    investigation->unkD = 0xF0;
-                    investigation->unkC = 3;
+                    investigation->inactiveActionButtonY = 0xF0;
+                    investigation->actionState = 3;
                     main->process[GAME_PROCESS_VAR1] = 6;
                     main->process[GAME_PROCESS_VAR2] = 0;
                     showTalkTick = FALSE;
@@ -1119,10 +1119,10 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
             {
                 oam->attr1 = 120;
                 sub_800B7A8(investigation, 0xB);
-                investigation->unkC = 2;
-                investigation->unkD = 0xE0;
-                investigation->unkE = 0x10;
-                investigation->unkF = 0;
+                investigation->actionState = 2;
+                investigation->inactiveActionButtonY = 0xE0;
+                investigation->selectedActionYOffset = 0x10;
+                investigation->lastActionYOffset = 0;
                 main->process[GAME_PROCESS_VAR1]++;
             }
             oam->attr1 |= attr1;
@@ -1142,14 +1142,14 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                 }
                 main->process[GAME_PROCESS_VAR2]++;
             }
-            if(investigation->unkE > 8)
-                investigation->unkE--;
-            if(investigation->unkC == 0 && main->process[GAME_PROCESS_VAR2] > 12)
+            if(investigation->selectedActionYOffset > 8)
+                investigation->selectedActionYOffset--;
+            if(investigation->actionState == 0 && main->process[GAME_PROCESS_VAR2] > 12)
             {
                 SET_PROCESS_PTR(4, 1, 0, 0, main);
-                investigation->unk7 += 1 << investigation->unkA;
-                investigation->unkE = 8;
-                investigation->unkF = 0;
+                investigation->unk7 += 1 << investigation->selectedAction;
+                investigation->selectedActionYOffset = 8;
+                investigation->lastActionYOffset = 0;
             }
             break;
         case 6:
@@ -1218,7 +1218,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                     vram += i * 0x800;
                     if(*icons != 0xFF)
                     {
-                        investigation->unk10[i] = TRUE;
+                        investigation->activeOptions[i] = TRUE;
                         temp = (uintptr_t)gUnknown_0820816C + *icons * 0x800;
                         DmaCopy16(3, temp, vram, 0x800);
                         for(j = 0; j < 2; j++)
@@ -1232,7 +1232,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                     }
                     else
                     {
-                        investigation->unk10[i] = FALSE;
+                        investigation->activeOptions[i] = FALSE;
                         oam->attr1 = SPRITE_ATTR1_NONAFFINE(DISPLAY_WIDTH+60, FALSE, FALSE, 0);
                         oam++;
                         oam->attr1 = SPRITE_ATTR1_NONAFFINE(DISPLAY_WIDTH+60, FALSE, FALSE, 0);
@@ -1241,9 +1241,9 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                     icons++;
                 }
                 sub_800B7A8(investigation, 4);
-                investigation->unkC = 1;
-                investigation->unkE = 0;
-                investigation->unkF = 0;
+                investigation->actionState = 1;
+                investigation->selectedActionYOffset = 0;
+                investigation->lastActionYOffset = 0;
                 main->process[GAME_PROCESS_VAR1]++;
                 main->process[GAME_PROCESS_VAR2] = 0;
             }
@@ -1262,7 +1262,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                 }
                 main->process[GAME_PROCESS_VAR2]++;
             }
-            if(investigation->unkC == 0 && main->process[GAME_PROCESS_VAR2] > 12)
+            if(investigation->actionState == 0 && main->process[GAME_PROCESS_VAR2] > 12)
             {
                 main->process[GAME_PROCESS_VAR1] = 3;
                 main->process[GAME_PROCESS_VAR2] = 0;
@@ -1286,7 +1286,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                 vram += i * 0x800;
                 if(*icons != 0xFF)
                 {
-                    investigation->unk10[i] = TRUE;
+                    investigation->activeOptions[i] = TRUE;
                     temp = (uintptr_t)gUnknown_0820816C + *icons * 0x800;
                     DmaCopy16(3, temp, vram, 0x800);
                     for(j = 0; j < 2; j++)
@@ -1300,7 +1300,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                 }
                 else
                 {
-                    investigation->unk10[i] = FALSE;
+                    investigation->activeOptions[i] = FALSE;
                     oam->attr1 = SPRITE_ATTR1_NONAFFINE(DISPLAY_WIDTH+60, FALSE, FALSE, 0);
                     oam++;
                     oam->attr1 = SPRITE_ATTR1_NONAFFINE(DISPLAY_WIDTH+60, FALSE, FALSE, 0);
@@ -2622,14 +2622,14 @@ void sub_800D2B0(struct Main * main, struct InvestigationStruct * investigation)
     switch(main->process[GAME_PROCESS_VAR1])
     {
         case 0:
-            if(investigation->unkE < 16)
-                investigation->unkE++;
-            investigation->unkF = 0;
-            if (investigation->unkE >= 16)
+            if(investigation->selectedActionYOffset < 16)
+                investigation->selectedActionYOffset++;
+            investigation->lastActionYOffset = 0;
+            if (investigation->selectedActionYOffset >= 16)
                 main->process[GAME_PROCESS_VAR1]++;
             break;
         case 1:
-            if(investigation->unkD == 0xE0)
+            if(investigation->inactiveActionButtonY == 0xE0)
             {
                 main->process[GAME_PROCESS_VAR1]++;
                 BACKUP_PROCESS_PTR(main);
@@ -2637,7 +2637,7 @@ void sub_800D2B0(struct Main * main, struct InvestigationStruct * investigation)
             }
             break;
         case 2:
-            if(investigation->unkD == 0xE0
+            if(investigation->inactiveActionButtonY == 0xE0
             && !gScriptContext.textboxState)
             {
                 oam = &gOamObjects[49];
@@ -2649,30 +2649,30 @@ void sub_800D2B0(struct Main * main, struct InvestigationStruct * investigation)
                     oam++;
                 }
                 sub_800B7A8(investigation, 0xF);
-                investigation->unkD = 0xE0; // unkD is already 0xE0 wtf
-                investigation->unkE = 0x40;
-                investigation->unkF = 8;
-                investigation->unkA = 3;
-                investigation->unkB = 3;
+                investigation->inactiveActionButtonY = 0xE0; // inactiveActionButtonY is already 0xE0 wtf
+                investigation->selectedActionYOffset = 0x40;
+                investigation->lastActionYOffset = 8;
+                investigation->selectedAction = 3;
+                investigation->lastAction = 3;
                 SET_PROCESS_PTR(4, 1, 0, 0, main);
             }
             break;
         case 3:
             sub_800B7A8(investigation, 7);
-            investigation->unkC = 2;
-            investigation->unkD = 0xE0;
-            investigation->unkE = 0x10;
-            investigation->unkF = 0;
+            investigation->actionState = 2;
+            investigation->inactiveActionButtonY = 0xE0;
+            investigation->selectedActionYOffset = 0x10;
+            investigation->lastActionYOffset = 0;
             main->process[GAME_PROCESS_VAR1]++;
             break;
         case 4:
-            if(investigation->unkE > 8)
-                investigation->unkE--;
-            if(investigation->unkC == 0)
+            if(investigation->selectedActionYOffset > 8)
+                investigation->selectedActionYOffset--;
+            if(investigation->actionState == 0)
             {
-                investigation->unkE = 8;
-                investigation->unkF = 0;
-                investigation->unk7 += 1 << investigation->unkA;
+                investigation->selectedActionYOffset = 8;
+                investigation->lastActionYOffset = 0;
+                investigation->unk7 += 1 << investigation->selectedAction;
                 SET_PROCESS_PTR(4, 1, 0, 0, main);
             }
             break;
@@ -2685,30 +2685,30 @@ void sub_800D3C8(struct InvestigationStruct * investigation)
     u32 i;
     u32 y;
 
-    switch(investigation->unkC)
+    switch(investigation->actionState)
     {
         case 0:
             for(i = 0; i < 4; i++)
             {
-                if(investigation->unkA == i)
+                if(investigation->selectedAction == i)
                 {
                     oam->attr0 = 0x4000;
-                    y = investigation->unkE + 240;
+                    y = investigation->selectedActionYOffset + 240;
                     y &= 0xFF;
                     oam->attr0 += y; 
                     oam->attr2 = i * 0x20 + 0x6500;
                 }
-                else if(investigation->unkB == i)
+                else if(investigation->lastAction == i)
                 {
                     oam->attr0 &= ~0xFF;
-                    oam->attr0 |= investigation->unkD;
-                    oam->attr0 += investigation->unkF;
+                    oam->attr0 |= investigation->inactiveActionButtonY;
+                    oam->attr0 += investigation->lastActionYOffset;
                     oam->attr2 = i * 0x20 + 0x5500;
                 }
                 else if((investigation->unk7 >> i) & 1)
                 {
                     oam->attr0 &= ~0xFF;
-                    oam->attr0 |= investigation->unkD;
+                    oam->attr0 |= investigation->inactiveActionButtonY;
                     oam->attr2 = i * 0x20 + 0x5500;
                 }
                 else
@@ -2720,44 +2720,44 @@ void sub_800D3C8(struct InvestigationStruct * investigation)
             }
             return;
         case 1:
-            i = investigation->unkA; // ! variable re(ab)use
+            i = investigation->selectedAction; // ! variable re(ab)use
             oam += i;
             oam->attr2 = 0x6500 + i * 0x20;
-            investigation->unkD = 0xE0;
-            investigation->unkC++;
+            investigation->inactiveActionButtonY = 0xE0;
+            investigation->actionState++;
             break;
         case 2:
-            investigation->unkD += 2;
-            if(investigation->unkD >= 0xF0)
+            investigation->inactiveActionButtonY += 2;
+            if(investigation->inactiveActionButtonY >= 0xF0)
             {
-                investigation->unkD = 0xF0;
-                investigation->unkC = 0;
+                investigation->inactiveActionButtonY = 0xF0;
+                investigation->actionState = 0;
             }
             break;
         case 3:
-            investigation->unkD -= 2;
-            if(investigation->unkD <= 0xE0)
+            investigation->inactiveActionButtonY -= 2;
+            if(investigation->inactiveActionButtonY <= 0xE0)
             {
-                investigation->unkD = 0xE0;
-                investigation->unkC = 4;
+                investigation->inactiveActionButtonY = 0xE0;
+                investigation->actionState = 4;
             }
         case 4:
             break;
     }
     i = gMain.roomData[gMain.currentRoomId][0]; //! re(ab)use
     if(i != gMain.currentBG)
-        investigation->unkE = 0x40;
+        investigation->selectedActionYOffset = 0x40;
     for(i = 0; i < 4; i++)
     {
         if(investigation->unk7 >> i & 1)
         {
             oam->attr0 &= 0xFF00;
-            oam->attr0 |= investigation->unkD;
+            oam->attr0 |= investigation->inactiveActionButtonY;
         }
-        else if(investigation->unkA == i)
+        else if(investigation->selectedAction == i)
         {
             oam->attr0 &= 0xFF00;
-            y = 0x100 - investigation->unkE;
+            y = 0x100 - investigation->selectedActionYOffset;
             y &= 0xFF;
             oam->attr0 += y;
         }
@@ -2793,11 +2793,11 @@ u32 sub_800D5B0(struct InvestigationStruct * investigation)
     struct Rect rect;
     u32 animId;
     struct ExaminationData * examData;
-    if(investigation->pointer_x < 120)
-        rect.x = gMain.Bg256_pos_x + investigation->pointer_x;
+    if(investigation->pointerX < 120)
+        rect.x = gMain.Bg256_pos_x + investigation->pointerX;
     else
-        rect.x = gMain.Bg256_pos_x + investigation->pointer_x + 12;
-    rect.y = gMain.Bg256_pos_y + investigation->pointer_y;
+        rect.x = gMain.Bg256_pos_x + investigation->pointerX + 12;
+    rect.y = gMain.Bg256_pos_y + investigation->pointerY;
     rect.w = 4;
     rect.h = 16;
     if(GetFlag(0, 0x41) == FALSE)
