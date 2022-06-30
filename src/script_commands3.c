@@ -65,12 +65,12 @@ bool32 Command43(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     if(*scriptCtx->scriptPtr)
     {
-        gTestimony.unk4 = 0xF0;
+        gTestimony.healthPointX = 0xF0;
         gMain.gameStateFlags |= 0x400;
     }
     else
     {
-        gTestimony.unk4 = 0xF0;
+        gTestimony.healthPointX = 0xF0;
         gMain.gameStateFlags &= ~0x400;
         oam = &gOamObjects[35];
         for(i = 0; i < 5; i++)

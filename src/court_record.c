@@ -811,7 +811,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
                 PlaySE(SE027_VOICE_PHOENIX_OBJECTION_JP);
             }
             StartHardwareBlend(3, 1, 4, 0x1F);
-            gTestimony.unk1 = 0xA;
+            gTestimony.timer = 0xA;
             gIORegisters.lcd_dispcnt &= ~DISPCNT_BG1_ON;
             main->advanceScriptContext = FALSE;
             main->showTextboxCharacters = FALSE;
@@ -1207,7 +1207,7 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
             DmaCopy16(3, gSaveDataBuffer.mapMarker, gMapMarker, sizeof(gMapMarker));
             MakeMapMarkerSprites();
             if(main->processCopy[GAME_PROCESS] == 5)
-                gTestimony.unk1 = 0;
+                gTestimony.timer = 0;
             main->animationFlags |= (2 | 1);
             UpdateBG2Window(&gCourtRecord);
             sub_800E9D4(&gCourtRecord);
@@ -1299,7 +1299,7 @@ void sub_800E4A4(struct Main * main, struct CourtRecord * courtRecord)
                 u32 offset;
                 PlayAnimation(ANIM_TAKETHAT_LEFT);
                 PlaySE(SE00D_VOICE_PHOENIX_TAKE_THAT_JP);
-                gTestimony.unk1 = 6;
+                gTestimony.timer = 6;
                 evidenceId = courtRecord->displayItemList[courtRecord->selectedItem];
                 offset = gEvidenceProfileData[evidenceId].evidenceImageId * (TILE_SIZE_4BPP * 64 + 0x20);
                 temp = (uintptr_t)gUnknown_081B290C + offset; //! Evil, uses a u32 for this pointer keep in mind and also global define

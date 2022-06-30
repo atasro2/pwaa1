@@ -554,20 +554,20 @@ bool32 Command29(struct ScriptContext *scriptCtx)
     scriptCtx->scriptPtr++;
     if (*scriptCtx->scriptPtr == 3)
     {
-        gTestimony.unk4 = 0xF0;
-        gTestimony.unk2 = 0xE0;
-        gTestimony.unk3 = 0xE0;
-        gTestimony.unk0 = 2;
+        gTestimony.healthPointX = 0xF0;
+        gTestimony.pressPromptY = 0xE0;
+        gTestimony.presentPromptY = 0xE0;
+        gTestimony.displayState = 2;
         gIORegisters.lcd_dispcnt &= ~DISPCNT_BG1_ON;
     }
     else if (*scriptCtx->scriptPtr == 2)
     {
         u32 i;
         struct OamAttrs *oam;
-        gTestimony.unk4 = 0xF0;
-        gTestimony.unk2 = 0xE0;
-        gTestimony.unk3 = 0xE0;
-        gTestimony.unk0 = 0;
+        gTestimony.healthPointX = 0xF0;
+        gTestimony.pressPromptY = 0xE0;
+        gTestimony.presentPromptY = 0xE0;
+        gTestimony.displayState = 0;
         gIORegisters.lcd_dispcnt |= DISPCNT_BG1_ON;
         oam = &gOamObjects[35];
         for (i = 0; i < 5; oam++, i++)

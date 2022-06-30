@@ -126,8 +126,8 @@ void sub_800A5B0(struct Main * main)
     }
     if(main->gameStateFlags & 0x400)
     {
-        if(testimony->unk4 > 160)
-            testimony->unk4 -= 4;
+        if(testimony->healthPointX > 160)
+            testimony->healthPointX -= 4;
         sub_800B638(main, testimony);
     }
 }
@@ -171,7 +171,7 @@ void sub_800A730(struct Main * main)
             PlayAnimation(ANIM_TESTIMONY_START_LEFT);
             PlayAnimation(ANIM_TESTIMONY_START_RIGHT);
             PlaySE(SE029_BEGIN_QUESTIONING);
-            gTestimony.unk6 = 0;
+            gTestimony.testimonyAnimMoveAmount = 0;
             main->process[GAME_PROCESS_VAR1]++;
             break;
         case 1:
@@ -207,13 +207,13 @@ void sub_800A730(struct Main * main)
         case 4:
             animation = FindAnimationFromAnimId(ANIM_TESTIMONY_START_LEFT);
             animation2 = FindAnimationFromAnimId(ANIM_TESTIMONY_START_RIGHT);
-            animation->animationInfo.xOrigin += gTestimony.unk6;
+            animation->animationInfo.xOrigin += gTestimony.testimonyAnimMoveAmount;
             animation->flags |= ANIM_ACTIVE;
-            animation2->animationInfo.xOrigin -= gTestimony.unk6;
+            animation2->animationInfo.xOrigin -= gTestimony.testimonyAnimMoveAmount;
             animation2->flags |= ANIM_ACTIVE;
-            gTestimony.unk6++;
-            if(gTestimony.unk6 > 12)
-                gTestimony.unk6 = 12;
+            gTestimony.testimonyAnimMoveAmount++;
+            if(gTestimony.testimonyAnimMoveAmount > 12)
+                gTestimony.testimonyAnimMoveAmount = 12;
             if(animation->animationInfo.xOrigin > 300)
             {
                 DestroyAnimation(animation);
@@ -234,7 +234,7 @@ void sub_800A894(struct Main * main)
 {
     DmaCopy16(3, gGfx4bppTestimonyTextTiles, OBJ_VRAM0+0x3000, 0x800);
     DmaCopy16(3, gUnknown_08194280, OBJ_PLTT+0xA0, 0x20);
-    gTestimony.unk1 = 0;
+    gTestimony.timer = 0;
     main->process[GAME_PROCESS_STATE] = 3;
 }
 
@@ -263,11 +263,11 @@ void sub_800A8E0(struct Main * main)
         BACKUP_PROCESS_PTR(main);
         SET_PROCESS_PTR(7, 0, 0, 0, main);
     }
-    gTestimony.unk1++;
-    if(gTestimony.unk1 > 100)
-        gTestimony.unk1 = 0;
+    gTestimony.timer++;
+    if(gTestimony.timer > 100)
+        gTestimony.timer = 0;
     oam = &gOamObjects[49];
-    if(gTestimony.unk1 <= 80)
+    if(gTestimony.timer <= 80)
     {
         oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
         oam->attr1 = SPRITE_ATTR1_NONAFFINE(0, FALSE, FALSE, 3);
@@ -371,10 +371,10 @@ void sub_800AB58(struct Main * main)
     main->testimonyBeginningSection = gScriptContext.currentSection;
     gCourtRecord.unk9 = 0;
     gCourtRecord.unk8++;
-    gTestimony.unk4 = 0xF0;
-    gTestimony.unk2 = 0xE0;
-    gTestimony.unk3 = 0xE0;
-    gTestimony.unk0 = 0;
+    gTestimony.healthPointX = 0xF0;
+    gTestimony.pressPromptY = 0xE0;
+    gTestimony.presentPromptY = 0xE0;
+    gTestimony.displayState = 0;
     main->process[GAME_PROCESS_STATE] = 3;
 }
 
@@ -424,10 +424,10 @@ void sub_800AC1C(struct Main * main)
                 PlayAnimation(ANIM_HOLDIT_LEFT);
                 PlaySE(SE01D_VOICE_PHOENIX_HOLD_IT_JP);
                 StartHardwareBlend(3, 1, 4, 0x1F);
-                gTestimony.unk1 = 0x40;
-                gTestimony.unk4 = 0xF0;
-                gTestimony.unk2 = 0xE0;
-                gTestimony.unk3 = 0xE0;
+                gTestimony.timer = 0x40;
+                gTestimony.healthPointX = 0xF0;
+                gTestimony.pressPromptY = 0xE0;
+                gTestimony.presentPromptY = 0xE0;
                 gIORegisters.lcd_dispcnt &= ~DISPCNT_BG1_ON;
                 main->advanceScriptContext = FALSE;
                 main->showTextboxCharacters = FALSE;
@@ -455,8 +455,8 @@ void sub_800AC1C(struct Main * main)
     sub_800B51C(main, &gTestimony, 1);
     if(main->gameStateFlags & 0x400)
     {
-        if(gTestimony.unk4 > 0xA0)
-            gTestimony.unk4 -= 4;
+        if(gTestimony.healthPointX > 0xA0)
+            gTestimony.healthPointX -= 4;
         sub_800B638(main, &gTestimony);
     }
     sub_800E8A0(&gCourtRecord);
@@ -492,7 +492,7 @@ void sub_800AE58(struct Main * main)
     switch(main->process[GAME_PROCESS_VAR1])
     {
         case 0:
-            if(gTestimony.unk1 == 0)
+            if(gTestimony.timer == 0)
             {
                 SetCourtScrollPersonAnim(0, 1, PERSON_ANIM_PHOENIX, 0);
                 InitCourtScroll(gGfxCourtscroll01, 0x1E, 0x1F, 1);
@@ -500,7 +500,7 @@ void sub_800AE58(struct Main * main)
                 main->process[GAME_PROCESS_VAR1]++;
                 break;
             }
-            gTestimony.unk1--;
+            gTestimony.timer--;
             break;
         case 1:
             if(gCourtScroll.state)
@@ -516,10 +516,10 @@ void sub_800AE58(struct Main * main)
             else
                 SlideTextbox(1);
             ChangeScriptSection(gScriptContext.holdItSection);
-            gTestimony.unk4 = 0xF0;
-            gTestimony.unk2 = 0xE0;
-            gTestimony.unk3 = 0xE0;
-            gTestimony.unk0 = 0;
+            gTestimony.healthPointX = 0xF0;
+            gTestimony.pressPromptY = 0xE0;
+            gTestimony.presentPromptY = 0xE0;
+            gTestimony.displayState = 0;
             main->process[GAME_PROCESS_STATE] = 1;
             main->process[GAME_PROCESS_VAR1] = 0;
             break;
@@ -536,17 +536,17 @@ void sub_800AF2C(struct Main * main)
     switch(main->process[GAME_PROCESS_VAR1])
     {
         case 0:
-            if(gTestimony.unk1 == 0)
+            if(gTestimony.timer == 0)
             {
                 StartHardwareBlend(3, 1, 4, 0x1F);
-                gTestimony.unk1 = 0x40;
+                gTestimony.timer = 0x40;
                 main->process[GAME_PROCESS_VAR1]++;
                 break;
             }
-            gTestimony.unk1--;
+            gTestimony.timer--;
             break;
         case 1:
-            if(gTestimony.unk1 == 0)
+            if(gTestimony.timer == 0)
             {
                 SetCourtScrollPersonAnim(0, 1, PERSON_ANIM_PHOENIX, 0x18D0);
                 InitCourtScroll(gGfxCourtscroll01, 0x1E, 0x1F, 1);
@@ -554,21 +554,21 @@ void sub_800AF2C(struct Main * main)
                 main->process[GAME_PROCESS_VAR1]++;
                 break;
             }
-            gTestimony.unk1--;
+            gTestimony.timer--;
             break;
         case 2:
             if(gCourtScroll.state)
                 break;
-            gTestimony.unk1 = 0x14;
+            gTestimony.timer = 0x14;
             main->process[GAME_PROCESS_VAR1]++;
             break;
         case 3:
-            if(gTestimony.unk1 == 0)
+            if(gTestimony.timer == 0)
             {
-                gTestimony.unk4 = 0xF0;
-                gTestimony.unk2 = 0xE0;
-                gTestimony.unk3 = 0xE0;
-                gTestimony.unk0 = 0;
+                gTestimony.healthPointX = 0xF0;
+                gTestimony.pressPromptY = 0xE0;
+                gTestimony.presentPromptY = 0xE0;
+                gTestimony.displayState = 0;
                 if(gScriptContext.unk33)
                 {
                     gMain.advanceScriptContext = TRUE;
@@ -581,7 +581,7 @@ void sub_800AF2C(struct Main * main)
                 RESTORE_PROCESS_PTR(main);
                 break;
             } 
-            gTestimony.unk1--;
+            gTestimony.timer--;
             break;
         default:
             break;
@@ -786,31 +786,31 @@ void sub_800B51C(struct Main * main, struct TestimonyStruct * testimony, u32 unk
         }
         return;
     }
-    if(testimony->unk0 == 1)
+    if(testimony->displayState == 1)
     {
-        if(testimony->unk2 > 224)
-            testimony->unk2 -= 2;
+        if(testimony->pressPromptY > 224)
+            testimony->pressPromptY -= 2;
         else
-            testimony->unk2 = 224;
+            testimony->pressPromptY = 224;
 
-        if(testimony->unk3 > 224)
-            testimony->unk3 -= 2;
+        if(testimony->presentPromptY > 224)
+            testimony->presentPromptY -= 2;
         else
-            testimony->unk3 = 224;
+            testimony->presentPromptY = 224;
 
-        if(testimony->unk4 < 240)
-            testimony->unk4 += 8;
+        if(testimony->healthPointX < 240)
+            testimony->healthPointX += 8;
     }
-    else if(testimony->unk0 == 0)
+    else if(testimony->displayState == 0)
     {
-        if(testimony->unk2 > 0)
-            testimony->unk2 += 2;
+        if(testimony->pressPromptY > 0)
+            testimony->pressPromptY += 2;
 
-        if(testimony->unk3 > 0)
-            testimony->unk3 += 2;
+        if(testimony->presentPromptY > 0)
+            testimony->presentPromptY += 2;
 
-        if(testimony->unk4 > 160)
-            testimony->unk4 -= 4;
+        if(testimony->healthPointX > 160)
+            testimony->healthPointX -= 4;
     }
     oam = &gOamObjects[53];
     if(gScriptContext.holdItSection < 0x80)
@@ -826,22 +826,22 @@ void sub_800B51C(struct Main * main, struct TestimonyStruct * testimony, u32 unk
     else
     {
         u32 attr1; // needed for matching
-        oam->attr0 = testimony->unk2 | 0x4000;
+        oam->attr0 = testimony->pressPromptY | 0x4000;
         attr1 = SPRITE_ATTR1_NONAFFINE(0, FALSE, FALSE, 2);
         oam->attr1 = attr1;
         oam->attr2 = SPRITE_ATTR2(0x180, 1, 5);
         oam++;
-        oam->attr0 = testimony->unk2 | 0x4000;
+        oam->attr0 = testimony->pressPromptY | 0x4000;
         attr1 = SPRITE_ATTR1_NONAFFINE(32, FALSE, FALSE, 2);
         oam->attr1 = attr1;
         oam->attr2 = SPRITE_ATTR2(0x188, 1, 5);
         oam++;
-        oam->attr0 = testimony->unk3 | 0x4000;
+        oam->attr0 = testimony->presentPromptY | 0x4000;
         attr1 = SPRITE_ATTR1_NONAFFINE(176, FALSE, FALSE, 2);
         oam->attr1 = attr1;
         oam->attr2 = SPRITE_ATTR2(0x190, 1, 5);
         oam++;
-        oam->attr0 = testimony->unk3 | 0x4000;
+        oam->attr0 = testimony->presentPromptY | 0x4000;
         attr1 = SPRITE_ATTR1_NONAFFINE(208, FALSE, FALSE, 2);
         oam->attr1 = attr1;
         oam->attr2 = SPRITE_ATTR2(0x198, 1, 5);
@@ -882,9 +882,9 @@ void sub_800B638(struct Main * main, struct TestimonyStruct * testimony)
             if(main->damageFrame <= 8)
             {
                 if(main->damageFrame > 4)
-                    oam->attr1 = SPRITE_ATTR1_AFFINE(0, 0, 1) + testimony->unk4 + i * 0x10 - 8;
+                    oam->attr1 = SPRITE_ATTR1_AFFINE(0, 0, 1) + testimony->healthPointX + i * 0x10 - 8;
                 else
-                    oam->attr1 = SPRITE_ATTR1_NONAFFINE(0, FALSE, FALSE, 1) + testimony->unk4 + i * 0x10;
+                    oam->attr1 = SPRITE_ATTR1_NONAFFINE(0, FALSE, FALSE, 1) + testimony->healthPointX + i * 0x10;
             }
             else
                 oam->attr0 = SPRITE_ATTR0_CLEAR;
@@ -893,7 +893,7 @@ void sub_800B638(struct Main * main, struct TestimonyStruct * testimony)
         else if(i >= 5-main->health)
         {
             oam->attr0 = SPRITE_ATTR0(16, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
-            oam->attr1 = SPRITE_ATTR1_NONAFFINE(0, FALSE, FALSE, 1) + testimony->unk4 + i * 0x10;
+            oam->attr1 = SPRITE_ATTR1_NONAFFINE(0, FALSE, FALSE, 1) + testimony->healthPointX + i * 0x10;
             oam->attr2 = SPRITE_ATTR2(0x1BC, 2, 3);
         }
         else
