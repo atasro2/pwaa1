@@ -665,7 +665,7 @@ void VerdictProcess(struct Main * main)
             }
             break;
         }
-        case VERDICT_STATE_GROW_KANJI_GUILTY_EXIT: { // B300
+        case VERDICT_STATE_GROW_KANJI: { // B300
             if(main->process[GAME_PROCESS_VAR1]++ > 32) {
                 oam->attr0 = SPRITE_ATTR0_CLEAR;
                 oam++;
@@ -764,7 +764,7 @@ void VerdictProcess(struct Main * main)
     }
 }
 
-void sub_800B51C(struct Main * main, struct TestimonyStruct * testimony, u32 unk2)
+void sub_800B51C(struct Main * main, struct TestimonyStruct * testimony, u32 unk2) // questioning_menu_disp
 {
     u32 i;
     struct OamAttrs * oam;
@@ -849,7 +849,7 @@ void sub_800B51C(struct Main * main, struct TestimonyStruct * testimony, u32 unk
     sub_800B638(main, testimony);
 }
 
-void sub_800B638(struct Main * main, struct TestimonyStruct * testimony)
+void sub_800B638(struct Main * main, struct TestimonyStruct * testimony) // rest_disp
 {
     struct OamAttrs * oam = &gOamObjects[35];
     u32 i;

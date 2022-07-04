@@ -24,7 +24,7 @@ struct EvidenceProfileData
     /* +0x06 */ u16 evidenceDetailId;
 };
 
-static const struct EvidenceProfileData gEvidenceProfileData[] = {
+const struct EvidenceProfileData gEvidenceProfileData[] = {
 	{
 		.descriptionTiles = gUnknown_08196CA8,
 		.evidenceImageId = 18,
@@ -587,7 +587,7 @@ void (*gProcess8ProcessStates[3])(struct Main *, struct CourtRecord *) = {
 	sub_800E828
 };
 
-void InitializeCourtRecordForScenario(struct Main * main, struct CourtRecord * courtRecord)
+void InitializeCourtRecordForScenario(struct Main * main, struct CourtRecord * courtRecord) // Status_init
 {
     const u8 * recordIds;
     u32 i;
@@ -614,19 +614,19 @@ void InitializeCourtRecordForScenario(struct Main * main, struct CourtRecord * c
     }
 }
 
-void CourtRecordProcess(struct Main * main)
+void CourtRecordProcess(struct Main * main) // Status
 {
     gBG1MapBuffer[622] = 9;
     gBG1MapBuffer[623] = 9;
     gCourtRecordProcessStates[main->process[GAME_PROCESS_STATE]](main, &gCourtRecord);
 }
 
-void GameProcess08(struct Main * main)
+void GameProcess08(struct Main * main) // Note_add_disp
 {
     gProcess8ProcessStates[main->process[GAME_PROCESS_STATE]](main, &gCourtRecord);
 }
 
-void sub_800D880(struct Main * main, struct CourtRecord * courtRecord)
+void sub_800D880(struct Main * main, struct CourtRecord * courtRecord) // status_init
 {
     u32 i;
     struct OamAttrs * oam;
@@ -679,7 +679,7 @@ void sub_800D880(struct Main * main, struct CourtRecord * courtRecord)
 }
 
 //TODO: fix shit control flow, probably uses local variables to control the flow, don't have time to figure out how
-void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
+void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord) // status_main
 {
     struct Joypad * joypad = &gJoypad;
     struct OamAttrs * oam;
@@ -948,7 +948,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
     sub_800E9D4(&gCourtRecord);
 }
 
-void sub_800DD88(struct Main * main, struct CourtRecord * courtRecord)
+void sub_800DD88(struct Main * main, struct CourtRecord * courtRecord) // status_exit
 {
     struct OamAttrs * oam;
     if(main->process[GAME_PROCESS_VAR2] == 2 && courtRecord->unk2 > 8)
@@ -977,7 +977,7 @@ void sub_800DD88(struct Main * main, struct CourtRecord * courtRecord)
     }
 }
 
-void sub_800DE28(struct Main * main, struct CourtRecord * courtRecord)
+void sub_800DE28(struct Main * main, struct CourtRecord * courtRecord) // status_wait
 {
     struct OamAttrs * oam;
     if(main->process[GAME_PROCESS_VAR2] == 2 && courtRecord->unk2 > 8)
@@ -1001,7 +1001,7 @@ void sub_800DE28(struct Main * main, struct CourtRecord * courtRecord)
     }
 }
 
-void sub_800DE8C(struct Main * main, struct CourtRecord * courtRecord)
+void sub_800DE8C(struct Main * main, struct CourtRecord * courtRecord) // status_menu_change
 {
     UpdateBG2Window(courtRecord);
     sub_800E9D4(courtRecord);
@@ -1034,7 +1034,7 @@ void sub_800DE8C(struct Main * main, struct CourtRecord * courtRecord)
     }
 }
 
-void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
+void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord) // status_exception ?
 {
     u32 evidenceId;
     if(main->gameStateFlags & 1)
@@ -1277,13 +1277,13 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
     }
 }
 
-void sub_800E488(struct Main * main, struct CourtRecord * courtRecord)
+void sub_800E488(struct Main * main, struct CourtRecord * courtRecord) // status_melt ?
 {
     sub_800EA80(courtRecord->displayItemList[courtRecord->selectedItem]);
     main->process[GAME_PROCESS_STATE] = 3;
 }
 
-void sub_800E4A4(struct Main * main, struct CourtRecord * courtRecord)
+void sub_800E4A4(struct Main * main, struct CourtRecord * courtRecord) // status_effect ?
 {
     struct OamAttrs * oam = &gOamObjects[57];
     u32 evidenceId;
@@ -1403,7 +1403,7 @@ void sub_800E4A4(struct Main * main, struct CourtRecord * courtRecord)
     sub_800E9D4(&gCourtRecord);
 }
 
-void sub_800E75C(struct Main * main, struct CourtRecord * courtRecord)
+void sub_800E75C(struct Main * main, struct CourtRecord * courtRecord) // note_add_init
 {
     u32 i;
     u16 * map = gBG2MapBuffer;
@@ -1418,7 +1418,7 @@ void sub_800E75C(struct Main * main, struct CourtRecord * courtRecord)
     main->process[GAME_PROCESS_VAR1] = 0;
 }
 
-void sub_800E7C0(struct Main * main, struct CourtRecord * courtRecord)
+void sub_800E7C0(struct Main * main, struct CourtRecord * courtRecord) // note_add_main
 {
     UpdateBG2Window(courtRecord);
     sub_800EAF8(courtRecord);
@@ -1438,7 +1438,7 @@ void sub_800E7C0(struct Main * main, struct CourtRecord * courtRecord)
     }
 }
 
-void sub_800E828(struct Main * main, struct CourtRecord * courtRecord)
+void sub_800E828(struct Main * main, struct CourtRecord * courtRecord) // note_add_exit
 {
     UpdateBG2Window(courtRecord);
     sub_800EAF8(courtRecord);

@@ -18,30 +18,30 @@
 #include "constants/songs.h"
 
 void (*gInvestigationProcessStates[])(struct Main *, struct InvestigationStruct *) = {
-	sub_800B808,
-	sub_800BAD4,
-	sub_800BD74,
-	sub_800BDF8,
-	sub_800BE58,
-	sub_800BE7C,
-	sub_800BF90,
-	sub_800C334,
-	sub_800C8B8,
-	sub_800D2B0
+	sub_800B808, // RNO1_TANTEI_INIT
+	sub_800BAD4, // RNO1_TANTEI_MAIN
+	sub_800BD74, // RNO1_TANTEI_EXIT
+	sub_800BDF8, // RNO1_TANTEI_BG_WAIT
+	sub_800BE58, // RNO1_TANTEI_MW_WAIT
+	sub_800BE7C, // RNO1_TANTEI_ROOM_INIT
+	sub_800BF90, // RNO1_TANTEI_INSPECT
+	sub_800C334, // RNO1_TANTEI_MOVE
+	sub_800C8B8, // RNO1_TANTEI_TALK
+	sub_800D2B0  // RNO1_TANTEI_SHOW
 };
 
 extern void SetCurrentEpisodeBit();
 extern void sub_800D530(struct Main *, u32);
 extern void sub_800D3C8(struct InvestigationStruct *);
 
-void sub_800B7A8(struct InvestigationStruct * investigation, u32 arg1)
+void sub_800B7A8(struct InvestigationStruct * investigation, u32 arg1) // menu_mv_flag_set
 {
     investigation->unk7 = arg1;
     if(investigation->personActive == 0)
         investigation->unk7 &= ~0xC;
 }
 
-void InvestigationProcess(struct Main * main)
+void InvestigationProcess(struct Main * main) // Tantei_part
 {
     if(main->process[GAME_PROCESS_STATE] != 5)
         gInvestigationRoomUpdateFunctions[main->scenarioIdx](main);
@@ -49,7 +49,7 @@ void InvestigationProcess(struct Main * main)
     sub_800D3C8(&gInvestigation);
 }
 
-void sub_800B808(struct Main * main, struct InvestigationStruct * investigation)
+void sub_800B808(struct Main * main, struct InvestigationStruct * investigation) // tantei_init
 {
     struct IORegisters * ioRegs = &gIORegisters;
     struct OamAttrs * oam;
@@ -123,7 +123,7 @@ void sub_800B808(struct Main * main, struct InvestigationStruct * investigation)
 }
 
 //FIXME: tail merge causes register diffs
-void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
+void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation) // tantei_main
 {
     if(main->blendMode)
     {
@@ -282,7 +282,7 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
 }
 
 // ! same as sub_800A6AC, thanks capcom
-void sub_800BD74(struct Main * main, struct InvestigationStruct * investigation)
+void sub_800BD74(struct Main * main, struct InvestigationStruct * investigation) // tantei_exit
 {
     DmaCopy16(3, &gMain, &gSaveDataBuffer.main, sizeof(gMain));
     SET_PROCESS_PTR(10, 0, 0, 1, main);
@@ -303,7 +303,7 @@ void sub_800BD74(struct Main * main, struct InvestigationStruct * investigation)
     }
 }
 
-void sub_800BDF8(struct Main * main, struct InvestigationStruct * investigation)
+void sub_800BDF8(struct Main * main, struct InvestigationStruct * investigation) // tantei_bg_scroll_wait
 {
     bool32 flag; // TODO: find a name for this
     sub_800D530(main, 0);
@@ -336,14 +336,14 @@ void sub_800BDF8(struct Main * main, struct InvestigationStruct * investigation)
         SET_PROCESS_PTR(4, 1, 0, 0, main);
 }
 
-void sub_800BE58(struct Main * main, struct InvestigationStruct * investigation)
+void sub_800BE58(struct Main * main, struct InvestigationStruct * investigation) // tantei_mw_scroll_wait
 {
     sub_800D530(main, 0);
     if(gScriptContext.textboxState == 0)
         SET_PROCESS_PTR(4, 1, 0, 0, main);
 }
 
-void sub_800BE7C(struct Main * main, struct InvestigationStruct * investigation)
+void sub_800BE7C(struct Main * main, struct InvestigationStruct * investigation) // tantei_room_init
 {
     u32 i, j;
     u8 * roomData;
@@ -395,7 +395,7 @@ void sub_800BE7C(struct Main * main, struct InvestigationStruct * investigation)
     SET_PROCESS_PTR(4, 1, 0, 0, main);
 }
 
-void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation) // ! goto
+void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation) // tantei_inspect // ! goto
 {
     u32 temp;
     struct OamAttrs * oam = &gOamObjects[88];
@@ -566,7 +566,7 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
     }
 }
 
-void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
+void sub_800C334(struct Main * main, struct InvestigationStruct * investigation) // tantei_move
 {
     u16 attr1;
     u32 i;
@@ -863,7 +863,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
 }
 
 #ifdef NONMATCHING
-void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
+void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation) // tantei_talk
 {
     struct OamAttrs * oam2;
     struct OamAttrs * oam;
@@ -2614,7 +2614,7 @@ _0800D2AC: .4byte 0x00000FFF\n");
 }
 #endif
 
-void sub_800D2B0(struct Main * main, struct InvestigationStruct * investigation)
+void sub_800D2B0(struct Main * main, struct InvestigationStruct * investigation) // tantei_show
 {
     struct OamAttrs * oam;
     u32 i;
@@ -2788,7 +2788,7 @@ void sub_800D530(struct Main * main, u32 show)
     }
 }
 
-u32 sub_800D5B0(struct InvestigationStruct * investigation)
+u32 sub_800D5B0(struct InvestigationStruct * investigation) // finger_pos_check
 {
     struct Rect rect;
     u32 animId;
