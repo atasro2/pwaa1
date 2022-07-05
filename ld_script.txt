@@ -82,38 +82,7 @@ SECTIONS {
     .rodata :
     ALIGN(4)
     {
-        src/main.o(.rodata);
-        src/bg3.o(.rodata);
-        src/bg.o(.rodata);
-        src/utils.o(.rodata);
-        src/case_data.o(.rodata);
-        /* sce1_0.c */
-        src/investigation_segment_1_0.o(.rodata);
-        /* sce1_2.c */
-        src/investigation_segment_1_2.o(.rodata);
-        /* sce2_0.c */
-        src/investigation_segment_2_0.o(.rodata);
-        /* sce2_2.c */
-        src/investigation_segment_2_2.o(.rodata);
-        /* sce2_4.c */
-        src/investigation_segment_2_4.o(.rodata);
-        /* sce3_0.c */
-        src/investigation_segment_3_0.o(.rodata);
-        /* sce3_2.c */
-        src/investigation_segment_3_2.o(.rodata);
-        /* sce3_4.c */
-        src/investigation_segment_3_4.o(.rodata);
-        src/script_main.o(.rodata);
-        src/script_commands.o(.rodata);
-        src/script_commands2.o(.rodata);
-        src/gameover_process.o(.rodata);
-        src/save_processes.o(.rodata);
-        src/court_record.o(.rodata);
-        src/animation.o(.rodata);
-        data/sound_data.o(.rodata);
-        src/m4a_tables.o(.rodata);
-        data/sound_data2.o(.rodata);
-        src/agb_sram.o(.rodata); 
+        *(.rodata);
     } =0
     /* capcom :^)) */
     . += 0x100;

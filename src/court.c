@@ -589,109 +589,297 @@ void sub_800AF2C(struct Main * main)
     sub_800B51C(main, &gTestimony, 0);
 }
 
+struct VerdictLetter {
+    u16 tileNum:12;
+    u8 shape:2;
+    u8 size:2;
+    u8 set;
+    u8 width;
+    s8 xOffset;
+    s8 yOffset;
+};
+
+extern u8 gNotGuiltyPal[];
+extern u8 gVerdictTiles[];
+
+const struct VerdictLetter gGuiltyLetters[] = {
+    {
+    .tileNum = 128, // G
+    .set = 0,
+    .shape = ST_OAM_SQUARE,
+    .size = 3,
+    .width = 39,
+    .xOffset = 45,
+    .yOffset = 1,
+    },
+    {
+    .tileNum = 192, // u
+    .set = 1,
+    .shape = ST_OAM_V_RECTANGLE,
+    .size = 3,
+    .width = 32,
+    .xOffset = -4,
+    .yOffset = 1,
+    },
+    {
+    .tileNum = 224, // i
+    .set = 2,
+    .shape = ST_OAM_V_RECTANGLE,
+    .size = 3,
+    .width = 19,
+    .xOffset = -1,
+    },
+    {
+    .tileNum = 256, // l
+    .set = 3,
+    .shape = ST_OAM_V_RECTANGLE,
+    .size = 3,
+    .width = 19,
+    .xOffset = -3,
+    },
+    {
+    .tileNum = 96, // t
+    .set = 4,
+    .shape = ST_OAM_V_RECTANGLE,
+    .size 3,
+    .width = 21,
+    .xOffset = -4,
+    .yOffset = 1,
+    },
+    {
+    .tileNum = 288, // y
+    .set = 5,
+    .shape = ST_OAM_V_RECTANGLE,
+    .size = 3,
+    .width = 32,
+    .xOffset = -1,
+    .yOffset = 8,
+    },
+};
+
+const struct VerdictLetter gNotGuiltyLetters[] = {
+    {
+    .tileNum = 0, // N
+    .set = 0,
+    .shape = ST_OAM_SQUARE,
+    .size = 3,
+    .width = 39,
+    },
+    {
+    .tileNum = 64, // O
+    .set = 0,
+    .shape = ST_OAM_V_RECTANGLE,
+    .size = 3,
+    .width = 30,
+    .xOffset = -3,
+    },
+    {
+    .tileNum = 96, // t
+    .set = 0,
+    .shape = ST_OAM_V_RECTANGLE,
+    .size 3,
+    .width = 21,
+    .xOffset = -3,
+    },
+    {
+    .tileNum = 128, // G
+    .set = 1,
+    .shape = ST_OAM_SQUARE,
+    .size = 3,
+    .width = 39,
+    .xOffset = 8,
+    .yOffset = 1,
+    },
+    {
+    .tileNum = 192, // u
+    .set = 1,
+    .shape = ST_OAM_V_RECTANGLE,
+    .size = 3,
+    .width = 32,
+    .xOffset = -4,
+    .yOffset = 1,
+    },
+    {
+    .tileNum = 224, // i
+    .set = 1,
+    .shape = ST_OAM_V_RECTANGLE,
+    .size = 3,
+    .width = 19,
+    .xOffset = -1,
+    },
+    {
+    .tileNum = 256, // l
+    .set = 1,
+    .shape = ST_OAM_V_RECTANGLE,
+    .size = 3,
+    .width = 19,
+    .xOffset = -3,
+    },
+    {
+    .tileNum = 96, // t
+    .set = 1,
+    .shape = ST_OAM_V_RECTANGLE,
+    .size 3,
+    .width = 21,
+    .xOffset = -4,
+    .yOffset = 1,
+    },
+    {
+    .tileNum = 288, // y
+    .set = 1,
+    .shape = ST_OAM_V_RECTANGLE,
+    .size = 3,
+    .width = 32,
+    .xOffset = -1,
+    .yOffset = 8,
+    },
+};
+
+struct Verdict {
+    const u8 * tiles;
+    u32 size;
+    const struct VerdictLetter * letters;
+    u8 letterCount:4;
+    u8 setCount:4;
+    s8 setDelay;
+    u8 setSizeDelta;
+    bool8 acquittal;
+};
+
+const struct Verdict gVerdicts[] = {
+    {
+        .tiles = gVerdictTiles,
+        .size = 0x2800,
+        .letters = gGuiltyLetters,
+        .letterCount = 6,
+        .setCount = 6,
+        .setDelay = 0,
+        .setSizeDelta = 0x38,
+        .acquittal = FALSE,
+    },
+    {
+        .tiles = gVerdictTiles,
+        .size = 0x2800,
+        .letters = gNotGuiltyLetters,
+        .letterCount = 9,
+        .setCount = 2,
+        .setDelay = 40,
+        .setSizeDelta = 0x30,
+        .acquittal = TRUE,
+    },
+};
+
+extern struct SpriteSizeData gSpriteSizeTable[];
+
 void VerdictProcess(struct Main * main)
 {
     u32 i;
     s16 temp;
     u32 temp2;
-    struct OamAttrs *oam = &gOamObjects[49];
+    struct OamAttrs *oam = NULL;
+    const struct Verdict * verdict = &gVerdicts[main->process[GAME_PROCESS_VAR2]];
     switch(main->process[GAME_PROCESS_STATE]) {
-        case VERDICT_STATE_SHRINK_KANJI1: { // B088
-            gMain.affineScale -= 0x10; // 1/16 steps 
-            if(gMain.affineScale <= Q_8_8(1.0)) 
-            {
-                temp = fix_inverse(Q_8_8(1.0));
-                gOamObjects[0].attr3 = fix_mul(_Cos(0), temp);
-                gOamObjects[1].attr3 = fix_mul(_Sin(0), temp);
-                gOamObjects[2].attr3 = fix_mul(-_Sin(0), temp);
-                gOamObjects[3].attr3 = fix_mul(_Cos(0), temp);
-                StartHardwareBlend(3, 1, 4, 0x1F);
-                PlaySE(SE02C_GAME_OVER);
-                main->process[GAME_PROCESS_STATE]++;
-                main->process[GAME_PROCESS_VAR1] = 0;
+        case VERDICT_STATE_INIT: {
+            s32 x = 0, y = 39;
+            gTestimony.unk7 = 0;
+            //DmaCopy16(3, gNotGuiltyPal, OBJ_PLTT+0xA0, 0x20);
+            DmaCopy16(3, verdict->tiles, OBJ_VRAM0+0x2000, verdict->size);
+            for(i = 0; i < verdict->letterCount; i++) {
+                struct OamData * oamData = (struct OamData *)gOamObjects+65+i;
+                x -= gSpriteSizeTable[(verdict->letters[i].size << 2) | (verdict->letters[i].shape)].width / 2;
+                x += verdict->letters[i].xOffset;
+                oamData->y = y - 32 + verdict->letters[i].yOffset;
+                oamData->x = x;
+                oamData->objMode = ST_OAM_OBJ_NORMAL;
+                oamData->affineMode = ST_OAM_AFFINE_ERASE;
+                oamData->matrixNum = 0;
+                oamData->priority = 0;
+                oamData->shape = verdict->letters[i].shape;
+                oamData->size = verdict->letters[i].size;
+                oamData->paletteNum = 5;
+                oamData->tileNum = 0x100+verdict->letters[i].tileNum;
+                x += verdict->letters[i].width + gSpriteSizeTable[(verdict->letters[i].size << 2) | (verdict->letters[i].shape)].width / 2;
             }
-            else {
-                temp = fix_inverse(main->affineScale);
-                gOamObjects[0].attr3 = fix_mul(_Cos(0), temp);
-                gOamObjects[1].attr3 = fix_mul(_Sin(0), temp);
-                gOamObjects[2].attr3 = fix_mul(-_Sin(0), temp);
-                gOamObjects[3].attr3 = fix_mul(_Cos(0), temp);
-            }
+            StartHardwareBlend(3, 1, 4, 0x1F);
+            main->process[GAME_PROCESS_STATE] = VERDICT_STATE_NEXT_ANIM;
+            main->process[GAME_PROCESS_VAR1] = verdict->setDelay-15;
             break;
         }
-        case VERDICT_STATE_WAIT_INIT_KANJI2: { // B164
-            if(main->process[GAME_PROCESS_VAR1]++ > 40) {
-                gMain.affineScale = Q_8_8(2.5); // 2.5 times scale
-                oam++;
-                oam->attr0 = SPRITE_ATTR0(255-16, ST_OAM_AFFINE_DOUBLE, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
-                oam->attr1 = SPRITE_ATTR1_AFFINE(128, 1, 3);
-                oam->attr2 = SPRITE_ATTR2(0x1E0, 0, 5);
-                temp = fix_inverse(main->affineScale);
-                gOamObjects[4].attr3 = fix_mul(_Cos(0), temp);
-                gOamObjects[5].attr3 = fix_mul(_Sin(0), temp);
-                gOamObjects[6].attr3 = fix_mul(-_Sin(0), temp);
-                gOamObjects[7].attr3 = fix_mul(_Cos(0), temp);
-                main->process[GAME_PROCESS_STATE]++;
+        case VERDICT_STATE_NEXT_ANIM: { // B088
+            if((s8)main->process[GAME_PROCESS_VAR1]++ <= verdict->setDelay)
+               break;
+            for(i = 0; i < verdict->letterCount; i++) {
+                if(gTestimony.unk7 == verdict->letters[i].set) {
+                    struct OamData * oamData = (struct OamData *)gOamObjects+65+i;
+                    oamData->affineMode = ST_OAM_AFFINE_DOUBLE;
+                }
             }
+            main->affineScale = Q_8_8(2.5);
+            temp = fix_inverse(main->affineScale);
+            gOamObjects[0].attr3 = fix_mul(_Cos(0), temp);
+            gOamObjects[1].attr3 = fix_mul(_Sin(0), temp);
+            gOamObjects[2].attr3 = fix_mul(-_Sin(0), temp);
+            gOamObjects[3].attr3 = fix_mul(_Cos(0), temp);
+            PlaySE(SE02C_GAME_OVER);
+            main->process[GAME_PROCESS_STATE] = VERDICT_STATE_MAIN_ANIM;
             break;
         }
-        case VERDICT_STATE_SHRINK_KANJI2: { // B1FC
-            gMain.affineScale -= 0x10; // 1/16 steps
-            if(gMain.affineScale <= Q_8_8(1.0)) {
-                temp = fix_inverse(Q_8_8(1.0));
-                gOamObjects[4].attr3 = fix_mul(_Cos(0), temp);
-                gOamObjects[5].attr3 = fix_mul(_Sin(0), temp);
-                gOamObjects[6].attr3 = fix_mul(-_Sin(0), temp);
-                gOamObjects[7].attr3 = fix_mul(_Cos(0), temp);
-                StartHardwareBlend(3, 1, 4, 0x1F);
-                PlaySE(SE02C_GAME_OVER);
-                gMain.affineScale = Q_8_8(1.0);
-                main->process[GAME_PROCESS_STATE]++;
-                main->process[GAME_PROCESS_VAR1] = 0;
+        case VERDICT_STATE_MAIN_ANIM: { // B088
+            if(main->affineScale == 0x100) {
+                main->process[GAME_PROCESS_STATE] = VERDICT_STATE_FINISH_ANIM;
+                break;
             }
-            else {
-                temp = fix_inverse(main->affineScale);
-                gOamObjects[4].attr3 = fix_mul(_Cos(0), temp);
-                gOamObjects[5].attr3 = fix_mul(_Sin(0), temp);
-                gOamObjects[6].attr3 = fix_mul(-_Sin(0), temp);
-                gOamObjects[7].attr3 = fix_mul(_Cos(0), temp);
+            main->affineScale -= verdict->setSizeDelta;
+            if(main->affineScale < 0x100)
+                main->affineScale = 0x100;
+            temp = fix_inverse(main->affineScale);
+            gOamObjects[0].attr3 = fix_mul(_Cos(0), temp);
+            gOamObjects[1].attr3 = fix_mul(_Sin(0), temp);
+            gOamObjects[2].attr3 = fix_mul(-_Sin(0), temp);
+            gOamObjects[3].attr3 = fix_mul(_Cos(0), temp);
+            break;
+        }
+        case VERDICT_STATE_FINISH_ANIM: {
+            s32 x = 0, y = 39;
+            for(i = 0; i < verdict->letterCount; i++) {
+                x += verdict->letters[i].xOffset;
+                if(gTestimony.unk7 == verdict->letters[i].set) {
+                    struct OamData * oamData = (struct OamData *)gOamObjects+65+i;
+                    oamData->priority = 1;
+                    oamData->affineMode = ST_OAM_AFFINE_OFF;
+                    oamData->x = x;
+                    oamData->y = y + verdict->letters[i].yOffset;
+                }
+                x += verdict->letters[i].width;
             }
+            main->shakeTimer = 10;
+            gMain.gameStateFlags |= 1; 
+            main->shakeIntensity = 1;
+            gTestimony.unk7++;
+            if(gTestimony.unk7 == verdict->setCount)
+                main->process[GAME_PROCESS_STATE] = VERDICT_STATE_WAIT;
+            else
+                main->process[GAME_PROCESS_STATE] = VERDICT_STATE_NEXT_ANIM;
+            main->process[GAME_PROCESS_VAR1] = 0;
             break;
         }
         case VERDICT_STATE_WAIT: { // B2E4
-            if(main->process[GAME_PROCESS_VAR1]++ > 64) {
-                main->process[GAME_PROCESS_STATE]++;
-                main->process[GAME_PROCESS_VAR1] = 0;
+            if(main->process[GAME_PROCESS_VAR1]++ > 60) {
+                    main->process[GAME_PROCESS_STATE] = VERDICT_STATE_VERDICT_CLEANUP;
             }
             break;
         }
-        case VERDICT_STATE_GROW_KANJI: { // B300
-            if(main->process[GAME_PROCESS_VAR1]++ > 32) {
-                oam->attr0 = SPRITE_ATTR0_CLEAR;
-                oam++;
-                oam->attr0 = SPRITE_ATTR0_CLEAR;
-                if(main->process[GAME_PROCESS_VAR2]) {
-                    main->process[GAME_PROCESS_STATE]++;
+        case VERDICT_STATE_VERDICT_CLEANUP: {
+            for(i = 0; i < verdict->letterCount; i++) {
+                struct OamData * oamData = (struct OamData *)gOamObjects+65+i;
+                oamData->affineMode = ST_OAM_AFFINE_ERASE;
+            }
+            if(verdict->acquittal) {
+                    main->process[GAME_PROCESS_STATE] = VERDICT_STATE_INIT_CONFETTI;
                     main->process[GAME_PROCESS_VAR1] = 0;
-                    break;
-                }
+            }
+            else 
                 RESTORE_PROCESS_PTR(main);
-            }
-            else {
-                main->affineScale += 8; // 1/32 steps
-                temp = fix_inverse(main->affineScale);
-                gOamObjects[0].attr3 = fix_mul(_Cos(0), temp);
-                gOamObjects[1].attr3 = fix_mul(_Sin(0), temp);
-                gOamObjects[2].attr3 = fix_mul(-_Sin(0), temp);
-                gOamObjects[3].attr3 = fix_mul(_Cos(0), temp);
-                gOamObjects[4].attr3 = fix_mul(_Cos(0), temp);
-                gOamObjects[5].attr3 = fix_mul(_Sin(0), temp);
-                gOamObjects[6].attr3 = fix_mul(-_Sin(0), temp);
-                gOamObjects[7].attr3 = fix_mul(_Cos(0), temp);
-                oam->attr0--;
-                oam++;
-                oam->attr0--;
-            }
             break;
         }
         case VERDICT_STATE_INIT_CONFETTI: { // B3C8

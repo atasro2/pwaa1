@@ -93,23 +93,23 @@ bool32 Command44(struct ScriptContext * scriptCtx)
     BACKUP_PROCESS();
     if(*scriptCtx->scriptPtr) 
     {
-        DmaCopy16(3, gUnknown_08191CA0, OBJ_VRAM0+0x3400, 0x1000);
+        //DmaCopy16(3, gUnknown_08191CA0, OBJ_VRAM0+0x3400, 0x1000);
         DmaCopy16(3, gUnknown_08194520, OBJ_PLTT+0xA0, 0x20);
         SET_PROCESS(9,0,0,0);
     }
     else 
     {
-        DmaCopy16(3, gUnknown_081914A0, OBJ_VRAM0+0x3400, 0x800);
-        DmaCopy16(3, gUnknown_081924A0, OBJ_VRAM0+0x3C00, 0x800);
+        //DmaCopy16(3, gUnknown_081914A0, OBJ_VRAM0+0x3400, 0x800);
+        //DmaCopy16(3, gUnknown_081924A0, OBJ_VRAM0+0x3C00, 0x800);
         DmaCopy16(3, gUnknown_08194540, OBJ_PLTT+0xA0, 0x20);
         SET_PROCESS(9,0,0,1);
     }
     scriptCtx->scriptPtr++;
-    oam->attr0 = SPRITE_ATTR0((~16 & 255), ST_OAM_AFFINE_DOUBLE, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
-    oam->attr1 = SPRITE_ATTR1_AFFINE((~16 & 511), 0, 3);
-    oam->attr2 = SPRITE_ATTR2(0x1A0, 0, 5);
-    oam++;
-    oam->attr0 = SPRITE_ATTR0_CLEAR;
+    //oam->attr0 = SPRITE_ATTR0((~16 & 255), ST_OAM_AFFINE_DOUBLE, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
+    //oam->attr1 = SPRITE_ATTR1_AFFINE((~16 & 511), 0, 3);
+    //oam->attr2 = SPRITE_ATTR2(0x1A0, 0, 5);
+    //oam++;
+    //oam->attr0 = SPRITE_ATTR0_CLEAR;
     return 0;
 }
 

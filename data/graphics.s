@@ -1,6 +1,19 @@
 	.section gfx_data, "aw", %progbits
 	.include "asm/macros.inc"
 
+	.global gVerdictTiles
+gVerdictTiles:
+	.incbin "graphics/not_guilty_N.4bpp"
+	.incbin "graphics/not_guilty_o.4bpp"
+	.incbin "graphics/not_guilty_t.4bpp"
+	.incbin "graphics/not_guilty_G.4bpp"
+	.incbin "graphics/not_guilty_u.4bpp"
+	.incbin "graphics/not_guilty_i.4bpp"
+	.incbin "graphics/not_guilty_l.4bpp"
+	.incbin "graphics/not_guilty_y.4bpp"
+
+	.align 4, 0
+
 	.global gGfxPalTitleScreen
 gGfxPalTitleScreen:
 	.incbin "graphics/title_screen.gbapal"
