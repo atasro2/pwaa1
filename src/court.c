@@ -781,6 +781,15 @@ void VerdictProcess(struct Main * main)
     switch(main->process[GAME_PROCESS_STATE]) {
         case VERDICT_STATE_INIT: {
             s32 x = 0, y = 39;
+            for(i = 0; i < 100; i++) {
+                struct OamData * oamData = (struct OamData *)gOamObjects+i;
+                oamData->y = 0;
+                oamData->x = 0;
+                oamData->objMode = ST_OAM_OBJ_NORMAL;
+                oamData->affineMode = ST_OAM_AFFINE_ERASE;
+                oamData->size = 0;
+                oamData->shape = 0;
+            }
             gTestimony.unk7 = 0;
             //DmaCopy16(3, gNotGuiltyPal, OBJ_PLTT+0xA0, 0x20);
             DmaCopy16(3, verdict->tiles, OBJ_VRAM0+0x2000, verdict->size);
@@ -872,7 +881,12 @@ void VerdictProcess(struct Main * main)
         case VERDICT_STATE_VERDICT_CLEANUP: {
             for(i = 0; i < verdict->letterCount; i++) {
                 struct OamData * oamData = (struct OamData *)gOamObjects+65+i;
+                oamData->y = 0;
+                oamData->x = 0;
+                oamData->objMode = ST_OAM_OBJ_NORMAL;
                 oamData->affineMode = ST_OAM_AFFINE_ERASE;
+                oamData->size = 0;
+                oamData->shape = 0;
             }
             if(verdict->acquittal) {
                     main->process[GAME_PROCESS_STATE] = VERDICT_STATE_INIT_CONFETTI;
