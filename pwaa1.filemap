@@ -807,3 +807,22 @@
 7493A8 0 "graphics/animations/animation52.seq" 2C
 7493D4 0 "graphics/animations/animation53.seq" 30
 749404 0 "graphics/animations/animation54.seq" 24
+// Finally, the scripts
+749428 0 "script/std_scripts.phscr" DEC
+74A214 5 "script/scenario_0_script.phscr.lz" 5A28 ""
+74FC3C 5 "script/scenario_1_0_script.phscr.lz" 64BC ""
+7560F8 5 "script/scenario_1_1_script.phscr.lz" 80FC ""
+75E1F4 5 "script/scenario_1_2_script.phscr.lz" 6810 ""
+764A04 5 "script/scenario_1_3_script.phscr.lz" 63E8 ""
+76ADEC 5 "script/scenario_2_0_script.phscr.lz" 6068 ""
+770E54 5 "script/scenario_2_1_script.phscr.lz" 5748 ""
+77659C 5 "script/scenario_2_2_script.phscr.lz" 806C ""
+77E608 5 "script/scenario_2_3_script.phscr.lz" 6F6C ""
+785574 5 "script/scenario_2_4_script.phscr.lz" 512C ""
+78A6A0 5 "script/scenario_2_5_script.phscr.lz" 6114 ""
+7907B4 5 "script/scenario_3_0_script.phscr.lz" 8264 ""
+798A18 5 "script/scenario_3_1_script.phscr.lz" 75C8 ""
+79FFE0 5 "script/scenario_3_2_script.phscr.lz" 977C ""
+7A975C 5 "script/scenario_3_3_script.phscr.lz" 6BF4 ""
+7B0350 5 "script/scenario_3_4_script.phscr.lz" 6E00 ""
+7B7150 5 "script/scenario_3_5_script.phscr.lz" B88C ""
