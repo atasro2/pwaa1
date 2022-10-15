@@ -119,15 +119,15 @@ struct SpriteSizeData {
 
 extern struct AnimationListEntry gAnimation[32];
 
-void sub_8011130(struct AnimationListEntry *);
-void sub_80111A0(struct AnimationListEntry *);
+void SpeechBubbleAnimationEffect(struct AnimationListEntry *);
+void Case3OpeningAnimationEffect(struct AnimationListEntry *);
 
-void sub_8011068(struct AnimationListEntry *, struct CourtScroll *);
-void sub_80110A8(struct AnimationListEntry *, struct CourtScroll *);
-void sub_8010F68(struct AnimationListEntry *, struct CourtScroll *);
-void sub_8010FA8(struct AnimationListEntry *, struct CourtScroll *);
-void sub_8010FEC(struct AnimationListEntry *, struct CourtScroll *);
-void sub_801102C(struct AnimationListEntry *, struct CourtScroll *);
+void ScrollMode0AnimationUpdate(struct AnimationListEntry *, struct CourtScroll *);
+void ScrollMode1AnimationUpdate(struct AnimationListEntry *, struct CourtScroll *);
+void ScrollMode2AnimationUpdate(struct AnimationListEntry *, struct CourtScroll *);
+void ScrollMode3AnimationUpdate(struct AnimationListEntry *, struct CourtScroll *);
+void ScrollMode4AnimationUpdate(struct AnimationListEntry *, struct CourtScroll *);
+void ScrollMode5AnimationUpdate(struct AnimationListEntry *, struct CourtScroll *);
 
 void ResetAnimationSystem();
 void ClearAllAnimationSprites();

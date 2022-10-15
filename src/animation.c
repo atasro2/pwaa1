@@ -933,17 +933,17 @@ const struct SpriteSizeData gSpriteSizeTable[0xF] = {
 	},
 };
 
-const s8 gUnknown_0801948C[31] = {
+const s8 gCourtScroll01AnimOffsets[31] = {
 	0x03, 0x00, 0x14, 0x00, 0x24, 0x00, 0x34, 0x00, 0x3c, 0x00, 0x2f, 0x00, 0x1e, 0x00, 0x0c, 0x00,
 	0x02, 0x00, 0x14, 0x00, 0x28, 0x00, 0x1b, 0x00, 0x3a, 0x00, 0x2c, 0x00, 0x1c, 0x00, 0x0b
 };
 
-const s8 gUnknown_080194AB[31] = {
+const s8 gCourtScroll02AnimOffsets[31] = {
 	0x03, 0x00, 0x06, 0x00, 0x0a, 0x00, 0x0e, 0x00, 0x14, 0x00, 0x1a, 0x00, 0x1f, 0x00, 0x11, 0x00,
 	0x1c, 0x00, 0x1c, 0x00, 0x1a, 0x00, 0x1a, 0x00, 0x1a, 0x00, 0x18, 0x00, 0x18, 0x00, 0x16
 };
 
-const s8 gUnknown_080194CA[31] = {
+const s8 gCourtScroll03AnimOffsets[31] = {
 	0x02, 0x00, 0x04, 0x00, 0x0a, 0x00, 0x10, 0x00, 0x12, 0x00, 0x14, 0x00, 0x1e, 0x00, 0x26, 0x00,
 	0x22, 0x00, 0x20, 0x00, 0x1e, 0x00, 0x1c, 0x00, 0x1b, 0x00, 0x1a, 0x00, 0x19, 0x00, 0x17
 };
@@ -954,26 +954,26 @@ static struct AnimationListEntry * CreateAnimationFromAnimationInfo(struct Anima
 static void UpdatePersonAnimationForCourtScroll(struct AnimationListEntry * animation);
 
 void (*gSpecialAnimationEffectFunctions[11])(struct AnimationListEntry *) = { // Table is used for Objection bubble shake and animation movement for the opening of case 3
-	sub_8011130,
-	sub_8011130,
-	sub_8011130,
-	sub_8011130,
-	sub_80111A0,
-	sub_80111A0,
-	sub_80111A0,
-	sub_80111A0,
-	sub_80111A0,
-	sub_8011130,
-	sub_8011130
+	SpeechBubbleAnimationEffect,
+	SpeechBubbleAnimationEffect,
+	SpeechBubbleAnimationEffect,
+	SpeechBubbleAnimationEffect,
+	Case3OpeningAnimationEffect,
+	Case3OpeningAnimationEffect,
+	Case3OpeningAnimationEffect,
+	Case3OpeningAnimationEffect,
+	Case3OpeningAnimationEffect,
+	SpeechBubbleAnimationEffect,
+	SpeechBubbleAnimationEffect
 };
 
 void (*gCourtScrollPersonAnimationUpdateFuncs[6])(struct AnimationListEntry *, struct CourtScroll *) = {
-	sub_8011068,
-	sub_80110A8,
-	sub_8010F68,
-	sub_8010FA8,
-	sub_8010FEC,
-	sub_801102C
+	ScrollMode0AnimationUpdate,
+	ScrollMode1AnimationUpdate,
+	ScrollMode2AnimationUpdate,
+	ScrollMode3AnimationUpdate,
+	ScrollMode4AnimationUpdate,
+	ScrollMode5AnimationUpdate
 };
 
 static void InitCurrentAnimationToNull()
@@ -1875,7 +1875,7 @@ static void UpdateAnimationBlend(struct AnimationListEntry *animation)
     ioRegsp->lcd_bldalpha = BLDALPHA_BLEND(0x10 - main->blendDeltaY, main->blendDeltaY);
 }
 
-void sub_8010928() // unused
+void ActivateAllAllocatedAnimations() // unused
 {
     struct AnimationListEntry *animation = gAnimation;
 
@@ -2170,44 +2170,44 @@ void UpdateAnimations(u32 arg0)
     UpdateAllAnimationSprites();
 }
 
-void sub_8010F68(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
+void ScrollMode2AnimationUpdate(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
 {
-    animation->animationInfo.xOrigin += gUnknown_0801948C[courtScroll->frameCounter];
+    animation->animationInfo.xOrigin += gCourtScroll01AnimOffsets[courtScroll->frameCounter];
     if(courtScroll->frameCounter == 0xF)
         PlayPersonAnimationAtCustomOrigin(courtScroll->scrollingPersonAnimId, courtScroll->animOffset, -110, 80, 0);
 }
 
-void sub_8010FA8(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
+void ScrollMode3AnimationUpdate(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
 {
-    animation->animationInfo.xOrigin -= gUnknown_0801948C[0x1E - courtScroll->frameCounter];
+    animation->animationInfo.xOrigin -= gCourtScroll01AnimOffsets[0x1E - courtScroll->frameCounter];
     if(courtScroll->frameCounter == 0xF)
         PlayPersonAnimationAtCustomOrigin(courtScroll->scrollingPersonAnimId, courtScroll->animOffset, 350, 80, 0);
 }
 
-void sub_8010FEC(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
+void ScrollMode4AnimationUpdate(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
 {
-    animation->animationInfo.xOrigin += gUnknown_080194AB[courtScroll->frameCounter];
+    animation->animationInfo.xOrigin += gCourtScroll02AnimOffsets[courtScroll->frameCounter];
     if(courtScroll->frameCounter == 0xE)
         PlayPersonAnimationAtCustomOrigin(courtScroll->scrollingPersonAnimId, courtScroll->animOffset, -84, 80, 0);
 }
 
-void sub_801102C(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
+void ScrollMode5AnimationUpdate(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
 {
-    animation->animationInfo.xOrigin -= gUnknown_080194CA[courtScroll->frameCounter];
+    animation->animationInfo.xOrigin -= gCourtScroll03AnimOffsets[courtScroll->frameCounter];
     if(courtScroll->frameCounter == 0xE)
         PlayPersonAnimationAtCustomOrigin(courtScroll->scrollingPersonAnimId, courtScroll->animOffset, 220, 80, 0);
 }
 
-void sub_8011068(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
+void ScrollMode0AnimationUpdate(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
 {
-    animation->animationInfo.xOrigin -= gUnknown_080194AB[courtScroll->frameCounter];
+    animation->animationInfo.xOrigin -= gCourtScroll02AnimOffsets[courtScroll->frameCounter];
     if(courtScroll->frameCounter == 0xE)
         PlayPersonAnimationAtCustomOrigin(courtScroll->scrollingPersonAnimId, courtScroll->animOffset, 324, 80, 0);
 }
 
-void sub_80110A8(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
+void ScrollMode1AnimationUpdate(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
 {
-    animation->animationInfo.xOrigin += gUnknown_080194CA[courtScroll->frameCounter];
+    animation->animationInfo.xOrigin += gCourtScroll03AnimOffsets[courtScroll->frameCounter];
     if(courtScroll->frameCounter == 0xE)
         PlayPersonAnimationAtCustomOrigin(courtScroll->scrollingPersonAnimId, courtScroll->animOffset, 20, 80, 0);
 }
@@ -2227,7 +2227,7 @@ void SetCourtScrollPersonAnim(u32 arg0, u32 arg1, u32 arg2, u32 arg3)
     gCourtScroll.animOffset = arg3;
 }
 
-void sub_8011130(struct AnimationListEntry * animation)
+void SpeechBubbleAnimationEffect(struct AnimationListEntry * animation)
 {
     s32 rand = (Random() & 3) + 1; // 1 to 4
     s32 rand2 = (Random() & 7) - 4; // -4 to 3
@@ -2250,7 +2250,7 @@ void sub_8011130(struct AnimationListEntry * animation)
         animation->unk2B = 40;
 }
 
-void sub_80111A0(struct AnimationListEntry * animation)
+void Case3OpeningAnimationEffect(struct AnimationListEntry * animation)
 {
     struct Main * main = &gMain;
     if(main->currentBG == 0xFF)
