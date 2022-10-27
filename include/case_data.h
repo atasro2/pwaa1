@@ -1,31 +1,31 @@
 #ifndef GUARD_CASE_DATA_H
 #define GUARD_CASE_DATA_H
 
-struct Struct811DC54
+struct CourtPresentData
 {
-    /* +0x00 */ u16 scriptSection;
-    /* +0x02 */ u16 evidenceId;
-    /* +0x04 */ u16 unk4;
-    /* +0x06 */ u8 flagId;
-    /* +0x07 */ u8 unk7;
+    /* +0x00 */ u16 presentingSection; // unity: keyhole
+    /* +0x02 */ u16 evidenceId; // unity: key
+    /* +0x04 */ u16 presentedSection; // unity: jump
+    /* +0x06 */ u8 flagId; // unity: sce_flag
+    /* +0x07 */ u8 unk7; // unity: win_flag
 };
 
-struct Struct811DC98
+struct InvestigationPresentData
 {
-    /* +0x00 */ u8 roomId;
-    /* +0x01 */ u8 evidenceId;
-    /* +0x02 */ u8 personId;
-    /* +0x03 */ u8 unk3;
-    /* +0x04 */ u16 unk4;
-    /* +0x06 */ u16 unk6;
+    /* +0x00 */ u8 roomId; // unity: room
+    /* +0x01 */ u8 evidenceId; // unity: item
+    /* +0x02 */ u8 personId; // unity: pl_id
+    /* +0x03 */ u8 end; // unity: end
+    /* +0x04 */ u16 evidenceCommentSection; // unity: mess_true
+    /* +0x06 */ u16 wrongEvidenceSection; // unity: mess_false
 };
 
 extern const u8 gCaseStartProcess[];
 extern const u16 gCaseGameoverSections[];
 
 extern const u8 * gCourtRecordInitialItemLists[17];
-extern const struct Struct811DC54 * gUnknown_0811DC54[17];
-extern const struct Struct811DC98 * gUnknown_0811DC98[17];
+extern const struct CourtPresentData * gCourtPresentData[17];
+extern const struct InvestigationPresentData * gInvestigationPresentData[17];
 extern void (*gInvestigationSegmentSetupFunctions[])(struct Main *);
 extern void (*gInvestigationRoomSetupFunctions[])(struct Main *);
 extern void (*gInvestigationRoomUpdateFunctions[])(struct Main *);

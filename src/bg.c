@@ -4,16 +4,16 @@
 #include "investigation.h"
 #include "graphics.h"
 
-const u8 gUnknown_08013B58[12] = {
-	0x54, 0x55, 0x56, 0x57, 0x58, 0x59, 0x5A, 0x5B, 0x5C, 0x5D, 0x5E, 0x5F
+// window_name_char_tbl
+const u8 gNameTagTiles[24] = {
+	0x54, 0x55, 0x56, 0x57, 0x58, 0x59, // top
+    0x5A, 0x5B, 0x5C, 0x5D, 0x5E, 0x5F, // middle
+	0x0a, 0x0b, 0x0b, 0x0b, 0x0b, 0x0c, // left side bottom tiles
+    0x0d, 0x0b, 0x0b, 0x0b, 0x0b, 0x0e  // right side bottom tiles
 };
 
-const u8 gUnknown_08013B64[12] = {
-	0x0a, 0x0b, 0x0b, 0x0b, 0x0b, 0x0c, 0x0d, 0x0b, 0x0b, 0x0b, 0x0b, 0x0e
-};
-
-// this must be u8 else it doesnt match
-const u8 gUnknown_08013B70[0x400] = {
+// mess_window_char_tbl
+const u8 gTextboxTiles[0x400] = { 
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -286,7 +286,7 @@ void SetTextboxSize(u32 unk0)
         map = gBG1MapBuffer;
         for(i = 0; i < 0x2C0; i++, map++)
         {
-            *map = gUnknown_08013B70[i];
+            *map = gTextboxTiles[i];
         }
         scriptCtx->textboxState = 0;
         SetTextboxNametag(scriptCtx->textboxNameId & 0x7F, (u8)(scriptCtx->textboxNameId & 0x80));
@@ -301,7 +301,7 @@ void SetTextboxSize(u32 unk0)
         map = gBG1MapBuffer;
         for(i = 0; i < 0x1C0; i++, map++)
         {
-            *map = gUnknown_08013B70[i];
+            *map = gTextboxTiles[i];
         }
         map = gBG1MapBuffer + 0x1C0;
         for(i = 0x1C0; i < 0x220; i++, map++)
@@ -311,7 +311,7 @@ void SetTextboxSize(u32 unk0)
         map = gBG1MapBuffer + 0x200;
         for(i = 0x1C0; i < 0x1E0; i++, map++)
         {
-            *map = gUnknown_08013B70[i];
+            *map = gTextboxTiles[i];
         }
         scriptCtx->textboxState = 0;
         break;
@@ -396,6 +396,7 @@ void SlideTextbox(u32 slideUp)
     }
 }
 
+// St_bg2_set
 void SlideInBG2Window(u32 mode, u32 speed)
 {
     struct CourtRecord * courtRecord = &gCourtRecord;
@@ -437,11 +438,13 @@ void SlideInBG2Window(u32 mode, u32 speed)
     }
 }
 
+// St_bg2_main00
 void nullsub_1(struct CourtRecord * courtRecord)
 {
 
 }
 
+// St_bg2_main01
 void sub_800254C(struct CourtRecord * courtRecord)
 {
     u32 i;
@@ -514,6 +517,7 @@ void sub_800254C(struct CourtRecord * courtRecord)
     }
 }
 
+// St_bg2_main02
 void sub_8002734(struct CourtRecord * courtRecord)
 {
     u32 i;
@@ -562,6 +566,7 @@ void sub_8002734(struct CourtRecord * courtRecord)
     }
 }
 
+// st_bg2_main_proc_tbl
 void (*gUnknown_0811DBF0[])(struct CourtRecord *) = {
     nullsub_1,
 	sub_800254C,
@@ -579,6 +584,7 @@ void UpdateBG2Window(struct CourtRecord * courtRecord)
     }
 }
 
+// Mess_win_name_set
 void SetTextboxNametag(u32 nametagId, u32 rightSide)
 {
     u32 i;
@@ -591,7 +597,7 @@ void SetTextboxNametag(u32 nametagId, u32 rightSide)
     if(nametagId == 0)
     {
         for(i = 0x180; i < 0x1E0; i++)
-            gBG1MapBuffer[i] = gUnknown_08013B70[i];
+            gBG1MapBuffer[i] = gTextboxTiles[i];
         return;
     }
     i = (nametagId / 5);
@@ -604,12 +610,12 @@ void SetTextboxNametag(u32 nametagId, u32 rightSide)
     if(rightSide)
     {
         offset = 24;
-        tileId = gUnknown_08013B64+0x6;
+        tileId = gNameTagTiles+18;
     }
     else
     {
         offset = 0;
-        tileId = gUnknown_08013B64;
+        tileId = gNameTagTiles+12;
     }
 
     map = gBG1MapBuffer + 0x1C0;
@@ -622,7 +628,7 @@ void SetTextboxNametag(u32 nametagId, u32 rightSide)
     }
     map = gBG1MapBuffer + 0x180;
     map += offset;
-    tileId = gUnknown_08013B58;
+    tileId = gNameTagTiles;
     for(i = 0; i < 6; i++)
     {
         *map = *tileId;
@@ -631,7 +637,7 @@ void SetTextboxNametag(u32 nametagId, u32 rightSide)
     }
     map = gBG1MapBuffer + 0x1A0;
     map += offset;
-    tileId = gUnknown_08013B58+6;
+    tileId = gNameTagTiles+6;
     for(i = 0; i < 6; i++)
     {
         *map = *tileId;

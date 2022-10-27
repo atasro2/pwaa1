@@ -21,7 +21,7 @@ struct MapMarkerSprite
     /* +0x0A */ u16 attr2;
 };
 
-struct Struct8018870
+struct SpotSelectData
 {
     /* +0x00 */ struct Point4 firstArea;
     /* +0x10 */ struct Point4 secondArea;
@@ -136,7 +136,7 @@ static const struct MapMarkerSprite sMapMarkerSprites[] = {
     },
 };
 
-static const struct Struct8018870 gUnknown_08018870[] = {
+static const struct SpotSelectData gSpotSelectData[] = {
     {
         .firstArea = {
             .points = {
@@ -983,7 +983,7 @@ bool32 Command3E(struct ScriptContext *scriptCtx)
 bool32 Command3F(struct ScriptContext *scriptCtx)
 {
     struct InvestigationStruct *investigation = &gInvestigation;
-    const struct Struct8018870 *struct8018870p;
+    const struct SpotSelectData *spotselect;
     struct Rect rect;
 
     if (scriptCtx->flags & SCRIPT_SPOTSELECT_MOVE_TO_START)
@@ -1004,36 +1004,36 @@ bool32 Command3F(struct ScriptContext *scriptCtx)
     }
     else if (scriptCtx->flags & SCRIPT_SPOTSELECT_INPUT)
     {
-        struct8018870p = &gUnknown_08018870[investigation->spotselectId];
+        spotselect = &gSpotSelectData[investigation->spotselectId];
         if (gJoypad.heldKeys & DPAD_LEFT)
         {
             investigation->pointerX -= 3;
-            if (investigation->pointerX < struct8018870p->left)
-                investigation->pointerX = struct8018870p->left;
+            if (investigation->pointerX < spotselect->left)
+                investigation->pointerX = spotselect->left;
             if (investigation->pointerX > DISPLAY_WIDTH - 16)
                 investigation->pointerX = 0;
         }
         if (gJoypad.heldKeys & DPAD_RIGHT)
         {
             investigation->pointerX += 3;
-            if (investigation->pointerX > struct8018870p->right)
-                investigation->pointerX = struct8018870p->right;
+            if (investigation->pointerX > spotselect->right)
+                investigation->pointerX = spotselect->right;
             if (investigation->pointerX > DISPLAY_WIDTH - 16)
                 investigation->pointerX = DISPLAY_WIDTH - 16;
         }
         if (gJoypad.heldKeys & DPAD_UP)
         {
             investigation->pointerY -= 3;
-            if (investigation->pointerY < struct8018870p->top)
-                investigation->pointerY = struct8018870p->top;
+            if (investigation->pointerY < spotselect->top)
+                investigation->pointerY = spotselect->top;
             if (investigation->pointerY > DISPLAY_HEIGHT - 16)
                 investigation->pointerY = 0;
         }
         if (gJoypad.heldKeys & DPAD_DOWN)
         {
             investigation->pointerY += 3;
-            if (investigation->pointerY > struct8018870p->bottom)
-                investigation->pointerY = struct8018870p->bottom;
+            if (investigation->pointerY > spotselect->bottom)
+                investigation->pointerY = spotselect->bottom;
             if (investigation->pointerY > DISPLAY_HEIGHT - 16)
                 investigation->pointerY = DISPLAY_HEIGHT - 16;
         }
@@ -1044,12 +1044,12 @@ bool32 Command3F(struct ScriptContext *scriptCtx)
             rect.y = gMain.Bg256_pos_y + investigation->pointerY;
             rect.w = 4;
             rect.h = 4;
-            if (CheckRectCollisionWithArea(&rect, &struct8018870p->firstArea))
-                ChangeScriptSection(struct8018870p->firstAreaSection);
-            else if (CheckRectCollisionWithArea(&rect, &struct8018870p->secondArea))
-                ChangeScriptSection(struct8018870p->secondAreaSection);
+            if (CheckRectCollisionWithArea(&rect, &spotselect->firstArea))
+                ChangeScriptSection(spotselect->firstAreaSection);
+            else if (CheckRectCollisionWithArea(&rect, &spotselect->secondArea))
+                ChangeScriptSection(spotselect->secondAreaSection);
             else
-                ChangeScriptSection(struct8018870p->defaultSection);
+                ChangeScriptSection(spotselect->defaultSection);
             scriptCtx->flags |= SCRIPT_SPOTSELECT_SELECTION_MADE;
             DmaCopy16(3, &gUnknown_081942C0[0], OBJ_PLTT + 0x100, 0x20);
             PlaySE(SE001_MENU_CONFIRM);

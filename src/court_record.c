@@ -781,7 +781,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord) // status
             goto label; // idk how to get the compiler to do this
         }
     }
-    else if(main->process[GAME_PROCESS_VAR2] == 1)
+    else if(main->process[GAME_PROCESS_VAR2] == 1) // in Questioning 
     {
         if(joypad->pressedKeys & A_BUTTON)
         {
@@ -897,7 +897,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord) // status
             oam->attr0 = SPRITE_ATTR0_CLEAR;
         }
     }
-    else if(main->process[GAME_PROCESS_VAR2] == 2)
+    else if(main->process[GAME_PROCESS_VAR2] == 2) // in Talk menu
     {
         //u32 section;
         if(joypad->pressedKeys & A_BUTTON)
@@ -928,7 +928,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord) // status
             main->process[GAME_PROCESS_STATE] = 2;
         }
     }
-    else 
+    else // Normal court record
     {
         if(joypad->pressedKeys & R_BUTTON)
         {
@@ -1749,22 +1749,22 @@ void SortCourtRecordAndSyncListCount(struct CourtRecord * courtRecord)
 
 u32 sub_800EE20(u32 section, u32 evidenceId)
 {
-    const struct Struct811DC54 * struct811DC54p;
-    struct811DC54p = gUnknown_0811DC54[gMain.scenarioIdx];
-    for(; struct811DC54p->scriptSection != 0xFFFF; struct811DC54p++)
+    const struct CourtPresentData * presentData;
+    presentData = gCourtPresentData[gMain.scenarioIdx];
+    for(; presentData->presentingSection != 0xFFFF; presentData++)
     {
-        if(struct811DC54p->flagId != 0xFF)
+        if(presentData->flagId != 0xFF)
         {
-            if(!GetFlag(0, struct811DC54p->flagId))
+            if(!GetFlag(0, presentData->flagId))
                 continue;
         }
-        if(struct811DC54p->scriptSection == section && struct811DC54p->evidenceId == evidenceId)
+        if(presentData->presentingSection == section && presentData->evidenceId == evidenceId)
         {
-            if(struct811DC54p->unk7)
+            if(presentData->unk7)
                 gScriptContext.unk33 = 0;
             else
                 gScriptContext.unk33 = 1;
-            return struct811DC54p->unk4;
+            return presentData->presentedSection;
         }
     }
     gScriptContext.unk33 = 0;
@@ -1773,20 +1773,20 @@ u32 sub_800EE20(u32 section, u32 evidenceId)
 
 u32 sub_800EEA4(struct Main * main, u32 evidenceId)
 {
-    const struct Struct811DC98 * struct811DC98p;
-    u32 retVal; // why just why
+    const struct InvestigationPresentData * presetData;
+    u32 retVal;
 
-    struct811DC98p = gUnknown_0811DC98[main->scenarioIdx];
-    retVal = struct811DC98p->unk6;
-    for(; struct811DC98p->unk3 != 0xFF; struct811DC98p++)
+    presetData = gInvestigationPresentData[main->scenarioIdx];
+    retVal = presetData->wrongEvidenceSection;
+    for(; presetData->end != 0xFF; presetData++)
     {
-        if(gAnimation[1].animationInfo.personId == struct811DC98p->personId)
+        if(gAnimation[1].animationInfo.personId == presetData->personId)
         {
-            if(main->currentRoomId == struct811DC98p->roomId)
+            if(main->currentRoomId == presetData->roomId)
             {
-                retVal = struct811DC98p->unk6;
-                if(evidenceId == struct811DC98p->evidenceId)
-                    return struct811DC98p->unk4;
+                retVal = presetData->wrongEvidenceSection;
+                if(evidenceId == presetData->evidenceId)
+                    return presetData->evidenceCommentSection;
             }
         }
     }

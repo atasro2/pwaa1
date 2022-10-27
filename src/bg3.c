@@ -7,14 +7,15 @@
 
 #include "data/background.h"
 
+// BG_all_init
 void InitBGs()
 {
     u32 i;
     u16 *temp;
     DmaFill16(3, 0, &gBG0MapBuffer, sizeof(gBG0MapBuffer));
-    for (temp = gBG1MapBuffer, i = 0; i < ARRAY_COUNT(gUnknown_08013B70); i++, temp++)
+    for (temp = gBG1MapBuffer, i = 0; i < ARRAY_COUNT(gTextboxTiles); i++, temp++)
     {
-        (*temp) = gUnknown_08013B70[i];
+        (*temp) = gTextboxTiles[i];
     }
     DmaFill16(3, 0, &gBG2MapBuffer, sizeof(gBG2MapBuffer));
     gIORegisters.lcd_bg2vofs = 0;
@@ -22,6 +23,7 @@ void InitBGs()
     InitBG3();
 }
 
+// BG256_init
 void InitBG3()
 {
     u32 i = 0;
