@@ -6,6 +6,7 @@
 #include "graphics.h"
 #include "constants/script.h"
 #include "constants/songs.h"
+#include "constants/process.h"
 
 static void AdvanceScriptContext(struct ScriptContext *);
 static void DrawTextAndMapMarkers(struct ScriptContext *);
@@ -171,7 +172,7 @@ void InitScriptSection(struct ScriptContext *scriptCtx)
     }
     scriptCtx->textX = 0;
     scriptCtx->textY = 0;
-    if (gMain.process[GAME_PROCESS] != 4 || gMain.process[GAME_PROCESS_STATE] != 8)
+    if (!(gMain.process[GAME_PROCESS] == INVESTIGATION_PROCESS && gMain.process[GAME_PROCESS_STATE] == 8))
         scriptCtx->textSkip = 0;
     scriptCtx->unk15 = 0;
     scriptCtx->paragraphSkipDelayCounter = 8;

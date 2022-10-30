@@ -11,6 +11,7 @@
 #include "investigation.h"
 #include "save.h"
 #include "court.h"
+#include "constants/process.h"
 
 static void DoGameProcess();
 static void VBlankIntr();
@@ -56,8 +57,8 @@ void (*gGameProcesses[])(struct Main *) = {
     GameOverScreenProcess,
     CourtProcess,
     InvestigationProcess,
-    GameProcess05,
-    GameProcess06,
+    TestimonyProcess,
+    QuestioningProcess,
     CourtRecordProcess,
     GameProcess08,
     VerdictProcess,
@@ -72,8 +73,8 @@ extern void (*gIntrTable[0x10]);
 
 void CheckAButtonAndGoToClearSaveScreen()
 {
-    if ((gMain.process[GAME_PROCESS] == 0) && (A_BUTTON & KEY_NEW()))
-        gMain.process[GAME_PROCESS] = 0xE;
+    if ((gMain.process[GAME_PROCESS] == CAPCOM_LOGO_PROCESS) && (A_BUTTON & KEY_NEW()))
+        gMain.process[GAME_PROCESS] = CLEAR_SAVE_PROCESS;
 }
 
 void AgbMain()
@@ -214,7 +215,7 @@ void ClearRamAndInitGame()
 {
     struct Main *main = &gMain;
     struct IORegisters *ioRegsp = &gIORegisters;
-    u32 temp = main->process[GAME_PROCESS] ? 1 : 0;
+    u32 temp = main->process[GAME_PROCESS] != CAPCOM_LOGO_PROCESS ? TITLE_SCREEN_PROCESS : CAPCOM_LOGO_PROCESS;
 
     RegisterRamReset(RESET_SIO_REGS | RESET_SOUND_REGS | RESET_REGS);
     DmaFill32(3, 0, IWRAM_START, 0x7E00);  // Clear IWRAM

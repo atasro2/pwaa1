@@ -7,6 +7,7 @@
 #include "graphics.h"
 #include "constants/script.h"
 #include "constants/songs.h"
+#include "constants/process.h"
 
 void sub_8008DF4(struct Main * main)
 {
@@ -277,7 +278,7 @@ void EpisodeClearedProcess(struct Main * main)
                     PlaySE(SE001_MENU_CONFIRM);
                     gSaveDataBuffer.main.scenarioIdx = main->scenarioIdx;
                     gSaveDataBuffer.main.caseEnabledFlags = main->caseEnabledFlags;
-                    SET_PROCESS_PTR(10, 0, 0, 1, main);
+                    SET_PROCESS_PTR(SAVE_GAME_PROCESS, 0, 0, 1, main);
                 }
             }
             break;
@@ -592,7 +593,7 @@ void SelectEpisodeProcess(struct Main * main)
         case 12: // _08009A44
             if(main->blendMode) 
                 return;
-            SET_PROCESS_PTR(1, 0, 0, 0, main);
+            SET_PROCESS_PTR(TITLE_SCREEN_PROCESS, 0, 0, 0, main);
             break;
     }
 }
@@ -816,7 +817,7 @@ void ContinueSaveProcess(struct Main * main) {
         case 6: // A1E4
             if (main->blendMode == 0) {
                 // A1F0
-                SET_PROCESS_PTR(1, 0, 0, 0, main);
+                SET_PROCESS_PTR(TITLE_SCREEN_PROCESS, 0, 0, 0, main);
             }
             break;
         case 7: // A1F6

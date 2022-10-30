@@ -11,6 +11,7 @@
 #include "graphics.h"
 #include "constants/script.h"
 #include "constants/songs.h"
+#include "constants/process.h"
 
 struct MapMarkerSprite
 {
@@ -464,7 +465,7 @@ bool32 Command21(struct ScriptContext *scriptCtx)
     scriptCtx->flags |= 0x10;
     gMain.gameStateFlags |= 0x300;
     BACKUP_PROCESS();
-    SET_PROCESS(7, 0, 0, 1);
+    SET_PROCESS(COURT_RECORD_PROCESS, 0, 0, 1);
     return 0;
 }
 
@@ -499,7 +500,7 @@ bool32 Command24(struct ScriptContext *scriptCtx)
     scriptCtx->scriptPtr++;
     gMain.advanceScriptContext = FALSE;
     gMain.showTextboxCharacters = FALSE;
-    SET_PROCESS(2, 0, 0, 0);
+    SET_PROCESS(GAME_OVER_PROCESS, 0, 0, 0);
     return 1;
 }
 
@@ -539,7 +540,7 @@ bool32 Command28(struct ScriptContext *scriptCtx)
     if (*scriptCtx->scriptPtr)
     {
         BACKUP_PROCESS();
-        SET_PROCESS(5, 0, 0, 0); // start testimony
+        SET_PROCESS(TESTIMONY_PROCESS, 0, 0, 0); // start testimony
     }
     else
     {
@@ -578,11 +579,11 @@ bool32 Command29(struct ScriptContext *scriptCtx)
     else if (*scriptCtx->scriptPtr != 0)
     {
         BACKUP_PROCESS();
-        SET_PROCESS(6, 0, 0, 0); // return to testimony
+        SET_PROCESS(QUESTIONING_PROCESS, 0, 0, 0); // return to questioning
     }
     else
     {
-        SET_PROCESS(3, 1, 0, 0); // goes back into trial process
+        SET_PROCESS(COURT_PROCESS, 1, 0, 0); // goes back into trial process
     }
     scriptCtx->scriptPtr++;
     return 0;
@@ -728,7 +729,7 @@ bool32 Command34(struct ScriptContext *scriptCtx)
     gMain.currentRoomId = *scriptCtx->scriptPtr;
     scriptCtx->scriptPtr++;
     StartHardwareBlend(2, 0, 2, 0x1F);
-    SET_PROCESS(4, 5, 0, 0);
+    SET_PROCESS(INVESTIGATION_PROCESS, 5, 0, 0);
     return 0;
 }
 

@@ -8,13 +8,13 @@ void sub_800A3EC(struct Main *);
 void sub_800A5B0(struct Main *);
 void sub_800A6AC(struct Main *);
 
-//~ gProcess5ProcessStates:
+//~ gTestimonyProcessStates:
 void sub_800A894(struct Main *);
 void sub_800A8E0(struct Main *);
 void sub_800A9FC(struct Main *);
 void sub_800A730(struct Main *);
 
-//~ gProcess6ProcessStates:
+//~ gQuestioningProcessStates:
 void sub_800AB58(struct Main *);
 void sub_800AC1C(struct Main *);
 void nullsub_32(struct Main *);

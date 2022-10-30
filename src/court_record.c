@@ -15,7 +15,7 @@
 #include "constants/script.h"
 #include "constants/animation.h"
 #include "constants/songs.h"
-
+#include "constants/process.h"
 
 struct EvidenceProfileData
 {
@@ -640,9 +640,9 @@ void sub_800D880(struct Main * main, struct CourtRecord * courtRecord) // status
     while(0);
 
     io = &gIORegisters;
-    if(main->processCopy[GAME_PROCESS] != 6)
+    if(main->processCopy[GAME_PROCESS] != QUESTIONING_PROCESS)
     {
-        if(main->processCopy[GAME_PROCESS] == 4 && main->processCopy[GAME_PROCESS_STATE] <= 5)
+        if(main->processCopy[GAME_PROCESS] == INVESTIGATION_PROCESS && main->processCopy[GAME_PROCESS_STATE] <= 5)
         {
             oam = &gOamObjects[49];
             for(i = 0; i < 4; i++)
@@ -652,7 +652,7 @@ void sub_800D880(struct Main * main, struct CourtRecord * courtRecord) // status
             }
         }
     }
-    if(main->processCopy[GAME_PROCESS] == 5)
+    if(main->processCopy[GAME_PROCESS] == TESTIMONY_PROCESS)
     {
         oam = &gOamObjects[49];
         oam->attr0 = SPRITE_ATTR0_CLEAR;
@@ -795,7 +795,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord) // status
             if(main->gameStateFlags & 0x200)
             {
                 SlideInBG2Window(4, 0x12);
-                SET_PROCESS_PTR(7, 7, 0, 0, main);
+                SET_PROCESS_PTR(COURT_RECORD_PROCESS, 7, 0, 0, main);
                 SetTextboxNametag(0, FALSE);
                 main->gameStateFlags &= ~0x300;
                 return;
@@ -825,7 +825,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord) // status
             {
                 StopBGM();
                 ChangeScriptSection(section);
-                SET_PROCESS_BACKUP_PTR(3, 1, 0, 0, main);
+                SET_PROCESS_BACKUP_PTR(COURT_PROCESS, 1, 0, 0, main);
             }
             else
             {
@@ -860,9 +860,9 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord) // status
                     gScriptContext.nextSection = section;
                 }
                 gScriptContext.flags &= ~0x10;
-                SET_PROCESS_BACKUP_PTR(6, 1, 0, 0, main);
+                SET_PROCESS_BACKUP_PTR(QUESTIONING_PROCESS, 1, 0, 0, main);
             }
-            SET_PROCESS_PTR(6, 5, 0, 0, main);
+            SET_PROCESS_PTR(QUESTIONING_PROCESS, 5, 0, 0, main);
             SetTextboxNametag(0, FALSE);
             main->gameStateFlags &= ~0x300;
             return;
@@ -877,7 +877,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord) // status
             }
         }
         label:
-        if(main->processCopy[GAME_PROCESS] != 4)
+        if(main->processCopy[GAME_PROCESS] != INVESTIGATION_PROCESS)
             sub_800B51C(main, &gTestimony, 0);
         oam = &gOamObjects[55];
         if(!(main->gameStateFlags & 0x100))
@@ -924,7 +924,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord) // status
         {
             PlaySE(SE002_MENU_CANCEL);
             SlideInBG2Window(3, 0xC);
-            SET_PROCESS_BACKUP_PTR(4, 9, 3, 0, main);
+            SET_PROCESS_BACKUP_PTR(INVESTIGATION_PROCESS, 9, 3, 0, main);
             main->process[GAME_PROCESS_STATE] = 2;
         }
     }
@@ -1101,7 +1101,7 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord) // status
             DmaCopy16(3, gMapMarker, gSaveDataBuffer.mapMarker, sizeof(gMapMarker));
             for(i = 0; i < 8; i++)
                 gMapMarker[i].id |= 0xFF;
-            if(main->processCopy[GAME_PROCESS] == 4)
+            if(main->processCopy[GAME_PROCESS] == INVESTIGATION_PROCESS)
             {
                 oam = &gOamObjects[49];
                 for(i = 0; i < 4; i++)
@@ -1111,12 +1111,12 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord) // status
                     oam++;
                 }
             }
-            else if(main->processCopy[GAME_PROCESS] == 5)
+            else if(main->processCopy[GAME_PROCESS] == TESTIMONY_PROCESS)
             {
                 oam = &gOamObjects[49];
                 oam->attr0 = SPRITE_ATTR0_CLEAR;
             }
-            else if(main->processCopy[GAME_PROCESS] == 6)
+            else if(main->processCopy[GAME_PROCESS] == QUESTIONING_PROCESS)
             {
                 oam = &gOamObjects[55];
                 oam->attr0 &= ~0x300;
@@ -1206,7 +1206,7 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord) // status
             DmaCopy16(3, gSaveDataBuffer.oam, gOamObjects, sizeof(gOamObjects));
             DmaCopy16(3, gSaveDataBuffer.mapMarker, gMapMarker, sizeof(gMapMarker));
             MakeMapMarkerSprites();
-            if(main->processCopy[GAME_PROCESS] == 5)
+            if(main->processCopy[GAME_PROCESS] == TESTIMONY_PROCESS)
                 gTestimony.timer = 0;
             main->animationFlags |= (2 | 1);
             UpdateBG2Window(&gCourtRecord);
@@ -1445,7 +1445,7 @@ void sub_800E828(struct Main * main, struct CourtRecord * courtRecord) // note_a
     if(courtRecord->unk1 == 0)
     {
         RESTORE_PROCESS_PTR(main);
-        if(gMain.process[GAME_PROCESS] == 4)
+        if(gMain.process[GAME_PROCESS] == INVESTIGATION_PROCESS)
         {
             if(gMain.process[GAME_PROCESS_STATE] == 6)
                 sub_800B7A8(&gInvestigation, 1);
@@ -1841,7 +1841,7 @@ void UpdateItemPlate(struct Main * main)
             oam->attr2 = SPRITE_ATTR2(0x80, 0, 1);
             main->itemPlateState++;
         case 4: // fallthrough
-            if(main->process[GAME_PROCESS] == 0xA)
+            if(main->process[GAME_PROCESS] == SAVE_GAME_PROCESS)
             {
                 main->itemPlateState = 6;
                 return;
@@ -1850,7 +1850,7 @@ void UpdateItemPlate(struct Main * main)
             if(main->itemPlateAction == 1)
                 oam->attr0 = SPRITE_ATTR0(16, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
             
-            if(main->process[GAME_PROCESS] > 6)
+            if(main->process[GAME_PROCESS] >= COURT_RECORD_PROCESS)
             {
                 oam->attr0 = SPRITE_ATTR0_CLEAR;
                 DmaCopy16(3, &gOamObjects[88], OAM+88*8, 0x8);
@@ -1859,7 +1859,7 @@ void UpdateItemPlate(struct Main * main)
             }
             break;
         case 5:
-            if(main->process[GAME_PROCESS] <= 6)
+            if(main->process[GAME_PROCESS] < COURT_RECORD_PROCESS)
             {
                 LoadItemPlateGfx(main);
                 oam->attr0 = SPRITE_ATTR0(16, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
@@ -1873,7 +1873,7 @@ void UpdateItemPlate(struct Main * main)
             }
             break;
         case 6:
-            if(main->process[GAME_PROCESS] != 0xA)
+            if(main->process[GAME_PROCESS] != SAVE_GAME_PROCESS)
                 main->itemPlateState = 5;
             break;
     }

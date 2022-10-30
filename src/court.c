@@ -11,6 +11,7 @@
 #include "constants/process.h"
 #include "constants/songs.h"
 #include "constants/persons.h"
+#include "constants/process.h"
 
 void (*gCourtProcessStates[])(struct Main *) = {
 	sub_800A3EC,
@@ -96,7 +97,7 @@ void sub_800A3EC(struct Main * main)
     SetTimedKeysAndDelay(DPAD_RIGHT | DPAD_LEFT, 15);
     StartHardwareBlend(1, 1, 1, 0x1F);
     ioRegs->lcd_bldy = 0x10;
-    SET_PROCESS(3, 1, 0, 0); // please increase the  instead thank you :^)
+    SET_PROCESS(COURT_PROCESS, 1, 0, 0);
 }
 
 void sub_800A5B0(struct Main * main)
@@ -114,7 +115,7 @@ void sub_800A5B0(struct Main * main)
         PlaySE(SE007_MENU_OPEN_SUBMENU);
         main->gameStateFlags &= -2; // -2??
         BACKUP_PROCESS_PTR(main);
-        SET_PROCESS_PTR(0xA, 0, 0, 0, main);
+        SET_PROCESS_PTR(SAVE_GAME_PROCESS, 0, 0, 0, main);
     }
     else if((gJoypad.pressedKeys & R_BUTTON) &&
     !(main->gameStateFlags & 0x10) &&
@@ -122,7 +123,7 @@ void sub_800A5B0(struct Main * main)
     {
         PlaySE(SE007_MENU_OPEN_SUBMENU);
         BACKUP_PROCESS_PTR(main);
-        SET_PROCESS_PTR(7, 0, 0, 0, main);
+        SET_PROCESS_PTR(COURT_RECORD_PROCESS, 0, 0, 0, main);
     }
     if(main->gameStateFlags & 0x400)
     {
@@ -135,25 +136,25 @@ void sub_800A5B0(struct Main * main)
 void sub_800A6AC(struct Main * main)
 {
     DmaCopy16(3, &gMain, &gSaveDataBuffer.main, sizeof(gMain));
-    SET_PROCESS_PTR(0xA, 0, 0, 1, main);
+    SET_PROCESS_PTR(SAVE_GAME_PROCESS, 0, 0, 1, main);
     if(main->scenarioIdx == 1)
     {
         if(!(main->caseEnabledFlags & 2))
-            SET_PROCESS_PTR(0xB, 0, 0, 1, main);
+            SET_PROCESS_PTR(EPISODE_CLEAR_PROCESS, 0, 0, 1, main);
     }
     else if(main->scenarioIdx == 5)
     {
         if(!(main->caseEnabledFlags & 4))
-            SET_PROCESS_PTR(0xB, 0, 0, 2, main);
+            SET_PROCESS_PTR(EPISODE_CLEAR_PROCESS, 0, 0, 2, main);
     }
     else if(main->scenarioIdx == 11)
     {
         if(!(main->caseEnabledFlags & 8))
-            SET_PROCESS_PTR(0xB, 0, 0, 3, main);
+            SET_PROCESS_PTR(EPISODE_CLEAR_PROCESS, 0, 0, 3, main);
     }
 }
 
-void (*gProcess5ProcessStates[])(struct Main *) = {
+void (*gTestimonyProcessStates[])(struct Main *) = {
 	sub_800A894,
 	sub_800A8E0,
 	sub_800A9FC,
@@ -225,9 +226,9 @@ void sub_800A730(struct Main * main)
     }
 }
 
-void GameProcess05(struct Main * main)
+void TestimonyProcess(struct Main * main)
 {
-    gProcess5ProcessStates[main->process[GAME_PROCESS_STATE]](main);
+    gTestimonyProcessStates[main->process[GAME_PROCESS_STATE]](main);
 }
 
 void sub_800A894(struct Main * main)
@@ -253,7 +254,7 @@ void sub_800A8E0(struct Main * main)
         PlaySE(SE007_MENU_OPEN_SUBMENU);
         main->gameStateFlags &= -2; // -2??
         BACKUP_PROCESS_PTR(main);
-        SET_PROCESS_PTR(0xA, 0, 0, 0, main);
+        SET_PROCESS_PTR(SAVE_GAME_PROCESS, 0, 0, 0, main);
     }
     else if((gJoypad.pressedKeys & R_BUTTON) &&
     !(main->gameStateFlags & 0x10) &&
@@ -261,7 +262,7 @@ void sub_800A8E0(struct Main * main)
     {
         PlaySE(SE007_MENU_OPEN_SUBMENU);
         BACKUP_PROCESS_PTR(main);
-        SET_PROCESS_PTR(7, 0, 0, 0, main);
+        SET_PROCESS_PTR(COURT_RECORD_PROCESS, 0, 0, 0, main);
     }
     gTestimony.timer++;
     if(gTestimony.timer > 100)
@@ -281,10 +282,10 @@ void sub_800A9FC(struct Main * main)
 {
     struct OamAttrs * oam = &gOamObjects[49];
     oam->attr0 = SPRITE_ATTR0_CLEAR;
-    SET_PROCESS_PTR(3, 1, 0, 0, main);
+    SET_PROCESS_PTR(COURT_PROCESS, 1, 0, 0, main);
 }
 
-void (*gProcess6ProcessStates[])(struct Main *) = {
+void (*gQuestioningProcessStates[])(struct Main *) = {
 	sub_800AB58,
 	sub_800AC1C,
 	nullsub_32,
@@ -355,9 +356,9 @@ void sub_800AA10(struct Main * main)
     }
 }
 
-void GameProcess06(struct Main * main)
+void QuestioningProcess(struct Main * main)
 {
-    gProcess6ProcessStates[main->process[GAME_PROCESS_STATE]](main);
+    gQuestioningProcessStates[main->process[GAME_PROCESS_STATE]](main);
 }
 
 void sub_800AB58(struct Main * main)
@@ -394,7 +395,7 @@ void sub_800AC1C(struct Main * main)
             PlaySE(SE007_MENU_OPEN_SUBMENU);
             main->gameStateFlags &= -2; // -2??
             BACKUP_PROCESS_PTR(main);
-            SET_PROCESS_PTR(0xA, 0, 0, 0, main);
+            SET_PROCESS_PTR(SAVE_GAME_PROCESS, 0, 0, 0, main);
         }
     }
     else if(gScriptContext.flags & SCRIPT_LOOP)
@@ -441,7 +442,7 @@ void sub_800AC1C(struct Main * main)
         {
             PlaySE(SE007_MENU_OPEN_SUBMENU);
             BACKUP_PROCESS_PTR(main);
-            SET_PROCESS_PTR(7, 0, 0, 1, main);
+            SET_PROCESS_PTR(COURT_RECORD_PROCESS, 0, 0, 1, main);
         }
     }
     else if((gJoypad.pressedKeys & R_BUTTON) &&
@@ -450,7 +451,7 @@ void sub_800AC1C(struct Main * main)
     {
         PlaySE(SE007_MENU_OPEN_SUBMENU);
         BACKUP_PROCESS_PTR(main);
-        SET_PROCESS_PTR(7, 0, 0, 0, main);
+        SET_PROCESS_PTR(COURT_RECORD_PROCESS, 0, 0, 0, main);
     }
     sub_800B51C(main, &gTestimony, 1);
     if(main->gameStateFlags & 0x400)

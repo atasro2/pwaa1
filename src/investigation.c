@@ -16,6 +16,7 @@
 #include "constants/script.h"
 #include "constants/bg.h"
 #include "constants/songs.h"
+#include "constants/process.h"
 
 void (*gInvestigationProcessStates[])(struct Main *, struct InvestigationStruct *) = {
 	sub_800B808, // RNO1_TANTEI_INIT
@@ -119,7 +120,7 @@ void sub_800B808(struct Main * main, struct InvestigationStruct * investigation)
         ioRegs->lcd_dispcnt &= ~DISPCNT_BG1_ON;
         ioRegs->lcd_bg1vofs = 0;
     }
-    SET_PROCESS_PTR(4, 1, 0, 0, main);
+    SET_PROCESS_PTR(INVESTIGATION_PROCESS, 1, 0, 0, main);
 }
 
 //FIXME: tail merge causes register diffs
@@ -191,7 +192,7 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
             PlaySE(SE007_MENU_OPEN_SUBMENU);
             main->gameStateFlags &= ~1;
             BACKUP_PROCESS_PTR(main);
-            SET_PROCESS_PTR(10, 0, 0, 0, main);
+            SET_PROCESS_PTR(SAVE_GAME_PROCESS, 0, 0, 0, main);
             return;
         }
     }
@@ -203,7 +204,7 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
             r:
             PlaySE(SE007_MENU_OPEN_SUBMENU);
             BACKUP_PROCESS_PTR(main);
-            SET_PROCESS_PTR(7, 0, 0, 0, main);
+            SET_PROCESS_PTR(COURT_RECORD_PROCESS, 0, 0, 0, main);
             sub_800D530(main, 0);
             investigation->selectedActionYOffset = 0;
             investigation->lastActionYOffset = 8;
@@ -285,21 +286,21 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
 void sub_800BD74(struct Main * main, struct InvestigationStruct * investigation) // tantei_exit
 {
     DmaCopy16(3, &gMain, &gSaveDataBuffer.main, sizeof(gMain));
-    SET_PROCESS_PTR(10, 0, 0, 1, main);
+    SET_PROCESS_PTR(SAVE_GAME_PROCESS, 0, 0, 1, main);
     if(main->scenarioIdx == 1)
     {
         if(!(main->caseEnabledFlags & 2))
-            SET_PROCESS_PTR(11, 0, 0, 1, main);
+            SET_PROCESS_PTR(EPISODE_CLEAR_PROCESS, 0, 0, 1, main);
     }
     else if(main->scenarioIdx == 5)
     {
         if(!(main->caseEnabledFlags & 4))
-            SET_PROCESS_PTR(11, 0, 0, 2, main);
+            SET_PROCESS_PTR(EPISODE_CLEAR_PROCESS, 0, 0, 2, main);
     }
     else if(main->scenarioIdx == 11)
     {
         if(!(main->caseEnabledFlags & 8))
-            SET_PROCESS_PTR(11, 0, 0, 3, main);
+            SET_PROCESS_PTR(EPISODE_CLEAR_PROCESS, 0, 0, 3, main);
     }
 }
 
@@ -333,14 +334,14 @@ void sub_800BDF8(struct Main * main, struct InvestigationStruct * investigation)
         return;
     }
     if(investigation->actionState == 0)
-        SET_PROCESS_PTR(4, 1, 0, 0, main);
+        SET_PROCESS_PTR(INVESTIGATION_PROCESS, 1, 0, 0, main);
 }
 
 void sub_800BE58(struct Main * main, struct InvestigationStruct * investigation) // tantei_mw_scroll_wait
 {
     sub_800D530(main, 0);
     if(gScriptContext.textboxState == 0)
-        SET_PROCESS_PTR(4, 1, 0, 0, main);
+        SET_PROCESS_PTR(INVESTIGATION_PROCESS, 1, 0, 0, main);
 }
 
 void sub_800BE7C(struct Main * main, struct InvestigationStruct * investigation) // tantei_room_init
@@ -392,7 +393,7 @@ void sub_800BE7C(struct Main * main, struct InvestigationStruct * investigation)
     gInvestigationRoomSetupFunctions[main->scenarioIdx](main);
     sub_800D530(main, 0);
     StartHardwareBlend(1, 1, 1, 0x1F);
-    SET_PROCESS_PTR(4, 1, 0, 0, main);
+    SET_PROCESS_PTR(INVESTIGATION_PROCESS, 1, 0, 0, main);
 }
 
 void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation) // tantei_inspect // ! goto
@@ -443,7 +444,7 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
                     PlaySE(SE007_MENU_OPEN_SUBMENU);
                     main->gameStateFlags &= ~1;
                     BACKUP_PROCESS_PTR(main);
-                    SET_PROCESS_PTR(10, 0, 0, 0, main);
+                    SET_PROCESS_PTR(SAVE_GAME_PROCESS, 0, 0, 0, main);
                     return;
                 }
                 else if(gJoypad.pressedKeys & R_BUTTON
@@ -452,7 +453,7 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
                     r:
                     PlaySE(SE007_MENU_OPEN_SUBMENU);
                     BACKUP_PROCESS_PTR(main);
-                    SET_PROCESS_PTR(7, 0, 0, 0, main);
+                    SET_PROCESS_PTR(COURT_RECORD_PROCESS, 0, 0, 0, main);
                     oam->attr0 = SPRITE_ATTR0_CLEAR;
                     return;
                 }
@@ -556,7 +557,7 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
                     oam->attr0 = SPRITE_ATTR0_CLEAR;
                     ChangeAnimationActivity(&gAnimation[1], TRUE);
                     StartAnimationBlend(1, 1);
-                    SET_PROCESS_PTR(4, 1, 0, 0, main);
+                    SET_PROCESS_PTR(INVESTIGATION_PROCESS, 1, 0, 0, main);
                     investigation->unk7 += 1 << investigation->selectedAction;
                     investigation->selectedActionYOffset = 8;
                     investigation->lastActionYOffset = 0;
@@ -668,7 +669,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                     PlaySE(SE007_MENU_OPEN_SUBMENU);
                     main->gameStateFlags &= ~1;
                     BACKUP_PROCESS_PTR(main);
-                    SET_PROCESS_PTR(10, 0, 0, 0, main);
+                    SET_PROCESS_PTR(SAVE_GAME_PROCESS, 0, 0, 0, main);
                 }
                 break;
             }
@@ -679,7 +680,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                     PlaySE(SE007_MENU_OPEN_SUBMENU);
                     main->process[GAME_PROCESS_VAR1] = 6; //! tries opening court record from switch case 6 but fails spectacularly
                     BACKUP_PROCESS_PTR(main);
-                    SET_PROCESS_PTR(7, 0, 0, 0, main);
+                    SET_PROCESS_PTR(COURT_RECORD_PROCESS, 0, 0, 0, main);
                     oam = &gOamObjects[38];
                     for(i = 0; i < 8; oam++, i++)
                         oam->attr1 = SPRITE_ATTR1_NONAFFINE(DISPLAY_WIDTH+60, FALSE, FALSE, 0);
@@ -737,7 +738,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                 main->currentRoomId = main->roomData[roomId][j];
                 FadeOutBGM(20);
                 StartHardwareBlend(2, 1, 1, 0x1F);
-                SET_PROCESS_PTR(4, 5, 0, 0, main);
+                SET_PROCESS_PTR(INVESTIGATION_PROCESS, 5, 0, 0, main);
                 break;
             }
             else if(gJoypad.pressedKeys & B_BUTTON)
@@ -797,7 +798,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                 investigation->selectedActionYOffset--;
             if(investigation->actionState == 0 && main->process[GAME_PROCESS_VAR2] > 12)
             {
-                SET_PROCESS_PTR(4, 1, 0, 0, main);
+                SET_PROCESS_PTR(INVESTIGATION_PROCESS, 1, 0, 0, main);
                 investigation->unk7 += 1 << investigation->selectedAction;
                 investigation->selectedActionYOffset = 8;
                 investigation->lastActionYOffset = 0;
@@ -983,7 +984,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                         PlaySE(SE007_MENU_OPEN_SUBMENU);
                         main->gameStateFlags &= ~1;
                         BACKUP_PROCESS_PTR(main);
-                        SET_PROCESS_PTR(0xA, 0, 0, 0, main);
+                        SET_PROCESS_PTR(SAVE_GAME_PROCESS, 0, 0, 0, main);
                     }
                 }
                 else if(gJoypad.pressedKeys & R_BUTTON)
@@ -993,7 +994,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                         PlaySE(SE007_MENU_OPEN_SUBMENU);
                         main->process[GAME_PROCESS_VAR1] = 8;
                         BACKUP_PROCESS_PTR(main);
-                        SET_PROCESS_PTR(7, 0, 0, 0, main);
+                        SET_PROCESS_PTR(COURT_RECORD_PROCESS, 0, 0, 0, main);
                         oam = &gOamObjects[38];
                         for(i = 0; i < 8; oam++, i++)
                             oam->attr1 = SPRITE_ATTR1_NONAFFINE(DISPLAY_WIDTH+60, FALSE, FALSE, 0);
@@ -1146,7 +1147,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                 investigation->selectedActionYOffset--;
             if(investigation->actionState == 0 && main->process[GAME_PROCESS_VAR2] > 12)
             {
-                SET_PROCESS_PTR(4, 1, 0, 0, main);
+                SET_PROCESS_PTR(INVESTIGATION_PROCESS, 1, 0, 0, main);
                 investigation->unk7 += 1 << investigation->selectedAction;
                 investigation->selectedActionYOffset = 8;
                 investigation->lastActionYOffset = 0;
@@ -1167,7 +1168,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                         PlaySE(SE007_MENU_OPEN_SUBMENU);
                         main->gameStateFlags &= ~1;
                         BACKUP_PROCESS_PTR(main);
-                        SET_PROCESS_PTR(0xA, 0, 0, 0, main);
+                        SET_PROCESS_PTR(SAVE_GAME_PROCESS, 0, 0, 0, main);
                         return;
                     }
                 }
@@ -1180,7 +1181,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                     {
                         PlaySE(SE007_MENU_OPEN_SUBMENU);
                         BACKUP_PROCESS_PTR(main);
-                        SET_PROCESS_PTR(7, 0, 0, 0, main);
+                        SET_PROCESS_PTR(COURT_RECORD_PROCESS, 0, 0, 0, main);
                         return;
                     }
                 }
@@ -2633,7 +2634,7 @@ void sub_800D2B0(struct Main * main, struct InvestigationStruct * investigation)
             {
                 main->process[GAME_PROCESS_VAR1]++;
                 BACKUP_PROCESS_PTR(main);
-                SET_PROCESS_PTR(7, 0, 0, 2, main);
+                SET_PROCESS_PTR(COURT_RECORD_PROCESS, 0, 0, 2, main);
             }
             break;
         case 2:
@@ -2654,7 +2655,7 @@ void sub_800D2B0(struct Main * main, struct InvestigationStruct * investigation)
                 investigation->lastActionYOffset = 8;
                 investigation->selectedAction = 3;
                 investigation->lastAction = 3;
-                SET_PROCESS_PTR(4, 1, 0, 0, main);
+                SET_PROCESS_PTR(INVESTIGATION_PROCESS, 1, 0, 0, main);
             }
             break;
         case 3:
@@ -2673,7 +2674,7 @@ void sub_800D2B0(struct Main * main, struct InvestigationStruct * investigation)
                 investigation->selectedActionYOffset = 8;
                 investigation->lastActionYOffset = 0;
                 investigation->unk7 += 1 << investigation->selectedAction;
-                SET_PROCESS_PTR(4, 1, 0, 0, main);
+                SET_PROCESS_PTR(INVESTIGATION_PROCESS, 1, 0, 0, main);
             }
             break;
     }

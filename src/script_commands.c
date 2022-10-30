@@ -13,6 +13,7 @@
 #include "constants/bg.h"
 #include "constants/script.h"
 #include "constants/songs.h"
+#include "constants/process.h"
 
 const u8 gSoundCueTable[] = {
     0, 0, 0, 0, 1, 1, 1, 1,
@@ -85,7 +86,7 @@ bool32 Command02(struct ScriptContext * scriptCtx)
             return 1;
         }
     }
-    if(gMain.process[GAME_PROCESS] >= 3 && gMain.process[GAME_PROCESS] <= 6)
+    if(gMain.process[GAME_PROCESS] >= COURT_PROCESS && gMain.process[GAME_PROCESS] <= QUESTIONING_PROCESS)
     {
         if(scriptCtx->flags & 1)
             if(gJoypad.pressedKeys & A_BUTTON)
@@ -158,13 +159,13 @@ bool32 Command02(struct ScriptContext * scriptCtx)
             SetAnimationFrameOffset(&gAnimation[1], gMain.idleAnimationOffset);
             scriptCtx->flags |= 1;
         }
-        if(gMain.process[GAME_PROCESS] != 9)
+        if(gMain.process[GAME_PROCESS] != VERDICT_PROCESS)
         {
             scriptCtx->textboxDownArrowDelayCounter++;
             if(scriptCtx->textboxDownArrowDelayCounter > 1)
             {
                 scriptCtx->textboxDownArrowDelayCounter = 0;
-                if(scriptCtx->textboxDownArrowIndex == 0 && gMain.process[GAME_PROCESS] == 7)
+                if(scriptCtx->textboxDownArrowIndex == 0 && gMain.process[GAME_PROCESS] == COURT_RECORD_PROCESS)
                 {
                     scriptCtx->textboxDownArrowIndex = 0;
                 }
@@ -250,7 +251,7 @@ bool32 Command08(struct ScriptContext * scriptCtx)
         scriptCtx->scriptPtr += 3;
         return TRUE;
     }
-    if(gMain.process[GAME_PROCESS] == 7)
+    if(gMain.process[GAME_PROCESS] == COURT_RECORD_PROCESS)
     {
         gOamObjects[88].attr0 = SPRITE_ATTR0_CLEAR;
         return TRUE;
@@ -262,7 +263,7 @@ bool32 Command08(struct ScriptContext * scriptCtx)
     }
 
 #if REVISION == 1
-    if(gMain.process[GAME_PROCESS] > 2 && gMain.process[GAME_PROCESS] < 7)
+    if(gMain.process[GAME_PROCESS] >= COURT_PROCESS && gMain.process[GAME_PROCESS] <= QUESTIONING_PROCESS)
 #endif
     {
         if(gJoypad.pressedKeys & DPAD_UP)
@@ -328,7 +329,7 @@ bool32 Command09(struct ScriptContext * scriptCtx)
         scriptCtx->scriptPtr += 4;
         return TRUE;
     }
-    if(gMain.process[GAME_PROCESS] == 7)
+    if(gMain.process[GAME_PROCESS] == COURT_RECORD_PROCESS)
     {
         gOamObjects[88].attr0 = SPRITE_ATTR0_CLEAR;
         return TRUE;
@@ -340,7 +341,7 @@ bool32 Command09(struct ScriptContext * scriptCtx)
     }
     
 #if REVISION == 1
-    if(gMain.process[GAME_PROCESS] > 2 && gMain.process[GAME_PROCESS] < 7)
+    if(gMain.process[GAME_PROCESS] >= COURT_PROCESS && gMain.process[GAME_PROCESS] <= QUESTIONING_PROCESS)
 #endif
     {
         if(gJoypad.pressedKeys & DPAD_UP)
@@ -495,7 +496,7 @@ bool32 Command11(struct ScriptContext * scriptCtx)
     scriptCtx->flags |= 0x10;
     gMain.gameStateFlags |= 0x100;
     BACKUP_PROCESS();
-    SET_PROCESS(7, 0, 0, 1);
+    SET_PROCESS(COURT_RECORD_PROCESS, 0, 0, 1);
     return 0;
 }
 
@@ -553,7 +554,7 @@ bool32 Command16(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     main->advanceScriptContext = FALSE;
     main->showTextboxCharacters = FALSE;
-    SET_PROCESS(3, 2, 0, 0);
+    SET_PROCESS(COURT_PROCESS, 2, 0, 0);
     gInvestigation.selectedAction = 0;
     gInvestigation.lastAction = 0;
     main->scenarioIdx++;
@@ -591,7 +592,7 @@ bool32 Command17(struct ScriptContext * scriptCtx)
                 gMain.gottenEvidenceType = isProfile;
                 gMain.gottenEvidenceId = evidenceId;
                 BACKUP_PROCESS();
-                SET_PROCESS(8, 0, 0, 0);
+                SET_PROCESS(PROCESS_8, 0, 0, 0);
             }
             
         }
@@ -651,7 +652,7 @@ bool32 Command19(struct ScriptContext * scriptCtx)
             gMain.gottenEvidenceType = isProfile;
             gMain.gottenEvidenceId = evidenceId;
             BACKUP_PROCESS();
-            SET_PROCESS(8, 0, 0, 0);
+            SET_PROCESS(PROCESS_8, 0, 0, 0);
         }
     }
     scriptCtx->scriptPtr++;
@@ -720,7 +721,7 @@ u32 Command1C(struct ScriptContext * scriptCtx)
             gIORegisters.lcd_bg1vofs = 0;
             break;
         case 2:
-            if(gMain.process[GAME_PROCESS] == 3)
+            if(gMain.process[GAME_PROCESS] == COURT_PROCESS)
             {
                 DestroyAnimation(&gAnimation[1]);
                 gInvestigation.personActive = 0;
@@ -729,14 +730,14 @@ u32 Command1C(struct ScriptContext * scriptCtx)
             SlideTextbox(1);
             break;
         case 3:
-            if(gMain.process[GAME_PROCESS] == 3)
+            if(gMain.process[GAME_PROCESS] == COURT_PROCESS)
             {
                 DestroyAnimation(&gAnimation[1]);
                 gInvestigation.personActive = 0;
                 sub_800B7A8(&gInvestigation, 15);
             }
             SlideTextbox(0);
-            if(gMain.process[GAME_PROCESS] == 4)
+            if(gMain.process[GAME_PROCESS] == INVESTIGATION_PROCESS)
             {
                 gInvestigation.selectedActionYOffset = 0;
                 if(gMain.process[GAME_PROCESS_STATE] == 6)

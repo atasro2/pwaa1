@@ -39,7 +39,7 @@ bool32 Command41(struct ScriptContext * scriptCtx)
     gInvestigation.selectedAction = 0;
     gInvestigation.lastAction = 0;
     
-    SET_PROCESS(4,1,0,0);
+    SET_PROCESS(INVESTIGATION_PROCESS,1,0,0);
     return 0;
 }
 
@@ -95,14 +95,14 @@ bool32 Command44(struct ScriptContext * scriptCtx)
     {
         DmaCopy16(3, gUnknown_08191CA0, OBJ_VRAM0+0x3400, 0x1000);
         DmaCopy16(3, gUnknown_08194520, OBJ_PLTT+0xA0, 0x20);
-        SET_PROCESS(9,0,0,0);
+        SET_PROCESS(VERDICT_PROCESS,0,0,0);
     }
     else 
     {
         DmaCopy16(3, gUnknown_081914A0, OBJ_VRAM0+0x3400, 0x800);
         DmaCopy16(3, gUnknown_081924A0, OBJ_VRAM0+0x3C00, 0x800);
         DmaCopy16(3, gUnknown_08194540, OBJ_PLTT+0xA0, 0x20);
-        SET_PROCESS(9,0,0,1);
+        SET_PROCESS(VERDICT_PROCESS,0,0,1);
     }
     scriptCtx->scriptPtr++;
     oam->attr0 = SPRITE_ATTR0((~16 & 255), ST_OAM_AFFINE_DOUBLE, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
@@ -188,7 +188,7 @@ bool32 Command49(struct ScriptContext *scriptCtx)
     scriptCtx->scriptPtr++;
     gMain.advanceScriptContext = FALSE;
     gMain.showTextboxCharacters = FALSE;
-    SET_PROCESS(1, 0, 0, 0);
+    SET_PROCESS(TITLE_SCREEN_PROCESS, 0, 0, 0);
 
     return 0;
 }

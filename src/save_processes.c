@@ -13,6 +13,7 @@
 #include "graphics.h"
 #include "constants/script.h"
 #include "constants/songs.h"
+#include "constants/process.h"
 
 const char gSaveVersion[0x30] = "2001 CAPCOM GBA GYAKUTEN-SAIBAN 06/15 Ver 1.000-";
 
@@ -208,7 +209,7 @@ void ClearSaveProcess(struct Main *main)
                 DmaFill32(3, 0, &gSaveDataBuffer, sizeof(gSaveDataBuffer));
                 WriteSramEx((void*)&gSaveDataBuffer, SRAM_START, sizeof(gSaveDataBuffer));
             }
-            SET_PROCESS_PTR(0, 0, 0, 0, main);
+            SET_PROCESS_PTR(CAPCOM_LOGO_PROCESS, 0, 0, 0, main);
         }
         break;
     default:
@@ -415,7 +416,7 @@ void SaveGameExitSaveScreen(struct Main *main)
         return;
     if(main->selectedButton == 0)
     {
-        SET_PROCESS_PTR(1, 0, 0, 0, main);
+        SET_PROCESS_PTR(TITLE_SCREEN_PROCESS, 0, 0, 0, main);
         return;
     }
     main->currentBG = gSaveDataBuffer.main.currentBG;
@@ -457,7 +458,7 @@ void SaveGameExitSaveScreen(struct Main *main)
     DmaCopy16(3, gSaveDataBuffer.oam, gOamObjects, sizeof(gOamObjects));
     DmaCopy16(3, &gUnknown_081942C0[0], OBJ_PLTT+0x100, 0x20);
     RESTORE_PROCESS_PTR(main);
-    if(main->process[GAME_PROCESS] == 4 && main->process[GAME_PROCESS_VAR1] == 3)
+    if(main->process[GAME_PROCESS] == INVESTIGATION_PROCESS && main->process[GAME_PROCESS_VAR1] == 3)
     {
         if(main->process[GAME_PROCESS_STATE] == 7)
             sub_800D674();
@@ -497,7 +498,7 @@ void SaveGame5(struct Main *main)
     {
         main->advanceScriptContext = 0;
         main->showTextboxCharacters = 0;
-        SET_PROCESS_PTR(12, 1, 0, newEpisodeId, main);
+        SET_PROCESS_PTR(EPISODE_SELECT_PROCESS, 1, 0, newEpisodeId, main);
         return;
     }
     gIORegisters.lcd_dispcnt = 0;

@@ -8,6 +8,7 @@
 #include "graphics.h"
 #include "constants/animation.h"
 #include "constants/persons.h"
+#include "constants/process.h"
 
 #define DUMMYPERSON { .gfxData = 0, .frameData = 0, .spriteCount = 0, .unkA = 0 }
 #define DUMMYANIMATION { .gfxData = 0, .vramPtr = 0, .frameData = 0, .xOrigin = 0, .yOrigin = 0, .paletteSlot = 0, .spriteCount = 0, .priority = 0, .flags = 0x0, }
@@ -1484,7 +1485,7 @@ struct AnimationListEntry *PlayPersonAnimationAtCustomOrigin(u32 arg0, u32 talki
     animationInfo.animGfxDataStartPtr = gPersonAnimData[personId].gfxData;
     animationInfo.animFrameDataStartPtr = gPersonAnimData[personId].frameData + talkingAnimOff;
     animationInfo.paletteSlot = 14;
-    if (main->process[GAME_PROCESS] == 3) // trial
+    if (main->process[GAME_PROCESS] == COURT_PROCESS) // why does it force a specific amount of sprites
         animationInfo.spriteCount = 0x27;
     else
         animationInfo.spriteCount = gPersonAnimData[personId].spriteCount;
@@ -1501,7 +1502,7 @@ struct AnimationListEntry *PlayPersonAnimationAtCustomOrigin(u32 arg0, u32 talki
     animation->bgId |= 0;
     CreateAnimationFromAnimationInfo(&animationInfo, 0xFF, flags);
     animation->bgId = main->currentBG;
-    if (animation->animationInfo.personId == 0x16 && main->process[GAME_PROCESS] == 4) // person id 0x16 investigation
+    if (animation->animationInfo.personId == 0x16 && main->process[GAME_PROCESS] == INVESTIGATION_PROCESS) // April May special case
     {
         struct AnimationListEntry *ptr;
         u32 var0 = animation->flags & 0x02000000;

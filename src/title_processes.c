@@ -7,6 +7,7 @@
 #include "sound.h"
 #include "graphics.h"
 #include "constants/songs.h"
+#include "constants/process.h"
 
 void CapcomLogoProcess(struct Main *main)
 {
@@ -43,7 +44,7 @@ void CapcomLogoProcess(struct Main *main)
     case 2:
         if (main->blendMode == 0)
         {
-            SET_PROCESS_PTR(1, 0, 0, 0, main);
+            SET_PROCESS_PTR(TITLE_SCREEN_PROCESS, 0, 0, 0, main);
         }
         break;
     default:
@@ -61,7 +62,7 @@ void TitleScreenProcess(struct Main *main)
     case 0:
         ResetGameState();
         LoadSaveData();
-        SET_PROCESS_PTR(1, 1, 0, 0, main); // ? main->process[GAME_PROCESS_STATE]++; hello?
+        SET_PROCESS_PTR(TITLE_SCREEN_PROCESS, 1, 0, 0, main);
         break;
     case 1:
         DmaCopy16(3, gUnusedAsciiCharSet, VRAM + 0x3800, 0x800);
@@ -96,14 +97,14 @@ void TitleScreenProcess(struct Main *main)
         main->unk19C |= 4;
         main->tilemapUpdateBits = 9;
         StartHardwareBlend(1, 1, 1, 0x1F);
-        SET_PROCESS_PTR(1, 2, 0, 0, main); // ? main->process[GAME_PROCESS_STATE]++; hello?
+        SET_PROCESS_PTR(TITLE_SCREEN_PROCESS, 2, 0, 0, main);
         break;
     case 2:
         if(gJoypad.pressedKeys & (A_BUTTON | START_BUTTON))
         {
             PlaySE(SE010_GAVEL_SLAM);
             gScriptContext.fullscreenTextYOffset = 0;
-            SET_PROCESS_PTR(1, 3, 0, 0, main); // ? main->process[GAME_PROCESS_STATE]++; hello?
+            SET_PROCESS_PTR(TITLE_SCREEN_PROCESS, 3, 0, 0, main);
         }
         else if(main->saveContinueFlags & 0xF0 && gJoypad.pressedKeys & (DPAD_DOWN | DPAD_UP))
         {
@@ -157,11 +158,11 @@ void TitleScreenProcess(struct Main *main)
         {
             if(main->selectedButton == 0)
             {
-                SET_PROCESS_PTR(12, 0, 0, 0, main);
+                SET_PROCESS_PTR(EPISODE_SELECT_PROCESS, 0, 0, 0, main);
             }
             else
             {
-                SET_PROCESS_PTR(13, 0, 0, 0, main);
+                SET_PROCESS_PTR(CONTINUE_SAVE_PROCESS, 0, 0, 0, main);
             }
         }
         if(main->selectedButton == 0)

@@ -6,26 +6,27 @@
 #include "script.h"
 #include "utils.h"
 #include "sound.h"
+#include "constants/process.h"
 
 // Sce_init_proc_tbl
 const u8 gCaseStartProcess[] = {
-    3,
-    4,
-    3,
-    4,
-    3,
-    4,
-    3,
-    4,
-    3,
-    4,
-    3,
-    4,
-    3,
-    4,
-    3,
-    4,
-    3,
+    COURT_PROCESS,
+    INVESTIGATION_PROCESS,
+    COURT_PROCESS,
+    INVESTIGATION_PROCESS,
+    COURT_PROCESS,
+    INVESTIGATION_PROCESS,
+    COURT_PROCESS,
+    INVESTIGATION_PROCESS,
+    COURT_PROCESS,
+    INVESTIGATION_PROCESS,
+    COURT_PROCESS,
+    INVESTIGATION_PROCESS,
+    COURT_PROCESS,
+    INVESTIGATION_PROCESS,
+    COURT_PROCESS,
+    INVESTIGATION_PROCESS,
+    COURT_PROCESS,
 };
 
 // gameover_message_data_table
@@ -205,7 +206,7 @@ void sub_8002CF0(u32 section, u32 flagId) // Set_event2, Unused
         sprite->attr1 = SPRITE_ATTR1_NONAFFINE(60 * i, 0, 0, 3);
         sprite->attr2 = SPRITE_ATTR2((0x100 + i * 0x20), 0, 5);
     }
-    SET_PROCESS(4, 1, 0, 0);
+    SET_PROCESS(INVESTIGATION_PROCESS, 1, 0, 0);
     ChangeFlag(0, flagId, TRUE);
     ChangeScriptSection(section);
     SlideTextbox(1);
