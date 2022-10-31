@@ -24,8 +24,8 @@ void (*gSaveGameProcessStates[])(struct Main *) = {
 	SaveGameWaitForInput,
 	SaveGameExitSaveScreen,
 	SaveGame5,
-	sub_8008CC0,
-	sub_8008D68
+	SaveGame6,
+	SaveGame7
 };
 
 u32 SaveGameData()
@@ -217,7 +217,7 @@ void ClearSaveProcess(struct Main *main)
     }
 }
 
-#define sIsEpisodePartOver process[3]
+#define sIsEpisodePartOver process[GAME_PROCESS_VAR2]
 
 void SaveGameProcess(struct Main *main)
 {
@@ -506,7 +506,7 @@ void SaveGame5(struct Main *main)
     SET_PROCESS_PTR(gCaseStartProcess[main->scenarioIdx], 0, 0, 0, main);
 }
 
-void sub_8008CC0(struct Main * main)
+void SaveGame6(struct Main * main)
 {
     if(gScriptContext.flags & SCRIPT_LOOP && gJoypad.pressedKeys & A_BUTTON)
     {
@@ -539,7 +539,7 @@ void sub_8008CC0(struct Main * main)
     }
 }
 
-void sub_8008D68(struct Main * main)
+void SaveGame7(struct Main * main)
 {
     struct OamAttrs * oam;
     main->process[GAME_PROCESS_VAR1]++;
