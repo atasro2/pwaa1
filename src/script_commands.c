@@ -592,7 +592,7 @@ bool32 Command17(struct ScriptContext * scriptCtx)
                 gMain.gottenEvidenceType = isProfile;
                 gMain.gottenEvidenceId = evidenceId;
                 BACKUP_PROCESS();
-                SET_PROCESS(PROCESS_8, 0, 0, 0);
+                SET_PROCESS(EVIDENCE_ADDED_PROCESS, EVIDENCE_ADD_STATE_INIT, 0, 0);
             }
             
         }
@@ -652,7 +652,7 @@ bool32 Command19(struct ScriptContext * scriptCtx)
             gMain.gottenEvidenceType = isProfile;
             gMain.gottenEvidenceId = evidenceId;
             BACKUP_PROCESS();
-            SET_PROCESS(PROCESS_8, 0, 0, 0);
+            SET_PROCESS(EVIDENCE_ADDED_PROCESS, EVIDENCE_ADD_STATE_INIT, 0, 0);
         }
     }
     scriptCtx->scriptPtr++;
