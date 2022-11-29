@@ -16,8 +16,8 @@ struct InvestigationPresentData
     /* +0x01 */ u8 evidenceId; // unity: item
     /* +0x02 */ u8 personId; // unity: pl_id
     /* +0x03 */ u8 end; // unity: end
-    /* +0x04 */ u16 evidenceCommentSection; // unity: mess_true
-    /* +0x06 */ u16 wrongEvidenceSection; // unity: mess_false
+    /* +0x04 */ u16 interestedSection; // unity: mess_true
+    /* +0x06 */ u16 uninterestedSection; // unity: mess_false
 };
 
 extern const u8 gCaseStartProcess[];

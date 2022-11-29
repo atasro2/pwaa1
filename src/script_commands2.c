@@ -465,7 +465,7 @@ bool32 Command21(struct ScriptContext *scriptCtx)
     scriptCtx->flags |= 0x10;
     gMain.gameStateFlags |= 0x300;
     BACKUP_PROCESS();
-    SET_PROCESS(COURT_RECORD_PROCESS, 0, 0, 1);
+    SET_PROCESS(COURT_RECORD_PROCESS, RECORD_STATE_INIT, 0, 1);
     return 0;
 }
 

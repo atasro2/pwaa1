@@ -123,7 +123,7 @@ void sub_800A5B0(struct Main * main)
     {
         PlaySE(SE007_MENU_OPEN_SUBMENU);
         BACKUP_PROCESS_PTR(main);
-        SET_PROCESS_PTR(COURT_RECORD_PROCESS, 0, 0, 0, main);
+        SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_STATE_INIT, 0, 0, main);
     }
     if(main->gameStateFlags & 0x400)
     {
@@ -262,7 +262,7 @@ void sub_800A8E0(struct Main * main)
     {
         PlaySE(SE007_MENU_OPEN_SUBMENU);
         BACKUP_PROCESS_PTR(main);
-        SET_PROCESS_PTR(COURT_RECORD_PROCESS, 0, 0, 0, main);
+        SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_STATE_INIT, 0, 0, main);
     }
     gTestimony.timer++;
     if(gTestimony.timer > 100)
@@ -442,7 +442,7 @@ void sub_800AC1C(struct Main * main)
         {
             PlaySE(SE007_MENU_OPEN_SUBMENU);
             BACKUP_PROCESS_PTR(main);
-            SET_PROCESS_PTR(COURT_RECORD_PROCESS, 0, 0, 1, main);
+            SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_STATE_INIT, 0, 1, main);
         }
     }
     else if((gJoypad.pressedKeys & R_BUTTON) &&
@@ -451,7 +451,7 @@ void sub_800AC1C(struct Main * main)
     {
         PlaySE(SE007_MENU_OPEN_SUBMENU);
         BACKUP_PROCESS_PTR(main);
-        SET_PROCESS_PTR(COURT_RECORD_PROCESS, 0, 0, 0, main);
+        SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_STATE_INIT, 0, 0, main);
     }
     sub_800B51C(main, &gTestimony, 1);
     if(main->gameStateFlags & 0x400)
@@ -460,7 +460,7 @@ void sub_800AC1C(struct Main * main)
             gTestimony.healthPointX -= 4;
         sub_800B638(main, &gTestimony);
     }
-    sub_800E8A0(&gCourtRecord);
+    UpdateCourtRecordArrows(&gCourtRecord);
     oam = gOamObjects;
     if(gScriptContext.flags & SCRIPT_LOOP)
     {

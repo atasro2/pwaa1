@@ -60,7 +60,7 @@ void (*gGameProcesses[])(struct Main *) = {
     TestimonyProcess,
     QuestioningProcess,
     CourtRecordProcess,
-    GameProcess08,
+    EvidenceAddedProcess,
     VerdictProcess,
     SaveGameProcess,
     EpisodeClearedProcess,

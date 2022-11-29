@@ -204,7 +204,7 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
             r:
             PlaySE(SE007_MENU_OPEN_SUBMENU);
             BACKUP_PROCESS_PTR(main);
-            SET_PROCESS_PTR(COURT_RECORD_PROCESS, 0, 0, 0, main);
+            SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_STATE_INIT, 0, 0, main);
             sub_800D530(main, 0);
             investigation->selectedActionYOffset = 0;
             investigation->lastActionYOffset = 8;
@@ -453,7 +453,7 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
                     r:
                     PlaySE(SE007_MENU_OPEN_SUBMENU);
                     BACKUP_PROCESS_PTR(main);
-                    SET_PROCESS_PTR(COURT_RECORD_PROCESS, 0, 0, 0, main);
+                    SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_STATE_INIT, 0, 0, main);
                     oam->attr0 = SPRITE_ATTR0_CLEAR;
                     return;
                 }
@@ -680,7 +680,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                     PlaySE(SE007_MENU_OPEN_SUBMENU);
                     main->process[GAME_PROCESS_VAR1] = 6; //! tries opening court record from switch case 6 but fails spectacularly
                     BACKUP_PROCESS_PTR(main);
-                    SET_PROCESS_PTR(COURT_RECORD_PROCESS, 0, 0, 0, main);
+                    SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_STATE_INIT, 0, 0, main);
                     oam = &gOamObjects[38];
                     for(i = 0; i < 8; oam++, i++)
                         oam->attr1 = SPRITE_ATTR1_NONAFFINE(DISPLAY_WIDTH+60, FALSE, FALSE, 0);
@@ -994,7 +994,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                         PlaySE(SE007_MENU_OPEN_SUBMENU);
                         main->process[GAME_PROCESS_VAR1] = 8;
                         BACKUP_PROCESS_PTR(main);
-                        SET_PROCESS_PTR(COURT_RECORD_PROCESS, 0, 0, 0, main);
+                        SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_STATE_INIT, 0, 0, main);
                         oam = &gOamObjects[38];
                         for(i = 0; i < 8; oam++, i++)
                             oam->attr1 = SPRITE_ATTR1_NONAFFINE(DISPLAY_WIDTH+60, FALSE, FALSE, 0);
@@ -1181,7 +1181,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                     {
                         PlaySE(SE007_MENU_OPEN_SUBMENU);
                         BACKUP_PROCESS_PTR(main);
-                        SET_PROCESS_PTR(COURT_RECORD_PROCESS, 0, 0, 0, main);
+                        SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_STATE_INIT, 0, 0, main);
                         return;
                     }
                 }
@@ -2634,7 +2634,7 @@ void sub_800D2B0(struct Main * main, struct InvestigationStruct * investigation)
             {
                 main->process[GAME_PROCESS_VAR1]++;
                 BACKUP_PROCESS_PTR(main);
-                SET_PROCESS_PTR(COURT_RECORD_PROCESS, 0, 0, 2, main);
+                SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_STATE_INIT, 0, 2, main);
             }
             break;
         case 2:
