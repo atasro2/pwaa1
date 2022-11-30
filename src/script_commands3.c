@@ -32,7 +32,7 @@ bool32 Command41(struct ScriptContext * scriptCtx)
         oam->attr2 = SPRITE_ATTR2(0x100+0x20*i, 0, 5);
         oam++;
     }
-    sub_800B7A8(&gInvestigation, 0xF);
+    SetInactiveActionButtons(&gInvestigation, 0xF);
     gInvestigation.inactiveActionButtonY = 0xE0;
     gInvestigation.selectedActionYOffset = 0;
     gInvestigation.lastActionYOffset = 8;

@@ -461,9 +461,9 @@ void SaveGameExitSaveScreen(struct Main *main)
     if(main->process[GAME_PROCESS] == INVESTIGATION_PROCESS && main->process[GAME_PROCESS_VAR1] == 3)
     {
         if(main->process[GAME_PROCESS_STATE] == 7)
-            sub_800D674();
+            LoadLocationChoiceGraphics();
         else if(main->process[GAME_PROCESS_STATE] == 8)
-            sub_800D6C8();
+            LoadTalkChoiceGraphics();
     }
     FadeInBGM(0x1E, 0xFF); // unpause BGM
     StartHardwareBlend(1, 0, 1, 0x1F);

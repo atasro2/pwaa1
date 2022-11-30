@@ -915,7 +915,7 @@ void CourtRecordMain(struct Main * main, struct CourtRecord * courtRecord) // st
             oam++;
             oam->attr0 = SPRITE_ATTR0_CLEAR;
             gInvestigation.actionState = 3;
-            gInvestigation.unk7 = 8;
+            gInvestigation.inactiveActions = 8;
             gInvestigation.inactiveActionButtonY = 0xF0;
             RESTORE_PROCESS_PTR(main);
             return;
@@ -1448,11 +1448,11 @@ void EvidenceAddedExit(struct Main * main, struct CourtRecord * courtRecord) // 
         if(gMain.process[GAME_PROCESS] == INVESTIGATION_PROCESS)
         {
             if(gMain.process[GAME_PROCESS_STATE] == 6)
-                sub_800B7A8(&gInvestigation, 1);
+                SetInactiveActionButtons(&gInvestigation, 1);
             else if(main->process[GAME_PROCESS_STATE] == 8) //! why?? why???? why are you using that pointer when the other ones are noooot
-                sub_800B7A8(&gInvestigation, 4);
+                SetInactiveActionButtons(&gInvestigation, 4);
             else if(gMain.process[GAME_PROCESS_STATE] == 9)
-                sub_800B7A8(&gInvestigation, 8);
+                SetInactiveActionButtons(&gInvestigation, 8);
         }
         gScriptContext.flags |= 2;
     }

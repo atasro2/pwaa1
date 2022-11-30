@@ -183,7 +183,7 @@ void InvestigationSetPersonAnimation(u32 arg0, u32 arg1, u32 arg2) // Set_char
     main->idleAnimationOffset = arg2;
     PlayPersonAnimation(arg0, 0, arg1, 0);
     gInvestigation.personActive = 1;
-    sub_800B7A8(&gInvestigation, 0xF);
+    SetInactiveActionButtons(&gInvestigation, 0xF);
 }
 
 void InvestigationSetScriptSectionAndFlag(u32 section, u32 flagId) // Set_event
@@ -210,7 +210,7 @@ void sub_8002CF0(u32 section, u32 flagId) // Set_event2, Unused
     ChangeFlag(0, flagId, TRUE);
     ChangeScriptSection(section);
     SlideTextbox(1);
-    sub_800B7A8(&gInvestigation, 0xF);
+    SetInactiveActionButtons(&gInvestigation, 0xF);
     gInvestigation.selectedActionYOffset = 0x40;
 }
 

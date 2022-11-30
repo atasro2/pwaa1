@@ -1886,7 +1886,7 @@ void InvestigationRoomSetup_2_2(struct Main *main)
                     gMain.idleAnimationOffset = 0;
                     PlayPersonAnimation(PERSON_ANIM_CODY_HACKINS | 0x8000, 0, 0, 0);
                     gInvestigation.personActive = 1;
-                    sub_800B7A8(&gInvestigation, 0xF);
+                    SetInactiveActionButtons(&gInvestigation, 0xF);
                     PlayBGM(BGM021_STEEL_SAMURAI_THEME);
                 }
                 LOADEXAMDATA(gUnknown_080163B4);

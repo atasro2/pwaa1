@@ -30,7 +30,7 @@ struct InvestigationStruct // unity: tantei_work_
     /* +0x04 */ u8 selectedOption; // unity AA4: sel_place
     /* +0x05 */ bool8 personActive; // unity: person_flag // is person in current room?
     /* +0x06 */ u8 unk6; // unity AA4: ckeck_no_flag
-    /* +0x07 */ u8 unk7; // unity AA4: menu_mv_be_flag
+    /* +0x07 */ u8 inactiveActions; // unity AA4: menu_mv_be_flag
     /* +0x08 */ u8 spotselectStartCounter; // unity AA4: finger_speed_x
     /* +0x09 */ u8 spotselectId; // unity: siteki_no // 指摘 pointed out
     /* +0x0A */ u8 selectedAction; // unity: menu // selected investigation button, why menu?
@@ -181,10 +181,10 @@ extern const struct ExaminationData gUnknown_08018678[5];
 extern const struct ExaminationData gUnknown_080186DC[5];
 /* end data stuff from segments */
 
-void sub_800B7A8(struct InvestigationStruct *, u32);
-extern u32 sub_800D5B0(struct InvestigationStruct *);
-void sub_800D674(void);
-void sub_800D6C8(void);
+void SetInactiveActionButtons(struct InvestigationStruct *, u32);
+extern u32 GetExaminedAreaSection(struct InvestigationStruct *);
+void LoadLocationChoiceGraphics(void);
+void LoadTalkChoiceGraphics(void);
 
 void sub_800B808(struct Main *, struct InvestigationStruct *);
 void sub_800BAD4(struct Main *, struct InvestigationStruct *);

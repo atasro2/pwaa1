@@ -1057,7 +1057,7 @@ void InvestigationRoomSetup_2_4(struct Main *main)
                     gMain.idleAnimationOffset = 0;
                     PlayPersonAnimation(PERSON_ANIM_GUMSHOE | 0x8000, 0, 0, 0);
                     gInvestigation.personActive = 1;
-                    sub_800B7A8(&gInvestigation, 0xF);
+                    SetInactiveActionButtons(&gInvestigation, 0xF);
                 }
                 PlayBGM(BGM001_GUMSHOES_THEME);
             }

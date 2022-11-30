@@ -725,7 +725,7 @@ u32 Command1C(struct ScriptContext * scriptCtx)
             {
                 DestroyAnimation(&gAnimation[1]);
                 gInvestigation.personActive = 0;
-                sub_800B7A8(&gInvestigation, 15);
+                SetInactiveActionButtons(&gInvestigation, 15);
             }
             SlideTextbox(1);
             break;
@@ -734,7 +734,7 @@ u32 Command1C(struct ScriptContext * scriptCtx)
             {
                 DestroyAnimation(&gAnimation[1]);
                 gInvestigation.personActive = 0;
-                sub_800B7A8(&gInvestigation, 15);
+                SetInactiveActionButtons(&gInvestigation, 15);
             }
             SlideTextbox(0);
             if(gMain.process[GAME_PROCESS] == INVESTIGATION_PROCESS)
@@ -742,17 +742,17 @@ u32 Command1C(struct ScriptContext * scriptCtx)
                 gInvestigation.selectedActionYOffset = 0;
                 if(gMain.process[GAME_PROCESS_STATE] == 6)
                 {
-                    sub_800B7A8(&gInvestigation, 1);
+                    SetInactiveActionButtons(&gInvestigation, 1);
                 }
                 if(gMain.process[GAME_PROCESS_STATE] == 8)
                 {
-                    sub_800B7A8(&gInvestigation, 4);
+                    SetInactiveActionButtons(&gInvestigation, 4);
                     gInvestigation.actionState = 4;
                     gInvestigation.inactiveActionButtonY = 0xE0;
                 }
                 if(gMain.process[GAME_PROCESS_STATE] == 9)
                 {
-                    sub_800B7A8(&gInvestigation, 8);
+                    SetInactiveActionButtons(&gInvestigation, 8);
                 }
             }
             break;
@@ -812,13 +812,13 @@ u32 Command1E(struct ScriptContext * scriptCtx)
     {
         PlayPersonAnimation(var0, 0, var1, 0);
         gInvestigation.personActive = 1;
-        sub_800B7A8(&gInvestigation, 15);
+        SetInactiveActionButtons(&gInvestigation, 15);
     }
     else
     {
         DestroyAnimation(&gAnimation[1]);
         gInvestigation.personActive = 0;
-        sub_800B7A8(&gInvestigation, 15);
+        SetInactiveActionButtons(&gInvestigation, 15);
     }
     return 0;
 }
