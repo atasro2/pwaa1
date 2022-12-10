@@ -460,9 +460,9 @@ void SaveGameExitSaveScreen(struct Main *main)
     RESTORE_PROCESS_PTR(main);
     if(main->process[GAME_PROCESS] == INVESTIGATION_PROCESS && main->process[GAME_PROCESS_VAR1] == 3)
     {
-        if(main->process[GAME_PROCESS_STATE] == 7)
+        if(main->process[GAME_PROCESS_STATE] == TANTEI_MOVE)
             LoadLocationChoiceGraphics();
-        else if(main->process[GAME_PROCESS_STATE] == 8)
+        else if(main->process[GAME_PROCESS_STATE] == TANTEI_TALK)
             LoadTalkChoiceGraphics();
     }
     FadeInBGM(0x1E, 0xFF); // unpause BGM

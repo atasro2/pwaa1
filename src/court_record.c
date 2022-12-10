@@ -642,7 +642,7 @@ void CourtRecordInit(struct Main * main, struct CourtRecord * courtRecord) // st
     io = &gIORegisters;
     if(main->processCopy[GAME_PROCESS] != QUESTIONING_PROCESS)
     {
-        if(main->processCopy[GAME_PROCESS] == INVESTIGATION_PROCESS && main->processCopy[GAME_PROCESS_STATE] <= 5)
+        if(main->processCopy[GAME_PROCESS] == INVESTIGATION_PROCESS && main->processCopy[GAME_PROCESS_STATE] < TANTEI_INSPECT)
         {
             oam = &gOamObjects[49];
             for(i = 0; i < 4; i++)
@@ -674,8 +674,8 @@ void CourtRecordInit(struct Main * main, struct CourtRecord * courtRecord) // st
     LoadEvidenceGraphics(courtRecord->displayItemList[courtRecord->selectedItem]);
     if(main->process[GAME_PROCESS_VAR2] == 1)
         SlideInBG2Window(2, 0xC);
-    courtRecord->nextState = RECORD_STATE_MAIN;
-    main->process[GAME_PROCESS_STATE] = RECORD_STATE_CHANGE_STATE;
+    courtRecord->nextState = RECORD_MAIN;
+    main->process[GAME_PROCESS_STATE] = RECORD_CHANGE_STATE;
 }
 
 //TODO: fix shit control flow, probably uses local variables to control the flow, don't have time to figure out how
@@ -692,7 +692,7 @@ void CourtRecordMain(struct Main * main, struct CourtRecord * courtRecord) // st
         {
             PauseBGM();
             PlaySE(SE001_MENU_CONFIRM);
-            main->process[GAME_PROCESS_STATE] = RECORD_STATE_DETAIL_SUBMENU;
+            main->process[GAME_PROCESS_STATE] = RECORD_DETAIL_SUBMENU;
             main->process[GAME_PROCESS_VAR1] = 0;
             StartHardwareBlend(2, 1, 1, 0x1F);
             return;
@@ -707,7 +707,7 @@ void CourtRecordMain(struct Main * main, struct CourtRecord * courtRecord) // st
         goto tailMerge; // compiler can do this but the if(main->process[GAME_PROCESS_VAR2] == 1) fucks up
         /*
         PlaySE(SE00C_MENU_CHANGE_PAGE);
-        courtRecord->nextState = RECORD_STATE_MAIN;
+        courtRecord->nextState = RECORD_MAIN;
         courtRecord->flags |= 2;
         DmaCopy16(3, OBJ_VRAM0+0x3C00, VRAM+0x1400, 0x1C00);
         DmaCopy16(3, OBJ_PLTT+0x20, PLTT+0x20, 0x20);
@@ -748,13 +748,13 @@ void CourtRecordMain(struct Main * main, struct CourtRecord * courtRecord) // st
             courtRecord->selectedItem = 0;
         tailMerge:
         PlaySE(SE00C_MENU_CHANGE_PAGE);
-        courtRecord->nextState = RECORD_STATE_MAIN;
+        courtRecord->nextState = RECORD_MAIN;
         courtRecord->flags |= 2;
         DmaCopy16(3, OBJ_VRAM0+0x3C00, VRAM+0x1400, 0x1C00);
         DmaCopy16(3, OBJ_PLTT+0x20, PLTT+0x20, 0x20);
         sub_800EAF8(courtRecord);
         DmaCopy16(3, &gOamObjects[34], OAM + 34*8, 11*8);
-        main->process[GAME_PROCESS_STATE] = RECORD_STATE_LOAD_GFX_CHANGE_STATE;
+        main->process[GAME_PROCESS_STATE] = RECORD_LOAD_GFX_CHANGE_STATE;
         if(main->process[GAME_PROCESS_VAR2] == 1)
         {
         /*
@@ -795,7 +795,7 @@ void CourtRecordMain(struct Main * main, struct CourtRecord * courtRecord) // st
             if(main->gameStateFlags & 0x200)
             {
                 SlideInBG2Window(4, 0x12);
-                SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_STATE_TAKE_THAT_SPECIAL, 0, 0, main);
+                SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_TAKE_THAT_SPECIAL, 0, 0, main);
                 SetTextboxNametag(0, FALSE);
                 main->gameStateFlags &= ~0x300;
                 return;
@@ -825,7 +825,7 @@ void CourtRecordMain(struct Main * main, struct CourtRecord * courtRecord) // st
             {
                 StopBGM();
                 ChangeScriptSection(section);
-                SET_PROCESS_BACKUP_PTR(COURT_PROCESS, 1, 0, 0, main);
+                SET_PROCESS_BACKUP_PTR(COURT_PROCESS, COURT_MAIN, 0, 0, main);
             }
             else
             {
@@ -860,9 +860,9 @@ void CourtRecordMain(struct Main * main, struct CourtRecord * courtRecord) // st
                     gScriptContext.nextSection = section;
                 }
                 gScriptContext.flags &= ~0x10;
-                SET_PROCESS_BACKUP_PTR(QUESTIONING_PROCESS, 1, 0, 0, main);
+                SET_PROCESS_BACKUP_PTR(QUESTIONING_PROCESS, QUESTIONING_MAIN, 0, 0, main);
             }
-            SET_PROCESS_PTR(QUESTIONING_PROCESS, 5, 0, 0, main);
+            SET_PROCESS_PTR(QUESTIONING_PROCESS, QUESTIONING_OBJECTION, 0, 0, main);
             SetTextboxNametag(0, FALSE);
             main->gameStateFlags &= ~0x300;
             return;
@@ -873,7 +873,7 @@ void CourtRecordMain(struct Main * main, struct CourtRecord * courtRecord) // st
             {
                 PlaySE(SE002_MENU_CANCEL);
                 SlideInBG2Window(4, 0xC);
-                main->process[GAME_PROCESS_STATE] = RECORD_STATE_EXIT;
+                main->process[GAME_PROCESS_STATE] = RECORD_EXIT;
             }
         }
         label:
@@ -924,8 +924,8 @@ void CourtRecordMain(struct Main * main, struct CourtRecord * courtRecord) // st
         {
             PlaySE(SE002_MENU_CANCEL);
             SlideInBG2Window(3, 0xC);
-            SET_PROCESS_BACKUP_PTR(INVESTIGATION_PROCESS, 9, 3, 0, main);
-            main->process[GAME_PROCESS_STATE] = RECORD_STATE_EXIT;
+            SET_PROCESS_BACKUP_PTR(INVESTIGATION_PROCESS, TANTEI_SHOW, 3, 0, main);
+            main->process[GAME_PROCESS_STATE] = RECORD_EXIT;
         }
     }
     else // Normal court record
@@ -934,14 +934,14 @@ void CourtRecordMain(struct Main * main, struct CourtRecord * courtRecord) // st
         {
             PlaySE(SE00A_SWITCH_RECORD);
             SlideInBG2Window(0x3, 0xC);
-            courtRecord->nextState = RECORD_STATE_CHANGE_RECORD;
-            main->process[GAME_PROCESS_STATE] = RECORD_STATE_CHANGE_RECORD;
+            courtRecord->nextState = RECORD_CHANGE_RECORD;
+            main->process[GAME_PROCESS_STATE] = RECORD_CHANGE_RECORD;
         }
         else if(joypad->pressedKeys & B_BUTTON)
         {
             PlaySE(SE002_MENU_CANCEL);
             SlideInBG2Window(0x3, 0xC);
-            main->process[GAME_PROCESS_STATE] = RECORD_STATE_EXIT;
+            main->process[GAME_PROCESS_STATE] = RECORD_EXIT;
         }
     }
     UpdateBG2Window(&gCourtRecord);
@@ -1010,8 +1010,8 @@ void CourtRecordChangeRecord(struct Main * main, struct CourtRecord * courtRecor
         u32 temp;
         courtRecord->flags &= ~2;
         SlideInBG2Window(2, 0xC);
-        courtRecord->nextState = RECORD_STATE_MAIN;
-        main->process[GAME_PROCESS_STATE] = RECORD_STATE_CHANGE_STATE;
+        courtRecord->nextState = RECORD_MAIN;
+        main->process[GAME_PROCESS_STATE] = RECORD_CHANGE_STATE;
         temp = courtRecord->selectedItem;
         courtRecord->selectedItem = courtRecord->selectedItemBackup;
         courtRecord->selectedItemBackup = temp;
@@ -1224,7 +1224,7 @@ void CourtRecordDetailSubMenu(struct Main * main, struct CourtRecord * courtReco
             if(main->blendMode == 0)
             {
                 UnpauseBGM();
-                main->process[GAME_PROCESS_STATE] = RECORD_STATE_MAIN;
+                main->process[GAME_PROCESS_STATE] = RECORD_MAIN;
                 main->process[GAME_PROCESS_VAR1] = 0;
             }
             UpdateBG2Window(&gCourtRecord);
@@ -1280,7 +1280,7 @@ void CourtRecordDetailSubMenu(struct Main * main, struct CourtRecord * courtReco
 void CourtRecordLoadGfxChangeState(struct Main * main, struct CourtRecord * courtRecord) // status_melt ?
 {
     LoadEvidenceGraphics(courtRecord->displayItemList[courtRecord->selectedItem]);
-    main->process[GAME_PROCESS_STATE] = RECORD_STATE_CHANGE_STATE;
+    main->process[GAME_PROCESS_STATE] = RECORD_CHANGE_STATE;
 }
 
 void CourtRecordTakeThatSpecial(struct Main * main, struct CourtRecord * courtRecord) // status_effect ?
@@ -1433,7 +1433,7 @@ void EvidenceAddedMain(struct Main * main, struct CourtRecord * courtRecord) // 
         {
             PlaySE(SE001_MENU_CONFIRM);
             SlideInBG2Window(3, 0xE);
-            main->process[GAME_PROCESS_STATE] = EVIDENCE_ADD_STATE_EXIT;
+            main->process[GAME_PROCESS_STATE] = EVIDENCE_ADD_EXIT;
         }
     }
 }
@@ -1447,11 +1447,11 @@ void EvidenceAddedExit(struct Main * main, struct CourtRecord * courtRecord) // 
         RESTORE_PROCESS_PTR(main);
         if(gMain.process[GAME_PROCESS] == INVESTIGATION_PROCESS)
         {
-            if(gMain.process[GAME_PROCESS_STATE] == 6)
+            if(gMain.process[GAME_PROCESS_STATE] == TANTEI_INSPECT)
                 SetInactiveActionButtons(&gInvestigation, 1);
-            else if(main->process[GAME_PROCESS_STATE] == 8) //! why?? why???? why are you using that pointer when the other ones are noooot
+            else if(main->process[GAME_PROCESS_STATE] == TANTEI_TALK) //! why?? why???? why are you using that pointer when the other ones are noooot
                 SetInactiveActionButtons(&gInvestigation, 4);
-            else if(gMain.process[GAME_PROCESS_STATE] == 9)
+            else if(gMain.process[GAME_PROCESS_STATE] == TANTEI_SHOW)
                 SetInactiveActionButtons(&gInvestigation, 8);
         }
         gScriptContext.flags |= 2;

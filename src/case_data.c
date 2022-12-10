@@ -206,7 +206,7 @@ void sub_8002CF0(u32 section, u32 flagId) // Set_event2, Unused
         sprite->attr1 = SPRITE_ATTR1_NONAFFINE(60 * i, 0, 0, 3);
         sprite->attr2 = SPRITE_ATTR2((0x100 + i * 0x20), 0, 5);
     }
-    SET_PROCESS(INVESTIGATION_PROCESS, 1, 0, 0);
+    SET_PROCESS(INVESTIGATION_PROCESS, TANTEI_MAIN, 0, 0);
     ChangeFlag(0, flagId, TRUE);
     ChangeScriptSection(section);
     SlideTextbox(1);

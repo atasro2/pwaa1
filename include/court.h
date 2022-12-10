@@ -14,6 +14,7 @@ struct TestimonyStruct
 
 extern struct TestimonyStruct gTestimony;
 
+void SetCurrentEpisodeBit();
 void sub_800B51C(struct Main *, struct TestimonyStruct *, u32);
 void sub_800B638(struct Main *, struct TestimonyStruct *);
 

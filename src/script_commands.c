@@ -496,7 +496,7 @@ bool32 Command11(struct ScriptContext * scriptCtx)
     scriptCtx->flags |= 0x10;
     gMain.gameStateFlags |= 0x100;
     BACKUP_PROCESS();
-    SET_PROCESS(COURT_RECORD_PROCESS, RECORD_STATE_INIT, 0, 1);
+    SET_PROCESS(COURT_RECORD_PROCESS, RECORD_INIT, 0, 1);
     return 0;
 }
 
@@ -554,7 +554,7 @@ bool32 Command16(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     main->advanceScriptContext = FALSE;
     main->showTextboxCharacters = FALSE;
-    SET_PROCESS(COURT_PROCESS, 2, 0, 0);
+    SET_PROCESS(COURT_PROCESS, COURT_EXIT, 0, 0);
     gInvestigation.selectedAction = 0;
     gInvestigation.lastAction = 0;
     main->scenarioIdx++;
@@ -592,7 +592,7 @@ bool32 Command17(struct ScriptContext * scriptCtx)
                 gMain.gottenEvidenceType = isProfile;
                 gMain.gottenEvidenceId = evidenceId;
                 BACKUP_PROCESS();
-                SET_PROCESS(EVIDENCE_ADDED_PROCESS, EVIDENCE_ADD_STATE_INIT, 0, 0);
+                SET_PROCESS(EVIDENCE_ADDED_PROCESS, EVIDENCE_ADD_INIT, 0, 0);
             }
             
         }
@@ -652,7 +652,7 @@ bool32 Command19(struct ScriptContext * scriptCtx)
             gMain.gottenEvidenceType = isProfile;
             gMain.gottenEvidenceId = evidenceId;
             BACKUP_PROCESS();
-            SET_PROCESS(EVIDENCE_ADDED_PROCESS, EVIDENCE_ADD_STATE_INIT, 0, 0);
+            SET_PROCESS(EVIDENCE_ADDED_PROCESS, EVIDENCE_ADD_INIT, 0, 0);
         }
     }
     scriptCtx->scriptPtr++;
@@ -740,17 +740,17 @@ u32 Command1C(struct ScriptContext * scriptCtx)
             if(gMain.process[GAME_PROCESS] == INVESTIGATION_PROCESS)
             {
                 gInvestigation.selectedActionYOffset = 0;
-                if(gMain.process[GAME_PROCESS_STATE] == 6)
+                if(gMain.process[GAME_PROCESS_STATE] == TANTEI_INSPECT)
                 {
                     SetInactiveActionButtons(&gInvestigation, 1);
                 }
-                if(gMain.process[GAME_PROCESS_STATE] == 8)
+                if(gMain.process[GAME_PROCESS_STATE] == TANTEI_TALK)
                 {
                     SetInactiveActionButtons(&gInvestigation, 4);
                     gInvestigation.actionState = 4;
                     gInvestigation.inactiveActionButtonY = 0xE0;
                 }
-                if(gMain.process[GAME_PROCESS_STATE] == 9)
+                if(gMain.process[GAME_PROCESS_STATE] == TANTEI_SHOW)
                 {
                     SetInactiveActionButtons(&gInvestigation, 8);
                 }

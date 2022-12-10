@@ -39,7 +39,7 @@ bool32 Command41(struct ScriptContext * scriptCtx)
     gInvestigation.selectedAction = 0;
     gInvestigation.lastAction = 0;
     
-    SET_PROCESS(INVESTIGATION_PROCESS,1,0,0);
+    SET_PROCESS(INVESTIGATION_PROCESS,TANTEI_MAIN,0,0);
     return 0;
 }
 
@@ -198,7 +198,7 @@ bool32 Command4A(struct ScriptContext *scriptCtx)
     scriptCtx->scriptPtr++;
     if(*scriptCtx->scriptPtr) 
     {
-        if(gMain.process[GAME_PROCESS_STATE] == VERDICT_STATE_NOTGUILTY_EXIT) 
+        if(gMain.process[GAME_PROCESS_STATE] == VERDICT_NOTGUILTY_EXIT) 
         {
             scriptCtx->scriptPtr++;
             return 0;
@@ -206,7 +206,7 @@ bool32 Command4A(struct ScriptContext *scriptCtx)
     }
     else 
     {
-        if(gMain.process[GAME_PROCESS_STATE] == VERDICT_STATE_DRAW_CONFETTI) 
+        if(gMain.process[GAME_PROCESS_STATE] == VERDICT_DRAW_CONFETTI) 
         {
             scriptCtx->scriptPtr++;
             return 0;

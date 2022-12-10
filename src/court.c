@@ -13,12 +13,6 @@
 #include "constants/persons.h"
 #include "constants/process.h"
 
-void (*gCourtProcessStates[])(struct Main *) = {
-	sub_800A3EC,
-	sub_800A5B0,
-	sub_800A6AC
-};
-
 void SetCurrentEpisodeBit()
 {
     struct Main * main = &gMain;
@@ -52,12 +46,18 @@ void SetCurrentEpisodeBit()
     }
 }
 
+void (*gCourtProcessStates[])(struct Main *) = {
+	CourtInit,
+	CourtMain,
+	CourtExit
+};
+
 void CourtProcess(struct Main * main)
 {
     gCourtProcessStates[main->process[GAME_PROCESS_STATE]](main);
 }
 
-void sub_800A3EC(struct Main * main)
+void CourtInit(struct Main * main)
 {
     struct IORegisters * ioRegs = &gIORegisters;
     DmaFill16(3, 0, &gTestimony, sizeof(gTestimony));
@@ -97,10 +97,10 @@ void sub_800A3EC(struct Main * main)
     SetTimedKeysAndDelay(DPAD_RIGHT | DPAD_LEFT, 15);
     StartHardwareBlend(1, 1, 1, 0x1F);
     ioRegs->lcd_bldy = 0x10;
-    SET_PROCESS(COURT_PROCESS, 1, 0, 0);
+    SET_PROCESS(COURT_PROCESS, COURT_MAIN, 0, 0);
 }
 
-void sub_800A5B0(struct Main * main)
+void CourtMain(struct Main * main)
 {
     struct TestimonyStruct * testimony = &gTestimony;
     if(main->blendMode)
@@ -113,7 +113,7 @@ void sub_800A5B0(struct Main * main)
         DmaCopy16(3, gOamObjects, gSaveDataBuffer.oam, sizeof(gOamObjects));
         DmaCopy16(3, &gMain, &gSaveDataBuffer.main, sizeof(gMain));
         PlaySE(SE007_MENU_OPEN_SUBMENU);
-        main->gameStateFlags &= -2; // -2??
+        main->gameStateFlags &= ~1;
         BACKUP_PROCESS_PTR(main);
         SET_PROCESS_PTR(SAVE_GAME_PROCESS, 0, 0, 0, main);
     }
@@ -123,7 +123,7 @@ void sub_800A5B0(struct Main * main)
     {
         PlaySE(SE007_MENU_OPEN_SUBMENU);
         BACKUP_PROCESS_PTR(main);
-        SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_STATE_INIT, 0, 0, main);
+        SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_INIT, 0, 0, main);
     }
     if(main->gameStateFlags & 0x400)
     {
@@ -133,7 +133,7 @@ void sub_800A5B0(struct Main * main)
     }
 }
 
-void sub_800A6AC(struct Main * main)
+void CourtExit(struct Main * main)
 {
     DmaCopy16(3, &gMain, &gSaveDataBuffer.main, sizeof(gMain));
     SET_PROCESS_PTR(SAVE_GAME_PROCESS, 0, 0, 1, main);
@@ -154,14 +154,7 @@ void sub_800A6AC(struct Main * main)
     }
 }
 
-void (*gTestimonyProcessStates[])(struct Main *) = {
-	sub_800A894,
-	sub_800A8E0,
-	sub_800A9FC,
-	sub_800A730
-};
-
-void sub_800A730(struct Main * main)
+void TestimonyAnim(struct Main * main)
 {
     struct AnimationListEntry * animation;
     struct AnimationListEntry * animation2;
@@ -219,27 +212,34 @@ void sub_800A730(struct Main * main)
             {
                 DestroyAnimation(animation);
                 DestroyAnimation(animation2);
-                main->process[GAME_PROCESS_STATE] = 1;
+                main->process[GAME_PROCESS_STATE] = TESTIMONY_MAIN;
             }
         default:
             break;
     }
 }
 
+void (*gTestimonyProcessStates[])(struct Main *) = {
+	TestimonyInit,
+	TestimonyMain,
+	TestimonyExit,
+	TestimonyAnim
+};
+
 void TestimonyProcess(struct Main * main)
 {
     gTestimonyProcessStates[main->process[GAME_PROCESS_STATE]](main);
 }
 
-void sub_800A894(struct Main * main)
+void TestimonyInit(struct Main * main)
 {
     DmaCopy16(3, gGfx4bppTestimonyTextTiles, OBJ_VRAM0+0x3000, 0x800);
     DmaCopy16(3, gUnknown_08194280, OBJ_PLTT+0xA0, 0x20);
     gTestimony.timer = 0;
-    main->process[GAME_PROCESS_STATE] = 3;
+    main->process[GAME_PROCESS_STATE] = TESTIMONY_ANIM;
 }
 
-void sub_800A8E0(struct Main * main)
+void TestimonyMain(struct Main * main)
 {
     struct OamAttrs * oam;
     if(main->blendMode)
@@ -252,7 +252,7 @@ void sub_800A8E0(struct Main * main)
         DmaCopy16(3, gOamObjects, gSaveDataBuffer.oam, sizeof(gOamObjects));
         DmaCopy16(3, &gMain, &gSaveDataBuffer.main, sizeof(gMain));
         PlaySE(SE007_MENU_OPEN_SUBMENU);
-        main->gameStateFlags &= -2; // -2??
+        main->gameStateFlags &= ~1;
         BACKUP_PROCESS_PTR(main);
         SET_PROCESS_PTR(SAVE_GAME_PROCESS, 0, 0, 0, main);
     }
@@ -262,7 +262,7 @@ void sub_800A8E0(struct Main * main)
     {
         PlaySE(SE007_MENU_OPEN_SUBMENU);
         BACKUP_PROCESS_PTR(main);
-        SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_STATE_INIT, 0, 0, main);
+        SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_INIT, 0, 0, main);
     }
     gTestimony.timer++;
     if(gTestimony.timer > 100)
@@ -278,23 +278,14 @@ void sub_800A8E0(struct Main * main)
         oam->attr0 = SPRITE_ATTR0_CLEAR;
 }
 
-void sub_800A9FC(struct Main * main)
+void TestimonyExit(struct Main * main)
 {
     struct OamAttrs * oam = &gOamObjects[49];
     oam->attr0 = SPRITE_ATTR0_CLEAR;
-    SET_PROCESS_PTR(COURT_PROCESS, 1, 0, 0, main);
+    SET_PROCESS_PTR(COURT_PROCESS, COURT_MAIN, 0, 0, main);
 }
 
-void (*gQuestioningProcessStates[])(struct Main *) = {
-	sub_800AB58,
-	sub_800AC1C,
-	nullsub_32,
-	sub_800AA10,
-	sub_800AE58,
-	sub_800AF2C
-};
-
-void sub_800AA10(struct Main * main)
+void QuestioningAnim(struct Main * main)
 {
     struct AnimationListEntry * animation;
     struct AnimationListEntry * animation2;
@@ -348,7 +339,7 @@ void sub_800AA10(struct Main * main)
             {
                 DestroyAnimation(animation);
                 DestroyAnimation(animation2);
-                main->process[GAME_PROCESS_STATE] = 1;
+                main->process[GAME_PROCESS_STATE] = QUESTIONING_MAIN;
                 main->process[GAME_PROCESS_VAR1] = 0;
             }
         default:
@@ -356,19 +347,28 @@ void sub_800AA10(struct Main * main)
     }
 }
 
+void (*gQuestioningProcessStates[])(struct Main *) = {
+	QuestioningInit,
+	QuestioningMain,
+	QuestioningExit,
+	QuestioningAnim,
+	QuestioningHoldIt,
+	QuestioningObjection
+};
+
 void QuestioningProcess(struct Main * main)
 {
     gQuestioningProcessStates[main->process[GAME_PROCESS_STATE]](main);
 }
 
-void sub_800AB58(struct Main * main)
+void QuestioningInit(struct Main * main)
 {
     DmaCopy16(3, gGfx4bppTrialLife, OBJ_VRAM0+0x3780, 0x80);
     DmaCopy16(3, gUnknown_081940E0, OBJ_PLTT+0x60, 0x20);
     DmaCopy16(3, gUnknown_081900C0, OBJ_VRAM0+0x3000, 0x400);
     DmaCopy16(3, gUnknown_081942A0, OBJ_PLTT+0xA0, 0x20);
-    DmaCopy16(3, gGfx4bppTestimonyArrows, 0x1A0, 0x80); // WHAT, HOW
-    DmaCopy16(3, gGfx4bppTestimonyArrows + 12 * TILE_SIZE_4BPP, 0x220, 0x80); // WHAT, HOW
+    DmaCopy16(3, gGfx4bppTestimonyArrows, 0x1A0, 0x80); // ! WHAT, HOW
+    DmaCopy16(3, gGfx4bppTestimonyArrows + 12 * TILE_SIZE_4BPP, 0x220, 0x80); // ! WHAT, HOW
     main->testimonyBeginningSection = gScriptContext.currentSection;
     gCourtRecord.unk9 = 0;
     gCourtRecord.unk8++;
@@ -376,10 +376,10 @@ void sub_800AB58(struct Main * main)
     gTestimony.pressPromptY = 0xE0;
     gTestimony.presentPromptY = 0xE0;
     gTestimony.displayState = 0;
-    main->process[GAME_PROCESS_STATE] = 3;
+    main->process[GAME_PROCESS_STATE] = QUESTIONING_ANIM;
 }
 
-void sub_800AC1C(struct Main * main)
+void QuestioningMain(struct Main * main)
 {
     struct OamAttrs * oam;
 
@@ -393,7 +393,7 @@ void sub_800AC1C(struct Main * main)
             DmaCopy16(3, gOamObjects, gSaveDataBuffer.oam, sizeof(gOamObjects));
             DmaCopy16(3, &gMain, &gSaveDataBuffer.main, sizeof(gMain));
             PlaySE(SE007_MENU_OPEN_SUBMENU);
-            main->gameStateFlags &= -2; // -2??
+            main->gameStateFlags &= ~1;
             BACKUP_PROCESS_PTR(main);
             SET_PROCESS_PTR(SAVE_GAME_PROCESS, 0, 0, 0, main);
         }
@@ -433,7 +433,7 @@ void sub_800AC1C(struct Main * main)
                 main->advanceScriptContext = FALSE;
                 main->showTextboxCharacters = FALSE;
                 SetTextboxNametag(0, 0);
-                main->process[GAME_PROCESS_STATE] = 4;
+                main->process[GAME_PROCESS_STATE] = QUESTIONING_HOLD_IT;
                 main->process[GAME_PROCESS_VAR1] = 0;
                 return;
             }
@@ -442,7 +442,7 @@ void sub_800AC1C(struct Main * main)
         {
             PlaySE(SE007_MENU_OPEN_SUBMENU);
             BACKUP_PROCESS_PTR(main);
-            SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_STATE_INIT, 0, 1, main);
+            SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_INIT, 0, 1, main);
         }
     }
     else if((gJoypad.pressedKeys & R_BUTTON) &&
@@ -451,7 +451,7 @@ void sub_800AC1C(struct Main * main)
     {
         PlaySE(SE007_MENU_OPEN_SUBMENU);
         BACKUP_PROCESS_PTR(main);
-        SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_STATE_INIT, 0, 0, main);
+        SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_INIT, 0, 0, main);
     }
     sub_800B51C(main, &gTestimony, 1);
     if(main->gameStateFlags & 0x400)
@@ -483,12 +483,12 @@ void sub_800AC1C(struct Main * main)
     }
 }
 
-void nullsub_32(struct Main * main)
+void QuestioningExit(struct Main * main) // ! why a nullsub??
 {
 
 }
 
-void sub_800AE58(struct Main * main)
+void QuestioningHoldIt(struct Main * main)
 {
     switch(main->process[GAME_PROCESS_VAR1])
     {
@@ -508,7 +508,6 @@ void sub_800AE58(struct Main * main)
                 break;
             if(gScriptContext.holdItFlag)
             {
-                // you had one job capcom one job
                 gMain.advanceScriptContext = TRUE;
                 gMain.showTextboxCharacters = TRUE;
                 gIORegisters.lcd_bg1vofs = 0;
@@ -521,7 +520,7 @@ void sub_800AE58(struct Main * main)
             gTestimony.pressPromptY = 0xE0;
             gTestimony.presentPromptY = 0xE0;
             gTestimony.displayState = 0;
-            main->process[GAME_PROCESS_STATE] = 1;
+            main->process[GAME_PROCESS_STATE] = QUESTIONING_MAIN;
             main->process[GAME_PROCESS_VAR1] = 0;
             break;
         default:
@@ -532,7 +531,7 @@ void sub_800AE58(struct Main * main)
     gOamObjects[1].attr0 = SPRITE_ATTR0_CLEAR;
 }
 
-void sub_800AF2C(struct Main * main)
+void QuestioningObjection(struct Main * main)
 {
     switch(main->process[GAME_PROCESS_VAR1])
     {
@@ -597,7 +596,7 @@ void VerdictProcess(struct Main * main)
     u32 temp2;
     struct OamAttrs *oam = &gOamObjects[49];
     switch(main->process[GAME_PROCESS_STATE]) {
-        case VERDICT_STATE_SHRINK_KANJI1: { // B088
+        case VERDICT_SHRINK_KANJI1: { // B088
             gMain.affineScale -= 0x10; // 1/16 steps 
             if(gMain.affineScale <= Q_8_8(1.0)) 
             {
@@ -620,7 +619,7 @@ void VerdictProcess(struct Main * main)
             }
             break;
         }
-        case VERDICT_STATE_WAIT_INIT_KANJI2: { // B164
+        case VERDICT_WAIT_INIT_KANJI2: { // B164
             if(main->process[GAME_PROCESS_VAR1]++ > 40) {
                 gMain.affineScale = Q_8_8(2.5); // 2.5 times scale
                 oam++;
@@ -636,7 +635,7 @@ void VerdictProcess(struct Main * main)
             }
             break;
         }
-        case VERDICT_STATE_SHRINK_KANJI2: { // B1FC
+        case VERDICT_SHRINK_KANJI2: { // B1FC
             gMain.affineScale -= 0x10; // 1/16 steps
             if(gMain.affineScale <= Q_8_8(1.0)) {
                 temp = fix_inverse(Q_8_8(1.0));
@@ -659,14 +658,14 @@ void VerdictProcess(struct Main * main)
             }
             break;
         }
-        case VERDICT_STATE_WAIT: { // B2E4
+        case VERDICT_WAIT: { // B2E4
             if(main->process[GAME_PROCESS_VAR1]++ > 64) {
                 main->process[GAME_PROCESS_STATE]++;
                 main->process[GAME_PROCESS_VAR1] = 0;
             }
             break;
         }
-        case VERDICT_STATE_GROW_KANJI: { // B300
+        case VERDICT_GROW_KANJI: { // B300
             if(main->process[GAME_PROCESS_VAR1]++ > 32) {
                 oam->attr0 = SPRITE_ATTR0_CLEAR;
                 oam++;
@@ -695,13 +694,13 @@ void VerdictProcess(struct Main * main)
             }
             break;
         }
-        case VERDICT_STATE_INIT_CONFETTI: { // B3C8
+        case VERDICT_INIT_CONFETTI: { // B3C8
             DmaCopy16(3, gUnknown_081940A0, OBJ_VRAM0+0x1F80, 0x20);
             DmaCopy16(3, gUnknown_08194640, OBJ_PLTT+0xA0, 0x80);
             main->process[GAME_PROCESS_STATE]++;
             break;
         }
-        case VERDICT_STATE_DRAW_CONFETTI: { // B404
+        case VERDICT_DRAW_CONFETTI: { // B404
             oam = &gOamObjects[57];
             for(i = 0; i < 0x1F; i++) 
             {
@@ -722,7 +721,7 @@ void VerdictProcess(struct Main * main)
             main->process[GAME_PROCESS_STATE]++;
             break;
         }
-        case VERDICT_STATE_ANIMATE_CONFETTI: { // B460
+        case VERDICT_ANIMATE_CONFETTI: { // B460
             oam = &gOamObjects[57];
             if(main->process[GAME_PROCESS_VAR1]++ < 240)
             {
@@ -758,7 +757,7 @@ void VerdictProcess(struct Main * main)
             }
             break;
         }
-        case VERDICT_STATE_NOTGUILTY_EXIT: { // B504
+        case VERDICT_NOTGUILTY_EXIT: { // B504
             RESTORE_PROCESS_PTR(main);
             break;
         }

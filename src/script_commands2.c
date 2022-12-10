@@ -465,7 +465,7 @@ bool32 Command21(struct ScriptContext *scriptCtx)
     scriptCtx->flags |= 0x10;
     gMain.gameStateFlags |= 0x300;
     BACKUP_PROCESS();
-    SET_PROCESS(COURT_RECORD_PROCESS, RECORD_STATE_INIT, 0, 1);
+    SET_PROCESS(COURT_RECORD_PROCESS, RECORD_INIT, 0, 1);
     return 0;
 }
 
@@ -579,11 +579,11 @@ bool32 Command29(struct ScriptContext *scriptCtx)
     else if (*scriptCtx->scriptPtr != 0)
     {
         BACKUP_PROCESS();
-        SET_PROCESS(QUESTIONING_PROCESS, 0, 0, 0); // return to questioning
+        SET_PROCESS(QUESTIONING_PROCESS, QUESTIONING_INIT, 0, 0); // return to questioning
     }
     else
     {
-        SET_PROCESS(COURT_PROCESS, 1, 0, 0); // goes back into trial process
+        SET_PROCESS(COURT_PROCESS, COURT_MAIN, 0, 0); // goes back into trial process
     }
     scriptCtx->scriptPtr++;
     return 0;
@@ -729,7 +729,7 @@ bool32 Command34(struct ScriptContext *scriptCtx)
     gMain.currentRoomId = *scriptCtx->scriptPtr;
     scriptCtx->scriptPtr++;
     StartHardwareBlend(2, 0, 2, 0x1F);
-    SET_PROCESS(INVESTIGATION_PROCESS, 5, 0, 0);
+    SET_PROCESS(INVESTIGATION_PROCESS, TANTEI_ROOM_INIT, 0, 0);
     return 0;
 }
 
