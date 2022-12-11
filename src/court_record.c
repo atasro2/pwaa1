@@ -642,7 +642,7 @@ void CourtRecordInit(struct Main * main, struct CourtRecord * courtRecord) // st
     io = &gIORegisters;
     if(main->processCopy[GAME_PROCESS] != QUESTIONING_PROCESS)
     {
-        if(main->processCopy[GAME_PROCESS] == INVESTIGATION_PROCESS && main->processCopy[GAME_PROCESS_STATE] < TANTEI_INSPECT)
+        if(main->processCopy[GAME_PROCESS] == INVESTIGATION_PROCESS && main->processCopy[GAME_PROCESS_STATE] < INVESTIGATION_INSPECT)
         {
             oam = &gOamObjects[49];
             for(i = 0; i < 4; i++)
@@ -719,7 +719,7 @@ void CourtRecordMain(struct Main * main, struct CourtRecord * courtRecord) // st
             //goto label;
             
             if(main->processCopy[GAME_PROCESS] != 4)
-                sub_800B51C(main, &gTestimony, 0);
+                UpdateQuestioningMenuSprites(main, &gTestimony, 0);
             oam = &gOamObjects[55];
             if(!(main->gameStateFlags & 0x100))
             {
@@ -759,7 +759,7 @@ void CourtRecordMain(struct Main * main, struct CourtRecord * courtRecord) // st
         {
         /*
             if(main->processCopy[GAME_PROCESS] != 4)
-                sub_800B51C(main, &gTestimony, 0);
+                UpdateQuestioningMenuSprites(main, &gTestimony, 0);
             oam = &gOamObjects[55];
             if(!(main->gameStateFlags & 0x100))
             {
@@ -878,7 +878,7 @@ void CourtRecordMain(struct Main * main, struct CourtRecord * courtRecord) // st
         }
         label:
         if(main->processCopy[GAME_PROCESS] != INVESTIGATION_PROCESS)
-            sub_800B51C(main, &gTestimony, 0);
+            UpdateQuestioningMenuSprites(main, &gTestimony, 0);
         oam = &gOamObjects[55];
         if(!(main->gameStateFlags & 0x100))
         {
@@ -924,7 +924,7 @@ void CourtRecordMain(struct Main * main, struct CourtRecord * courtRecord) // st
         {
             PlaySE(SE002_MENU_CANCEL);
             SlideInBG2Window(3, 0xC);
-            SET_PROCESS_BACKUP_PTR(INVESTIGATION_PROCESS, TANTEI_SHOW, 3, 0, main);
+            SET_PROCESS_BACKUP_PTR(INVESTIGATION_PROCESS, INVESTIGATION_PRESENT, 3, 0, main);
             main->process[GAME_PROCESS_STATE] = RECORD_EXIT;
         }
     }
@@ -1447,11 +1447,11 @@ void EvidenceAddedExit(struct Main * main, struct CourtRecord * courtRecord) // 
         RESTORE_PROCESS_PTR(main);
         if(gMain.process[GAME_PROCESS] == INVESTIGATION_PROCESS)
         {
-            if(gMain.process[GAME_PROCESS_STATE] == TANTEI_INSPECT)
+            if(gMain.process[GAME_PROCESS_STATE] == INVESTIGATION_INSPECT)
                 SetInactiveActionButtons(&gInvestigation, 1);
-            else if(main->process[GAME_PROCESS_STATE] == TANTEI_TALK) //! why?? why???? why are you using that pointer when the other ones are noooot
+            else if(main->process[GAME_PROCESS_STATE] == INVESTIGATION_TALK) //! why?? why???? why are you using that pointer when the other ones are noooot
                 SetInactiveActionButtons(&gInvestigation, 4);
-            else if(gMain.process[GAME_PROCESS_STATE] == TANTEI_SHOW)
+            else if(gMain.process[GAME_PROCESS_STATE] == INVESTIGATION_PRESENT)
                 SetInactiveActionButtons(&gInvestigation, 8);
         }
         gScriptContext.flags |= 2;

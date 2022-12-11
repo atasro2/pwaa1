@@ -19,8 +19,8 @@
 #include "constants/process.h"
 
 
-void sub_800D530(struct Main *, u32);
-void sub_800D3C8(struct InvestigationStruct *);
+void UpdateScrollPromptSprite(struct Main *, u32);
+void UpdateInvestigationActionSprites(struct InvestigationStruct *);
 
 void SetInactiveActionButtons(struct InvestigationStruct * investigation, u32 arg1) // menu_mv_flag_set
 {
@@ -30,27 +30,27 @@ void SetInactiveActionButtons(struct InvestigationStruct * investigation, u32 ar
 }
 
 void (*gInvestigationProcessStates[])(struct Main *, struct InvestigationStruct *) = {
-	sub_800B808, // RNO1_TANTEI_INIT
-	sub_800BAD4, // RNO1_TANTEI_MAIN
-	sub_800BD74, // RNO1_TANTEI_EXIT
-	sub_800BDF8, // RNO1_TANTEI_BG_WAIT
-	sub_800BE58, // RNO1_TANTEI_MW_WAIT
-	sub_800BE7C, // RNO1_TANTEI_ROOM_INIT
-	sub_800BF90, // RNO1_TANTEI_INSPECT
-	sub_800C334, // RNO1_TANTEI_MOVE
-	sub_800C8B8, // RNO1_TANTEI_TALK
-	sub_800D2B0  // RNO1_TANTEI_SHOW
+	InvestigationInit, // RNO1_TANTEI_INIT
+	InvestigationMain, // RNO1_TANTEI_MAIN
+	InvestigationExit, // RNO1_TANTEI_EXIT
+	InvestigationBgScrollWait, // RNO1_TANTEI_BG_WAIT
+	InvestigationTextboxSlideWait, // RNO1_TANTEI_MW_WAIT
+	InvestigationRoomInit, // RNO1_TANTEI_ROOM_INIT
+	InvestigationInspect, // RNO1_TANTEI_INSPECT
+	InvestigationMove, // RNO1_TANTEI_MOVE
+	InvestigationTalk, // RNO1_TANTEI_TALK
+	InvestigationPresent  // RNO1_TANTEI_SHOW
 };
 
 void InvestigationProcess(struct Main * main) // Tantei_part
 {
-    if(main->process[GAME_PROCESS_STATE] != TANTEI_ROOM_INIT)
+    if(main->process[GAME_PROCESS_STATE] != INVESTIGATION_ROOM_INIT)
         gInvestigationRoomUpdateFunctions[main->scenarioIdx](main);
     gInvestigationProcessStates[main->process[GAME_PROCESS_STATE]](main, &gInvestigation);
-    sub_800D3C8(&gInvestigation);
+    UpdateInvestigationActionSprites(&gInvestigation);
 }
 
-void sub_800B808(struct Main * main, struct InvestigationStruct * investigation) // tantei_init
+void InvestigationInit(struct Main * main, struct InvestigationStruct * investigation) // tantei_init
 {
     struct IORegisters * ioRegs = &gIORegisters;
     struct OamAttrs * oam;
@@ -109,7 +109,7 @@ void sub_800B808(struct Main * main, struct InvestigationStruct * investigation)
     ChangeScriptSection(0x80);
     SlideTextbox(1);
     gInvestigationRoomSetupFunctions[main->scenarioIdx](main);
-    sub_800D530(main, 0);
+    UpdateScrollPromptSprite(main, 0);
     SetCurrentEpisodeBit();
     SetTimedKeysAndDelay(DPAD_RIGHT | DPAD_LEFT, 15);
     StartHardwareBlend(1, 1, 1, 0x1F);
@@ -120,15 +120,15 @@ void sub_800B808(struct Main * main, struct InvestigationStruct * investigation)
         ioRegs->lcd_dispcnt &= ~DISPCNT_BG1_ON;
         ioRegs->lcd_bg1vofs = 0;
     }
-    SET_PROCESS_PTR(INVESTIGATION_PROCESS, TANTEI_MAIN, 0, 0, main);
+    SET_PROCESS_PTR(INVESTIGATION_PROCESS, INVESTIGATION_MAIN, 0, 0, main);
 }
 
 //FIXME: tail merge causes register diffs
-void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation) // tantei_main
+void InvestigationMain(struct Main * main, struct InvestigationStruct * investigation) // tantei_main
 {
     if(main->blendMode)
     {
-        sub_800D530(main, 0);
+        UpdateScrollPromptSprite(main, 0);
         return;
     }
 
@@ -163,7 +163,7 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
                 PlaySE(SE007_MENU_OPEN_SUBMENU);
                 BACKUP_PROCESS_PTR(main);
                 SET_PROCESS_PTR(7, 0, 0, 0, main);
-                sub_800D530(main, 0);
+                UpdateScrollPromptSprite(main, 0);
                 investigation->selectedActionYOffset = 0;
                 investigation->lastActionYOffset = 8;
                 investigation->lastAction = investigation->selectedAction;
@@ -177,10 +177,10 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
     main->advanceScriptContext || 
     main->showTextboxCharacters)
     {
-        sub_800D530(main, 0);
+        UpdateScrollPromptSprite(main, 0);
         return;
     }
-    sub_800D530(main, 1);
+    UpdateScrollPromptSprite(main, 1);
     if(gJoypad.pressedKeys & START_BUTTON)
     {
         if(!(main->gameStateFlags & 0x10))
@@ -205,7 +205,7 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
             PlaySE(SE007_MENU_OPEN_SUBMENU);
             BACKUP_PROCESS_PTR(main);
             SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_INIT, 0, 0, main);
-            sub_800D530(main, 0);
+            UpdateScrollPromptSprite(main, 0);
             investigation->selectedActionYOffset = 0;
             investigation->lastActionYOffset = 8;
             investigation->lastAction = investigation->selectedAction;
@@ -239,7 +239,7 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
         investigation->lastActionYOffset = 0;
         investigation->lastAction = investigation->selectedAction;
         investigation->actionState = 3;
-        sub_800D530(main, 0);
+        UpdateScrollPromptSprite(main, 0);
         if(investigation->selectedAction == 0)
         {
             StartAnimationBlend(0xC, 1);
@@ -247,7 +247,7 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
             investigation->pointerColor = 0;
             DmaCopy16(3, gUnknown_081942C0, OBJ_PLTT+0x100, 0x20);
         }
-        main->process[GAME_PROCESS_STATE] = TANTEI_INSPECT + investigation->selectedAction;
+        main->process[GAME_PROCESS_STATE] = INVESTIGATION_INSPECT + investigation->selectedAction;
         main->process[GAME_PROCESS_VAR2] = 0;
         main->process[GAME_PROCESS_VAR1] = 0;
         return;
@@ -255,8 +255,8 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
     else
     {
         u32 bgBits = GetBGControlBits(main->currentBG);
-        if((bgBits & 1 || bgBits & 2) && 
-        gJoypad.pressedKeys & L_BUTTON)
+        if((bgBits & BG_MODE_SIZE_480x160 || bgBits & BG_MODE_SIZE_360x160)
+         && gJoypad.pressedKeys & L_BUTTON)
         {
             if(main->Bg256_pos_x == 0 || 
             main->Bg256_pos_x == 120 ||
@@ -268,7 +268,7 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
                     main->horizontolBGScrollSpeed = 6;
                 else if(main->Bg256_pos_x == 120 || main->Bg256_pos_x == 240)
                     main->horizontolBGScrollSpeed = -6;
-                main->process[GAME_PROCESS_STATE] = TANTEI_BG_WAIT;
+                main->process[GAME_PROCESS_STATE] = INVESTIGATION_BG_SCROLL_WAIT;
                 main->process[GAME_PROCESS_VAR2] = 0;
                 main->process[GAME_PROCESS_VAR1] = 0;
                 investigation->actionState = 3;
@@ -283,7 +283,7 @@ void sub_800BAD4(struct Main * main, struct InvestigationStruct * investigation)
 }
 
 // ! same as CourtExit, thanks capcom
-void sub_800BD74(struct Main * main, struct InvestigationStruct * investigation) // tantei_exit
+void InvestigationExit(struct Main * main, struct InvestigationStruct * investigation) // tantei_exit
 {
     DmaCopy16(3, &gMain, &gSaveDataBuffer.main, sizeof(gMain));
     SET_PROCESS_PTR(SAVE_GAME_PROCESS, 0, 0, 1, main);
@@ -304,13 +304,13 @@ void sub_800BD74(struct Main * main, struct InvestigationStruct * investigation)
     }
 }
 
-void sub_800BDF8(struct Main * main, struct InvestigationStruct * investigation) // tantei_bg_scroll_wait
+void InvestigationBgScrollWait(struct Main * main, struct InvestigationStruct * investigation) // tantei_bg_scroll_wait
 {
     bool32 finishedScrolling;
-    sub_800D530(main, 0);
+    UpdateScrollPromptSprite(main, 0);
     if(main->process[GAME_PROCESS_VAR1] == 0)
     {
-        if(GetBGControlBits(main->currentBG) & 1)
+        if(GetBGControlBits(main->currentBG) & BG_MODE_SIZE_480x160)
         {
             if(main->Bg256_pos_x == 0 || main->Bg256_pos_x == 240)
                 finishedScrolling = TRUE;
@@ -335,18 +335,18 @@ void sub_800BDF8(struct Main * main, struct InvestigationStruct * investigation)
     else
     {
         if(investigation->actionState == 0)
-            SET_PROCESS_PTR(INVESTIGATION_PROCESS, TANTEI_MAIN, 0, 0, main);
+            SET_PROCESS_PTR(INVESTIGATION_PROCESS, INVESTIGATION_MAIN, 0, 0, main);
     }
 }
 
-void sub_800BE58(struct Main * main, struct InvestigationStruct * investigation) // tantei_mw_scroll_wait
+void InvestigationTextboxSlideWait(struct Main * main, struct InvestigationStruct * investigation) // tantei_mw_scroll_wait
 {
-    sub_800D530(main, 0);
+    UpdateScrollPromptSprite(main, 0);
     if(gScriptContext.textboxState == 0)
-        SET_PROCESS_PTR(INVESTIGATION_PROCESS, TANTEI_MAIN, 0, 0, main);
+        SET_PROCESS_PTR(INVESTIGATION_PROCESS, INVESTIGATION_MAIN, 0, 0, main);
 }
 
-void sub_800BE7C(struct Main * main, struct InvestigationStruct * investigation) // tantei_room_init
+void InvestigationRoomInit(struct Main * main, struct InvestigationStruct * investigation) // tantei_room_init
 {
     u32 i, j;
     u8 * roomData;
@@ -393,12 +393,12 @@ void sub_800BE7C(struct Main * main, struct InvestigationStruct * investigation)
     SetInactiveActionButtons(&gInvestigation, 0xF);
     
     gInvestigationRoomSetupFunctions[main->scenarioIdx](main);
-    sub_800D530(main, 0);
+    UpdateScrollPromptSprite(main, 0);
     StartHardwareBlend(1, 1, 1, 0x1F);
-    SET_PROCESS_PTR(INVESTIGATION_PROCESS, TANTEI_MAIN, 0, 0, main);
+    SET_PROCESS_PTR(INVESTIGATION_PROCESS, INVESTIGATION_MAIN, 0, 0, main);
 }
 
-void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation) // tantei_inspect // ! goto
+void InvestigationInspect(struct Main * main, struct InvestigationStruct * investigation) // tantei_inspect // ! goto
 {
     u32 temp;
     struct OamAttrs * oam = &gOamObjects[88];
@@ -559,7 +559,7 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
                     oam->attr0 = SPRITE_ATTR0_CLEAR;
                     ChangeAnimationActivity(&gAnimation[1], TRUE);
                     StartAnimationBlend(1, 1);
-                    SET_PROCESS_PTR(INVESTIGATION_PROCESS, TANTEI_MAIN, 0, 0, main);
+                    SET_PROCESS_PTR(INVESTIGATION_PROCESS, INVESTIGATION_MAIN, 0, 0, main);
                     investigation->inactiveActions += 1 << investigation->selectedAction;
                     investigation->selectedActionYOffset = 8;
                     investigation->lastActionYOffset = 0;
@@ -569,7 +569,7 @@ void sub_800BF90(struct Main * main, struct InvestigationStruct * investigation)
     }
 }
 
-void sub_800C334(struct Main * main, struct InvestigationStruct * investigation) // tantei_move
+void InvestigationMove(struct Main * main, struct InvestigationStruct * investigation) // tantei_move
 {
     u16 attr1;
     u32 i;
@@ -740,7 +740,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                 main->currentRoomId = main->roomData[roomId][j];
                 FadeOutBGM(20);
                 StartHardwareBlend(2, 1, 1, 0x1F);
-                SET_PROCESS_PTR(INVESTIGATION_PROCESS, TANTEI_ROOM_INIT, 0, 0, main);
+                SET_PROCESS_PTR(INVESTIGATION_PROCESS, INVESTIGATION_ROOM_INIT, 0, 0, main);
                 break;
             }
             else if(gJoypad.pressedKeys & B_BUTTON)
@@ -800,7 +800,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
                 investigation->selectedActionYOffset--;
             if(investigation->actionState == 0 && main->process[GAME_PROCESS_VAR2] > 12)
             {
-                SET_PROCESS_PTR(INVESTIGATION_PROCESS, TANTEI_MAIN, 0, 0, main);
+                SET_PROCESS_PTR(INVESTIGATION_PROCESS, INVESTIGATION_MAIN, 0, 0, main);
                 investigation->inactiveActions += 1 << investigation->selectedAction;
                 investigation->selectedActionYOffset = 8;
                 investigation->lastActionYOffset = 0;
@@ -866,7 +866,7 @@ void sub_800C334(struct Main * main, struct InvestigationStruct * investigation)
 }
 
 #ifdef NONMATCHING
-void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation) // tantei_talk
+void InvestigationTalk(struct Main * main, struct InvestigationStruct * investigation) // tantei_talk
 {
     struct OamAttrs * oam2;
     struct OamAttrs * oam;
@@ -1149,7 +1149,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
                 investigation->selectedActionYOffset--;
             if(investigation->actionState == 0 && main->process[GAME_PROCESS_VAR2] > 12)
             {
-                SET_PROCESS_PTR(INVESTIGATION_PROCESS, TANTEI_MAIN, 0, 0, main);
+                SET_PROCESS_PTR(INVESTIGATION_PROCESS, INVESTIGATION_MAIN, 0, 0, main);
                 investigation->inactiveActions += 1 << investigation->selectedAction;
                 investigation->selectedActionYOffset = 8;
                 investigation->lastActionYOffset = 0;
@@ -1339,7 +1339,7 @@ void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
     }
 }
 #else
-NAKED void sub_800C8B8(struct Main * main, struct InvestigationStruct * investigation)
+NAKED void InvestigationTalk(struct Main * main, struct InvestigationStruct * investigation)
 {
     asm_unified("\tpush {r4, r5, r6, r7, lr}\n\
 	mov r7, sl\n\
@@ -2617,7 +2617,7 @@ _0800D2AC: .4byte 0x00000FFF\n");
 }
 #endif
 
-void sub_800D2B0(struct Main * main, struct InvestigationStruct * investigation) // tantei_show
+void InvestigationPresent(struct Main * main, struct InvestigationStruct * investigation) // tantei_show
 {
     struct OamAttrs * oam;
     u32 i;
@@ -2657,7 +2657,7 @@ void sub_800D2B0(struct Main * main, struct InvestigationStruct * investigation)
                 investigation->lastActionYOffset = 8;
                 investigation->selectedAction = 3;
                 investigation->lastAction = 3;
-                SET_PROCESS_PTR(INVESTIGATION_PROCESS, TANTEI_MAIN, 0, 0, main);
+                SET_PROCESS_PTR(INVESTIGATION_PROCESS, INVESTIGATION_MAIN, 0, 0, main);
             }
             break;
         case 3:
@@ -2676,13 +2676,13 @@ void sub_800D2B0(struct Main * main, struct InvestigationStruct * investigation)
                 investigation->selectedActionYOffset = 8;
                 investigation->lastActionYOffset = 0;
                 investigation->inactiveActions += 1 << investigation->selectedAction;
-                SET_PROCESS_PTR(INVESTIGATION_PROCESS, TANTEI_MAIN, 0, 0, main);
+                SET_PROCESS_PTR(INVESTIGATION_PROCESS, INVESTIGATION_MAIN, 0, 0, main);
             }
             break;
     }
 }
 
-void sub_800D3C8(struct InvestigationStruct * investigation)
+void UpdateInvestigationActionSprites(struct InvestigationStruct * investigation)
 {
     struct OamAttrs * oam = &gOamObjects[49];
     u32 i;
@@ -2767,7 +2767,7 @@ void sub_800D3C8(struct InvestigationStruct * investigation)
     }
 }
 
-void sub_800D530(struct Main * main, u32 show)
+void UpdateScrollPromptSprite(struct Main * main, u32 show)
 {
     struct OamAttrs * oam = &gOamObjects[53];
     u32 r6 = 0; // ! UNUSED, This is present in the assembly for this function somehow

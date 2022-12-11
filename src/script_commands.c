@@ -740,17 +740,17 @@ u32 Command1C(struct ScriptContext * scriptCtx)
             if(gMain.process[GAME_PROCESS] == INVESTIGATION_PROCESS)
             {
                 gInvestigation.selectedActionYOffset = 0;
-                if(gMain.process[GAME_PROCESS_STATE] == TANTEI_INSPECT)
+                if(gMain.process[GAME_PROCESS_STATE] == INVESTIGATION_INSPECT)
                 {
                     SetInactiveActionButtons(&gInvestigation, 1);
                 }
-                if(gMain.process[GAME_PROCESS_STATE] == TANTEI_TALK)
+                if(gMain.process[GAME_PROCESS_STATE] == INVESTIGATION_TALK)
                 {
                     SetInactiveActionButtons(&gInvestigation, 4);
                     gInvestigation.actionState = 4;
                     gInvestigation.inactiveActionButtonY = 0xE0;
                 }
-                if(gMain.process[GAME_PROCESS_STATE] == TANTEI_SHOW)
+                if(gMain.process[GAME_PROCESS_STATE] == INVESTIGATION_PRESENT)
                 {
                     SetInactiveActionButtons(&gInvestigation, 8);
                 }
@@ -770,7 +770,7 @@ u32 Command1D(struct ScriptContext * scriptCtx)
     u32 var1;
     scriptCtx->scriptPtr++;
     bits = GetBGControlBits(gMain.currentBG);
-    if(bits & 0xF)
+    if(bits & BG_MODE_SIZE_MASK)
         gMain.isBGScrolling = 1;
     else
         gMain.isBGScrolling = 0;

@@ -729,7 +729,7 @@ bool32 Command34(struct ScriptContext *scriptCtx)
     gMain.currentRoomId = *scriptCtx->scriptPtr;
     scriptCtx->scriptPtr++;
     StartHardwareBlend(2, 0, 2, 0x1F);
-    SET_PROCESS(INVESTIGATION_PROCESS, TANTEI_ROOM_INIT, 0, 0);
+    SET_PROCESS(INVESTIGATION_PROCESS, INVESTIGATION_ROOM_INIT, 0, 0);
     return 0;
 }
 

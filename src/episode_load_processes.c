@@ -746,9 +746,9 @@ void ContinueSaveProcess(struct Main * main) {
 
                 if (main->process[GAME_PROCESS_VAR1] == 3) {
                     // 9E82
-                    if (main->process[GAME_PROCESS_STATE] == TANTEI_MOVE) {
+                    if (main->process[GAME_PROCESS_STATE] == INVESTIGATION_MOVE) {
                         LoadLocationChoiceGraphics();
-                    } else if (main->process[GAME_PROCESS_STATE] == TANTEI_TALK) {
+                    } else if (main->process[GAME_PROCESS_STATE] == INVESTIGATION_TALK) {
                         LoadTalkChoiceGraphics();
                     }
                 }

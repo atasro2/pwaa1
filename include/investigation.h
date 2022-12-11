@@ -186,16 +186,16 @@ extern u32 GetExaminedAreaSection(struct InvestigationStruct *);
 void LoadLocationChoiceGraphics(void);
 void LoadTalkChoiceGraphics(void);
 
-void sub_800B808(struct Main *, struct InvestigationStruct *);
-void sub_800BAD4(struct Main *, struct InvestigationStruct *);
-void sub_800BD74(struct Main *, struct InvestigationStruct *);
-void sub_800BDF8(struct Main *, struct InvestigationStruct *);
-void sub_800BE58(struct Main *, struct InvestigationStruct *);
-void sub_800BE7C(struct Main *, struct InvestigationStruct *);
-void sub_800BF90(struct Main *, struct InvestigationStruct *);
-void sub_800C334(struct Main *, struct InvestigationStruct *);
-void sub_800C8B8(struct Main *, struct InvestigationStruct *);
-void sub_800D2B0(struct Main *, struct InvestigationStruct *);
+void InvestigationInit(struct Main *, struct InvestigationStruct *);
+void InvestigationMain(struct Main *, struct InvestigationStruct *);
+void InvestigationExit(struct Main *, struct InvestigationStruct *);
+void InvestigationBgScrollWait(struct Main *, struct InvestigationStruct *);
+void InvestigationTextboxSlideWait(struct Main *, struct InvestigationStruct *);
+void InvestigationRoomInit(struct Main *, struct InvestigationStruct *);
+void InvestigationInspect(struct Main *, struct InvestigationStruct *);
+void InvestigationMove(struct Main *, struct InvestigationStruct *);
+void InvestigationTalk(struct Main *, struct InvestigationStruct *);
+void InvestigationPresent(struct Main *, struct InvestigationStruct *);
 
 /* Segment 1 */
 void InvestigationSegmentSetup_1_0(struct Main *main);

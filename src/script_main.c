@@ -172,7 +172,7 @@ void InitScriptSection(struct ScriptContext *scriptCtx)
     }
     scriptCtx->textX = 0;
     scriptCtx->textY = 0;
-    if (!(gMain.process[GAME_PROCESS] == INVESTIGATION_PROCESS && gMain.process[GAME_PROCESS_STATE] == TANTEI_TALK))
+    if (!(gMain.process[GAME_PROCESS] == INVESTIGATION_PROCESS && gMain.process[GAME_PROCESS_STATE] == INVESTIGATION_TALK))
         scriptCtx->textSkip = 0;
     scriptCtx->unk15 = 0;
     scriptCtx->paragraphSkipDelayCounter = 8;

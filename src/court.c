@@ -129,7 +129,7 @@ void CourtMain(struct Main * main)
     {
         if(testimony->healthPointX > 160)
             testimony->healthPointX -= 4;
-        sub_800B638(main, testimony);
+        UpdateHealthSprites(main, testimony);
     }
 }
 
@@ -453,12 +453,12 @@ void QuestioningMain(struct Main * main)
         BACKUP_PROCESS_PTR(main);
         SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_INIT, 0, 0, main);
     }
-    sub_800B51C(main, &gTestimony, 1);
+    UpdateQuestioningMenuSprites(main, &gTestimony, 1);
     if(main->gameStateFlags & 0x400)
     {
         if(gTestimony.healthPointX > 0xA0)
             gTestimony.healthPointX -= 4;
-        sub_800B638(main, &gTestimony);
+        UpdateHealthSprites(main, &gTestimony);
     }
     UpdateCourtRecordArrows(&gCourtRecord);
     oam = gOamObjects;
@@ -526,7 +526,7 @@ void QuestioningHoldIt(struct Main * main)
         default:
             break;
     }
-    sub_800B51C(main, &gTestimony, 0);
+    UpdateQuestioningMenuSprites(main, &gTestimony, 0);
     gOamObjects[0].attr0 = SPRITE_ATTR0_CLEAR;
     gOamObjects[1].attr0 = SPRITE_ATTR0_CLEAR;
 }
@@ -586,7 +586,7 @@ void QuestioningObjection(struct Main * main)
         default:
             break;
     }
-    sub_800B51C(main, &gTestimony, 0);
+    UpdateQuestioningMenuSprites(main, &gTestimony, 0);
 }
 
 void VerdictProcess(struct Main * main)
@@ -764,7 +764,7 @@ void VerdictProcess(struct Main * main)
     }
 }
 
-void sub_800B51C(struct Main * main, struct TestimonyStruct * testimony, u32 unk2) // questioning_menu_disp
+void UpdateQuestioningMenuSprites(struct Main * main, struct TestimonyStruct * testimony, u32 unk2) // questioning_menu_disp
 {
     u32 i;
     struct OamAttrs * oam;
@@ -846,10 +846,10 @@ void sub_800B51C(struct Main * main, struct TestimonyStruct * testimony, u32 unk
         oam->attr1 = attr1;
         oam->attr2 = SPRITE_ATTR2(0x198, 1, 5);
     }
-    sub_800B638(main, testimony);
+    UpdateHealthSprites(main, testimony);
 }
 
-void sub_800B638(struct Main * main, struct TestimonyStruct * testimony) // rest_disp
+void UpdateHealthSprites(struct Main * main, struct TestimonyStruct * testimony) // rest_disp
 {
     struct OamAttrs * oam = &gOamObjects[35];
     u32 i;

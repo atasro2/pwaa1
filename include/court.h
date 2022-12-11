@@ -15,8 +15,8 @@ struct TestimonyStruct
 extern struct TestimonyStruct gTestimony;
 
 void SetCurrentEpisodeBit();
-void sub_800B51C(struct Main *, struct TestimonyStruct *, u32);
-void sub_800B638(struct Main *, struct TestimonyStruct *);
+void UpdateQuestioningMenuSprites(struct Main *, struct TestimonyStruct *, u32);
+void UpdateHealthSprites(struct Main *, struct TestimonyStruct *);
 
 void CourtProcess(struct Main *);
 void TestimonyProcess(struct Main *);

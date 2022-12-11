@@ -39,7 +39,7 @@ bool32 Command41(struct ScriptContext * scriptCtx)
     gInvestigation.selectedAction = 0;
     gInvestigation.lastAction = 0;
     
-    SET_PROCESS(INVESTIGATION_PROCESS,TANTEI_MAIN,0,0);
+    SET_PROCESS(INVESTIGATION_PROCESS,INVESTIGATION_MAIN,0,0);
     return 0;
 }
 
