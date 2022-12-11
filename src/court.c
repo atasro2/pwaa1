@@ -569,7 +569,7 @@ void QuestioningObjection(struct Main * main)
                 gTestimony.pressPromptY = 0xE0;
                 gTestimony.presentPromptY = 0xE0;
                 gTestimony.displayState = 0;
-                if(gScriptContext.unk33)
+                if(gScriptContext.slamDesk)
                 {
                     gMain.advanceScriptContext = TRUE;
                     gMain.showTextboxCharacters = TRUE;

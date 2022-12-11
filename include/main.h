@@ -19,7 +19,7 @@ struct Joypad
 
 struct Main
 {
-    /* +0x000 */ u32 unk0; // unity: System_timer? unused in unity
+    /* +0x000 */ u32 frameCounter; // unity: System_timer? unused in unity
     /* +0x004 */ u8 process[4]; // unity: r
     /* +0x008 */ u8 processCopy[4]; // unity: r_bk
     /* +0x00C */ u8 vblankWaitCounter; // unity: V_blank_flag
@@ -92,7 +92,7 @@ struct Main
     /* +0x0B8 */ u32 talkEndFlags[8]; // unity: talk_end_flag
     /* +0x0D8 */ u8 roomData[24][8]; // unity: Map_data //TODO: first size might be wrong
     /* +0x198 */ u32 soundFlags;
-    /* +0x19C */ u32 unk19C; // only used once, only bit 2 is set
+    /* +0x19C */ u32 unk19C; // bit 2 is set, never used
 };
 
 struct IORegisters

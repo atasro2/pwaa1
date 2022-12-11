@@ -219,7 +219,7 @@ void InitScriptSection(struct ScriptContext *scriptCtx)
     {
         gMapMarker[i].id |= 0xFF;
         gMapMarker[i].isBlinking = 0;
-        gMapMarker[i].unk5 = 0;
+        gMapMarker[i].flags = 0;
         gMapMarker[i].attr0 = SPRITE_ATTR0_CLEAR;
     }
 }
@@ -381,13 +381,13 @@ static void DrawTextAndMapMarkers(struct ScriptContext * scriptCtx)
                     if (gMapMarker[i].blinkTimer < 16)
                         oam->attr0 = SPRITE_ATTR0_CLEAR;
                 }
-                if(gMapMarker[i].unk5 & 0x2)
+                if(gMapMarker[i].flags & 0x2)
                 {
                     gMapMarker[i].distanceMoved += gMapMarker[i].speed;
                     if (gMapMarker[i].distanceMoved >= gMapMarker[i].distanceToMove)
                     {
                         gMapMarker[i].speed -= gMapMarker[i].distanceMoved - gMapMarker[i].distanceToMove;
-                        gMapMarker[i].unk5 &= ~2;
+                        gMapMarker[i].flags &= ~2;
                     }
                     switch(gMapMarker[i].direction)
                     {
@@ -427,7 +427,7 @@ static void DrawTextAndMapMarkers(struct ScriptContext * scriptCtx)
                             break;
                     }
                 }
-                if(gMapMarker[i].unk5 & 0x4)
+                if(gMapMarker[i].flags & 0x4)
                     oam->attr0 = SPRITE_ATTR0_CLEAR;
                 oam++;
             }

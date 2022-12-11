@@ -18,8 +18,8 @@ struct TalkData
 struct ExaminationData
 {
     /* +0x00 */ u16 examinationSection;
-    /* +0x02 */ u8 unk2;
-    /* +0x03 */ u8 unk3;
+    /* +0x02 */ u8 type;
+    /* +0x03 */ u8 animId;
     /* +0x04 */ struct Point4 area;
 };  
 
@@ -29,7 +29,7 @@ struct InvestigationStruct // unity: tantei_work_
     /* +0x02 */ u16 pointerY; // unity AA4: finger_pos_y
     /* +0x04 */ u8 selectedOption; // unity AA4: sel_place
     /* +0x05 */ bool8 personActive; // unity: person_flag // is person in current room?
-    /* +0x06 */ u8 unk6; // unity AA4: ckeck_no_flag
+    /* +0x06 */ bool8 inspectionPaused; // unity AA4: ckeck_no_flag
     /* +0x07 */ u8 inactiveActions; // unity AA4: menu_mv_be_flag
     /* +0x08 */ u8 spotselectStartCounter; // unity AA4: finger_speed_x
     /* +0x09 */ u8 spotselectId; // unity: siteki_no // 指摘 pointed out

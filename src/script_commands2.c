@@ -871,7 +871,7 @@ bool32 Command39(struct ScriptContext *scriptCtx)
             oamObject->attr0 = mapMarker->attr0;
             oamObject->attr1 = mapMarker->attr1;
             oamObject->attr2 = mapMarker->attr2;
-            mapMarker->unk5 &= ~0x4;
+            mapMarker->flags &= ~0x4;
         }
     }
     else
@@ -879,7 +879,7 @@ bool32 Command39(struct ScriptContext *scriptCtx)
         // TODO: BUGFIX
         // ! Capcom forgot to check for 0xFF here..this will slightly corrupt the sound buffer in gSoundInfo
         oamIdx = GetMapMarkerIndexFromId(id);
-        gMapMarker[oamIdx].unk5 |= 4;
+        gMapMarker[oamIdx].flags |= 4;
     }
     scriptCtx->scriptPtr++;
     return 0;
@@ -919,7 +919,7 @@ bool32 Command3B(struct ScriptContext *scriptCtx)
         gMapMarker[oamIdx].speed = (u8)(*scriptCtx->scriptPtr >> 8);
         gMapMarker[oamIdx].distanceToMove = (u8)*scriptCtx->scriptPtr;
         scriptCtx->scriptPtr++;
-        gMapMarker[oamIdx].unk5 |= 2;
+        gMapMarker[oamIdx].flags |= 2;
         gMapMarker[oamIdx].distanceMoved = 0;
     }
     else
@@ -955,7 +955,7 @@ bool32 Command3D(struct ScriptContext *scriptCtx)
     oamIdx = GetMapMarkerIndexFromId(*scriptCtx->scriptPtr >> 8);
     if (oamIdx != 0xFF)
     {
-        if (gMapMarker[oamIdx].unk5 & 2)
+        if (gMapMarker[oamIdx].flags & 2)
         {
             scriptCtx->scriptPtr--;
             return 1;
@@ -1090,7 +1090,7 @@ void MakeMapMarkerSprites()
         id = gMapMarker[i].id;
         DmaCopy16(3, sMapMarkerSprites[id].tiles, (gMapMarker + i)->vramPtr, sMapMarkerSprites[id].size);
         mapMarker = &gMapMarker[i];
-        if (!(mapMarker->unk5 & 4))
+        if (!(mapMarker->flags & 4))
         {
             oam = &gOamObjects[mapMarker->oamIdx];
             oam->attr0 = mapMarker->attr0;

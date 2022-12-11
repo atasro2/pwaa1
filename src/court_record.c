@@ -841,12 +841,12 @@ void CourtRecordMain(struct Main * main, struct CourtRecord * courtRecord) // st
                             // could be a macro which would be cool
                             do {
                                 ChangeScriptSection(0x1A);
-                                gScriptContext.unk33 = 1;
+                                gScriptContext.slamDesk = TRUE;
                             } while(0); // lolwut? needed for matching
                             break;
                         case 1:
                             ChangeScriptSection(0x1B);
-                            gScriptContext.unk33 = 1;
+                            gScriptContext.slamDesk = TRUE;
                             break;
                         case 2:
                             ChangeScriptSection(0x1C);
@@ -1760,14 +1760,14 @@ u32 GetQuestioningPresentedSection(u32 section, u32 evidenceId)
         }
         if(presentData->presentingSection == section && presentData->evidenceId == evidenceId)
         {
-            if(presentData->unk7)
-                gScriptContext.unk33 = 0;
+            if(presentData->action != 0)
+                gScriptContext.slamDesk = FALSE;
             else
-                gScriptContext.unk33 = 1;
+                gScriptContext.slamDesk = TRUE;
             return presentData->presentedSection;
         }
     }
-    gScriptContext.unk33 = 0;
+    gScriptContext.slamDesk = FALSE;
     return 0;
 }
 

@@ -1686,7 +1686,7 @@ static u32 AdvanceAnimationFrame(struct AnimationListEntry * animation)
 {
     void * gfxDataStart;
     u32 retVal = 4;
-    if (gScriptContext.unk32 && animation->animationInfo.animId == 0xFF)
+    if (gScriptContext.personAnimPauseCounter && animation->animationInfo.animId == 0xFF)
         return retVal;
     if (animation->frameData->frameDuration > ++animation->frameDurationCounter)
         return retVal;
@@ -2232,15 +2232,15 @@ void SpeechBubbleAnimationEffect(struct AnimationListEntry * animation)
 {
     s32 rand = (Random() & 3) + 1; // 1 to 4
     s32 rand2 = (Random() & 7) - 4; // -4 to 3
-    if(animation->unk2B == 0)
-        animation->unk2E = animation->animationInfo.xOrigin;
-    animation->unk2B++;
-    if(animation->unk2B < 0x1F)
+    if(animation->animVar1 == 0)
+        animation->specialEffectVar = animation->animationInfo.xOrigin;
+    animation->animVar1++;
+    if(animation->animVar1 < 0x1F)
     {
-        if((animation->unk2B & 1) != 0)
-            animation->animationInfo.xOrigin = animation->unk2E + rand;
+        if((animation->animVar1 & 1) != 0)
+            animation->animationInfo.xOrigin = animation->specialEffectVar + rand;
         else
-            animation->animationInfo.xOrigin = animation->unk2E - rand;
+            animation->animationInfo.xOrigin = animation->specialEffectVar - rand;
         animation->animationInfo.yOrigin += rand2;
         if(animation->animationInfo.yOrigin > 90)
             animation->animationInfo.yOrigin = 90;
@@ -2248,7 +2248,7 @@ void SpeechBubbleAnimationEffect(struct AnimationListEntry * animation)
             animation->animationInfo.yOrigin = 70;
     }
     else
-        animation->unk2B = 40;
+        animation->animVar1 = 40;
 }
 
 void Case3OpeningAnimationEffect(struct AnimationListEntry * animation)
@@ -2263,24 +2263,24 @@ void Case3OpeningAnimationEffect(struct AnimationListEntry * animation)
     if(main->currentBG == 0x4A)
     {
         if(animation->animationInfo.animId == 5)
-            animation->unk2E += 3;
+            animation->specialEffectVar += 3;
         else if(animation->animationInfo.animId == 6)
-            animation->unk2E -= 5;
+            animation->specialEffectVar -= 5;
         else
-            animation->unk2E += 1;
+            animation->specialEffectVar += 1;
     }
     else
     {
         if(animation->animationInfo.animId == 5)
-            animation->unk2E -= 3;
+            animation->specialEffectVar -= 3;
         else if(animation->animationInfo.animId == 6)
-            animation->unk2E += 5;
+            animation->specialEffectVar += 5;
         else
-            animation->unk2E -= 1;
+            animation->specialEffectVar -= 1;
     }
-    animation->animationInfo.xOrigin += animation->unk2E / 20;
-    if(animation->unk2E > 20)
-        animation->unk2E -= 20;
-    else if(animation->unk2E < -20)
-        animation->unk2E += 20;
+    animation->animationInfo.xOrigin += animation->specialEffectVar / 20;
+    if(animation->specialEffectVar > 20)
+        animation->specialEffectVar -= 20;
+    else if(animation->specialEffectVar < -20)
+        animation->specialEffectVar += 20;
 }

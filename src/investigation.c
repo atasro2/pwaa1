@@ -415,7 +415,7 @@ void InvestigationInspect(struct Main * main, struct InvestigationStruct * inves
     && !(main->gameStateFlags & 0x10)
     && gScriptContext.flags & (SCRIPT_FULLSCREEN | 1))
         goto r;
-    else if(investigation->unk6)
+    else if(investigation->inspectionPaused)
         return;
     else if(gScriptContext.textboxState != 1)
         return;
@@ -466,7 +466,7 @@ void InvestigationInspect(struct Main * main, struct InvestigationStruct * inves
                     temp = GetExaminedAreaSection(investigation);
                     ChangeScriptSection(temp);
                     SlideTextbox(1);
-                    investigation->unk6 = 1;
+                    investigation->inspectionPaused = TRUE;
                     investigation->pointerFrame = 0;
                     investigation->pointerFrameCounter = 0;
                     investigation->inactiveActions = 1;
@@ -2641,7 +2641,7 @@ void InvestigationPresent(struct Main * main, struct InvestigationStruct * inves
             break;
         case 2:
             if(investigation->inactiveActionButtonY == 0xE0
-            && !gScriptContext.textboxState)
+            && gScriptContext.textboxState == 0)
             {
                 oam = &gOamObjects[49];
                 for(i = 0; i < 4; i++)
@@ -2805,14 +2805,14 @@ u32 GetExaminedAreaSection(struct InvestigationStruct * investigation) // finger
     if(GetFlag(0, 0x41) == FALSE)
         return 0x19;
     animId = CheckRectCollisionWithAnim(&rect);
-    for(examData = gExaminationData; examData->unk2 != 0xFF; examData++)
+    for(examData = gExaminationData; examData->type != 0xFF; examData++) // Check for collision with animation
     {
-        if(examData->unk2 == 0xFE && animId == examData->unk3)
+        if(examData->type == 0xFE && animId == examData->animId)
             return examData->examinationSection;
     }
-    for(examData = gExaminationData; examData->unk2 != 0xFF; examData++)
+    for(examData = gExaminationData; examData->type != 0xFF; examData++) // Check for collision with area
     {
-        if(examData->unk2 == 0xFE)
+        if(examData->type == 0xFE)
             continue;
         if(CheckRectCollisionWithArea(&rect, &examData->area))
             return examData->examinationSection;

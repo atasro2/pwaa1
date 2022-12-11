@@ -7,7 +7,7 @@ struct CourtPresentData
     /* +0x02 */ u16 evidenceId; // unity: key
     /* +0x04 */ u16 presentedSection; // unity: jump
     /* +0x06 */ u8 flagId; // unity: sce_flag
-    /* +0x07 */ u8 unk7; // unity: win_flag
+    /* +0x07 */ u8 action; // unity: win_flag
 };
 
 struct InvestigationPresentData

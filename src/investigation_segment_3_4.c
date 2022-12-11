@@ -257,8 +257,8 @@ const u8 gRoomData_3_4[21][8] = {
 const struct ExaminationData gUnknown_080183E4[5] = {
 	{
 		.examinationSection = 0x82,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 99, .y = 80 },
 			[1] = { .x = 128, .y = 80 },
@@ -268,8 +268,8 @@ const struct ExaminationData gUnknown_080183E4[5] = {
 	},
 	{
 		.examinationSection = 0x83,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 221, .y = 23 },
 			[1] = { .x = 240, .y = 23 },
@@ -279,8 +279,8 @@ const struct ExaminationData gUnknown_080183E4[5] = {
 	},
 	{
 		.examinationSection = 0x84,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 0, .y = 16 },
 			[1] = { .x = 88, .y = 33 },
@@ -290,8 +290,8 @@ const struct ExaminationData gUnknown_080183E4[5] = {
 	},
 	{
 		.examinationSection = 0x85,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 147, .y = 129 },
 			[1] = { .x = 240, .y = 129 },
@@ -301,8 +301,8 @@ const struct ExaminationData gUnknown_080183E4[5] = {
 	},
 	{
 		.examinationSection = 0x86,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 147, .y = 43 },
 			[1] = { .x = 195, .y = 43 },
@@ -315,8 +315,8 @@ const struct ExaminationData gUnknown_080183E4[5] = {
 const struct ExaminationData gUnknown_08018448[2] = {
 	{
 		.examinationSection = 0x91,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 196, .y = 76 },
 			[1] = { .x = 211, .y = 76 },
@@ -326,8 +326,8 @@ const struct ExaminationData gUnknown_08018448[2] = {
 	},
 	{
 		.examinationSection = 0x92,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 26, .y = 24 },
 			[1] = { .x = 46, .y = 34 },
@@ -340,8 +340,8 @@ const struct ExaminationData gUnknown_08018448[2] = {
 const struct ExaminationData gUnknown_08018470[4] = {
 	{
 		.examinationSection = 0xC5,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 147, .y = 101 },
 			[1] = { .x = 192, .y = 101 },
@@ -351,8 +351,8 @@ const struct ExaminationData gUnknown_08018470[4] = {
 	},
 	{
 		.examinationSection = 0x18,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 144, .y = 101 },
 			[1] = { .x = 240, .y = 101 },
@@ -362,8 +362,8 @@ const struct ExaminationData gUnknown_08018470[4] = {
 	},
 	{
 		.examinationSection = 0xC6,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 92, .y = 96 },
 			[1] = { .x = 195, .y = 0 },
@@ -373,8 +373,8 @@ const struct ExaminationData gUnknown_08018470[4] = {
 	},
 	{
 		.examinationSection = 0xC6,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 0, .y = 0 },
 			[1] = { .x = 64, .y = 48 },
@@ -387,8 +387,8 @@ const struct ExaminationData gUnknown_08018470[4] = {
 const struct ExaminationData gUnknown_080184C0[6] = {
 	{
 		.examinationSection = 0xC7,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 97, .y = 109 },
 			[1] = { .x = 105, .y = 109 },
@@ -398,8 +398,8 @@ const struct ExaminationData gUnknown_080184C0[6] = {
 	},
 	{
 		.examinationSection = 0xC7,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 128, .y = 109 },
 			[1] = { .x = 136, .y = 109 },
@@ -409,8 +409,8 @@ const struct ExaminationData gUnknown_080184C0[6] = {
 	},
 	{
 		.examinationSection = 0xCB,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 0, .y = 102 },
 			[1] = { .x = 21, .y = 102 },
@@ -420,8 +420,8 @@ const struct ExaminationData gUnknown_080184C0[6] = {
 	},
 	{
 		.examinationSection = 0xC8,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 31, .y = 90 },
 			[1] = { .x = 53, .y = 90 },
@@ -431,8 +431,8 @@ const struct ExaminationData gUnknown_080184C0[6] = {
 	},
 	{
 		.examinationSection = 0xC9,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 0, .y = 80 },
 			[1] = { .x = 198, .y = 80 },
@@ -442,8 +442,8 @@ const struct ExaminationData gUnknown_080184C0[6] = {
 	},
 	{
 		.examinationSection = 0xCA,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 169, .y = 42 },
 			[1] = { .x = 240, .y = 29 },
@@ -456,8 +456,8 @@ const struct ExaminationData gUnknown_080184C0[6] = {
 const struct ExaminationData gUnknown_08018538[3] = {
 	{
 		.examinationSection = 0xCC,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 52, .y = 47 },
 			[1] = { .x = 175, .y = 61 },
@@ -467,8 +467,8 @@ const struct ExaminationData gUnknown_08018538[3] = {
 	},
 	{
 		.examinationSection = 0xCD,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 0, .y = 0 },
 			[1] = { .x = 36, .y = 0 },
@@ -478,8 +478,8 @@ const struct ExaminationData gUnknown_08018538[3] = {
 	},
 	{
 		.examinationSection = 0xCE,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 193, .y = 116 },
 			[1] = { .x = 240, .y = 116 },
@@ -492,8 +492,8 @@ const struct ExaminationData gUnknown_08018538[3] = {
 const struct ExaminationData gUnknown_08018574[7] = {
 	{
 		.examinationSection = 0xBB,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 51, .y = 61 },
 			[1] = { .x = 61, .y = 28 },
@@ -503,8 +503,8 @@ const struct ExaminationData gUnknown_08018574[7] = {
 	},
 	{
 		.examinationSection = 0xBC,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 207, .y = 57 },
 			[1] = { .x = 240, .y = 57 },
@@ -514,8 +514,8 @@ const struct ExaminationData gUnknown_08018574[7] = {
 	},
 	{
 		.examinationSection = 0xD0,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 0, .y = 77 },
 			[1] = { .x = 46, .y = 77 },
@@ -525,8 +525,8 @@ const struct ExaminationData gUnknown_08018574[7] = {
 	},
 	{
 		.examinationSection = 0xD1,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 128, .y = 16 },
 			[1] = { .x = 208, .y = 16 },
@@ -536,8 +536,8 @@ const struct ExaminationData gUnknown_08018574[7] = {
 	},
 	{
 		.examinationSection = 0xD2,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 208, .y = 70 },
 			[1] = { .x = 240, .y = 70 },
@@ -547,8 +547,8 @@ const struct ExaminationData gUnknown_08018574[7] = {
 	},
 	{
 		.examinationSection = 0xD3,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 202, .y = 77 },
 			[1] = { .x = 206, .y = 77 },
@@ -558,8 +558,8 @@ const struct ExaminationData gUnknown_08018574[7] = {
 	},
 	{
 		.examinationSection = 0xCF,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 93, .y = 93 },
 			[1] = { .x = 173, .y = 93 },
@@ -572,8 +572,8 @@ const struct ExaminationData gUnknown_08018574[7] = {
 const struct ExaminationData gUnknown_08018600[6] = {
 	{
 		.examinationSection = 0xD4,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 160, .y = 45 },
 			[1] = { .x = 172, .y = 45 },
@@ -583,8 +583,8 @@ const struct ExaminationData gUnknown_08018600[6] = {
 	},
 	{
 		.examinationSection = 0xD5,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 0, .y = 56 },
 			[1] = { .x = 18, .y = 56 },
@@ -594,8 +594,8 @@ const struct ExaminationData gUnknown_08018600[6] = {
 	},
 	{
 		.examinationSection = 0xD7,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 108, .y = 48 },
 			[1] = { .x = 141, .y = 48 },
@@ -605,8 +605,8 @@ const struct ExaminationData gUnknown_08018600[6] = {
 	},
 	{
 		.examinationSection = 0xD8,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 0, .y = 113 },
 			[1] = { .x = 66, .y = 75 },
@@ -616,8 +616,8 @@ const struct ExaminationData gUnknown_08018600[6] = {
 	},
 	{
 		.examinationSection = 0xD8,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 155, .y = 80 },
 			[1] = { .x = 240, .y = 80 },
@@ -627,8 +627,8 @@ const struct ExaminationData gUnknown_08018600[6] = {
 	},
 	{
 		.examinationSection = 0xD9,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 112, .y = 26 },
 			[1] = { .x = 136, .y = 26 },
@@ -641,8 +641,8 @@ const struct ExaminationData gUnknown_08018600[6] = {
 const struct ExaminationData gUnknown_08018678[5] = {
 	{
 		.examinationSection = 0xDC,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 0, .y = 0 },
 			[1] = { .x = 77, .y = 36 },
@@ -652,8 +652,8 @@ const struct ExaminationData gUnknown_08018678[5] = {
 	},
 	{
 		.examinationSection = 0xDD,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 80, .y = 40 },
 			[1] = { .x = 105, .y = 40 },
@@ -663,8 +663,8 @@ const struct ExaminationData gUnknown_08018678[5] = {
 	},
 	{
 		.examinationSection = 0xDA,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 172, .y = 0 },
 			[1] = { .x = 240, .y = 0 },
@@ -674,8 +674,8 @@ const struct ExaminationData gUnknown_08018678[5] = {
 	},
 	{
 		.examinationSection = 0xDB,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 240, .y = 118 },
 			[1] = { .x = 240, .y = 160 },
@@ -685,8 +685,8 @@ const struct ExaminationData gUnknown_08018678[5] = {
 	},
 	{
 		.examinationSection = 0xBF,
-		.unk2 = 0xFE,
-		.unk3 = 0xF,
+		.type = 0xFE,
+		.animId = 0xF,
 		.area = { .points = {
 			[0] = { .x = 0, .y = 0 },
 			[1] = { .x = 0, .y = 0 },
@@ -699,8 +699,8 @@ const struct ExaminationData gUnknown_08018678[5] = {
 const struct ExaminationData gUnknown_080186DC[5] = {
 	{
 		.examinationSection = 0xA6,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 0, .y = 136 },
 			[1] = { .x = 35, .y = 130 },
@@ -710,8 +710,8 @@ const struct ExaminationData gUnknown_080186DC[5] = {
 	},
 	{
 		.examinationSection = 0xA7,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 26, .y = 80 },
 			[1] = { .x = 57, .y = 80 },
@@ -721,8 +721,8 @@ const struct ExaminationData gUnknown_080186DC[5] = {
 	},
 	{
 		.examinationSection = 0xA4,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 28, .y = 0 },
 			[1] = { .x = 128, .y = 0 },
@@ -732,8 +732,8 @@ const struct ExaminationData gUnknown_080186DC[5] = {
 	},
 	{
 		.examinationSection = 0xA5,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 118, .y = 89 },
 			[1] = { .x = 166, .y = 90 },
@@ -743,8 +743,8 @@ const struct ExaminationData gUnknown_080186DC[5] = {
 	},
 	{
 		.examinationSection = 0xA8,
-		.unk2 = 0x0,
-		.unk3 = 0xFF,
+		.type = 0x0,
+		.animId = 0xFF,
 		.area = { .points = {
 			[0] = { .x = 154, .y = 0 },
 			[1] = { .x = 240, .y = 0 },
