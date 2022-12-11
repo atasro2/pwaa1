@@ -691,7 +691,7 @@ void CopyBGDataToVram(u32 bgId)
     {
         src = gUnknown_08014570;
         dst = gBG3MapBuffer;
-        DmaCopy16(3, src, dst, 0x580);
+        DmaCopy16(3, src, dst, sizeof(gUnknown_08014570));
         DmaFill16(3, 0, BG_PLTT+0x40, 0x1C0);
         DmaFill16(3, 0x2222, VRAM+0x4000, 0x9600);
         return;
@@ -702,7 +702,7 @@ void CopyBGDataToVram(u32 bgId)
         //u32 temp;
         src = gUnknown_08014570;
         dst = gBG3MapBuffer;
-        DmaCopy16(3, src, dst, 0x580);
+        DmaCopy16(3, src, dst, sizeof(gUnknown_08014570));
         j = 0x258;
         j++;j--;
         for(i = 0; i < 20; i++, j++)
@@ -782,7 +782,7 @@ void CopyBGDataToVram(u32 bgId)
         {
             src = gUnknown_08014570;
             dst = gBG3MapBuffer;
-            DmaCopy16(3, src, dst, 0x580);
+            DmaCopy16(3, src, dst, sizeof(gUnknown_08014570));
         }
         src = gBG3MapBuffer;
         dst = (void *)BG_SCREEN_ADDR(31);

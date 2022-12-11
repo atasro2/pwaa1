@@ -636,7 +636,7 @@ void ContinueSaveProcess(struct Main * main) {
             break;
         case 2: // 9BA8
             UpdateBG2Window(&gCourtRecord);
-            if (gCourtRecord.unk1 == 0) { // 9BBA
+            if (gCourtRecord.windowScrollSpeed == 0) { // 9BBA
                 main->advanceScriptContext = TRUE;
                 main->showTextboxCharacters = TRUE;
                 gScriptContext.currentSection = 0xFFFF;

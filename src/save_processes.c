@@ -133,7 +133,7 @@ void ClearSaveProcess(struct Main *main)
         if(main->blendMode == 0)
         {
             UpdateBG2Window(&gCourtRecord);
-            if(gCourtRecord.unk1 == 0)
+            if(gCourtRecord.windowScrollSpeed == 0)
             {
                 main->advanceScriptContext = TRUE;
                 main->showTextboxCharacters = TRUE;
@@ -290,7 +290,7 @@ void SaveGameInitButtons(struct Main *main)
 {
     struct OamAttrs * oam;
     UpdateBG2Window(&gCourtRecord);
-    if(gCourtRecord.unk1 == 0) // ?
+    if(gCourtRecord.windowScrollSpeed == 0) // ?
     {
         main->advanceScriptContext = TRUE;
         main->showTextboxCharacters = TRUE;

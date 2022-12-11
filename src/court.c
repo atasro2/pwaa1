@@ -370,8 +370,8 @@ void QuestioningInit(struct Main * main)
     DmaCopy16(3, gGfx4bppTestimonyArrows, 0x1A0, 0x80); // ! WHAT, HOW
     DmaCopy16(3, gGfx4bppTestimonyArrows + 12 * TILE_SIZE_4BPP, 0x220, 0x80); // ! WHAT, HOW
     main->testimonyBeginningSection = gScriptContext.currentSection;
-    gCourtRecord.unk9 = 0;
-    gCourtRecord.unk8++;
+    gCourtRecord.recordArrowCounter = 0;
+    gCourtRecord.recordArrowFrame++;
     gTestimony.healthPointX = 0xF0;
     gTestimony.pressPromptY = 0xE0;
     gTestimony.presentPromptY = 0xE0;

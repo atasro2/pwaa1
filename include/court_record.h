@@ -5,16 +5,16 @@
 
 struct CourtRecord
 {
-    /* +0x00 */ s8 unk0; // unity AA4: bg_x_add
-    /* +0x01 */ s8 unk1; // unity AA4: bg_x_speed
-    /* +0x02 */ u8 unk2; // unity AA4: bg_x_level
-    /* +0x03 */ u8 unk3; // unity AA4: bg_x_status
-    /* +0x04 */ u16 unk4; // unity AA4: bg_x_pos
-    /* +0x06 */ u16 unk6; // unity AA4: bg_x_pos_old
-    /* +0x08 */ u8 unk8; // unity AA4: arrow_type
-    /* +0x09 */ u8 unk9; // unity AA4: arrow_timer
-    /* +0x0A */ bool8 isSaveScreen; // unity AA4: win_flag
-    /* +0x0B */ u8 unkB; // unity AA4: win_type
+    /* +0x00 */ s8 windowOffset; // unity AA4: bg_x_add
+    /* +0x01 */ s8 windowScrollSpeed; // unity AA4: bg_x_speed
+    /* +0x02 */ u8 windowTileX; // unity AA4: bg_x_level
+    /* +0x03 */ u8 windowMode; // unity AA4: bg_x_status
+    /* +0x04 */ u16 windowX; // unity AA4: bg_x_pos
+    /* +0x06 */ u16 windowPrevX; // unity AA4: bg_x_pos_old
+    /* +0x08 */ u8 recordArrowFrame; // unity AA4: arrow_type
+    /* +0x09 */ u8 recordArrowCounter; // unity AA4: arrow_timer
+    /* +0x0A */ bool8 windowIsSaveScreen; // unity AA4: win_flag
+    /* +0x0B */ u8 unkB; // unity AA4: win_type // unused
     /* +0x0C */ u8 flags; // unity AA4: page_status
     /* +0x0D */ u8 selectedItem; // unity AA4: page_now
     /* +0x0E */ u8 displayItemCount; // unity AA4: page_now_max

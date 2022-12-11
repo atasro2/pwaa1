@@ -951,7 +951,7 @@ void CourtRecordMain(struct Main * main, struct CourtRecord * courtRecord) // st
 void CourtRecordExit(struct Main * main, struct CourtRecord * courtRecord) // status_exit
 {
     struct OamAttrs * oam;
-    if(main->process[GAME_PROCESS_VAR2] == 2 && courtRecord->unk2 > 8)
+    if(main->process[GAME_PROCESS_VAR2] == 2 && courtRecord->windowTileX > 8)
     {
         u16 attr1;
         oam = &gOamObjects[52];
@@ -964,7 +964,7 @@ void CourtRecordExit(struct Main * main, struct CourtRecord * courtRecord) // st
     }
     UpdateBG2Window(courtRecord);
     sub_800E9D4(courtRecord);
-    if(courtRecord->unk1 == 0)
+    if(courtRecord->windowScrollSpeed == 0)
     {
         courtRecord->flags |= 4;
         courtRecord->flags &= ~2;
@@ -980,7 +980,7 @@ void CourtRecordExit(struct Main * main, struct CourtRecord * courtRecord) // st
 void CourtRecordChangeState(struct Main * main, struct CourtRecord * courtRecord) // status_wait
 {
     struct OamAttrs * oam;
-    if(main->process[GAME_PROCESS_VAR2] == 2 && courtRecord->unk2 > 8)
+    if(main->process[GAME_PROCESS_VAR2] == 2 && courtRecord->windowTileX > 8)
     {
         u16 attr1;
         oam = &gOamObjects[52];
@@ -993,7 +993,7 @@ void CourtRecordChangeState(struct Main * main, struct CourtRecord * courtRecord
     }
     UpdateBG2Window(courtRecord);
     sub_800E9D4(courtRecord);
-    if(courtRecord->unk1 == 0)
+    if(courtRecord->windowScrollSpeed == 0)
     {
         courtRecord->flags |= 4;
         courtRecord->flags &= ~2;
@@ -1005,7 +1005,7 @@ void CourtRecordChangeRecord(struct Main * main, struct CourtRecord * courtRecor
 {
     UpdateBG2Window(courtRecord);
     sub_800E9D4(courtRecord);
-    if(courtRecord->unk1 == 0)
+    if(courtRecord->windowScrollSpeed == 0)
     {
         u32 temp;
         courtRecord->flags &= ~2;
@@ -1294,7 +1294,7 @@ void CourtRecordTakeThatSpecial(struct Main * main, struct CourtRecord * courtRe
         case 0:
             main->affineScale = 0;
             oam->attr0 = SPRITE_ATTR0_CLEAR;
-            if(courtRecord->unk1 == 0)
+            if(courtRecord->windowScrollSpeed == 0)
             {
                 u32 offset;
                 PlayAnimation(ANIM_TAKETHAT_LEFT);
@@ -1422,7 +1422,7 @@ void EvidenceAddedMain(struct Main * main, struct CourtRecord * courtRecord) // 
 {
     UpdateBG2Window(courtRecord);
     sub_800EAF8(courtRecord);
-    if(courtRecord->unk1 == 0 && gScriptContext.flags & 1)
+    if(courtRecord->windowScrollSpeed == 0 && gScriptContext.flags & 1)
     {
         if(main->process[GAME_PROCESS_VAR1] == 0)
         {
@@ -1442,7 +1442,7 @@ void EvidenceAddedExit(struct Main * main, struct CourtRecord * courtRecord) // 
 {
     UpdateBG2Window(courtRecord);
     sub_800EAF8(courtRecord);
-    if(courtRecord->unk1 == 0)
+    if(courtRecord->windowScrollSpeed == 0)
     {
         RESTORE_PROCESS_PTR(main);
         if(gMain.process[GAME_PROCESS] == INVESTIGATION_PROCESS)
@@ -1460,14 +1460,14 @@ void EvidenceAddedExit(struct Main * main, struct CourtRecord * courtRecord) // 
 
 void UpdateCourtRecordArrows(struct CourtRecord * courtRecord)
 {
-    courtRecord->unk9++;
-    if(courtRecord->unk9 > 4)
+    courtRecord->recordArrowCounter++;
+    if(courtRecord->recordArrowCounter > 4)
     {
-        courtRecord->unk9 = 0;
-        courtRecord->unk8++;
-        courtRecord->unk8 &= 3;
-        DmaCopy16(3, gGfx4bppTestimonyArrows + sCourtRecordLeftArrowTileIndexes[courtRecord->unk8] * 32, OBJ_VRAM0+0x3400, TILE_SIZE_4BPP*4);
-        DmaCopy16(3, gGfx4bppTestimonyArrows + sCourtRecordRightArrowTileIndexes[courtRecord->unk8] * 32, OBJ_VRAM0+0x3480, TILE_SIZE_4BPP*4);
+        courtRecord->recordArrowCounter = 0;
+        courtRecord->recordArrowFrame++;
+        courtRecord->recordArrowFrame &= 3;
+        DmaCopy16(3, gGfx4bppTestimonyArrows + sCourtRecordLeftArrowTileIndexes[courtRecord->recordArrowFrame] * 32, OBJ_VRAM0+0x3400, TILE_SIZE_4BPP*4);
+        DmaCopy16(3, gGfx4bppTestimonyArrows + sCourtRecordRightArrowTileIndexes[courtRecord->recordArrowFrame] * 32, OBJ_VRAM0+0x3480, TILE_SIZE_4BPP*4);
     }
 }
 
@@ -1546,14 +1546,14 @@ void sub_800EAF8(struct CourtRecord * courtRecord)
 
     oam->attr0 = SPRITE_ATTR0(24, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
     oam->attr1 = SPRITE_ATTR1_NONAFFINE(0, FALSE, FALSE, 3);
-    oam->attr1 += courtRecord->unk4;
+    oam->attr1 += courtRecord->windowX;
     oam->attr2 = SPRITE_ATTR2(0x280, 0, 1);
     oam++;
     for(i = 0; i < 5; i++)
     {
         oam->attr0 = SPRITE_ATTR0(24, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
         oam->attr1 = SPRITE_ATTR1_NONAFFINE(72 + i*32, FALSE, FALSE, 2);
-        oam->attr1 += courtRecord->unk4;
+        oam->attr1 += courtRecord->windowX;
         oam->attr2 = SPRITE_ATTR2(0x1E0 + i*0x10, 0, 2);
         oam++;
     }
@@ -1561,7 +1561,7 @@ void sub_800EAF8(struct CourtRecord * courtRecord)
     {
         oam->attr0 = SPRITE_ATTR0(56, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
         oam->attr1 = SPRITE_ATTR1_NONAFFINE(72 + i*32, FALSE, FALSE, 2);
-        oam->attr1 += courtRecord->unk4;
+        oam->attr1 += courtRecord->windowX;
         oam->attr2 = SPRITE_ATTR2(0x230 + i*0x10, 0, 2);
         oam++;
     }
