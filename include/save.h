@@ -46,7 +46,7 @@ void SaveGameInitButtons(struct Main *);
 void SaveGameWaitForInput(struct Main *);
 void SaveGameExitSaveScreen(struct Main *);
 void SaveGame5(struct Main *);
-void sub_8008CC0(struct Main *);
-void sub_8008D68(struct Main *);
+void SaveGame6(struct Main *);
+void SaveGame7(struct Main *);
 
 #endif//GUARD_SAVE_H

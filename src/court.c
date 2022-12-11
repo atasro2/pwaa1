@@ -11,12 +11,7 @@
 #include "constants/process.h"
 #include "constants/songs.h"
 #include "constants/persons.h"
-
-void (*gCourtProcessStates[])(struct Main *) = {
-	sub_800A3EC,
-	sub_800A5B0,
-	sub_800A6AC
-};
+#include "constants/process.h"
 
 void SetCurrentEpisodeBit()
 {
@@ -51,12 +46,18 @@ void SetCurrentEpisodeBit()
     }
 }
 
+void (*gCourtProcessStates[])(struct Main *) = {
+	CourtInit,
+	CourtMain,
+	CourtExit
+};
+
 void CourtProcess(struct Main * main)
 {
     gCourtProcessStates[main->process[GAME_PROCESS_STATE]](main);
 }
 
-void sub_800A3EC(struct Main * main)
+void CourtInit(struct Main * main)
 {
     struct IORegisters * ioRegs = &gIORegisters;
     DmaFill16(3, 0, &gTestimony, sizeof(gTestimony));
@@ -96,10 +97,10 @@ void sub_800A3EC(struct Main * main)
     SetTimedKeysAndDelay(DPAD_RIGHT | DPAD_LEFT, 15);
     StartHardwareBlend(1, 1, 1, 0x1F);
     ioRegs->lcd_bldy = 0x10;
-    SET_PROCESS(3, 1, 0, 0); // please increase the  instead thank you :^)
+    SET_PROCESS(COURT_PROCESS, COURT_MAIN, 0, 0);
 }
 
-void sub_800A5B0(struct Main * main)
+void CourtMain(struct Main * main)
 {
     struct TestimonyStruct * testimony = &gTestimony;
     if(main->blendMode)
@@ -112,9 +113,9 @@ void sub_800A5B0(struct Main * main)
         DmaCopy16(3, gOamObjects, gSaveDataBuffer.oam, sizeof(gOamObjects));
         DmaCopy16(3, &gMain, &gSaveDataBuffer.main, sizeof(gMain));
         PlaySE(SE007_MENU_OPEN_SUBMENU);
-        main->gameStateFlags &= -2; // -2??
+        main->gameStateFlags &= ~1;
         BACKUP_PROCESS_PTR(main);
-        SET_PROCESS_PTR(0xA, 0, 0, 0, main);
+        SET_PROCESS_PTR(SAVE_GAME_PROCESS, 0, 0, 0, main);
     }
     else if((gJoypad.pressedKeys & R_BUTTON) &&
     !(main->gameStateFlags & 0x10) &&
@@ -122,45 +123,38 @@ void sub_800A5B0(struct Main * main)
     {
         PlaySE(SE007_MENU_OPEN_SUBMENU);
         BACKUP_PROCESS_PTR(main);
-        SET_PROCESS_PTR(7, 0, 0, 0, main);
+        SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_INIT, 0, 0, main);
     }
     if(main->gameStateFlags & 0x400)
     {
-        if(testimony->unk4 > 160)
-            testimony->unk4 -= 4;
-        sub_800B638(main, testimony);
+        if(testimony->healthPointX > 160)
+            testimony->healthPointX -= 4;
+        UpdateHealthSprites(main, testimony);
     }
 }
 
-void sub_800A6AC(struct Main * main)
+void CourtExit(struct Main * main)
 {
     DmaCopy16(3, &gMain, &gSaveDataBuffer.main, sizeof(gMain));
-    SET_PROCESS_PTR(0xA, 0, 0, 1, main);
+    SET_PROCESS_PTR(SAVE_GAME_PROCESS, 0, 0, 1, main);
     if(main->scenarioIdx == 1)
     {
         if(!(main->caseEnabledFlags & 2))
-            SET_PROCESS_PTR(0xB, 0, 0, 1, main);
+            SET_PROCESS_PTR(EPISODE_CLEAR_PROCESS, 0, 0, 1, main);
     }
     else if(main->scenarioIdx == 5)
     {
         if(!(main->caseEnabledFlags & 4))
-            SET_PROCESS_PTR(0xB, 0, 0, 2, main);
+            SET_PROCESS_PTR(EPISODE_CLEAR_PROCESS, 0, 0, 2, main);
     }
     else if(main->scenarioIdx == 11)
     {
         if(!(main->caseEnabledFlags & 8))
-            SET_PROCESS_PTR(0xB, 0, 0, 3, main);
+            SET_PROCESS_PTR(EPISODE_CLEAR_PROCESS, 0, 0, 3, main);
     }
 }
 
-void (*gProcess5ProcessStates[])(struct Main *) = {
-	sub_800A894,
-	sub_800A8E0,
-	sub_800A9FC,
-	sub_800A730
-};
-
-void sub_800A730(struct Main * main)
+void TestimonyAnim(struct Main * main)
 {
     struct AnimationListEntry * animation;
     struct AnimationListEntry * animation2;
@@ -171,7 +165,7 @@ void sub_800A730(struct Main * main)
             PlayAnimation(ANIM_TESTIMONY_START_LEFT);
             PlayAnimation(ANIM_TESTIMONY_START_RIGHT);
             PlaySE(SE029_BEGIN_QUESTIONING);
-            gTestimony.unk6 = 0;
+            gTestimony.testimonyAnimMoveAmount = 0;
             main->process[GAME_PROCESS_VAR1]++;
             break;
         case 1:
@@ -207,38 +201,45 @@ void sub_800A730(struct Main * main)
         case 4:
             animation = FindAnimationFromAnimId(ANIM_TESTIMONY_START_LEFT);
             animation2 = FindAnimationFromAnimId(ANIM_TESTIMONY_START_RIGHT);
-            animation->animationInfo.xOrigin += gTestimony.unk6;
+            animation->animationInfo.xOrigin += gTestimony.testimonyAnimMoveAmount;
             animation->flags |= ANIM_ACTIVE;
-            animation2->animationInfo.xOrigin -= gTestimony.unk6;
+            animation2->animationInfo.xOrigin -= gTestimony.testimonyAnimMoveAmount;
             animation2->flags |= ANIM_ACTIVE;
-            gTestimony.unk6++;
-            if(gTestimony.unk6 > 12)
-                gTestimony.unk6 = 12;
+            gTestimony.testimonyAnimMoveAmount++;
+            if(gTestimony.testimonyAnimMoveAmount > 12)
+                gTestimony.testimonyAnimMoveAmount = 12;
             if(animation->animationInfo.xOrigin > 300)
             {
                 DestroyAnimation(animation);
                 DestroyAnimation(animation2);
-                main->process[GAME_PROCESS_STATE] = 1;
+                main->process[GAME_PROCESS_STATE] = TESTIMONY_MAIN;
             }
         default:
             break;
     }
 }
 
-void GameProcess05(struct Main * main)
+void (*gTestimonyProcessStates[])(struct Main *) = {
+	TestimonyInit,
+	TestimonyMain,
+	TestimonyExit,
+	TestimonyAnim
+};
+
+void TestimonyProcess(struct Main * main)
 {
-    gProcess5ProcessStates[main->process[GAME_PROCESS_STATE]](main);
+    gTestimonyProcessStates[main->process[GAME_PROCESS_STATE]](main);
 }
 
-void sub_800A894(struct Main * main)
+void TestimonyInit(struct Main * main)
 {
     DmaCopy16(3, gGfx4bppTestimonyTextTiles, OBJ_VRAM0+0x3000, 0x800);
     DmaCopy16(3, gUnknown_08194280, OBJ_PLTT+0xA0, 0x20);
-    gTestimony.unk1 = 0;
-    main->process[GAME_PROCESS_STATE] = 3;
+    gTestimony.timer = 0;
+    main->process[GAME_PROCESS_STATE] = TESTIMONY_ANIM;
 }
 
-void sub_800A8E0(struct Main * main)
+void TestimonyMain(struct Main * main)
 {
     struct OamAttrs * oam;
     if(main->blendMode)
@@ -251,9 +252,9 @@ void sub_800A8E0(struct Main * main)
         DmaCopy16(3, gOamObjects, gSaveDataBuffer.oam, sizeof(gOamObjects));
         DmaCopy16(3, &gMain, &gSaveDataBuffer.main, sizeof(gMain));
         PlaySE(SE007_MENU_OPEN_SUBMENU);
-        main->gameStateFlags &= -2; // -2??
+        main->gameStateFlags &= ~1;
         BACKUP_PROCESS_PTR(main);
-        SET_PROCESS_PTR(0xA, 0, 0, 0, main);
+        SET_PROCESS_PTR(SAVE_GAME_PROCESS, 0, 0, 0, main);
     }
     else if((gJoypad.pressedKeys & R_BUTTON) &&
     !(main->gameStateFlags & 0x10) &&
@@ -261,13 +262,13 @@ void sub_800A8E0(struct Main * main)
     {
         PlaySE(SE007_MENU_OPEN_SUBMENU);
         BACKUP_PROCESS_PTR(main);
-        SET_PROCESS_PTR(7, 0, 0, 0, main);
+        SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_INIT, 0, 0, main);
     }
-    gTestimony.unk1++;
-    if(gTestimony.unk1 > 100)
-        gTestimony.unk1 = 0;
+    gTestimony.timer++;
+    if(gTestimony.timer > 100)
+        gTestimony.timer = 0;
     oam = &gOamObjects[49];
-    if(gTestimony.unk1 <= 80)
+    if(gTestimony.timer <= 80)
     {
         oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
         oam->attr1 = SPRITE_ATTR1_NONAFFINE(0, FALSE, FALSE, 3);
@@ -277,23 +278,14 @@ void sub_800A8E0(struct Main * main)
         oam->attr0 = SPRITE_ATTR0_CLEAR;
 }
 
-void sub_800A9FC(struct Main * main)
+void TestimonyExit(struct Main * main)
 {
     struct OamAttrs * oam = &gOamObjects[49];
     oam->attr0 = SPRITE_ATTR0_CLEAR;
-    SET_PROCESS_PTR(3, 1, 0, 0, main);
+    SET_PROCESS_PTR(COURT_PROCESS, COURT_MAIN, 0, 0, main);
 }
 
-void (*gProcess6ProcessStates[])(struct Main *) = {
-	sub_800AB58,
-	sub_800AC1C,
-	nullsub_32,
-	sub_800AA10,
-	sub_800AE58,
-	sub_800AF2C
-};
-
-void sub_800AA10(struct Main * main)
+void QuestioningAnim(struct Main * main)
 {
     struct AnimationListEntry * animation;
     struct AnimationListEntry * animation2;
@@ -347,7 +339,7 @@ void sub_800AA10(struct Main * main)
             {
                 DestroyAnimation(animation);
                 DestroyAnimation(animation2);
-                main->process[GAME_PROCESS_STATE] = 1;
+                main->process[GAME_PROCESS_STATE] = QUESTIONING_MAIN;
                 main->process[GAME_PROCESS_VAR1] = 0;
             }
         default:
@@ -355,30 +347,39 @@ void sub_800AA10(struct Main * main)
     }
 }
 
-void GameProcess06(struct Main * main)
+void (*gQuestioningProcessStates[])(struct Main *) = {
+	QuestioningInit,
+	QuestioningMain,
+	QuestioningExit,
+	QuestioningAnim,
+	QuestioningHoldIt,
+	QuestioningObjection
+};
+
+void QuestioningProcess(struct Main * main)
 {
-    gProcess6ProcessStates[main->process[GAME_PROCESS_STATE]](main);
+    gQuestioningProcessStates[main->process[GAME_PROCESS_STATE]](main);
 }
 
-void sub_800AB58(struct Main * main)
+void QuestioningInit(struct Main * main)
 {
     DmaCopy16(3, gGfx4bppTrialLife, OBJ_VRAM0+0x3780, 0x80);
     DmaCopy16(3, gUnknown_081940E0, OBJ_PLTT+0x60, 0x20);
     DmaCopy16(3, gUnknown_081900C0, OBJ_VRAM0+0x3000, 0x400);
     DmaCopy16(3, gUnknown_081942A0, OBJ_PLTT+0xA0, 0x20);
-    DmaCopy16(3, gGfx4bppTestimonyArrows, 0x1A0, 0x80); // WHAT, HOW
-    DmaCopy16(3, gGfx4bppTestimonyArrows + 12 * TILE_SIZE_4BPP, 0x220, 0x80); // WHAT, HOW
+    DmaCopy16(3, gGfx4bppTestimonyArrows, 0x1A0, 0x80); // ! WHAT, HOW
+    DmaCopy16(3, gGfx4bppTestimonyArrows + 12 * TILE_SIZE_4BPP, 0x220, 0x80); // ! WHAT, HOW
     main->testimonyBeginningSection = gScriptContext.currentSection;
-    gCourtRecord.unk9 = 0;
-    gCourtRecord.unk8++;
-    gTestimony.unk4 = 0xF0;
-    gTestimony.unk2 = 0xE0;
-    gTestimony.unk3 = 0xE0;
-    gTestimony.unk0 = 0;
-    main->process[GAME_PROCESS_STATE] = 3;
+    gCourtRecord.recordArrowCounter = 0;
+    gCourtRecord.recordArrowFrame++;
+    gTestimony.healthPointX = 0xF0;
+    gTestimony.pressPromptY = 0xE0;
+    gTestimony.presentPromptY = 0xE0;
+    gTestimony.displayState = 0;
+    main->process[GAME_PROCESS_STATE] = QUESTIONING_ANIM;
 }
 
-void sub_800AC1C(struct Main * main)
+void QuestioningMain(struct Main * main)
 {
     struct OamAttrs * oam;
 
@@ -392,9 +393,9 @@ void sub_800AC1C(struct Main * main)
             DmaCopy16(3, gOamObjects, gSaveDataBuffer.oam, sizeof(gOamObjects));
             DmaCopy16(3, &gMain, &gSaveDataBuffer.main, sizeof(gMain));
             PlaySE(SE007_MENU_OPEN_SUBMENU);
-            main->gameStateFlags &= -2; // -2??
+            main->gameStateFlags &= ~1;
             BACKUP_PROCESS_PTR(main);
-            SET_PROCESS_PTR(0xA, 0, 0, 0, main);
+            SET_PROCESS_PTR(SAVE_GAME_PROCESS, 0, 0, 0, main);
         }
     }
     else if(gScriptContext.flags & SCRIPT_LOOP)
@@ -424,15 +425,15 @@ void sub_800AC1C(struct Main * main)
                 PlayAnimation(ANIM_HOLDIT_LEFT);
                 PlaySE(SE01D_VOICE_PHOENIX_HOLD_IT_JP);
                 StartHardwareBlend(3, 1, 4, 0x1F);
-                gTestimony.unk1 = 0x40;
-                gTestimony.unk4 = 0xF0;
-                gTestimony.unk2 = 0xE0;
-                gTestimony.unk3 = 0xE0;
+                gTestimony.timer = 0x40;
+                gTestimony.healthPointX = 0xF0;
+                gTestimony.pressPromptY = 0xE0;
+                gTestimony.presentPromptY = 0xE0;
                 gIORegisters.lcd_dispcnt &= ~DISPCNT_BG1_ON;
                 main->advanceScriptContext = FALSE;
                 main->showTextboxCharacters = FALSE;
                 SetTextboxNametag(0, 0);
-                main->process[GAME_PROCESS_STATE] = 4;
+                main->process[GAME_PROCESS_STATE] = QUESTIONING_HOLD_IT;
                 main->process[GAME_PROCESS_VAR1] = 0;
                 return;
             }
@@ -441,7 +442,7 @@ void sub_800AC1C(struct Main * main)
         {
             PlaySE(SE007_MENU_OPEN_SUBMENU);
             BACKUP_PROCESS_PTR(main);
-            SET_PROCESS_PTR(7, 0, 0, 1, main);
+            SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_INIT, 0, 1, main);
         }
     }
     else if((gJoypad.pressedKeys & R_BUTTON) &&
@@ -450,16 +451,16 @@ void sub_800AC1C(struct Main * main)
     {
         PlaySE(SE007_MENU_OPEN_SUBMENU);
         BACKUP_PROCESS_PTR(main);
-        SET_PROCESS_PTR(7, 0, 0, 0, main);
+        SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_INIT, 0, 0, main);
     }
-    sub_800B51C(main, &gTestimony, 1);
+    UpdateQuestioningMenuSprites(main, &gTestimony, 1);
     if(main->gameStateFlags & 0x400)
     {
-        if(gTestimony.unk4 > 0xA0)
-            gTestimony.unk4 -= 4;
-        sub_800B638(main, &gTestimony);
+        if(gTestimony.healthPointX > 0xA0)
+            gTestimony.healthPointX -= 4;
+        UpdateHealthSprites(main, &gTestimony);
     }
-    sub_800E8A0(&gCourtRecord);
+    UpdateCourtRecordArrows(&gCourtRecord);
     oam = gOamObjects;
     if(gScriptContext.flags & SCRIPT_LOOP)
     {
@@ -482,17 +483,17 @@ void sub_800AC1C(struct Main * main)
     }
 }
 
-void nullsub_32(struct Main * main)
+void QuestioningExit(struct Main * main) // ! why a nullsub??
 {
 
 }
 
-void sub_800AE58(struct Main * main)
+void QuestioningHoldIt(struct Main * main)
 {
     switch(main->process[GAME_PROCESS_VAR1])
     {
         case 0:
-            if(gTestimony.unk1 == 0)
+            if(gTestimony.timer == 0)
             {
                 SetCourtScrollPersonAnim(0, 1, PERSON_ANIM_PHOENIX, 0);
                 InitCourtScroll(gGfxCourtscroll01, 0x1E, 0x1F, 1);
@@ -500,14 +501,13 @@ void sub_800AE58(struct Main * main)
                 main->process[GAME_PROCESS_VAR1]++;
                 break;
             }
-            gTestimony.unk1--;
+            gTestimony.timer--;
             break;
         case 1:
             if(gCourtScroll.state)
                 break;
             if(gScriptContext.holdItFlag)
             {
-                // you had one job capcom one job
                 gMain.advanceScriptContext = TRUE;
                 gMain.showTextboxCharacters = TRUE;
                 gIORegisters.lcd_bg1vofs = 0;
@@ -516,37 +516,37 @@ void sub_800AE58(struct Main * main)
             else
                 SlideTextbox(1);
             ChangeScriptSection(gScriptContext.holdItSection);
-            gTestimony.unk4 = 0xF0;
-            gTestimony.unk2 = 0xE0;
-            gTestimony.unk3 = 0xE0;
-            gTestimony.unk0 = 0;
-            main->process[GAME_PROCESS_STATE] = 1;
+            gTestimony.healthPointX = 0xF0;
+            gTestimony.pressPromptY = 0xE0;
+            gTestimony.presentPromptY = 0xE0;
+            gTestimony.displayState = 0;
+            main->process[GAME_PROCESS_STATE] = QUESTIONING_MAIN;
             main->process[GAME_PROCESS_VAR1] = 0;
             break;
         default:
             break;
     }
-    sub_800B51C(main, &gTestimony, 0);
+    UpdateQuestioningMenuSprites(main, &gTestimony, 0);
     gOamObjects[0].attr0 = SPRITE_ATTR0_CLEAR;
     gOamObjects[1].attr0 = SPRITE_ATTR0_CLEAR;
 }
 
-void sub_800AF2C(struct Main * main)
+void QuestioningObjection(struct Main * main)
 {
     switch(main->process[GAME_PROCESS_VAR1])
     {
         case 0:
-            if(gTestimony.unk1 == 0)
+            if(gTestimony.timer == 0)
             {
                 StartHardwareBlend(3, 1, 4, 0x1F);
-                gTestimony.unk1 = 0x40;
+                gTestimony.timer = 0x40;
                 main->process[GAME_PROCESS_VAR1]++;
                 break;
             }
-            gTestimony.unk1--;
+            gTestimony.timer--;
             break;
         case 1:
-            if(gTestimony.unk1 == 0)
+            if(gTestimony.timer == 0)
             {
                 SetCourtScrollPersonAnim(0, 1, PERSON_ANIM_PHOENIX, 0x18D0);
                 InitCourtScroll(gGfxCourtscroll01, 0x1E, 0x1F, 1);
@@ -554,22 +554,22 @@ void sub_800AF2C(struct Main * main)
                 main->process[GAME_PROCESS_VAR1]++;
                 break;
             }
-            gTestimony.unk1--;
+            gTestimony.timer--;
             break;
         case 2:
             if(gCourtScroll.state)
                 break;
-            gTestimony.unk1 = 0x14;
+            gTestimony.timer = 0x14;
             main->process[GAME_PROCESS_VAR1]++;
             break;
         case 3:
-            if(gTestimony.unk1 == 0)
+            if(gTestimony.timer == 0)
             {
-                gTestimony.unk4 = 0xF0;
-                gTestimony.unk2 = 0xE0;
-                gTestimony.unk3 = 0xE0;
-                gTestimony.unk0 = 0;
-                if(gScriptContext.unk33)
+                gTestimony.healthPointX = 0xF0;
+                gTestimony.pressPromptY = 0xE0;
+                gTestimony.presentPromptY = 0xE0;
+                gTestimony.displayState = 0;
+                if(gScriptContext.slamDesk)
                 {
                     gMain.advanceScriptContext = TRUE;
                     gMain.showTextboxCharacters = TRUE;
@@ -581,12 +581,12 @@ void sub_800AF2C(struct Main * main)
                 RESTORE_PROCESS_PTR(main);
                 break;
             } 
-            gTestimony.unk1--;
+            gTestimony.timer--;
             break;
         default:
             break;
     }
-    sub_800B51C(main, &gTestimony, 0);
+    UpdateQuestioningMenuSprites(main, &gTestimony, 0);
 }
 
 void VerdictProcess(struct Main * main)
@@ -596,7 +596,7 @@ void VerdictProcess(struct Main * main)
     u32 temp2;
     struct OamAttrs *oam = &gOamObjects[49];
     switch(main->process[GAME_PROCESS_STATE]) {
-        case VERDICT_STATE_SHRINK_KANJI1: { // B088
+        case VERDICT_SHRINK_KANJI1: { // B088
             gMain.affineScale -= 0x10; // 1/16 steps 
             if(gMain.affineScale <= Q_8_8(1.0)) 
             {
@@ -619,7 +619,7 @@ void VerdictProcess(struct Main * main)
             }
             break;
         }
-        case VERDICT_STATE_WAIT_INIT_KANJI2: { // B164
+        case VERDICT_WAIT_INIT_KANJI2: { // B164
             if(main->process[GAME_PROCESS_VAR1]++ > 40) {
                 gMain.affineScale = Q_8_8(2.5); // 2.5 times scale
                 oam++;
@@ -635,7 +635,7 @@ void VerdictProcess(struct Main * main)
             }
             break;
         }
-        case VERDICT_STATE_SHRINK_KANJI2: { // B1FC
+        case VERDICT_SHRINK_KANJI2: { // B1FC
             gMain.affineScale -= 0x10; // 1/16 steps
             if(gMain.affineScale <= Q_8_8(1.0)) {
                 temp = fix_inverse(Q_8_8(1.0));
@@ -658,14 +658,14 @@ void VerdictProcess(struct Main * main)
             }
             break;
         }
-        case VERDICT_STATE_WAIT: { // B2E4
+        case VERDICT_WAIT: { // B2E4
             if(main->process[GAME_PROCESS_VAR1]++ > 64) {
                 main->process[GAME_PROCESS_STATE]++;
                 main->process[GAME_PROCESS_VAR1] = 0;
             }
             break;
         }
-        case VERDICT_STATE_GROW_KANJI_GUILTY_EXIT: { // B300
+        case VERDICT_GROW_KANJI: { // B300
             if(main->process[GAME_PROCESS_VAR1]++ > 32) {
                 oam->attr0 = SPRITE_ATTR0_CLEAR;
                 oam++;
@@ -694,13 +694,13 @@ void VerdictProcess(struct Main * main)
             }
             break;
         }
-        case VERDICT_STATE_INIT_CONFETTI: { // B3C8
+        case VERDICT_INIT_CONFETTI: { // B3C8
             DmaCopy16(3, gUnknown_081940A0, OBJ_VRAM0+0x1F80, 0x20);
             DmaCopy16(3, gUnknown_08194640, OBJ_PLTT+0xA0, 0x80);
             main->process[GAME_PROCESS_STATE]++;
             break;
         }
-        case VERDICT_STATE_DRAW_CONFETTI: { // B404
+        case VERDICT_DRAW_CONFETTI: { // B404
             oam = &gOamObjects[57];
             for(i = 0; i < 0x1F; i++) 
             {
@@ -721,7 +721,7 @@ void VerdictProcess(struct Main * main)
             main->process[GAME_PROCESS_STATE]++;
             break;
         }
-        case VERDICT_STATE_ANIMATE_CONFETTI: { // B460
+        case VERDICT_ANIMATE_CONFETTI: { // B460
             oam = &gOamObjects[57];
             if(main->process[GAME_PROCESS_VAR1]++ < 240)
             {
@@ -757,14 +757,14 @@ void VerdictProcess(struct Main * main)
             }
             break;
         }
-        case VERDICT_STATE_NOTGUILTY_EXIT: { // B504
+        case VERDICT_NOTGUILTY_EXIT: { // B504
             RESTORE_PROCESS_PTR(main);
             break;
         }
     }
 }
 
-void sub_800B51C(struct Main * main, struct TestimonyStruct * testimony, u32 unk2)
+void UpdateQuestioningMenuSprites(struct Main * main, struct TestimonyStruct * testimony, u32 unk2) // questioning_menu_disp
 {
     u32 i;
     struct OamAttrs * oam;
@@ -786,31 +786,31 @@ void sub_800B51C(struct Main * main, struct TestimonyStruct * testimony, u32 unk
         }
         return;
     }
-    if(testimony->unk0 == 1)
+    if(testimony->displayState == 1)
     {
-        if(testimony->unk2 > 224)
-            testimony->unk2 -= 2;
+        if(testimony->pressPromptY > 224)
+            testimony->pressPromptY -= 2;
         else
-            testimony->unk2 = 224;
+            testimony->pressPromptY = 224;
 
-        if(testimony->unk3 > 224)
-            testimony->unk3 -= 2;
+        if(testimony->presentPromptY > 224)
+            testimony->presentPromptY -= 2;
         else
-            testimony->unk3 = 224;
+            testimony->presentPromptY = 224;
 
-        if(testimony->unk4 < 240)
-            testimony->unk4 += 8;
+        if(testimony->healthPointX < 240)
+            testimony->healthPointX += 8;
     }
-    else if(testimony->unk0 == 0)
+    else if(testimony->displayState == 0)
     {
-        if(testimony->unk2 > 0)
-            testimony->unk2 += 2;
+        if(testimony->pressPromptY > 0)
+            testimony->pressPromptY += 2;
 
-        if(testimony->unk3 > 0)
-            testimony->unk3 += 2;
+        if(testimony->presentPromptY > 0)
+            testimony->presentPromptY += 2;
 
-        if(testimony->unk4 > 160)
-            testimony->unk4 -= 4;
+        if(testimony->healthPointX > 160)
+            testimony->healthPointX -= 4;
     }
     oam = &gOamObjects[53];
     if(gScriptContext.holdItSection < 0x80)
@@ -826,30 +826,30 @@ void sub_800B51C(struct Main * main, struct TestimonyStruct * testimony, u32 unk
     else
     {
         u32 attr1; // needed for matching
-        oam->attr0 = testimony->unk2 | 0x4000;
+        oam->attr0 = testimony->pressPromptY | 0x4000;
         attr1 = SPRITE_ATTR1_NONAFFINE(0, FALSE, FALSE, 2);
         oam->attr1 = attr1;
         oam->attr2 = SPRITE_ATTR2(0x180, 1, 5);
         oam++;
-        oam->attr0 = testimony->unk2 | 0x4000;
+        oam->attr0 = testimony->pressPromptY | 0x4000;
         attr1 = SPRITE_ATTR1_NONAFFINE(32, FALSE, FALSE, 2);
         oam->attr1 = attr1;
         oam->attr2 = SPRITE_ATTR2(0x188, 1, 5);
         oam++;
-        oam->attr0 = testimony->unk3 | 0x4000;
+        oam->attr0 = testimony->presentPromptY | 0x4000;
         attr1 = SPRITE_ATTR1_NONAFFINE(176, FALSE, FALSE, 2);
         oam->attr1 = attr1;
         oam->attr2 = SPRITE_ATTR2(0x190, 1, 5);
         oam++;
-        oam->attr0 = testimony->unk3 | 0x4000;
+        oam->attr0 = testimony->presentPromptY | 0x4000;
         attr1 = SPRITE_ATTR1_NONAFFINE(208, FALSE, FALSE, 2);
         oam->attr1 = attr1;
         oam->attr2 = SPRITE_ATTR2(0x198, 1, 5);
     }
-    sub_800B638(main, testimony);
+    UpdateHealthSprites(main, testimony);
 }
 
-void sub_800B638(struct Main * main, struct TestimonyStruct * testimony)
+void UpdateHealthSprites(struct Main * main, struct TestimonyStruct * testimony) // rest_disp
 {
     struct OamAttrs * oam = &gOamObjects[35];
     u32 i;
@@ -882,9 +882,9 @@ void sub_800B638(struct Main * main, struct TestimonyStruct * testimony)
             if(main->damageFrame <= 8)
             {
                 if(main->damageFrame > 4)
-                    oam->attr1 = SPRITE_ATTR1_AFFINE(0, 0, 1) + testimony->unk4 + i * 0x10 - 8;
+                    oam->attr1 = SPRITE_ATTR1_AFFINE(0, 0, 1) + testimony->healthPointX + i * 0x10 - 8;
                 else
-                    oam->attr1 = SPRITE_ATTR1_NONAFFINE(0, FALSE, FALSE, 1) + testimony->unk4 + i * 0x10;
+                    oam->attr1 = SPRITE_ATTR1_NONAFFINE(0, FALSE, FALSE, 1) + testimony->healthPointX + i * 0x10;
             }
             else
                 oam->attr0 = SPRITE_ATTR0_CLEAR;
@@ -893,7 +893,7 @@ void sub_800B638(struct Main * main, struct TestimonyStruct * testimony)
         else if(i >= 5-main->health)
         {
             oam->attr0 = SPRITE_ATTR0(16, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
-            oam->attr1 = SPRITE_ATTR1_NONAFFINE(0, FALSE, FALSE, 1) + testimony->unk4 + i * 0x10;
+            oam->attr1 = SPRITE_ATTR1_NONAFFINE(0, FALSE, FALSE, 1) + testimony->healthPointX + i * 0x10;
             oam->attr2 = SPRITE_ATTR2(0x1BC, 2, 3);
         }
         else

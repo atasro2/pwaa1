@@ -11,17 +11,18 @@
 #include "graphics.h"
 #include "constants/script.h"
 #include "constants/songs.h"
+#include "constants/process.h"
 
 struct MapMarkerSprite
 {
-    /* +0x00 */ u8 * tiles;
+    /* +0x00 */ u8 *tiles;
     /* +0x04 */ u16 size;
     /* +0x06 */ u16 attr0;
     /* +0x08 */ u16 attr1;
     /* +0x0A */ u16 attr2;
 };
 
-struct Struct8018870
+struct SpotSelectData
 {
     /* +0x00 */ struct Point4 firstArea;
     /* +0x10 */ struct Point4 secondArea;
@@ -133,10 +134,10 @@ static const struct MapMarkerSprite sMapMarkerSprites[] = {
         .attr0 = 0x8030,
         .attr1 = 0x0050,
         .attr2 = 0x0000,
-    },  
+    },
 };
 
-static const struct Struct8018870 gUnknown_08018870[] = {
+static const struct SpotSelectData gSpotSelectData[] = {
     {
         .firstArea = {
             .points = {
@@ -155,29 +156,25 @@ static const struct Struct8018870 gUnknown_08018870[] = {
                 {
                     .x = 0x76,
                     .y = 0x41,
-                }
-            }
-        },
-        .secondArea = {
-            .points = {
-                {
-                    .x = 0x78,
-                    .y = 0x50,
-                },
-                {
-                    .x = 0x88,
-                    .y = 0x50,
-                },
-                {
-                    .x = 0x88,
-                    .y = 0x60,
-                },
-                {
-                    .x = 0x78,
-                    .y = 0x60,
-                },
-            }
-        },
+                }}},
+        .secondArea = {.points = {
+                           {
+                               .x = 0x78,
+                               .y = 0x50,
+                           },
+                           {
+                               .x = 0x88,
+                               .y = 0x50,
+                           },
+                           {
+                               .x = 0x88,
+                               .y = 0x60,
+                           },
+                           {
+                               .x = 0x78,
+                               .y = 0x60,
+                           },
+                       }},
         .firstAreaSection = 0xA3,
         .secondAreaSection = 0xA2,
         .defaultSection = 0xA1,
@@ -188,46 +185,40 @@ static const struct Struct8018870 gUnknown_08018870[] = {
         .bottom = 93,
     },
     {
-        .firstArea = {
-            .points = {
-                {
-                    .x = 0x9B,
-                    .y = 0,
-                },
-                {
-                    .x = 0xC8,
-                    .y = 0,
-                },
-                {
-                    .x = 0xC8,
-                    .y = 0x12,
-                },
-                {
-                    .x = 0x9B,
-                    .y = 0x12,
-                }
-            }
-        },
-        .secondArea = {
-            .points = {
-                {
-                    .x = 0x93,
-                    .y = 0x3A,
-                },
-                {
-                    .x = 0xB1,
-                    .y = 0x3A,
-                },
-                {
-                    .x = 0xBF,
-                    .y = 0xA0,
-                },
-                {
-                    .x = 0x99,
-                    .y = 0xA0,
-                },
-            }
-        },
+        .firstArea = {.points = {{
+                                     .x = 0x9B,
+                                     .y = 0,
+                                 },
+                                 {
+                                     .x = 0xC8,
+                                     .y = 0,
+                                 },
+                                 {
+                                     .x = 0xC8,
+                                     .y = 0x12,
+                                 },
+                                 {
+                                     .x = 0x9B,
+                                     .y = 0x12,
+                                 }}},
+        .secondArea = {.points = {
+                           {
+                               .x = 0x93,
+                               .y = 0x3A,
+                           },
+                           {
+                               .x = 0xB1,
+                               .y = 0x3A,
+                           },
+                           {
+                               .x = 0xBF,
+                               .y = 0xA0,
+                           },
+                           {
+                               .x = 0x99,
+                               .y = 0xA0,
+                           },
+                       }},
         .firstAreaSection = 0xE9,
         .secondAreaSection = 0xE8,
         .defaultSection = 0xE7,
@@ -238,46 +229,40 @@ static const struct Struct8018870 gUnknown_08018870[] = {
         .bottom = 102,
     },
     {
-        .firstArea = {
-            .points = {
-                {
-                    .x = 0x4B,
-                    .y = 0x53,
-                },
-                {
-                    .x = 0x84,
-                    .y = 0x53,
-                },
-                {
-                    .x = 0x84,
-                    .y = 0x8C,
-                },
-                {
-                    .x = 0x4B,
-                    .y = 0x8C,
-                }
-            }
-        },
-        .secondArea = {
-            .points = {
-                {
-                    .x = 0,
-                    .y = 0,
-                },
-                {
-                    .x = 1,
-                    .y = 0,
-                },
-                {
-                    .x = 1,
-                    .y = 1,
-                },
-                {
-                    .x = 0,
-                    .y = 1,
-                },
-            }
-        },
+        .firstArea = {.points = {{
+                                     .x = 0x4B,
+                                     .y = 0x53,
+                                 },
+                                 {
+                                     .x = 0x84,
+                                     .y = 0x53,
+                                 },
+                                 {
+                                     .x = 0x84,
+                                     .y = 0x8C,
+                                 },
+                                 {
+                                     .x = 0x4B,
+                                     .y = 0x8C,
+                                 }}},
+        .secondArea = {.points = {
+                           {
+                               .x = 0,
+                               .y = 0,
+                           },
+                           {
+                               .x = 1,
+                               .y = 0,
+                           },
+                           {
+                               .x = 1,
+                               .y = 1,
+                           },
+                           {
+                               .x = 0,
+                               .y = 1,
+                           },
+                       }},
         .firstAreaSection = 0xEC,
         .secondAreaSection = 0xEB,
         .defaultSection = 0xEB,
@@ -288,46 +273,40 @@ static const struct Struct8018870 gUnknown_08018870[] = {
         .bottom = 102,
     },
     {
-        .firstArea = {
-            .points = {
-                {
-                    .x = 0x87,
-                    .y = 0x41,
-                },
-                {
-                    .x = 0x96,
-                    .y = 0x41,
-                },
-                {
-                    .x = 0x96,
-                    .y = 0x4E,
-                },
-                {
-                    .x = 0x87,
-                    .y = 0x4E,
-                }
-            }
-        },
-        .secondArea = {
-            .points = {
-                {
-                    .x = 0x9E,
-                    .y = 0x14,
-                },
-                {
-                    .x = 0xB4,
-                    .y = 0x14,
-                },
-                {
-                    .x = 0xC8,
-                    .y = 0x96,
-                },
-                {
-                    .x = 0xA0,
-                    .y = 0x96,
-                },
-            }
-        },
+        .firstArea = {.points = {{
+                                     .x = 0x87,
+                                     .y = 0x41,
+                                 },
+                                 {
+                                     .x = 0x96,
+                                     .y = 0x41,
+                                 },
+                                 {
+                                     .x = 0x96,
+                                     .y = 0x4E,
+                                 },
+                                 {
+                                     .x = 0x87,
+                                     .y = 0x4E,
+                                 }}},
+        .secondArea = {.points = {
+                           {
+                               .x = 0x9E,
+                               .y = 0x14,
+                           },
+                           {
+                               .x = 0xB4,
+                               .y = 0x14,
+                           },
+                           {
+                               .x = 0xC8,
+                               .y = 0x96,
+                           },
+                           {
+                               .x = 0xA0,
+                               .y = 0x96,
+                           },
+                       }},
         .firstAreaSection = 0xEF,
         .secondAreaSection = 0xEC,
         .defaultSection = 0xED,
@@ -338,46 +317,40 @@ static const struct Struct8018870 gUnknown_08018870[] = {
         .bottom = 102,
     },
     {
-        .firstArea = {
-            .points = {
-                {
-                    .x = 0x4A,
-                    .y = 0x20,
-                },
-                {
-                    .x = 0x5F,
-                    .y = 0x20,
-                },
-                {
-                    .x = 0x5F,
-                    .y = 0x32,
-                },
-                {
-                    .x = 0x4A,
-                    .y = 0x32,
-                }
-            }
-        },
-        .secondArea = {
-            .points = {
-                {
-                    .x = 0x6E,
-                    .y = 0xA,
-                },
-                {
-                    .x = 0x82,
-                    .y = 0xA,
-                },
-                {
-                    .x = 0x82,
-                    .y = 0x14,
-                },
-                {
-                    .x = 0x6E,
-                    .y = 0x14,
-                },
-            }
-        },
+        .firstArea = {.points = {{
+                                     .x = 0x4A,
+                                     .y = 0x20,
+                                 },
+                                 {
+                                     .x = 0x5F,
+                                     .y = 0x20,
+                                 },
+                                 {
+                                     .x = 0x5F,
+                                     .y = 0x32,
+                                 },
+                                 {
+                                     .x = 0x4A,
+                                     .y = 0x32,
+                                 }}},
+        .secondArea = {.points = {
+                           {
+                               .x = 0x6E,
+                               .y = 0xA,
+                           },
+                           {
+                               .x = 0x82,
+                               .y = 0xA,
+                           },
+                           {
+                               .x = 0x82,
+                               .y = 0x14,
+                           },
+                           {
+                               .x = 0x6E,
+                               .y = 0x14,
+                           },
+                       }},
         .firstAreaSection = 0xDD,
         .secondAreaSection = 0xDB,
         .defaultSection = 0xDC,
@@ -388,46 +361,40 @@ static const struct Struct8018870 gUnknown_08018870[] = {
         .bottom = 102,
     },
     {
-        .firstArea = {
-            .points = {
-                {
-                    .x = 0x7F,
-                    .y = 0x6,
-                },
-                {
-                    .x = 0xA3,
-                    .y = 0x6,
-                },
-                {
-                    .x = 0xA1,
-                    .y = 0x30,
-                },
-                {
-                    .x = 0x7D,
-                    .y = 0x20,
-                }
-            }
-        },
-        .secondArea = {
-            .points = {
-                {
-                    .x = 0x15,
-                    .y = 0x50,
-                },
-                {
-                    .x = 0x45,
-                    .y = 0x48,
-                },
-                {
-                    .x = 0x78,
-                    .y = 0x8C,
-                },
-                {
-                    .x = 0x15,
-                    .y = 0x9C,
-                },
-            }
-        },
+        .firstArea = {.points = {{
+                                     .x = 0x7F,
+                                     .y = 0x6,
+                                 },
+                                 {
+                                     .x = 0xA3,
+                                     .y = 0x6,
+                                 },
+                                 {
+                                     .x = 0xA1,
+                                     .y = 0x30,
+                                 },
+                                 {
+                                     .x = 0x7D,
+                                     .y = 0x20,
+                                 }}},
+        .secondArea = {.points = {
+                           {
+                               .x = 0x15,
+                               .y = 0x50,
+                           },
+                           {
+                               .x = 0x45,
+                               .y = 0x48,
+                           },
+                           {
+                               .x = 0x78,
+                               .y = 0x8C,
+                           },
+                           {
+                               .x = 0x15,
+                               .y = 0x9C,
+                           },
+                       }},
         .firstAreaSection = 0xD8,
         .secondAreaSection = 0xD6,
         .defaultSection = 0xD7,
@@ -438,47 +405,41 @@ static const struct Struct8018870 gUnknown_08018870[] = {
         .bottom = 102,
     },
     {
-        .firstArea = {
-            .points = {
-                {
-                    .x = 0x7F,
-                    .y = 0x6,
-                },
-                {
-                    .x = 0xA3,
-                    .y = 0x6,
-                },
-                {
-                    .x = 0xA1,
-                    .y = 0x30,
-                },
-                {
-                    .x = 0x7D,
-                    .y = 0x20,
-                }
-            }
-        },
-        .secondArea = {
-            .points = {
-                {
-                    .x = 0x15,
-                    .y = 0x50,
-                },
-                {
-                    .x = 0x45,
-                    .y = 0x48,
-                },
-                {
-                    .x = 0x78,
-                    .y = 0x8C,
-                },
-                {
-                    .x = 0x15,
-                    .y = 0x9C,
-                },
-            }    
-        },
-        .firstAreaSection =0xC4,
+        .firstArea = {.points = {{
+                                     .x = 0x7F,
+                                     .y = 0x6,
+                                 },
+                                 {
+                                     .x = 0xA3,
+                                     .y = 0x6,
+                                 },
+                                 {
+                                     .x = 0xA1,
+                                     .y = 0x30,
+                                 },
+                                 {
+                                     .x = 0x7D,
+                                     .y = 0x20,
+                                 }}},
+        .secondArea = {.points = {
+                           {
+                               .x = 0x15,
+                               .y = 0x50,
+                           },
+                           {
+                               .x = 0x45,
+                               .y = 0x48,
+                           },
+                           {
+                               .x = 0x78,
+                               .y = 0x8C,
+                           },
+                           {
+                               .x = 0x15,
+                               .y = 0x9C,
+                           },
+                       }},
+        .firstAreaSection = 0xC4,
         .secondAreaSection = 0xC2,
         .defaultSection = 0xC3,
         .unk26 = 0,
@@ -489,7 +450,7 @@ static const struct Struct8018870 gUnknown_08018870[] = {
     },
 };
 
-u32 Command20(struct ScriptContext * scriptCtx)
+u32 Command20(struct ScriptContext *scriptCtx)
 {
     scriptCtx->scriptPtr++;
     scriptCtx->nextSection = *scriptCtx->scriptPtr;
@@ -497,23 +458,23 @@ u32 Command20(struct ScriptContext * scriptCtx)
     return 0;
 }
 
-bool32 Command21(struct ScriptContext * scriptCtx)
+bool32 Command21(struct ScriptContext *scriptCtx)
 {
     scriptCtx->scriptPtr++;
     PlaySE(SE007_MENU_OPEN_SUBMENU);
     scriptCtx->flags |= 0x10;
     gMain.gameStateFlags |= 0x300;
     BACKUP_PROCESS();
-    SET_PROCESS(7, 0, 0, 1);
+    SET_PROCESS(COURT_RECORD_PROCESS, RECORD_INIT, 0, 1);
     return 0;
 }
 
-bool32 Command22(struct ScriptContext * scriptCtx)
+bool32 Command22(struct ScriptContext *scriptCtx)
 {
     scriptCtx->scriptPtr++;
     // skips a token
     scriptCtx->scriptPtr++;
-    if(*scriptCtx->scriptPtr)
+    if (*scriptCtx->scriptPtr)
         FadeOutBGM(*scriptCtx->scriptPtr);
     else
         StopBGM();
@@ -521,12 +482,12 @@ bool32 Command22(struct ScriptContext * scriptCtx)
     return 0;
 }
 
-bool32 Command23(struct ScriptContext * scriptCtx)
+bool32 Command23(struct ScriptContext *scriptCtx)
 {
     scriptCtx->scriptPtr++;
     // skips a token
     scriptCtx->scriptPtr++;
-    if(*scriptCtx->scriptPtr)
+    if (*scriptCtx->scriptPtr)
         UnpauseBGM();
     else
         PauseBGM();
@@ -534,16 +495,16 @@ bool32 Command23(struct ScriptContext * scriptCtx)
     return 0;
 }
 
-bool32 Command24(struct ScriptContext * scriptCtx)
+bool32 Command24(struct ScriptContext *scriptCtx)
 {
     scriptCtx->scriptPtr++;
     gMain.advanceScriptContext = FALSE;
     gMain.showTextboxCharacters = FALSE;
-    SET_PROCESS(2, 0, 0, 0);
+    SET_PROCESS(GAME_OVER_PROCESS, 0, 0, 0);
     return 1;
 }
 
-bool32 Command25(struct ScriptContext * scriptCtx)
+bool32 Command25(struct ScriptContext *scriptCtx)
 {
     scriptCtx->scriptPtr++;
     scriptCtx->previousSection = *scriptCtx->scriptPtr;
@@ -551,10 +512,10 @@ bool32 Command25(struct ScriptContext * scriptCtx)
     return 0;
 }
 
-bool32 Command26(struct ScriptContext * scriptCtx)
+bool32 Command26(struct ScriptContext *scriptCtx)
 {
     scriptCtx->scriptPtr++;
-    if(*scriptCtx->scriptPtr != 0)
+    if (*scriptCtx->scriptPtr != 0)
         gMain.gameStateFlags |= 0x10;
     else
         gMain.gameStateFlags &= ~0x10;
@@ -562,7 +523,7 @@ bool32 Command26(struct ScriptContext * scriptCtx)
     return 0;
 }
 
-bool32 Command27(struct ScriptContext * scriptCtx)
+bool32 Command27(struct ScriptContext *scriptCtx)
 {
     scriptCtx->scriptPtr++;
     gMain.shakeTimer = *scriptCtx->scriptPtr;
@@ -573,13 +534,13 @@ bool32 Command27(struct ScriptContext * scriptCtx)
     return 0;
 }
 
-bool32 Command28(struct ScriptContext * scriptCtx)
+bool32 Command28(struct ScriptContext *scriptCtx)
 {
     scriptCtx->scriptPtr++;
-    if(*scriptCtx->scriptPtr)
+    if (*scriptCtx->scriptPtr)
     {
         BACKUP_PROCESS();
-        SET_PROCESS(5, 0, 0, 0); // start testimony
+        SET_PROCESS(TESTIMONY_PROCESS, 0, 0, 0); // start testimony
     }
     else
     {
@@ -589,76 +550,76 @@ bool32 Command28(struct ScriptContext * scriptCtx)
     return 0;
 }
 
-bool32 Command29(struct ScriptContext * scriptCtx)
+bool32 Command29(struct ScriptContext *scriptCtx)
 {
     scriptCtx->scriptPtr++;
-    if(*scriptCtx->scriptPtr == 3)
+    if (*scriptCtx->scriptPtr == 3)
     {
-        gTestimony.unk4 = 0xF0;
-        gTestimony.unk2 = 0xE0;
-        gTestimony.unk3 = 0xE0;
-        gTestimony.unk0 = 2;
+        gTestimony.healthPointX = 0xF0;
+        gTestimony.pressPromptY = 0xE0;
+        gTestimony.presentPromptY = 0xE0;
+        gTestimony.displayState = 2;
         gIORegisters.lcd_dispcnt &= ~DISPCNT_BG1_ON;
     }
-    else if(*scriptCtx->scriptPtr == 2)
+    else if (*scriptCtx->scriptPtr == 2)
     {
         u32 i;
-        struct OamAttrs * oam;
-        gTestimony.unk4 = 0xF0;
-        gTestimony.unk2 = 0xE0;
-        gTestimony.unk3 = 0xE0;
-        gTestimony.unk0 = 0;
+        struct OamAttrs *oam;
+        gTestimony.healthPointX = 0xF0;
+        gTestimony.pressPromptY = 0xE0;
+        gTestimony.presentPromptY = 0xE0;
+        gTestimony.displayState = 0;
         gIORegisters.lcd_dispcnt |= DISPCNT_BG1_ON;
         oam = &gOamObjects[35];
-        for(i = 0; i < 5; oam++, i++)
+        for (i = 0; i < 5; oam++, i++)
         {
             oam->attr0 = SPRITE_ATTR0_CLEAR;
         }
     }
-    else if(*scriptCtx->scriptPtr != 0)
+    else if (*scriptCtx->scriptPtr != 0)
     {
         BACKUP_PROCESS();
-        SET_PROCESS(6, 0, 0, 0); // return to testimony
+        SET_PROCESS(QUESTIONING_PROCESS, QUESTIONING_INIT, 0, 0); // return to questioning
     }
     else
     {
-        SET_PROCESS(3, 1, 0, 0); // goes back into trial process
+        SET_PROCESS(COURT_PROCESS, COURT_MAIN, 0, 0); // goes back into trial process
     }
     scriptCtx->scriptPtr++;
     return 0;
 }
 
-bool32 Command2A(struct ScriptContext * scriptCtx)
+bool32 Command2A(struct ScriptContext *scriptCtx)
 {
     u32 nextSection;
     scriptCtx->scriptPtr++;
-    if(GetFlag(0, *scriptCtx->scriptPtr))
+    if (GetFlag(0, *scriptCtx->scriptPtr))
     {
-        nextSection = *(scriptCtx->scriptPtr+1);
+        nextSection = *(scriptCtx->scriptPtr + 1);
     }
     else
     {
-        nextSection = *(scriptCtx->scriptPtr+2);
+        nextSection = *(scriptCtx->scriptPtr + 2);
     }
     scriptCtx->nextSection = nextSection;
-    scriptCtx->scriptPtr+=3;
+    scriptCtx->scriptPtr += 3;
     return 0;
 }
 
-bool32 Command2B(struct ScriptContext * scriptCtx)
+bool32 Command2B(struct ScriptContext *scriptCtx)
 {
     scriptCtx->scriptPtr++;
     gMain.previousHealth = gMain.health;
     gMain.health--;
-    gMain.damageFrame = 1; // damage related
+    gMain.damageFrame = 1;      // damage related
     gMain.damageFrameTimer = 3; // damage related
     PlaySE(SE022_LOST_A_TRY);
-    if(gMain.health <= 0)
+    if (gMain.health <= 0)
         scriptCtx->nextSection = gCaseGameoverSections[gMain.scenarioIdx];
     return 0;
 }
 
-bool32 Command2C(struct ScriptContext * scriptCtx)
+bool32 Command2C(struct ScriptContext *scriptCtx)
 {
     u32 i;
     scriptCtx->scriptPtr++;
@@ -666,17 +627,17 @@ bool32 Command2C(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     scriptCtx->textX = 0;
     scriptCtx->textY = 0;
-    for(i = 0; i < ARRAY_COUNT(gTextBoxCharacters); i++)
+    for (i = 0; i < ARRAY_COUNT(gTextBoxCharacters); i++)
     {
         gTextBoxCharacters[i].state &= ~0x8000;
     }
     gBG1MapBuffer[622] = 9; // clear downward arrow in text box
     gBG1MapBuffer[623] = 9; // clear downward arrow in text box
-    SetAnimationFrameOffset(&gAnimation[1], gMain.idleAnimationOffset); 
+    SetAnimationFrameOffset(&gAnimation[1], gMain.idleAnimationOffset);
     return 0;
 }
 
-bool32 Command2E(struct ScriptContext * scriptCtx)
+bool32 Command2E(struct ScriptContext *scriptCtx)
 {
     u32 i;
     scriptCtx->flags &= ~(0x2 | 0x1);
@@ -685,7 +646,7 @@ bool32 Command2E(struct ScriptContext * scriptCtx)
     scriptCtx->textY = 0;
     scriptCtx->textboxDownArrowIndex = 0;
     scriptCtx->textboxDownArrowDelayCounter = 0;
-    for(i = 0; i < ARRAY_COUNT(gTextBoxCharacters); i++)
+    for (i = 0; i < ARRAY_COUNT(gTextBoxCharacters); i++)
     {
         gTextBoxCharacters[i].state &= ~0x8000;
     }
@@ -694,13 +655,13 @@ bool32 Command2E(struct ScriptContext * scriptCtx)
     return 1;
 }
 
-bool32 Command2F(struct ScriptContext * scriptCtx)
+bool32 Command2F(struct ScriptContext *scriptCtx)
 {
     u32 temp;
     scriptCtx->scriptPtr++;
     temp = *scriptCtx->scriptPtr;
     scriptCtx->scriptPtr++;
-    if(*scriptCtx->scriptPtr)
+    if (*scriptCtx->scriptPtr)
         PlayAnimation(temp);
     else
         DestroyAnimation(FindAnimationFromAnimId(temp));
@@ -708,11 +669,11 @@ bool32 Command2F(struct ScriptContext * scriptCtx)
     return 0;
 }
 
-bool32 Command30(struct ScriptContext * scriptCtx)
+bool32 Command30(struct ScriptContext *scriptCtx)
 {
     scriptCtx->scriptPtr++;
     scriptCtx->currentSoundCue = *scriptCtx->scriptPtr;
-    if(scriptCtx->currentSoundCue == 2)
+    if (scriptCtx->currentSoundCue == 2)
     {
         scriptCtx->soundCueSkip = 0;
     }
@@ -720,7 +681,7 @@ bool32 Command30(struct ScriptContext * scriptCtx)
     return 0;
 }
 
-bool32 Command31(struct ScriptContext * scriptCtx)
+bool32 Command31(struct ScriptContext *scriptCtx)
 {
     u32 unk0, unk1;
     scriptCtx->scriptPtr++;
@@ -732,7 +693,7 @@ bool32 Command31(struct ScriptContext * scriptCtx)
     return 0;
 }
 
-bool32 Command32(struct ScriptContext * scriptCtx)
+bool32 Command32(struct ScriptContext *scriptCtx)
 {
     u32 location, bgId;
     scriptCtx->scriptPtr++;
@@ -744,7 +705,7 @@ bool32 Command32(struct ScriptContext * scriptCtx)
     return 0;
 }
 
-bool32 Command33(struct ScriptContext * scriptCtx)
+bool32 Command33(struct ScriptContext *scriptCtx)
 {
     u32 startingLocation;
 
@@ -762,13 +723,13 @@ bool32 Command33(struct ScriptContext * scriptCtx)
     return 0;
 }
 
-bool32 Command34(struct ScriptContext * scriptCtx)
+bool32 Command34(struct ScriptContext *scriptCtx)
 {
     scriptCtx->scriptPtr++;
     gMain.currentRoomId = *scriptCtx->scriptPtr;
     scriptCtx->scriptPtr++;
     StartHardwareBlend(2, 0, 2, 0x1F);
-    SET_PROCESS(4, 5, 0, 0);
+    SET_PROCESS(INVESTIGATION_PROCESS, INVESTIGATION_ROOM_INIT, 0, 0);
     return 0;
 }
 
@@ -776,45 +737,44 @@ bool32 Command35(struct ScriptContext *scriptCtx)
 {
     u32 offset;
     u32 temp;
-    u16 * jmpArgs;
+    u16 *jmpArgs;
 
     scriptCtx->scriptPtr++;
     temp = *scriptCtx->scriptPtr >> 8;
 
-    if(*scriptCtx->scriptPtr & 1) 
+    if (*scriptCtx->scriptPtr & 1)
     {
-        if(!GetFlag(0, temp)) 
-        {
-            scriptCtx->scriptPtr += 2;
-            return 0;
-        }
-        
-    }
-    else 
-    {
-        if(GetFlag(0, temp)) 
+        if (!GetFlag(0, temp))
         {
             scriptCtx->scriptPtr += 2;
             return 0;
         }
     }
-    if(*(scriptCtx->scriptPtr) & 0x80) 
+    else
     {
-        u32 * heapPtr;
+        if (GetFlag(0, temp))
+        {
+            scriptCtx->scriptPtr += 2;
+            return 0;
+        }
+    }
+    if (*(scriptCtx->scriptPtr) & 0x80)
+    {
+        u32 *heapPtr;
         scriptCtx->scriptPtr++;
         temp = *scriptCtx->scriptPtr;
         heapPtr = eScriptHeap;
-        heapPtr += temp+1;
-        jmpArgs = (u16*)heapPtr;
+        heapPtr += temp + 1;
+        jmpArgs = (u16 *)heapPtr;
         offset = jmpArgs[0] / 2;
         temp = jmpArgs[1];
         scriptCtx->currentSection = temp + 0x80;
         heapPtr = eScriptHeap;
-        heapPtr += temp+1;
+        heapPtr += temp + 1;
         scriptCtx->scriptSectionPtr = eScriptHeap + *heapPtr;
         scriptCtx->scriptPtr = scriptCtx->scriptSectionPtr + offset;
     }
-    else 
+    else
     {
         scriptCtx->scriptPtr++;
         temp = *scriptCtx->scriptPtr / 2;
@@ -823,25 +783,25 @@ bool32 Command35(struct ScriptContext *scriptCtx)
     return 0;
 }
 
-bool32 Command36(struct ScriptContext * scriptCtx)
+bool32 Command36(struct ScriptContext *scriptCtx)
 {
     u32 idx;
     u32 offset;
-    u32 * heapPtr;
-    u16 * ptr;
+    u32 *heapPtr;
+    u16 *ptr;
     scriptCtx->scriptPtr++;
     idx = *scriptCtx->scriptPtr;
     heapPtr = eScriptHeap;
-    ptr = (u16*)(heapPtr+idx+1);
+    ptr = (u16 *)(heapPtr + idx + 1);
     offset = ptr[0] / 2;
     idx = ptr[1];
     scriptCtx->currentSection = idx + 0x80;
-    scriptCtx->scriptSectionPtr = eScriptHeap + ((u32*)eScriptHeap)[idx+1];
+    scriptCtx->scriptSectionPtr = eScriptHeap + ((u32 *)eScriptHeap)[idx + 1];
     scriptCtx->scriptPtr = scriptCtx->scriptSectionPtr + offset;
     return 0;
 }
 
-bool32 Command37(struct ScriptContext * scriptCtx)
+bool32 Command37(struct ScriptContext *scriptCtx)
 {
     u32 temp;
     scriptCtx->scriptPtr++;
@@ -852,10 +812,10 @@ bool32 Command37(struct ScriptContext * scriptCtx)
     return 0;
 }
 
-bool32 Command38(struct ScriptContext * scriptCtx)
+bool32 Command38(struct ScriptContext *scriptCtx)
 {
     scriptCtx->scriptPtr++;
-    if(*scriptCtx->scriptPtr)
+    if (*scriptCtx->scriptPtr)
     {
         ChangeAnimationActivity(&gAnimation[1], 1);
     }
@@ -867,18 +827,18 @@ bool32 Command38(struct ScriptContext * scriptCtx)
     return 0;
 }
 
-bool32 Command39(struct ScriptContext * scriptCtx)
+bool32 Command39(struct ScriptContext *scriptCtx)
 {
     u32 id;
     u32 oamIdx;
-    struct MapMarker * mapMarker;
-    struct OamAttrs * oamObject;
+    struct MapMarker *mapMarker;
+    struct OamAttrs *oamObject;
     scriptCtx->scriptPtr++;
     id = *scriptCtx->scriptPtr >> 8;
-    if(*scriptCtx->scriptPtr & 1)
+    if (*scriptCtx->scriptPtr & 1)
     {
         oamIdx = GetMapMarkerIndexFromId(id);
-        if(oamIdx == 0xFF)
+        if (oamIdx == 0xFF)
         {
             u32 size;
             oamIdx = GetMapMarkerIndexFromId(0xFF);
@@ -890,14 +850,14 @@ bool32 Command39(struct ScriptContext * scriptCtx)
             DmaCopy16(3, gUnknown_0824696C, OBJ_PLTT + 0xC0, 0x20);
             mapMarker->oamIdx = oamIdx;
             oamObject = &gOamObjects[oamIdx];
-            
+
             oamObject->attr0 = sMapMarkerSprites[id].attr0;
             mapMarker->attr0 = oamObject->attr0;
-            
+
             oamObject->attr1 = sMapMarkerSprites[id].attr1;
             mapMarker->attr1 = oamObject->attr1;
 
-            oamIdx = ((uintptr_t)mapMarker->vramPtr - ((uintptr_t)OBJ_VRAM0+0x1800));
+            oamIdx = ((uintptr_t)mapMarker->vramPtr - ((uintptr_t)OBJ_VRAM0 + 0x1800));
             oamIdx /= 32;
             oamObject->attr2 = SPRITE_ATTR2(oamIdx + 0xC0, 2, 6);
             mapMarker->attr2 = oamObject->attr2;
@@ -911,26 +871,26 @@ bool32 Command39(struct ScriptContext * scriptCtx)
             oamObject->attr0 = mapMarker->attr0;
             oamObject->attr1 = mapMarker->attr1;
             oamObject->attr2 = mapMarker->attr2;
-            mapMarker->unk5 &= ~0x4;
+            mapMarker->flags &= ~0x4;
         }
     }
     else
-    {   
+    {
         // TODO: BUGFIX
         // ! Capcom forgot to check for 0xFF here..this will slightly corrupt the sound buffer in gSoundInfo
-        oamIdx = GetMapMarkerIndexFromId(id); 
-        gMapMarker[oamIdx].unk5 |= 4;
+        oamIdx = GetMapMarkerIndexFromId(id);
+        gMapMarker[oamIdx].flags |= 4;
     }
     scriptCtx->scriptPtr++;
     return 0;
 }
 
-bool32 Command3A(struct ScriptContext * scriptCtx)
+bool32 Command3A(struct ScriptContext *scriptCtx)
 {
     u32 oamIdx;
     scriptCtx->scriptPtr++;
     oamIdx = GetMapMarkerIndexFromId(*scriptCtx->scriptPtr >> 8);
-    if(oamIdx != 0xFF)
+    if (oamIdx != 0xFF)
     {
         scriptCtx->scriptPtr++;
         gMapMarker[oamIdx].attr0 &= ~0xFF;
@@ -947,19 +907,19 @@ bool32 Command3A(struct ScriptContext * scriptCtx)
     return 0;
 }
 
-bool32 Command3B(struct ScriptContext * scriptCtx)
+bool32 Command3B(struct ScriptContext *scriptCtx)
 {
     u32 oamIdx;
     scriptCtx->scriptPtr++;
     oamIdx = GetMapMarkerIndexFromId(*scriptCtx->scriptPtr >> 8);
-    if(oamIdx != 0xFF)
+    if (oamIdx != 0xFF)
     {
         gMapMarker[oamIdx].direction = (u8)*scriptCtx->scriptPtr & 3;
         scriptCtx->scriptPtr++;
         gMapMarker[oamIdx].speed = (u8)(*scriptCtx->scriptPtr >> 8);
         gMapMarker[oamIdx].distanceToMove = (u8)*scriptCtx->scriptPtr;
         scriptCtx->scriptPtr++;
-        gMapMarker[oamIdx].unk5 |= 2;
+        gMapMarker[oamIdx].flags |= 2;
         gMapMarker[oamIdx].distanceMoved = 0;
     }
     else
@@ -970,17 +930,17 @@ bool32 Command3B(struct ScriptContext * scriptCtx)
     return 0;
 }
 
-bool32 Command3C(struct ScriptContext * scriptCtx)
+bool32 Command3C(struct ScriptContext *scriptCtx)
 {
     u32 oamIdx;
     scriptCtx->scriptPtr++;
     oamIdx = GetMapMarkerIndexFromId(*scriptCtx->scriptPtr >> 8);
-    if(oamIdx != 0xFF)
+    if (oamIdx != 0xFF)
     {
         gMapMarker[oamIdx].isBlinking = *scriptCtx->scriptPtr;
-        if(!(*scriptCtx->scriptPtr & 1))
+        if (!(*scriptCtx->scriptPtr & 1))
         {
-            gOamObjects[oamIdx+0x39].attr1 = gMapMarker[oamIdx].attr1;
+            gOamObjects[oamIdx + 0x39].attr1 = gMapMarker[oamIdx].attr1;
         }
     }
     gMapMarker[oamIdx].blinkTimer = 0;
@@ -988,130 +948,130 @@ bool32 Command3C(struct ScriptContext * scriptCtx)
     return 0;
 }
 
-bool32 Command3D(struct ScriptContext * scriptCtx)
+bool32 Command3D(struct ScriptContext *scriptCtx)
 {
     u32 oamIdx;
     scriptCtx->scriptPtr++;
     oamIdx = GetMapMarkerIndexFromId(*scriptCtx->scriptPtr >> 8);
-    if(oamIdx != 0xFF)
+    if (oamIdx != 0xFF)
     {
-        if(gMapMarker[oamIdx].unk5 & 2)
+        if (gMapMarker[oamIdx].flags & 2)
         {
             scriptCtx->scriptPtr--;
             return 1;
         }
     }
     scriptCtx->scriptPtr++;
-    return 0; 
+    return 0;
 }
 
-bool32 Command3E(struct ScriptContext * scriptCtx)
+bool32 Command3E(struct ScriptContext *scriptCtx)
 {
     scriptCtx->scriptPtr++;
     DmaCopy16(3, gUnknown_08190AC0, OBJ_VRAM0 + 0x1F80, 0x80);
     DmaCopy16(3, &gUnknown_081942C0[0], OBJ_PLTT + 0x100, 0x20);
-    gInvestigation.unk0 = 0xF0;
-    gInvestigation.unk2 = 0x30;
-    gInvestigation.unk17 = 0;
-    gInvestigation.unk16 = 8;
-    gInvestigation.unk8 = 0xF;
-    gInvestigation.unk9 = *scriptCtx->scriptPtr;
+    gInvestigation.pointerX = 0xF0;
+    gInvestigation.pointerY = 0x30;
+    gInvestigation.pointerColorCounter = 0;
+    gInvestigation.pointerColor = 8;
+    gInvestigation.spotselectStartCounter = 0xF;
+    gInvestigation.spotselectId = *scriptCtx->scriptPtr;
     scriptCtx->flags |= (SCRIPT_SPOTSELECT_MOVE_TO_START | SCRIPT_SPOTSELECT_PLAY_SPAWN_SOUND);
     scriptCtx->scriptPtr++;
-    return 0; 
+    return 0;
 }
 
 bool32 Command3F(struct ScriptContext *scriptCtx)
 {
-    struct InvestigationStruct * investigation = &gInvestigation;
-    const struct Struct8018870 * struct8018870p;
+    struct InvestigationStruct *investigation = &gInvestigation;
+    const struct SpotSelectData *spotselect;
     struct Rect rect;
 
-    if(scriptCtx->flags & SCRIPT_SPOTSELECT_MOVE_TO_START)
+    if (scriptCtx->flags & SCRIPT_SPOTSELECT_MOVE_TO_START)
     {
-        investigation->unk0 += investigation->unk8;
-        investigation->unk0 &= 0xFF;
-        investigation->unk8--;
-        if(investigation->unk8 == 0)
+        investigation->pointerX += investigation->spotselectStartCounter;
+        investigation->pointerX &= 0xFF;
+        investigation->spotselectStartCounter--;
+        if (investigation->spotselectStartCounter == 0)
         {
             scriptCtx->flags &= ~SCRIPT_SPOTSELECT_MOVE_TO_START;
             scriptCtx->flags |= (SCRIPT_SPOTSELECT_INPUT | SCRIPT_LOOP);
         }
-        if(scriptCtx->flags & SCRIPT_SPOTSELECT_PLAY_SPAWN_SOUND)
+        if (scriptCtx->flags & SCRIPT_SPOTSELECT_PLAY_SPAWN_SOUND)
         {
             PlaySE(SE007_MENU_OPEN_SUBMENU);
             scriptCtx->flags &= ~SCRIPT_SPOTSELECT_PLAY_SPAWN_SOUND;
         }
     }
-    else if(scriptCtx->flags & SCRIPT_SPOTSELECT_INPUT)
+    else if (scriptCtx->flags & SCRIPT_SPOTSELECT_INPUT)
     {
-        struct8018870p = &gUnknown_08018870[investigation->unk9];
-        if(gJoypad.heldKeys & DPAD_LEFT)
+        spotselect = &gSpotSelectData[investigation->spotselectId];
+        if (gJoypad.heldKeys & DPAD_LEFT)
         {
-            investigation->unk0 -= 3;
-            if(investigation->unk0 < struct8018870p->left)
-                investigation->unk0 = struct8018870p->left;
-            if(investigation->unk0 > DISPLAY_WIDTH-16)
-                investigation->unk0 = 0;
+            investigation->pointerX -= 3;
+            if (investigation->pointerX < spotselect->left)
+                investigation->pointerX = spotselect->left;
+            if (investigation->pointerX > DISPLAY_WIDTH - 16)
+                investigation->pointerX = 0;
         }
-        if(gJoypad.heldKeys & DPAD_RIGHT)
+        if (gJoypad.heldKeys & DPAD_RIGHT)
         {
-            investigation->unk0 += 3;
-            if(investigation->unk0 > struct8018870p->right)
-                investigation->unk0 = struct8018870p->right;
-            if(investigation->unk0 > DISPLAY_WIDTH-16)
-                investigation->unk0 = DISPLAY_WIDTH-16;
+            investigation->pointerX += 3;
+            if (investigation->pointerX > spotselect->right)
+                investigation->pointerX = spotselect->right;
+            if (investigation->pointerX > DISPLAY_WIDTH - 16)
+                investigation->pointerX = DISPLAY_WIDTH - 16;
         }
-        if(gJoypad.heldKeys & DPAD_UP)
+        if (gJoypad.heldKeys & DPAD_UP)
         {
-            investigation->unk2 -= 3;
-            if(investigation->unk2 < struct8018870p->top)
-                investigation->unk2 = struct8018870p->top;
-            if(investigation->unk2 > DISPLAY_HEIGHT-16)
-                investigation->unk2 = 0;
+            investigation->pointerY -= 3;
+            if (investigation->pointerY < spotselect->top)
+                investigation->pointerY = spotselect->top;
+            if (investigation->pointerY > DISPLAY_HEIGHT - 16)
+                investigation->pointerY = 0;
         }
-        if(gJoypad.heldKeys & DPAD_DOWN)
+        if (gJoypad.heldKeys & DPAD_DOWN)
         {
-            investigation->unk2 += 3;
-            if(investigation->unk2 > struct8018870p->bottom)
-                investigation->unk2 = struct8018870p->bottom;
-            if(investigation->unk2 > DISPLAY_HEIGHT-16)
-                investigation->unk2 = DISPLAY_HEIGHT-16;
+            investigation->pointerY += 3;
+            if (investigation->pointerY > spotselect->bottom)
+                investigation->pointerY = spotselect->bottom;
+            if (investigation->pointerY > DISPLAY_HEIGHT - 16)
+                investigation->pointerY = DISPLAY_HEIGHT - 16;
         }
-        if(gJoypad.pressedKeys & A_BUTTON)
+        if (gJoypad.pressedKeys & A_BUTTON)
         {
             scriptCtx->flags &= ~(SCRIPT_SPOTSELECT_INPUT | SCRIPT_LOOP);
-            rect.x = gMain.Bg256_pos_x + investigation->unk0 + 12;
-            rect.y = gMain.Bg256_pos_y + investigation->unk2;
+            rect.x = gMain.Bg256_pos_x + investigation->pointerX + 12;
+            rect.y = gMain.Bg256_pos_y + investigation->pointerY;
             rect.w = 4;
             rect.h = 4;
-            if(CheckRectCollisionWithArea(&rect, &struct8018870p->firstArea))
-                ChangeScriptSection(struct8018870p->firstAreaSection);
-            else if(CheckRectCollisionWithArea(&rect, &struct8018870p->secondArea))
-                ChangeScriptSection(struct8018870p->secondAreaSection);
-            else 
-                ChangeScriptSection(struct8018870p->defaultSection);
+            if (CheckRectCollisionWithArea(&rect, &spotselect->firstArea))
+                ChangeScriptSection(spotselect->firstAreaSection);
+            else if (CheckRectCollisionWithArea(&rect, &spotselect->secondArea))
+                ChangeScriptSection(spotselect->secondAreaSection);
+            else
+                ChangeScriptSection(spotselect->defaultSection);
             scriptCtx->flags |= SCRIPT_SPOTSELECT_SELECTION_MADE;
-            DmaCopy16(3, &gUnknown_081942C0[0], OBJ_PLTT+0x100, 0x20);
+            DmaCopy16(3, &gUnknown_081942C0[0], OBJ_PLTT + 0x100, 0x20);
             PlaySE(SE001_MENU_CONFIRM);
             scriptCtx->flags |= SCRIPT_SPOTSELECT_SELECTION_MADE;
-            gOamObjects[88].attr0 = SPRITE_ATTR0(investigation->unk2, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
-            gOamObjects[88].attr1 = SPRITE_ATTR1_NONAFFINE(investigation->unk0, FALSE, FALSE, 1);
+            gOamObjects[88].attr0 = SPRITE_ATTR0(investigation->pointerY, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
+            gOamObjects[88].attr1 = SPRITE_ATTR1_NONAFFINE(investigation->pointerX, FALSE, FALSE, 1);
             gOamObjects[88].attr2 = SPRITE_ATTR2(0xFC, 1, 8);
             return 0;
         }
-        investigation->unk17++;
-        if(investigation->unk17 > 1)
+        investigation->pointerColorCounter++;
+        if (investigation->pointerColorCounter > 1)
         {
-            investigation->unk17 = 0;
-            investigation->unk16++;
-            investigation->unk16 &= 0xF;
-            DmaCopy16(3, &gUnknown_081942C0[investigation->unk16*0x20], OBJ_PLTT+0x100, 0x20);
+            investigation->pointerColorCounter = 0;
+            investigation->pointerColor++;
+            investigation->pointerColor &= 0xF;
+            DmaCopy16(3, &gUnknown_081942C0[investigation->pointerColor * 0x20], OBJ_PLTT + 0x100, 0x20);
         }
     }
     scriptCtx->flags |= SCRIPT_SPOTSELECT_SELECTION_MADE;
-    gOamObjects[88].attr0 = SPRITE_ATTR0(investigation->unk2, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
-    gOamObjects[88].attr1 = SPRITE_ATTR1_NONAFFINE(investigation->unk0, FALSE, FALSE, 1);
+    gOamObjects[88].attr0 = SPRITE_ATTR0(investigation->pointerY, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
+    gOamObjects[88].attr1 = SPRITE_ATTR1_NONAFFINE(investigation->pointerX, FALSE, FALSE, 1);
     gOamObjects[88].attr2 = SPRITE_ATTR2(0xFC, 1, 8);
     return 1;
 }
@@ -1119,7 +1079,7 @@ bool32 Command3F(struct ScriptContext *scriptCtx)
 void MakeMapMarkerSprites()
 {
     u32 i = 0;
-    u32 id; 
+    u32 id;
     struct MapMarker *mapMarker;
     struct OamAttrs *oam;
     for (i = 0; i < 8; i++)
@@ -1128,9 +1088,9 @@ void MakeMapMarkerSprites()
             continue;
 
         id = gMapMarker[i].id;
-        DmaCopy16(3, sMapMarkerSprites[id].tiles, (gMapMarker+i)->vramPtr, sMapMarkerSprites[id].size);
+        DmaCopy16(3, sMapMarkerSprites[id].tiles, (gMapMarker + i)->vramPtr, sMapMarkerSprites[id].size);
         mapMarker = &gMapMarker[i];
-        if (!(mapMarker->unk5 & 4))
+        if (!(mapMarker->flags & 4))
         {
             oam = &gOamObjects[mapMarker->oamIdx];
             oam->attr0 = mapMarker->attr0;
@@ -1138,14 +1098,15 @@ void MakeMapMarkerSprites()
             oam->attr2 = mapMarker->attr2;
         }
 
-        if (mapMarker->id); // needed for matching wtf
+        if (mapMarker->id)
+            ; // needed for matching wtf
     }
 }
 
 u32 GetMapMarkerIndexFromId(u32 id) // GetExplCharWorkIndexById
 {
     u32 i = 0;
-    do 
+    do
     {
         if (gMapMarker[i].id == id)
             return i;

@@ -41,7 +41,7 @@ extern u16 gBG2MapBuffer[0x400];
 extern u16 gBG3MapBuffer[0x400];
 extern u16 gTilemapBuffer[0x400];
 
-extern const u8 gUnknown_08013B70[0x400];
+extern const u8 gTextboxTiles[0x400];
 extern const u16 gUnknown_08014570[0x2C0];
 
 struct CourtScroll

@@ -15,7 +15,7 @@
 #include "constants/script.h"
 #include "constants/animation.h"
 #include "constants/songs.h"
-
+#include "constants/process.h"
 
 struct EvidenceProfileData
 {
@@ -24,7 +24,7 @@ struct EvidenceProfileData
     /* +0x06 */ u16 evidenceDetailId;
 };
 
-static const struct EvidenceProfileData gEvidenceProfileData[] = {
+const struct EvidenceProfileData gEvidenceProfileData[] = {
 	{
 		.descriptionTiles = gUnknown_08196CA8,
 		.evidenceImageId = 18,
@@ -571,23 +571,23 @@ const u8 sCourtRecordLeftArrowTileIndexes[] = {0, 4, 8, 4};
 const u8 sCourtRecordRightArrowTileIndexes[] = {12, 16, 20, 16};
 
 void (*gCourtRecordProcessStates[8])(struct Main *, struct CourtRecord *) = {
-	sub_800D880,
-	sub_800D94C,
-	sub_800DD88,
-	sub_800DE28,
-	sub_800DE8C,
-	sub_800DF44,
-	sub_800E488,
-	sub_800E4A4
+	CourtRecordInit,
+	CourtRecordMain,
+	CourtRecordExit,
+	CourtRecordChangeState,
+	CourtRecordChangeRecord,
+	CourtRecordDetailSubMenu,
+	CourtRecordLoadGfxChangeState,
+	CourtRecordTakeThatSpecial
 };
 
-void (*gProcess8ProcessStates[3])(struct Main *, struct CourtRecord *) = {
-	sub_800E75C,
-	sub_800E7C0,
-	sub_800E828
+void (*gEvidenceAddedProcessStates[3])(struct Main *, struct CourtRecord *) = {
+	EvidenceAddedInit,
+	EvidenceAddedMain,
+	EvidenceAddedExit
 };
 
-void InitializeCourtRecordForScenario(struct Main * main, struct CourtRecord * courtRecord)
+void InitializeCourtRecordForScenario(struct Main * main, struct CourtRecord * courtRecord) // Status_init
 {
     const u8 * recordIds;
     u32 i;
@@ -614,19 +614,19 @@ void InitializeCourtRecordForScenario(struct Main * main, struct CourtRecord * c
     }
 }
 
-void CourtRecordProcess(struct Main * main)
+void CourtRecordProcess(struct Main * main) // Status
 {
     gBG1MapBuffer[622] = 9;
     gBG1MapBuffer[623] = 9;
     gCourtRecordProcessStates[main->process[GAME_PROCESS_STATE]](main, &gCourtRecord);
 }
 
-void GameProcess08(struct Main * main)
+void EvidenceAddedProcess(struct Main * main) // Note_add_disp
 {
-    gProcess8ProcessStates[main->process[GAME_PROCESS_STATE]](main, &gCourtRecord);
+    gEvidenceAddedProcessStates[main->process[GAME_PROCESS_STATE]](main, &gCourtRecord);
 }
 
-void sub_800D880(struct Main * main, struct CourtRecord * courtRecord)
+void CourtRecordInit(struct Main * main, struct CourtRecord * courtRecord) // status_init
 {
     u32 i;
     struct OamAttrs * oam;
@@ -640,9 +640,9 @@ void sub_800D880(struct Main * main, struct CourtRecord * courtRecord)
     while(0);
 
     io = &gIORegisters;
-    if(main->processCopy[GAME_PROCESS] != 6)
+    if(main->processCopy[GAME_PROCESS] != QUESTIONING_PROCESS)
     {
-        if(main->processCopy[GAME_PROCESS] == 4 && main->processCopy[GAME_PROCESS_STATE] <= 5)
+        if(main->processCopy[GAME_PROCESS] == INVESTIGATION_PROCESS && main->processCopy[GAME_PROCESS_STATE] < INVESTIGATION_INSPECT)
         {
             oam = &gOamObjects[49];
             for(i = 0; i < 4; i++)
@@ -652,7 +652,7 @@ void sub_800D880(struct Main * main, struct CourtRecord * courtRecord)
             }
         }
     }
-    if(main->processCopy[GAME_PROCESS] == 5)
+    if(main->processCopy[GAME_PROCESS] == TESTIMONY_PROCESS)
     {
         oam = &gOamObjects[49];
         oam->attr0 = SPRITE_ATTR0_CLEAR;
@@ -670,16 +670,16 @@ void sub_800D880(struct Main * main, struct CourtRecord * courtRecord)
     courtRecord->selectedItemBackup = 0;
     courtRecord->displayItemCount = courtRecord->evidenceCount;
     courtRecord->displayItemList = courtRecord->evidenceList;
-    sub_800E914();
-    sub_800EA80(courtRecord->displayItemList[courtRecord->selectedItem]);
+    LoadEvidenceWindowGraphics();
+    LoadEvidenceGraphics(courtRecord->displayItemList[courtRecord->selectedItem]);
     if(main->process[GAME_PROCESS_VAR2] == 1)
         SlideInBG2Window(2, 0xC);
-    courtRecord->unkF = 1;
-    main->process[GAME_PROCESS_STATE] = 3;
+    courtRecord->nextState = RECORD_MAIN;
+    main->process[GAME_PROCESS_STATE] = RECORD_CHANGE_STATE;
 }
 
 //TODO: fix shit control flow, probably uses local variables to control the flow, don't have time to figure out how
-void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
+void CourtRecordMain(struct Main * main, struct CourtRecord * courtRecord) // status_main
 {
     struct Joypad * joypad = &gJoypad;
     struct OamAttrs * oam;
@@ -692,7 +692,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
         {
             PauseBGM();
             PlaySE(SE001_MENU_CONFIRM);
-            main->process[GAME_PROCESS_STATE] = 5;
+            main->process[GAME_PROCESS_STATE] = RECORD_DETAIL_SUBMENU;
             main->process[GAME_PROCESS_VAR1] = 0;
             StartHardwareBlend(2, 1, 1, 0x1F);
             return;
@@ -707,11 +707,11 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
         goto tailMerge; // compiler can do this but the if(main->process[GAME_PROCESS_VAR2] == 1) fucks up
         /*
         PlaySE(SE00C_MENU_CHANGE_PAGE);
-        courtRecord->unkF = 1;
+        courtRecord->nextState = RECORD_MAIN;
         courtRecord->flags |= 2;
         DmaCopy16(3, OBJ_VRAM0+0x3C00, VRAM+0x1400, 0x1C00);
         DmaCopy16(3, OBJ_PLTT+0x20, PLTT+0x20, 0x20);
-        sub_800EAF8(courtRecord);
+        UpdateEvidenceSprites(courtRecord);
         DmaCopy16(3, &gOamObjects[34], OAM + 34*8, 17*8);
         main->process[GAME_PROCESS_STATE] = 6;
         if(main->process[GAME_PROCESS_VAR2] == 1)
@@ -719,7 +719,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
             //goto label;
             
             if(main->processCopy[GAME_PROCESS] != 4)
-                sub_800B51C(main, &gTestimony, 0);
+                UpdateQuestioningMenuSprites(main, &gTestimony, 0);
             oam = &gOamObjects[55];
             if(!(main->gameStateFlags & 0x100))
             {
@@ -748,18 +748,18 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
             courtRecord->selectedItem = 0;
         tailMerge:
         PlaySE(SE00C_MENU_CHANGE_PAGE);
-        courtRecord->unkF = 1;
+        courtRecord->nextState = RECORD_MAIN;
         courtRecord->flags |= 2;
         DmaCopy16(3, OBJ_VRAM0+0x3C00, VRAM+0x1400, 0x1C00);
         DmaCopy16(3, OBJ_PLTT+0x20, PLTT+0x20, 0x20);
-        sub_800EAF8(courtRecord);
+        UpdateEvidenceSprites(courtRecord);
         DmaCopy16(3, &gOamObjects[34], OAM + 34*8, 11*8);
-        main->process[GAME_PROCESS_STATE] = 6;
+        main->process[GAME_PROCESS_STATE] = RECORD_LOAD_GFX_CHANGE_STATE;
         if(main->process[GAME_PROCESS_VAR2] == 1)
         {
         /*
             if(main->processCopy[GAME_PROCESS] != 4)
-                sub_800B51C(main, &gTestimony, 0);
+                UpdateQuestioningMenuSprites(main, &gTestimony, 0);
             oam = &gOamObjects[55];
             if(!(main->gameStateFlags & 0x100))
             {
@@ -781,13 +781,13 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
             goto label; // idk how to get the compiler to do this
         }
     }
-    else if(main->process[GAME_PROCESS_VAR2] == 1)
+    else if(main->process[GAME_PROCESS_VAR2] == 1) // in Questioning 
     {
         if(joypad->pressedKeys & A_BUTTON)
         {
             //u32 section;
-            sub_800EB88(0);
-            sub_800EBF0(0);
+            UpdateRecordInfoActionSprites(0);
+            UpdateRecordPresentActionSprites(0);
             oam = gOamObjects;
             oam->attr0 = SPRITE_ATTR0_CLEAR;
             oam++;
@@ -795,7 +795,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
             if(main->gameStateFlags & 0x200)
             {
                 SlideInBG2Window(4, 0x12);
-                SET_PROCESS_PTR(7, 7, 0, 0, main);
+                SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_TAKE_THAT_SPECIAL, 0, 0, main);
                 SetTextboxNametag(0, FALSE);
                 main->gameStateFlags &= ~0x300;
                 return;
@@ -811,7 +811,7 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
                 PlaySE(SE027_VOICE_PHOENIX_OBJECTION_JP);
             }
             StartHardwareBlend(3, 1, 4, 0x1F);
-            gTestimony.unk1 = 0xA;
+            gTestimony.timer = 0xA;
             gIORegisters.lcd_dispcnt &= ~DISPCNT_BG1_ON;
             main->advanceScriptContext = FALSE;
             main->showTextboxCharacters = FALSE;
@@ -819,13 +819,13 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
             main->shakeIntensity = 1;
             main->gameStateFlags |= 1;
             gIORegisters.lcd_dispcnt &= ~DISPCNT_BG2_ON;
-            sub_800EB6C(courtRecord);
-            section = sub_800EE20(gScriptContext.currentSection, courtRecord->displayItemList[courtRecord->selectedItem]);
+            ClearEvidenceSprites(courtRecord);
+            section = GetQuestioningPresentedSection(gScriptContext.currentSection, courtRecord->displayItemList[courtRecord->selectedItem]);
             if(section != 0)
             {
                 StopBGM();
                 ChangeScriptSection(section);
-                SET_PROCESS_BACKUP_PTR(3, 1, 0, 0, main);
+                SET_PROCESS_BACKUP_PTR(COURT_PROCESS, COURT_MAIN, 0, 0, main);
             }
             else
             {
@@ -841,12 +841,12 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
                             // could be a macro which would be cool
                             do {
                                 ChangeScriptSection(0x1A);
-                                gScriptContext.unk33 = 1;
+                                gScriptContext.slamDesk = TRUE;
                             } while(0); // lolwut? needed for matching
                             break;
                         case 1:
                             ChangeScriptSection(0x1B);
-                            gScriptContext.unk33 = 1;
+                            gScriptContext.slamDesk = TRUE;
                             break;
                         case 2:
                             ChangeScriptSection(0x1C);
@@ -860,9 +860,9 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
                     gScriptContext.nextSection = section;
                 }
                 gScriptContext.flags &= ~0x10;
-                SET_PROCESS_BACKUP_PTR(6, 1, 0, 0, main);
+                SET_PROCESS_BACKUP_PTR(QUESTIONING_PROCESS, QUESTIONING_MAIN, 0, 0, main);
             }
-            SET_PROCESS_PTR(6, 5, 0, 0, main);
+            SET_PROCESS_PTR(QUESTIONING_PROCESS, QUESTIONING_OBJECTION, 0, 0, main);
             SetTextboxNametag(0, FALSE);
             main->gameStateFlags &= ~0x300;
             return;
@@ -873,12 +873,12 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
             {
                 PlaySE(SE002_MENU_CANCEL);
                 SlideInBG2Window(4, 0xC);
-                main->process[GAME_PROCESS_STATE] = 2;
+                main->process[GAME_PROCESS_STATE] = RECORD_EXIT;
             }
         }
         label:
-        if(main->processCopy[GAME_PROCESS] != 4)
-            sub_800B51C(main, &gTestimony, 0);
+        if(main->processCopy[GAME_PROCESS] != INVESTIGATION_PROCESS)
+            UpdateQuestioningMenuSprites(main, &gTestimony, 0);
         oam = &gOamObjects[55];
         if(!(main->gameStateFlags & 0x100))
         {
@@ -897,26 +897,26 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
             oam->attr0 = SPRITE_ATTR0_CLEAR;
         }
     }
-    else if(main->process[GAME_PROCESS_VAR2] == 2)
+    else if(main->process[GAME_PROCESS_VAR2] == 2) // in Talk menu
     {
         //u32 section;
         if(joypad->pressedKeys & A_BUTTON)
         {
             PlaySE(SE001_MENU_CONFIRM);
-            section = sub_800EEA4(main, courtRecord->displayItemList[courtRecord->selectedItem]);
+            section = GetEvidenceCommentSection(main, courtRecord->displayItemList[courtRecord->selectedItem]);
             ChangeScriptSection(section);
             SlideTextbox(1);
-            sub_800EB6C(courtRecord);
-            sub_800EB88(0);
-            sub_800EBF0(0);
+            ClearEvidenceSprites(courtRecord);
+            UpdateRecordInfoActionSprites(0);
+            UpdateRecordPresentActionSprites(0);
             gIORegisters.lcd_dispcnt &= ~DISPCNT_BG2_ON;
             oam = gOamObjects;
             oam->attr0 = SPRITE_ATTR0_CLEAR;
             oam++;
             oam->attr0 = SPRITE_ATTR0_CLEAR;
-            gInvestigation.unkC = 3;
-            gInvestigation.unk7 = 8;
-            gInvestigation.unkD = 0xF0;
+            gInvestigation.actionState = 3;
+            gInvestigation.inactiveActions = 8;
+            gInvestigation.inactiveActionButtonY = 0xF0;
             RESTORE_PROCESS_PTR(main);
             return;
         }
@@ -924,34 +924,34 @@ void sub_800D94C(struct Main * main, struct CourtRecord * courtRecord)
         {
             PlaySE(SE002_MENU_CANCEL);
             SlideInBG2Window(3, 0xC);
-            SET_PROCESS_BACKUP_PTR(4, 9, 3, 0, main);
-            main->process[GAME_PROCESS_STATE] = 2;
+            SET_PROCESS_BACKUP_PTR(INVESTIGATION_PROCESS, INVESTIGATION_PRESENT, 3, 0, main);
+            main->process[GAME_PROCESS_STATE] = RECORD_EXIT;
         }
     }
-    else 
+    else // Normal court record
     {
         if(joypad->pressedKeys & R_BUTTON)
         {
             PlaySE(SE00A_SWITCH_RECORD);
             SlideInBG2Window(0x3, 0xC);
-            courtRecord->unkF = 4;
-            main->process[GAME_PROCESS_STATE] = 4;
+            courtRecord->nextState = RECORD_CHANGE_RECORD;
+            main->process[GAME_PROCESS_STATE] = RECORD_CHANGE_RECORD;
         }
         else if(joypad->pressedKeys & B_BUTTON)
         {
             PlaySE(SE002_MENU_CANCEL);
             SlideInBG2Window(0x3, 0xC);
-            main->process[GAME_PROCESS_STATE] = 2;
+            main->process[GAME_PROCESS_STATE] = RECORD_EXIT;
         }
     }
     UpdateBG2Window(&gCourtRecord);
-    sub_800E9D4(&gCourtRecord);
+    UpdateRecordSprites(&gCourtRecord);
 }
 
-void sub_800DD88(struct Main * main, struct CourtRecord * courtRecord)
+void CourtRecordExit(struct Main * main, struct CourtRecord * courtRecord) // status_exit
 {
     struct OamAttrs * oam;
-    if(main->process[GAME_PROCESS_VAR2] == 2 && courtRecord->unk2 > 8)
+    if(main->process[GAME_PROCESS_VAR2] == 2 && courtRecord->windowTileX > 8)
     {
         u16 attr1;
         oam = &gOamObjects[52];
@@ -963,8 +963,8 @@ void sub_800DD88(struct Main * main, struct CourtRecord * courtRecord)
         oam->attr1 |= attr1;
     }
     UpdateBG2Window(courtRecord);
-    sub_800E9D4(courtRecord);
-    if(courtRecord->unk1 == 0)
+    UpdateRecordSprites(courtRecord);
+    if(courtRecord->windowScrollSpeed == 0)
     {
         courtRecord->flags |= 4;
         courtRecord->flags &= ~2;
@@ -977,10 +977,10 @@ void sub_800DD88(struct Main * main, struct CourtRecord * courtRecord)
     }
 }
 
-void sub_800DE28(struct Main * main, struct CourtRecord * courtRecord)
+void CourtRecordChangeState(struct Main * main, struct CourtRecord * courtRecord) // status_wait
 {
     struct OamAttrs * oam;
-    if(main->process[GAME_PROCESS_VAR2] == 2 && courtRecord->unk2 > 8)
+    if(main->process[GAME_PROCESS_VAR2] == 2 && courtRecord->windowTileX > 8)
     {
         u16 attr1;
         oam = &gOamObjects[52];
@@ -992,26 +992,26 @@ void sub_800DE28(struct Main * main, struct CourtRecord * courtRecord)
         oam->attr1 |= attr1;
     }
     UpdateBG2Window(courtRecord);
-    sub_800E9D4(courtRecord);
-    if(courtRecord->unk1 == 0)
+    UpdateRecordSprites(courtRecord);
+    if(courtRecord->windowScrollSpeed == 0)
     {
         courtRecord->flags |= 4;
         courtRecord->flags &= ~2;
-        main->process[GAME_PROCESS_STATE] = courtRecord->unkF;
+        main->process[GAME_PROCESS_STATE] = courtRecord->nextState;
     }
 }
 
-void sub_800DE8C(struct Main * main, struct CourtRecord * courtRecord)
+void CourtRecordChangeRecord(struct Main * main, struct CourtRecord * courtRecord) // status_menu_change
 {
     UpdateBG2Window(courtRecord);
-    sub_800E9D4(courtRecord);
-    if(courtRecord->unk1 == 0)
+    UpdateRecordSprites(courtRecord);
+    if(courtRecord->windowScrollSpeed == 0)
     {
         u32 temp;
         courtRecord->flags &= ~2;
         SlideInBG2Window(2, 0xC);
-        courtRecord->unkF = 1;
-        main->process[GAME_PROCESS_STATE] = 3;
+        courtRecord->nextState = RECORD_MAIN;
+        main->process[GAME_PROCESS_STATE] = RECORD_CHANGE_STATE;
         temp = courtRecord->selectedItem;
         courtRecord->selectedItem = courtRecord->selectedItemBackup;
         courtRecord->selectedItemBackup = temp;
@@ -1030,11 +1030,11 @@ void sub_800DE8C(struct Main * main, struct CourtRecord * courtRecord)
             courtRecord->displayItemList = courtRecord->profileList;
         }
 
-        sub_800EA80(courtRecord->displayItemList[courtRecord->selectedItem]);
+        LoadEvidenceGraphics(courtRecord->displayItemList[courtRecord->selectedItem]);
     }
 }
 
-void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
+void CourtRecordDetailSubMenu(struct Main * main, struct CourtRecord * courtRecord) // status_exception ?
 {
     u32 evidenceId;
     if(main->gameStateFlags & 1)
@@ -1101,7 +1101,7 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
             DmaCopy16(3, gMapMarker, gSaveDataBuffer.mapMarker, sizeof(gMapMarker));
             for(i = 0; i < 8; i++)
                 gMapMarker[i].id |= 0xFF;
-            if(main->processCopy[GAME_PROCESS] == 4)
+            if(main->processCopy[GAME_PROCESS] == INVESTIGATION_PROCESS)
             {
                 oam = &gOamObjects[49];
                 for(i = 0; i < 4; i++)
@@ -1111,12 +1111,12 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
                     oam++;
                 }
             }
-            else if(main->processCopy[GAME_PROCESS] == 5)
+            else if(main->processCopy[GAME_PROCESS] == TESTIMONY_PROCESS)
             {
                 oam = &gOamObjects[49];
                 oam->attr0 = SPRITE_ATTR0_CLEAR;
             }
-            else if(main->processCopy[GAME_PROCESS] == 6)
+            else if(main->processCopy[GAME_PROCESS] == QUESTIONING_PROCESS)
             {
                 oam = &gOamObjects[55];
                 oam->attr0 &= ~0x300;
@@ -1135,9 +1135,9 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
             gIORegisters.lcd_dispcnt &= ~DISPCNT_BG1_ON;
             gIORegisters.lcd_dispcnt &= ~DISPCNT_BG2_ON;
             main->animationFlags &= ~(2 | 1);
-            sub_800EB6C(courtRecord);
-            sub_800EB88(0);
-            sub_800ECA8(1);
+            ClearEvidenceSprites(courtRecord);
+            UpdateRecordInfoActionSprites(0);
+            UpdateEvidenceDetailActionSprites(1);
             oam = gOamObjects;
             oam->attr0 = SPRITE_ATTR0_CLEAR;
             oam++;
@@ -1206,11 +1206,11 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
             DmaCopy16(3, gSaveDataBuffer.oam, gOamObjects, sizeof(gOamObjects));
             DmaCopy16(3, gSaveDataBuffer.mapMarker, gMapMarker, sizeof(gMapMarker));
             MakeMapMarkerSprites();
-            if(main->processCopy[GAME_PROCESS] == 5)
-                gTestimony.unk1 = 0;
+            if(main->processCopy[GAME_PROCESS] == TESTIMONY_PROCESS)
+                gTestimony.timer = 0;
             main->animationFlags |= (2 | 1);
             UpdateBG2Window(&gCourtRecord);
-            sub_800E9D4(&gCourtRecord);
+            UpdateRecordSprites(&gCourtRecord);
             main->process[GAME_PROCESS_VAR1]++;
             break;
         }
@@ -1224,11 +1224,11 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
             if(main->blendMode == 0)
             {
                 UnpauseBGM();
-                main->process[GAME_PROCESS_STATE] = 1;
+                main->process[GAME_PROCESS_STATE] = RECORD_MAIN;
                 main->process[GAME_PROCESS_VAR1] = 0;
             }
             UpdateBG2Window(&gCourtRecord);
-            sub_800E9D4(&gCourtRecord);
+            UpdateRecordSprites(&gCourtRecord);
             break;
         }
         case 6:
@@ -1277,13 +1277,13 @@ void sub_800DF44(struct Main * main, struct CourtRecord * courtRecord)
     }
 }
 
-void sub_800E488(struct Main * main, struct CourtRecord * courtRecord)
+void CourtRecordLoadGfxChangeState(struct Main * main, struct CourtRecord * courtRecord) // status_melt ?
 {
-    sub_800EA80(courtRecord->displayItemList[courtRecord->selectedItem]);
-    main->process[GAME_PROCESS_STATE] = 3;
+    LoadEvidenceGraphics(courtRecord->displayItemList[courtRecord->selectedItem]);
+    main->process[GAME_PROCESS_STATE] = RECORD_CHANGE_STATE;
 }
 
-void sub_800E4A4(struct Main * main, struct CourtRecord * courtRecord)
+void CourtRecordTakeThatSpecial(struct Main * main, struct CourtRecord * courtRecord) // status_effect ?
 {
     struct OamAttrs * oam = &gOamObjects[57];
     u32 evidenceId;
@@ -1294,12 +1294,12 @@ void sub_800E4A4(struct Main * main, struct CourtRecord * courtRecord)
         case 0:
             main->affineScale = 0;
             oam->attr0 = SPRITE_ATTR0_CLEAR;
-            if(courtRecord->unk1 == 0)
+            if(courtRecord->windowScrollSpeed == 0)
             {
                 u32 offset;
                 PlayAnimation(ANIM_TAKETHAT_LEFT);
                 PlaySE(SE00D_VOICE_PHOENIX_TAKE_THAT_JP);
-                gTestimony.unk1 = 6;
+                gTestimony.timer = 6;
                 evidenceId = courtRecord->displayItemList[courtRecord->selectedItem];
                 offset = gEvidenceProfileData[evidenceId].evidenceImageId * (TILE_SIZE_4BPP * 64 + 0x20);
                 temp = (uintptr_t)gUnknown_081B290C + offset; //! Evil, uses a u32 for this pointer keep in mind and also global define
@@ -1334,12 +1334,12 @@ void sub_800E4A4(struct Main * main, struct CourtRecord * courtRecord)
             {
                 u32 section;
                 oam->attr0 = SPRITE_ATTR0_CLEAR;
-                gInvestigation.unkE = 0;
-                gInvestigation.unkF = 8;
+                gInvestigation.selectedActionYOffset = 0;
+                gInvestigation.lastActionYOffset = 8;
                 gIORegisters.lcd_dispcnt |= DISPCNT_BG1_ON;
                 main->advanceScriptContext = TRUE;
                 main->showTextboxCharacters = TRUE;
-                section = sub_800EE20(gScriptContext.currentSection, courtRecord->displayItemList[courtRecord->selectedItem]);
+                section = GetQuestioningPresentedSection(gScriptContext.currentSection, courtRecord->displayItemList[courtRecord->selectedItem]);
                 if(section)
                 {
                     ChangeScriptSection(section);
@@ -1400,29 +1400,29 @@ void sub_800E4A4(struct Main * main, struct CourtRecord * courtRecord)
         oam->attr2 = SPRITE_ATTR2(0x80, 0, 1);
     }
     UpdateBG2Window(&gCourtRecord);
-    sub_800E9D4(&gCourtRecord);
+    UpdateRecordSprites(&gCourtRecord);
 }
 
-void sub_800E75C(struct Main * main, struct CourtRecord * courtRecord)
+void EvidenceAddedInit(struct Main * main, struct CourtRecord * courtRecord) // note_add_init
 {
     u32 i;
     u16 * map = gBG2MapBuffer;
     for(i = 0; i < 0x400; i++, map++)
         *map = 0;
     gIORegisters.lcd_dispcnt |= DISPCNT_BG2_ON;
-    sub_800E914();
-    sub_800EA80(main->gottenEvidenceId);
+    LoadEvidenceWindowGraphics();
+    LoadEvidenceGraphics(main->gottenEvidenceId);
     SetBGMVolume(main->bgmVolume >> 1, 4);
     PlaySE(BGM015_JINGLE_EVIDENCE);
     main->process[GAME_PROCESS_STATE]++;
     main->process[GAME_PROCESS_VAR1] = 0;
 }
 
-void sub_800E7C0(struct Main * main, struct CourtRecord * courtRecord)
+void EvidenceAddedMain(struct Main * main, struct CourtRecord * courtRecord) // note_add_main
 {
     UpdateBG2Window(courtRecord);
-    sub_800EAF8(courtRecord);
-    if(courtRecord->unk1 == 0 && gScriptContext.flags & 1)
+    UpdateEvidenceSprites(courtRecord);
+    if(courtRecord->windowScrollSpeed == 0 && gScriptContext.flags & 1)
     {
         if(main->process[GAME_PROCESS_VAR1] == 0)
         {
@@ -1433,45 +1433,45 @@ void sub_800E7C0(struct Main * main, struct CourtRecord * courtRecord)
         {
             PlaySE(SE001_MENU_CONFIRM);
             SlideInBG2Window(3, 0xE);
-            main->process[GAME_PROCESS_STATE] = 2; //! ADD 1 IDIOT
+            main->process[GAME_PROCESS_STATE] = EVIDENCE_ADD_EXIT;
         }
     }
 }
 
-void sub_800E828(struct Main * main, struct CourtRecord * courtRecord)
+void EvidenceAddedExit(struct Main * main, struct CourtRecord * courtRecord) // note_add_exit
 {
     UpdateBG2Window(courtRecord);
-    sub_800EAF8(courtRecord);
-    if(courtRecord->unk1 == 0)
+    UpdateEvidenceSprites(courtRecord);
+    if(courtRecord->windowScrollSpeed == 0)
     {
         RESTORE_PROCESS_PTR(main);
-        if(gMain.process[GAME_PROCESS] == 4)
+        if(gMain.process[GAME_PROCESS] == INVESTIGATION_PROCESS)
         {
-            if(gMain.process[GAME_PROCESS_STATE] == 6)
-                sub_800B7A8(&gInvestigation, 1);
-            else if(main->process[GAME_PROCESS_STATE] == 8) //! why?? why???? why are you using that pointer when the other ones are noooot
-                sub_800B7A8(&gInvestigation, 4);
-            else if(gMain.process[GAME_PROCESS_STATE] == 9)
-                sub_800B7A8(&gInvestigation, 8);
+            if(gMain.process[GAME_PROCESS_STATE] == INVESTIGATION_INSPECT)
+                SetInactiveActionButtons(&gInvestigation, 1);
+            else if(main->process[GAME_PROCESS_STATE] == INVESTIGATION_TALK) //! why?? why???? why are you using that pointer when the other ones are noooot
+                SetInactiveActionButtons(&gInvestigation, 4);
+            else if(gMain.process[GAME_PROCESS_STATE] == INVESTIGATION_PRESENT)
+                SetInactiveActionButtons(&gInvestigation, 8);
         }
         gScriptContext.flags |= 2;
     }
 }
 
-void sub_800E8A0(struct CourtRecord * courtRecord)
+void UpdateCourtRecordArrows(struct CourtRecord * courtRecord)
 {
-    courtRecord->unk9++;
-    if(courtRecord->unk9 > 4)
+    courtRecord->recordArrowCounter++;
+    if(courtRecord->recordArrowCounter > 4)
     {
-        courtRecord->unk9 = 0;
-        courtRecord->unk8++;
-        courtRecord->unk8 &= 3;
-        DmaCopy16(3, gGfx4bppTestimonyArrows + sCourtRecordLeftArrowTileIndexes[courtRecord->unk8] * 32, OBJ_VRAM0+0x3400, TILE_SIZE_4BPP*4);
-        DmaCopy16(3, gGfx4bppTestimonyArrows + sCourtRecordRightArrowTileIndexes[courtRecord->unk8] * 32, OBJ_VRAM0+0x3480, TILE_SIZE_4BPP*4);
+        courtRecord->recordArrowCounter = 0;
+        courtRecord->recordArrowFrame++;
+        courtRecord->recordArrowFrame &= 3;
+        DmaCopy16(3, gGfx4bppTestimonyArrows + sCourtRecordLeftArrowTileIndexes[courtRecord->recordArrowFrame] * 32, OBJ_VRAM0+0x3400, TILE_SIZE_4BPP*4);
+        DmaCopy16(3, gGfx4bppTestimonyArrows + sCourtRecordRightArrowTileIndexes[courtRecord->recordArrowFrame] * 32, OBJ_VRAM0+0x3480, TILE_SIZE_4BPP*4);
     }
 }
 
-void sub_800E914()
+void LoadEvidenceWindowGraphics()
 {
     SlideInBG2Window(1, 0xC);
     DmaCopy16(3, gGfx4bppTestimonyArrows, OBJ_VRAM0+0x3400, TILE_SIZE_4BPP*4);
@@ -1484,13 +1484,13 @@ void sub_800E914()
     DmaCopy16(3, gGfxPalEvidenceProfileDesc, OBJ_PLTT+0x40, 0x20);
 }
 
-void sub_800E9D4(struct CourtRecord * courtRecord)
+void UpdateRecordSprites(struct CourtRecord * courtRecord)
 {
     struct OamAttrs * oam;
-    sub_800EAF8(courtRecord);
+    UpdateEvidenceSprites(courtRecord);
     if(courtRecord->flags & 4)
     {
-        sub_800E8A0(courtRecord);
+        UpdateCourtRecordArrows(courtRecord);
         oam = gOamObjects;
         if(courtRecord->displayItemCount > 1)
             oam->attr0 = SPRITE_ATTR0(48, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
@@ -1506,9 +1506,9 @@ void sub_800E9D4(struct CourtRecord * courtRecord)
         oam->attr1 = SPRITE_ATTR1_NONAFFINE(DISPLAY_WIDTH-16, FALSE, FALSE, 1);
         oam->attr2 = SPRITE_ATTR2(0x1A4, 0, 3);
         if(gMain.process[GAME_PROCESS_VAR2] == 0)
-            sub_800EB88(1);
+            UpdateRecordInfoActionSprites(1);
         else
-            sub_800EBF0(1);
+            UpdateRecordPresentActionSprites(1);
         return;
     }
     else
@@ -1518,13 +1518,13 @@ void sub_800E9D4(struct CourtRecord * courtRecord)
         oam++;
         oam->attr0 = SPRITE_ATTR0_CLEAR;
         if(gMain.process[GAME_PROCESS_VAR2] == 0)
-            sub_800EB88(0);
+            UpdateRecordInfoActionSprites(0);
         else
-            sub_800EBF0(0);
+            UpdateRecordPresentActionSprites(0);
     }
 }
 
-void sub_800EA80(u32 evidenceId)
+void LoadEvidenceGraphics(u32 evidenceId)
 {
     u32 offset;
     u8 * src;
@@ -1539,21 +1539,21 @@ void sub_800EA80(u32 evidenceId)
     DmaCopy16(3, eUnknown_0200AFC0, (void *)OBJ_VRAM0+0x3C00, TILE_SIZE_4BPP * 160);
 }
 
-void sub_800EAF8(struct CourtRecord * courtRecord)
+void UpdateEvidenceSprites(struct CourtRecord * courtRecord)
 {
     struct OamAttrs * oam = &gOamObjects[34];
     u32 i;
 
     oam->attr0 = SPRITE_ATTR0(24, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
     oam->attr1 = SPRITE_ATTR1_NONAFFINE(0, FALSE, FALSE, 3);
-    oam->attr1 += courtRecord->unk4;
+    oam->attr1 += courtRecord->windowX;
     oam->attr2 = SPRITE_ATTR2(0x280, 0, 1);
     oam++;
     for(i = 0; i < 5; i++)
     {
         oam->attr0 = SPRITE_ATTR0(24, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
         oam->attr1 = SPRITE_ATTR1_NONAFFINE(72 + i*32, FALSE, FALSE, 2);
-        oam->attr1 += courtRecord->unk4;
+        oam->attr1 += courtRecord->windowX;
         oam->attr2 = SPRITE_ATTR2(0x1E0 + i*0x10, 0, 2);
         oam++;
     }
@@ -1561,13 +1561,13 @@ void sub_800EAF8(struct CourtRecord * courtRecord)
     {
         oam->attr0 = SPRITE_ATTR0(56, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
         oam->attr1 = SPRITE_ATTR1_NONAFFINE(72 + i*32, FALSE, FALSE, 2);
-        oam->attr1 += courtRecord->unk4;
+        oam->attr1 += courtRecord->windowX;
         oam->attr2 = SPRITE_ATTR2(0x230 + i*0x10, 0, 2);
         oam++;
     }
 }
 
-void sub_800EB6C(struct CourtRecord * courtRecord)
+void ClearEvidenceSprites(struct CourtRecord * courtRecord)
 {
     struct OamAttrs * oam = &gOamObjects[34];
     u32 i;
@@ -1580,7 +1580,7 @@ void sub_800EB6C(struct CourtRecord * courtRecord)
     }
 }
 
-void sub_800EB88(bool32 showSprites)
+void UpdateRecordInfoActionSprites(bool32 showSprites)
 {
     struct OamAttrs * oam = &gOamObjects[45];
     if(showSprites)
@@ -1611,7 +1611,7 @@ void sub_800EB88(bool32 showSprites)
     }
 }
 
-void sub_800EBF0(bool32 showSprites)
+void UpdateRecordPresentActionSprites(bool32 showSprites)
 {
     struct OamAttrs * oam = &gOamObjects[45];
     if(showSprites)
@@ -1661,7 +1661,7 @@ void sub_800EBF0(bool32 showSprites)
     }
 }
 
-void sub_800ECA8(bool32 showSprites)
+void UpdateEvidenceDetailActionSprites(bool32 showSprites)
 {
     struct OamAttrs * oam = &gOamObjects[45];
     
@@ -1747,46 +1747,46 @@ void SortCourtRecordAndSyncListCount(struct CourtRecord * courtRecord)
     }
 }
 
-u32 sub_800EE20(u32 section, u32 evidenceId)
+u32 GetQuestioningPresentedSection(u32 section, u32 evidenceId)
 {
-    const struct Struct811DC54 * struct811DC54p;
-    struct811DC54p = gUnknown_0811DC54[gMain.scenarioIdx];
-    for(; struct811DC54p->scriptSection != 0xFFFF; struct811DC54p++)
+    const struct CourtPresentData * presentData;
+    presentData = gCourtPresentData[gMain.scenarioIdx];
+    for(; presentData->presentingSection != 0xFFFF; presentData++)
     {
-        if(struct811DC54p->flagId != 0xFF)
+        if(presentData->flagId != 0xFF)
         {
-            if(!GetFlag(0, struct811DC54p->flagId))
+            if(!GetFlag(0, presentData->flagId))
                 continue;
         }
-        if(struct811DC54p->scriptSection == section && struct811DC54p->evidenceId == evidenceId)
+        if(presentData->presentingSection == section && presentData->evidenceId == evidenceId)
         {
-            if(struct811DC54p->unk7)
-                gScriptContext.unk33 = 0;
+            if(presentData->action != 0)
+                gScriptContext.slamDesk = FALSE;
             else
-                gScriptContext.unk33 = 1;
-            return struct811DC54p->unk4;
+                gScriptContext.slamDesk = TRUE;
+            return presentData->presentedSection;
         }
     }
-    gScriptContext.unk33 = 0;
+    gScriptContext.slamDesk = FALSE;
     return 0;
 }
 
-u32 sub_800EEA4(struct Main * main, u32 evidenceId)
+u32 GetEvidenceCommentSection(struct Main * main, u32 evidenceId)
 {
-    const struct Struct811DC98 * struct811DC98p;
-    u32 retVal; // why just why
+    const struct InvestigationPresentData * presetData;
+    u32 retVal;
 
-    struct811DC98p = gUnknown_0811DC98[main->scenarioIdx];
-    retVal = struct811DC98p->unk6;
-    for(; struct811DC98p->unk3 != 0xFF; struct811DC98p++)
+    presetData = gInvestigationPresentData[main->scenarioIdx];
+    retVal = presetData->uninterestedSection;
+    for(; presetData->end != 0xFF; presetData++)
     {
-        if(gAnimation[1].animationInfo.personId == struct811DC98p->personId)
+        if(gAnimation[1].animationInfo.personId == presetData->personId)
         {
-            if(main->currentRoomId == struct811DC98p->roomId)
+            if(main->currentRoomId == presetData->roomId)
             {
-                retVal = struct811DC98p->unk6;
-                if(evidenceId == struct811DC98p->evidenceId)
-                    return struct811DC98p->unk4;
+                retVal = presetData->uninterestedSection;
+                if(evidenceId == presetData->evidenceId)
+                    return presetData->interestedSection;
             }
         }
     }
@@ -1841,7 +1841,7 @@ void UpdateItemPlate(struct Main * main)
             oam->attr2 = SPRITE_ATTR2(0x80, 0, 1);
             main->itemPlateState++;
         case 4: // fallthrough
-            if(main->process[GAME_PROCESS] == 0xA)
+            if(main->process[GAME_PROCESS] == SAVE_GAME_PROCESS)
             {
                 main->itemPlateState = 6;
                 return;
@@ -1850,7 +1850,7 @@ void UpdateItemPlate(struct Main * main)
             if(main->itemPlateAction == 1)
                 oam->attr0 = SPRITE_ATTR0(16, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
             
-            if(main->process[GAME_PROCESS] > 6)
+            if(main->process[GAME_PROCESS] >= COURT_RECORD_PROCESS)
             {
                 oam->attr0 = SPRITE_ATTR0_CLEAR;
                 DmaCopy16(3, &gOamObjects[88], OAM+88*8, 0x8);
@@ -1859,7 +1859,7 @@ void UpdateItemPlate(struct Main * main)
             }
             break;
         case 5:
-            if(main->process[GAME_PROCESS] <= 6)
+            if(main->process[GAME_PROCESS] < COURT_RECORD_PROCESS)
             {
                 LoadItemPlateGfx(main);
                 oam->attr0 = SPRITE_ATTR0(16, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
@@ -1873,7 +1873,7 @@ void UpdateItemPlate(struct Main * main)
             }
             break;
         case 6:
-            if(main->process[GAME_PROCESS] != 0xA)
+            if(main->process[GAME_PROCESS] != SAVE_GAME_PROCESS)
                 main->itemPlateState = 5;
             break;
     }

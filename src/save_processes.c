@@ -13,6 +13,7 @@
 #include "graphics.h"
 #include "constants/script.h"
 #include "constants/songs.h"
+#include "constants/process.h"
 
 const char gSaveVersion[0x30] = "2001 CAPCOM GBA GYAKUTEN-SAIBAN 06/15 Ver 1.000-";
 
@@ -23,8 +24,8 @@ void (*gSaveGameProcessStates[])(struct Main *) = {
 	SaveGameWaitForInput,
 	SaveGameExitSaveScreen,
 	SaveGame5,
-	sub_8008CC0,
-	sub_8008D68
+	SaveGame6,
+	SaveGame7
 };
 
 u32 SaveGameData()
@@ -132,7 +133,7 @@ void ClearSaveProcess(struct Main *main)
         if(main->blendMode == 0)
         {
             UpdateBG2Window(&gCourtRecord);
-            if(gCourtRecord.unk1 == 0)
+            if(gCourtRecord.windowScrollSpeed == 0)
             {
                 main->advanceScriptContext = TRUE;
                 main->showTextboxCharacters = TRUE;
@@ -208,7 +209,7 @@ void ClearSaveProcess(struct Main *main)
                 DmaFill32(3, 0, &gSaveDataBuffer, sizeof(gSaveDataBuffer));
                 WriteSramEx((void*)&gSaveDataBuffer, SRAM_START, sizeof(gSaveDataBuffer));
             }
-            SET_PROCESS_PTR(0, 0, 0, 0, main);
+            SET_PROCESS_PTR(CAPCOM_LOGO_PROCESS, 0, 0, 0, main);
         }
         break;
     default:
@@ -216,7 +217,7 @@ void ClearSaveProcess(struct Main *main)
     }
 }
 
-#define sIsEpisodePartOver process[3]
+#define sIsEpisodePartOver process[GAME_PROCESS_VAR2]
 
 void SaveGameProcess(struct Main *main)
 {
@@ -289,7 +290,7 @@ void SaveGameInitButtons(struct Main *main)
 {
     struct OamAttrs * oam;
     UpdateBG2Window(&gCourtRecord);
-    if(gCourtRecord.unk1 == 0) // ?
+    if(gCourtRecord.windowScrollSpeed == 0) // ?
     {
         main->advanceScriptContext = TRUE;
         main->showTextboxCharacters = TRUE;
@@ -415,7 +416,7 @@ void SaveGameExitSaveScreen(struct Main *main)
         return;
     if(main->selectedButton == 0)
     {
-        SET_PROCESS_PTR(1, 0, 0, 0, main);
+        SET_PROCESS_PTR(TITLE_SCREEN_PROCESS, 0, 0, 0, main);
         return;
     }
     main->currentBG = gSaveDataBuffer.main.currentBG;
@@ -457,12 +458,12 @@ void SaveGameExitSaveScreen(struct Main *main)
     DmaCopy16(3, gSaveDataBuffer.oam, gOamObjects, sizeof(gOamObjects));
     DmaCopy16(3, &gUnknown_081942C0[0], OBJ_PLTT+0x100, 0x20);
     RESTORE_PROCESS_PTR(main);
-    if(main->process[GAME_PROCESS] == 4 && main->process[GAME_PROCESS_VAR1] == 3)
+    if(main->process[GAME_PROCESS] == INVESTIGATION_PROCESS && main->process[GAME_PROCESS_VAR1] == 3)
     {
-        if(main->process[GAME_PROCESS_STATE] == 7)
-            sub_800D674();
-        else if(main->process[GAME_PROCESS_STATE] == 8)
-            sub_800D6C8();
+        if(main->process[GAME_PROCESS_STATE] == INVESTIGATION_MOVE)
+            LoadLocationChoiceGraphics();
+        else if(main->process[GAME_PROCESS_STATE] == INVESTIGATION_TALK)
+            LoadTalkChoiceGraphics();
     }
     FadeInBGM(0x1E, 0xFF); // unpause BGM
     StartHardwareBlend(1, 0, 1, 0x1F);
@@ -497,7 +498,7 @@ void SaveGame5(struct Main *main)
     {
         main->advanceScriptContext = 0;
         main->showTextboxCharacters = 0;
-        SET_PROCESS_PTR(12, 1, 0, newEpisodeId, main);
+        SET_PROCESS_PTR(EPISODE_SELECT_PROCESS, 1, 0, newEpisodeId, main);
         return;
     }
     gIORegisters.lcd_dispcnt = 0;
@@ -505,7 +506,7 @@ void SaveGame5(struct Main *main)
     SET_PROCESS_PTR(gCaseStartProcess[main->scenarioIdx], 0, 0, 0, main);
 }
 
-void sub_8008CC0(struct Main * main)
+void SaveGame6(struct Main * main)
 {
     if(gScriptContext.flags & SCRIPT_LOOP && gJoypad.pressedKeys & A_BUTTON)
     {
@@ -538,7 +539,7 @@ void sub_8008CC0(struct Main * main)
     }
 }
 
-void sub_8008D68(struct Main * main)
+void SaveGame7(struct Main * main)
 {
     struct OamAttrs * oam;
     main->process[GAME_PROCESS_VAR1]++;

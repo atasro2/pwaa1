@@ -7,14 +7,15 @@
 
 #include "data/background.h"
 
+// BG_all_init
 void InitBGs()
 {
     u32 i;
     u16 *temp;
     DmaFill16(3, 0, &gBG0MapBuffer, sizeof(gBG0MapBuffer));
-    for (temp = gBG1MapBuffer, i = 0; i < ARRAY_COUNT(gUnknown_08013B70); i++, temp++)
+    for (temp = gBG1MapBuffer, i = 0; i < ARRAY_COUNT(gTextboxTiles); i++, temp++)
     {
-        (*temp) = gUnknown_08013B70[i];
+        (*temp) = gTextboxTiles[i];
     }
     DmaFill16(3, 0, &gBG2MapBuffer, sizeof(gBG2MapBuffer));
     gIORegisters.lcd_bg2vofs = 0;
@@ -22,6 +23,7 @@ void InitBGs()
     InitBG3();
 }
 
+// BG256_init
 void InitBG3()
 {
     u32 i = 0;
@@ -689,7 +691,7 @@ void CopyBGDataToVram(u32 bgId)
     {
         src = gUnknown_08014570;
         dst = gBG3MapBuffer;
-        DmaCopy16(3, src, dst, 0x580);
+        DmaCopy16(3, src, dst, sizeof(gUnknown_08014570));
         DmaFill16(3, 0, BG_PLTT+0x40, 0x1C0);
         DmaFill16(3, 0x2222, VRAM+0x4000, 0x9600);
         return;
@@ -700,7 +702,7 @@ void CopyBGDataToVram(u32 bgId)
         //u32 temp;
         src = gUnknown_08014570;
         dst = gBG3MapBuffer;
-        DmaCopy16(3, src, dst, 0x580);
+        DmaCopy16(3, src, dst, sizeof(gUnknown_08014570));
         j = 0x258;
         j++;j--;
         for(i = 0; i < 20; i++, j++)
@@ -780,7 +782,7 @@ void CopyBGDataToVram(u32 bgId)
         {
             src = gUnknown_08014570;
             dst = gBG3MapBuffer;
-            DmaCopy16(3, src, dst, 0x580);
+            DmaCopy16(3, src, dst, sizeof(gUnknown_08014570));
         }
         src = gBG3MapBuffer;
         dst = (void *)BG_SCREEN_ADDR(31);

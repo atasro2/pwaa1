@@ -6,6 +6,7 @@
 #include "graphics.h"
 #include "constants/script.h"
 #include "constants/songs.h"
+#include "constants/process.h"
 
 static void AdvanceScriptContext(struct ScriptContext *);
 static void DrawTextAndMapMarkers(struct ScriptContext *);
@@ -171,7 +172,7 @@ void InitScriptSection(struct ScriptContext *scriptCtx)
     }
     scriptCtx->textX = 0;
     scriptCtx->textY = 0;
-    if (gMain.process[GAME_PROCESS] != 4 || gMain.process[GAME_PROCESS_STATE] != 8)
+    if (!(gMain.process[GAME_PROCESS] == INVESTIGATION_PROCESS && gMain.process[GAME_PROCESS_STATE] == INVESTIGATION_TALK))
         scriptCtx->textSkip = 0;
     scriptCtx->unk15 = 0;
     scriptCtx->paragraphSkipDelayCounter = 8;
@@ -218,7 +219,7 @@ void InitScriptSection(struct ScriptContext *scriptCtx)
     {
         gMapMarker[i].id |= 0xFF;
         gMapMarker[i].isBlinking = 0;
-        gMapMarker[i].unk5 = 0;
+        gMapMarker[i].flags = 0;
         gMapMarker[i].attr0 = SPRITE_ATTR0_CLEAR;
     }
 }
@@ -380,13 +381,13 @@ static void DrawTextAndMapMarkers(struct ScriptContext * scriptCtx)
                     if (gMapMarker[i].blinkTimer < 16)
                         oam->attr0 = SPRITE_ATTR0_CLEAR;
                 }
-                if(gMapMarker[i].unk5 & 0x2)
+                if(gMapMarker[i].flags & 0x2)
                 {
                     gMapMarker[i].distanceMoved += gMapMarker[i].speed;
                     if (gMapMarker[i].distanceMoved >= gMapMarker[i].distanceToMove)
                     {
                         gMapMarker[i].speed -= gMapMarker[i].distanceMoved - gMapMarker[i].distanceToMove;
-                        gMapMarker[i].unk5 &= ~2;
+                        gMapMarker[i].flags &= ~2;
                     }
                     switch(gMapMarker[i].direction)
                     {
@@ -426,7 +427,7 @@ static void DrawTextAndMapMarkers(struct ScriptContext * scriptCtx)
                             break;
                     }
                 }
-                if(gMapMarker[i].unk5 & 0x4)
+                if(gMapMarker[i].flags & 0x4)
                     oam->attr0 = SPRITE_ATTR0_CLEAR;
                 oam++;
             }

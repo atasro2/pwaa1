@@ -7,6 +7,7 @@
 #include "graphics.h"
 #include "constants/script.h"
 #include "constants/songs.h"
+#include "constants/process.h"
 
 void sub_8008DF4(struct Main * main)
 {
@@ -277,7 +278,7 @@ void EpisodeClearedProcess(struct Main * main)
                     PlaySE(SE001_MENU_CONFIRM);
                     gSaveDataBuffer.main.scenarioIdx = main->scenarioIdx;
                     gSaveDataBuffer.main.caseEnabledFlags = main->caseEnabledFlags;
-                    SET_PROCESS_PTR(10, 0, 0, 1, main);
+                    SET_PROCESS_PTR(SAVE_GAME_PROCESS, 0, 0, 1, main);
                 }
             }
             break;
@@ -592,7 +593,7 @@ void SelectEpisodeProcess(struct Main * main)
         case 12: // _08009A44
             if(main->blendMode) 
                 return;
-            SET_PROCESS_PTR(1, 0, 0, 0, main);
+            SET_PROCESS_PTR(TITLE_SCREEN_PROCESS, 0, 0, 0, main);
             break;
     }
 }
@@ -601,7 +602,7 @@ void ContinueSaveProcess(struct Main * main) {
     struct OamAttrs * oam;
     uintptr_t i, j;
     
-    switch (main->process[1]) {
+    switch (main->process[GAME_PROCESS_STATE]) {
         case 0: // 9AAC
             sub_8008DF4(main);
             break;
@@ -630,12 +631,12 @@ void ContinueSaveProcess(struct Main * main) {
                 gIORegisters.lcd_bg2cnt = 0x3E01;
                 main->selectedButton = 0;
                 StartHardwareBlend(1, 0, 1, 0x1F);
-                ++main->process[1];
+                ++main->process[GAME_PROCESS_STATE];
             }
             break;
         case 2: // 9BA8
             UpdateBG2Window(&gCourtRecord);
-            if (gCourtRecord.unk1 == 0) { // 9BBA
+            if (gCourtRecord.windowScrollSpeed == 0) { // 9BBA
                 main->advanceScriptContext = TRUE;
                 main->showTextboxCharacters = TRUE;
                 gScriptContext.currentSection = 0xFFFF;
@@ -647,7 +648,7 @@ void ContinueSaveProcess(struct Main * main) {
                 main->blendDeltaY = 16;
                 gIORegisters.lcd_bldcnt = 0x840;
                 gIORegisters.lcd_bldalpha = BLDALPHA_BLEND(0, main->blendDeltaY);
-                ++main->process[1];
+                ++main->process[GAME_PROCESS_STATE];
             }
             break;
         case 3: // 9C14
@@ -661,19 +662,19 @@ void ContinueSaveProcess(struct Main * main) {
                     main->showTextboxCharacters = TRUE;
                     if ((main->saveContinueFlags & 1) == 0) {
                         StartHardwareBlend(2, 0, 1, 0x1F);
-                        main->process[1] = 5;
+                        main->process[GAME_PROCESS_STATE] = 5;
                     } else {
                         // 9C84
                         main->blendCounter = 0;
                         main->blendDelay = 1;
                         main->blendDeltaY = 0;
-                        main->process[1] = 7;
-                        main->process[2] = 0;
+                        main->process[GAME_PROCESS_STATE] = 7;
+                        main->process[GAME_PROCESS_VAR1] = 0;
                     }
                 } else /* 9C9C */ if (gJoypad.pressedKeys & 2) {
                     PlaySE(SE002_MENU_CANCEL);
                     StartHardwareBlend(2, 0, 1, 0x1F);
-                    main->process[1] += 3;
+                    main->process[GAME_PROCESS_STATE] += 3;
                 }
             }
             // 9CBC
@@ -705,7 +706,7 @@ void ContinueSaveProcess(struct Main * main) {
                 }
             }
             // 9D44
-            if (main->process[1] == 3 && main->blendDeltaY != 0) {
+            if (main->process[GAME_PROCESS_STATE] == 3 && main->blendDeltaY != 0) {
                 // 9D58
                 ++main->blendCounter;
                 if (main->blendCounter >= main->blendDelay) {
@@ -735,7 +736,7 @@ void ContinueSaveProcess(struct Main * main) {
             DmaCopy16(3, &gSaveDataBuffer.talkData, &gTalkData, sizeof(gTalkData));
             RestoreAnimationsFromBuffer(gSaveDataBuffer.backupAnimations);
 
-            if (main->process[0] == 4) {
+            if (main->process[GAME_PROCESS] == INVESTIGATION_PROCESS) {
                 DmaCopy16(3, gGfx4bppInvestigationActions, OBJ_VRAM0 + 0x2000, 0x1000);
                 DmaCopy16(3, gUnknown_08194200, OBJ_PLTT + 0xA0, 0x40);
                 DmaCopy16(3, gGfx4bppInvestigationScrollButton, OBJ_VRAM0 + 0x3000, 0x200);
@@ -743,12 +744,12 @@ void ContinueSaveProcess(struct Main * main) {
                 DmaCopy16(3, gUnknown_08190AC0, OBJ_VRAM0 + 0x3200, 0x200);
                 DmaCopy16(3, gGfxPalChoiceSelected, OBJ_PLTT + 0x120, 0x40);
 
-                if (main->process[2] == 3) {
+                if (main->process[GAME_PROCESS_VAR1] == 3) {
                     // 9E82
-                    if (main->process[1] == 7) {
-                        sub_800D674();
-                    } else if (main->process[1] == 8) {
-                        sub_800D6C8();
+                    if (main->process[GAME_PROCESS_STATE] == INVESTIGATION_MOVE) {
+                        LoadLocationChoiceGraphics();
+                    } else if (main->process[GAME_PROCESS_STATE] == INVESTIGATION_TALK) {
+                        LoadTalkChoiceGraphics();
                     }
                 }
             } else {
@@ -756,10 +757,10 @@ void ContinueSaveProcess(struct Main * main) {
                 DmaCopy16(3, gGfx4bppTrialLife, OBJ_VRAM0 + 0x3780, 0x80);
                 DmaCopy16(3, gUnknown_081940E0, OBJ_PLTT + 0x60, 0x20);
                 DmaCopy16(3, gUnknown_0824696C, OBJ_PLTT + 0xC0, 0x20);
-                if (main->process[0] == 5) {
+                if (main->process[GAME_PROCESS] == TESTIMONY_PROCESS) {
                     DmaCopy16(3, gGfx4bppTestimonyTextTiles, OBJ_VRAM0 + 0x3000, 0x800);
                     DmaCopy16(3, gUnknown_08194280, OBJ_PLTT + 0xA0, 0x20);
-                } else /* 9F84 */ if (main->process[0] == 6) {
+                } else /* 9F84 */ if (main->process[GAME_PROCESS] == QUESTIONING_PROCESS) {
                     // thonk
                     DmaCopy16(3, gGfx4bppTrialLife, OBJ_VRAM0 + 0x3780, 0x80);
                     // double thonk
@@ -816,19 +817,19 @@ void ContinueSaveProcess(struct Main * main) {
         case 6: // A1E4
             if (main->blendMode == 0) {
                 // A1F0
-                SET_PROCESS_PTR(1, 0, 0, 0, main);
+                SET_PROCESS_PTR(TITLE_SCREEN_PROCESS, 0, 0, 0, main);
             }
             break;
         case 7: // A1F6
-            ++main->process[2];
-            if (main->process[2] >= 0x30) {
+            ++main->process[GAME_PROCESS_VAR1];
+            if (main->process[GAME_PROCESS_VAR1] >= 0x30) {
                 if (main->selectedButton == 0) {
-                    main->process[1] = 4;
+                    main->process[GAME_PROCESS_STATE] = 4;
                 } else {
                     // A210
-                    main->process[1] = 5;
+                    main->process[GAME_PROCESS_STATE] = 5;
                 }
-                main->process[2] = 0;
+                main->process[GAME_PROCESS_VAR1] = 0;
                 oam = gOamObjects + 38;
                 if (main->selectedButton == 0) {
                     // A222

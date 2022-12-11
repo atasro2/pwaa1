@@ -7,6 +7,7 @@
 #include "sound.h"
 #include "graphics.h"
 #include "constants/songs.h"
+#include "constants/process.h"
 
 void CapcomLogoProcess(struct Main *main)
 {
@@ -43,7 +44,7 @@ void CapcomLogoProcess(struct Main *main)
     case 2:
         if (main->blendMode == 0)
         {
-            SET_PROCESS_PTR(1, 0, 0, 0, main);
+            SET_PROCESS_PTR(TITLE_SCREEN_PROCESS, 0, 0, 0, main);
         }
         break;
     default:
@@ -61,7 +62,7 @@ void TitleScreenProcess(struct Main *main)
     case 0:
         ResetGameState();
         LoadSaveData();
-        SET_PROCESS_PTR(1, 1, 0, 0, main); // ? main->process[GAME_PROCESS_STATE]++; hello?
+        SET_PROCESS_PTR(TITLE_SCREEN_PROCESS, 1, 0, 0, main);
         break;
     case 1:
         DmaCopy16(3, gUnusedAsciiCharSet, VRAM + 0x3800, 0x800);
@@ -90,44 +91,44 @@ void TitleScreenProcess(struct Main *main)
             oam->attr2 = SPRITE_ATTR2(0x38, 0, 2);
         }
         ioRegsp->lcd_dispcnt = DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG0_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON;
-        gInvestigation.unk15 = 0;
-        gInvestigation.unk14 = 2;
+        gInvestigation.pointerFrameCounter = 0;
+        gInvestigation.pointerFrame = 2;
         main->selectedButton = 0;
         main->unk19C |= 4;
         main->tilemapUpdateBits = 9;
         StartHardwareBlend(1, 1, 1, 0x1F);
-        SET_PROCESS_PTR(1, 2, 0, 0, main); // ? main->process[GAME_PROCESS_STATE]++; hello?
+        SET_PROCESS_PTR(TITLE_SCREEN_PROCESS, 2, 0, 0, main);
         break;
     case 2:
         if(gJoypad.pressedKeys & (A_BUTTON | START_BUTTON))
         {
             PlaySE(SE010_GAVEL_SLAM);
             gScriptContext.fullscreenTextYOffset = 0;
-            SET_PROCESS_PTR(1, 3, 0, 0, main); // ? main->process[GAME_PROCESS_STATE]++; hello?
+            SET_PROCESS_PTR(TITLE_SCREEN_PROCESS, 3, 0, 0, main);
         }
         else if(main->saveContinueFlags & 0xF0 && gJoypad.pressedKeys & (DPAD_DOWN | DPAD_UP))
         {
-            gInvestigation.unk15 = 0;
-            gInvestigation.unk14 = 2;
+            gInvestigation.pointerFrameCounter = 0;
+            gInvestigation.pointerFrame = 2;
             main->selectedButton ^= 1; // selected button on title screen
             PlaySE(SE000_MENU_CHANGE);
         }
-        gInvestigation.unk15++;
-        if(gInvestigation.unk15 > 7)
+        gInvestigation.pointerFrameCounter++;
+        if(gInvestigation.pointerFrameCounter > 7)
         {
-            gInvestigation.unk15 = 0;
-            gInvestigation.unk14++;
+            gInvestigation.pointerFrameCounter = 0;
+            gInvestigation.pointerFrame++;
         }
-        if(gInvestigation.unk14 > 6)
+        if(gInvestigation.pointerFrame > 6)
         {
-            gInvestigation.unk14 = 2;
+            gInvestigation.pointerFrame = 2;
         }
         if(main->selectedButton == 0)
         {
             oam = &gOamObjects[49];
-            oam->attr2 = SPRITE_ATTR2(0x20, 1, gInvestigation.unk14);
+            oam->attr2 = SPRITE_ATTR2(0x20, 1, gInvestigation.pointerFrame);
             oam++;
-            oam->attr2 = SPRITE_ATTR2(0x28, 1, gInvestigation.unk14);
+            oam->attr2 = SPRITE_ATTR2(0x28, 1, gInvestigation.pointerFrame);
             oam++;
             if(main->saveContinueFlags & 0xF0)
             {
@@ -145,9 +146,9 @@ void TitleScreenProcess(struct Main *main)
             oam++;
             if(main->saveContinueFlags & 0xF0)
             {
-                oam->attr2 = SPRITE_ATTR2(0x30, 0, gInvestigation.unk14);
+                oam->attr2 = SPRITE_ATTR2(0x30, 0, gInvestigation.pointerFrame);
                 oam++;
-                oam->attr2 = SPRITE_ATTR2(0x38, 0, gInvestigation.unk14);
+                oam->attr2 = SPRITE_ATTR2(0x38, 0, gInvestigation.pointerFrame);
             }
         }
         break;
@@ -157,11 +158,11 @@ void TitleScreenProcess(struct Main *main)
         {
             if(main->selectedButton == 0)
             {
-                SET_PROCESS_PTR(12, 0, 0, 0, main);
+                SET_PROCESS_PTR(EPISODE_SELECT_PROCESS, 0, 0, 0, main);
             }
             else
             {
-                SET_PROCESS_PTR(13, 0, 0, 0, main);
+                SET_PROCESS_PTR(CONTINUE_SAVE_PROCESS, 0, 0, 0, main);
             }
         }
         if(main->selectedButton == 0)

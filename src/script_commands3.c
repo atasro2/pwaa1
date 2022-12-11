@@ -32,14 +32,14 @@ bool32 Command41(struct ScriptContext * scriptCtx)
         oam->attr2 = SPRITE_ATTR2(0x100+0x20*i, 0, 5);
         oam++;
     }
-    sub_800B7A8(&gInvestigation, 0xF);
-    gInvestigation.unkD = 0xE0;
-    gInvestigation.unkE = 0;
-    gInvestigation.unkF = 8;
-    gInvestigation.unkA = 0;
-    gInvestigation.unkB = 0;
+    SetInactiveActionButtons(&gInvestigation, 0xF);
+    gInvestigation.inactiveActionButtonY = 0xE0;
+    gInvestigation.selectedActionYOffset = 0;
+    gInvestigation.lastActionYOffset = 8;
+    gInvestigation.selectedAction = 0;
+    gInvestigation.lastAction = 0;
     
-    SET_PROCESS(4,1,0,0);
+    SET_PROCESS(INVESTIGATION_PROCESS,INVESTIGATION_MAIN,0,0);
     return 0;
 }
 
@@ -65,12 +65,12 @@ bool32 Command43(struct ScriptContext * scriptCtx)
     scriptCtx->scriptPtr++;
     if(*scriptCtx->scriptPtr)
     {
-        gTestimony.unk4 = 0xF0;
+        gTestimony.healthPointX = 0xF0;
         gMain.gameStateFlags |= 0x400;
     }
     else
     {
-        gTestimony.unk4 = 0xF0;
+        gTestimony.healthPointX = 0xF0;
         gMain.gameStateFlags &= ~0x400;
         oam = &gOamObjects[35];
         for(i = 0; i < 5; i++)
@@ -95,14 +95,14 @@ bool32 Command44(struct ScriptContext * scriptCtx)
     {
         DmaCopy16(3, gUnknown_08191CA0, OBJ_VRAM0+0x3400, 0x1000);
         DmaCopy16(3, gUnknown_08194520, OBJ_PLTT+0xA0, 0x20);
-        SET_PROCESS(9,0,0,0);
+        SET_PROCESS(VERDICT_PROCESS,0,0,0);
     }
     else 
     {
         DmaCopy16(3, gUnknown_081914A0, OBJ_VRAM0+0x3400, 0x800);
         DmaCopy16(3, gUnknown_081924A0, OBJ_VRAM0+0x3C00, 0x800);
         DmaCopy16(3, gUnknown_08194540, OBJ_PLTT+0xA0, 0x20);
-        SET_PROCESS(9,0,0,1);
+        SET_PROCESS(VERDICT_PROCESS,0,0,1);
     }
     scriptCtx->scriptPtr++;
     oam->attr0 = SPRITE_ATTR0((~16 & 255), ST_OAM_AFFINE_DOUBLE, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
@@ -188,7 +188,7 @@ bool32 Command49(struct ScriptContext *scriptCtx)
     scriptCtx->scriptPtr++;
     gMain.advanceScriptContext = FALSE;
     gMain.showTextboxCharacters = FALSE;
-    SET_PROCESS(1, 0, 0, 0);
+    SET_PROCESS(TITLE_SCREEN_PROCESS, 0, 0, 0);
 
     return 0;
 }
@@ -198,7 +198,7 @@ bool32 Command4A(struct ScriptContext *scriptCtx)
     scriptCtx->scriptPtr++;
     if(*scriptCtx->scriptPtr) 
     {
-        if(gMain.process[GAME_PROCESS_STATE] == VERDICT_STATE_NOTGUILTY_EXIT) 
+        if(gMain.process[GAME_PROCESS_STATE] == VERDICT_NOTGUILTY_EXIT) 
         {
             scriptCtx->scriptPtr++;
             return 0;
@@ -206,7 +206,7 @@ bool32 Command4A(struct ScriptContext *scriptCtx)
     }
     else 
     {
-        if(gMain.process[GAME_PROCESS_STATE] == VERDICT_STATE_DRAW_CONFETTI) 
+        if(gMain.process[GAME_PROCESS_STATE] == VERDICT_DRAW_CONFETTI) 
         {
             scriptCtx->scriptPtr++;
             return 0;

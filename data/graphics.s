@@ -1175,599 +1175,167 @@ gCharSet:  @ Charset
 
 	.global gGfxPalChoiceSelected
 gGfxPalChoiceSelected:
-	.incbin "graphics/talk_location_choices/choice_selected.gbapal"
+	.incbin "graphics/choice_selected.gbapal"
 
 	.global gGfxPalChoiceGreyedOut
 gGfxPalChoiceGreyedOut:
-	.incbin "graphics/talk_location_choices/choice_greyed_out.gbapal"
+	.incbin "graphics/choice_greyed_out.gbapal"
 	
 @ first block of stuffs
 
 	.global gUnknown_081FD96C
 gUnknown_081FD96C:
-	.incbin "graphics/talk_location_choices/001FD96C.4bpp"
-
-	.global gUnknown_081FE16C
-gUnknown_081FE16C:
-	.incbin "graphics/talk_location_choices/001FE16C.4bpp"
-
-	.global gUnknown_081FE96C
-gUnknown_081FE96C:
-	.incbin "graphics/talk_location_choices/001FE96C.4bpp"
-
-	.global gUnknown_081FF16C
-gUnknown_081FF16C:
-	.incbin "graphics/talk_location_choices/001FF16C.4bpp"
-
-	.global gUnknown_081FF96C
-gUnknown_081FF96C:
-	.incbin "graphics/talk_location_choices/001FF96C.4bpp"
-
-	.global gUnknown_0820016C
-gUnknown_0820016C:
-	.incbin "graphics/talk_location_choices/0020016C.4bpp"
-
-	.global gUnknown_0820096C
-gUnknown_0820096C:
-	.incbin "graphics/talk_location_choices/0020096C.4bpp"
-
-	.global gUnknown_0820116C
-gUnknown_0820116C:
-	.incbin "graphics/talk_location_choices/0020116C.4bpp"
-
-	.global gUnknown_0820196C
-gUnknown_0820196C:
-	.incbin "graphics/talk_location_choices/0020196C.4bpp"
-
-	.global gUnknown_0820216C
-gUnknown_0820216C:
-	.incbin "graphics/talk_location_choices/0020216C.4bpp"
-
-	.global gUnknown_0820296C
-gUnknown_0820296C:
-	.incbin "graphics/talk_location_choices/0020296C.4bpp"
-
-	.global gUnknown_0820316C
-gUnknown_0820316C:
-	.incbin "graphics/talk_location_choices/0020316C.4bpp"
-
-	.global gUnknown_0820396C
-gUnknown_0820396C:
-	.incbin "graphics/talk_location_choices/0020396C.4bpp"
-
-	.global gUnknown_0820416C
-gUnknown_0820416C:
-	.incbin "graphics/talk_location_choices/0020416C.4bpp"
-
-	.global gUnknown_0820496C
-gUnknown_0820496C:
-	.incbin "graphics/talk_location_choices/0020496C.4bpp"
-
-	.global gUnknown_0820516C
-gUnknown_0820516C:
-	.incbin "graphics/talk_location_choices/0020516C.4bpp"
-
-	.global gUnknown_0820596C
-gUnknown_0820596C:
-	.incbin "graphics/talk_location_choices/0020596C.4bpp"
-
-	.global gUnknown_0820616C
-gUnknown_0820616C:
-	.incbin "graphics/talk_location_choices/0020616C.4bpp"
-
-	.global gUnknown_0820696C
-gUnknown_0820696C:
-	.incbin "graphics/talk_location_choices/0020696C.4bpp"
-
-	.global gUnknown_0820716C
-gUnknown_0820716C:
-	.incbin "graphics/talk_location_choices/0020716C.4bpp"
-
-	.global gUnknown_0820796C
-gUnknown_0820796C:
-	.incbin "graphics/talk_location_choices/0020796C.4bpp"
+	.incbin "graphics/location_choices/001FD96C.4bpp"
+	.incbin "graphics/location_choices/001FE16C.4bpp"
+	.incbin "graphics/location_choices/001FE96C.4bpp"
+	.incbin "graphics/location_choices/001FF16C.4bpp"
+	.incbin "graphics/location_choices/001FF96C.4bpp"
+	.incbin "graphics/location_choices/0020016C.4bpp"
+	.incbin "graphics/location_choices/0020096C.4bpp"
+	.incbin "graphics/location_choices/0020116C.4bpp"
+	.incbin "graphics/location_choices/0020196C.4bpp"
+	.incbin "graphics/location_choices/0020216C.4bpp"
+	.incbin "graphics/location_choices/0020296C.4bpp"
+	.incbin "graphics/location_choices/0020316C.4bpp"
+	.incbin "graphics/location_choices/0020396C.4bpp"
+	.incbin "graphics/location_choices/0020416C.4bpp"
+	.incbin "graphics/location_choices/0020496C.4bpp"
+	.incbin "graphics/location_choices/0020516C.4bpp"
+	.incbin "graphics/location_choices/0020596C.4bpp"
+	.incbin "graphics/location_choices/0020616C.4bpp"
+	.incbin "graphics/location_choices/0020696C.4bpp"
+	.incbin "graphics/location_choices/0020716C.4bpp"
+	.incbin "graphics/location_choices/0020796C.4bpp"
 
 @ second block of stuffs
 
 	.global gUnknown_0820816C
 gUnknown_0820816C:
-	.incbin "graphics/talk_location_choices/0020816C.4bpp"
-
-	.global gUnknown_0820896C
-gUnknown_0820896C:
-	.incbin "graphics/talk_location_choices/0020896C.4bpp"
-
-	.global gUnknown_0820916C
-gUnknown_0820916C:
-	.incbin "graphics/talk_location_choices/0020916C.4bpp"
-
-	.global gUnknown_0820996C
-gUnknown_0820996C:
-	.incbin "graphics/talk_location_choices/0020996C.4bpp"
-
-	.global gUnknown_0820A16C
-gUnknown_0820A16C:
-	.incbin "graphics/talk_location_choices/0020A16C.4bpp"
-
-	.global gUnknown_0820A96C
-gUnknown_0820A96C:
-	.incbin "graphics/talk_location_choices/0020A96C.4bpp"
-
-	.global gUnknown_0820B16C
-gUnknown_0820B16C:
-	.incbin "graphics/talk_location_choices/0020B16C.4bpp"
-
-	.global gUnknown_0820B96C
-gUnknown_0820B96C:
-	.incbin "graphics/talk_location_choices/0020B96C.4bpp"
-
-	.global gUnknown_0820C16C
-gUnknown_0820C16C:
-	.incbin "graphics/talk_location_choices/0020C16C.4bpp"
-
-	.global gUnknown_0820C96C
-gUnknown_0820C96C:
-	.incbin "graphics/talk_location_choices/0020C96C.4bpp"
-
-	.global gUnknown_0820D16C
-gUnknown_0820D16C:
-	.incbin "graphics/talk_location_choices/0020D16C.4bpp"
-
-	.global gUnknown_0820D96C
-gUnknown_0820D96C:
-	.incbin "graphics/talk_location_choices/0020D96C.4bpp"
-
-	.global gUnknown_0820E16C
-gUnknown_0820E16C:
-	.incbin "graphics/talk_location_choices/0020E16C.4bpp"
-
-	.global gUnknown_0820E96C
-gUnknown_0820E96C:
-	.incbin "graphics/talk_location_choices/0020E96C.4bpp"
-
-	.global gUnknown_0820F16C
-gUnknown_0820F16C:
-	.incbin "graphics/talk_location_choices/0020F16C.4bpp"
-
-	.global gUnknown_0820F96C
-gUnknown_0820F96C:
-	.incbin "graphics/talk_location_choices/0020F96C.4bpp"
-
-	.global gUnknown_0821016C
-gUnknown_0821016C:
-	.incbin "graphics/talk_location_choices/0021016C.4bpp"
-
-	.global gUnknown_0821096C
-gUnknown_0821096C:
-	.incbin "graphics/talk_location_choices/0021096C.4bpp"
-
-	.global gUnknown_0821116C
-gUnknown_0821116C:
-	.incbin "graphics/talk_location_choices/0021116C.4bpp"
-
-	.global gUnknown_0821196C
-gUnknown_0821196C:
-	.incbin "graphics/talk_location_choices/0021196C.4bpp"
-
-	.global gUnknown_0821216C
-gUnknown_0821216C:
-	.incbin "graphics/talk_location_choices/0021216C.4bpp"
-
-	.global gUnknown_0821296C
-gUnknown_0821296C:
-	.incbin "graphics/talk_location_choices/0021296C.4bpp"
-
-	.global gUnknown_0821316C
-gUnknown_0821316C:
-	.incbin "graphics/talk_location_choices/0021316C.4bpp"
-
-	.global gUnknown_0821396C
-gUnknown_0821396C:
-	.incbin "graphics/talk_location_choices/0021396C.4bpp"
-
-	.global gUnknown_0821416C
-gUnknown_0821416C:
-	.incbin "graphics/talk_location_choices/0021416C.4bpp"
-
-	.global gUnknown_0821496C
-gUnknown_0821496C:
-	.incbin "graphics/talk_location_choices/0021496C.4bpp"
-
-	.global gUnknown_0821516C
-gUnknown_0821516C:
-	.incbin "graphics/talk_location_choices/0021516C.4bpp"
-
-	.global gUnknown_0821596C
-gUnknown_0821596C:
-	.incbin "graphics/talk_location_choices/0021596C.4bpp"
-
-	.global gUnknown_0821616C
-gUnknown_0821616C:
-	.incbin "graphics/talk_location_choices/0021616C.4bpp"
-
-	.global gUnknown_0821696C
-gUnknown_0821696C:
-	.incbin "graphics/talk_location_choices/0021696C.4bpp"
-
-	.global gUnknown_0821716C
-gUnknown_0821716C:
-	.incbin "graphics/talk_location_choices/0021716C.4bpp"
-
-	.global gUnknown_0821796C
-gUnknown_0821796C:
-	.incbin "graphics/talk_location_choices/0021796C.4bpp"
-
-	.global gUnknown_0821816C
-gUnknown_0821816C:
-	.incbin "graphics/talk_location_choices/0021816C.4bpp"
-
-	.global gUnknown_0821896C
-gUnknown_0821896C:
-	.incbin "graphics/talk_location_choices/0021896C.4bpp"
-
-	.global gUnknown_0821916C
-gUnknown_0821916C:
-	.incbin "graphics/talk_location_choices/0021916C.4bpp"
-
-	.global gUnknown_0821996C
-gUnknown_0821996C:
-	.incbin "graphics/talk_location_choices/0021996C.4bpp"
-
-	.global gUnknown_0821A16C
-gUnknown_0821A16C:
-	.incbin "graphics/talk_location_choices/0021A16C.4bpp"
-
-	.global gUnknown_0821A96C
-gUnknown_0821A96C:
-	.incbin "graphics/talk_location_choices/0021A96C.4bpp"
-
-	.global gUnknown_0821B16C
-gUnknown_0821B16C:
-	.incbin "graphics/talk_location_choices/0021B16C.4bpp"
-
-	.global gUnknown_0821B96C
-gUnknown_0821B96C:
-	.incbin "graphics/talk_location_choices/0021B96C.4bpp"
-
-	.global gUnknown_0821C16C
-gUnknown_0821C16C:
-	.incbin "graphics/talk_location_choices/0021C16C.4bpp"
-
-	.global gUnknown_0821C96C
-gUnknown_0821C96C:
-	.incbin "graphics/talk_location_choices/0021C96C.4bpp"
-
-	.global gUnknown_0821D16C
-gUnknown_0821D16C:
-	.incbin "graphics/talk_location_choices/0021D16C.4bpp"
-
-	.global gUnknown_0821D96C
-gUnknown_0821D96C:
-	.incbin "graphics/talk_location_choices/0021D96C.4bpp"
-
-	.global gUnknown_0821E16C
-gUnknown_0821E16C:
-	.incbin "graphics/talk_location_choices/0021E16C.4bpp"
-
-	.global gUnknown_0821E96C
-gUnknown_0821E96C:
-	.incbin "graphics/talk_location_choices/0021E96C.4bpp"
-
-	.global gUnknown_0821F16C
-gUnknown_0821F16C:
-	.incbin "graphics/talk_location_choices/0021F16C.4bpp"
-
-	.global gUnknown_0821F96C
-gUnknown_0821F96C:
-	.incbin "graphics/talk_location_choices/0021F96C.4bpp"
-
-	.global gUnknown_0822016C
-gUnknown_0822016C:
-	.incbin "graphics/talk_location_choices/0022016C.4bpp"
-
-	.global gUnknown_0822096C
-gUnknown_0822096C:
-	.incbin "graphics/talk_location_choices/0022096C.4bpp"
-
-	.global gUnknown_0822116C
-gUnknown_0822116C:
-	.incbin "graphics/talk_location_choices/0022116C.4bpp"
-
-	.global gUnknown_0822196C
-gUnknown_0822196C:
-	.incbin "graphics/talk_location_choices/0022196C.4bpp"
-
-	.global gUnknown_0822216C
-gUnknown_0822216C:
-	.incbin "graphics/talk_location_choices/0022216C.4bpp"
-
-	.global gUnknown_0822296C
-gUnknown_0822296C:
-	.incbin "graphics/talk_location_choices/0022296C.4bpp"
-
-	.global gUnknown_0822316C
-gUnknown_0822316C:
-	.incbin "graphics/talk_location_choices/0022316C.4bpp"
-
-	.global gUnknown_0822396C
-gUnknown_0822396C:
-	.incbin "graphics/talk_location_choices/0022396C.4bpp"
-
-	.global gUnknown_0822416C
-gUnknown_0822416C:
-	.incbin "graphics/talk_location_choices/0022416C.4bpp"
-
-	.global gUnknown_0822496C
-gUnknown_0822496C:
-	.incbin "graphics/talk_location_choices/0022496C.4bpp"
-
-	.global gUnknown_0822516C
-gUnknown_0822516C:
-	.incbin "graphics/talk_location_choices/0022516C.4bpp"
-
-	.global gUnknown_0822596C
-gUnknown_0822596C:
-	.incbin "graphics/talk_location_choices/0022596C.4bpp"
-
-	.global gUnknown_0822616C
-gUnknown_0822616C:
-	.incbin "graphics/talk_location_choices/0022616C.4bpp"
-
-	.global gUnknown_0822696C
-gUnknown_0822696C:
-	.incbin "graphics/talk_location_choices/0022696C.4bpp"
-
-	.global gUnknown_0822716C
-gUnknown_0822716C:
-	.incbin "graphics/talk_location_choices/0022716C.4bpp"
-
-	.global gUnknown_0822796C
-gUnknown_0822796C:
-	.incbin "graphics/talk_location_choices/0022796C.4bpp"
-
-	.global gUnknown_0822816C
-gUnknown_0822816C:
-	.incbin "graphics/talk_location_choices/0022816C.4bpp"
-
-	.global gUnknown_0822896C
-gUnknown_0822896C:
-	.incbin "graphics/talk_location_choices/0022896C.4bpp"
-
-	.global gUnknown_0822916C
-gUnknown_0822916C:
-	.incbin "graphics/talk_location_choices/0022916C.4bpp"
-
-	.global gUnknown_0822996C
-gUnknown_0822996C:
-	.incbin "graphics/talk_location_choices/0022996C.4bpp"
-
-	.global gUnknown_0822A16C
-gUnknown_0822A16C:
-	.incbin "graphics/talk_location_choices/0022A16C.4bpp"
-
-	.global gUnknown_0822A96C
-gUnknown_0822A96C:
-	.incbin "graphics/talk_location_choices/0022A96C.4bpp"
-
-	.global gUnknown_0822B16C
-gUnknown_0822B16C:
-	.incbin "graphics/talk_location_choices/0022B16C.4bpp"
-
-	.global gUnknown_0822B96C
-gUnknown_0822B96C:
-	.incbin "graphics/talk_location_choices/0022B96C.4bpp"
-
-	.global gUnknown_0822C16C
-gUnknown_0822C16C:
-	.incbin "graphics/talk_location_choices/0022C16C.4bpp"
-
-	.global gUnknown_0822C96C
-gUnknown_0822C96C:
-	.incbin "graphics/talk_location_choices/0022C96C.4bpp"
-
-	.global gUnknown_0822D16C
-gUnknown_0822D16C:
-	.incbin "graphics/talk_location_choices/0022D16C.4bpp"
-
-	.global gUnknown_0822D96C
-gUnknown_0822D96C:
-	.incbin "graphics/talk_location_choices/0022D96C.4bpp"
-
-	.global gUnknown_0822E16C
-gUnknown_0822E16C:
-	.incbin "graphics/talk_location_choices/0022E16C.4bpp"
-
-	.global gUnknown_0822E96C
-gUnknown_0822E96C:
-	.incbin "graphics/talk_location_choices/0022E96C.4bpp"
-
-	.global gUnknown_0822F16C
-gUnknown_0822F16C:
-	.incbin "graphics/talk_location_choices/0022F16C.4bpp"
-
-	.global gUnknown_0822F96C
-gUnknown_0822F96C:
-	.incbin "graphics/talk_location_choices/0022F96C.4bpp"
-
-	.global gUnknown_0823016C
-gUnknown_0823016C:
-	.incbin "graphics/talk_location_choices/0023016C.4bpp"
-
-	.global gUnknown_0823096C
-gUnknown_0823096C:
-	.incbin "graphics/talk_location_choices/0023096C.4bpp"
-
-	.global gUnknown_0823116C
-gUnknown_0823116C:
-	.incbin "graphics/talk_location_choices/0023116C.4bpp"
-
-	.global gUnknown_0823196C
-gUnknown_0823196C:
-	.incbin "graphics/talk_location_choices/0023196C.4bpp"
-
-	.global gUnknown_0823216C
-gUnknown_0823216C:
-	.incbin "graphics/talk_location_choices/0023216C.4bpp"
-
-	.global gUnknown_0823296C
-gUnknown_0823296C:
-	.incbin "graphics/talk_location_choices/0023296C.4bpp"
-
-	.global gUnknown_0823316C
-gUnknown_0823316C:
-	.incbin "graphics/talk_location_choices/0023316C.4bpp"
-
-	.global gUnknown_0823396C
-gUnknown_0823396C:
-	.incbin "graphics/talk_location_choices/0023396C.4bpp"
-
-	.global gUnknown_0823416C
-gUnknown_0823416C:
-	.incbin "graphics/talk_location_choices/0023416C.4bpp"
-
-	.global gUnknown_0823496C
-gUnknown_0823496C:
-	.incbin "graphics/talk_location_choices/0023496C.4bpp"
-
-	.global gUnknown_0823516C
-gUnknown_0823516C:
-	.incbin "graphics/talk_location_choices/0023516C.4bpp"
-
-	.global gUnknown_0823596C
-gUnknown_0823596C:
-	.incbin "graphics/talk_location_choices/0023596C.4bpp"
-
-	.global gUnknown_0823616C
-gUnknown_0823616C:
-	.incbin "graphics/talk_location_choices/0023616C.4bpp"
-
-	.global gUnknown_0823696C
-gUnknown_0823696C:
-	.incbin "graphics/talk_location_choices/0023696C.4bpp"
-
-	.global gUnknown_0823716C
-gUnknown_0823716C:
-	.incbin "graphics/talk_location_choices/0023716C.4bpp"
-
-	.global gUnknown_0823796C
-gUnknown_0823796C:
-	.incbin "graphics/talk_location_choices/0023796C.4bpp"
-
-	.global gUnknown_0823816C
-gUnknown_0823816C:
-	.incbin "graphics/talk_location_choices/0023816C.4bpp"
-
-	.global gUnknown_0823896C
-gUnknown_0823896C:
-	.incbin "graphics/talk_location_choices/0023896C.4bpp"
-
-	.global gUnknown_0823916C
-gUnknown_0823916C:
-	.incbin "graphics/talk_location_choices/0023916C.4bpp"
-
-	.global gUnknown_0823996C
-gUnknown_0823996C:
-	.incbin "graphics/talk_location_choices/0023996C.4bpp"
-
-	.global gUnknown_0823A16C
-gUnknown_0823A16C:
-	.incbin "graphics/talk_location_choices/0023A16C.4bpp"
-
-	.global gUnknown_0823A96C
-gUnknown_0823A96C:
-	.incbin "graphics/talk_location_choices/0023A96C.4bpp"
-
-	.global gUnknown_0823B16C
-gUnknown_0823B16C:
-	.incbin "graphics/talk_location_choices/0023B16C.4bpp"
-
-	.global gUnknown_0823B96C
-gUnknown_0823B96C:
-	.incbin "graphics/talk_location_choices/0023B96C.4bpp"
-
-	.global gUnknown_0823C16C
-gUnknown_0823C16C:
-	.incbin "graphics/talk_location_choices/0023C16C.4bpp"
-
-	.global gUnknown_0823C96C
-gUnknown_0823C96C:
-	.incbin "graphics/talk_location_choices/0023C96C.4bpp"
-
-	.global gUnknown_0823D16C
-gUnknown_0823D16C:
-	.incbin "graphics/talk_location_choices/0023D16C.4bpp"
-
-	.global gUnknown_0823D96C
-gUnknown_0823D96C:
-	.incbin "graphics/talk_location_choices/0023D96C.4bpp"
-
-	.global gUnknown_0823E16C
-gUnknown_0823E16C:
-	.incbin "graphics/talk_location_choices/0023E16C.4bpp"
-
-	.global gUnknown_0823E96C
-gUnknown_0823E96C:
-	.incbin "graphics/talk_location_choices/0023E96C.4bpp"
-
-	.global gUnknown_0823F16C
-gUnknown_0823F16C:
-	.incbin "graphics/talk_location_choices/0023F16C.4bpp"
-
-	.global gUnknown_0823F96C
-gUnknown_0823F96C:
-	.incbin "graphics/talk_location_choices/0023F96C.4bpp"
-
-	.global gUnknown_0824016C
-gUnknown_0824016C:
-	.incbin "graphics/talk_location_choices/0024016C.4bpp"
-
-	.global gUnknown_0824096C
-gUnknown_0824096C:
-	.incbin "graphics/talk_location_choices/0024096C.4bpp"
-
-	.global gUnknown_0824116C
-gUnknown_0824116C:
-	.incbin "graphics/talk_location_choices/0024116C.4bpp"
-
-	.global gUnknown_0824196C
-gUnknown_0824196C:
-	.incbin "graphics/talk_location_choices/0024196C.4bpp"
-
-	.global gUnknown_0824216C
-gUnknown_0824216C:
-	.incbin "graphics/talk_location_choices/0024216C.4bpp"
-
-	.global gUnknown_0824296C
-gUnknown_0824296C:
-	.incbin "graphics/talk_location_choices/0024296C.4bpp"
-
-	.global gUnknown_0824316C
-gUnknown_0824316C:
-	.incbin "graphics/talk_location_choices/0024316C.4bpp"
-
-	.global gUnknown_0824396C
-gUnknown_0824396C:
-	.incbin "graphics/talk_location_choices/0024396C.4bpp"
-
-	.global gUnknown_0824416C
-gUnknown_0824416C:
-	.incbin "graphics/talk_location_choices/0024416C.4bpp"
-
-	.global gUnknown_0824496C
-gUnknown_0824496C:
-	.incbin "graphics/talk_location_choices/0024496C.4bpp"
-
-	.global gUnknown_0824516C
-gUnknown_0824516C:
-	.incbin "graphics/talk_location_choices/0024516C.4bpp"
-
-	.global gUnknown_0824596C
-gUnknown_0824596C:
-	.incbin "graphics/talk_location_choices/0024596C.4bpp"
-
-	.global gUnknown_0824616C
-gUnknown_0824616C:
-	.incbin "graphics/talk_location_choices/0024616C.4bpp"
+	.incbin "graphics/talk_choices/0020816C.4bpp"
+	.incbin "graphics/talk_choices/0020896C.4bpp"
+	.incbin "graphics/talk_choices/0020916C.4bpp"
+	.incbin "graphics/talk_choices/0020996C.4bpp"
+	.incbin "graphics/talk_choices/0020A16C.4bpp"
+	.incbin "graphics/talk_choices/0020A96C.4bpp"
+	.incbin "graphics/talk_choices/0020B16C.4bpp"
+	.incbin "graphics/talk_choices/0020B96C.4bpp"
+	.incbin "graphics/talk_choices/0020C16C.4bpp"
+	.incbin "graphics/talk_choices/0020C96C.4bpp"
+	.incbin "graphics/talk_choices/0020D16C.4bpp"
+	.incbin "graphics/talk_choices/0020D96C.4bpp"
+	.incbin "graphics/talk_choices/0020E16C.4bpp"
+	.incbin "graphics/talk_choices/0020E96C.4bpp"
+	.incbin "graphics/talk_choices/0020F16C.4bpp"
+	.incbin "graphics/talk_choices/0020F96C.4bpp"
+	.incbin "graphics/talk_choices/0021016C.4bpp"
+	.incbin "graphics/talk_choices/0021096C.4bpp"
+	.incbin "graphics/talk_choices/0021116C.4bpp"
+	.incbin "graphics/talk_choices/0021196C.4bpp"
+	.incbin "graphics/talk_choices/0021216C.4bpp"
+	.incbin "graphics/talk_choices/0021296C.4bpp"
+	.incbin "graphics/talk_choices/0021316C.4bpp"
+	.incbin "graphics/talk_choices/0021396C.4bpp"
+	.incbin "graphics/talk_choices/0021416C.4bpp"
+	.incbin "graphics/talk_choices/0021496C.4bpp"
+	.incbin "graphics/talk_choices/0021516C.4bpp"
+	.incbin "graphics/talk_choices/0021596C.4bpp"
+	.incbin "graphics/talk_choices/0021616C.4bpp"
+	.incbin "graphics/talk_choices/0021696C.4bpp"
+	.incbin "graphics/talk_choices/0021716C.4bpp"
+	.incbin "graphics/talk_choices/0021796C.4bpp"
+	.incbin "graphics/talk_choices/0021816C.4bpp"
+	.incbin "graphics/talk_choices/0021896C.4bpp"
+	.incbin "graphics/talk_choices/0021916C.4bpp"
+	.incbin "graphics/talk_choices/0021996C.4bpp"
+	.incbin "graphics/talk_choices/0021A16C.4bpp"
+	.incbin "graphics/talk_choices/0021A96C.4bpp"
+	.incbin "graphics/talk_choices/0021B16C.4bpp"
+	.incbin "graphics/talk_choices/0021B96C.4bpp"
+	.incbin "graphics/talk_choices/0021C16C.4bpp"
+	.incbin "graphics/talk_choices/0021C96C.4bpp"
+	.incbin "graphics/talk_choices/0021D16C.4bpp"
+	.incbin "graphics/talk_choices/0021D96C.4bpp"
+	.incbin "graphics/talk_choices/0021E16C.4bpp"
+	.incbin "graphics/talk_choices/0021E96C.4bpp"
+	.incbin "graphics/talk_choices/0021F16C.4bpp"
+	.incbin "graphics/talk_choices/0021F96C.4bpp"
+	.incbin "graphics/talk_choices/0022016C.4bpp"
+	.incbin "graphics/talk_choices/0022096C.4bpp"
+	.incbin "graphics/talk_choices/0022116C.4bpp"
+	.incbin "graphics/talk_choices/0022196C.4bpp"
+	.incbin "graphics/talk_choices/0022216C.4bpp"
+	.incbin "graphics/talk_choices/0022296C.4bpp"
+	.incbin "graphics/talk_choices/0022316C.4bpp"
+	.incbin "graphics/talk_choices/0022396C.4bpp"
+	.incbin "graphics/talk_choices/0022416C.4bpp"
+	.incbin "graphics/talk_choices/0022496C.4bpp"
+	.incbin "graphics/talk_choices/0022516C.4bpp"
+	.incbin "graphics/talk_choices/0022596C.4bpp"
+	.incbin "graphics/talk_choices/0022616C.4bpp"
+	.incbin "graphics/talk_choices/0022696C.4bpp"
+	.incbin "graphics/talk_choices/0022716C.4bpp"
+	.incbin "graphics/talk_choices/0022796C.4bpp"
+	.incbin "graphics/talk_choices/0022816C.4bpp"
+	.incbin "graphics/talk_choices/0022896C.4bpp"
+	.incbin "graphics/talk_choices/0022916C.4bpp"
+	.incbin "graphics/talk_choices/0022996C.4bpp"
+	.incbin "graphics/talk_choices/0022A16C.4bpp"
+	.incbin "graphics/talk_choices/0022A96C.4bpp"
+	.incbin "graphics/talk_choices/0022B16C.4bpp"
+	.incbin "graphics/talk_choices/0022B96C.4bpp"
+	.incbin "graphics/talk_choices/0022C16C.4bpp"
+	.incbin "graphics/talk_choices/0022C96C.4bpp"
+	.incbin "graphics/talk_choices/0022D16C.4bpp"
+	.incbin "graphics/talk_choices/0022D96C.4bpp"
+	.incbin "graphics/talk_choices/0022E16C.4bpp"
+	.incbin "graphics/talk_choices/0022E96C.4bpp"
+	.incbin "graphics/talk_choices/0022F16C.4bpp"
+	.incbin "graphics/talk_choices/0022F96C.4bpp"
+	.incbin "graphics/talk_choices/0023016C.4bpp"
+	.incbin "graphics/talk_choices/0023096C.4bpp"
+	.incbin "graphics/talk_choices/0023116C.4bpp"
+	.incbin "graphics/talk_choices/0023196C.4bpp"
+	.incbin "graphics/talk_choices/0023216C.4bpp"
+	.incbin "graphics/talk_choices/0023296C.4bpp"
+	.incbin "graphics/talk_choices/0023316C.4bpp"
+	.incbin "graphics/talk_choices/0023396C.4bpp"
+	.incbin "graphics/talk_choices/0023416C.4bpp"
+	.incbin "graphics/talk_choices/0023496C.4bpp"
+	.incbin "graphics/talk_choices/0023516C.4bpp"
+	.incbin "graphics/talk_choices/0023596C.4bpp"
+	.incbin "graphics/talk_choices/0023616C.4bpp"
+	.incbin "graphics/talk_choices/0023696C.4bpp"
+	.incbin "graphics/talk_choices/0023716C.4bpp"
+	.incbin "graphics/talk_choices/0023796C.4bpp"
+	.incbin "graphics/talk_choices/0023816C.4bpp"
+	.incbin "graphics/talk_choices/0023896C.4bpp"
+	.incbin "graphics/talk_choices/0023916C.4bpp"
+	.incbin "graphics/talk_choices/0023996C.4bpp"
+	.incbin "graphics/talk_choices/0023A16C.4bpp"
+	.incbin "graphics/talk_choices/0023A96C.4bpp"
+	.incbin "graphics/talk_choices/0023B16C.4bpp"
+	.incbin "graphics/talk_choices/0023B96C.4bpp"
+	.incbin "graphics/talk_choices/0023C16C.4bpp"
+	.incbin "graphics/talk_choices/0023C96C.4bpp"
+	.incbin "graphics/talk_choices/0023D16C.4bpp"
+	.incbin "graphics/talk_choices/0023D96C.4bpp"
+	.incbin "graphics/talk_choices/0023E16C.4bpp"
+	.incbin "graphics/talk_choices/0023E96C.4bpp"
+	.incbin "graphics/talk_choices/0023F16C.4bpp"
+	.incbin "graphics/talk_choices/0023F96C.4bpp"
+	.incbin "graphics/talk_choices/0024016C.4bpp"
+	.incbin "graphics/talk_choices/0024096C.4bpp"
+	.incbin "graphics/talk_choices/0024116C.4bpp"
+	.incbin "graphics/talk_choices/0024196C.4bpp"
+	.incbin "graphics/talk_choices/0024216C.4bpp"
+	.incbin "graphics/talk_choices/0024296C.4bpp"
+	.incbin "graphics/talk_choices/0024316C.4bpp"
+	.incbin "graphics/talk_choices/0024396C.4bpp"
+	.incbin "graphics/talk_choices/0024416C.4bpp"
+	.incbin "graphics/talk_choices/0024496C.4bpp"
+	.incbin "graphics/talk_choices/0024516C.4bpp"
+	.incbin "graphics/talk_choices/0024596C.4bpp"
+	.incbin "graphics/talk_choices/0024616C.4bpp"
 
 @ END TALK AND LOCATION CHOICES
 

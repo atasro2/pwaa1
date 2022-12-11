@@ -5,6 +5,7 @@
 #include "sound.h"
 #include "graphics.h"
 #include "constants/songs.h"
+#include "constants/process.h"
 
 const u8 gUnknown_080189A4[152] = {
 	0x01, 0x02, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x04, 0x05, 0x06, 0x07, 0x01,
@@ -109,7 +110,7 @@ void GameOverScreenProcess(struct Main *main)
         if(main->blendMode == 0)
         {
             DmaFill16(3, 0, PLTT, 0x400);
-            SET_PROCESS_PTR(1, 0, 0, 0, main);
+            SET_PROCESS_PTR(TITLE_SCREEN_PROCESS, 0, 0, 0, main);
         }
         break;
     default:

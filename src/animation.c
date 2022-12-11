@@ -8,6 +8,7 @@
 #include "graphics.h"
 #include "constants/animation.h"
 #include "constants/persons.h"
+#include "constants/process.h"
 
 #define DUMMYPERSON { .gfxData = 0, .frameData = 0, .spriteCount = 0, .unkA = 0 }
 #define DUMMYANIMATION { .gfxData = 0, .vramPtr = 0, .frameData = 0, .xOrigin = 0, .yOrigin = 0, .paletteSlot = 0, .spriteCount = 0, .priority = 0, .flags = 0x0, }
@@ -933,17 +934,17 @@ const struct SpriteSizeData gSpriteSizeTable[0xF] = {
 	},
 };
 
-const s8 gUnknown_0801948C[31] = {
+const s8 gCourtScroll01AnimOffsets[31] = {
 	0x03, 0x00, 0x14, 0x00, 0x24, 0x00, 0x34, 0x00, 0x3c, 0x00, 0x2f, 0x00, 0x1e, 0x00, 0x0c, 0x00,
 	0x02, 0x00, 0x14, 0x00, 0x28, 0x00, 0x1b, 0x00, 0x3a, 0x00, 0x2c, 0x00, 0x1c, 0x00, 0x0b
 };
 
-const s8 gUnknown_080194AB[31] = {
+const s8 gCourtScroll02AnimOffsets[31] = {
 	0x03, 0x00, 0x06, 0x00, 0x0a, 0x00, 0x0e, 0x00, 0x14, 0x00, 0x1a, 0x00, 0x1f, 0x00, 0x11, 0x00,
 	0x1c, 0x00, 0x1c, 0x00, 0x1a, 0x00, 0x1a, 0x00, 0x1a, 0x00, 0x18, 0x00, 0x18, 0x00, 0x16
 };
 
-const s8 gUnknown_080194CA[31] = {
+const s8 gCourtScroll03AnimOffsets[31] = {
 	0x02, 0x00, 0x04, 0x00, 0x0a, 0x00, 0x10, 0x00, 0x12, 0x00, 0x14, 0x00, 0x1e, 0x00, 0x26, 0x00,
 	0x22, 0x00, 0x20, 0x00, 0x1e, 0x00, 0x1c, 0x00, 0x1b, 0x00, 0x1a, 0x00, 0x19, 0x00, 0x17
 };
@@ -954,26 +955,26 @@ static struct AnimationListEntry * CreateAnimationFromAnimationInfo(struct Anima
 static void UpdatePersonAnimationForCourtScroll(struct AnimationListEntry * animation);
 
 void (*gSpecialAnimationEffectFunctions[11])(struct AnimationListEntry *) = { // Table is used for Objection bubble shake and animation movement for the opening of case 3
-	sub_8011130,
-	sub_8011130,
-	sub_8011130,
-	sub_8011130,
-	sub_80111A0,
-	sub_80111A0,
-	sub_80111A0,
-	sub_80111A0,
-	sub_80111A0,
-	sub_8011130,
-	sub_8011130
+	SpeechBubbleAnimationEffect,
+	SpeechBubbleAnimationEffect,
+	SpeechBubbleAnimationEffect,
+	SpeechBubbleAnimationEffect,
+	Case3OpeningAnimationEffect,
+	Case3OpeningAnimationEffect,
+	Case3OpeningAnimationEffect,
+	Case3OpeningAnimationEffect,
+	Case3OpeningAnimationEffect,
+	SpeechBubbleAnimationEffect,
+	SpeechBubbleAnimationEffect
 };
 
 void (*gCourtScrollPersonAnimationUpdateFuncs[6])(struct AnimationListEntry *, struct CourtScroll *) = {
-	sub_8011068,
-	sub_80110A8,
-	sub_8010F68,
-	sub_8010FA8,
-	sub_8010FEC,
-	sub_801102C
+	ScrollMode0AnimationUpdate,
+	ScrollMode1AnimationUpdate,
+	ScrollMode2AnimationUpdate,
+	ScrollMode3AnimationUpdate,
+	ScrollMode4AnimationUpdate,
+	ScrollMode5AnimationUpdate
 };
 
 static void InitCurrentAnimationToNull()
@@ -1222,12 +1223,11 @@ void SetAnimationFrameOffset(struct AnimationListEntry *animation, u32 animOffse
     }
 }
 
-#ifdef NONMATCHING
 #ifdef eUnknown_0200AFC0
 #undef eUnknown_0200AFC0
 #endif
 
-#define eUnknown_0200AFC0 ((struct Rect*)EWRAM_START+0xAFC0)
+#define eUnknown_0200AFC0 ((struct Rect*)(EWRAM_START+0xAFC0))
 
 /***
   * 
@@ -1236,79 +1236,87 @@ void SetAnimationFrameOffset(struct AnimationListEntry *animation, u32 animOffse
 ***/
 u32 CheckRectCollisionWithAnim(struct Rect *p)
 {
-    // p = sp04
-    struct AnimationListEntry * animation; // ip
-    void * vram; // sl
-    struct SpriteSizeData spriteSize = {0}; // sp00
-    u32 spriteCount; // sp08
     u32 i;
+    u32 spriteSize = 0;
+    struct AnimationListEntry * animation;
 
     for(animation = gAnimation[0].next; animation != NULL; animation = animation->next)
     {
+        struct Rect * rect = &eUnknown_0200AFC0[0];
+        struct Rect * collisionRect = &eUnknown_0200AFC0[1];
+        struct Rect * spriteRect = &eUnknown_0200AFC0[2];
+        uintptr_t vram;
         struct SpriteTemplate * spriteTemplate;
-        struct SpriteSizeData * spriteSizePtr;
-        struct Rect * rect0 = &eUnknown_0200AFC0[0];
-        struct Rect * rect1 = &eUnknown_0200AFC0[1];
-        struct Rect * rect2 = &eUnknown_0200AFC0[2];
-        *rect0 = *p;
-        rect0->w += p->x;
-        rect0->h += p->y;
-        vram = animation->animationInfo.vramPtr;
+        u32 spriteCount;
+
+        *rect = *p;
+        rect->w += p->x;
+        rect->h += p->y;
+        
+        vram = (uintptr_t)animation->animationInfo.vramPtr;
         spriteTemplate = animation->spriteData;
         spriteCount = *(u16*)animation->spriteData;
         for(i = 0; i < spriteCount; i++)
         {
-            spriteSizePtr = &spriteSize;
-            //u32 x, y
+            struct SpriteSizeData * spriteSizePtr = (struct SpriteSizeData *)&spriteSize; // ! possible fakematch
+            u32 mask;
             spriteTemplate++;
-            *rect1 = *rect0;
-            vram += spriteSizePtr->tileSize;
-            spriteSize = gSpriteSizeTable[spriteTemplate->data >> 0xC];
-            //x = animation->animationInfo.xOrigin + spriteTemplate->x;
-            rect2->x = rect2->w = animation->animationInfo.xOrigin + spriteTemplate->x;
-            rect2->w += spriteSizePtr->width;
-            rect2->y = rect2->h = spriteTemplate->y + animation->animationInfo.yOrigin;
-            rect2->h += spriteSizePtr->height;
-            // rect2->y;
-           
-            if(rect2->x < rect1->w 
-            && rect1->x < rect2->w
-            && rect2->y < rect1->h
-            && rect1->y < rect2->h)
+            *collisionRect = *rect;
+            mask = 0xFFFF;
+            vram += spriteSize & mask;    
+            *spriteSizePtr = gSpriteSizeTable[spriteTemplate->data >> 0xC];
+            spriteRect->x = spriteRect->w = animation->animationInfo.xOrigin + spriteTemplate->x;
+            spriteRect->w += spriteSizePtr->width;
+            spriteRect->y = spriteRect->h = spriteTemplate->y + animation->animationInfo.yOrigin;
+            spriteRect->h += spriteSizePtr->height;
+
+            // Check if collision rect is in the region of the sprite rext 
+            if(spriteRect->x < collisionRect->w 
+            && collisionRect->x < spriteRect->w
+            && spriteRect->y < collisionRect->h
+            && collisionRect->y < spriteRect->h)
             {
                 u32 temp;
                 s32 x, y;
-                rect1->x -= rect2->x;
-                if(rect1->x < 0)
-                    rect1->x = 0;
-                rect1->y -= rect2->y;
-                if(rect1->y < 0)
-                    rect1->y = 0;
-                if(rect1->w >= rect2->w)
-                    rect1->w = rect2->w;
-                rect1->w -= rect2->x;
-                if(rect1->h >= rect2->h)
-                    rect1->h = rect2->h;
-                rect1->h -= rect2->y;
+                // now create the intersection rect between the two rects
+                collisionRect->x -= spriteRect->x;
+                if(collisionRect->x < 0)
+                    collisionRect->x = 0;
+                collisionRect->y -= spriteRect->y;
+                if(collisionRect->y < 0)
+                    collisionRect->y = 0;
+                if(collisionRect->w > spriteRect->w)
+                    collisionRect->w = spriteRect->w;
+                collisionRect->w -= spriteRect->x;
+                if(collisionRect->h > spriteRect->h)
+                    collisionRect->h = spriteRect->h;
+                collisionRect->h -= spriteRect->y;
+
+                // Check if any visible pixels are in the intersection
                 temp = spriteSizePtr->width / 8;
-                y = rect1->y;
-                while(y < rect1->h)
+                y = collisionRect->y;
+                while(y < collisionRect->h)
                 {
-                    u32 temp2;
-                    void * temp3;
-                    temp2 = (y >> 3) * temp * 32;
-                    temp2 += y % 8 * 4;
-                    temp3 = vram + temp2; 
-                    x = rect1->x;
-                    while(x < rect1->w)
+                    s32 yy1;
+                    s32 yy2;
+                    uintptr_t temp3;
+                    yy1 = (y >> 3) * temp * 32;
+                    yy2 = (y % 8) * 4;
+                    temp3 = yy1 + yy2 + vram;
+                    x = collisionRect->x;
+                    while(x < collisionRect->w)
                     {
-                        u8 * pixel;
-                        temp2 = (x >> 3) * 32;
-                        if(x % 8 > 1)
-                            pixel = temp2 + (temp3 + 1);
-                        else
-                            pixel = temp2 + temp3;
-                        if(*pixel != 0)
+                        uintptr_t pixel;
+                        s32 xx1 = (x >> 3) * 32;
+                        if(x % 8 > 1){
+                            uintptr_t ptr = temp3 + 1;
+                            pixel = (x >> 3) * 32 + ptr;
+                        }
+                        else {
+                            uintptr_t ptr = temp3;
+                            pixel = (x >> 3) * 32 + ptr;
+                        }
+                        if(*(u8 *)pixel != 0)
                             return animation->animationInfo.animId;
                         x+=2;
                     }
@@ -1321,270 +1329,7 @@ u32 CheckRectCollisionWithAnim(struct Rect *p)
 }
 
 #undef eUnknown_0200AFC0
-#define eUnknown_0200AFC0 ((void*)EWRAM_START+0xAFC0)
-
-#else
-NAKED u32 CheckRectCollisionWithAnim(struct Rect *p)
-{
-    asm_unified("push {r4, r5, r6, r7, lr}\n\
-	mov r7, sl\n\
-	mov r6, sb\n\
-	mov r5, r8\n\
-	push {r5, r6, r7}\n\
-	sub sp, #0x14\n\
-	str r0, [sp, #4]\n\
-	movs r0, #0\n\
-	str r0, [sp]\n\
-	ldr r0, _0800FD80\n\
-	ldr r0, [r0, #8]\n\
-	mov ip, r0\n\
-	cmp r0, #0\n\
-	bne _0800FC5E\n\
-	b _0800FE12\n\
-_0800FC5E:\n\
-	ldr r5, _0800FD84\n\
-	ldr r0, _0800FD88\n\
-	mov sb, r0\n\
-_0800FC64:\n\
-	ldr r2, [sp, #4]\n\
-	ldr r0, [r2]\n\
-	ldr r1, [r2, #4]\n\
-	ldr r3, _0800FD8C\n\
-	str r0, [r3]\n\
-	str r1, [r3, #4]\n\
-	ldrh r0, [r3, #4]\n\
-	ldrh r4, [r2]\n\
-	adds r0, r4, r0\n\
-	strh r0, [r3, #4]\n\
-	ldrh r0, [r3, #6]\n\
-	ldrh r6, [r2, #2]\n\
-	adds r0, r6, r0\n\
-	strh r0, [r3, #6]\n\
-	mov r0, ip\n\
-	ldr r0, [r0, #0x1c]\n\
-	mov sl, r0\n\
-	mov r1, ip\n\
-	ldr r1, [r1, #0x30]\n\
-	mov r8, r1\n\
-	ldrh r2, [r1]\n\
-	str r2, [sp, #0xc]\n\
-	movs r3, #0\n\
-	str r3, [sp, #8]\n\
-	cmp r3, r2\n\
-	blo _0800FC9A\n\
-	b _0800FE06\n\
-_0800FC9A:\n\
-	mov r4, sp\n\
-	str r4, [sp, #0x10]\n\
-_0800FC9E:\n\
-	movs r6, #4\n\
-	add r8, r6\n\
-	ldr r2, _0800FD8C\n\
-	ldr r0, [r2]\n\
-	ldr r1, [r2, #4]\n\
-	str r0, [r5]\n\
-	str r1, [r5, #4]\n\
-	ldr r1, _0800FD90\n\
-	ldr r0, [sp]\n\
-	ands r0, r1\n\
-	add sl, r0\n\
-	mov r3, r8\n\
-	ldrh r3, [r3, #2]\n\
-	lsrs r0, r3, #0xc\n\
-	lsls r0, r0, #2\n\
-	ldr r4, _0800FD94\n\
-	adds r0, r0, r4\n\
-	ldr r0, [r0]\n\
-	str r0, [sp]\n\
-	mov r6, r8\n\
-	movs r0, #0\n\
-	ldrsb r0, [r6, r0]\n\
-	mov r1, ip\n\
-	ldrh r1, [r1, #0x10]\n\
-	adds r3, r1, r0\n\
-	mov r2, sb\n\
-	strh r3, [r2, #4]\n\
-	strh r3, [r2]\n\
-	ldr r4, [sp, #0x10]\n\
-	ldrb r0, [r4, #3]\n\
-	adds r4, r3, r0\n\
-	strh r4, [r2, #4]\n\
-	movs r0, #1\n\
-	ldrsb r0, [r6, r0]\n\
-	mov r6, ip\n\
-	ldrh r6, [r6, #0x12]\n\
-	adds r2, r6, r0\n\
-	mov r0, sb\n\
-	strh r2, [r0, #6]\n\
-	strh r2, [r0, #2]\n\
-	ldr r1, [sp, #0x10]\n\
-	ldrb r0, [r1, #2]\n\
-	adds r6, r2, r0\n\
-	mov r0, sb\n\
-	strh r6, [r0, #6]\n\
-	ldrh r0, [r5, #4]\n\
-	lsls r1, r3, #0x10\n\
-	lsls r0, r0, #0x10\n\
-	cmp r1, r0\n\
-	bge _0800FDF8\n\
-	ldrh r7, [r5]\n\
-	lsls r1, r4, #0x10\n\
-	adds r4, r7, #0\n\
-	lsls r0, r4, #0x10\n\
-	cmp r0, r1\n\
-	bge _0800FDF8\n\
-	ldrh r0, [r5, #6]\n\
-	lsls r1, r2, #0x10\n\
-	lsls r0, r0, #0x10\n\
-	cmp r1, r0\n\
-	bge _0800FDF8\n\
-	ldrh r2, [r5, #2]\n\
-	lsls r1, r2, #0x10\n\
-	lsls r0, r6, #0x10\n\
-	cmp r1, r0\n\
-	bge _0800FDF8\n\
-	subs r0, r7, r3\n\
-	strh r0, [r5]\n\
-	lsls r0, r0, #0x10\n\
-	cmp r0, #0\n\
-	bge _0800FD30\n\
-	movs r6, #0\n\
-	strh r6, [r5]\n\
-_0800FD30:\n\
-	mov r0, sb\n\
-	ldrh r3, [r0, #2]\n\
-	subs r0, r2, r3\n\
-	strh r0, [r5, #2]\n\
-	lsls r0, r0, #0x10\n\
-	cmp r0, #0\n\
-	bge _0800FD42\n\
-	movs r1, #0\n\
-	strh r1, [r5, #2]\n\
-_0800FD42:\n\
-	ldrh r1, [r5, #4]\n\
-	mov r4, sb\n\
-	ldrh r2, [r4, #4]\n\
-	lsls r1, r1, #0x10\n\
-	lsls r0, r2, #0x10\n\
-	cmp r1, r0\n\
-	ble _0800FD52\n\
-	strh r2, [r5, #4]\n\
-_0800FD52:\n\
-	ldrh r0, [r5, #4]\n\
-	mov r6, sb\n\
-	ldrh r6, [r6]\n\
-	subs r0, r0, r6\n\
-	strh r0, [r5, #4]\n\
-	ldrh r1, [r5, #6]\n\
-	mov r0, sb\n\
-	ldrh r2, [r0, #6]\n\
-	lsls r1, r1, #0x10\n\
-	lsls r0, r2, #0x10\n\
-	cmp r1, r0\n\
-	ble _0800FD6C\n\
-	strh r2, [r5, #6]\n\
-_0800FD6C:\n\
-	ldrh r0, [r5, #6]\n\
-	subs r0, r0, r3\n\
-	strh r0, [r5, #6]\n\
-	ldr r1, [sp, #0x10]\n\
-	ldrb r0, [r1, #3]\n\
-	lsrs r6, r0, #3\n\
-	movs r3, #2\n\
-	ldrsh r2, [r5, r3]\n\
-	b _0800FDF0\n\
-	.align 2, 0\n\
-_0800FD80: .4byte gAnimation\n\
-_0800FD84: .4byte gUnknown_0200AFC0+0x8\n\
-_0800FD88: .4byte gUnknown_0200AFC0+0x10\n\
-_0800FD8C: .4byte gUnknown_0200AFC0\n\
-_0800FD90: .4byte 0x0000FFFF\n\
-_0800FD94: .4byte gSpriteSizeTable\n\
-_0800FD98:\n\
-	asrs r0, r2, #3\n\
-	muls r0, r6, r0\n\
-	lsls r1, r0, #5\n\
-	adds r0, r2, #0\n\
-	cmp r2, #0\n\
-	bge _0800FDA6\n\
-	adds r0, r2, #7\n\
-_0800FDA6:\n\
-	asrs r0, r0, #3\n\
-	lsls r0, r0, #3\n\
-	subs r0, r2, r0\n\
-	lsls r0, r0, #2\n\
-	adds r0, r1, r0\n\
-	mov r1, sl\n\
-	adds r4, r0, r1\n\
-	movs r3, #0\n\
-	ldrsh r1, [r5, r3]\n\
-	b _0800FDE6\n\
-_0800FDBA:\n\
-	asrs r0, r1, #3\n\
-	lsls r3, r0, #5\n\
-	adds r0, r1, #0\n\
-	cmp r1, #0\n\
-	bge _0800FDC6\n\
-	adds r0, r1, #7\n\
-_0800FDC6:\n\
-	asrs r0, r0, #3\n\
-	lsls r0, r0, #3\n\
-	subs r0, r1, r0\n\
-	cmp r0, #1\n\
-	ble _0800FDD6\n\
-	adds r0, r4, #1\n\
-	adds r0, r3, r0\n\
-	b _0800FDD8\n\
-_0800FDD6:\n\
-	adds r0, r3, r4\n\
-_0800FDD8:\n\
-	ldrb r0, [r0]\n\
-	cmp r0, #0\n\
-	beq _0800FDE4\n\
-	mov r4, ip\n\
-	ldrh r0, [r4, #0xc]\n\
-	b _0800FE14\n\
-_0800FDE4:\n\
-	adds r1, #2\n\
-_0800FDE6:\n\
-	movs r3, #4\n\
-	ldrsh r0, [r5, r3]\n\
-	cmp r1, r0\n\
-	blt _0800FDBA\n\
-	adds r2, #2\n\
-_0800FDF0:\n\
-	movs r4, #6\n\
-	ldrsh r0, [r5, r4]\n\
-	cmp r2, r0\n\
-	blt _0800FD98\n\
-_0800FDF8:\n\
-	ldr r6, [sp, #8]\n\
-	adds r6, #1\n\
-	str r6, [sp, #8]\n\
-	ldr r0, [sp, #0xc]\n\
-	cmp r6, r0\n\
-	bhs _0800FE06\n\
-	b _0800FC9E\n\
-_0800FE06:\n\
-	mov r1, ip\n\
-	ldr r1, [r1, #8]\n\
-	mov ip, r1\n\
-	cmp r1, #0\n\
-	beq _0800FE12\n\
-	b _0800FC64\n\
-_0800FE12:\n\
-	movs r0, #0\n\
-_0800FE14:\n\
-	add sp, #0x14\n\
-	pop {r3, r4, r5}\n\
-	mov r8, r3\n\
-	mov sb, r4\n\
-	mov sl, r5\n\
-	pop {r4, r5, r6, r7}\n\
-	pop {r1}\n\
-	bx r1\n");
-}
-#endif
+#define eUnknown_0200AFC0 ((void*)(EWRAM_START+0xAFC0))
 
 bool32 CheckIfLinesIntersect(const struct Point *pt0, const struct Point *pt1, const struct Point *pt2, const struct Point *pt3)
 {
@@ -1740,7 +1485,7 @@ struct AnimationListEntry *PlayPersonAnimationAtCustomOrigin(u32 arg0, u32 talki
     animationInfo.animGfxDataStartPtr = gPersonAnimData[personId].gfxData;
     animationInfo.animFrameDataStartPtr = gPersonAnimData[personId].frameData + talkingAnimOff;
     animationInfo.paletteSlot = 14;
-    if (main->process[GAME_PROCESS] == 3) // trial
+    if (main->process[GAME_PROCESS] == COURT_PROCESS) // why does it force a specific amount of sprites
         animationInfo.spriteCount = 0x27;
     else
         animationInfo.spriteCount = gPersonAnimData[personId].spriteCount;
@@ -1757,7 +1502,7 @@ struct AnimationListEntry *PlayPersonAnimationAtCustomOrigin(u32 arg0, u32 talki
     animation->bgId |= 0;
     CreateAnimationFromAnimationInfo(&animationInfo, 0xFF, flags);
     animation->bgId = main->currentBG;
-    if (animation->animationInfo.personId == 0x16 && main->process[GAME_PROCESS] == 4) // person id 0x16 investigation
+    if (animation->animationInfo.personId == 0x16 && main->process[GAME_PROCESS] == INVESTIGATION_PROCESS) // April May special case
     {
         struct AnimationListEntry *ptr;
         u32 var0 = animation->flags & 0x02000000;
@@ -1941,7 +1686,7 @@ static u32 AdvanceAnimationFrame(struct AnimationListEntry * animation)
 {
     void * gfxDataStart;
     u32 retVal = 4;
-    if (gScriptContext.unk32 && animation->animationInfo.animId == 0xFF)
+    if (gScriptContext.personAnimPauseCounter && animation->animationInfo.animId == 0xFF)
         return retVal;
     if (animation->frameData->frameDuration > ++animation->frameDurationCounter)
         return retVal;
@@ -2131,7 +1876,7 @@ static void UpdateAnimationBlend(struct AnimationListEntry *animation)
     ioRegsp->lcd_bldalpha = BLDALPHA_BLEND(0x10 - main->blendDeltaY, main->blendDeltaY);
 }
 
-void sub_8010928() // unused
+void ActivateAllAllocatedAnimations() // unused
 {
     struct AnimationListEntry *animation = gAnimation;
 
@@ -2426,44 +2171,44 @@ void UpdateAnimations(u32 arg0)
     UpdateAllAnimationSprites();
 }
 
-void sub_8010F68(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
+void ScrollMode2AnimationUpdate(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
 {
-    animation->animationInfo.xOrigin += gUnknown_0801948C[courtScroll->frameCounter];
+    animation->animationInfo.xOrigin += gCourtScroll01AnimOffsets[courtScroll->frameCounter];
     if(courtScroll->frameCounter == 0xF)
         PlayPersonAnimationAtCustomOrigin(courtScroll->scrollingPersonAnimId, courtScroll->animOffset, -110, 80, 0);
 }
 
-void sub_8010FA8(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
+void ScrollMode3AnimationUpdate(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
 {
-    animation->animationInfo.xOrigin -= gUnknown_0801948C[0x1E - courtScroll->frameCounter];
+    animation->animationInfo.xOrigin -= gCourtScroll01AnimOffsets[0x1E - courtScroll->frameCounter];
     if(courtScroll->frameCounter == 0xF)
         PlayPersonAnimationAtCustomOrigin(courtScroll->scrollingPersonAnimId, courtScroll->animOffset, 350, 80, 0);
 }
 
-void sub_8010FEC(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
+void ScrollMode4AnimationUpdate(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
 {
-    animation->animationInfo.xOrigin += gUnknown_080194AB[courtScroll->frameCounter];
+    animation->animationInfo.xOrigin += gCourtScroll02AnimOffsets[courtScroll->frameCounter];
     if(courtScroll->frameCounter == 0xE)
         PlayPersonAnimationAtCustomOrigin(courtScroll->scrollingPersonAnimId, courtScroll->animOffset, -84, 80, 0);
 }
 
-void sub_801102C(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
+void ScrollMode5AnimationUpdate(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
 {
-    animation->animationInfo.xOrigin -= gUnknown_080194CA[courtScroll->frameCounter];
+    animation->animationInfo.xOrigin -= gCourtScroll03AnimOffsets[courtScroll->frameCounter];
     if(courtScroll->frameCounter == 0xE)
         PlayPersonAnimationAtCustomOrigin(courtScroll->scrollingPersonAnimId, courtScroll->animOffset, 220, 80, 0);
 }
 
-void sub_8011068(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
+void ScrollMode0AnimationUpdate(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
 {
-    animation->animationInfo.xOrigin -= gUnknown_080194AB[courtScroll->frameCounter];
+    animation->animationInfo.xOrigin -= gCourtScroll02AnimOffsets[courtScroll->frameCounter];
     if(courtScroll->frameCounter == 0xE)
         PlayPersonAnimationAtCustomOrigin(courtScroll->scrollingPersonAnimId, courtScroll->animOffset, 324, 80, 0);
 }
 
-void sub_80110A8(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
+void ScrollMode1AnimationUpdate(struct AnimationListEntry * animation, struct CourtScroll * courtScroll)
 {
-    animation->animationInfo.xOrigin += gUnknown_080194CA[courtScroll->frameCounter];
+    animation->animationInfo.xOrigin += gCourtScroll03AnimOffsets[courtScroll->frameCounter];
     if(courtScroll->frameCounter == 0xE)
         PlayPersonAnimationAtCustomOrigin(courtScroll->scrollingPersonAnimId, courtScroll->animOffset, 20, 80, 0);
 }
@@ -2483,19 +2228,19 @@ void SetCourtScrollPersonAnim(u32 arg0, u32 arg1, u32 arg2, u32 arg3)
     gCourtScroll.animOffset = arg3;
 }
 
-void sub_8011130(struct AnimationListEntry * animation)
+void SpeechBubbleAnimationEffect(struct AnimationListEntry * animation)
 {
     s32 rand = (Random() & 3) + 1; // 1 to 4
     s32 rand2 = (Random() & 7) - 4; // -4 to 3
-    if(animation->unk2B == 0)
-        animation->unk2E = animation->animationInfo.xOrigin;
-    animation->unk2B++;
-    if(animation->unk2B < 0x1F)
+    if(animation->animVar1 == 0)
+        animation->specialEffectVar = animation->animationInfo.xOrigin;
+    animation->animVar1++;
+    if(animation->animVar1 < 0x1F)
     {
-        if((animation->unk2B & 1) != 0)
-            animation->animationInfo.xOrigin = animation->unk2E + rand;
+        if((animation->animVar1 & 1) != 0)
+            animation->animationInfo.xOrigin = animation->specialEffectVar + rand;
         else
-            animation->animationInfo.xOrigin = animation->unk2E - rand;
+            animation->animationInfo.xOrigin = animation->specialEffectVar - rand;
         animation->animationInfo.yOrigin += rand2;
         if(animation->animationInfo.yOrigin > 90)
             animation->animationInfo.yOrigin = 90;
@@ -2503,10 +2248,10 @@ void sub_8011130(struct AnimationListEntry * animation)
             animation->animationInfo.yOrigin = 70;
     }
     else
-        animation->unk2B = 40;
+        animation->animVar1 = 40;
 }
 
-void sub_80111A0(struct AnimationListEntry * animation)
+void Case3OpeningAnimationEffect(struct AnimationListEntry * animation)
 {
     struct Main * main = &gMain;
     if(main->currentBG == 0xFF)
@@ -2518,24 +2263,24 @@ void sub_80111A0(struct AnimationListEntry * animation)
     if(main->currentBG == 0x4A)
     {
         if(animation->animationInfo.animId == 5)
-            animation->unk2E += 3;
+            animation->specialEffectVar += 3;
         else if(animation->animationInfo.animId == 6)
-            animation->unk2E -= 5;
+            animation->specialEffectVar -= 5;
         else
-            animation->unk2E += 1;
+            animation->specialEffectVar += 1;
     }
     else
     {
         if(animation->animationInfo.animId == 5)
-            animation->unk2E -= 3;
+            animation->specialEffectVar -= 3;
         else if(animation->animationInfo.animId == 6)
-            animation->unk2E += 5;
+            animation->specialEffectVar += 5;
         else
-            animation->unk2E -= 1;
+            animation->specialEffectVar -= 1;
     }
-    animation->animationInfo.xOrigin += animation->unk2E / 20;
-    if(animation->unk2E > 20)
-        animation->unk2E -= 20;
-    else if(animation->unk2E < -20)
-        animation->unk2E += 20;
+    animation->animationInfo.xOrigin += animation->specialEffectVar / 20;
+    if(animation->specialEffectVar > 20)
+        animation->specialEffectVar -= 20;
+    else if(animation->specialEffectVar < -20)
+        animation->specialEffectVar += 20;
 }
