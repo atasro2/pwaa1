@@ -367,13 +367,13 @@ void SlideInBG2Window(u32 mode, u32 speed)
 }
 
 // St_bg2_main00
-void nullsub_1(struct CourtRecord * courtRecord)
+void WindowDummy(struct CourtRecord * courtRecord)
 {
 
 }
 
 // St_bg2_main01
-void sub_800254C(struct CourtRecord * courtRecord)
+void ScrollWindowWithPrevWindow(struct CourtRecord * courtRecord)
 {
     u32 i;
     courtRecord->windowOffset += courtRecord->windowScrollSpeed;
@@ -446,7 +446,7 @@ void sub_800254C(struct CourtRecord * courtRecord)
 }
 
 // St_bg2_main02
-void sub_8002734(struct CourtRecord * courtRecord)
+void ScrollWindowWithoutPrevWindow(struct CourtRecord * courtRecord)
 {
     u32 i;
     courtRecord->windowOffset += courtRecord->windowScrollSpeed;
@@ -495,19 +495,19 @@ void sub_8002734(struct CourtRecord * courtRecord)
 }
 
 // st_bg2_main_proc_tbl
-void (*gUnknown_0811DBF0[])(struct CourtRecord *) = {
-    nullsub_1,
-	sub_800254C,
-	sub_800254C,
-	sub_8002734,
-	sub_8002734,
+void (*gWindowFunctions[])(struct CourtRecord *) = {
+    WindowDummy,
+	ScrollWindowWithPrevWindow,
+	ScrollWindowWithPrevWindow,
+	ScrollWindowWithoutPrevWindow,
+	ScrollWindowWithoutPrevWindow,
 };
 
 void UpdateBG2Window(struct CourtRecord * courtRecord)
 {
     if(gMain.blendMode == 0)
     {
-        gUnknown_0811DBF0[courtRecord->windowMode](courtRecord);
+        gWindowFunctions[courtRecord->windowMode](courtRecord);
         gIORegisters.lcd_bg2hofs = courtRecord->windowOffset + 8;
     }
 }
