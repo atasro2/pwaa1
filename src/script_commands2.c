@@ -683,12 +683,12 @@ bool32 Command30(struct ScriptContext *scriptCtx)
 
 bool32 Command31(struct ScriptContext *scriptCtx)
 {
-    u32 unk0, unk1;
+    u32 flags, blendDelay;
     scriptCtx->scriptPtr++;
-    unk0 = *scriptCtx->scriptPtr;
+    flags = *scriptCtx->scriptPtr;
     scriptCtx->scriptPtr++;
-    unk1 = *scriptCtx->scriptPtr;
-    StartAnimationBlend(unk0, unk1);
+    blendDelay = *scriptCtx->scriptPtr;
+    StartAnimationBlend(flags, blendDelay);
     scriptCtx->scriptPtr++;
     return 0;
 }
@@ -736,15 +736,16 @@ bool32 Command34(struct ScriptContext *scriptCtx)
 bool32 Command35(struct ScriptContext *scriptCtx)
 {
     u32 offset;
+    u32 flag;
     u32 temp;
     u16 *jmpArgs;
 
     scriptCtx->scriptPtr++;
-    temp = *scriptCtx->scriptPtr >> 8;
+    flag = *scriptCtx->scriptPtr >> 8;
 
     if (*scriptCtx->scriptPtr & 1)
     {
-        if (!GetFlag(0, temp))
+        if (!GetFlag(0, flag))
         {
             scriptCtx->scriptPtr += 2;
             return 0;
@@ -752,7 +753,7 @@ bool32 Command35(struct ScriptContext *scriptCtx)
     }
     else
     {
-        if (GetFlag(0, temp))
+        if (GetFlag(0, flag))
         {
             scriptCtx->scriptPtr += 2;
             return 0;
@@ -763,6 +764,7 @@ bool32 Command35(struct ScriptContext *scriptCtx)
         u32 *heapPtr;
         scriptCtx->scriptPtr++;
         temp = *scriptCtx->scriptPtr;
+        scriptCtx->scriptPtr++;
         heapPtr = eScriptHeap;
         heapPtr += temp + 1;
         jmpArgs = (u16 *)heapPtr;
@@ -791,6 +793,7 @@ bool32 Command36(struct ScriptContext *scriptCtx)
     u16 *ptr;
     scriptCtx->scriptPtr++;
     idx = *scriptCtx->scriptPtr;
+    scriptCtx->scriptPtr++;
     heapPtr = eScriptHeap;
     ptr = (u16 *)(heapPtr + idx + 1);
     offset = ptr[0] / 2;

@@ -9,7 +9,7 @@
 #include "constants/songs.h"
 #include "constants/process.h"
 
-void sub_8008DF4(struct Main * main)
+void EpisodeInit(struct Main * main)
 {
     main->advanceScriptContext = FALSE;
     main->showTextboxCharacters = FALSE;
@@ -17,7 +17,7 @@ void sub_8008DF4(struct Main * main)
     main->process[GAME_PROCESS_STATE]++;
 }
 
-void sub_8008E18(struct Main * main)
+void EpisodeLoadGfx(struct Main * main)
 {
     struct OamAttrs * oam;
     u32 i, j;
@@ -54,7 +54,7 @@ void sub_8008E18(struct Main * main)
     main->process[GAME_PROCESS_STATE]++;
 }
 
-void sub_8008F68(struct Main * main)
+void EpisodeSlideinEpisodes1(struct Main * main)
 {
     struct OamAttrs * oam;
     u32 i, j;
@@ -83,7 +83,7 @@ void sub_8008F68(struct Main * main)
     }
 }
 
-void sub_8008FE8(struct Main * main)
+void EpisodeSlideinEpisodes2(struct Main * main)
 {
     struct OamAttrs * oam;
     u32 i, j;
@@ -112,7 +112,7 @@ void sub_8008FE8(struct Main * main)
     }
 }
 
-void sub_8009068(struct Main * main)
+void EpisodeSlideinEpisodes3(struct Main * main)
 {
     struct OamAttrs * oam;
     u32 i, j;
@@ -149,12 +149,12 @@ void EpisodeClearedProcess(struct Main * main)
     switch(main->process[GAME_PROCESS_STATE])
     {
         case 0:
-            sub_8008DF4(main);
+            EpisodeInit(main);
             break;
         case 1:
             if(main->blendMode != 0)
                 break;
-            sub_8008E18(main);
+            EpisodeLoadGfx(main);
             if(gMain.saveContinueFlags & 0xF0)
             {
                 ReadSram(SRAM_START, (void*)&gSaveDataBuffer, sizeof(gSaveDataBuffer));
@@ -170,13 +170,13 @@ void EpisodeClearedProcess(struct Main * main)
             }
             break;
         case 2:
-            sub_8008F68(main);
+            EpisodeSlideinEpisodes1(main);
             break;
         case 3:
-            sub_8008FE8(main);
+            EpisodeSlideinEpisodes2(main);
             break;
         case 4:
-            sub_8009068(main);
+            EpisodeSlideinEpisodes3(main);
             break;
         case 5:
             main->xPosCounter += 6;
@@ -296,12 +296,12 @@ void SelectEpisodeProcess(struct Main * main)
     switch(main->process[GAME_PROCESS_STATE])
     {
         case 0: // _0800953C
-            sub_8008DF4(main);
+            EpisodeInit(main);
             break;
         case 1: // _08009544
             if(main->blendMode)
                 return;
-            sub_8008E18(main);
+            EpisodeLoadGfx(main);
             if(main->saveContinueFlags & 0xF0)
                 main->caseEnabledFlags = gSaveDataBuffer.main.caseEnabledFlags;
             main->selectedButton = main->process[GAME_PROCESS_VAR2];
@@ -322,13 +322,13 @@ void SelectEpisodeProcess(struct Main * main)
             }
             break;
         case 2: // _080095E4
-            sub_8008F68(main);
+            EpisodeSlideinEpisodes1(main);
             break;
         case 3: // _080095EC
-            sub_8008FE8(main);
+            EpisodeSlideinEpisodes2(main);
             break;
         case 4: // _080095F4
-            sub_8009068(main);
+            EpisodeSlideinEpisodes3(main);
             break;
         case 5: // _080095FC
             main->xPosCounter += 6;
@@ -604,7 +604,7 @@ void ContinueSaveProcess(struct Main * main) {
     
     switch (main->process[GAME_PROCESS_STATE]) {
         case 0: // 9AAC
-            sub_8008DF4(main);
+            EpisodeInit(main);
             break;
         case 1: // 9AB6
             if (main->blendMode == 0) {
