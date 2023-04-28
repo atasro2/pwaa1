@@ -9,6 +9,7 @@
 #include "constants/animation.h"
 #include "constants/persons.h"
 #include "constants/process.h"
+#include "constants/animation_offsets.h"
 
 #define DUMMYPERSON { .gfxData = 0, .frameData = 0, .spriteCount = 0, .unkA = 0 }
 #define DUMMYANIMATION { .gfxData = 0, .vramPtr = 0, .frameData = 0, .xOrigin = 0, .yOrigin = 0, .paletteSlot = 0, .spriteCount = 0, .priority = 0, .flags = 0x0, }
@@ -1508,18 +1509,18 @@ struct AnimationListEntry *PlayPersonAnimationAtCustomOrigin(u32 arg0, u32 talki
         u32 var0 = animation->flags & 0x02000000;
         switch (talkingAnimOff)
         {
-        case 0x6BC:
-        case 0x4A0:
-        case 0x184:
-        case 0:
+        case ANIM_MAY_ANGRY_TALKING_WITNESS:
+        case ANIM_MAY_ANGRY_IDLE_WITNESS:
+        case ANIM_MAY_NORMAL_TALKING_WITNESS:
+        case ANIM_MAY_NORMAL_IDLE_WITNESS:
             ptr = FindAnimationFromAnimId(ANIM_APRIL_MAY_ABDOMEN_2);
             if (ptr != NULL)
                 DestroyAnimation(ptr);
             ptr = PlayAnimation(ANIM_APRIL_MAY_ABDOMEN_1);
             ptr->flags |= var0;
             break;
-        case 0x1060:
-        case 0xF38:
+        case ANIM_MAY_EVIL_TALKING_WITNESS:
+        case ANIM_MAY_EVIL_IDLE_WITNESS:
             ptr = FindAnimationFromAnimId(ANIM_APRIL_MAY_ABDOMEN_1);
             if (ptr != NULL)
                 DestroyAnimation(ptr);

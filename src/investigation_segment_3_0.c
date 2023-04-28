@@ -7,6 +7,7 @@
 #include "constants/animation.h"
 #include "constants/persons.h"
 #include "constants/songs.h"
+#include "constants/animation_offsets.h"
 
 const u8 gCourtRecordInitialItems_3_0[6] = {
 	0x0d, 0x0e, 0x0f, 0xfe,	// profiles
@@ -1263,12 +1264,12 @@ void InvestigationRoomSetup_3_0(struct Main *main)
                     InvestigationSetScriptSectionAndFlag(0x8B, 0xA7);
                 }
                 else {
-                    InvestigationSetPersonAnimation(PERSON_ANIM_MAYA, 0x510, 0x510);
+                    InvestigationSetPersonAnimation(PERSON_ANIM_MAYA, ANIM_MAYA_NORMAL_IDLE, ANIM_MAYA_NORMAL_IDLE);
                     PlayBGM(BGM006_MAYAS_THEME);
                 }
             }
             else if(GetFlag(0, 0x9F)) {
-                InvestigationSetPersonAnimation(PERSON_ANIM_MAYA, 0x510, 0x510);
+                InvestigationSetPersonAnimation(PERSON_ANIM_MAYA, ANIM_MAYA_NORMAL_IDLE, ANIM_MAYA_NORMAL_IDLE);
                 PlayBGM(BGM006_MAYAS_THEME);
             }
             LOADEXAMDATA(gUnknown_08017638);
@@ -1281,7 +1282,7 @@ void InvestigationRoomSetup_3_0(struct Main *main)
                 }
                 else {
                     if(!GetFlag(0, 0xB9)) {
-                        InvestigationSetPersonAnimation(PERSON_ANIM_EDGEWORTH, 0x55D0, 0x55D0);
+                        InvestigationSetPersonAnimation(PERSON_ANIM_EDGEWORTH, ANIM_EDGEWORTH_NORMAL_IDLE_CROPPED, ANIM_EDGEWORTH_NORMAL_IDLE_CROPPED);
                     }
                     PlayBGM(BGM000_DETENTION_CENTER);
                 }
@@ -1291,7 +1292,7 @@ void InvestigationRoomSetup_3_0(struct Main *main)
             }
             else {
                 if(!GetFlag(2, 0x85)) {
-                    InvestigationSetPersonAnimation(PERSON_ANIM_EDGEWORTH, 0x55D0, 0x55D0);
+                    InvestigationSetPersonAnimation(PERSON_ANIM_EDGEWORTH, ANIM_EDGEWORTH_NORMAL_IDLE_CROPPED, ANIM_EDGEWORTH_NORMAL_IDLE_CROPPED);
                 }
                 PlayBGM(BGM000_DETENTION_CENTER);
             }
@@ -1303,7 +1304,7 @@ void InvestigationRoomSetup_3_0(struct Main *main)
                 InvestigationSetScriptSectionAndFlag(0xA7, 0x94);
             }
             else if(!GetFlag(0, 0x98)) {
-                InvestigationSetPersonAnimation(PERSON_ANIM_GUMSHOE, 0, 0);
+                InvestigationSetPersonAnimation(PERSON_ANIM_GUMSHOE, ANIM_GUMSHOE_NORMAL_IDLE, ANIM_GUMSHOE_NORMAL_IDLE);
                 if(GetFlag(2, 0x8B) && GetFlag(2, 0x8C) && GetFlag(2, 0x8D) && GetFlag(2, 0x8E) && GetFlag(0, 0x91)) {
                     InvestigationSetScriptSectionAndFlag(0xA8, 0x98);
                 }
@@ -1321,7 +1322,7 @@ void InvestigationRoomSetup_3_0(struct Main *main)
                     InvestigationSetScriptSectionAndFlag(0xB7, 0xA9);
                 }
                 else {
-                    InvestigationSetPersonAnimation(PERSON_ANIM_LARRY_BUTZ, 0x3F70, 0x3F70);
+                    InvestigationSetPersonAnimation(PERSON_ANIM_LARRY_BUTZ, ANIM_COSTUME_BUTZ_HAPPY_IDLE, ANIM_COSTUME_BUTZ_HAPPY_IDLE);
                     PlayBGM(BGM022_HAPPY_PEOPLE);
                 }
                 LOADEXAMDATA(gUnknown_080177A0);
@@ -1354,10 +1355,10 @@ void InvestigationRoomSetup_3_0(struct Main *main)
             }
             else if(GetFlag(0, 0xA1) && !GetFlag(0, 0x9E)) {
                 if(GetFlag(0, 0x9C)) {
-                    InvestigationSetPersonAnimation(PERSON_ANIM_LOTTA_HART, 0, 0);
+                    InvestigationSetPersonAnimation(PERSON_ANIM_LOTTA_HART, ANIM_HART_NORMAL_IDLE, ANIM_HART_NORMAL_IDLE);
                 }
                 else {
-                    InvestigationSetPersonAnimation(PERSON_ANIM_LOTTA_HART, 0xB94, 0xB94);
+                    InvestigationSetPersonAnimation(PERSON_ANIM_LOTTA_HART, ANIM_HART_ANGRY_IDLE, ANIM_HART_ANGRY_IDLE);
                 }
                 PlayBGM(BGM022_HAPPY_PEOPLE);
             }
@@ -1383,7 +1384,7 @@ void InvestigationRoomSetup_3_0(struct Main *main)
                     InvestigationSetScriptSectionAndFlag(0xDF, 0xB7);
                 }
                 else {
-                    InvestigationSetPersonAnimation(PERSON_ANIM_GUMSHOE, 0, 0);
+                    InvestigationSetPersonAnimation(PERSON_ANIM_GUMSHOE, ANIM_GUMSHOE_NORMAL_IDLE, ANIM_GUMSHOE_NORMAL_IDLE);
                     PlayBGM(BGM001_GUMSHOES_THEME);
                 }
             }
@@ -1400,7 +1401,7 @@ void InvestigationRoomSetup_3_0(struct Main *main)
                     InvestigationSetScriptSectionAndFlag(0xD6, 0xA6);
                 }
                 else {
-                    InvestigationSetPersonAnimation(PERSON_ANIM_GUMSHOE, 0, 0);
+                    InvestigationSetPersonAnimation(PERSON_ANIM_GUMSHOE, ANIM_GUMSHOE_NORMAL_IDLE, ANIM_GUMSHOE_NORMAL_IDLE);
                     PlayBGM(BGM001_GUMSHOES_THEME);
                 }
             }
@@ -1419,7 +1420,7 @@ void InvestigationRoomSetup_3_0(struct Main *main)
                     InvestigationSetScriptSectionAndFlag(0xEB, 0xAF);
                 }
                 else {
-                    InvestigationSetPersonAnimation(PERSON_ANIM_MARVIN_GROSSBERG, 0, 0);
+                    InvestigationSetPersonAnimation(PERSON_ANIM_MARVIN_GROSSBERG, ANIM_GROSSBERG_NORMAL_IDLE, ANIM_GROSSBERG_NORMAL_IDLE);
                     PlayBGM(BGM026_GROSSBERGS_THEME);
                 }
             }
