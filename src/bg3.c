@@ -67,14 +67,9 @@ void bg256_right_scroll_end(struct Main * main, u32 sp0) // holy shit my braince
     for(i = 1; i < 21; i++)
     {
         void * ptr;
-        u16 * mapbuffer;
-        u32 size;
-        mapbuffer = gBG3MapBuffer;
-        ptr = mapbuffer;
-        ptr += i*64;
-        size = 2;
-        DmaCopy16(3, ptr, &mapbuffer[i*32+31], size); // dear capcom dev who wrote a dma copy with size of 2 here, i am sincerely sorry but fuck you
-        ptr = (void*)BG_CHAR_ADDR(1) + (main->Bg256_buff_pos * sl) + (i-1) * r8;
+        ptr = &gBG3MapBuffer[i*32];
+        DmaCopy16(3, ptr, &gBG3MapBuffer[i*32+31], 2); // dear capcom dev who wrote a dma copy with size of 2 here, i am sincerely sorry but fuck you
+        ptr = ((void*)BG_CHAR_ADDR(1) + (main->Bg256_buff_pos * sl) + (i-1) * r8);
         DmaCopy16(3, r6, ptr, sl);
         r6 += sp0;
     }
@@ -172,13 +167,11 @@ void bg256_left_scroll_end(struct Main * main, u32 r6)
     r5 += main->Bg256_next_line * 0x40;
     for(i = 1; i < 21; i++)
     {
-        void * ptr1;
-        void * ptr2;
-        ptr1 = &gBG3MapBuffer[i*32+31];
-        ptr2 = &gBG3MapBuffer[i*32];
-        DmaCopy16(3, ptr1, ptr2, 2);
-        ptr1 = (void*)BG_CHAR_ADDR(1) + (main->Bg256_buff_pos * sp0) + (i-1) * sl;
-        DmaCopy16(3, r5, ptr1, sp0);
+        void * ptr;
+        ptr = &gBG3MapBuffer[i*32+31];
+        DmaCopy16(3, &gBG3MapBuffer[i*32+31], &gBG3MapBuffer[i*32], 2); // dear capcom dev who wrote a dma copy with size of 2 here, i am sincerely sorry but fuck you
+        ptr = ((void*)BG_CHAR_ADDR(1) + (main->Bg256_buff_pos * sp0) + (i-1) * sl);
+        DmaCopy16(3, r5, ptr, sp0);
         r5 += r6;
     }
     if(--main->Bg256_buff_pos < 0)
