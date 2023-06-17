@@ -7,6 +7,7 @@
 #include "constants/animation.h"
 #include "constants/persons.h"
 #include "constants/songs.h"
+#include "constants/animation_offsets.h"
 
 const struct InvestigationPresentData gInvestigationPresentData_3_4[13] = {
 	{
@@ -771,7 +772,7 @@ void InvestigationRoomSetup_3_4(struct Main *main)
                     InvestigationSetScriptSectionAndFlag(0x8D, 0x91);
                 }
                 else {
-                    InvestigationSetPersonAnimation(PERSON_ANIM_MAYA, 0x510, 0x510);
+                    InvestigationSetPersonAnimation(PERSON_ANIM_MAYA, ANIM_MAYA_NORMAL_IDLE, ANIM_MAYA_NORMAL_IDLE);
                     PlayBGM(BGM006_MAYAS_THEME);
                 }
             }
@@ -779,7 +780,7 @@ void InvestigationRoomSetup_3_4(struct Main *main)
                 InvestigationSetScriptSectionAndFlag(0x80, 0x90);
             }
             else {
-                InvestigationSetPersonAnimation(PERSON_ANIM_LARRY_BUTZ, 0x13B0, 0x13B0);
+                InvestigationSetPersonAnimation(PERSON_ANIM_LARRY_BUTZ, ANIM_BUTZ_NORMAL_IDLE, ANIM_BUTZ_NORMAL_IDLE);
                 PlayBGM(BGM022_HAPPY_PEOPLE);
             }
             LOADEXAMDATA(gUnknown_080183E4);
@@ -791,7 +792,7 @@ void InvestigationRoomSetup_3_4(struct Main *main)
                     InvestigationSetScriptSectionAndFlag(0x93, 0x95);
                 }
                 else {
-                    InvestigationSetPersonAnimation(PERSON_ANIM_EDGEWORTH, 0x55D0, 0x55D0);
+                    InvestigationSetPersonAnimation(PERSON_ANIM_EDGEWORTH, ANIM_EDGEWORTH_NORMAL_IDLE_CROPPED, ANIM_EDGEWORTH_NORMAL_IDLE_CROPPED);
                     PlayBGM(BGM000_DETENTION_CENTER);
                 }
             }
@@ -867,7 +868,7 @@ void InvestigationRoomSetup_3_4(struct Main *main)
             }
             else {
                 if(GetFlag(0, 0xA4)) {
-                    InvestigationSetPersonAnimation(PERSON_ANIM_MANFRED_VONKARMA, 0x2260, 0x2260);
+                    InvestigationSetPersonAnimation(PERSON_ANIM_MANFRED_VONKARMA, ANIM_VONKARMA_NORMAL_IDLE, ANIM_VONKARMA_NORMAL_IDLE);
                 }
                 PlayBGM(BGM012_INVESTIGATION_CORE);
             }
@@ -881,7 +882,7 @@ void InvestigationRoomSetup_3_4(struct Main *main)
                     InvestigationSetScriptSectionAndFlag(0xA9, 0x9E);
                 }
                 else {
-                    InvestigationSetPersonAnimation(PERSON_ANIM_MARVIN_GROSSBERG, 0, 0);
+                    InvestigationSetPersonAnimation(PERSON_ANIM_MARVIN_GROSSBERG, ANIM_GROSSBERG_NORMAL_IDLE, ANIM_GROSSBERG_NORMAL_IDLE);
                     PlayBGM(BGM012_INVESTIGATION_CORE);
                 }
             }

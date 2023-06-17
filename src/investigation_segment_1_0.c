@@ -7,6 +7,7 @@
 #include "constants/animation.h"
 #include "constants/persons.h"
 #include "constants/songs.h"
+#include "constants/animation_offsets.h"
 
 const u8 gCourtRecordInitialItems_0_0[7] = {
 	0x00, 0x02, 0x03, 0xfe,	// profiles
@@ -1037,7 +1038,7 @@ void InvestigationRoomSetup_1_0(struct Main *main)
                     InvestigationSetScriptSectionAndFlag(0x94, 0x4A);
                 }
                 else {
-                    InvestigationSetPersonAnimation(PERSON_ANIM_GUMSHOE, 0, 0);
+                    InvestigationSetPersonAnimation(PERSON_ANIM_GUMSHOE, ANIM_GUMSHOE_NORMAL_IDLE, ANIM_GUMSHOE_NORMAL_IDLE);
                     PlayBGM(BGM025_INVESTIGATION_OPENING);
                 }
                 LOADEXAMDATA(gUnknown_08015178);
@@ -1047,7 +1048,7 @@ void InvestigationRoomSetup_1_0(struct Main *main)
                     InvestigationSetScriptSectionAndFlag(0x84, 0x42);
                 }
                 else {
-                    InvestigationSetPersonAnimation(PERSON_ANIM_MAYA, 0, 0);
+                    InvestigationSetPersonAnimation(PERSON_ANIM_MAYA, ANIM_MAYA_SAD_IDLE, ANIM_MAYA_SAD_IDLE);
                     if(GetFlag(0, 0x44) && GetFlag(0, 0x43) && GetFlag(0, 0x45) && GetFlag(0, 0x46)) {
                         InvestigationSetScriptSectionAndFlag(0x85, 0x47);
                     }
@@ -1082,7 +1083,7 @@ void InvestigationRoomSetup_1_0(struct Main *main)
                     InvestigationSetScriptSectionAndFlag(0xE1, 0x5C);
                 }
                 else {
-                    InvestigationSetPersonAnimation(PERSON_ANIM_MAYA, 0x1FB0, 0x1FB0);
+                    InvestigationSetPersonAnimation(PERSON_ANIM_MAYA, ANIM_MAYA_DEJECTED_IDLE_CROPPED, ANIM_MAYA_DEJECTED_IDLE_CROPPED);
                     if(GetFlag(0, 0x5A)) {
                         PlayBGM(BGM012_INVESTIGATION_CORE);
                     }
@@ -1101,7 +1102,7 @@ void InvestigationRoomSetup_1_0(struct Main *main)
                     InvestigationSetScriptSectionAndFlag(0xD8, 0x5B);
                 }
                 else {
-                    InvestigationSetPersonAnimation(PERSON_ANIM_MAYA, 0x1FB0, 0x1FB0);
+                    InvestigationSetPersonAnimation(PERSON_ANIM_MAYA, ANIM_MAYA_DEJECTED_IDLE_CROPPED, ANIM_MAYA_DEJECTED_IDLE_CROPPED);
                     PlayBGM(BGM000_DETENTION_CENTER);
                 }
             }
@@ -1109,7 +1110,7 @@ void InvestigationRoomSetup_1_0(struct Main *main)
                 InvestigationSetScriptSectionAndFlag(0xC2, 0x48);
             }
             else {
-                InvestigationSetPersonAnimation(PERSON_ANIM_MAYA, 0x1FB0, 0x1FB0);
+                InvestigationSetPersonAnimation(PERSON_ANIM_MAYA, ANIM_MAYA_DEJECTED_IDLE_CROPPED, ANIM_MAYA_DEJECTED_IDLE_CROPPED);
                 PlayBGM(BGM000_DETENTION_CENTER);
             }
             LOADEXAMDATA(gUnknown_080152B8);
@@ -1122,7 +1123,7 @@ void InvestigationRoomSetup_1_0(struct Main *main)
                 }
                 else {
                     if(GetFlag(0, 0x53)) {
-                        InvestigationSetPersonAnimation(PERSON_ANIM_MARVIN_GROSSBERG, 0, 0);
+                        InvestigationSetPersonAnimation(PERSON_ANIM_MARVIN_GROSSBERG, ANIM_GROSSBERG_NORMAL_IDLE, ANIM_GROSSBERG_NORMAL_IDLE);
                     }
                     PlayBGM(BGM026_GROSSBERGS_THEME);
                 }
@@ -1147,7 +1148,7 @@ void InvestigationRoomSetup_1_0(struct Main *main)
             }
             else {
                 if(GetFlag(0, 0x52)) {
-                    InvestigationSetPersonAnimation(PERSON_ANIM_APRIL_MAY, 0, 0);
+                    InvestigationSetPersonAnimation(PERSON_ANIM_APRIL_MAY, ANIM_MAY_NORMAL_IDLE_WITNESS, ANIM_MAY_NORMAL_IDLE_WITNESS);
                 }
                 PlayBGM(BGM022_HAPPY_PEOPLE);
             }

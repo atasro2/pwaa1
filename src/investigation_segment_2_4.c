@@ -6,6 +6,7 @@
 #include "animation.h"
 #include "constants/persons.h"
 #include "constants/songs.h"
+#include "constants/animation_offsets.h"
 
 const struct InvestigationPresentData gInvestigationPresentData_2_4[22] = {
 	{
@@ -1005,7 +1006,7 @@ void InvestigationRoomSetup_2_4(struct Main *main)
     switch(main->currentRoomId) {
         case 6: {
             if(GetFlag(0, 0xE0)) {
-                InvestigationSetPersonAnimation(PERSON_ANIM_MAYA, 0x510, 0x510);
+                InvestigationSetPersonAnimation(PERSON_ANIM_MAYA, ANIM_MAYA_NORMAL_IDLE, ANIM_MAYA_NORMAL_IDLE);
                 PlayBGM(BGM006_MAYAS_THEME);
             }
             LOADEXAMDATA(gUnknown_08016CE0);
@@ -1016,7 +1017,7 @@ void InvestigationRoomSetup_2_4(struct Main *main)
                 InvestigationSetScriptSectionAndFlag(0x8E, 0xE1);
             }
             else {
-                InvestigationSetPersonAnimation(PERSON_ANIM_WILL_POWERS, 0, 0);
+                InvestigationSetPersonAnimation(PERSON_ANIM_WILL_POWERS, ANIM_POWERS_NORMAL_IDLE_CROPPED, ANIM_POWERS_NORMAL_IDLE_CROPPED);
                 PlayBGM(BGM000_DETENTION_CENTER);
             }
             LOADEXAMDATA(gUnknown_08016D44);
@@ -1028,7 +1029,7 @@ void InvestigationRoomSetup_2_4(struct Main *main)
                     InvestigationSetScriptSectionAndFlag(0xA3, 0xEE);
                 }
                 else {
-                    InvestigationSetPersonAnimation(PERSON_ANIM_WENDY_OLDBAG, 0, 0);
+                    InvestigationSetPersonAnimation(PERSON_ANIM_WENDY_OLDBAG, ANIM_OLDBAG_NORMAL_IDLE, ANIM_OLDBAG_NORMAL_IDLE);
                     PlayBGM(BGM012_INVESTIGATION_CORE);
                 }
             }
@@ -1036,7 +1037,7 @@ void InvestigationRoomSetup_2_4(struct Main *main)
                 InvestigationSetScriptSectionAndFlag(0x98, 0xE2);
             }
             else {
-                InvestigationSetPersonAnimation(PERSON_ANIM_WENDY_OLDBAG, 0, 0);
+                InvestigationSetPersonAnimation(PERSON_ANIM_WENDY_OLDBAG, ANIM_OLDBAG_NORMAL_IDLE, ANIM_OLDBAG_NORMAL_IDLE);
                 PlayBGM(BGM025_INVESTIGATION_OPENING);
             }
             LOADEXAMDATA(gUnknown_08016D6C);
@@ -1053,9 +1054,10 @@ void InvestigationRoomSetup_2_4(struct Main *main)
             }
             else {
                 if(GetFlag(0, 0xE4)) {
+					//! InvestigationSetPersonAnimation was not used here
                     gMain.talkingAnimationOffset = 0;
                     gMain.idleAnimationOffset = 0;
-                    PlayPersonAnimation(PERSON_ANIM_GUMSHOE | 0x8000, 0, 0, 0);
+                    PlayPersonAnimation(PERSON_ANIM_GUMSHOE | 0x8000, 0, ANIM_GUMSHOE_NORMAL_IDLE, 0);
                     gInvestigation.personActive = 1;
                     SetInactiveActionButtons(&gInvestigation, 0xF);
                 }
@@ -1076,7 +1078,7 @@ void InvestigationRoomSetup_2_4(struct Main *main)
                     InvestigationSetScriptSectionAndFlag(0xCA, 0xEA);
                 }
                 else {
-                    InvestigationSetPersonAnimation(PERSON_ANIM_PENNY_NICHOLS, 0, 0);
+                    InvestigationSetPersonAnimation(PERSON_ANIM_PENNY_NICHOLS, ANIM_NICHOLS_NORMAL_IDLE, ANIM_NICHOLS_NORMAL_IDLE);
                     PlayBGM(BGM025_INVESTIGATION_OPENING);
                 }
                 LOADEXAMDATA(gUnknown_08016F24);
@@ -1105,7 +1107,7 @@ void InvestigationRoomSetup_2_4(struct Main *main)
             }
             else {
                 if(!GetFlag(0, 0xF2)) {
-                    InvestigationSetPersonAnimation(PERSON_ANIM_DEE_VASQUEZ, 0, 0);
+                    InvestigationSetPersonAnimation(PERSON_ANIM_DEE_VASQUEZ, ANIM_VASQUEZ_NORMAL_IDLE, ANIM_VASQUEZ_NORMAL_IDLE);
                 }
                 PlayBGM(BGM031_AMBIENT_BIRD_CHIRPS);
             }
