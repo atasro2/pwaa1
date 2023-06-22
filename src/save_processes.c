@@ -14,6 +14,7 @@
 #include "constants/script.h"
 #include "constants/songs.h"
 #include "constants/process.h"
+#include "constants/oam_allocations.h"
 
 const char gSaveVersion[0x30] = "2001 CAPCOM GBA GYAKUTEN-SAIBAN 06/15 Ver 1.000-";
 
@@ -141,7 +142,7 @@ void ClearSaveProcess(struct Main *main)
                 ChangeScriptSection(4);
                 gScriptContext.textXOffset = 9;
                 gScriptContext.textYOffset = 52;
-                oam = &gOamObjects[40];
+                oam = &gOamObjects[OAM_IDX_SAVE_PROMPT];
                 oam->attr0 = SPRITE_ATTR0(96, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_BLEND, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
                 oam->attr1 = SPRITE_ATTR1_NONAFFINE(48, FALSE, FALSE, 3);
                 oam->attr2 = SPRITE_ATTR2(0x1E0, 0, 10);
@@ -174,7 +175,7 @@ void ClearSaveProcess(struct Main *main)
                 main->process[GAME_PROCESS_STATE]++;
             }
         }
-        oam = &gOamObjects[40];
+        oam = &gOamObjects[OAM_IDX_SAVE_PROMPT];
         if(main->selectedButton == 0)
         {
             oam->attr2 = SPRITE_ATTR2(0x1E0, 0, 9);
@@ -301,7 +302,7 @@ void SaveGameInitButtons(struct Main *main)
             ChangeScriptSection(1);
         gScriptContext.textXOffset = 9;
         gScriptContext.textYOffset = 52;
-        oam = &gOamObjects[40];
+        oam = &gOamObjects[OAM_IDX_SAVE_PROMPT];
         oam->attr0 = SPRITE_ATTR0(96, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_BLEND, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
         oam->attr1 = SPRITE_ATTR1_NONAFFINE(48, FALSE, FALSE, 3);
         oam->attr2 = SPRITE_ATTR2(0x1E0, 0, 10);
@@ -373,7 +374,7 @@ void SaveGameWaitForInput(struct Main *main)
             return;
         }
     }
-    oam = &gOamObjects[40];
+    oam = &gOamObjects[OAM_IDX_SAVE_PROMPT];
     if(main->selectedButton == 0)
     {
         oam->attr0 = SPRITE_ATTR0(96, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_BLEND, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
@@ -532,7 +533,7 @@ void SaveGame6(struct Main * main)
     }
     else
     {
-        struct OamAttrs * oam = &gOamObjects[40];
+        struct OamAttrs * oam = &gOamObjects[OAM_IDX_SAVE_PROMPT];
         oam->attr0 = SPRITE_ATTR0_CLEAR;
         oam++;
         oam->attr0 = SPRITE_ATTR0_CLEAR;
@@ -551,7 +552,7 @@ void SaveGame7(struct Main * main)
         else
             main->process[GAME_PROCESS_STATE] = 4;
         main->process[GAME_PROCESS_VAR1] = 0;
-        oam = &gOamObjects[40];
+        oam = &gOamObjects[OAM_IDX_SAVE_PROMPT];
         oam->attr0 = SPRITE_ATTR0_CLEAR;
         oam++;
         oam->attr0 = SPRITE_ATTR0_CLEAR;

@@ -14,6 +14,7 @@
 #include "constants/script.h"
 #include "constants/songs.h"
 #include "constants/process.h"
+#include "constants/oam_allocations.h"
 
 const u8 gSoundCueTable[] = {
     0, 0, 0, 0, 1, 1, 1, 1,
@@ -253,7 +254,7 @@ bool32 Command08(struct ScriptContext * scriptCtx)
     }
     if(gMain.process[GAME_PROCESS] == COURT_RECORD_PROCESS)
     {
-        gOamObjects[88].attr0 = SPRITE_ATTR0_CLEAR;
+        gOamObjects[OAM_IDX_POINTER].attr0 = SPRITE_ATTR0_CLEAR;
         return TRUE;
     }
     if(scriptCtx->fullscreenInputDelayCounter > 0)
@@ -304,13 +305,13 @@ bool32 Command08(struct ScriptContext * scriptCtx)
                 gTextBoxCharacters[i].state &= ~0x8000;
             for(i = 57; i < 88; i++)
                 gOamObjects[i].attr0 = SPRITE_ATTR0_CLEAR;
-            gOamObjects[88].attr0 = SPRITE_ATTR0_CLEAR;
+            gOamObjects[OAM_IDX_POINTER].attr0 = SPRITE_ATTR0_CLEAR;
             return FALSE;
         }
     }
-    gOamObjects[88].attr0 = SPRITE_ATTR0(scriptCtx->fullscreenCursorPos*20 + scriptCtx->fullscreenTextYOffset, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
-    gOamObjects[88].attr1 = SPRITE_ATTR1_NONAFFINE(scriptCtx->fullscreenTextXOffset-13, FALSE, FALSE, 1);
-    gOamObjects[88].attr2 = SPRITE_ATTR2(0xFC, 1, 0);
+    gOamObjects[OAM_IDX_POINTER].attr0 = SPRITE_ATTR0(scriptCtx->fullscreenCursorPos*20 + scriptCtx->fullscreenTextYOffset, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
+    gOamObjects[OAM_IDX_POINTER].attr1 = SPRITE_ATTR1_NONAFFINE(scriptCtx->fullscreenTextXOffset-13, FALSE, FALSE, 1);
+    gOamObjects[OAM_IDX_POINTER].attr2 = SPRITE_ATTR2(0xFC, 1, 0);
     return TRUE;
 }
 
@@ -331,7 +332,7 @@ bool32 Command09(struct ScriptContext * scriptCtx)
     }
     if(gMain.process[GAME_PROCESS] == COURT_RECORD_PROCESS)
     {
-        gOamObjects[88].attr0 = SPRITE_ATTR0_CLEAR;
+        gOamObjects[OAM_IDX_POINTER].attr0 = SPRITE_ATTR0_CLEAR;
         return TRUE;
     }
     if(scriptCtx->fullscreenInputDelayCounter > 0)
@@ -384,13 +385,13 @@ bool32 Command09(struct ScriptContext * scriptCtx)
                 gTextBoxCharacters[i].state &= ~0x8000;
             for(i = 57; i < 88; i++)
                 gOamObjects[i].attr0 = SPRITE_ATTR0_CLEAR;
-            gOamObjects[88].attr0 = SPRITE_ATTR0_CLEAR;
+            gOamObjects[OAM_IDX_POINTER].attr0 = SPRITE_ATTR0_CLEAR;
             return FALSE;
         }
     }
-    gOamObjects[88].attr0 = SPRITE_ATTR0(scriptCtx->fullscreenCursorPos*20 + scriptCtx->fullscreenTextYOffset, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
-    gOamObjects[88].attr1 = SPRITE_ATTR1_NONAFFINE(scriptCtx->fullscreenTextXOffset-13, FALSE, FALSE, 1);
-    gOamObjects[88].attr2 = SPRITE_ATTR2(0xFC, 1, 0);
+    gOamObjects[OAM_IDX_POINTER].attr0 = SPRITE_ATTR0(scriptCtx->fullscreenCursorPos*20 + scriptCtx->fullscreenTextYOffset, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
+    gOamObjects[OAM_IDX_POINTER].attr1 = SPRITE_ATTR1_NONAFFINE(scriptCtx->fullscreenTextXOffset-13, FALSE, FALSE, 1);
+    gOamObjects[OAM_IDX_POINTER].attr2 = SPRITE_ATTR2(0xFC, 1, 0);
     return TRUE;
 }
 

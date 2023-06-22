@@ -17,7 +17,7 @@
 #include "constants/bg.h"
 #include "constants/songs.h"
 #include "constants/process.h"
-
+#include "constants/oam_allocations.h"
 
 void UpdateScrollPromptSprite(struct Main *, u32);
 void UpdateInvestigationActionSprites(struct InvestigationStruct *);
@@ -76,8 +76,8 @@ void InvestigationInit(struct Main * main, struct InvestigationStruct * investig
     DmaCopy16(3, gUnknown_08190AC0, OBJ_VRAM0 + 0x3200, 0x200);
     DmaCopy16(3, gUnknown_081942C0, OBJ_PLTT+0x100, 0x20);
     DmaCopy16(3, gGfxPalChoiceSelected, OBJ_PLTT+0x120, 0x40);
-    oam = &gOamObjects[49];
-    for(i = 0; i < 4; i++)
+    oam = &gOamObjects[OAM_IDX_INVESTIGATION_ACTIONS];
+    for(i = 0; i < OAM_COUNT_INVESTIGATION_ACTIONS; i++)
     {
         oam->attr0 = SPRITE_ATTR0(-32 & 0xFF, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
         oam->attr1 = SPRITE_ATTR1_NONAFFINE(i*60, FALSE, FALSE, 3);
@@ -365,14 +365,14 @@ void InvestigationRoomInit(struct Main * main, struct InvestigationStruct * inve
         return;
     }
     CopyBGDataToVram(roomData[0]);
-    oam = &gOamObjects[38];
+    oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
     for(i = 0; i < 4; i++)
     {
         for(j = 0; j < 2; oam++, j++)
             oam->attr0 = SPRITE_ATTR0_CLEAR;
     }
-    oam = &gOamObjects[49];
-    for(i = 0; i < 4; i++)
+    oam = &gOamObjects[OAM_IDX_INVESTIGATION_ACTIONS];
+    for(i = 0; i < OAM_COUNT_INVESTIGATION_ACTIONS; i++)
     {
         oam->attr0 = SPRITE_ATTR0(224, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
         oam->attr1 = SPRITE_ATTR1_NONAFFINE(i*60, FALSE, FALSE, 3);
@@ -401,7 +401,7 @@ void InvestigationRoomInit(struct Main * main, struct InvestigationStruct * inve
 void InvestigationInspect(struct Main * main, struct InvestigationStruct * investigation) // tantei_inspect // ! goto
 {
     u32 temp;
-    struct OamAttrs * oam = &gOamObjects[88];
+    struct OamAttrs * oam = &gOamObjects[OAM_IDX_POINTER];
     if(gAnimation[1].flags & ANIM_BLEND_ACTIVE)
         return;
     if(main->blendMode)
@@ -595,7 +595,7 @@ void InvestigationMove(struct Main * main, struct InvestigationStruct * investig
                 main->process[GAME_PROCESS_VAR1]++;
             break;
         case 1: // _0800C39C
-            oam = &gOamObjects[38];
+            oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
             moveLocations = main->roomData[main->currentRoomId];
             moveLocations += 4;
             for(i = 0; i < 4; i++)
@@ -631,10 +631,10 @@ void InvestigationMove(struct Main * main, struct InvestigationStruct * investig
             main->process[GAME_PROCESS_VAR2] = 0;
             break;
         case 2: // _0800C464
-            oam2 = &gOamObjects[50];
+            oam2 = &gOamObjects[OAM_IDX_INVESTIGATION_ACTION_MOVE];
             if(main->process[GAME_PROCESS_VAR2] <= 12)
             {
-                oam = &gOamObjects[38];
+                oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
                 for(i = 0; i < 4; i++)
                 {
                     for(j = 0; j < 2; j++)
@@ -683,7 +683,7 @@ void InvestigationMove(struct Main * main, struct InvestigationStruct * investig
                     main->process[GAME_PROCESS_VAR1] = 6; //! tries opening court record from switch case 6 but fails spectacularly
                     BACKUP_PROCESS_PTR(main);
                     SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_INIT, 0, 0, main);
-                    oam = &gOamObjects[38];
+                    oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
                     for(i = 0; i < 8; oam++, i++)
                         oam->attr1 = SPRITE_ATTR1_NONAFFINE(DISPLAY_WIDTH+60, FALSE, FALSE, 0);
                 }
@@ -752,10 +752,10 @@ void InvestigationMove(struct Main * main, struct InvestigationStruct * investig
             }
             break;
         case 4: // _0800C690
-            oam2 = &gOamObjects[50];
+            oam2 = &gOamObjects[OAM_IDX_INVESTIGATION_ACTION_MOVE];
             if(main->process[GAME_PROCESS_VAR2] <= 12)
             {
-                oam = &gOamObjects[38];
+                oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
                 for(i = 0; i < 4; i++)
                 {
                     for(j = 0; j < 2; j++)
@@ -785,7 +785,7 @@ void InvestigationMove(struct Main * main, struct InvestigationStruct * investig
         case 5: // _0800C714
             if(main->process[GAME_PROCESS_VAR2] <= 12)
             {
-                oam = &gOamObjects[38];
+                oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
                 for(i = 0; i < 4; i++)
                 {
                     for(j = 0; j < 2; j++)
@@ -807,7 +807,7 @@ void InvestigationMove(struct Main * main, struct InvestigationStruct * investig
             }
             break;
         case 6: // _0800C784
-            oam = &gOamObjects[38];
+            oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
             moveLocations = main->roomData[main->currentRoomId];
             moveLocations+= 4;
             for(i = 0; i < 4; i++)
@@ -841,7 +841,7 @@ void InvestigationMove(struct Main * main, struct InvestigationStruct * investig
             main->process[GAME_PROCESS_VAR1] = 3;
             break;
     }
-    oam = &gOamObjects[38];
+    oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
     for(i = 0; i < 4; i++)
     {
         if(i == investigation->selectedOption)
@@ -894,7 +894,7 @@ void InvestigationTalk(struct Main * main, struct InvestigationStruct * investig
                 && talkData->enableFlag == TRUE)
                     break;
             }
-            oam = &gOamObjects[38];
+            oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
             icons = talkData->iconId;
             for(i = 0; i < 4; i++)
             {
@@ -933,10 +933,10 @@ void InvestigationTalk(struct Main * main, struct InvestigationStruct * investig
         }
         case 2:
         {
-            struct OamAttrs * oam2 = &gOamObjects[51];
+            struct OamAttrs * oam2 = &gOamObjects[OAM_IDX_INVESTIGATION_ACTION_TALK];
             if(main->process[GAME_PROCESS_VAR2] <= 12)
             {
-                oam = &gOamObjects[38];
+                oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
                 for(i = 0; i < 4; i++)
                 {
                     for(j = 0; j < 2; j++)
@@ -997,7 +997,7 @@ void InvestigationTalk(struct Main * main, struct InvestigationStruct * investig
                         main->process[GAME_PROCESS_VAR1] = 8;
                         BACKUP_PROCESS_PTR(main);
                         SET_PROCESS_PTR(COURT_RECORD_PROCESS, RECORD_INIT, 0, 0, main);
-                        oam = &gOamObjects[38];
+                        oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
                         for(i = 0; i < 8; oam++, i++)
                             oam->attr1 = SPRITE_ATTR1_NONAFFINE(DISPLAY_WIDTH+60, FALSE, FALSE, 0);
                         showTalkTick = FALSE;
@@ -1068,7 +1068,7 @@ void InvestigationTalk(struct Main * main, struct InvestigationStruct * investig
                     main->process[GAME_PROCESS_VAR2] = 0;
                     showTalkTick = FALSE;
                 }
-                oam = &gOamObjects[34];
+                oam = &gOamObjects[OAM_IDX_TALK_TICK];
                 if(showTalkTick)
                 {
                     for(i = 0; i < 4; i++)
@@ -1100,10 +1100,10 @@ void InvestigationTalk(struct Main * main, struct InvestigationStruct * investig
         }
         case 4:
         {
-            struct OamAttrs * oam2 = &gOamObjects[51];
+            struct OamAttrs * oam2 = &gOamObjects[OAM_IDX_INVESTIGATION_ACTION_TALK];
             if(main->process[GAME_PROCESS_VAR2] <= 12)
             {
-                oam = &gOamObjects[38];
+                oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
                 for(i = 0; i < 4; i++)
                 {
                     for(j = 0; j < 2; j++)
@@ -1134,7 +1134,7 @@ void InvestigationTalk(struct Main * main, struct InvestigationStruct * investig
         case 5:
             if(main->process[GAME_PROCESS_VAR2] <= 12)
             {
-                oam = &gOamObjects[38];
+                oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
                 for(i = 0; i < 4; i++)
                 {
                     for(j = 0; j < 2; j++)
@@ -1188,7 +1188,7 @@ void InvestigationTalk(struct Main * main, struct InvestigationStruct * investig
                     }
                 }
             }
-            oam2 = &gOamObjects[38];
+            oam2 = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
             if(main->process[GAME_PROCESS_VAR2] <= 12)
             {
                 oam = oam2;
@@ -1204,7 +1204,7 @@ void InvestigationTalk(struct Main * main, struct InvestigationStruct * investig
             }
             if(gScriptContext.textboxState == 1)
             {
-                oam = &gOamObjects[51];
+                oam = &gOamObjects[OAM_IDX_INVESTIGATION_ACTION_TALK];
                 oam->attr1 &= ~0x1FF;
                 for(talkData = gTalkData; talkData->roomId != 0xFF; talkData++)
                 {
@@ -1254,7 +1254,7 @@ void InvestigationTalk(struct Main * main, struct InvestigationStruct * investig
         case 7:
             if(main->process[GAME_PROCESS_VAR2] <= 12)
             {
-                oam = &gOamObjects[38];
+                oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
                 for(i = 0; i < 4; i++)
                 {
                     for(j = 0; j < 2; j++)
@@ -1273,7 +1273,7 @@ void InvestigationTalk(struct Main * main, struct InvestigationStruct * investig
             break;
         case 8:
         {
-            //oam2 = &gOamObjects[38];
+            //oam2 = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
             for(talkData = gTalkData; talkData->roomId != 0xFF; talkData++)
             {
                 if(main->currentRoomId == talkData->roomId
@@ -1281,7 +1281,7 @@ void InvestigationTalk(struct Main * main, struct InvestigationStruct * investig
                 && talkData->enableFlag == TRUE)
                     break;
             }
-            oam = &gOamObjects[38];
+            oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
             icons = talkData->iconId;
             for(i = 0; i < 4; i++)
             {
@@ -1315,7 +1315,7 @@ void InvestigationTalk(struct Main * main, struct InvestigationStruct * investig
             break;
         }
     }
-    oam = &gOamObjects[38];
+    oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
     for(i = 0; i < 4; i++)
     {
         if(i == investigation->selectedOption)
@@ -2643,8 +2643,8 @@ void InvestigationPresent(struct Main * main, struct InvestigationStruct * inves
             if(investigation->inactiveActionButtonY == 0xE0
             && gScriptContext.textboxState == 0)
             {
-                oam = &gOamObjects[49];
-                for(i = 0; i < 4; i++)
+                oam = &gOamObjects[OAM_IDX_INVESTIGATION_ACTIONS];
+                for(i = 0; i < OAM_COUNT_INVESTIGATION_ACTIONS; i++)
                 {
                     oam->attr0 = 0x40E0;
                     oam->attr1 = i * 60 + 0xC000;
@@ -2684,14 +2684,14 @@ void InvestigationPresent(struct Main * main, struct InvestigationStruct * inves
 
 void UpdateInvestigationActionSprites(struct InvestigationStruct * investigation)
 {
-    struct OamAttrs * oam = &gOamObjects[49];
+    struct OamAttrs * oam = &gOamObjects[OAM_IDX_INVESTIGATION_ACTIONS];
     u32 i;
     u32 y;
 
     switch(investigation->actionState)
     {
         case 0:
-            for(i = 0; i < 4; i++)
+            for(i = 0; i < OAM_COUNT_INVESTIGATION_ACTIONS; i++)
             {
                 if(investigation->selectedAction == i)
                 {
@@ -2749,7 +2749,7 @@ void UpdateInvestigationActionSprites(struct InvestigationStruct * investigation
     i = gMain.roomData[gMain.currentRoomId][0]; //! re(ab)use
     if(i != gMain.currentBG)
         investigation->selectedActionYOffset = 0x40;
-    for(i = 0; i < 4; i++)
+    for(i = 0; i < OAM_COUNT_INVESTIGATION_ACTIONS; i++)
     {
         if(investigation->inactiveActions >> i & 1)
         {
@@ -2769,7 +2769,7 @@ void UpdateInvestigationActionSprites(struct InvestigationStruct * investigation
 
 void UpdateScrollPromptSprite(struct Main * main, u32 show)
 {
-    struct OamAttrs * oam = &gOamObjects[53];
+    struct OamAttrs * oam = &gOamObjects[OAM_IDX_BUTTON_PROMPTS];
     u32 r6 = 0; // ! UNUSED, This is present in the assembly for this function somehow
     oam->attr0 = SPRITE_ATTR0_CLEAR;
     if(show && gScriptContext.textboxState == 1 
