@@ -571,18 +571,12 @@ void InvestigationInspect(struct Main * main, struct InvestigationStruct * inves
 
 void InvestigationMove(struct Main * main, struct InvestigationStruct * investigation) // tantei_move
 {
-    u16 attr1;
+    u32 temp;
     u32 i;
     u32 j;
     u8 * moveLocations;
-    #ifndef NONMATCHING
-    register u8 * moveButtonTiles asm("r5"); // ! fakematch
-    #else
-    u8 * moveButtonTiles;
-    #endif
     u8 * vram;
     struct OamAttrs * oam;
-    struct OamAttrs * oam2;
     switch(main->process[GAME_PROCESS_VAR1])
     {
         default:
@@ -594,7 +588,7 @@ void InvestigationMove(struct Main * main, struct InvestigationStruct * investig
             if (investigation->selectedActionYOffset >= 16)
                 main->process[GAME_PROCESS_VAR1]++;
             break;
-        case 1: // _0800C39C
+        case 1:
             oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
             moveLocations = main->roomData[main->currentRoomId];
             moveLocations += 4;
@@ -605,8 +599,9 @@ void InvestigationMove(struct Main * main, struct InvestigationStruct * investig
                 if(*moveLocations != 0xFF)
                 {
                     investigation->activeOptions[i] = TRUE;
-                    moveButtonTiles = gUnknown_081FD96C+*moveLocations*0x800; //TODO: label vs value?
-                    DmaCopy16(3, moveButtonTiles, vram, 0x800);
+                    temp = (*moveLocations)*0x800;
+                    temp += (u32)gUnknown_081FD96C;
+                    DmaCopy16(3, temp, vram, 0x800);
                     for(j = 0; j < 2; j++)
                     {
                         u32 baseTile = 0x1A0;
@@ -629,9 +624,8 @@ void InvestigationMove(struct Main * main, struct InvestigationStruct * investig
             investigation->selectedOption = 0;
             main->process[GAME_PROCESS_VAR1]++;
             main->process[GAME_PROCESS_VAR2] = 0;
-            break;
+        break;
         case 2: // _0800C464
-            oam2 = &gOamObjects[OAM_IDX_INVESTIGATION_ACTION_MOVE];
             if(main->process[GAME_PROCESS_VAR2] <= 12)
             {
                 oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
@@ -645,8 +639,8 @@ void InvestigationMove(struct Main * main, struct InvestigationStruct * investig
                 }
                 main->process[GAME_PROCESS_VAR2]++;
             }
-            oam = oam2;
-            attr1 = oam->attr1 & ~0x1ff;
+            oam = &gOamObjects[OAM_IDX_INVESTIGATION_ACTION_MOVE];
+            temp = (u16)(oam->attr1 & ~0x1ff);
             oam->attr1 -= 6;
             oam->attr1 &= 0x1FF;
             if(oam->attr1 >= 0x100)
@@ -656,9 +650,9 @@ void InvestigationMove(struct Main * main, struct InvestigationStruct * investig
                 main->process[GAME_PROCESS_VAR1]++;
                 main->process[GAME_PROCESS_VAR2] = 0;
             }
-            oam->attr1 |= attr1;
+            oam->attr1 |= temp;
             break;
-        case 3: // _0800C4DC
+        case 3:
             if(main->blendMode)
                 break;
             if(gJoypad.pressedKeys & START_BUTTON)
@@ -691,7 +685,6 @@ void InvestigationMove(struct Main * main, struct InvestigationStruct * investig
             }
             if(gJoypad.pressedKeys & DPAD_UP)
             {
-                u32 temp;
                 i = 0;
                 j = investigation->selectedOption-1;
                 temp = investigation->selectedOption;
@@ -712,7 +705,6 @@ void InvestigationMove(struct Main * main, struct InvestigationStruct * investig
             }
             else if(gJoypad.pressedKeys & DPAD_DOWN)
             {
-                u32 temp;
                 i = 0;
                 j = investigation->selectedOption+1;
                 temp = investigation->selectedOption;
@@ -752,7 +744,6 @@ void InvestigationMove(struct Main * main, struct InvestigationStruct * investig
             }
             break;
         case 4: // _0800C690
-            oam2 = &gOamObjects[OAM_IDX_INVESTIGATION_ACTION_MOVE];
             if(main->process[GAME_PROCESS_VAR2] <= 12)
             {
                 oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
@@ -766,8 +757,8 @@ void InvestigationMove(struct Main * main, struct InvestigationStruct * investig
                 }
                 main->process[GAME_PROCESS_VAR2]++;
             }
-            oam = oam2;
-            attr1 = oam->attr1 & ~0x1ff;
+            oam = &gOamObjects[OAM_IDX_INVESTIGATION_ACTION_MOVE];
+            temp = (u16)(oam->attr1 & ~0x1ff);
             oam->attr1 += 6;
             oam->attr1 &= 0x1FF;
             if(oam->attr1 >= 60)
@@ -780,7 +771,7 @@ void InvestigationMove(struct Main * main, struct InvestigationStruct * investig
                 investigation->lastActionYOffset = 0;
                 main->process[GAME_PROCESS_VAR1]++;
             }
-            oam->attr1 |= attr1;
+            oam->attr1 |= temp;
             break;
         case 5: // _0800C714
             if(main->process[GAME_PROCESS_VAR2] <= 12)
@@ -809,7 +800,7 @@ void InvestigationMove(struct Main * main, struct InvestigationStruct * investig
         case 6: // _0800C784
             oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
             moveLocations = main->roomData[main->currentRoomId];
-            moveLocations+= 4;
+            moveLocations += 4;
             for(i = 0; i < 4; i++)
             {
                 u8 * vram = OBJ_VRAM0 + 0x3400;
@@ -817,8 +808,9 @@ void InvestigationMove(struct Main * main, struct InvestigationStruct * investig
                 if(*moveLocations != 0xFF)
                 {
                     investigation->activeOptions[i] = TRUE;
-                    moveButtonTiles = gUnknown_081FD96C+*moveLocations*0x800; //TODO: label vs value?
-                    DmaCopy16(3, moveButtonTiles, vram, 0x800);
+                    temp = *moveLocations*0x800; //TODO: label vs value?
+                    temp += (u32)gUnknown_081FD96C;
+                    DmaCopy16(3, temp, vram, 0x800);
                     for(j = 0; j < 2; j++)
                     {
                         u32 baseTile = 0x1A0;

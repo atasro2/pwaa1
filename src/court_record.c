@@ -631,16 +631,9 @@ void CourtRecordInit(struct Main * main, struct CourtRecord * courtRecord) // st
 {
     u32 i;
     struct OamAttrs * oam;
-    struct IORegisters * io;
-    do
-    {
-        u16 * map = gBG2MapBuffer; 
-        for(i = 0; i < 0x400; i++, map++)
-            *map = 0;
-    }
-    while(0);
-
-    io = &gIORegisters;
+    u16 * map = gBG2MapBuffer; 
+    for(i = 0; i < 0x400; i++, map++)
+        *map = 0;
     if(main->processCopy[GAME_PROCESS] != QUESTIONING_PROCESS)
     {
         if(main->processCopy[GAME_PROCESS] == INVESTIGATION_PROCESS && main->processCopy[GAME_PROCESS_STATE] < INVESTIGATION_INSPECT)
@@ -663,8 +656,8 @@ void CourtRecordInit(struct Main * main, struct CourtRecord * courtRecord) // st
         oam = &gOamObjects[OAM_IDX_INVESTIGATION_ACTION_PRESENT];
         gOamObjects[OAM_IDX_INVESTIGATION_ACTION_PRESENT].attr2 = SPRITE_ATTR2(0x160, 1, 6);
     }
-    io->lcd_dispcnt |= DISPCNT_BG2_ON;
-    io->lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_WRAP | BGCNT_TXT256x256;
+    gIORegisters.lcd_dispcnt |= DISPCNT_BG2_ON;
+    gIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_WRAP | BGCNT_TXT256x256;
     main->tilemapUpdateBits |= 0x4;
     courtRecord->flags = 0;
     courtRecord->selectedItem = 0;
@@ -723,27 +716,6 @@ void CourtRecordMain(struct Main * main, struct CourtRecord * courtRecord) // st
         main->process[GAME_PROCESS_STATE] = RECORD_LOAD_GFX_CHANGE_STATE;
         if(main->process[GAME_PROCESS_VAR2] == 1)
         {
-        /*
-            if(main->processCopy[GAME_PROCESS] != 4)
-                UpdateQuestioningMenuSprites(main, &gTestimony, 0);
-            oam = &gOamObjects[55];
-            if(!(main->gameStateFlags & 0x100))
-            {
-                oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
-                oam->attr1 = SPRITE_ATTR1_NONAFFINE(186, FALSE, FALSE, 2);
-                oam->attr2 = SPRITE_ATTR2(0x190, 1, 5);
-                oam++;
-                oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
-                oam->attr1 = SPRITE_ATTR1_NONAFFINE(218, FALSE, FALSE, 2);
-                oam->attr2 = SPRITE_ATTR2(0x198, 1, 5);
-            }
-            else
-            {
-                oam->attr0 = SPRITE_ATTR0_CLEAR;
-                oam++;
-                oam->attr0 = SPRITE_ATTR0_CLEAR;
-            }
-        */
             goto label; // idk how to get the compiler to do this
         }
     }
