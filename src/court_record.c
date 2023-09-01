@@ -1018,14 +1018,14 @@ void CourtRecordChangeRecord(struct Main * main, struct CourtRecord * courtRecor
         if(courtRecord->flags & COURT_RECORD_VIEW_PROFILES)
         {
             courtRecord->flags &= ~COURT_RECORD_VIEW_PROFILES;
-            DmaCopy16(3, gUnknown_081906C0, OBJ_VRAM0+0x3500, TILE_SIZE_4BPP*16);
+            DmaCopy16(3, gGfxCourtRecordProfilesText, OBJ_VRAM0+0x3500, TILE_SIZE_4BPP*16);
             courtRecord->displayItemCount = courtRecord->evidenceCount;
             courtRecord->displayItemList = courtRecord->evidenceList;
         }
         else
         {
             courtRecord->flags |= COURT_RECORD_VIEW_PROFILES;
-            DmaCopy16(3, gUnknown_081908C0, OBJ_VRAM0+0x3500, 0x200);
+            DmaCopy16(3, gGfxCourtRecordEvidenceText, OBJ_VRAM0+0x3500, 0x200);
             courtRecord->displayItemCount = courtRecord->profileCount;
             courtRecord->displayItemList = courtRecord->profileList;
         }
@@ -1302,9 +1302,9 @@ void CourtRecordTakeThatSpecial(struct Main * main, struct CourtRecord * courtRe
                 gTestimony.timer = 6;
                 evidenceId = courtRecord->displayItemList[courtRecord->selectedItem];
                 offset = gEvidenceProfileData[evidenceId].evidenceImageId * (TILE_SIZE_4BPP * 64 + 0x20);
-                temp = (uintptr_t)gUnknown_081B290C + offset; //! Evil, uses a u32 for this pointer keep in mind and also global define
+                temp = (uintptr_t)gGfxEvidenceProfilePictures + offset; //! Evil, uses a u32 for this pointer keep in mind and also global define
                 DmaCopy16(3, temp, OBJ_PLTT+0x20, 0x20);
-                temp = (uintptr_t)gUnknown_081B290C + offset + 0x20;
+                temp = (uintptr_t)gGfxEvidenceProfilePictures + offset + 0x20;
                 DmaCopy16(3, temp, OBJ_VRAM0+0x1000, TILE_SIZE_4BPP * 64);
                 oam->attr0 = SPRITE_ATTR0(16, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
                 oam->attr1 = SPRITE_ATTR1_NONAFFINE(88, FALSE, FALSE, 3);
@@ -1477,11 +1477,11 @@ void LoadEvidenceWindowGraphics()
     DmaCopy16(3, gGfx4bppTestimonyArrows, OBJ_VRAM0+0x3400, TILE_SIZE_4BPP*4);
     DmaCopy16(3, gGfx4bppTestimonyArrows + TILE_SIZE_4BPP*4 * 3, OBJ_VRAM0+0x3480, TILE_SIZE_4BPP*4);
     DmaCopy16(3, gGfx4bppControllerButtons, OBJ_VRAM0+0x3800, TILE_SIZE_4BPP*16);
-    DmaCopy16(3, gUnknown_081904C0, OBJ_VRAM0+0x3A00, TILE_SIZE_4BPP*16);
-    DmaCopy16(3, gUnknown_081906C0, OBJ_VRAM0+0x3500, TILE_SIZE_4BPP*16);
-    DmaCopy16(3, gUnknown_081940E0, OBJ_PLTT+0x60, 0x20);
-    DmaCopy16(3, gUnknown_08194240, OBJ_PLTT+0x80, 0x20);
-    DmaCopy16(3, gGfxPalEvidenceProfileDesc, OBJ_PLTT+0x40, 0x20);
+    DmaCopy16(3, gGfxCourtRecordPresentBackText, OBJ_VRAM0+0x3A00, TILE_SIZE_4BPP*16);
+    DmaCopy16(3, gGfxCourtRecordProfilesText, OBJ_VRAM0+0x3500, TILE_SIZE_4BPP*16);
+    DmaCopy16(3, gPalCrossExaminationUI, OBJ_PLTT+0x60, 0x20);
+    DmaCopy16(3, gPalCourtRecordControlsBlurb, OBJ_PLTT+0x80, 0x20);
+    DmaCopy16(3, gPalEvidenceProfileDesc, OBJ_PLTT+0x40, 0x20);
 }
 
 void UpdateRecordSprites(struct CourtRecord * courtRecord)
@@ -1530,9 +1530,9 @@ void LoadEvidenceGraphics(u32 evidenceId)
     u8 * src;
 
     offset = gEvidenceProfileData[evidenceId].evidenceImageId * (TILE_SIZE_4BPP * 64 + 0x20);
-    src = gUnknown_081B290C + offset;
+    src = gGfxEvidenceProfilePictures + offset;
     DmaCopy16(3, src, OBJ_PLTT+0x20, 0x20);
-    src = gUnknown_081B290C + offset + 0x20;
+    src = gGfxEvidenceProfilePictures + offset + 0x20;
     DmaCopy16(3, src, OBJ_VRAM0+0x5000, TILE_SIZE_4BPP * 64);
     src = gEvidenceProfileData[evidenceId].descriptionTiles;
     LZ77UnCompWram(src, eUnknown_0200AFC0);
@@ -1885,9 +1885,9 @@ void LoadItemPlateGfx(struct Main * main)
     u8 * src;
 
     offset = gEvidenceProfileData[main->itemPlateEvidenceId].evidenceImageId * (TILE_SIZE_4BPP * 64 + 0x20);
-    src = gUnknown_081B290C + offset;
+    src = gGfxEvidenceProfilePictures + offset;
     DmaCopy16(3, src, OBJ_PLTT+0x20, 0x20);
-    src = gUnknown_081B290C + offset + 0x20;
+    src = gGfxEvidenceProfilePictures + offset + 0x20;
     DmaCopy16(3, src, OBJ_VRAM0+0x1000, TILE_SIZE_4BPP * 64);
 }
 
