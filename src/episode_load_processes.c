@@ -25,7 +25,7 @@ void EpisodeLoadGfx(struct Main * main)
     LZ77UnCompWram(gGfx4lzEpisodeSelectOptions, eBGDecompBuffer);
     DmaCopy16(3, eBGDecompBuffer, OBJ_VRAM0+0x3400, 0x2800);
     DmaCopy16(3, gPalChoiceSelected, OBJ_PLTT+0x120, 0x40);
-    DmaCopy16(3, gUnknown_08186540, VRAM, 0x1000);
+    DmaCopy16(3, gGfxSaveGameTiles, VRAM, 0x1000);
     DecompressBackgroundIntoBuffer(0x43);
     CopyBGDataToVram(0x43);
     gMain.animationFlags &= ~3;
@@ -610,7 +610,7 @@ void ContinueSaveProcess(struct Main * main) {
             if (main->blendMode == 0) {
                 main->saveContinueFlags = gSaveDataBuffer.main.saveContinueFlags;
                 main->scenarioIdx = gSaveDataBuffer.main.scenarioIdx;
-                DmaCopy16(3, gUnknown_08186540, BG_CHAR_ADDR(0), 0x1000);
+                DmaCopy16(3, gGfxSaveGameTiles, BG_CHAR_ADDR(0), 0x1000);
                 DmaCopy16(3, gGfxFromSaveOrBeginning, OBJ_VRAM0 + 0x3400, 0x1000);
                 DmaCopy16(3, gPalChoiceSelected, OBJ_PLTT + 0x120, 0x40);
                 DecompressBackgroundIntoBuffer(0x43);
@@ -727,7 +727,7 @@ void ContinueSaveProcess(struct Main * main) {
             ResetSoundControl();
             LoadCurrentScriptIntoRam();
             DmaCopy16(3, gUnusedAsciiCharSet, BG_VRAM + 0x3800, 0x800);
-            DmaCopy16(3, gUnknown_08186540, BG_VRAM, 0x1000);
+            DmaCopy16(3, gGfxSaveGameTiles, BG_VRAM, 0x1000);
             i = (uintptr_t)GetBGPalettePtr(0); // ! BAD FAKEMATCH?
             DmaCopy16(3, i, BG_PLTT, 0x200);
             DmaCopy16(3, &gSaveDataBuffer.main, &gMain, sizeof(gMain));

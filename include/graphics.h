@@ -15,7 +15,7 @@
 #define gGfx8lzTitleScreenDemo ((u8*)(ROM_START + 0x182F08))
 #define gUnusedAsciiCharSet ((u8*)(ROM_START + 0x185D20))
 #define gPalEvidenceProfileDesc ((u8*)(GFX_BASE_ADDR + 0x6520))
-#define gUnknown_08186540 ((u8*)(ROM_START + 0x186540))
+#define gGfxSaveGameTiles ((u8*)(ROM_START + 0x186540))
 #define gGfx4bppNametags ((u8*)(ROM_START + 0x187540))
 #define gGfx4bppTestimonyArrows ((u8*)(GFX_BASE_ADDR + 0xBD40))
 #define gGfx4bppTrialLife ((u8*)(GFX_BASE_ADDR + 0xC040))
@@ -431,7 +431,7 @@ extern u8 gPalTitleScreenDemo[];
 extern u8 gGfx8lzTitleScreenDemo[];
 extern u8 gUnusedAsciiCharSet[];
 extern u8 gPalEvidenceProfileDesc[];
-extern u8 gUnknown_08186540[];
+extern u8 gGfxSaveGameTiles[];
 extern u8 gGfx4bppNametags[];
 extern u8 gGfx4bppTestimonyArrows[];
 extern u8 gGfx4bppTrialLife[];

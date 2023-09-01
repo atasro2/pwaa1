@@ -25,9 +25,9 @@ gUnusedAsciiCharSet:
 gPalEvidenceProfileDesc:
 	.incbin "graphics/evidence_profile_descriptions/evidence_profile_descriptions.gbapal"
 
-	.global gUnknown_08186540
-gUnknown_08186540:
-	.incbin "graphics/ui/message_box/unk_186540.4bpp"
+	.global gGfxSaveGameTiles
+gGfxSaveGameTiles:
+	.incbin "graphics/ui/message_box/save_game_tiles.4bpp"
 
 	.global gGfx4bppNametags
 gGfx4bppNametags:
@@ -1703,12 +1703,6 @@ gGfx_BG067_CourtroomBackground:
 	.global gGfx_BG068_CapcomScreen
 gGfx_BG068_CapcomScreen:
 	.incbin "graphics/striped_images/capcom_screen.4bpp.striped"
-
-@ ; this entry here spills over into an explicitly referenced one (the next), why though...
-@	.global gGfx_BG069_SteelSamuraiNight
-
-@ ; it looks like this reference skips the "table" of this striped image and directly goes to the data?
-@	.global gUnknown_083698B8
 
 	.global gGfx_BG069_SteelSamuraiNight
 gGfx_BG069_SteelSamuraiNight:

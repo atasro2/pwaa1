@@ -105,7 +105,7 @@ void ClearSaveProcess(struct Main *main)
     case 0:
         DmaCopy16(3, gUnusedAsciiCharSet, VRAM + 0x3800, 0x800);
         DmaCopy16(3, GetBGPalettePtr(0), PLTT, BG_PLTT_SIZE);
-        DmaCopy16(3, gUnknown_08186540, VRAM, 0x1000);
+        DmaCopy16(3, gGfxSaveGameTiles, VRAM, 0x1000);
         DmaCopy16(3, gGfxSaveYesOrNo, OBJ_VRAM0 + 0x3C00, 0x800);
         DmaCopy16(3, gPalChoiceSelected, OBJ_PLTT + 0x120, 0x40);
         DmaCopy16(3, gTextPal, OBJ_PLTT, 0x20);
