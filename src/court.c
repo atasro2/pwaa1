@@ -73,9 +73,9 @@ void CourtInit(struct Main * main)
     ioRegs->lcd_bg3cnt = BGCNT_PRIORITY(3) | BGCNT_CHARBASE(1) | BGCNT_SCREENBASE(31) | BGCNT_MOSAIC | BGCNT_256COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
     DmaCopy16(3, gUnusedAsciiCharSet, VRAM + 0x3800, 0x800);
     DmaCopy16(3, gUnknown_08186540, VRAM, 0x1000);
-    DmaCopy16(3, &gUnknown_081942C0[0], OBJ_PLTT+0x100, 0x20);
+    DmaCopy16(3, &gPalInvestigationExamineCursors[0], OBJ_PLTT+0x100, 0x20);
     DmaCopy16(3, gGfx4bppTrialLife, OBJ_VRAM0 + 0x3780, 0x80);
-    DmaCopy16(3, gUnknown_081940E0, OBJ_PLTT+0x60, 0x20);
+    DmaCopy16(3, gPalCrossExaminationUI, OBJ_PLTT+0x60, 0x20);
     DecompressBackgroundIntoBuffer(1);
     CopyBGDataToVram(1);
     CopyBGDataToVram(0xFF);
@@ -234,7 +234,7 @@ void TestimonyProcess(struct Main * main)
 void TestimonyInit(struct Main * main)
 {
     DmaCopy16(3, gGfx4bppTestimonyTextTiles, OBJ_VRAM0+0x3000, 0x800);
-    DmaCopy16(3, gUnknown_08194280, OBJ_PLTT+0xA0, 0x20);
+    DmaCopy16(3, gPalTrialTestimonyTextTiles, OBJ_PLTT+0xA0, 0x20);
     gTestimony.timer = 0;
     main->process[GAME_PROCESS_STATE] = TESTIMONY_ANIM;
 }
@@ -364,9 +364,9 @@ void QuestioningProcess(struct Main * main)
 void QuestioningInit(struct Main * main)
 {
     DmaCopy16(3, gGfx4bppTrialLife, OBJ_VRAM0+0x3780, 0x80);
-    DmaCopy16(3, gUnknown_081940E0, OBJ_PLTT+0x60, 0x20);
-    DmaCopy16(3, gUnknown_081900C0, OBJ_VRAM0+0x3000, 0x400);
-    DmaCopy16(3, gUnknown_081942A0, OBJ_PLTT+0xA0, 0x20);
+    DmaCopy16(3, gPalCrossExaminationUI, OBJ_PLTT+0x60, 0x20);
+    DmaCopy16(3, gGfxTrialPressPresentButtons, OBJ_VRAM0+0x3000, 0x400);
+    DmaCopy16(3, gPalTrialPressPresentButtons, OBJ_PLTT+0xA0, 0x20);
     DmaCopy16(3, gGfx4bppTestimonyArrows, 0x1A0, 0x80); // ! WHAT, HOW
     DmaCopy16(3, gGfx4bppTestimonyArrows + 12 * TILE_SIZE_4BPP, 0x220, 0x80); // ! WHAT, HOW
     main->testimonyBeginningSection = gScriptContext.currentSection;
@@ -695,8 +695,8 @@ void VerdictProcess(struct Main * main)
             break;
         }
         case VERDICT_INIT_CONFETTI: { // B3C8
-            DmaCopy16(3, gUnknown_081940A0, OBJ_VRAM0+0x1F80, 0x20);
-            DmaCopy16(3, gUnknown_08194640, OBJ_PLTT+0xA0, 0x80);
+            DmaCopy16(3, gGfxTrialConfetti, OBJ_VRAM0+0x1F80, 0x20);
+            DmaCopy16(3, gPalConfetti, OBJ_PLTT+0xA0, 0x80);
             main->process[GAME_PROCESS_STATE]++;
             break;
         }
