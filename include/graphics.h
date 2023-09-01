@@ -53,114 +53,114 @@
 #define gGfx4lzEpisodeSelectOptions ((u8*)(ROM_START + 0x1946C0))
 #define gGfxFromSaveOrBeginning ((u8*)(ROM_START + 0x1954A8))
 #define gGfxSaveYesOrNo ((u8*)(ROM_START + 0x1964A8))
-#define gUnknown_08196CA8 ((u8*)(ROM_START + 0x196CA8))
-#define gUnknown_081970DC ((u8*)(ROM_START + 0x1970DC))
-#define gUnknown_08197514 ((u8*)(ROM_START + 0x197514))
-#define gUnknown_08197928 ((u8*)(ROM_START + 0x197928))
-#define gUnknown_08197D18 ((u8*)(ROM_START + 0x197D18))
-#define gUnknown_081981A0 ((u8*)(ROM_START + 0x1981A0))
-#define gUnknown_081985D8 ((u8*)(ROM_START + 0x1985D8))
-#define gUnknown_08198A84 ((u8*)(ROM_START + 0x198A84))
-#define gUnknown_08198E5C ((u8*)(ROM_START + 0x198E5C))
-#define gUnknown_08199228 ((u8*)(ROM_START + 0x199228))
-#define gUnknown_08199690 ((u8*)(ROM_START + 0x199690))
-#define gUnknown_08199AEC ((u8*)(ROM_START + 0x199AEC))
-#define gUnknown_08199EC8 ((u8*)(ROM_START + 0x199EC8))
-#define gUnknown_0819A2E4 ((u8*)(ROM_START + 0x19A2E4))
-#define gUnknown_0819A700 ((u8*)(ROM_START + 0x19A700))
-#define gUnknown_0819ABBC ((u8*)(ROM_START + 0x19ABBC))
-#define gUnknown_0819B028 ((u8*)(ROM_START + 0x19B028))
-#define gUnknown_0819B428 ((u8*)(ROM_START + 0x19B428))
-#define gUnknown_0819B868 ((u8*)(ROM_START + 0x19B868))
-#define gUnknown_0819BCE4 ((u8*)(ROM_START + 0x19BCE4))
-#define gUnknown_0819C0D8 ((u8*)(ROM_START + 0x19C0D8))
-#define gUnknown_0819C434 ((u8*)(ROM_START + 0x19C434))
-#define gUnknown_0819C810 ((u8*)(ROM_START + 0x19C810))
-#define gUnknown_0819CC44 ((u8*)(ROM_START + 0x19CC44))
-#define gUnknown_0819D028 ((u8*)(ROM_START + 0x19D028))
-#define gUnknown_0819D4C8 ((u8*)(ROM_START + 0x19D4C8))
-#define gUnknown_0819D90C ((u8*)(ROM_START + 0x19D90C))
-#define gUnknown_0819DDAC ((u8*)(ROM_START + 0x19DDAC))
-#define gUnknown_0819E18C ((u8*)(ROM_START + 0x19E18C))
-#define gUnknown_0819E5A0 ((u8*)(ROM_START + 0x19E5A0))
-#define gUnknown_0819E9D8 ((u8*)(ROM_START + 0x19E9D8))
-#define gUnknown_0819EDF0 ((u8*)(ROM_START + 0x19EDF0))
-#define gUnknown_0819F208 ((u8*)(ROM_START + 0x19F208))
-#define gUnknown_0819F5C0 ((u8*)(ROM_START + 0x19F5C0))
-#define gUnknown_0819F9E8 ((u8*)(ROM_START + 0x19F9E8))
-#define gUnknown_0819FD84 ((u8*)(ROM_START + 0x19FD84))
-#define gUnknown_081A0120 ((u8*)(ROM_START + 0x1A0120))
-#define gUnknown_081A0580 ((u8*)(ROM_START + 0x1A0580))
-#define gUnknown_081A09E4 ((u8*)(ROM_START + 0x1A09E4))
-#define gUnknown_081A0E58 ((u8*)(ROM_START + 0x1A0E58))
-#define gUnknown_081A1324 ((u8*)(ROM_START + 0x1A1324))
-#define gUnknown_081A1728 ((u8*)(ROM_START + 0x1A1728))
-#define gUnknown_081A1A10 ((u8*)(ROM_START + 0x1A1A10))
-#define gUnknown_081A1E1C ((u8*)(ROM_START + 0x1A1E1C))
-#define gUnknown_081A22A4 ((u8*)(ROM_START + 0x1A22A4))
-#define gUnknown_081A26BC ((u8*)(ROM_START + 0x1A26BC))
-#define gUnknown_081A2AE4 ((u8*)(ROM_START + 0x1A2AE4))
-#define gUnknown_081A2EE4 ((u8*)(ROM_START + 0x1A2EE4))
-#define gUnknown_081A3330 ((u8*)(ROM_START + 0x1A3330))
-#define gUnknown_081A3714 ((u8*)(ROM_START + 0x1A3714))
-#define gUnknown_081A3B44 ((u8*)(ROM_START + 0x1A3B44))
-#define gUnknown_081A3FF8 ((u8*)(ROM_START + 0x1A3FF8))
-#define gUnknown_081A439C ((u8*)(ROM_START + 0x1A439C))
-#define gUnknown_081A47D4 ((u8*)(ROM_START + 0x1A47D4))
-#define gUnknown_081A4BD4 ((u8*)(ROM_START + 0x1A4BD4))
-#define gUnknown_081A4FF0 ((u8*)(ROM_START + 0x1A4FF0))
-#define gUnknown_081A541C ((u8*)(ROM_START + 0x1A541C))
-#define gUnknown_081A5828 ((u8*)(ROM_START + 0x1A5828))
-#define gUnknown_081A5BF4 ((u8*)(ROM_START + 0x1A5BF4))
-#define gUnknown_081A5FA4 ((u8*)(ROM_START + 0x1A5FA4))
-#define gUnknown_081A639C ((u8*)(ROM_START + 0x1A639C))
-#define gUnknown_081A675C ((u8*)(ROM_START + 0x1A675C))
-#define gUnknown_081A6B88 ((u8*)(ROM_START + 0x1A6B88))
-#define gUnknown_081A6F68 ((u8*)(ROM_START + 0x1A6F68))
-#define gUnknown_081A7310 ((u8*)(ROM_START + 0x1A7310))
-#define gUnknown_081A775C ((u8*)(ROM_START + 0x1A775C))
-#define gUnknown_081A7B68 ((u8*)(ROM_START + 0x1A7B68))
-#define gUnknown_081A7FA4 ((u8*)(ROM_START + 0x1A7FA4))
-#define gUnknown_081A83C4 ((u8*)(ROM_START + 0x1A83C4))
-#define gUnknown_081A8828 ((u8*)(ROM_START + 0x1A8828))
-#define gUnknown_081A8C30 ((u8*)(ROM_START + 0x1A8C30))
-#define gUnknown_081A8F4C ((u8*)(ROM_START + 0x1A8F4C))
-#define gUnknown_081A9380 ((u8*)(ROM_START + 0x1A9380))
-#define gUnknown_081A97CC ((u8*)(ROM_START + 0x1A97CC))
-#define gUnknown_081A9BC8 ((u8*)(ROM_START + 0x1A9BC8))
-#define gUnknown_081AA054 ((u8*)(ROM_START + 0x1AA054))
-#define gUnknown_081AA458 ((u8*)(ROM_START + 0x1AA458))
-#define gUnknown_081AA894 ((u8*)(ROM_START + 0x1AA894))
-#define gUnknown_081AACDC ((u8*)(ROM_START + 0x1AACDC))
-#define gUnknown_081AB178 ((u8*)(ROM_START + 0x1AB178))
-#define gUnknown_081AB574 ((u8*)(ROM_START + 0x1AB574))
-#define gUnknown_081AB9FC ((u8*)(ROM_START + 0x1AB9FC))
-#define gUnknown_081ABE00 ((u8*)(ROM_START + 0x1ABE00))
-#define gUnknown_081AC2B0 ((u8*)(ROM_START + 0x1AC2B0))
-#define gUnknown_081AC75C ((u8*)(ROM_START + 0x1AC75C))
-#define gUnknown_081ACBFC ((u8*)(ROM_START + 0x1ACBFC))
-#define gUnknown_081AD02C ((u8*)(ROM_START + 0x1AD02C))
-#define gUnknown_081AD448 ((u8*)(ROM_START + 0x1AD448))
-#define gUnknown_081AD864 ((u8*)(ROM_START + 0x1AD864))
-#define gUnknown_081ADCD4 ((u8*)(ROM_START + 0x1ADCD4))
-#define gUnknown_081AE0DC ((u8*)(ROM_START + 0x1AE0DC))
-#define gUnknown_081AE4FC ((u8*)(ROM_START + 0x1AE4FC))
-#define gUnknown_081AE938 ((u8*)(ROM_START + 0x1AE938))
-#define gUnknown_081AED3C ((u8*)(ROM_START + 0x1AED3C))
-#define gUnknown_081AF15C ((u8*)(ROM_START + 0x1AF15C))
-#define gUnknown_081AF5A8 ((u8*)(ROM_START + 0x1AF5A8))
-#define gUnknown_081AF9DC ((u8*)(ROM_START + 0x1AF9DC))
-#define gUnknown_081AFE0C ((u8*)(ROM_START + 0x1AFE0C))
-#define gUnknown_081B01D0 ((u8*)(ROM_START + 0x1B01D0))
-#define gUnknown_081B0594 ((u8*)(ROM_START + 0x1B0594))
-#define gUnknown_081B0984 ((u8*)(ROM_START + 0x1B0984))
-#define gUnknown_081B0DC4 ((u8*)(ROM_START + 0x1B0DC4))
-#define gUnknown_081B1150 ((u8*)(ROM_START + 0x1B1150))
-#define gUnknown_081B14EC ((u8*)(ROM_START + 0x1B14EC))
-#define gUnknown_081B18C0 ((u8*)(ROM_START + 0x1B18C0))
-#define gUnknown_081B1CBC ((u8*)(ROM_START + 0x1B1CBC))
-#define gUnknown_081B2150 ((u8*)(ROM_START + 0x1B2150))
-#define gUnknown_081B25F0 ((u8*)(ROM_START + 0x1B25F0))
+#define gGfxProfilesMiaFey0_description ((u8*)(ROM_START + 0x196CA8))
+#define gGfxProfilesMayaFey0_description ((u8*)(ROM_START + 0x1970DC))
+#define gGfxProfilesLarryButz0_description ((u8*)(ROM_START + 0x197514))
+#define gGfxProfilesCindyStone_description ((u8*)(ROM_START + 0x197928))
+#define gGfxProfilesFrankSahwit_description ((u8*)(ROM_START + 0x197D18))
+#define gGfxProfilesWinstonPayne_description ((u8*)(ROM_START + 0x1981A0))
+#define gGfxEvidenceGenericAutopsyReport0_description ((u8*)(ROM_START + 0x1985D8))
+#define gGfxEvidenceTheThinker0_description ((u8*)(ROM_START + 0x198A84))
+#define gGfxEvidenceCindyStonesPassport_description ((u8*)(ROM_START + 0x198E5C))
+#define gGfxEvidenceGenericAffidavit0_description ((u8*)(ROM_START + 0x199228))
+#define gGfxProfilesMiaFey1_description ((u8*)(ROM_START + 0x199690))
+#define gGfxProfilesMayaFey1_description ((u8*)(ROM_START + 0x199AEC))
+#define gGfxProfilesMayaFey2_description ((u8*)(ROM_START + 0x199EC8))
+#define gGfxProfilesMayaFey3_description ((u8*)(ROM_START + 0x19A2E4))
+#define gGfxProfilesMilesEdgeworth0_description ((u8*)(ROM_START + 0x19A700))
+#define gGfxProfilesDickGumshoe_description ((u8*)(ROM_START + 0x19ABBC))
+#define gGfxProfilesAprilMay0_description ((u8*)(ROM_START + 0x19B028))
+#define gGfxProfilesAprilMay1_description ((u8*)(ROM_START + 0x19B428))
+#define gGfxProfilesAprilMay2_description ((u8*)(ROM_START + 0x19B868))
+#define gGfxProfilesReddWhite0_description ((u8*)(ROM_START + 0x19BCE4))
+#define gGfxProfilesBellboy0_description ((u8*)(ROM_START + 0x19C0D8))
+#define gGfxProfilesBellboy1_description ((u8*)(ROM_START + 0x19C434))
+#define gGfxProfilesMarvinGrossberg_description ((u8*)(ROM_START + 0x19C810))
+#define gGfxEvidencePhoenixBadge_description ((u8*)(ROM_START + 0x19CC44))
+#define gGfxEvidenceGenericAutopsyReport1_description ((u8*)(ROM_START + 0x19D028))
+#define gGfxEvidenceGenericLetter0_description ((u8*)(ROM_START + 0x19D4C8))
+#define gGfxEvidenceMayasCellphone_description ((u8*)(ROM_START + 0x19D90C))
+#define gGfxEvidenceGlassShards_description ((u8*)(ROM_START + 0x19DDAC))
+#define gGfxEvidenceTheThinker1_description ((u8*)(ROM_START + 0x19E18C))
+#define gGfxEvidenceTheThinker2_description ((u8*)(ROM_START + 0x19E5A0))
+#define gGfxEvidenceMayaMemo_description ((u8*)(ROM_START + 0x19E9D8))
+#define gGfxEvidenceNoteFromTheSafe_description ((u8*)(ROM_START + 0x19EDF0))
+#define gGfxEvidenceWiretap_description ((u8*)(ROM_START + 0x19F208))
+#define gGfxEvidenceGenericAffidavit1_description ((u8*)(ROM_START + 0x19F5C0))
+#define gGfxProfilesMistyFey0_description ((u8*)(ROM_START + 0x19F9E8))
+#define gGfxProfilesReddWhite1_description ((u8*)(ROM_START + 0x19FD84))
+#define gGfxEvidenceGenericNewspaperClipping_description ((u8*)(ROM_START + 0x1A0120))
+#define gGfxEvidenceGenericPhoto0_description ((u8*)(ROM_START + 0x1A0580))
+#define gGfxEvidenceGenericAffidavit2_description ((u8*)(ROM_START + 0x1A09E4))
+#define gGfxEvidenceGenericAutopsyReport2_description ((u8*)(ROM_START + 0x1A0E58))
+#define gGfxEvidenceGenericLetter1_description ((u8*)(ROM_START + 0x1A1324))
+#define gGfxEvidenceLottasCamera0_description ((u8*)(ROM_START + 0x1A1728))
+#define gGfxProfilesWillPowers_description ((u8*)(ROM_START + 0x1A1A10))
+#define gGfxProfilesWendyOldbag_description ((u8*)(ROM_START + 0x1A1E1C))
+#define gGfxProfilesJackHammer_description ((u8*)(ROM_START + 0x1A22A4))
+#define gGfxProfilesPennyNichols_description ((u8*)(ROM_START + 0x1A26BC))
+#define gGfxProfilesSalManella_description ((u8*)(ROM_START + 0x1A2AE4))
+#define gGfxProfilesDeeVasquez_description ((u8*)(ROM_START + 0x1A2EE4))
+#define gGfxProfilesCodyHackins_description ((u8*)(ROM_START + 0x1A3330))
+#define gGfxEvidenceGenericAffidavit3_description ((u8*)(ROM_START + 0x1A3714))
+#define gGfxEvidenceGenericAutopsyReport3_description ((u8*)(ROM_START + 0x1A3B44))
+#define gGfxEvidenceGlobalStudiosCardKey_description ((u8*)(ROM_START + 0x1A3FF8))
+#define gGfxEvidenceGenericPhoto1_description ((u8*)(ROM_START + 0x1A439C))
+#define gGfxEvidenceGenericPhoto2_description ((u8*)(ROM_START + 0x1A47D4))
+#define gGfxEvidenceGenericPhoto3_description ((u8*)(ROM_START + 0x1A4BD4))
+#define gGfxEvidenceSteelSamuraiSpear0_description ((u8*)(ROM_START + 0x1A4FF0))
+#define gGfxEvidenceSteelSamuraiSpear1_description ((u8*)(ROM_START + 0x1A541C))
+#define gGfxEvidenceEmptyBottle0_description ((u8*)(ROM_START + 0x1A5828))
+#define gGfxEvidenceKeyToCottage_description ((u8*)(ROM_START + 0x1A5BF4))
+#define gGfxEvidenceGenericLetter2_description ((u8*)(ROM_START + 0x1A5FA4))
+#define gGfxEvidenceSteelSamuraiScript_description ((u8*)(ROM_START + 0x1A639C))
+#define gGfxEvidenceMrMonkey_description ((u8*)(ROM_START + 0x1A675C))
+#define gGfxEvidenceSteelSamuraiCards_description ((u8*)(ROM_START + 0x1A6B88))
+#define gGfxEvidenceSteelSamuraiUltraRareCard_description ((u8*)(ROM_START + 0x1A6F68))
+#define gGfxEvidenceCodysSteelSamuraiScrapbook_description ((u8*)(ROM_START + 0x1A7310))
+#define gGfxEvidenceCodysDigitalCamera_description ((u8*)(ROM_START + 0x1A775C))
+#define gGfxEvidencePlateWithSteakBones_description ((u8*)(ROM_START + 0x1A7B68))
+#define gGfxEvidenceEmptyBottle1_description ((u8*)(ROM_START + 0x1A7FA4))
+#define gGfxEvidenceGenericPhoto4_description ((u8*)(ROM_START + 0x1A83C4))
+#define gGfxEvidenceGlobalStudiosVan_description ((u8*)(ROM_START + 0x1A8828))
+#define gGfxEvidenceEmptyPlate_description ((u8*)(ROM_START + 0x1A8C30))
+#define gGfxProfilesMilesEdgeworth1_description ((u8*)(ROM_START + 0x1A8F4C))
+#define gGfxProfilesLottaHart0_description ((u8*)(ROM_START + 0x1A9380))
+#define gGfxProfilesLottaHart1_description ((u8*)(ROM_START + 0x1A97CC))
+#define gGfxProfilesLarryButz1_description ((u8*)(ROM_START + 0x1A9BC8))
+#define gGfxProfilesRobertHammond_description ((u8*)(ROM_START + 0x1AA054))
+#define gGfxProfilesMistyFey1_description ((u8*)(ROM_START + 0x1AA458))
+#define gGfxProfilesManfredVonKarma_description ((u8*)(ROM_START + 0x1AA894))
+#define gGfxProfilesGregoryEdgeworth_description ((u8*)(ROM_START + 0x1AACDC))
+#define gGfxProfilesOldMan0_description ((u8*)(ROM_START + 0x1AB178))
+#define gGfxProfilesOldMan1_description ((u8*)(ROM_START + 0x1AB574))
+#define gGfxEvidenceFirecrackers_description ((u8*)(ROM_START + 0x1AB9FC))
+#define gGfxEvidenceGenericAutopsyReport4_description ((u8*)(ROM_START + 0x1ABE00))
+#define gGfxEvidenceGenericAutopsyReport5_description ((u8*)(ROM_START + 0x1AC2B0))
+#define gGfxEvidenceGenericAutopsyReport6_description ((u8*)(ROM_START + 0x1AC75C))
+#define gGfxEvidenceLottasCamera1_description ((u8*)(ROM_START + 0x1ACBFC))
+#define gGfxEvidenceGenericPhoto5_description ((u8*)(ROM_START + 0x1AD02C))
+#define gGfxEvidenceGenericPhoto6_description ((u8*)(ROM_START + 0x1AD448))
+#define gGfxEvidenceGenericPhoto7_description ((u8*)(ROM_START + 0x1AD864))
+#define gGfxProfilesMistyFey2_description ((u8*)(ROM_START + 0x1ADCD4))
+#define gGfxEvidenceArticleGourdy_description ((u8*)(ROM_START + 0x1AE0DC))
+#define gGfxEvidenceGenericAffidavit4_description ((u8*)(ROM_START + 0x1AE4FC))
+#define gGfxEvidenceGenericPhoto8_description ((u8*)(ROM_START + 0x1AE938))
+#define gGfxEvidenceBullet0_description ((u8*)(ROM_START + 0x1AED3C))
+#define gGfxEvidenceBullet1_description ((u8*)(ROM_START + 0x1AF15C))
+#define gGfxEvidencePistol_description ((u8*)(ROM_START + 0x1AF5A8))
+#define gGfxEvidenceGenericAffidavit5_description ((u8*)(ROM_START + 0x1AF9DC))
+#define gGfxEvidenceAirTube_description ((u8*)(ROM_START + 0x1AFE0C))
+#define gGfxEvidenceMissile_description ((u8*)(ROM_START + 0x1B01D0))
+#define gGfxEvidenceFishingPole_description ((u8*)(ROM_START + 0x1B0594))
+#define gGfxEvidenceMetalDetector_description ((u8*)(ROM_START + 0x1B0984))
+#define gGfxEvidencePolly_description ((u8*)(ROM_START + 0x1B0DC4))
+#define gGfxEvidenceYannisSafe_description ((u8*)(ROM_START + 0x1B1150))
+#define gGfxEvidenceGenericAutopsyReport7_description ((u8*)(ROM_START + 0x1B14EC))
+#define gGfxEvidenceGenericPhoto9_description ((u8*)(ROM_START + 0x1B18C0))
+#define gGfxEvidenceGenericLetter3_description ((u8*)(ROM_START + 0x1B1CBC))
+#define gGfxEvidenceDl6Bullet_description ((u8*)(ROM_START + 0x1B2150))
+#define gGfxEvidenceMissileAngry_description ((u8*)(ROM_START + 0x1B25F0))
 
 #define gGfxEvidenceProfilePictures ((u8*)(GFX_BASE_ADDR + 0x3290C))
 
@@ -469,114 +469,114 @@ extern u8 gPalConfetti[];
 extern u8 gGfx4lzEpisodeSelectOptions[];
 extern u8 gGfxFromSaveOrBeginning[];
 extern u8 gGfxSaveYesOrNo[];
-extern u8 gUnknown_08196CA8[];
-extern u8 gUnknown_081970DC[];
-extern u8 gUnknown_08197514[];
-extern u8 gUnknown_08197928[];
-extern u8 gUnknown_08197D18[];
-extern u8 gUnknown_081981A0[];
-extern u8 gUnknown_081985D8[];
-extern u8 gUnknown_08198A84[];
-extern u8 gUnknown_08198E5C[];
-extern u8 gUnknown_08199228[];
-extern u8 gUnknown_08199690[];
-extern u8 gUnknown_08199AEC[];
-extern u8 gUnknown_08199EC8[];
-extern u8 gUnknown_0819A2E4[];
-extern u8 gUnknown_0819A700[];
-extern u8 gUnknown_0819ABBC[];
-extern u8 gUnknown_0819B028[];
-extern u8 gUnknown_0819B428[];
-extern u8 gUnknown_0819B868[];
-extern u8 gUnknown_0819BCE4[];
-extern u8 gUnknown_0819C0D8[];
-extern u8 gUnknown_0819C434[];
-extern u8 gUnknown_0819C810[];
-extern u8 gUnknown_0819CC44[];
-extern u8 gUnknown_0819D028[];
-extern u8 gUnknown_0819D4C8[];
-extern u8 gUnknown_0819D90C[];
-extern u8 gUnknown_0819DDAC[];
-extern u8 gUnknown_0819E18C[];
-extern u8 gUnknown_0819E5A0[];
-extern u8 gUnknown_0819E9D8[];
-extern u8 gUnknown_0819EDF0[];
-extern u8 gUnknown_0819F208[];
-extern u8 gUnknown_0819F5C0[];
-extern u8 gUnknown_0819F9E8[];
-extern u8 gUnknown_0819FD84[];
-extern u8 gUnknown_081A0120[];
-extern u8 gUnknown_081A0580[];
-extern u8 gUnknown_081A09E4[];
-extern u8 gUnknown_081A0E58[];
-extern u8 gUnknown_081A1324[];
-extern u8 gUnknown_081A1728[];
-extern u8 gUnknown_081A1A10[];
-extern u8 gUnknown_081A1E1C[];
-extern u8 gUnknown_081A22A4[];
-extern u8 gUnknown_081A26BC[];
-extern u8 gUnknown_081A2AE4[];
-extern u8 gUnknown_081A2EE4[];
-extern u8 gUnknown_081A3330[];
-extern u8 gUnknown_081A3714[];
-extern u8 gUnknown_081A3B44[];
-extern u8 gUnknown_081A3FF8[];
-extern u8 gUnknown_081A439C[];
-extern u8 gUnknown_081A47D4[];
-extern u8 gUnknown_081A4BD4[];
-extern u8 gUnknown_081A4FF0[];
-extern u8 gUnknown_081A541C[];
-extern u8 gUnknown_081A5828[];
-extern u8 gUnknown_081A5BF4[];
-extern u8 gUnknown_081A5FA4[];
-extern u8 gUnknown_081A639C[];
-extern u8 gUnknown_081A675C[];
-extern u8 gUnknown_081A6B88[];
-extern u8 gUnknown_081A6F68[];
-extern u8 gUnknown_081A7310[];
-extern u8 gUnknown_081A775C[];
-extern u8 gUnknown_081A7B68[];
-extern u8 gUnknown_081A7FA4[];
-extern u8 gUnknown_081A83C4[];
-extern u8 gUnknown_081A8828[];
-extern u8 gUnknown_081A8C30[];
-extern u8 gUnknown_081A8F4C[];
-extern u8 gUnknown_081A9380[];
-extern u8 gUnknown_081A97CC[];
-extern u8 gUnknown_081A9BC8[];
-extern u8 gUnknown_081AA054[];
-extern u8 gUnknown_081AA458[];
-extern u8 gUnknown_081AA894[];
-extern u8 gUnknown_081AACDC[];
-extern u8 gUnknown_081AB178[];
-extern u8 gUnknown_081AB574[];
-extern u8 gUnknown_081AB9FC[];
-extern u8 gUnknown_081ABE00[];
-extern u8 gUnknown_081AC2B0[];
-extern u8 gUnknown_081AC75C[];
-extern u8 gUnknown_081ACBFC[];
-extern u8 gUnknown_081AD02C[];
-extern u8 gUnknown_081AD448[];
-extern u8 gUnknown_081AD864[];
-extern u8 gUnknown_081ADCD4[];
-extern u8 gUnknown_081AE0DC[];
-extern u8 gUnknown_081AE4FC[];
-extern u8 gUnknown_081AE938[];
-extern u8 gUnknown_081AED3C[];
-extern u8 gUnknown_081AF15C[];
-extern u8 gUnknown_081AF5A8[];
-extern u8 gUnknown_081AF9DC[];
-extern u8 gUnknown_081AFE0C[];
-extern u8 gUnknown_081B01D0[];
-extern u8 gUnknown_081B0594[];
-extern u8 gUnknown_081B0984[];
-extern u8 gUnknown_081B0DC4[];
-extern u8 gUnknown_081B1150[];
-extern u8 gUnknown_081B14EC[];
-extern u8 gUnknown_081B18C0[];
-extern u8 gUnknown_081B1CBC[];
-extern u8 gUnknown_081B2150[];
-extern u8 gUnknown_081B25F0[];
+extern u8 gGfxProfilesMiaFey0_description[];
+extern u8 gGfxProfilesMayaFey0_description[];
+extern u8 gGfxProfilesLarryButz0_description[];
+extern u8 gGfxProfilesCindyStone_description[];
+extern u8 gGfxProfilesFrankSahwit_description[];
+extern u8 gGfxProfilesWinstonPayne_description[];
+extern u8 gGfxEvidenceGenericAutopsyReport0_description[];
+extern u8 gGfxEvidenceTheThinker0_description[];
+extern u8 gGfxEvidenceCindyStonesPassport_description[];
+extern u8 gGfxEvidenceGenericAffidavit0_description[];
+extern u8 gGfxProfilesMiaFey1_description[];
+extern u8 gGfxProfilesMayaFey1_description[];
+extern u8 gGfxProfilesMayaFey2_description[];
+extern u8 gGfxProfilesMayaFey3_description[];
+extern u8 gGfxProfilesMilesEdgeworth0_description[];
+extern u8 gGfxProfilesDickGumshoe_description[];
+extern u8 gGfxProfilesAprilMay0_description[];
+extern u8 gGfxProfilesAprilMay1_description[];
+extern u8 gGfxProfilesAprilMay2_description[];
+extern u8 gGfxProfilesReddWhite0_description[];
+extern u8 gGfxProfilesBellboy0_description[];
+extern u8 gGfxProfilesBellboy1_description[];
+extern u8 gGfxProfilesMarvinGrossberg_description[];
+extern u8 gGfxEvidencePhoenixBadge_description[];
+extern u8 gGfxEvidenceGenericAutopsyReport1_description[];
+extern u8 gGfxEvidenceGenericLetter0_description[];
+extern u8 gGfxEvidenceMayasCellphone_description[];
+extern u8 gGfxEvidenceGlassShards_description[];
+extern u8 gGfxEvidenceTheThinker1_description[];
+extern u8 gGfxEvidenceTheThinker2_description[];
+extern u8 gGfxEvidenceMayaMemo_description[];
+extern u8 gGfxEvidenceNoteFromTheSafe_description[];
+extern u8 gGfxEvidenceWiretap_description[];
+extern u8 gGfxEvidenceGenericAffidavit1_description[];
+extern u8 gGfxProfilesMistyFey0_description[];
+extern u8 gGfxProfilesReddWhite1_description[];
+extern u8 gGfxEvidenceGenericNewspaperClipping_description[];
+extern u8 gGfxEvidenceGenericPhoto0_description[];
+extern u8 gGfxEvidenceGenericAffidavit2_description[];
+extern u8 gGfxEvidenceGenericAutopsyReport2_description[];
+extern u8 gGfxEvidenceGenericLetter1_description[];
+extern u8 gGfxEvidenceLottasCamera0_description[];
+extern u8 gGfxProfilesWillPowers_description[];
+extern u8 gGfxProfilesWendyOldbag_description[];
+extern u8 gGfxProfilesJackHammer_description[];
+extern u8 gGfxProfilesPennyNichols_description[];
+extern u8 gGfxProfilesSalManella_description[];
+extern u8 gGfxProfilesDeeVasquez_description[];
+extern u8 gGfxProfilesCodyHackins_description[];
+extern u8 gGfxEvidenceGenericAffidavit3_description[];
+extern u8 gGfxEvidenceGenericAutopsyReport3_description[];
+extern u8 gGfxEvidenceGlobalStudiosCardKey_description[];
+extern u8 gGfxEvidenceGenericPhoto1_description[];
+extern u8 gGfxEvidenceGenericPhoto2_description[];
+extern u8 gGfxEvidenceGenericPhoto3_description[];
+extern u8 gGfxEvidenceSteelSamuraiSpear0_description[];
+extern u8 gGfxEvidenceSteelSamuraiSpear1_description[];
+extern u8 gGfxEvidenceEmptyBottle0_description[];
+extern u8 gGfxEvidenceKeyToCottage_description[];
+extern u8 gGfxEvidenceGenericLetter2_description[];
+extern u8 gGfxEvidenceSteelSamuraiScript_description[];
+extern u8 gGfxEvidenceMrMonkey_description[];
+extern u8 gGfxEvidenceSteelSamuraiCards_description[];
+extern u8 gGfxEvidenceSteelSamuraiUltraRareCard_description[];
+extern u8 gGfxEvidenceCodysSteelSamuraiScrapbook_description[];
+extern u8 gGfxEvidenceCodysDigitalCamera_description[];
+extern u8 gGfxEvidencePlateWithSteakBones_description[];
+extern u8 gGfxEvidenceEmptyBottle1_description[];
+extern u8 gGfxEvidenceGenericPhoto4_description[];
+extern u8 gGfxEvidenceGlobalStudiosVan_description[];
+extern u8 gGfxEvidenceEmptyPlate_description[];
+extern u8 gGfxProfilesMilesEdgeworth1_description[];
+extern u8 gGfxProfilesLottaHart0_description[];
+extern u8 gGfxProfilesLottaHart1_description[];
+extern u8 gGfxProfilesLarryButz1_description[];
+extern u8 gGfxProfilesRobertHammond_description[];
+extern u8 gGfxProfilesMistyFey1_description[];
+extern u8 gGfxProfilesManfredVonKarma_description[];
+extern u8 gGfxProfilesGregoryEdgeworth_description[];
+extern u8 gGfxProfilesOldMan0_description[];
+extern u8 gGfxProfilesOldMan1_description[];
+extern u8 gGfxEvidenceFirecrackers_description[];
+extern u8 gGfxEvidenceGenericAutopsyReport4_description[];
+extern u8 gGfxEvidenceGenericAutopsyReport5_description[];
+extern u8 gGfxEvidenceGenericAutopsyReport6_description[];
+extern u8 gGfxEvidenceLottasCamera1_description[];
+extern u8 gGfxEvidenceGenericPhoto5_description[];
+extern u8 gGfxEvidenceGenericPhoto6_description[];
+extern u8 gGfxEvidenceGenericPhoto7_description[];
+extern u8 gGfxProfilesMistyFey2_description[];
+extern u8 gGfxEvidenceArticleGourdy_description[];
+extern u8 gGfxEvidenceGenericAffidavit4_description[];
+extern u8 gGfxEvidenceGenericPhoto8_description[];
+extern u8 gGfxEvidenceBullet0_description[];
+extern u8 gGfxEvidenceBullet1_description[];
+extern u8 gGfxEvidencePistol_description[];
+extern u8 gGfxEvidenceGenericAffidavit5_description[];
+extern u8 gGfxEvidenceAirTube_description[];
+extern u8 gGfxEvidenceMissile_description[];
+extern u8 gGfxEvidenceFishingPole_description[];
+extern u8 gGfxEvidenceMetalDetector_description[];
+extern u8 gGfxEvidencePolly_description[];
+extern u8 gGfxEvidenceYannisSafe_description[];
+extern u8 gGfxEvidenceGenericAutopsyReport7_description[];
+extern u8 gGfxEvidenceGenericPhoto9_description[];
+extern u8 gGfxEvidenceGenericLetter3_description[];
+extern u8 gGfxEvidenceDl6Bullet_description[];
+extern u8 gGfxEvidenceMissileAngry_description[];
 extern u8 gGfxEvidenceProfilePictures[];
 extern u8 gPalEvidenceEmptyPlate[];
 extern u8 gGfxEvidenceEmptyPlate[];
