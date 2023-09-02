@@ -1406,26 +1406,21 @@ gGfx_BG063_Case3SteelSamurai:
 gPal_BG064_BustupPhoenix:
 	.incbin "graphics/bustup_phoenix.gbapal"
 
-
 	.global gMap_BG064_BustupPhoenix
 gMap_BG064_BustupPhoenix:
 	.incbin "graphics/bustup_phoenix.bin"
-
 
 	.global gGfx_BG064_BustupPhoenix
 gGfx_BG064_BustupPhoenix:
 	.incbin "graphics/bustup_phoenix.4bpp"
 
-
 	.global gPal_BG065_BustupEdgeworth
 gPal_BG065_BustupEdgeworth:
 	.incbin "graphics/bustup_edgeworth.gbapal"
 
-
 	.global gMap_BG065_BustupEdgeworth
 gMap_BG065_BustupEdgeworth:
 	.incbin "graphics/bustup_edgeworth.bin"
-
 
 	.global gGfx_BG065_BustupEdgeworth
 gGfx_BG065_BustupEdgeworth:
@@ -1433,16 +1428,13 @@ gGfx_BG065_BustupEdgeworth:
 
 @ ; BEGIN BACKGROUNDS
 
-
 	.global gGfx_BG066_Speedlines
 gGfx_BG066_Speedlines:
 	.incbin "graphics/striped_images/speedlines.4bpp.striped"
 
-
 	.global gGfx_BG067_CourtroomBackground
 gGfx_BG067_CourtroomBackground:
 	.incbin "graphics/striped_images/courtroom_background.4bpp.striped"
-
 
 	.global gGfx_BG068_CapcomScreen
 gGfx_BG068_CapcomScreen:
@@ -1452,211 +1444,169 @@ gGfx_BG068_CapcomScreen:
 gGfx_BG069_SteelSamuraiNight:
 	.incbin "graphics/striped_images/steel_samurai_night.4bpp.striped"
 
-
 	.global gGfx_BG070_GourdLakeEntrance
 gGfx_BG070_GourdLakeEntrance:
 	.incbin "graphics/striped_images/gourd_lake_entrance.8bpp.striped"
-
 
 	.global gGfx_BG071_GourdLakePark
 gGfx_BG071_GourdLakePark:
 	.incbin "graphics/striped_images/gourd_lake_park.8bpp.striped"
 
-
 	.global gGfx_BG072_GourdLakeParkNoBalloon
 gGfx_BG072_GourdLakeParkNoBalloon:
 	.incbin "graphics/striped_images/gourd_lake_park_no_balloon.8bpp.striped"
-
 
 	.global gGfx_BG073_GourdLakeBeach
 gGfx_BG073_GourdLakeBeach:
 	.incbin "graphics/striped_images/gourd_lake_beach.8bpp.striped"
 
-
 	.global gGfx_BG074_Case3IntroGrass
 gGfx_BG074_Case3IntroGrass:
 	.incbin "graphics/striped_images/case3_intro_grass.4bpp.striped"
-
 
 	.global gGfx_BG075_Case3IntroTrees
 gGfx_BG075_Case3IntroTrees:
 	.incbin "graphics/striped_images/case3_intro_trees.4bpp.striped"
 
-
 	.global gGfx_BG076_Case3IntroSteelSamuraiPosing
 gGfx_BG076_Case3IntroSteelSamuraiPosing:
 	.incbin "graphics/striped_images/case3_intro_steel_samurai_posing.4bpp.striped"
-
 
 	.global gGfx_BG077_GourdLakeBoatRental
 gGfx_BG077_GourdLakeBoatRental:
 	.incbin "graphics/striped_images/gourd_lake_boat_rental.8bpp.striped"
 
-
 	.global gGfx_BG078_GourdLakeBoatRentalHouse
 gGfx_BG078_GourdLakeBoatRentalHouse:
 	.incbin "graphics/striped_images/gourd_lake_boat_rental_house.8bpp.striped"
-
 
 	.global gGfx_BG079_PoliceStationLobby
 gGfx_BG079_PoliceStationLobby:
 	.incbin "graphics/striped_images/police_station_lobby.8bpp.striped"
 
-
 	.global gGfx_BG080_PoliceStationEvidenceStorage
 gGfx_BG080_PoliceStationEvidenceStorage:
 	.incbin "graphics/striped_images/police_station_evidence_storage.8bpp.striped"
-
 
 	.global gGfx_BG081_Case3IntroFaceoff
 gGfx_BG081_Case3IntroFaceoff:
 	.incbin "graphics/striped_images/case3_intro_faceoff.4bpp.striped"
 
-
 	.global gGfx_BG082_EvidenceDL6CaseFile1
 gGfx_BG082_EvidenceDL6CaseFile1:
 	.incbin "graphics/striped_images/backgrounds/evidence/dl6_case_file_page_1.4bpp.striped"
-
 
 	.global gGfx_BG083_EvidenceDL6CaseFile2
 gGfx_BG083_EvidenceDL6CaseFile2:
 	.incbin "graphics/striped_images/backgrounds/evidence/dl6_case_file_page_2.4bpp.striped"
 
-
 	.global gGfx_BG084_EvidenceDL6CaseFile3
 gGfx_BG084_EvidenceDL6CaseFile3:
 	.incbin "graphics/striped_images/backgrounds/evidence/dl6_case_file_page_3.4bpp.striped"
-
 
 	.global gGfx_BG085_Case4TrainStation
 gGfx_BG085_Case4TrainStation:
 	.incbin "graphics/striped_images/case4_train_station.8bpp.striped"
 
-
 	.global gGfx_BG086_Case4GourdLakeMap
 gGfx_BG086_Case4GourdLakeMap:
 	.incbin "graphics/striped_images/case4_gourd_lake_map.4bpp.striped"
-
 
 	.global gGfx_BG087_Case4LottasPhotoZoomed
 gGfx_BG087_Case4LottasPhotoZoomed:
 	.incbin "graphics/striped_images/case4_lottas_photo_zoomed.4bpp.striped"
 
-
 	.global gGfx_BG088_Case4ElevatorPhoto
 gGfx_BG088_Case4ElevatorPhoto:
 	.incbin "graphics/striped_images/case4_elevator_photo.4bpp.striped"
-
 
 	.global gGfx_BG089_Case4Newspaper
 gGfx_BG089_Case4Newspaper:
 	.incbin "graphics/striped_images/case4_newspaper.8bpp.striped"
 
-
 	.global gGfx_BG090_Case4BalloonLaunching
 gGfx_BG090_Case4BalloonLaunching:
 	.incbin "graphics/striped_images/case4_balloon_launching.4bpp.striped"
-
 
 	.global gGfx_BG091_Case4BalloonLandingInLake
 gGfx_BG091_Case4BalloonLandingInLake:
 	.incbin "graphics/striped_images/case4_balloon_landing_in_lake.4bpp.striped"
 
-
 	.global gGfx_BG092_Case4LarrySearchingLake
 gGfx_BG092_Case4LarrySearchingLake:
 	.incbin "graphics/striped_images/case4_larry_searching_lake.4bpp.striped"
-
 
 	.global gGfx_BG093_Case4ClassTrial
 gGfx_BG093_Case4ClassTrial:
 	.incbin "graphics/striped_images/case4_class_trial.8bpp.striped"
 
-
 	.global gGfx_BG094_Case4LottasPhotoFar
 gGfx_BG094_Case4LottasPhotoFar:
 	.incbin "graphics/striped_images/case4_lottas_photo_far.4bpp.striped"
-
 
 	.global gGfx_BG095_Case4ClassTrialPhoenix
 gGfx_BG095_Case4ClassTrialPhoenix:
 	.incbin "graphics/striped_images/case4_class_trial_phoenix.8bpp.striped"
 
-
 	.global gGfx_BG096_Case4ClassTrialEdgeworth
 gGfx_BG096_Case4ClassTrialEdgeworth:
 	.incbin "graphics/striped_images/case4_class_trial_edgeworth.8bpp.striped"
-
 
 	.global gGfx_BG097_Case4ClassTrialLarry
 gGfx_BG097_Case4ClassTrialLarry:
 	.incbin "graphics/striped_images/case4_class_trial_larry.8bpp.striped"
 
-
 	.global gGfx_BG098_Case4YanniThreatening
 gGfx_BG098_Case4YanniThreatening:
 	.incbin "graphics/striped_images/case4_yanni_threatening.4bpp.striped"
-
 
 	.global gGfx_BG099_Case4ShootWaterFromBoat
 gGfx_BG099_Case4ShootWaterFromBoat:
 	.incbin "graphics/striped_images/case4_shoot_water_from_boat.4bpp.striped"
 
-
 	.global gGfx_BG100_Case4ElevatorSuffocating
 gGfx_BG100_Case4ElevatorSuffocating:
 	.incbin "graphics/striped_images/case4_elevator_suffocating.4bpp.striped"
-
 
 	.global gGfx_BG101_Case4ElevatorEdgeworthThrow
 gGfx_BG101_Case4ElevatorEdgeworthThrow:
 	.incbin "graphics/striped_images/case4_elevator_edgeworth_throw.4bpp.striped"
 
-
 	.global gGfx_BG102_Case4ElevatorVonKarmaShot
 gGfx_BG102_Case4ElevatorVonKarmaShot:
 	.incbin "graphics/striped_images/case4_elevator_vonkarma_shot.4bpp.striped"
-
 
 	.global gGfx_BG103_Case4ElevatorVonKarmaInDoor
 gGfx_BG103_Case4ElevatorVonKarmaInDoor:
 	.incbin "graphics/striped_images/case4_elevator_vonkarma_in_door.4bpp.striped"
 
-
 	.global gGfx_BG104_Case4TrainStationMayaLeaving
 gGfx_BG104_Case4TrainStationMayaLeaving:
 	.incbin "graphics/striped_images/case4_train_station_maya_leaving.8bpp.striped"
-
 
 	.global gGfx_BG105_TrialWon
 gGfx_BG105_TrialWon:
 	.incbin "graphics/striped_images/trial_won.8bpp.striped"
 
-
 	.global gGfx_BG106_Case4IntroLakeOneInBoat
 gGfx_BG106_Case4IntroLakeOneInBoat:
 	.incbin "graphics/striped_images/case4_intro_lake_one_in_boat.4bpp.striped"
-
 
 	.global gGfx_BG107_Case4IntroThreatenedToShoot
 gGfx_BG107_Case4IntroThreatenedToShoot:
 	.incbin "graphics/striped_images/case4_intro_threatened_to_shoot.4bpp.striped"
 
-
 	.global gGfx_BG108_Case4IntroEdgeworthPicksUpGun
 gGfx_BG108_Case4IntroEdgeworthPicksUpGun:
 	.incbin "graphics/striped_images/case4_intro_edgeworth_picks_gun_up.8bpp.striped"
-
 
 	.global gGfx_BG109_CapcomScreenBW
 gGfx_BG109_CapcomScreenBW:
 	.incbin "graphics/striped_images/capcom_screen_bw.4bpp.striped"
 
-
 	.global gGfx_BG110_DemoTitleScreen
 gGfx_BG110_DemoTitleScreen:
 	.incbin "graphics/striped_images/title_screen_demo.8bpp.striped"
-
 
 	.global gGfx_BG111_DemoComingSoon
 gGfx_BG111_DemoComingSoon:
@@ -1828,256 +1778,205 @@ gGfxCourtscroll03:
 gGfxPixAnimationChar01:
 	.incbin "graphics/animations/characters/animation01.pix"
 
-
 	.global gGfxSeqAnimationChar01
 gGfxSeqAnimationChar01:
 	.incbin "graphics/animations/characters/animation01.seq"
-
 
 	.global gGfxPixAnimationChar02
 gGfxPixAnimationChar02:
 	.incbin "graphics/animations/characters/animation02.pix"
 
-
 	.global gGfxSeqAnimationChar02
 gGfxSeqAnimationChar02:
 	.incbin "graphics/animations/characters/animation02.seq"
-
 
 	.global gGfxPixAnimationChar03
 gGfxPixAnimationChar03:
 	.incbin "graphics/animations/characters/animation03.pix"
 
-
 	.global gGfxSeqAnimationChar03
 gGfxSeqAnimationChar03:
 	.incbin "graphics/animations/characters/animation03.seq"
-
 
 	.global gGfxPixAnimationChar04
 gGfxPixAnimationChar04:
 	.incbin "graphics/animations/characters/animation04.pix"
 
-
 	.global gGfxSeqAnimationChar04
 gGfxSeqAnimationChar04:
 	.incbin "graphics/animations/characters/animation04.seq"
-
 
 	.global gGfxPixAnimationChar05
 gGfxPixAnimationChar05:
 	.incbin "graphics/animations/characters/animation05.pix"
 
-
 	.global gGfxSeqAnimationChar05
 gGfxSeqAnimationChar05:
 	.incbin "graphics/animations/characters/animation05.seq"
-
 
 	.global gGfxPixAnimationChar06
 gGfxPixAnimationChar06:
 	.incbin "graphics/animations/characters/animation06.pix"
 
-
 	.global gGfxSeqAnimationChar06
 gGfxSeqAnimationChar06:
 	.incbin "graphics/animations/characters/animation06.seq"
-
 
 	.global gGfxPixAnimationChar07
 gGfxPixAnimationChar07:
 	.incbin "graphics/animations/characters/animation07.pix"
 
-
 	.global gGfxSeqAnimationChar07
 gGfxSeqAnimationChar07:
 	.incbin "graphics/animations/characters/animation07.seq"
-
 
 	.global gGfxPixAnimationChar08
 gGfxPixAnimationChar08:
 	.incbin "graphics/animations/characters/animation08.pix"
 
-
 	.global gGfxSeqAnimationChar08
 gGfxSeqAnimationChar08:
 	.incbin "graphics/animations/characters/animation08.seq"
-
 
 	.global gGfxPixAnimationChar09
 gGfxPixAnimationChar09:
 	.incbin "graphics/animations/characters/animation09.pix"
 
-
 	.global gGfxSeqAnimationChar09
 gGfxSeqAnimationChar09:
 	.incbin "graphics/animations/characters/animation09.seq"
-
 
 	.global gGfxPixAnimationChar10
 gGfxPixAnimationChar10:
 	.incbin "graphics/animations/characters/animation10.pix"
 
-
 	.global gGfxSeqAnimationChar10
 gGfxSeqAnimationChar10:
 	.incbin "graphics/animations/characters/animation10.seq"
-
 
 	.global gGfxPixAnimationChar11
 gGfxPixAnimationChar11:
 	.incbin "graphics/animations/characters/animation11.pix"
 
-
 	.global gGfxSeqAnimationChar11
 gGfxSeqAnimationChar11:
 	.incbin "graphics/animations/characters/animation11.seq"
-
 
 	.global gGfxPixAnimationChar12
 gGfxPixAnimationChar12:
 	.incbin "graphics/animations/characters/animation12.pix"
 
-
 	.global gGfxSeqAnimationChar12
 gGfxSeqAnimationChar12:
 	.incbin "graphics/animations/characters/animation12.seq"
-
 
 	.global gGfxPixAnimationChar13
 gGfxPixAnimationChar13:
 	.incbin "graphics/animations/characters/animation13.pix"
 
-
 	.global gGfxSeqAnimationChar13
 gGfxSeqAnimationChar13:
 	.incbin "graphics/animations/characters/animation13.seq"
-
 
 	.global gGfxPixAnimationChar14
 gGfxPixAnimationChar14:
 	.incbin "graphics/animations/characters/animation14.pix"
 
-
 	.global gGfxSeqAnimationChar14
 gGfxSeqAnimationChar14:
 	.incbin "graphics/animations/characters/animation14.seq"
-
 
 	.global gGfxPixAnimationChar15
 gGfxPixAnimationChar15:
 	.incbin "graphics/animations/characters/animation15.pix"
 
-
 	.global gGfxSeqAnimationChar15
 gGfxSeqAnimationChar15:
 	.incbin "graphics/animations/characters/animation15.seq"
-
 
 	.global gGfxPixAnimationChar16
 gGfxPixAnimationChar16:
 	.incbin "graphics/animations/characters/animation16.pix"
 
-
 	.global gGfxSeqAnimationChar16
 gGfxSeqAnimationChar16:
 	.incbin "graphics/animations/characters/animation16.seq"
-
 
 	.global gGfxPixAnimationChar17
 gGfxPixAnimationChar17:
 	.incbin "graphics/animations/characters/animation17.pix"
 
-
 	.global gGfxSeqAnimationChar17
 gGfxSeqAnimationChar17:
 	.incbin "graphics/animations/characters/animation17.seq"
-
 
 	.global gGfxPixAnimationChar18
 gGfxPixAnimationChar18:
 	.incbin "graphics/animations/characters/animation18.pix"
 
-
 	.global gGfxSeqAnimationChar18
 gGfxSeqAnimationChar18:
 	.incbin "graphics/animations/characters/animation18.seq"
-
 
 	.global gGfxPixAnimationChar19
 gGfxPixAnimationChar19:
 	.incbin "graphics/animations/characters/animation19.pix"
 
-
 	.global gGfxSeqAnimationChar19
 gGfxSeqAnimationChar19:
 	.incbin "graphics/animations/characters/animation19.seq"
-
 
 	.global gGfxPixAnimationChar20
 gGfxPixAnimationChar20:
 	.incbin "graphics/animations/characters/animation20.pix"
 
-
 	.global gGfxSeqAnimationChar20
 gGfxSeqAnimationChar20:
 	.incbin "graphics/animations/characters/animation20.seq"
-
 
 	.global gGfxPixAnimationChar21
 gGfxPixAnimationChar21:
 	.incbin "graphics/animations/characters/animation21.pix"
 
-
 	.global gGfxSeqAnimationChar21
 gGfxSeqAnimationChar21:
 	.incbin "graphics/animations/characters/animation21.seq"
-
 
 	.global gGfxPixAnimationChar22
 gGfxPixAnimationChar22:
 	.incbin "graphics/animations/characters/animation22.pix"
 
-
 	.global gGfxSeqAnimationChar22
 gGfxSeqAnimationChar22:
 	.incbin "graphics/animations/characters/animation22.seq"
-
 
 	.global gGfxPixAnimationChar23
 gGfxPixAnimationChar23:
 	.incbin "graphics/animations/characters/animation23.pix"
 
-
 	.global gGfxSeqAnimationChar23
 gGfxSeqAnimationChar23:
 	.incbin "graphics/animations/characters/animation23.seq"
-
 
 	.global gGfxPixAnimationChar24
 gGfxPixAnimationChar24:
 	.incbin "graphics/animations/characters/animation24.pix"
 
-
 	.global gGfxSeqAnimationChar24
 gGfxSeqAnimationChar24:
 	.incbin "graphics/animations/characters/animation24.seq"
-
 
 	.global gGfxPixAnimationChar25
 gGfxPixAnimationChar25:
 	.incbin "graphics/animations/characters/animation25.pix"
 
-
 	.global gGfxSeqAnimationChar25
 gGfxSeqAnimationChar25:
 	.incbin "graphics/animations/characters/animation25.seq"
 
-
 	.global gGfxPixAnimationChar26
 gGfxPixAnimationChar26:
 	.incbin "graphics/animations/characters/animation26.pix"
-
 
 	.global gGfxSeqAnimationChar26
 gGfxSeqAnimationChar26:
@@ -2091,276 +1990,221 @@ gGfxSeqAnimationChar26:
 gGfxPixAnimationTileset01:
 	.incbin "graphics/animations/tileset01.pix"
 
-
 	.global gGfxSeqAnimation01
 gGfxSeqAnimation01:
 	.incbin "graphics/animations/animation01.seq"
-
 
 	.global gGfxSeqAnimation02
 gGfxSeqAnimation02:
 	.incbin "graphics/animations/animation02.seq"
 
-
 	.global gGfxSeqAnimation03
 gGfxSeqAnimation03:
 	.incbin "graphics/animations/animation03.seq"
-
 
 	.global gGfxSeqAnimation04
 gGfxSeqAnimation04:
 	.incbin "graphics/animations/animation04.seq"
 
-
 	.global gGfxSeqAnimation05
 gGfxSeqAnimation05:
 	.incbin "graphics/animations/animation05.seq"
-
 
 	.global gGfxSeqAnimation06
 gGfxSeqAnimation06:
 	.incbin "graphics/animations/animation06.seq"
 
-
 	.global gGfxPixAnimationTileset02
 gGfxPixAnimationTileset02:
 	.incbin "graphics/animations/tileset02.pix"
-
 
 	.global gGfxSeqAnimation07
 gGfxSeqAnimation07:
 	.incbin "graphics/animations/animation07.seq"
 
-
 	.global gGfxSeqAnimation08
 gGfxSeqAnimation08:
 	.incbin "graphics/animations/animation08.seq"
-
 
 	.global gGfxSeqAnimation09
 gGfxSeqAnimation09:
 	.incbin "graphics/animations/animation09.seq"
 
-
 	.global gGfxSeqAnimation10
 gGfxSeqAnimation10:
 	.incbin "graphics/animations/animation10.seq"
-
 
 	.global gGfxSeqAnimation11
 gGfxSeqAnimation11:
 	.incbin "graphics/animations/animation11.seq"
 
-
 	.global gGfxSeqAnimation12
 gGfxSeqAnimation12:
 	.incbin "graphics/animations/animation12.seq"
-
 
 	.global gGfxSeqAnimation13
 gGfxSeqAnimation13:
 	.incbin "graphics/animations/animation13.seq"
 
-
 	.global gGfxSeqAnimation14
 gGfxSeqAnimation14:
 	.incbin "graphics/animations/animation14.seq"
-
 
 	.global gGfxSeqAnimation15
 gGfxSeqAnimation15:
 	.incbin "graphics/animations/animation15.seq"
 
-
 	.global gGfxSeqAnimation16
 gGfxSeqAnimation16:
 	.incbin "graphics/animations/animation16.seq"
-
 
 	.global gGfxSeqAnimation17
 gGfxSeqAnimation17:
 	.incbin "graphics/animations/animation17.seq"
 
-
 	.global gGfxSeqAnimation18
 gGfxSeqAnimation18:
 	.incbin "graphics/animations/animation18.seq"
-
 
 	.global gGfxSeqAnimation19
 gGfxSeqAnimation19:
 	.incbin "graphics/animations/animation19.seq"
 
-
 	.global gGfxSeqAnimation20
 gGfxSeqAnimation20:
 	.incbin "graphics/animations/animation20.seq"
-
 
 	.global gGfxSeqAnimation21
 gGfxSeqAnimation21:
 	.incbin "graphics/animations/animation21.seq"
 
-
 	.global gGfxSeqAnimation22
 gGfxSeqAnimation22:
 	.incbin "graphics/animations/animation22.seq"
-
 
 	.global gGfxSeqAnimation23
 gGfxSeqAnimation23:
 	.incbin "graphics/animations/animation23.seq"
 
-
 	.global gGfxSeqAnimation24
 gGfxSeqAnimation24:
 	.incbin "graphics/animations/animation24.seq"
-
 
 	.global gGfxSeqAnimation25
 gGfxSeqAnimation25:
 	.incbin "graphics/animations/animation25.seq"
 
-
 	.global gGfxSeqAnimation26
 gGfxSeqAnimation26:
 	.incbin "graphics/animations/animation26.seq"
-
 
 	.global gGfxSeqAnimation27
 gGfxSeqAnimation27:
 	.incbin "graphics/animations/animation27.seq"
 
-
 	.global gGfxSeqAnimation28
 gGfxSeqAnimation28:
 	.incbin "graphics/animations/animation28.seq"
-
 
 	.global gGfxSeqAnimation29
 gGfxSeqAnimation29:
 	.incbin "graphics/animations/animation29.seq"
 
-
 	.global gGfxSeqAnimation30
 gGfxSeqAnimation30:
 	.incbin "graphics/animations/animation30.seq"
-
 
 	.global gGfxSeqAnimation31
 gGfxSeqAnimation31:
 	.incbin "graphics/animations/animation31.seq"
 
-
 	.global gGfxSeqAnimation32
 gGfxSeqAnimation32:
 	.incbin "graphics/animations/animation32.seq"
-
 
 	.global gGfxSeqAnimation33
 gGfxSeqAnimation33:
 	.incbin "graphics/animations/animation33.seq"
 
-
 	.global gGfxSeqAnimation34
 gGfxSeqAnimation34:
 	.incbin "graphics/animations/animation34.seq"
-
 
 	.global gGfxSeqAnimation35
 gGfxSeqAnimation35:
 	.incbin "graphics/animations/animation35.seq"
 
-
 	.global gGfxSeqAnimation36
 gGfxSeqAnimation36:
 	.incbin "graphics/animations/animation36.seq"
-
 
 	.global gGfxSeqAnimation37
 gGfxSeqAnimation37:
 	.incbin "graphics/animations/animation37.seq"
 
-
 	.global gGfxSeqAnimation38
 gGfxSeqAnimation38:
 	.incbin "graphics/animations/animation38.seq"
-
 
 	.global gGfxSeqAnimation39
 gGfxSeqAnimation39:
 	.incbin "graphics/animations/animation39.seq"
 
-
 	.global gGfxSeqAnimation40
 gGfxSeqAnimation40:
 	.incbin "graphics/animations/animation40.seq"
-
 
 	.global gGfxSeqAnimation41
 gGfxSeqAnimation41:
 	.incbin "graphics/animations/animation41.seq"
 
-
 	.global gGfxSeqAnimation42
 gGfxSeqAnimation42:
 	.incbin "graphics/animations/animation42.seq"
-
 
 	.global gGfxSeqAnimation43
 gGfxSeqAnimation43:
 	.incbin "graphics/animations/animation43.seq"
 
-
 	.global gGfxSeqAnimation44
 gGfxSeqAnimation44:
 	.incbin "graphics/animations/animation44.seq"
-
 
 	.global gGfxSeqAnimation45
 gGfxSeqAnimation45:
 	.incbin "graphics/animations/animation45.seq"
 
-
 	.global gGfxSeqAnimation46
 gGfxSeqAnimation46:
 	.incbin "graphics/animations/animation46.seq"
-
 
 	.global gGfxSeqAnimation47
 gGfxSeqAnimation47:
 	.incbin "graphics/animations/animation47.seq"
 
-
 	.global gGfxSeqAnimation48
 gGfxSeqAnimation48:
 	.incbin "graphics/animations/animation48.seq"
-
 
 	.global gGfxSeqAnimation49
 gGfxSeqAnimation49:
 	.incbin "graphics/animations/animation49.seq"
 
-
 	.global gGfxSeqAnimation50
 gGfxSeqAnimation50:
 	.incbin "graphics/animations/animation50.seq"
-
 
 	.global gGfxSeqAnimation51
 gGfxSeqAnimation51:
 	.incbin "graphics/animations/animation51.seq"
 
-
 	.global gGfxSeqAnimation52
 gGfxSeqAnimation52:
 	.incbin "graphics/animations/animation52.seq"
 
-
 	.global gGfxSeqAnimation53
 gGfxSeqAnimation53:
 	.incbin "graphics/animations/animation53.seq"
-
 
 	.global gGfxSeqAnimation54
 gGfxSeqAnimation54:
