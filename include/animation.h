@@ -32,7 +32,6 @@ struct AnimationInfo
 {
     /* +0x00 */ u16 animId;
     /* +0x02 */ u8 personId;
-    /* +0x03 */ u8 unk3; // padding?
     /* +0x04 */ s16 xOrigin;
     /* +0x06 */ s16 yOrigin;
     /* +0x08 */ u8 *volatile animFrameDataStartPtr; // !! THESE 4 POINTERS ARE VOLATILE TO MATCH MoveAnimationTilesToRam AND THAT COULD BE INCORRECT
@@ -76,7 +75,6 @@ struct AnimationBackupStruct
 {
     /* +0x00 */ u16 animId;
     /* +0x02 */ u8 personId;
-    /* +0x03 */ u8 unk3; // padding?
     /* +0x04 */ s16 xOrigin;
     /* +0x06 */ s16 yOrigin;
     /* +0x08 */ u8 * animFrameDataStartPtr;
@@ -95,7 +93,7 @@ struct PersonAnimationData
     /* +0x00 */ u8* gfxData;
     /* +0x04 */ u8* frameData;
     /* +0x08 */ u16 spriteCount;
-    /* +0x0A */ u16 unkA; // padding?
+    /* +0x0A */ u16 unusedA; // padding?
 };
 
 struct AnimationData
