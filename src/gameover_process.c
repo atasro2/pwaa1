@@ -36,10 +36,10 @@ void GameOverScreenProcess(struct Main *main)
         oam->attr0 = SPRITE_ATTR0(48, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
         oam->attr1 = SPRITE_ATTR1_NONAFFINE(DISPLAY_WIDTH+24, FALSE, FALSE, 3);
         oam->attr2 = SPRITE_ATTR2(0x1E0, 0, 5);
-        DmaCopy16(3, gUnknown_081911C0, VRAM+0x1400, 0x2E0);
-        DmaCopy16(3, gUnknown_08194500, PLTT+0x20, 0x20);
-        DmaCopy16(3, gUnknown_08192CA0, VRAM+0x13400, 0x1000);
-        DmaCopy16(3, gUnknown_08194560, PLTT+0x2A0, 0x20);
+        DmaCopy16(3, gGfxTrialGameOverDoors, VRAM+0x1400, 0x2E0);
+        DmaCopy16(3, gPalTrialGameOverDoors, PLTT+0x20, 0x20);
+        DmaCopy16(3, gGfxTrialGameOverText, VRAM+0x13400, 0x1000);
+        DmaCopy16(3, gPalTrialGameOverText, PLTT+0x2A0, 0x20);
         for(i = 0; i < 0x400; i++)
         {
             gBG2MapBuffer[i] = 0;

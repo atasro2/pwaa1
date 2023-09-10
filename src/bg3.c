@@ -607,12 +607,12 @@ void LoadCase3IntroBackgrounds()
     u32 * ptr;
     u32 stripeSize;
     u32 i, j;
-    bgPtr = gGfx_BG069;
+    bgPtr = gGfx_BG069_SteelSamuraiNight;
     bgPtr+=0x28;
     DmaCopy16(3, bgPtr, PLTT+0x40, 0x20);
     ioRegs->lcd_bg3cnt &= ~BGCNT_256COLOR;
     *(u16*)&REG_BG3CNT &= ~BGCNT_256COLOR; // volatile causes code diff lol
-    bgPtr = gGfx_BG074;
+    bgPtr = gGfx_BG074_Case3IntroGrass;
     ptr = bgPtr;
     stripeSize = 0xF00;
     stripeSize /= 2;
@@ -626,10 +626,10 @@ void LoadCase3IntroBackgrounds()
     for(i = 2; i < 11; i++)
     {
         main->bgStripeDestPtr += stripeSize;
-        bgPtr = gGfx_BG074 + main->bgStripeOffsets[i]; 
+        bgPtr = gGfx_BG074_Case3IntroGrass + main->bgStripeOffsets[i]; 
         LZ77UnCompWram(bgPtr, main->bgStripeDestPtr);
     }
-    bgPtr = gGfx_BG074;
+    bgPtr = gGfx_BG074_Case3IntroGrass;
     bgPtr += 0x28;
     DmaCopy16(3, bgPtr, PLTT+0x60, 0x20);
     gIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(2) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP;
@@ -703,7 +703,7 @@ void CopyBGDataToVram(u32 bgId)
         for(i = 0; i < 20; i++, j++)
             gBG3MapBuffer[i * 0x20 + 0x3F] = j | 0x2000;
         main->isBGScrolling = TRUE;
-        DmaCopy16(3, gUnknown_08427608, eBGDecompBuffer+0x4B00, 0x500);
+        DmaCopy16(3, gGfx_SpeedlinesFirstAndLastColumns, eBGDecompBuffer+0x4B00, 0x500);
     }
     if(tempBgCtrl & 0x8000)
     {
@@ -739,10 +739,10 @@ void CopyBGDataToVram(u32 bgId)
         DmaCopy16(3, bgData, BG_PLTT+0x40, 0x20);
         if(gBackgroundTable[bgId].controlBits & BG_MODE_SPECIAL_SPEEDLINE)
         {
-            src = gGfx_BG064;
+            src = gPal_BG064_BustupPhoenix;
             dst = (void*)BG_PLTT+0x1C0;
             DmaCopy16(3, src, dst, 0x20);
-            src = gGfx_BG065;
+            src = gPal_BG065_BustupEdgeworth;
             dst = (void*)BG_PLTT+0x1E0;
             DmaCopy16(3, src, dst, 0x20);
             src = eBGDecompBuffer + 0x4B00;
