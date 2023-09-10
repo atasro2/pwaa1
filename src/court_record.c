@@ -1187,7 +1187,7 @@ void CourtRecordDetailSubMenu(struct Main * main, struct CourtRecord * courtReco
             main->Bg256_scroll_y = gSaveDataBuffer.main.Bg256_scroll_y;
             main->Bg256_pos_x = gSaveDataBuffer.main.Bg256_pos_x;
             main->Bg256_pos_y = gSaveDataBuffer.main.Bg256_pos_y;
-            main->unused38 = gSaveDataBuffer.main.unused38;
+            main->unk38 = gSaveDataBuffer.main.unk38;
             main->Bg256_dir = gSaveDataBuffer.main.Bg256_dir;
             main->horizontolBGScrollSpeed = gSaveDataBuffer.main.horizontolBGScrollSpeed;
             main->verticalBGScrollSpeed = gSaveDataBuffer.main.verticalBGScrollSpeed;
