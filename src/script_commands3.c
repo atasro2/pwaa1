@@ -8,12 +8,13 @@
 #include "graphics.h"
 #include "constants/script.h"
 #include "constants/process.h"
+#include "constants/oam_allocations.h"
 
 bool32 Command40(struct ScriptContext * scriptCtx)
 {
     scriptCtx->scriptPtr++;
     scriptCtx->flags &= ~SCRIPT_SPOTSELECT_SELECTION_MADE;
-    gOamObjects[88].attr0 = SPRITE_ATTR0_CLEAR;
+    gOamObjects[OAM_IDX_POINTER].attr0 = SPRITE_ATTR0_CLEAR;
     return 0;
 }
 
@@ -23,8 +24,8 @@ bool32 Command41(struct ScriptContext * scriptCtx)
     struct OamAttrs *oam;
     scriptCtx->scriptPtr++;
     // this has to be outside of the loop, else the load order breaks...
-    oam = &gOamObjects[49];
-    for(i = 0; i < 4; i++)
+    oam = &gOamObjects[OAM_IDX_INVESTIGATION_ACTIONS];
+    for(i = 0; i < OAM_COUNT_INVESTIGATION_ACTIONS; i++)
     {
         oam->attr0 = SPRITE_ATTR0((-32 & 255), ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
 	// 64x32 sprite size
@@ -72,8 +73,8 @@ bool32 Command43(struct ScriptContext * scriptCtx)
     {
         gTestimony.healthPointX = 0xF0;
         gMain.gameStateFlags &= ~0x400;
-        oam = &gOamObjects[35];
-        for(i = 0; i < 5; i++)
+        oam = &gOamObjects[OAM_IDX_HEALTH];
+        for(i = 0; i < MAX_HEALTH; i++)
 	    {
             oam->attr0 = SPRITE_ATTR0_CLEAR;
             oam++;
@@ -87,7 +88,7 @@ bool32 Command44(struct ScriptContext * scriptCtx)
 {
     u32 i;
     struct OamAttrs *oam;
-    oam = &gOamObjects[49];
+    oam = &gOamObjects[OAM_IDX_VERDICT_KANJI];
     scriptCtx->scriptPtr++;
     gMain.affineScale = 0x280;
     BACKUP_PROCESS();

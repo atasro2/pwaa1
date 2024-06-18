@@ -8,6 +8,7 @@
 #include "constants/script.h"
 #include "constants/songs.h"
 #include "constants/process.h"
+#include "constants/oam_allocations.h"
 
 void EpisodeInit(struct Main * main)
 {
@@ -30,12 +31,12 @@ void EpisodeLoadGfx(struct Main * main)
     CopyBGDataToVram(0x43);
     gMain.animationFlags &= ~3;
     oam = gOamObjects;
-    for(i = 0; i < ARRAY_COUNT(gOamObjects); i++)
+    for(i = 0; i < MAX_OAM_OBJ_COUNT; i++)
         oam++->attr0 = SPRITE_ATTR0_CLEAR;
     gIORegisters.lcd_dispcnt = DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG1_ON | DISPCNT_BG3_ON | DISPCNT_OBJ_ON; 
     main->tilemapUpdateBits = 0xA;
     SetTextboxSize(2);
-    oam = &gOamObjects[38];
+    oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
     for(i = 0; i < 4; i++)
     {
         for(j = 0; j < 2; j++)
@@ -61,7 +62,7 @@ void EpisodeSlideinEpisodes1(struct Main * main)
     
     main->xPosCounter += 6;
     main->xPosCounter &= 0x1FF;
-    oam = &gOamObjects[38];
+    oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
     for(i = 0; i < 4; i++)
     {
         for(j = 0; j < 2; j++)
@@ -75,7 +76,7 @@ void EpisodeSlideinEpisodes1(struct Main * main)
     }
     if(main->xPosCounter >= 152)
     {
-        oam = &gOamObjects[38];
+        oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
         oam->attr1 = SPRITE_ATTR1_AFFINE(8, 0, 3);
         oam++;
         oam->attr1 = SPRITE_ATTR1_AFFINE(72, 0, 3);
@@ -90,7 +91,7 @@ void EpisodeSlideinEpisodes2(struct Main * main)
     
     main->xPosCounter += 6;
     main->xPosCounter &= 0x1FF;
-    oam = &gOamObjects[40];
+    oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON2];
     for(i = 1; i < 4; i++)
     {
         for(j = 0; j < 2; j++)
@@ -104,7 +105,7 @@ void EpisodeSlideinEpisodes2(struct Main * main)
     }
     if(main->xPosCounter >= 184)
     {
-        oam = &gOamObjects[40];
+        oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON2];
         oam->attr1 = SPRITE_ATTR1_AFFINE(40, 0, 3);
         oam++;
         oam->attr1 = SPRITE_ATTR1_AFFINE(104, 0, 3);
@@ -119,7 +120,7 @@ void EpisodeSlideinEpisodes3(struct Main * main)
     
     main->xPosCounter += 6;
     main->xPosCounter &= 0x1FF;
-    oam = &gOamObjects[42];
+    oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON3];
     for(i = 2; i < 4; i++)
     {
         for(j = 0; j < 2; j++)
@@ -133,7 +134,7 @@ void EpisodeSlideinEpisodes3(struct Main * main)
     }
     if(main->xPosCounter >= 216)
     {
-        oam = &gOamObjects[42];
+        oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON3];
         oam->attr1 = SPRITE_ATTR1_AFFINE(72, 0, 3);
         oam++;
         oam->attr1 = SPRITE_ATTR1_AFFINE(136, 0, 3);
@@ -181,7 +182,7 @@ void EpisodeClearedProcess(struct Main * main)
         case 5:
             main->xPosCounter += 6;
             main->xPosCounter &= 0x1FF;
-            oam = &gOamObjects[44];
+            oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON4];
             for(i = 3; i < 4; i++)
             {
                 for(j = 0; j < 2; j++)
@@ -194,7 +195,7 @@ void EpisodeClearedProcess(struct Main * main)
             }
             if(main->xPosCounter >= 248)
             {
-                oam = &gOamObjects[44];
+                oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON4];
                 oam->attr1 = SPRITE_ATTR1_AFFINE(104, 0, 3);
                 oam++;
                 oam->attr1 = SPRITE_ATTR1_AFFINE(168, 0, 3);
@@ -205,7 +206,7 @@ void EpisodeClearedProcess(struct Main * main)
             break;
         case 6:
             main->affineScale -= 0x10;
-            oam = &gOamObjects[38];
+            oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
             oam += main->process[GAME_PROCESS_VAR2]*2;
             if(main->affineScale != 0)
             {
@@ -235,7 +236,7 @@ void EpisodeClearedProcess(struct Main * main)
             main->process[GAME_PROCESS_STATE]++;
             break;
         case 7:
-            oam = &gOamObjects[38];
+            oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
             oam += main->process[GAME_PROCESS_VAR2]*2;
             main->affineScale += 0x10;
             if(main->affineScale >= 0x100)
@@ -305,7 +306,7 @@ void SelectEpisodeProcess(struct Main * main)
             if(main->saveContinueFlags & 0xF0)
                 main->caseEnabledFlags = gSaveDataBuffer.main.caseEnabledFlags;
             main->selectedButton = main->process[GAME_PROCESS_VAR2];
-            oam = &gOamObjects[38];
+            oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
             for(i = 0; i < 4; i++)
             {
                 buttonEnabled = main->caseEnabledFlags >> i;
@@ -333,7 +334,7 @@ void SelectEpisodeProcess(struct Main * main)
         case 5: // _080095FC
             main->xPosCounter += 6;
             main->xPosCounter &= 0x1FF;
-            oam = &gOamObjects[44];
+            oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON4];
             for(i = 3; i < 4; i++)
             {
                 for(j = 0; j < 2; j++)
@@ -347,7 +348,7 @@ void SelectEpisodeProcess(struct Main * main)
             }
             if(main->xPosCounter >= 248)
             {
-                oam = &gOamObjects[44];
+                oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON4];
                 oam->attr1 = 0xC068;
                 oam++;
                 oam->attr1 = 0xC0A8;
@@ -417,7 +418,7 @@ void SelectEpisodeProcess(struct Main * main)
                     main->process[GAME_PROCESS_STATE] = 12;
                 }
             }
-            oam = &gOamObjects[38];
+            oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
             for(i = 0; i < 4; i++)
             {
                 if(i == main->selectedButton)
@@ -455,7 +456,7 @@ void SelectEpisodeProcess(struct Main * main)
                 main->process[GAME_PROCESS_VAR2] = 0;   
                 main->process[GAME_PROCESS_VAR1] = 0;
             }
-            oam = &gOamObjects[38];
+            oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
             for(i = 0; i < 4; i++)
             {
                 for(j = 0; j < 2; j++)
@@ -499,7 +500,7 @@ void SelectEpisodeProcess(struct Main * main)
                 main->xPosCounter++;
             break;
         case 8: // _080098D8
-            oam = &gOamObjects[38];
+            oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
             for(i = 0; i < 4; i++)
             {
                 for(j = 0; j < 2; j++)
@@ -548,7 +549,7 @@ void SelectEpisodeProcess(struct Main * main)
                     main->process[GAME_PROCESS_VAR2] = 0;
                 main->process[GAME_PROCESS_VAR2]++;
             } 
-            oam = &gOamObjects[38];
+            oam = &gOamObjects[OAM_IDX_GENERIC_TEXT_ICON];
             for(i = 0; i < 4; i++)
             {
                 u32 attr2_2 = 0xA1E0;
@@ -617,7 +618,7 @@ void ContinueSaveProcess(struct Main * main) {
                 CopyBGDataToVram(0x43);
                 main->animationFlags &= ~3;
                 oam = gOamObjects;
-                for (i = 0; i < 128; ++i) {
+                for (i = 0; i < MAX_OAM_OBJ_COUNT; ++i) {
                     oam->attr0 = 0x200;
                     ++oam;
                 }
@@ -679,7 +680,7 @@ void ContinueSaveProcess(struct Main * main) {
             }
             // 9CBC
             if (main->saveContinueFlags & 1) {
-                oam = gOamObjects + 38;
+                oam = gOamObjects + OAM_IDX_GENERIC_TEXT_ICON;
                 // sl = r3 = 0xA1A0
                 // sb = r4 = 0xC038
                 for (i = 0; i < 2; ++i) {
@@ -696,7 +697,7 @@ void ContinueSaveProcess(struct Main * main) {
                     }
                 }
             } else /* 9D28 */ {
-                oam = gOamObjects + 38;
+                oam = gOamObjects + OAM_IDX_GENERIC_TEXT_ICON;
                 // 9D32
                 for (j = 0; j < 2; ++j) {
                     oam->attr0 = 0x4462;
@@ -830,7 +831,7 @@ void ContinueSaveProcess(struct Main * main) {
                     main->process[GAME_PROCESS_STATE] = 5;
                 }
                 main->process[GAME_PROCESS_VAR1] = 0;
-                oam = gOamObjects + 38;
+                oam = gOamObjects + OAM_IDX_GENERIC_TEXT_ICON;
                 if (main->selectedButton == 0) {
                     // A222
                     oam += 2;
@@ -843,7 +844,7 @@ void ContinueSaveProcess(struct Main * main) {
                 StartHardwareBlend(2, 0, 1, 0x1F);
                 break;
             } else /* A244 */ if (main->saveContinueFlags & 1) {
-                oam = gOamObjects + 38;
+                oam = gOamObjects + OAM_IDX_GENERIC_TEXT_ICON;
                 for (i = 0; i < 2; ++i) {
                     // A252
                     // r0 = i * 32
@@ -870,7 +871,7 @@ void ContinueSaveProcess(struct Main * main) {
                 }
                 // goto A2E0
             } else {
-                oam = gOamObjects + 38;
+                oam = gOamObjects + OAM_IDX_GENERIC_TEXT_ICON;
                 for (j = 0; j < 2; ++j) {
                     // A278
                     oam->attr0 = 0x4062;

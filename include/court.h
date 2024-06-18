@@ -1,6 +1,9 @@
 #ifndef GUARD_COURT_H
 #define GUARD_COURT_H
 
+
+#define MAX_HEALTH 5
+
 struct TestimonyStruct
 {
     /* +0x00 */ u8 displayState; // unity AA4: move_status_flag

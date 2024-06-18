@@ -12,6 +12,7 @@
 #include "constants/songs.h"
 #include "constants/persons.h"
 #include "constants/process.h"
+#include "constants/oam_allocations.h"
 
 void SetCurrentEpisodeBit()
 {
@@ -267,7 +268,7 @@ void TestimonyMain(struct Main * main)
     gTestimony.timer++;
     if(gTestimony.timer > 100)
         gTestimony.timer = 0;
-    oam = &gOamObjects[49];
+    oam = &gOamObjects[OAM_IDX_ITESTIMONY_INDICATOR];
     if(gTestimony.timer <= 80)
     {
         oam->attr0 = SPRITE_ATTR0(0, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
@@ -280,7 +281,7 @@ void TestimonyMain(struct Main * main)
 
 void TestimonyExit(struct Main * main)
 {
-    struct OamAttrs * oam = &gOamObjects[49];
+    struct OamAttrs * oam = &gOamObjects[OAM_IDX_ITESTIMONY_INDICATOR];
     oam->attr0 = SPRITE_ATTR0_CLEAR;
     SET_PROCESS_PTR(COURT_PROCESS, COURT_MAIN, 0, 0, main);
 }
@@ -461,7 +462,7 @@ void QuestioningMain(struct Main * main)
         UpdateHealthSprites(main, &gTestimony);
     }
     UpdateCourtRecordArrows(&gCourtRecord);
-    oam = gOamObjects;
+    oam = gOamObjects + OAM_IDX_LR_ARROW;
     if(gScriptContext.flags & SCRIPT_LOOP)
     {
         if(gScriptContext.currentSection-1 != main->testimonyBeginningSection)
@@ -594,7 +595,7 @@ void VerdictProcess(struct Main * main)
     u32 i;
     s16 temp;
     u32 temp2;
-    struct OamAttrs *oam = &gOamObjects[49];
+    struct OamAttrs *oam = &gOamObjects[OAM_IDX_VERDICT_KANJI];
     switch(main->process[GAME_PROCESS_STATE]) {
         case VERDICT_SHRINK_KANJI1: { // B088
             gMain.affineScale -= 0x10; // 1/16 steps 
@@ -701,8 +702,8 @@ void VerdictProcess(struct Main * main)
             break;
         }
         case VERDICT_DRAW_CONFETTI: { // B404
-            oam = &gOamObjects[57];
-            for(i = 0; i < 0x1F; i++) 
+            oam = &gOamObjects[OAM_IDX_CONFETTI];
+            for(i = 0; i < OAM_COUNT_CONFETTI; i++) 
             {
                 temp2 = Random();
                 temp2 += i * 32;
@@ -722,10 +723,10 @@ void VerdictProcess(struct Main * main)
             break;
         }
         case VERDICT_ANIMATE_CONFETTI: { // B460
-            oam = &gOamObjects[57];
+            oam = &gOamObjects[OAM_IDX_CONFETTI];
             if(main->process[GAME_PROCESS_VAR1]++ < 240)
             {
-                for(i = 0; i < 0x1F; i++)
+                for(i = 0; i < OAM_COUNT_CONFETTI; i++)
                 {
                     
                     u16 attr0, attr1;
@@ -748,7 +749,7 @@ void VerdictProcess(struct Main * main)
             }
             else
             {
-                for(i = 0; i < 0x1F; i++)
+                for(i = 0; i < OAM_COUNT_CONFETTI; i++)
                 {
                     oam->attr0 = SPRITE_ATTR0_CLEAR;
                     oam++;
@@ -770,7 +771,7 @@ void UpdateQuestioningMenuSprites(struct Main * main, struct TestimonyStruct * t
     struct OamAttrs * oam;
     if(gScriptContext.holdItSection == 0 || unk2 == 0)
     {
-        oam = &gOamObjects[53];
+        oam = &gOamObjects[OAM_IDX_BUTTON_PROMPTS];
         oam->attr0 = SPRITE_ATTR0_CLEAR;
         oam++;
         oam->attr0 = SPRITE_ATTR0_CLEAR;
@@ -778,8 +779,8 @@ void UpdateQuestioningMenuSprites(struct Main * main, struct TestimonyStruct * t
         oam->attr0 = SPRITE_ATTR0_CLEAR;
         oam++;
         oam->attr0 = SPRITE_ATTR0_CLEAR;
-        oam = &gOamObjects[35];
-        for(i = 0; i < 5; i++)
+        oam = &gOamObjects[OAM_IDX_HEALTH];
+        for(i = 0; i < MAX_HEALTH; i++)
         {
             oam->attr0 = SPRITE_ATTR0_CLEAR;
             oam++;
@@ -812,7 +813,7 @@ void UpdateQuestioningMenuSprites(struct Main * main, struct TestimonyStruct * t
         if(testimony->healthPointX > 160)
             testimony->healthPointX -= 4;
     }
-    oam = &gOamObjects[53];
+    oam = &gOamObjects[OAM_IDX_BUTTON_PROMPTS];
     if(gScriptContext.holdItSection < 0x80)
     {
         oam->attr0 = SPRITE_ATTR0_CLEAR;
@@ -851,18 +852,18 @@ void UpdateQuestioningMenuSprites(struct Main * main, struct TestimonyStruct * t
 
 void UpdateHealthSprites(struct Main * main, struct TestimonyStruct * testimony) // rest_disp
 {
-    struct OamAttrs * oam = &gOamObjects[35];
+    struct OamAttrs * oam = &gOamObjects[OAM_IDX_HEALTH];
     u32 i;
-    for(i = 0; i < 5; i++)
+    for(i = 0; i < MAX_HEALTH; i++)
     {
-        if(main->previousHealth != 0xFF && (i == 5-main->previousHealth))
+        if(main->previousHealth != 0xFF && (i == MAX_HEALTH-main->previousHealth))
         {
             s32 scale = fix_inverse(0x200);
             gOamObjects[0].attr3 = fix_mul(0x100, scale);
             gOamObjects[1].attr3 = fix_mul(0, scale);
             gOamObjects[2].attr3 = fix_mul(0, scale);
             gOamObjects[3].attr3 = fix_mul(0x100, scale);
-            main->damageFrameTimer++; // doing pre increment in the if here doesn't match, hilarious
+            main->damageFrameTimer++;
             if(main->damageFrameTimer > 2)
             {
                 main->damageFrameTimer = 0;
@@ -890,7 +891,7 @@ void UpdateHealthSprites(struct Main * main, struct TestimonyStruct * testimony)
                 oam->attr0 = SPRITE_ATTR0_CLEAR;
             oam->attr2 = SPRITE_ATTR2(0x1B8, 2, 3);
         }
-        else if(i >= 5-main->health)
+        else if(i >= MAX_HEALTH-main->health)
         {
             oam->attr0 = SPRITE_ATTR0(16, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
             oam->attr1 = SPRITE_ATTR1_NONAFFINE(0, FALSE, FALSE, 1) + testimony->healthPointX + i * 0x10;
