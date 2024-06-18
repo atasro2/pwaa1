@@ -94,15 +94,15 @@ bool32 Command44(struct ScriptContext * scriptCtx)
     BACKUP_PROCESS();
     if(*scriptCtx->scriptPtr) 
     {
-        DmaCopy16(3, gUnknown_08191CA0, OBJ_VRAM0+0x3400, 0x1000);
-        DmaCopy16(3, gUnknown_08194520, OBJ_PLTT+0xA0, 0x20);
+        DmaCopy16(3, gGfxTrialGuilty1, OBJ_VRAM0+0x3400, 0x1000);
+        DmaCopy16(3, gPalTrialGuilty, OBJ_PLTT+0xA0, 0x20);
         SET_PROCESS(VERDICT_PROCESS,0,0,0);
     }
     else 
     {
-        DmaCopy16(3, gUnknown_081914A0, OBJ_VRAM0+0x3400, 0x800);
-        DmaCopy16(3, gUnknown_081924A0, OBJ_VRAM0+0x3C00, 0x800);
-        DmaCopy16(3, gUnknown_08194540, OBJ_PLTT+0xA0, 0x20);
+        DmaCopy16(3, gGfxTrialNotGuilty1, OBJ_VRAM0+0x3400, 0x800);
+        DmaCopy16(3, gGfxTrialGuiltyNotGuilty2, OBJ_VRAM0+0x3C00, 0x800);
+        DmaCopy16(3, gPalTrialNotGuilty, OBJ_PLTT+0xA0, 0x20);
         SET_PROCESS(VERDICT_PROCESS,0,0,1);
     }
     scriptCtx->scriptPtr++;
@@ -123,14 +123,14 @@ bool32 Command46(struct ScriptContext * scriptCtx)
     if(*scriptCtx->scriptPtr) 
     {
         gMain.horizontolBGScrollSpeed = -0xE;
-        r6 = gGfx_BG065;
-        r3 = (u16 *)gUnknown_08362544;
+        r6 = gPal_BG065_BustupEdgeworth;
+        r3 = (u16 *)gMap_BG065_BustupEdgeworth;
     }
     else 
     {
         gMain.horizontolBGScrollSpeed = 0xE;
-        r6 = gGfx_BG064;
-        r3 = (u16 *)gUnknown_08360854;
+        r6 = gPal_BG064_BustupPhoenix;
+        r3 = (u16 *)gMap_BG064_BustupPhoenix;
     }
     for(i = 0; i < 20; i++) 
     {

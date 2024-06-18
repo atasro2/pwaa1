@@ -68,14 +68,14 @@ void InvestigationInit(struct Main * main, struct InvestigationStruct * investig
     ioRegs->lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
     ioRegs->lcd_bg3cnt = BGCNT_PRIORITY(3) | BGCNT_CHARBASE(1) | BGCNT_SCREENBASE(31) | BGCNT_MOSAIC | BGCNT_256COLOR | BGCNT_WRAP | BGCNT_TXT256x256;
     DmaCopy16(3, gUnusedAsciiCharSet, VRAM + 0x3800, 0x800);
-    DmaCopy16(3, gUnknown_08186540, VRAM, 0x1000);
+    DmaCopy16(3, gGfxSaveGameTiles, VRAM, 0x1000);
     DmaCopy16(3, gGfx4bppInvestigationActions, OBJ_VRAM0 + 0x2000, 0x1000);
-    DmaCopy16(3, gUnknown_08194200, OBJ_PLTT+0xA0, 0x40);
+    DmaCopy16(3, gPalActionButtons, OBJ_PLTT+0xA0, 0x40);
     DmaCopy16(3, gGfx4bppInvestigationScrollButton, OBJ_VRAM0 + 0x3000, 0x200);
-    DmaCopy16(3, gUnknown_08194260, OBJ_PLTT+0xE0, 0x20);
-    DmaCopy16(3, gUnknown_08190AC0, OBJ_VRAM0 + 0x3200, 0x200);
-    DmaCopy16(3, gUnknown_081942C0, OBJ_PLTT+0x100, 0x20);
-    DmaCopy16(3, gGfxPalChoiceSelected, OBJ_PLTT+0x120, 0x40);
+    DmaCopy16(3, gPalInvestigationScrollPrompt, OBJ_PLTT+0xE0, 0x20);
+    DmaCopy16(3, gGfxInvestigationExamineCursor, OBJ_VRAM0 + 0x3200, 0x200);
+    DmaCopy16(3, gPalInvestigationExamineCursors, OBJ_PLTT+0x100, 0x20);
+    DmaCopy16(3, gPalChoiceSelected, OBJ_PLTT+0x120, 0x40);
     oam = &gOamObjects[OAM_IDX_INVESTIGATION_ACTIONS];
     for(i = 0; i < OAM_COUNT_INVESTIGATION_ACTIONS; i++)
     {
@@ -245,7 +245,7 @@ void InvestigationMain(struct Main * main, struct InvestigationStruct * investig
             StartAnimationBlend(0xC, 1);
             investigation->pointerColorCounter = 0;
             investigation->pointerColor = 0;
-            DmaCopy16(3, gUnknown_081942C0, OBJ_PLTT+0x100, 0x20);
+            DmaCopy16(3, gPalInvestigationExamineCursors, OBJ_PLTT+0x100, 0x20);
         }
         main->process[GAME_PROCESS_STATE] = INVESTIGATION_INSPECT + investigation->selectedAction;
         main->process[GAME_PROCESS_VAR2] = 0;
@@ -548,7 +548,7 @@ void InvestigationInspect(struct Main * main, struct InvestigationStruct * inves
                     investigation->pointerColorCounter = 0;
                     investigation->pointerColor += 1;
                     investigation->pointerColor &= 0xF;
-                    DmaCopy16(3, gUnknown_081942C0+investigation->pointerColor*32, OBJ_PLTT+0x100, 0x20);
+                    DmaCopy16(3, gPalInvestigationExamineCursors+investigation->pointerColor*32, OBJ_PLTT+0x100, 0x20);
                 }
                 break;
             case 2:
@@ -600,7 +600,7 @@ void InvestigationMove(struct Main * main, struct InvestigationStruct * investig
                 {
                     investigation->activeOptions[i] = TRUE;
                     temp = (*moveLocations)*0x800;
-                    temp += (u32)gUnknown_081FD96C;
+                    temp += (u32)gGfxLocationChoices;
                     DmaCopy16(3, temp, vram, 0x800);
                     for(j = 0; j < 2; j++)
                     {
@@ -809,7 +809,7 @@ void InvestigationMove(struct Main * main, struct InvestigationStruct * investig
                 {
                     investigation->activeOptions[i] = TRUE;
                     temp = *moveLocations*0x800; //TODO: label vs value?
-                    temp += (u32)gUnknown_081FD96C;
+                    temp += (u32)gGfxLocationChoices;
                     DmaCopy16(3, temp, vram, 0x800);
                     for(j = 0; j < 2; j++)
                     {
@@ -893,7 +893,7 @@ void InvestigationTalk(struct Main * main, struct InvestigationStruct * investig
                 {
                     investigation->activeOptions[i] = TRUE;
                     temp = (*icons) * 0x800;
-                    temp += (uintptr_t)gUnknown_0820816C;
+                    temp += (uintptr_t)gGfxTalkChoices;
                     DmaCopy16(3, temp, vram, 0x800);
                     for(j = 0; j < 2; j++)
                     {
@@ -914,8 +914,8 @@ void InvestigationTalk(struct Main * main, struct InvestigationStruct * investig
                 }
                 icons++;
             }
-            DmaCopy16(3, gUnknown_08190FC0, OBJ_VRAM0+0x5400, 0x200);
-            DmaCopy16(3, gUnknown_081944E0, PLTT+0x360, 0x20);
+            DmaCopy16(3, gGfxInvestigationCheckmark, OBJ_VRAM0+0x5400, 0x200);
+            DmaCopy16(3, gPalInvestigationCheckmark, PLTT+0x360, 0x20);
             investigation->selectedOption = 0;
             main->process[GAME_PROCESS_VAR1]++;
             main->process[GAME_PROCESS_VAR2] = 0;
@@ -952,8 +952,8 @@ void InvestigationTalk(struct Main * main, struct InvestigationStruct * investig
         }
         case 3:
         {
-            DmaCopy16(3, gUnknown_08190FC0, OBJ_VRAM0+0x5400, 0x200);
-            DmaCopy16(3, gUnknown_081944E0, OBJ_PLTT+0x160, 0x20);
+            DmaCopy16(3, gGfxInvestigationCheckmark, OBJ_VRAM0+0x5400, 0x200);
+            DmaCopy16(3, gPalInvestigationCheckmark, OBJ_PLTT+0x160, 0x20);
             for(talkData = gTalkData; talkData->roomId != 0xFF; talkData++)
             {
                 if(main->currentRoomId == talkData->roomId
@@ -1209,7 +1209,7 @@ void InvestigationTalk(struct Main * main, struct InvestigationStruct * investig
                     {
                         investigation->activeOptions[i] = TRUE;
                         temp = (*icons) * 0x800;
-                        temp += (uintptr_t)gUnknown_0820816C;
+                        temp += (uintptr_t)gGfxTalkChoices;
                         DmaCopy16(3, temp, vram, 0x800);
                         for(j = 0; j < 2; j++)
                         {
@@ -1277,7 +1277,7 @@ void InvestigationTalk(struct Main * main, struct InvestigationStruct * investig
                 {
                     investigation->activeOptions[i] = TRUE;
                     temp = (*icons) * 0x800;
-                    temp += (uintptr_t)gUnknown_0820816C;
+                    temp += (uintptr_t)gGfxTalkChoices;
                     DmaCopy16(3, temp, vram, 0x800);
                     for(j = 0; j < 2; j++)
                     {
@@ -1541,7 +1541,7 @@ void LoadLocationChoiceGraphics(void)
         destination += i*0x800;
         if(*roomptr != 0xFF)
 	    {
-            src = gUnknown_081FD96C+*roomptr*0x800;
+            src = gGfxLocationChoices+*roomptr*0x800;
             DmaCopy16(3, src, destination, 0x800);
         }
         roomptr++;
@@ -1572,11 +1572,11 @@ void LoadTalkChoiceGraphics(void)
         destination += i*0x800;
         if(*icons != 0xFF)
 	    {
-            src = gUnknown_0820816C + *icons*0x800;
+            src = gGfxTalkChoices + *icons*0x800;
             DmaCopy16(3, src, destination, 0x800);
         }
         icons++;
     }
-    DmaCopy16(3, gUnknown_08190FC0, (void *)VRAM+0x15400, 0x200);
-    DmaCopy16(3, gUnknown_081944E0, (void *)PLTT+0x360, 0x20);
+    DmaCopy16(3, gGfxInvestigationCheckmark, (void *)VRAM+0x15400, 0x200);
+    DmaCopy16(3, gPalInvestigationCheckmark, (void *)PLTT+0x360, 0x20);
 }

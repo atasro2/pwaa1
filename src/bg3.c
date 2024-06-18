@@ -67,14 +67,9 @@ void bg256_right_scroll_end(struct Main * main, u32 sp0) // holy shit my braince
     for(i = 1; i < 21; i++)
     {
         void * ptr;
-        u16 * mapbuffer;
-        u32 size;
-        mapbuffer = gBG3MapBuffer;
-        ptr = mapbuffer;
-        ptr += i*64;
-        size = 2;
-        DmaCopy16(3, ptr, &mapbuffer[i*32+31], size); // dear capcom dev who wrote a dma copy with size of 2 here, i am sincerely sorry but fuck you
-        ptr = (void*)BG_CHAR_ADDR(1) + (main->Bg256_buff_pos * sl) + (i-1) * r8;
+        ptr = &gBG3MapBuffer[i*32];
+        DmaCopy16(3, ptr, &gBG3MapBuffer[i*32+31], 2); // dear capcom dev who wrote a dma copy with size of 2 here, i am sincerely sorry but fuck you
+        ptr = ((void*)BG_CHAR_ADDR(1) + (main->Bg256_buff_pos * sl) + (i-1) * r8);
         DmaCopy16(3, r6, ptr, sl);
         r6 += sp0;
     }
@@ -172,13 +167,11 @@ void bg256_left_scroll_end(struct Main * main, u32 r6)
     r5 += main->Bg256_next_line * 0x40;
     for(i = 1; i < 21; i++)
     {
-        void * ptr1;
-        void * ptr2;
-        ptr1 = &gBG3MapBuffer[i*32+31];
-        ptr2 = &gBG3MapBuffer[i*32];
-        DmaCopy16(3, ptr1, ptr2, 2);
-        ptr1 = (void*)BG_CHAR_ADDR(1) + (main->Bg256_buff_pos * sp0) + (i-1) * sl;
-        DmaCopy16(3, r5, ptr1, sp0);
+        void * ptr;
+        ptr = &gBG3MapBuffer[i*32+31];
+        DmaCopy16(3, &gBG3MapBuffer[i*32+31], &gBG3MapBuffer[i*32], 2); // dear capcom dev who wrote a dma copy with size of 2 here, i am sincerely sorry but fuck you
+        ptr = ((void*)BG_CHAR_ADDR(1) + (main->Bg256_buff_pos * sp0) + (i-1) * sl);
+        DmaCopy16(3, r5, ptr, sp0);
         r5 += r6;
     }
     if(--main->Bg256_buff_pos < 0)
@@ -614,12 +607,12 @@ void LoadCase3IntroBackgrounds()
     u32 * ptr;
     u32 stripeSize;
     u32 i, j;
-    bgPtr = gGfx_BG069;
+    bgPtr = gGfx_BG069_SteelSamuraiNight;
     bgPtr+=0x28;
     DmaCopy16(3, bgPtr, PLTT+0x40, 0x20);
     ioRegs->lcd_bg3cnt &= ~BGCNT_256COLOR;
     *(u16*)&REG_BG3CNT &= ~BGCNT_256COLOR; // volatile causes code diff lol
-    bgPtr = gGfx_BG074;
+    bgPtr = gGfx_BG074_Case3IntroGrass;
     ptr = bgPtr;
     stripeSize = 0xF00;
     stripeSize /= 2;
@@ -633,10 +626,10 @@ void LoadCase3IntroBackgrounds()
     for(i = 2; i < 11; i++)
     {
         main->bgStripeDestPtr += stripeSize;
-        bgPtr = gGfx_BG074 + main->bgStripeOffsets[i]; 
+        bgPtr = gGfx_BG074_Case3IntroGrass + main->bgStripeOffsets[i]; 
         LZ77UnCompWram(bgPtr, main->bgStripeDestPtr);
     }
-    bgPtr = gGfx_BG074;
+    bgPtr = gGfx_BG074_Case3IntroGrass;
     bgPtr += 0x28;
     DmaCopy16(3, bgPtr, PLTT+0x60, 0x20);
     gIORegisters.lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(2) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP;
@@ -710,7 +703,7 @@ void CopyBGDataToVram(u32 bgId)
         for(i = 0; i < 20; i++, j++)
             gBG3MapBuffer[i * 0x20 + 0x3F] = j | 0x2000;
         main->isBGScrolling = TRUE;
-        DmaCopy16(3, gUnknown_08427608, eBGDecompBuffer+0x4B00, 0x500);
+        DmaCopy16(3, gGfx_SpeedlinesFirstAndLastColumns, eBGDecompBuffer+0x4B00, 0x500);
     }
     if(tempBgCtrl & 0x8000)
     {
@@ -746,10 +739,10 @@ void CopyBGDataToVram(u32 bgId)
         DmaCopy16(3, bgData, BG_PLTT+0x40, 0x20);
         if(gBackgroundTable[bgId].controlBits & BG_MODE_SPECIAL_SPEEDLINE)
         {
-            src = gGfx_BG064;
+            src = gPal_BG064_BustupPhoenix;
             dst = (void*)BG_PLTT+0x1C0;
             DmaCopy16(3, src, dst, 0x20);
-            src = gGfx_BG065;
+            src = gPal_BG065_BustupEdgeworth;
             dst = (void*)BG_PLTT+0x1E0;
             DmaCopy16(3, src, dst, 0x20);
             src = eBGDecompBuffer + 0x4B00;
