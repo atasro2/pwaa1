@@ -7,6 +7,7 @@
 #include "utils.h"
 #include "sound.h"
 #include "constants/process.h"
+#include "constants/oam_allocations.h"
 
 // Sce_init_proc_tbl
 const u8 gCaseStartProcess[] = {
@@ -196,10 +197,10 @@ void InvestigationSetScriptSectionAndFlag(u32 section, u32 flagId) // Set_event
 
 void sub_8002CF0(u32 section, u32 flagId) // Set_event2, Unused
 {
-    struct OamAttrs * sprite = &gOamObjects[49];
+    struct OamAttrs * sprite = &gOamObjects[OAM_IDX_INVESTIGATION_ACTIONS];
     u32 i = 0;
 
-    for(i = 0; i < 4; sprite++, i++)
+    for(i = 0; i < OAM_COUNT_INVESTIGATION_ACTIONS; sprite++, i++)
     {
         sprite->attr0 = SPRITE_ATTR0((-64 & 255), ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_H_RECTANGLE);
         //64x32 sprite

@@ -6,6 +6,7 @@
 #include "graphics.h"
 #include "constants/songs.h"
 #include "constants/process.h"
+#include "constants/oam_allocations.h"
 
 const u8 gUnknown_080189A4[152] = {
 	0x01, 0x02, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x04, 0x05, 0x06, 0x07, 0x01,
@@ -23,7 +24,7 @@ const u8 gUnknown_080189A4[152] = {
 void GameOverScreenProcess(struct Main *main)
 {
     struct IORegisters *ioRegsp = &gIORegisters; // r4
-    struct OamAttrs * oam = &gOamObjects[49]; // r3 
+    struct OamAttrs * oam = &gOamObjects[OAM_IDX_GAME_OVER]; // r3 
     u32 i, j;
     u32 temp;
     switch (main->process[GAME_PROCESS_STATE])
@@ -57,7 +58,7 @@ void GameOverScreenProcess(struct Main *main)
         temp += 8;
         temp &= 0x1FF;
         oam->attr1 &= ~0x1FF;
-        oam->attr1 += temp; // shitty way to add 8 to the X coordinate but ok
+        oam->attr1 += temp;
         oam++;
         oam->attr1 -= 8;
         for(i = 0; i < 10; i++)

@@ -12,6 +12,7 @@
 #include "constants/script.h"
 #include "constants/songs.h"
 #include "constants/process.h"
+#include "constants/oam_allocations.h"
 
 struct MapMarkerSprite
 {
@@ -570,8 +571,8 @@ bool32 Command29(struct ScriptContext *scriptCtx)
         gTestimony.presentPromptY = 0xE0;
         gTestimony.displayState = 0;
         gIORegisters.lcd_dispcnt |= DISPCNT_BG1_ON;
-        oam = &gOamObjects[35];
-        for (i = 0; i < 5; oam++, i++)
+        oam = &gOamObjects[OAM_IDX_HEALTH];
+        for (i = 0; i < MAX_HEALTH; oam++, i++)
         {
             oam->attr0 = SPRITE_ATTR0_CLEAR;
         }
@@ -1058,9 +1059,9 @@ bool32 Command3F(struct ScriptContext *scriptCtx)
             DmaCopy16(3, &gPalInvestigationExamineCursors[0], OBJ_PLTT + 0x100, 0x20);
             PlaySE(SE001_MENU_CONFIRM);
             scriptCtx->flags |= SCRIPT_SPOTSELECT_SELECTION_MADE;
-            gOamObjects[88].attr0 = SPRITE_ATTR0(investigation->pointerY, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
-            gOamObjects[88].attr1 = SPRITE_ATTR1_NONAFFINE(investigation->pointerX, FALSE, FALSE, 1);
-            gOamObjects[88].attr2 = SPRITE_ATTR2(0xFC, 1, 8);
+            gOamObjects[OAM_IDX_POINTER].attr0 = SPRITE_ATTR0(investigation->pointerY, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
+            gOamObjects[OAM_IDX_POINTER].attr1 = SPRITE_ATTR1_NONAFFINE(investigation->pointerX, FALSE, FALSE, 1);
+            gOamObjects[OAM_IDX_POINTER].attr2 = SPRITE_ATTR2(0xFC, 1, 8);
             return 0;
         }
         investigation->pointerColorCounter++;
@@ -1073,9 +1074,9 @@ bool32 Command3F(struct ScriptContext *scriptCtx)
         }
     }
     scriptCtx->flags |= SCRIPT_SPOTSELECT_SELECTION_MADE;
-    gOamObjects[88].attr0 = SPRITE_ATTR0(investigation->pointerY, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
-    gOamObjects[88].attr1 = SPRITE_ATTR1_NONAFFINE(investigation->pointerX, FALSE, FALSE, 1);
-    gOamObjects[88].attr2 = SPRITE_ATTR2(0xFC, 1, 8);
+    gOamObjects[OAM_IDX_POINTER].attr0 = SPRITE_ATTR0(investigation->pointerY, ST_OAM_AFFINE_OFF, ST_OAM_OBJ_NORMAL, FALSE, ST_OAM_4BPP, ST_OAM_SQUARE);
+    gOamObjects[OAM_IDX_POINTER].attr1 = SPRITE_ATTR1_NONAFFINE(investigation->pointerX, FALSE, FALSE, 1);
+    gOamObjects[OAM_IDX_POINTER].attr2 = SPRITE_ATTR2(0xFC, 1, 8);
     return 1;
 }
 
