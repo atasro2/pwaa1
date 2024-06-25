@@ -1224,12 +1224,6 @@ void SetAnimationFrameOffset(struct AnimationListEntry *animation, u32 animOffse
     }
 }
 
-#ifdef eUnknown_0200AFC0
-#undef eUnknown_0200AFC0
-#endif
-
-#define eUnknown_0200AFC0 ((struct Rect*)(EWRAM_START+0xAFC0))
-
 /***
   * 
   * Checks to see if a rectangle has collided with any animation, if yes return animation id
@@ -1243,9 +1237,9 @@ u32 CheckRectCollisionWithAnim(struct Rect *p)
 
     for(animation = gAnimation[0].next; animation != NULL; animation = animation->next)
     {
-        struct Rect * rect = &eUnknown_0200AFC0[0];
-        struct Rect * collisionRect = &eUnknown_0200AFC0[1];
-        struct Rect * spriteRect = &eUnknown_0200AFC0[2];
+        struct Rect * rect = eGeneralScratchpadBuffer;
+        struct Rect * collisionRect = eGeneralScratchpadBuffer + sizeof(struct Rect) * 1;
+        struct Rect * spriteRect = eGeneralScratchpadBuffer + sizeof(struct Rect) * 2;
         uintptr_t vram;
         struct SpriteTemplate * spriteTemplate;
         u32 spriteCount;
@@ -1328,9 +1322,6 @@ u32 CheckRectCollisionWithAnim(struct Rect *p)
     }
     return 0;
 }
-
-#undef eUnknown_0200AFC0
-#define eUnknown_0200AFC0 ((void*)(EWRAM_START+0xAFC0))
 
 bool32 CheckIfLinesIntersect(const struct Point *pt0, const struct Point *pt1, const struct Point *pt2, const struct Point *pt3)
 {
@@ -1951,7 +1942,7 @@ static void UpdateAllAnimationSprites()
             s32 yOrigin = animation->animationInfo.yOrigin - gMain.shakeAmountY;
             u32 tileNum = animation->tileNum & 0xFFF;
             s32 spriteCount = *(u16 *)ptr;
-            struct SpriteSizeData *spriteSizeData = eUnknown_0200AFC0;
+            struct SpriteSizeData *spriteSizeData = eGeneralScratchpadBuffer;
             spriteSizeData += var0;
             for (i = 0; i < spriteCount; i++)
             {
@@ -2020,10 +2011,10 @@ void MoveAnimationTilesToRam(bool32 arg0)
             continue;
         if(!(animation->flags & ANIM_ACTIVE))
             continue;
-        tileDest = arg0 ? eUnknown_0200AFC0 + 0x200 : animation->animationInfo.vramPtr;
+        tileDest = arg0 ? eGeneralScratchpadBuffer + 0x200 : animation->animationInfo.vramPtr;
         spriteTemplate = animation->spriteData;
         spriteCount = *(u16*)animation->spriteData;
-        spriteSizeData = eUnknown_0200AFC0;
+        spriteSizeData = eGeneralScratchpadBuffer;
         spriteSizeData += animation->animtionOamEndIdx;
         animation->flags &= ~ANIM_QUEUED_TILE_UPLOAD;
         palCount = *(u32*)animation->animationInfo.animGfxDataStartPtr;
