@@ -1472,7 +1472,7 @@ struct AnimationListEntry *PlayPersonAnimationAtCustomOrigin(u32 arg0, u32 talki
         return NULL;
     }
     animationInfo.animId = 0xFF;
-    *(u16 *)(&animationInfo.personId) = arg0; // this assignment matches but sucks. doing it like this allows unk2 to not be an array which makes everything else more sane
+    *(u16 *)(&animationInfo.personId) = arg0; // this assignment matches but sucks. doing it like this allows animationInfo to not be an array which makes everything else more sane
     animationInfo.vramPtr = OBJ_VRAM0 + 0x5800;
     animationInfo.animGfxDataStartPtr = gPersonAnimData[personId].gfxData;
     animationInfo.animFrameDataStartPtr = gPersonAnimData[personId].frameData + talkingAnimOff;

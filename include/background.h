@@ -49,7 +49,7 @@ struct CourtScroll
     /* +0x00 */ u8 * frameDataPtr;
     /* +0x04 */ u16 state;
     /* +0x06 */ u8 scrollMode;
-    /* +0x07 */ u8 unk7; // padding
+    /* +0x07 */ u8 filler7; // padding
     /* +0x08 */ u16 scrollingPersonAnimId;
     /* +0x0A */ u16 animOffset;
     /* +0x0C */ s16 frameCounter;

@@ -203,12 +203,12 @@ const u16 gMapSpeedlines[0x2C0] = {
 
 };
 
-void SetTextboxSize(u32 unk0)
+void SetTextboxSize(u32 arg0)
 {
     struct ScriptContext * scriptCtx = &gScriptContext;
     u16 * map;
     u32 i;
-    switch(unk0)
+    switch(arg0)
     {
     case 0:
         map = gBG1MapBuffer;
@@ -220,7 +220,7 @@ void SetTextboxSize(u32 unk0)
         SetTextboxNametag(scriptCtx->textboxNameId & 0x7F, (u8)(scriptCtx->textboxNameId & 0x80));
         break;
     case 1:
-        scriptCtx->unk3A = 0;
+        scriptCtx->unused3A = 0;
         scriptCtx->textboxYPos = 14;
         scriptCtx->textboxState = 2;
         SetTextboxNametag(0, FALSE);
@@ -259,10 +259,10 @@ void UpdateTextbox()
     case 1:
         break;
     case 2:
-        scriptCtx->unk3A += 2;
-        if(scriptCtx->unk3A < 2)
+        scriptCtx->unused3A += 2;
+        if(scriptCtx->unused3A < 2)
             break;
-        scriptCtx->unk3A = 0;
+        scriptCtx->unused3A = 0;
         tiley = scriptCtx->textboxYPos * 32;
         for(i = 0; i < 32; i++)
         {
