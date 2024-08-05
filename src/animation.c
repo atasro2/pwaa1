@@ -2147,7 +2147,7 @@ void UpdateAnimations(u32 arg0)
                     UpdateAnimationBlend(animation);
                 continue;
             }
-            if(animation->flags < 0) // what the fuck
+            if(animation->flags & ANIM_PLAYING)
             {
                 if(main->blendMode == 0)
                 {
