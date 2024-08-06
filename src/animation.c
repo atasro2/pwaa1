@@ -1175,53 +1175,54 @@ void SetAnimationFrameOffset(struct AnimationListEntry *animation, u32 animOffse
 {
     void * animGfxData;
     void * animFrameData;
-    if (animation != NULL)
+    if (animation == NULL)
     {
-        if (animation->animationInfo.animId == 0xFF)
+        return;
+    }
+    if (animation->animationInfo.animId == 0xFF)
+    {
+        u8 *framePtr;
+        framePtr = gPersonAnimData[animation->animationInfo.personId].frameData + animOffset;
+        if (animation->animationInfo.animFrameDataStartPtr == framePtr)
+            return;
+        animation->animationInfo.animFrameDataStartPtr = framePtr;
+        animation->animationInfo.animGfxDataStartPtr = gPersonAnimData[animation->animationInfo.personId].gfxData;
+    }
+    else
+    {
+        if (animation->animationInfo.animId > 0xb)
         {
-            u8 *framePtr;
-            framePtr = gPersonAnimData[animation->animationInfo.personId].frameData + animOffset;
-            if (animation->animationInfo.animFrameDataStartPtr == framePtr)
-                return;
-            animation->animationInfo.animFrameDataStartPtr = framePtr;
-            animation->animationInfo.animGfxDataStartPtr = gPersonAnimData[animation->animationInfo.personId].gfxData;
-        }
-        else
-        {
-            if (animation->animationInfo.animId > 0xb)
+            if (animation->animationInfo.animId <= 0x10)
             {
-                if (animation->animationInfo.animId <= 0x10)
-                {
-                    animation->animationInfo.animFrameDataStartPtr = gGfxSeqAnimation01 + animOffset; // ! These globals are defines *sob*
-                    animation->animationInfo.animGfxDataStartPtr = gGfxPixAnimationTileset01;
-                }
-                else
-                {
-                    if (animation->animationInfo.animId > 0x18)
-                    {
-                        return;
-                    }
-                    animation->animationInfo.animFrameDataStartPtr = gGfxSeqAnimation07 + animOffset;
-                    animation->animationInfo.animGfxDataStartPtr = gGfxPixAnimationTileset02;
-                }
+                animation->animationInfo.animFrameDataStartPtr = gGfxSeqAnimation01 + animOffset; // ! These globals are defines *sob*
+                animation->animationInfo.animGfxDataStartPtr = gGfxPixAnimationTileset01;
             }
             else
             {
+                if (animation->animationInfo.animId > 0x18)
+                {
+                    return;
+                }
                 animation->animationInfo.animFrameDataStartPtr = gGfxSeqAnimation07 + animOffset;
                 animation->animationInfo.animGfxDataStartPtr = gGfxPixAnimationTileset02;
             }
         }
-        animation->flags |= (ANIM_PLAYING | ANIM_QUEUED_TILE_UPLOAD);
-        animation->frameDurationCounter = 0xFFFF;
-        // comments mostly based on h3rmit docs
-        // animation->animFrameDataStartPtr animation block beginning
-        animFrameData = animation->animationInfo.animFrameDataStartPtr;
-        animGfxData = animation->animationInfo.animGfxDataStartPtr + 1 [(u32 *)animFrameData]; // offsets the graphics pointer
-        animation->animationInfo.animGfxDataStartPtr = animGfxData;
-        animation->animationInfo.tileDataPtr = animGfxData + 4 + (*(u32 *)animGfxData) * 0x20; // skip first u32(number of palettes) and the palettes, pointer to tiles
-        animation->frameData = (struct AnimationFrame *)(animFrameData + 8); // skips animation block header, pointer to frame data
-        animation->spriteData = animFrameData + animation->frameData->spriteDataOffset; // Frame tilemap pointer
+        else
+        {
+            animation->animationInfo.animFrameDataStartPtr = gGfxSeqAnimation07 + animOffset;
+            animation->animationInfo.animGfxDataStartPtr = gGfxPixAnimationTileset02;
+        }
     }
+    animation->flags |= (ANIM_PLAYING | ANIM_QUEUED_TILE_UPLOAD);
+    animation->frameDurationCounter = 0xFFFF;
+    // comments mostly based on h3rmit docs
+    // animation->animFrameDataStartPtr animation block beginning
+    animFrameData = animation->animationInfo.animFrameDataStartPtr;
+    animGfxData = animation->animationInfo.animGfxDataStartPtr + 1 [(u32 *)animFrameData]; // offsets the graphics pointer
+    animation->animationInfo.animGfxDataStartPtr = animGfxData;
+    animation->animationInfo.tileDataPtr = animGfxData + 4 + (*(u32 *)animGfxData) * 0x20; // skip first u32(number of palettes) and the palettes, pointer to tiles
+    animation->frameData = (struct AnimationFrame *)(animFrameData + 8); // skips animation block header, pointer to frame data
+    animation->spriteData = animFrameData + animation->frameData->spriteDataOffset; // Frame tilemap pointer
 }
 
 #ifdef eUnknown_0200AFC0
