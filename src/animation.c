@@ -1878,7 +1878,7 @@ static void UpdateAnimationBlend(struct AnimationListEntry *animation)
     ioRegsp->lcd_bldalpha = BLDALPHA_BLEND(0x10 - main->blendDeltaY, main->blendDeltaY);
 }
 
-void ActivateAllAllocatedAnimations() // unused
+void ActivateAllAllocatedAnimations()
 {
     struct AnimationListEntry *animation = gAnimation;
 

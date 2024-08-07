@@ -151,6 +151,7 @@ u32 CheckRectCollisionWithAnim(struct Rect *);
 
 void OffsetAllAnimations(s32 xOffset, s32 yOffset);
 void StartAnimationBlend(u32 arg0, u32 arg1);
+void ActivateAllAllocatedAnimations();
 void DestroyAnimation(struct AnimationListEntry * animation);
 void MoveAnimationTilesToRam(bool32 arg0);
 void UpdateAnimations(u32 arg0);

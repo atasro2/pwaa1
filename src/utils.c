@@ -335,6 +335,97 @@ void MoveSpritesToOAM()
     DmaCopy16(3, gOamObjects, OAM, sizeof(gOamObjects));
 }
 
+void DebugPrintNum(u32 arg0, u32 arg1, u32 arg2) {
+    u32 digit;
+    u32 remainder;
+    u32 count = 0;
+    u16 * map = gBG0MapBuffer;
+    map += arg1 + arg2 * 32;
+
+    digit = arg0 / 10000;
+    remainder = arg0 % 10000;
+    if(digit || count != 0) {
+        if(gMain.debugFlags & 4)
+            *map = 0;
+        else
+            *map = digit + '0' + 0x1A0;
+        map++;
+        count++;
+    }
+
+    digit = remainder / 1000;
+    remainder = arg0 % 1000;
+    if(digit || count != 0) {
+        if(gMain.debugFlags & 4)
+            *map = 0;
+        else
+            *map = digit + '0' + 0x1A0;
+        map++;
+        count++;
+    }
+
+    digit = remainder / 100;
+    remainder = arg0 % 100;
+    if(digit || count != 0) {
+        if(gMain.debugFlags & 4)
+            *map = 0;
+        else
+            *map = digit + '0' + 0x1A0;
+        map++;
+        count++;
+    }
+
+    digit = remainder / 10;
+    remainder = arg0 % 10;
+    if(digit || count != 0) {
+        if(gMain.debugFlags & 4)
+            *map = 0;
+        else
+            *map = digit + '0' + 0x1A0;
+        map++;
+        count++;
+    }
+
+    if(gMain.debugFlags & 4)
+        *map = 0;
+    else
+        *map = remainder % 10 + '0' + 0x1A0;
+}
+
+void DebugPrintStr(char *arg0, u32 arg1, u32 arg2) {
+    u16 * map = gBG0MapBuffer;
+    map += arg1 + arg2 * 32;
+    while(*arg0) {
+        if(gMain.debugFlags & 4)
+            *map = 0;
+        else
+            *map = *arg0 + 0x1A0;
+        arg0++;
+        map++;
+    }
+}
+
+void DebugPrintNumN(u32 arg0, u32 arg1, u32 arg2, u32 arg3) {
+    u16 * map = gBG0MapBuffer;
+    map += arg1 + arg2 * 32;
+    map += arg3 - 1;
+    while(arg3) {
+        u32 idx = arg0 % 16;
+        arg0 /= 16;
+        if(idx >= 10)
+            idx += 'A' - 10;
+        else
+            idx += '0';
+        
+        if(gMain.debugFlags & 4)
+            *map = 0;
+        else
+            *map = idx + 0x1A0;
+        arg3--;
+        map--;
+    }
+}
+
 bool32 CheckPointInArea(const struct Point * point, const struct Point4 * area)
 {
     s32 num;

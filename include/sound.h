@@ -7,6 +7,8 @@
 #define SOUND_STATUS_BGM_FADING (1 << 3)
 #define SOUND_STATUS_BGM_FADING_OUT (1 << 4)
 
+#include "debug.h"
+
 void ResetSoundControl();
 void PlayBGM(u32);
 void PauseBGM(void);
@@ -17,5 +19,6 @@ void UpdateBGMFade();
 void PlaySE(u32 songnum);
 void FadeInBGM(u32 fadeTime, u32 songNum);
 void SetBGMVolume(u32 volume, s32 fadeTime);
+void DebugSoundTest(struct DebugContext *ctx);
 
 #endif//GUARD_SOUND_H

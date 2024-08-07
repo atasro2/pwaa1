@@ -92,7 +92,7 @@ struct Main
     /* +0x0B8 */ u32 talkEndFlags[8]; // unity: talk_end_flag
     /* +0x0D8 */ u8 roomData[24][8]; // unity: Map_data //TODO: first size might be wrong
     /* +0x198 */ u32 soundFlags;
-    /* +0x19C */ u32 unk19C; // bit 2 is set, never used
+    /* +0x19C */ u32 debugFlags;
 };
 
 struct IORegisters

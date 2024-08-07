@@ -1,5 +1,6 @@
 #include "global.h"
 #include "sound.h"
+#include "debug.h"
 #include "m4a.h"
 
 extern struct MusicPlayerInfo gMPlayInfo_BGM;
@@ -265,4 +266,211 @@ void ChangeTrackPanning(u32 track, u32 pan) // unused
     {
         m4aMPlayPanpotControl(&gMPlayInfo_SE2, 0xFFFF, pan);
     }
+}
+
+void sub_80116B0(struct DebugContext * debug) {
+    struct SoundDebug *sound = &debug->menu.sound;
+    gIORegisters.lcd_dispcnt &= ~(DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_BG3_ON);
+    sound->unk0 = 0;
+    sound->unk2 = 0;
+    sound->unk4 = 0;
+    sound->unk8 = 0x100;
+    sound->unkA = 0x100;
+    sound->unkC = 0;
+    sound->unkE = 0;
+    PauseBGM();
+    ResetSoundControl();
+    debug->unk1++;
+    DebugPrintStr("SOUND TEST", 10, 3);
+    DebugPrintStr("START TO EXIT", 9, 17);
+}
+
+#define SCROLL_FAST_WITH_B(lval, changeSign) \
+    if (gJoypad.heldKeys & B_BUTTON) {       \
+        (lval) += 10 * (changeSign);         \
+    } else {                                 \
+        (lval) += 1 * (changeSign);          \
+    }
+
+void sub_8011714(struct DebugContext *ctx) {
+	struct SoundDebug *sound = &ctx->menu.sound;
+
+	if (gJoypad.pressedKeys & DPAD_UP) {
+		--sound->unk6;
+	} else if (gJoypad.pressedKeys & DPAD_DOWN) {
+		++sound->unk6;
+	}
+
+	if (sound->unk6 < 0) {
+		sound->unk6 = 3;
+	} else if (sound->unk6 > 3) {
+		sound->unk6 = 0;
+	}
+
+	switch (sound->unk6) {
+		case 0:
+			if (gJoypad.pressedKeys & DPAD_LEFT) {
+				SCROLL_FAST_WITH_B(sound->unk4, -1)
+				if (sound->unk4 < 0) {
+					sound->unk4 = 321;
+				}
+			} else if (gJoypad.pressedKeys & DPAD_RIGHT) {
+				SCROLL_FAST_WITH_B(sound->unk4, 1)
+				if (sound->unk4 > 321) {
+					sound->unk4 = 0;
+				}
+			} else if (gJoypad.pressedKeys & A_BUTTON) {
+				PlaySE(sound->unk4 + 42);
+			}
+			DebugPrintStr("<-  SELECT", 11, 12);
+			DebugPrintStr("->  SELECT", 11, 13);
+			DebugPrintStr("A   PLAY  ", 11, 14);
+			DebugPrintStr("B   +10   ", 11, 15);
+			break;
+		case 1:
+			if (gJoypad.pressedKeys & DPAD_LEFT) {
+				SCROLL_FAST_WITH_B(sound->unk2, -1)
+				if (sound->unk2 < 0) {
+					sound->unk2 = 249;
+				}
+				if (sound->unk2 >= 42 && sound->unk2 < 201) {
+					sound->unk2 = 249;
+				}
+			} else if (gJoypad.pressedKeys & DPAD_RIGHT) {
+				SCROLL_FAST_WITH_B(sound->unk2, 1)
+				if (sound->unk2 > 249) {
+					sound->unk2 = 0;
+				}
+				if (sound->unk2 >= 42 && sound->unk2 < 201) {
+					sound->unk2 = 201;
+				}
+			} else if (gJoypad.pressedKeys & A_BUTTON) {
+				if (sound->unk0 != sound->unk2) {
+					FadeOutBGM(120);
+					++ctx->unk1;
+				} else if (gMPlayInfo_BGM.status & MUSICPLAYER_STATUS_PAUSE) {
+					if (gMPlayInfo_BGM.status & MUSICPLAYER_STATUS_TRACK) {
+						UnpauseBGM();
+					} else {
+						PlayBGM(sound->unk2);
+						m4aMPlayImmInit(&gMPlayInfo_BGM);
+						ChangeTrackVolume(1, sound->unk8);
+						ChangeTrackPanning(1, sound->unkC);
+					}
+				} else {
+					PauseBGM();
+				}
+			} else if (gJoypad.pressedKeys & L_BUTTON) {
+				FadeOutBGM(20);
+			} else if (gJoypad.pressedKeys & R_BUTTON) {
+				if (gJoypad.heldKeys & B_BUTTON) {
+					FadeInBGM(120, 255);
+				} else {
+					FadeInBGM(120, sound->unk2);
+				}
+			}
+			DebugPrintStr("<-  SELECT", 11, 12);
+			DebugPrintStr("->  SELECT", 11, 13);
+			DebugPrintStr("B   +10   ", 11, 15);
+			if (!(gMPlayInfo_BGM.status & MUSICPLAYER_STATUS_PAUSE) && sound->unk0 == sound->unk2) {
+				DebugPrintStr("A   PAUSE ", 11, 14);
+			} else {
+				DebugPrintStr("A   PLAY  ", 11, 14);
+			}
+			break;
+		case 2:
+			if ((gJoypad.heldKeys & DPAD_LEFT) || (gJoypad.pressedKeys & L_BUTTON)) {
+				SCROLL_FAST_WITH_B(sound->unk8, -1)
+				if (sound->unk8 < 4) {
+					sound->unk8 = 4;
+				}
+				ChangeTrackVolume(1, sound->unk8);
+			} else if ((gJoypad.heldKeys & DPAD_RIGHT) || (gJoypad.pressedKeys & R_BUTTON)) {
+				SCROLL_FAST_WITH_B(sound->unk8, 1)
+				if (sound->unk8 > 510) {
+					sound->unk8 = 510;
+				}
+				ChangeTrackVolume(1, sound->unk8);
+			}
+
+			if (gJoypad.pressedKeys & A_BUTTON) {
+				sound->unk8 = 256;
+				ChangeTrackVolume(1, sound->unk8);
+			}
+
+			DebugPrintStr("<-  DOWN  ", 11, 12);
+			DebugPrintStr("->  UP    ", 11, 13);
+			DebugPrintStr("A DEFAULT ", 11, 14);
+			DebugPrintStr("B   +10   ", 11, 15);
+			break;
+		case 3:
+			if (gJoypad.heldKeys & DPAD_LEFT) {
+				SCROLL_FAST_WITH_B(sound->unkC, -1)
+				if (sound->unkC < -128) {
+					sound->unkC = -128;
+				}
+				ChangeTrackPanning(1, sound->unkC);
+			} else if (gJoypad.heldKeys & DPAD_RIGHT) {
+				SCROLL_FAST_WITH_B(sound->unkC, 1)
+				if (sound->unkC > 127) {
+					sound->unkC = 127;
+				}
+				ChangeTrackPanning(1, sound->unkC);
+			} else if (gJoypad.pressedKeys & A_BUTTON) {
+                sound->unkC = 0;
+                ChangeTrackPanning(1, sound->unkC);
+            }
+			DebugPrintStr("<-  LEFT  ", 11, 12);
+			DebugPrintStr("->  RIGHT ", 11, 13);
+			DebugPrintStr("A  CENTER ", 11, 14);
+			DebugPrintStr("B   +10   ", 11, 15);
+			break;
+	}
+
+	DebugPrintStr(" SE        ", 5, 5);
+	DebugPrintNumN(sound->unk4, 10, 5, 2);
+
+	DebugPrintStr(" BGM       ", 5, 6);
+	DebugPrintNum(sound->unk2, 10, 6);
+
+	DebugPrintStr(" VOL       ", 5, 7);
+    DebugPrintNum(sound->unk8 / 50 ?: sound->unk8 != 4 || sound->unk8 < 0, 10, 7);
+    
+    DebugPrintStr(" PAN L             R", 5, 8);
+	DebugPrintStr("*", sound->unkC / 20 + 17, 8);
+	if (gMPlayInfo_BGM.status & MUSICPLAYER_STATUS_PAUSE) {
+		if(gMPlayInfo_BGM.status & MUSICPLAYER_STATUS_TRACK) {
+            DebugPrintStr("PAUSE ", 15, 6);
+        } else {
+            DebugPrintStr("STOP  ", 15, 6);    
+        }
+	} else {
+		DebugPrintStr("PLAY ", 15, 6);
+	}
+	DebugPrintStr(">", 5, 5 + sound->unk6);
+}
+
+void sub_8011C08(struct DebugContext *ctx) {
+	struct SoundDebug *sound = &ctx->menu.sound;
+
+    if(!(gMPlayInfo_BGM.status & MUSICPLAYER_STATUS_PAUSE) && gMPlayInfo_BGM.status & MUSICPLAYER_STATUS_TRACK)
+        return;
+    PlayBGM(sound->unk2);
+    m4aMPlayImmInit(&gMPlayInfo_BGM);
+    ChangeTrackVolume(1, sound->unk8);
+    ChangeTrackPanning(1, sound->unkC);
+    sound->unk0 = sound->unk2;
+    ctx->unk1--;
+}
+
+void (*gUnknown_0814DC64[])(struct DebugContext *ctx) = {
+    sub_80116B0,
+    sub_8011714,
+    sub_8011C08
+};
+
+void DebugSoundTest(struct DebugContext *ctx) {
+    if (gJoypad.pressedKeys & START_BUTTON)
+        gMain.process[GAME_PROCESS_STATE] = 3;
+    gUnknown_0814DC64[ctx->unk1](ctx);
 }

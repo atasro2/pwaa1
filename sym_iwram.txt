@@ -33,5 +33,6 @@
 . = 0x00005940; gMPlayInfo_SE2 = .;
 . = 0x00005980; gMPlayMemAccArea = .;
 . = 0x00005990; gMPlayInfo_SE3 = .;
+. = 0x000059D0; gDebugCtx = .;
 
 /* 0x2540 bytes of usable space*/

@@ -11,6 +11,7 @@
 #include "investigation.h"
 #include "save.h"
 #include "court.h"
+#include "debug.h"
 #include "constants/process.h"
 
 static void DoGameProcess();
@@ -66,7 +67,8 @@ void (*gGameProcesses[])(struct Main *) = {
     EpisodeClearedProcess,
     SelectEpisodeProcess,
     ContinueSaveProcess,
-    ClearSaveProcess
+    ClearSaveProcess,
+    DebugProcess
 };
 
 extern void (*gIntrTable[0x10]);
@@ -102,6 +104,7 @@ void AgbMain()
             MoveAnimationTilesToRam(0);
             MoveSpritesToOAM();
             SetLCDIORegs();
+            DebugPrintNum(REG_VCOUNT, 23, 0); // You can move this around to analyze performance from different parts forward!
         }
         if (gMain.currentBgStripe > 10)
         {
@@ -126,6 +129,11 @@ void AgbMain()
         }
         UpdateBGMFade();
         m4aSoundMain();
+        sub_800156C();
+        DebugPrintNumN(gMain.process[GAME_PROCESS], 10, 0, 2);
+        DebugPrintNumN(gMain.process[GAME_PROCESS_STATE], 12, 0, 2);
+        DebugPrintNumN(gMain.process[GAME_PROCESS_VAR1], 14, 0, 2);
+        DebugPrintNumN(gMain.process[GAME_PROCESS_VAR2], 16, 0, 2);
     }
 }
 
@@ -258,6 +266,7 @@ void ResetGameState()
     main->rngSeed = 3383;
     main->scenarioIdx = 0;
     main->caseEnabledFlags = 1;
+    main->debugFlags |= 2; // ! 2005 pc port? possibly commented on and off to test stuff in slow mo
     ioRegsp->lcd_bg0cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(28) | BGCNT_16COLOR | BGCNT_WRAP;                 // TODO: add TXT/AFF macro once known which one is used
     ioRegsp->lcd_bg1cnt = BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(29) | BGCNT_16COLOR | BGCNT_WRAP;                 // TODO: add TXT/AFF macro once known which one is used
     ioRegsp->lcd_bg2cnt = BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(30) | BGCNT_16COLOR | BGCNT_WRAP;                 // TODO: add TXT/AFF macro once known which one is used
@@ -359,6 +368,16 @@ u32 ReadKeysAndTestResetCombo()
     if (joypadCtrl->heldKeys == (A_BUTTON|B_BUTTON|START_BUTTON|SELECT_BUTTON))
     {
         return 1;
+    }
+    if(joypadCtrl->heldKeys & L_BUTTON && gMain.debugFlags & 2) { // ! 2005 pc port
+        gMain.vblankWaitAmount = 20;
+    }
+    if (joypadCtrl->pressedKeys & SELECT_BUTTON)
+        gMain.debugFlags ^= 4; // if(gMain.debugFlags & 4) gMain.debugFlags &= ~4; else gMain.debugFlags |= 4;
+    if (joypadCtrl->heldKeys & SELECT_BUTTON && joypadCtrl->pressedKeys & A_BUTTON) {
+        gIORegisters.lcd_dispcnt |= DISPCNT_BG0_ON;
+        *(u32*)gDebugCtx.process = *(u32*)gMain.process;
+        SET_PROCESS(0xF, 0, 0, 0); 
     }
     return 0;
 }

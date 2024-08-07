@@ -28,6 +28,9 @@ extern const s16 gSineTable[256+64];
 // Converts a number to Q8.8 fixed-point format
 #define Q_8_8(n) ((s16)((n) * 256))
 
+void DebugPrintNum(u32 arg0, u32 arg1, u32 arg2);
+void DebugPrintStr(char *arg0, u32 arg1, u32 arg2);
+void DebugPrintNumN(u32 arg0, u32 arg1, u32 arg2, u32 arg3);
 void MoveSpritesToOAM();
 bool32 CheckPointInArea(const struct Point * point, const struct Point4 * area);
 bool32 CheckRectCollisionWithArea(const struct Rect * rect, const struct Point4 * area);

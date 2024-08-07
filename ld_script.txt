@@ -20,6 +20,7 @@ SECTIONS {
         src/crt0.o(.text);
         /* main.c */
         src/main.o(.text);
+        src/debug.o(.text);
         /* bg.c */
         src/bg3.o(.text);
         src/bg.o(.text);
@@ -78,11 +79,13 @@ SECTIONS {
         *libgcc.a:*_dvmd_tls*.o(.text*);
         *libgcc.a:*_udivsi3*.o(.text*);
         *libgcc.a:*_umodsi3*.o(.text*);
+        *libc.a:*.o(.text*);
     } =0
     .rodata :
     ALIGN(4)
     {
         src/main.o(.rodata);
+        src/debug.o(.rodata);
         src/bg3.o(.rodata);
         src/bg.o(.rodata);
         src/utils.o(.rodata);
@@ -109,6 +112,7 @@ SECTIONS {
         src/gameover_process.o(.rodata);
         src/save_processes.o(.rodata);
         src/court_record.o(.rodata);
+        src/sound.o(.rodata);
         src/animation.o(.rodata);
         data/sound_data.o(.rodata);
         src/m4a_tables.o(.rodata);
@@ -121,6 +125,7 @@ SECTIONS {
     ALIGN(4)
     {
         src/main.o(.data);
+        src/debug.o(.data);
         src/bg.o(.data);
         src/utils.o(.data);
         src/case_data.o(.data);
@@ -129,6 +134,7 @@ SECTIONS {
         src/court.o(.data);
         src/investigation.o(.data);
         src/court_record.o(.data);
+        src/sound.o(.data);
         src/animation.o(.data);
     } =0
     . = 0x8180000;
