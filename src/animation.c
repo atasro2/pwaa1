@@ -6,6 +6,7 @@
 #include "script.h"
 #include "background.h"
 #include "graphics.h"
+#include "debug.h"
 #include "constants/animation.h"
 #include "constants/persons.h"
 #include "constants/process.h"
@@ -2285,4 +2286,132 @@ void Case3OpeningAnimationEffect(struct AnimationListEntry * animation)
         animation->specialEffectVar -= 20;
     else if(animation->specialEffectVar < -20)
         animation->specialEffectVar += 20;
+}
+
+void sub_8014400(struct DebugContext * debugCtx) {
+    struct IORegisters * ioRegs = &gIORegisters;
+    struct CourtScrollDebug * courtScrollDebug = &debugCtx->menu.courtScroll;
+    struct AnimationListEntry * anim;
+    anim = FindAnimationFromAnimId(0xFF);
+    courtScrollDebug->animPtr = anim;
+    courtScrollDebug->anim = *anim;
+    ClearAllAnimationSprites();
+    anim->flags = 0;
+    courtScrollDebug->unk48 = 0;
+    courtScrollDebug->unk49 = 0;
+    debugCtx->unk1++;
+    ioRegs->lcd_dispcnt &= ~DISPCNT_BG1_ON;
+    DecompressBackgroundIntoBuffer(4);
+    CopyBGDataToVram(4);
+    PlayPersonAnimation(PERSON_ANIM_EDGEWORTH, 0, 0, 0);
+}
+
+void sub_801447C(struct DebugContext * debugCtx) {
+    struct CourtScroll * courtScroll = &gCourtScroll;
+    struct CourtScrollDebug * courtScrollDebug = &debugCtx->menu.courtScroll;
+    u32 r8 = 0;
+    FindAnimationFromAnimId(0xFF); // !?? just use gAnimation[1]
+    if(courtScroll->state)
+        return;
+    DebugPrintStr("                       ", 0, 2); // "                       "
+    if(gJoypad.pressedKeys & DPAD_UP) {
+        courtScrollDebug->unk48--;
+        r8 = 1;
+        if(courtScrollDebug->unk48 < 0) {
+            courtScrollDebug->unk48 = 2;
+        }
+    } else if(gJoypad.pressedKeys & DPAD_DOWN) {
+        courtScrollDebug->unk48++;
+        r8 = 1;
+        if(courtScrollDebug->unk48 > 2) {
+            courtScrollDebug->unk48 = 0;
+        }
+    } else if(gJoypad.pressedKeys & A_BUTTON) {
+        void * pal = NULL;
+        switch(courtScrollDebug->unk48) {
+            case 0:
+                pal = gGfxCourtscroll03;
+                if(courtScrollDebug->unk49) {
+                    SetCourtScrollPersonAnim(1, 1, PERSON_ANIM_EDGEWORTH, 0);
+                }else {
+                    SetCourtScrollPersonAnim(1, 0x1000, PERSON_ANIM_APRIL_MAY, 0);
+                }
+                break;
+            case 1:
+                pal = gGfxCourtscroll02;
+                if(courtScrollDebug->unk49) {
+                    SetCourtScrollPersonAnim(2, 1, PERSON_ANIM_EDGEWORTH, 0);
+                } else {
+                    SetCourtScrollPersonAnim(2, 0x1000, PERSON_ANIM_PHOENIX, 0);
+                }
+                break;
+            case 2:
+                pal = gGfxCourtscroll01;
+                if(courtScrollDebug->unk49) {
+                   SetCourtScrollPersonAnim(0, 1, PERSON_ANIM_PHOENIX, 0);
+                } else {
+                    SetCourtScrollPersonAnim(0, 0x1000, PERSON_ANIM_APRIL_MAY, 0);
+                }
+                break;
+            default:
+                break;
+        }
+        if(courtScrollDebug->unk49) {
+            InitCourtScroll(pal, 30, 31, 1);
+            courtScrollDebug->unk49 = 0;
+        } else {
+            InitCourtScroll(pal, 0, 31, 0x1000);
+            courtScrollDebug->unk49 = 1;
+        }
+    }
+    if(r8) {
+        courtScrollDebug->unk49 = 0;
+        switch(courtScrollDebug->unk48) {
+            case 0:
+                DecompressBackgroundIntoBuffer(4);
+                CopyBGDataToVram(4);
+                PlayPersonAnimation(PERSON_ANIM_EDGEWORTH,0,0,0);
+                break;
+            case 1:
+                DecompressBackgroundIntoBuffer(4);
+                CopyBGDataToVram(4);
+                PlayPersonAnimation(PERSON_ANIM_EDGEWORTH,0,0,0);
+                break;
+            case 2:
+                DecompressBackgroundIntoBuffer(3);
+                CopyBGDataToVram(3);
+                PlayPersonAnimation(PERSON_ANIM_PHOENIX,0,0,0);
+                break;
+            default:
+                break;
+        }
+    }
+    DebugPrintStr("MOVIE TEST", 10, 5); // "MOVIE TEST"
+    DebugPrintStr(" MOVIE00", 10, 6); // " MOVIE00"
+    DebugPrintStr(" MOVIE01", 10, 7); // " MOVIE01"
+    DebugPrintStr(" MOVIE02", 10, 8); // " MOVIE02"
+    DebugPrintStr(">", 10, 6 + courtScrollDebug->unk48); // ">"
+}
+
+void sub_8014688(struct DebugContext * debugCtx) {
+    struct CourtScrollDebug * courtScrollDebug = &debugCtx->menu.courtScroll;
+    //DestroyAnimation(&gAnimation[0xFF]); // !!!!?????
+    DestroyAnimation(&gAnimation[0x1]); // !!!!?????
+    *courtScrollDebug->animPtr = courtScrollDebug->anim;
+    gMain.process[GAME_PROCESS_STATE] = 3;
+}
+
+void (*gDebugMovieTestStates[])(struct DebugContext *ctx) = {
+    sub_8014400,
+    sub_801447C,
+    sub_8014688
+};
+
+void sub_8001610(u16 arg0, u16 arg1, u16 arg2, u16 arg3);
+
+void sub_80146B8(struct DebugContext * debugCtx) {
+    if(gJoypad.pressedKeys & START_BUTTON)
+        debugCtx->unk1 = 2;
+    sub_8001610(10, 20, 5, 10);
+    gDebugMovieTestStates[debugCtx->unk1](debugCtx);
 }

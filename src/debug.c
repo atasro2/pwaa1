@@ -113,7 +113,7 @@ void (*gUnknown_0814D348[])(struct DebugContext * debug) = {
     sub_8001EB0,
     DebugSoundTest,
     DebugProcessExit,
-    DebugProcessExit,
+    sub_80146B8,
     sub_800214C,
     sub_8002248,
     DebugProcessExit,
