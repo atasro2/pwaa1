@@ -2301,11 +2301,13 @@ void sub_8014400(struct DebugContext * debugCtx) {
     courtScrollDebug->unk49 = 0;
     debugCtx->unk1++;
     ioRegs->lcd_dispcnt &= ~DISPCNT_BG1_ON;
-    DecompressBackgroundIntoBuffer(4);
+    DecompressBackgroundIntoBuffer(4); //! added by MCboy
     CopyBGDataToVram(4);
     PlayPersonAnimation(PERSON_ANIM_EDGEWORTH, 0, 0, 0);
 }
 
+// references to PERSON_ANIM_APRIL_MAY are actually for the bellboy in 2008 pc port
+// but for clarity i use april may since her sprite has the proper size for the witness bench 
 void sub_801447C(struct DebugContext * debugCtx) {
     struct CourtScroll * courtScroll = &gCourtScroll;
     struct CourtScrollDebug * courtScrollDebug = &debugCtx->menu.courtScroll;
@@ -2330,19 +2332,19 @@ void sub_801447C(struct DebugContext * debugCtx) {
         void * pal = NULL;
         switch(courtScrollDebug->unk48) {
             case 0:
-                pal = gGfxCourtscroll03;
+                pal = gGfxCourtscroll02;
                 if(courtScrollDebug->unk49) {
                     SetCourtScrollPersonAnim(1, 1, PERSON_ANIM_EDGEWORTH, 0);
                 }else {
-                    SetCourtScrollPersonAnim(1, 0x1000, PERSON_ANIM_APRIL_MAY, 0);
+                    SetCourtScrollPersonAnim(1, 0x1000, PERSON_ANIM_PHOENIX, 0);
                 }
                 break;
             case 1:
-                pal = gGfxCourtscroll02;
+                pal = gGfxCourtscroll03;
                 if(courtScrollDebug->unk49) {
                     SetCourtScrollPersonAnim(2, 1, PERSON_ANIM_EDGEWORTH, 0);
                 } else {
-                    SetCourtScrollPersonAnim(2, 0x1000, PERSON_ANIM_PHOENIX, 0);
+                    SetCourtScrollPersonAnim(2, 0x1000, PERSON_ANIM_APRIL_MAY, 0);
                 }
                 break;
             case 2:
@@ -2368,17 +2370,17 @@ void sub_801447C(struct DebugContext * debugCtx) {
         courtScrollDebug->unk49 = 0;
         switch(courtScrollDebug->unk48) {
             case 0:
-                DecompressBackgroundIntoBuffer(4);
+                DecompressBackgroundIntoBuffer(4); //! added by MCboy
                 CopyBGDataToVram(4);
                 PlayPersonAnimation(PERSON_ANIM_EDGEWORTH,0,0,0);
                 break;
             case 1:
-                DecompressBackgroundIntoBuffer(4);
+                DecompressBackgroundIntoBuffer(4); //! added by MCboy
                 CopyBGDataToVram(4);
                 PlayPersonAnimation(PERSON_ANIM_EDGEWORTH,0,0,0);
                 break;
             case 2:
-                DecompressBackgroundIntoBuffer(3);
+                DecompressBackgroundIntoBuffer(3); //! added by MCboy
                 CopyBGDataToVram(3);
                 PlayPersonAnimation(PERSON_ANIM_PHOENIX,0,0,0);
                 break;
