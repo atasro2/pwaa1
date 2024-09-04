@@ -60,6 +60,18 @@ struct DebugContext {
             s8 unk48;
             s8 unk49;
         } courtScroll;
+        struct AnimationDebug {
+            struct AnimationListEntry anims[3];
+            struct AnimationListEntry * savedAnimStart;
+            s8 unkC4[3];
+            s8 unkC7[3];
+            s8 unkCA[3];
+            s8 unkCD[3];
+            s8 unkD0;
+            s8 unkD1;
+            s8 unkD2;
+            s8 unkD3;
+        } anim; // sizeof 0xD4
     } menu;
 };
 

@@ -39,7 +39,7 @@ void nullsub_10() {
 
 }
 
-void sub_8001610(u16 arg0, u16 arg1, u16 arg2, u16 arg3) {
+void DebugClearRect(u16 arg0, u16 arg1, u16 arg2, u16 arg3) {
     s32 i, j;
     for(i = arg0; i <= arg1; i++) {
         for(j = arg2; j <= arg3; j++) {
@@ -97,13 +97,14 @@ void DebugProcessMain(struct DebugContext * debug) {
         debug->unk0++;
     } else if(gJoypad.pressedKeys & A_BUTTON) {
         gMain.process[GAME_PROCESS_STATE] = 2;
-        sub_8001610(0, 29, 0, 19);
+        DebugClearRect(0, 29, 0, 19);
     }
 }
 
 void sub_8001EB0(struct DebugContext * debug);
 void sub_800214C(struct DebugContext * debug);
 void DebugProcessExit(struct DebugContext * debug);
+void DebugAnimTest(struct DebugContext * debug);
 extern void sub_8002248(struct DebugContext * debug);
 extern void sub_8011C60(struct DebugContext * debug);
 extern void sub_8013DB0(struct DebugContext * debug);
@@ -112,7 +113,7 @@ extern void sub_80146B8(struct DebugContext * debug);
 void (*gUnknown_0814D348[])(struct DebugContext * debug) = {
     sub_8001EB0,
     DebugSoundTest,
-    DebugProcessExit,
+    DebugAnimTest,
     sub_80146B8,
     sub_800214C,
     sub_8002248,
@@ -137,7 +138,7 @@ void DebugProcessExit(struct DebugContext * debug) {
     gAnimation[0] = debug->anim;
     ActivateAllAllocatedAnimations();
     DmaCopy16(3, debug->oam, gOamObjects, OAM_SIZE);
-    sub_8001610(0, 29, 0, 19);
+    DebugClearRect(0, 29, 0, 19);
     main->showTextboxCharacters = debug->unk60;
     main->advanceScriptContext = debug->unk61;
     *(u32*)main->process = *(u32*)gDebugCtx.process;
@@ -833,7 +834,7 @@ void sub_8001FB0(struct DebugContext * debug) {
     if(gJoypad.pressedKeys & A_BUTTON) {
         ChangeFlag(flagDebugData->flagType, flagDebug->unk00, flagSet ? FALSE : TRUE);
     }
-    sub_8001610(5, 25, 2, 8);
+    DebugClearRect(5, 25, 2, 8);
     DebugPrintStr(flagDebugData->name, 5, 6);
     DebugPrintStr(flagDebugData->flagNames[flagDebug->unk00], 5, 7);
     DebugPrintNum(flagDebug->unk00, 9, 6);
