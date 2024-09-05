@@ -1062,6 +1062,7 @@ static struct AnimationListEntry *AllocateAnimationWithId(u32 animId)
             }
             animation--;
         }
+		DebugPrintStr("OBJ PULL ERROR!", 0, 3);
         return NULL;
     }
 }
@@ -1082,9 +1083,11 @@ static void SetAnimationRotScaleParams(struct AnimationListEntry *animation, u32
     oamIdx = rotscaleIdx << 2;
     if (animation != NULL)
     {
-        if (rotscaleIdx > 0x1f)
+        if (rotscaleIdx > 0x1f) {
+			DebugPrintStr("OBJ PARA NUM ERROR!", 0, 4);
             rotscaleIdx = 0x1f;
-        animation->flags = (animation->flags & ~ANIM_ENABLE_XFLIP) | ANIM_ENABLE_ROTATION;
+        }
+		animation->flags = (animation->flags & ~ANIM_ENABLE_XFLIP) | ANIM_ENABLE_ROTATION;
         animation->rotationAmount &= 0xff;
         animation->spritePriorityMatrixIndex &= 0xff00;
         animation->spritePriorityMatrixIndex |= rotscaleIdx;
@@ -1094,7 +1097,9 @@ static void SetAnimationRotScaleParams(struct AnimationListEntry *animation, u32
         gOamObjects[oamIdx++].attr3 = -sin;
         gOamObjects[oamIdx++].attr3 = sin;
         gOamObjects[oamIdx++].attr3 = cos;
-    }
+    } else {
+		DebugPrintStr("NOT FOUND OBJ WORK.", 0, 4);
+	}
 }
 
 void SetAnimationRotation(struct AnimationListEntry *animation, u32 rotscaleIdx, u32 rotation)
@@ -1110,12 +1115,19 @@ void DisableAnimationRotation(struct AnimationListEntry *animation)
 {
     if (animation != NULL)
         animation->flags &= ~ANIM_ENABLE_ROTATION;
+	else
+		DebugPrintStr("NOT FOUND OBJ WORK.", 0, 4);
 }
 
 void ChangeAnimationActivity(struct AnimationListEntry *animation, bool32 activate)
 {
     u32 i;
-    if (animation != 0 && (animation->flags & ANIM_ALLOCATED))
+    if (animation == NULL) {
+		DebugPrintStr("NOT FOUND OBJ WORK.", 0, 4);
+		return;
+	}
+	
+	if (animation->flags & ANIM_ALLOCATED)
     {
         if (activate)
         {
@@ -1165,11 +1177,15 @@ void SetAnimationPriority(struct AnimationListEntry *animation, u32 priority)
 {
     if (animation != NULL)
     {
-        if (priority > 3)
+        if (priority > 3) {
+			DebugPrintStr("OBJ PRIORITY ERROR.", 0, 4);
             priority = 3;
-        animation->spritePriorityMatrixIndex &= 0xff;
+        }
+		animation->spritePriorityMatrixIndex &= 0xff;
         animation->spritePriorityMatrixIndex |= priority << 8;
-    }
+    } else {
+		DebugPrintStr("NOT FOUND OBJ WORK.", 0, 4);
+	}
 }
 
 void SetAnimationFrameOffset(struct AnimationListEntry *animation, u32 animOffset)
@@ -1178,8 +1194,15 @@ void SetAnimationFrameOffset(struct AnimationListEntry *animation, u32 animOffse
     void * animFrameData;
     if (animation == NULL)
     {
+		DebugPrintStr("NOT FOUND OBJ WORK.", 0, 4);
         return;
     }
+	// ! extra code here in 2008 pc port, offsets are different? 
+	/*
+    if (animation->animationInfo.personId == 33 && animOffset == 6352)
+        animOffset = 3280;
+    */
+
     if (animation->animationInfo.animId == 0xFF)
     {
         u8 *framePtr;
@@ -1202,6 +1225,7 @@ void SetAnimationFrameOffset(struct AnimationListEntry *animation, u32 animOffse
             {
                 if (animation->animationInfo.animId > 0x18)
                 {
+					DebugPrintStr("NOT MOTION DATA.", 0, 4);
                     return;
                 }
                 animation->animationInfo.animFrameDataStartPtr = gGfxSeqAnimation07 + animOffset;
@@ -1660,8 +1684,10 @@ static struct AnimationListEntry * CreateAnimationFromAnimationInfo(struct Anima
     void * animFrameData;
     void * animGfxData;
     struct AnimationListEntry *animation = AllocateAnimationWithId(animationInfo->animId);
-    if (animation == NULL)
+    if (animation == NULL) {
+		DebugPrintStr("OBJ PULL ERROR!", 0, 5);
         return NULL;
+	}
     DmaCopy16(3, animationInfo, &animation->animationInfo, sizeof(animation->animationInfo));
     animFrameData = animation->animationInfo.animFrameDataStartPtr;
     animGfxData = animation->animationInfo.animGfxDataStartPtr +  1 [(u32 *)animFrameData];
@@ -1897,9 +1923,11 @@ void DestroyAnimation(struct AnimationListEntry *animation)
     struct OamAttrs *oam;
     u32 var0;
     uintptr_t var1;
-    if (animation == NULL)
+    if (animation == NULL) {
+		DebugPrintStr("NOT FOUND OBJ WORK.", 0, 4);
         return;
-
+	}
+	
     if (animation->animationInfo.animId == 0xFF && animation->animationInfo.personId == 0x16)
     {
         animation2 = FindAnimationFromAnimId(ANIM_APRIL_MAY_ABDOMEN_1);
@@ -2096,6 +2124,11 @@ void MoveAnimationTilesToRam(bool32 arg0)
             animation->flags &= ~ANIM_QUEUED_PAL_UPLOAD;
         }
     }
+	DebugPrintStr("                     ", 0, 13);
+	if(REG_VCOUNT < 160) {
+		if(!arg0)
+			DebugPrintStr("OBJ TRANS TIMEOVER!", 0, 13);
+	}
 }
 
 void UpdateAnimations(u32 arg0)
@@ -2219,6 +2252,10 @@ void ScrollMode1AnimationUpdate(struct AnimationListEntry * animation, struct Co
 static void UpdatePersonAnimationForCourtScroll(struct AnimationListEntry * animation)
 {
     struct CourtScroll * courtScroll = &gCourtScroll;
+	if(animation == NULL) {
+		DebugPrintStr("NOT FOUND OBJ WORK.", 0, 4);
+		return;
+	}
     gCourtScrollPersonAnimationUpdateFuncs[courtScroll->scrollMode](&gAnimation[1], courtScroll);
 }
 
@@ -3431,7 +3468,7 @@ void DebugAnimViewerChangeOrigin(struct DebugContext * debugCtx) {
     if (anim->animationInfo.xOrigin < 0) 
 		v13 = -anim->animationInfo.xOrigin;
     DebugPrintNum(v13, 2, textY);
-    textY += 1;
+    textY += 1; 	
     DebugPrintStr("Y", 0, textY);
     v16 = anim->animationInfo.yOrigin;
     if (anim->animationInfo.yOrigin < 0) 
