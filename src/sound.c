@@ -312,11 +312,11 @@ void sub_8011714(struct DebugContext *ctx) {
 			if (gJoypad.pressedKeys & DPAD_LEFT) {
 				SCROLL_FAST_WITH_B(sound->unk4, -1)
 				if (sound->unk4 < 0) {
-					sound->unk4 = 321;
+					sound->unk4 = 63;
 				}
 			} else if (gJoypad.pressedKeys & DPAD_RIGHT) {
 				SCROLL_FAST_WITH_B(sound->unk4, 1)
-				if (sound->unk4 > 321) {
+				if (sound->unk4 > 63) {
 					sound->unk4 = 0;
 				}
 			} else if (gJoypad.pressedKeys & A_BUTTON) {
@@ -331,24 +331,18 @@ void sub_8011714(struct DebugContext *ctx) {
 			if (gJoypad.pressedKeys & DPAD_LEFT) {
 				SCROLL_FAST_WITH_B(sound->unk2, -1)
 				if (sound->unk2 < 0) {
-					sound->unk2 = 249;
-				}
-				if (sound->unk2 >= 42 && sound->unk2 < 201) {
-					sound->unk2 = 249;
+					sound->unk2 = 41;
 				}
 			} else if (gJoypad.pressedKeys & DPAD_RIGHT) {
 				SCROLL_FAST_WITH_B(sound->unk2, 1)
-				if (sound->unk2 > 249) {
+				if (sound->unk2 > 41) {
 					sound->unk2 = 0;
-				}
-				if (sound->unk2 >= 42 && sound->unk2 < 201) {
-					sound->unk2 = 201;
 				}
 			} else if (gJoypad.pressedKeys & A_BUTTON) {
 				if (sound->unk0 != sound->unk2) {
 					FadeOutBGM(120);
 					++ctx->unk1;
-				} else if (gMPlayInfo_BGM.status & MUSICPLAYER_STATUS_PAUSE) {
+		        } else if (gMPlayInfo_BGM.status & MUSICPLAYER_STATUS_PAUSE) {
 					if (gMPlayInfo_BGM.status & MUSICPLAYER_STATUS_TRACK) {
 						UnpauseBGM();
 					} else {

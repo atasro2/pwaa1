@@ -7,10 +7,12 @@
 #include "utils.h"
 #include "sound.h"
 #include "case_data.h"
+#include "script.h"
 
 void sub_800156C(void) {
     DebugPrintStr("/   ", 26, 0);
     DebugPrintNum(*(u8*)REG_ADDR_VCOUNT, 27, 0);
+    DebugPrintNumN(gScriptContext.nextSection, 0, 0, 4);
     if (gMain.frameCounter & 1) {
         DebugPrintStr("0", 6, 0);
     } else {
