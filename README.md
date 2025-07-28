@@ -8,7 +8,11 @@ It builds the following ROMs:
 
 1. Slightly edited ROM because 8 bytes from the release version exist in rev1 and unless the game somehow reads these values it shouldn't matter
 
-### Setting up the repository
+# Gyakuten Saiban (Japan) Debug
+
+There is a recreation of the debug build of this game available in the `debug` branch of this repository. It was built by doing matching decompilation of the partial debug menu code that exists in the demo for pwaa3. The rest of the debug menu code was pieced together from the 2005 and 2008 PC ports of this game respectively.
+
+# Setting up the repository
 
 * it is advised to use WSL for making this repository on Windows 10 but if you use Win 8.1 or older then i can't help unless we get a proper tutorial for this.  
 
