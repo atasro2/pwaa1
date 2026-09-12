@@ -382,7 +382,7 @@ void bg256_up_scroll(struct Main * main, u32 arg0)
 }
 
 
-void UpdateBackground() // BG256_main
+void UpdateBackgroundScroll() // BG256_main
 {
     struct Main * main = &gMain;
     struct IORegisters * ioRegs = &gIORegisters;

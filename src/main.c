@@ -97,7 +97,7 @@ void AgbMain()
         if (gMain.currentBgStripe == 0)
         {
             gMain.frameCounter++;
-            UpdateBackground();
+            UpdateBackgroundScroll();
             UpdateBGTilemaps();
             MoveAnimationTilesToRam(0);
             MoveSpritesToOAM();
